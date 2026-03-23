@@ -7,21 +7,25 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const cards = [
   {
     title: "Design obsolète",
-    body: "Un site qui ne reflète pas la qualité de vos expositions.",
+    body: "Un site qui ne reflète pas la qualité de votre programme artistique.",
   },
   {
-    title: "Mises à jour complexes",
-    body: "Ajouter un artiste ne devrait pas nécessiter un développeur.",
+    title: "Mises à jour pénibles",
+    body: "Ajouter un artiste ou une exposition nécessite un prestataire externe.",
   },
   {
-    title: "Aucune archive",
-    body: "Vos expositions passées disparaissent au lieu de constituer votre histoire.",
+    title: "Aucun lien site ↔ communication",
+    body: "Newsletter, viewing rooms, partage d'œuvres : tout est déconnecté du site.",
+  },
+  {
+    title: "Structure inadaptée",
+    body: "Pas de pages artistes, pas d'archives d'expositions, pas d'organisation du contenu.",
   },
 ];
 
 export default function Problem() {
   return (
-    <section className="py-28 px-6 border-t border-[#E8E8E6]">
+    <section className="py-28 px-8 md:px-16 border-t border-[#E8E8E6]">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,23 +34,22 @@ export default function Problem() {
           transition={{ duration: 0.6, ease }}
           className="max-w-2xl mb-16"
         >
-          <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight mb-5">
+          <p className="text-xs tracking-widest uppercase text-[#ADADAA] mb-4">
+            Constat
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight">
             La plupart des sites de galeries n'ont pas évolué depuis dix ans.
           </h2>
-          <p className="text-[#6B6A67] text-base leading-relaxed">
-            Design daté. Mises à jour pénibles. Artistes mal présentés.
-            Expositions passées introuvables. Expérience mobile inexistante.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, ease, delay: i * 0.1 }}
+              transition={{ duration: 0.5, ease, delay: i * 0.08 }}
               className="glass rounded-2xl p-8"
             >
               <h3 className="text-[#111110] text-sm font-medium mb-3">{card.title}</h3>

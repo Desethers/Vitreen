@@ -7,27 +7,24 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const steps = [
   {
     number: "01",
-    title: "Structure",
-    body: "Audit de l'existant, arborescence, collecte des contenus. On pose les fondations ensemble.",
-    days: "Semaine 1",
+    title: "Structurer",
+    body: "Arborescence, contenus, architecture : on organise votre galerie pour le web.",
   },
   {
     number: "02",
-    title: "Mise en place",
-    body: "Design, développement, intégration des contenus et configuration du CMS.",
-    days: "Semaines 2–3",
+    title: "Publier",
+    body: "Un CMS simple pour gérer artistes, œuvres et expositions en autonomie.",
   },
   {
     number: "03",
-    title: "Mise en ligne",
-    body: "Tests, optimisations, formation à l'outil. Votre site est en ligne.",
-    days: "Semaine 4",
+    title: "Diffuser",
+    body: "Emails, viewing rooms, partage d'œuvres : restez en lien avec vos collectionneurs.",
   },
 ];
 
-export default function Process() {
+export default function HowItWorks() {
   return (
-    <section id="processus" className="py-28 px-8 md:px-16 border-t border-[#E8E8E6]">
+    <section className="py-28 px-8 md:px-16 border-t border-[#E8E8E6]">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,10 +34,10 @@ export default function Process() {
           className="mb-16"
         >
           <p className="text-xs tracking-widest uppercase text-[#ADADAA] mb-4">
-            Processus
+            Comment ça marche
           </p>
           <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight">
-            Trois étapes. Quatre semaines.
+            Trois piliers. Un système cohérent.
           </h2>
         </motion.div>
 
@@ -54,10 +51,9 @@ export default function Process() {
               transition={{ duration: 0.5, ease, delay: i * 0.12 }}
               className="glass rounded-2xl p-8"
             >
-              <div className="flex items-start justify-between mb-8">
-                <span className="font-display text-4xl text-[#E8E8E6]">{step.number}</span>
-                <span className="text-xs text-[#ADADAA] mt-1">{step.days}</span>
-              </div>
+              <span className="font-display text-4xl text-[#E8E8E6] mb-8 block">
+                {step.number}
+              </span>
               <h3 className="text-[#111110] text-sm font-medium mb-3">{step.title}</h3>
               <p className="text-[#6B6A67] text-sm leading-relaxed">{step.body}</p>
             </motion.div>
