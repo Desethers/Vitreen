@@ -107,7 +107,7 @@ export default function Audiences() {
         <img
           src={bgImage}
           alt="Espace d'art contemporain"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover rounded-[10px]"
         />
 
         {/* Vidéo centrée par-dessus (remplace le rectangle rouge du Figma) */}
