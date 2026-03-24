@@ -110,37 +110,17 @@ export default function Audiences() {
             className="absolute inset-0 w-full h-full object-cover"
           />
 
-          {/* Voile sombre */}
-          <div className="absolute inset-0 bg-black/40" />
-
-          {/* Carte de contenu (change selon le badge actif) */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35, ease }}
-              className="absolute inset-x-6 md:inset-x-12 bottom-6 md:bottom-10 bg-white rounded-2xl p-8 md:p-10"
-            >
-              <h3 className="font-display text-xl md:text-2xl text-[#111110] leading-tight tracking-tight mb-3">
-                {current.title}
-              </h3>
-              <p className="text-[#6B6A67] text-sm leading-relaxed mb-6 max-w-2xl">
-                {current.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {current.features.map((f) => (
-                  <span
-                    key={f}
-                    className="inline-flex items-center px-3 py-1.5 rounded-full text-xs border border-[#E8E8E6] text-[#6B6A67] bg-[#F9F9F8]"
-                  >
-                    {f}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          {/* Vidéo centrée (remplace le rectangle rouge du Figma) */}
+          <div className="absolute inset-0 flex items-center justify-center px-[120px] py-[30px]">
+            <video
+              src="/Enregistrement de l'écran 2026-03-24 à 11.17.22.mov"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full rounded-[10px] object-cover"
+            />
+          </div>
         </motion.div>
       </div>
     </section>
