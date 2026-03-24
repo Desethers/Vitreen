@@ -101,7 +101,7 @@ export default function Audiences() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
         className="relative rounded-[10px] overflow-hidden"
-        style={{ aspectRatio: "1370 / 683" }}
+        style={{ aspectRatio: "16 / 10" }}
       >
         {/* Image B&W pleine surface */}
         <img
@@ -110,15 +110,15 @@ export default function Audiences() {
           className="absolute inset-0 w-full h-full object-cover rounded-[10px]"
         />
 
-        {/* Vidéo centrée — Figma : px-120/1370 = 8.76%, py-30/683 = 4.39% */}
-        <div className="absolute inset-[4%] md:left-[8.76%] md:right-[8.76%] md:top-[4.39%] md:bottom-[4.39%]">
+        {/* Vidéo incrustée dans l'image B&W */}
+        <div className="absolute inset-[5%] md:inset-[7%]">
           <video
             src="/demo-vitreen.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full rounded-[10px] object-cover shadow-2xl"
+            className="w-full h-full rounded-[10px] object-contain"
           />
         </div>
       </motion.div>
