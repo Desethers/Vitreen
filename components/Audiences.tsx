@@ -113,7 +113,7 @@ export default function Audiences() {
           {/* Vidéo centrée (remplace le rectangle rouge du Figma) */}
           <div className="absolute inset-0 flex items-center justify-center px-[120px] py-[30px]">
             <video
-              src="/Enregistrement de l'écran 2026-03-24 à 11.17.22.mov"
+              src="/demo-vitreen.mp4"
               autoPlay
               loop
               muted
