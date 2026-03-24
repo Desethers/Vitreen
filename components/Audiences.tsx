@@ -5,9 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-// Image B&W galerie — remplacer par un asset local si besoin
-const bgImage =
-  "https://www.figma.com/api/mcp/asset/1f67bc89-16f3-4279-b35b-fcfe2e74b8fc";
+const bgImage = "/allen14.jpg-preview3.jpg";
 
 type Audience = {
   label: string;
