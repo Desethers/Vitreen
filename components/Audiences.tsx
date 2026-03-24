@@ -100,27 +100,24 @@ export default function Audiences() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="relative rounded-[10px] overflow-hidden"
-        style={{ aspectRatio: "16 / 10" }}
+        className="relative rounded-[10px] overflow-hidden p-4 md:p-8"
       >
-        {/* Image B&W pleine surface */}
+        {/* Image B&W en fond absolu */}
         <img
           src={bgImage}
           alt="Espace d'art contemporain"
-          className="absolute inset-0 w-full h-full object-cover rounded-[10px]"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Vidéo incrustée dans l'image B&W */}
-        <div className="absolute inset-[5%] md:inset-[7%]">
-          <video
-            src="/demo-vitreen.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full rounded-[10px] object-contain"
-          />
-        </div>
+        {/* Vidéo par-dessus, taille naturelle, centrée par le padding */}
+        <video
+          src="/demo-vitreen.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="relative w-full rounded-[10px] shadow-2xl"
+        />
       </motion.div>
     </section>
   );
