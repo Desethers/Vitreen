@@ -70,7 +70,7 @@ export default function Audiences() {
   const current = audiences[active];
 
   return (
-    <section className="py-4 px-10 border-t border-[#E8E8E6]">
+    <section className="py-4 px-4 md:px-6 border-t border-[#E8E8E6]">
       {/* Badges de navigation */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -100,7 +100,7 @@ export default function Audiences() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="relative rounded-[10px] overflow-hidden p-4 md:p-8"
+        className="relative rounded-[10px] overflow-hidden p-6 md:p-14"
       >
         {/* Image B&W en fond absolu */}
         <img
