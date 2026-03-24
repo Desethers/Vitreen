@@ -110,15 +110,15 @@ export default function Audiences() {
           className="absolute inset-0 w-full h-full object-cover rounded-[10px]"
         />
 
-        {/* Vidéo centrée par-dessus (remplace le rectangle rouge du Figma) */}
-        <div className="absolute inset-[6%] md:inset-x-[15%] md:inset-y-[10%] flex items-center justify-center">
+        {/* Vidéo centrée par-dessus — proportions Figma : 120/1370 ≈ 8.8%, 30/683 ≈ 4.4% */}
+        <div className="absolute inset-[4%] md:inset-x-[8.8%] md:inset-y-[4.4%] flex items-center justify-center">
           <video
             src="/demo-vitreen.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full rounded-[10px] object-cover shadow-2xl"
+            className="w-full h-full rounded-[10px] object-contain shadow-2xl"
           />
         </div>
       </motion.div>
