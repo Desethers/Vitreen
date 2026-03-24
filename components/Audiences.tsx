@@ -101,7 +101,7 @@ export default function Audiences() {
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
         className="relative rounded-[10px] overflow-hidden"
-        style={{ aspectRatio: "1370 / 683" }}
+        style={{ aspectRatio: "1370 / 800" }}
       >
         {/* Image B&W pleine surface */}
         <img
@@ -110,8 +110,8 @@ export default function Audiences() {
           className="absolute inset-0 w-full h-full object-cover rounded-[10px]"
         />
 
-        {/* Vidéo centrée par-dessus — proportions Figma : 120/1370 ≈ 8.8%, 30/683 ≈ 4.4% */}
-        <div className="absolute inset-[4%] md:inset-x-[8.8%] md:inset-y-[4.4%] flex items-center justify-center">
+        {/* Vidéo centrée par-dessus */}
+        <div className="absolute inset-[8%] md:inset-x-[12%] md:inset-y-[10%] flex items-center justify-center">
           <video
             src="/demo-vitreen.mp4"
             autoPlay
