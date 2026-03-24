@@ -100,7 +100,7 @@ export default function Audiences() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="relative rounded-[10px] overflow-hidden p-6 md:p-14"
+        className="relative rounded-[10px] overflow-hidden p-6 md:px-28 md:py-10"
       >
         {/* Image B&W en fond absolu */}
         <img
@@ -109,15 +109,17 @@ export default function Audiences() {
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* Vidéo par-dessus, taille naturelle, centrée par le padding */}
-        <video
-          src="/demo-vitreen.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="relative w-full rounded-[10px] shadow-2xl"
-        />
+        {/* Vidéo dans un cadre 16:9, incrustée dans l'image B&W */}
+        <div className="relative aspect-video rounded-[10px] overflow-hidden shadow-2xl">
+          <video
+            src="/demo-vitreen.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover object-top"
+          />
+        </div>
       </motion.div>
     </section>
   );
