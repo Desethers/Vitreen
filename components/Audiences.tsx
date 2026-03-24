@@ -114,7 +114,7 @@ export default function Audiences() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-contain bg-white"
           />
         </div>
       </motion.div>
