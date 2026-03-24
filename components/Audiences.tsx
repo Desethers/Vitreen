@@ -100,7 +100,7 @@ export default function Audiences() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="rounded-[10px] p-4 md:p-20"
+        className="rounded-[10px] p-4 md:p-28"
         style={{
           backgroundImage: `url(${bgImage})`,
           backgroundSize: "140%",
