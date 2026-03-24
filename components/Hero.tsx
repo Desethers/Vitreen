@@ -10,11 +10,9 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.75, ease, delay },
 });
 
-const categories = ["Galeries", "Artistes", "Art Advisors", "Collection privée"];
-
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-8 md:px-16 pt-28 pb-20 bg-white">
+    <section className="flex flex-col justify-center px-8 md:px-14 pt-56 pb-10 bg-white">
       <div className="max-w-6xl w-full mx-auto">
 
         {/* Headline */}
@@ -33,27 +31,6 @@ export default function Hero() {
           Vitreen conçoit des interfaces digitales contemporaines pour galeries, artistes et art advisors.
         </motion.p>
 
-        {/* Category pills */}
-        <motion.div {...fadeUp(0.32)} className="flex flex-wrap gap-2.5 mb-10">
-          {categories.map((label, i) => (
-            <span
-              key={label}
-              className={
-                i === 0
-                  ? "inline-flex items-center px-4 py-2 rounded-full text-sm bg-[#111110] text-white"
-                  : "inline-flex items-center px-4 py-2 rounded-full text-sm border border-[#111110] text-[#111110] bg-transparent"
-              }
-            >
-              {label}
-            </span>
-          ))}
-        </motion.div>
-
-        {/* Divider */}
-        <motion.hr
-          {...fadeUp(0.4)}
-          className="border-0 border-t border-[#E8E8E6]"
-        />
 
       </div>
     </section>

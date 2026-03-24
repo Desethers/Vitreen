@@ -6,7 +6,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Reframe() {
   return (
-    <section className="py-28 px-6 border-t border-[#E8E8E6]">
+    <section className="py-28 px-8 md:px-14">
       <div className="max-w-4xl mx-auto">
         <motion.blockquote
           initial={{ opacity: 0, y: 20 }}

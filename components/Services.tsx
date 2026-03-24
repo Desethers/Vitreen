@@ -56,7 +56,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="offre" className="py-28 px-8 md:px-16 border-t border-[#E8E8E6]">
+    <section id="offre" className="py-28 px-8 md:px-14">
       <div className="max-w-6xl mx-auto w-full">
         <motion.div
           {...fadeUp(0)}
