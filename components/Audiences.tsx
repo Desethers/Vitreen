@@ -100,8 +100,12 @@ export default function Audiences() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="rounded-[10px] bg-cover bg-center p-6 md:px-28 md:py-10"
-        style={{ backgroundImage: `url(${bgImage})` }}
+        className="rounded-[10px] p-4 md:p-16"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "140%",
+          backgroundPosition: "center 40%",
+        }}
       >
         <div className="aspect-video rounded-[10px] overflow-hidden shadow-2xl">
           <video
