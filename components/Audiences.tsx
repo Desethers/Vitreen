@@ -111,7 +111,7 @@ export default function Audiences() {
         />
 
         {/* Vidéo centrée par-dessus (remplace le rectangle rouge du Figma) */}
-        <div className="absolute inset-[4%] md:inset-x-[9%] md:inset-y-[5%] flex items-center justify-center">
+        <div className="absolute inset-[6%] md:inset-x-[15%] md:inset-y-[10%] flex items-center justify-center">
           <video
             src="/demo-vitreen.mp4"
             autoPlay
