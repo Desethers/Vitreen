@@ -70,59 +70,58 @@ export default function Audiences() {
   const current = audiences[active];
 
   return (
-    <section className="py-28 px-8 md:px-16 border-t border-[#E8E8E6]">
-      <div className="max-w-6xl mx-auto">
-        {/* Badges de navigation */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="flex flex-wrap gap-2.5 mb-10"
-        >
-          {audiences.map((a, i) => (
-            <button
-              key={a.label}
-              onClick={() => setActive(i)}
-              className={
-                i === active
-                  ? "inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-[#111110] text-white transition-all duration-200"
-                  : "inline-flex items-center px-4 py-2 rounded-full text-sm font-medium border border-[#111110] text-[#111110] bg-transparent hover:bg-[#F5F5F3] transition-all duration-200"
-              }
-            >
-              {a.label}
-            </button>
-          ))}
-        </motion.div>
+    <section className="py-4 px-10 border-t border-[#E8E8E6]">
+      {/* Badges de navigation */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease }}
+        className="flex flex-wrap gap-3.5 py-2.5 mb-6"
+      >
+        {audiences.map((a, i) => (
+          <button
+            key={a.label}
+            onClick={() => setActive(i)}
+            className={
+              i === active
+                ? "inline-flex items-center px-4 py-2.5 rounded-full text-base font-medium bg-black text-white tracking-[-0.02em] transition-all duration-200"
+                : "inline-flex items-center px-4 py-2.5 rounded-full text-base font-medium border border-black text-black bg-white hover:bg-[#F5F5F3] tracking-[-0.02em] transition-all duration-200"
+            }
+          >
+            {a.label}
+          </button>
+        ))}
+      </motion.div>
 
-        {/* Image + Carte de contenu */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease, delay: 0.1 }}
-          className="relative rounded-2xl overflow-hidden h-[480px] md:h-[580px]"
-        >
-          {/* Image de fond B&W */}
-          <img
-            src={bgImage}
-            alt="Espace d'art contemporain"
-            className="absolute inset-0 w-full h-full object-cover"
+      {/* Image de fond + Vidéo incrustée */}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease, delay: 0.1 }}
+        className="relative rounded-[10px] overflow-hidden"
+        style={{ aspectRatio: "1370 / 683" }}
+      >
+        {/* Image B&W pleine surface */}
+        <img
+          src={bgImage}
+          alt="Espace d'art contemporain"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
+        {/* Vidéo centrée par-dessus (remplace le rectangle rouge du Figma) */}
+        <div className="absolute inset-0 flex items-center justify-center px-8 py-6 md:px-[120px] md:py-[30px]">
+          <video
+            src="/demo-vitreen.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full rounded-[10px] object-cover shadow-2xl"
           />
-
-          {/* Vidéo centrée (remplace le rectangle rouge du Figma) */}
-          <div className="absolute inset-0 flex items-center justify-center px-[120px] py-[30px]">
-            <video
-              src="/demo-vitreen.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full rounded-[10px] object-cover"
-            />
-          </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
