@@ -70,7 +70,7 @@ export default function Audiences() {
   const current = audiences[active];
 
   return (
-    <section className="py-4 px-4 md:px-6 border-t border-[#E8E8E6]">
+    <section className="py-4 px-8 md:px-10 border-t border-[#E8E8E6]">
       {/* Badges de navigation */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -94,31 +94,35 @@ export default function Audiences() {
         ))}
       </motion.div>
 
-      {/* Image de fond + Vidéo incrustée */}
+      {/* Conteneur image B&W — pleine largeur, aligné avec les boutons */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="relative rounded-[10px] overflow-hidden p-6 md:px-28 md:py-10"
+        className="relative rounded-[10px] overflow-hidden"
+        style={{ aspectRatio: "3 / 2" }}
       >
-        {/* Image B&W en fond absolu */}
+        {/* Image B&W — remplit tout le conteneur */}
         <img
           src={bgImage}
           alt="Espace d'art contemporain"
           className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: "center 30%" }}
         />
 
-        {/* Vidéo dans un cadre 16:9, incrustée dans l'image B&W */}
-        <div className="relative aspect-video rounded-[10px] overflow-hidden shadow-2xl">
-          <video
-            src="/demo-vitreen.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover object-top"
-          />
+        {/* Vidéo centrée par-dessus */}
+        <div className="absolute inset-0 flex items-center justify-center p-6 md:px-28 md:py-10">
+          <div className="w-full h-full rounded-[10px] overflow-hidden shadow-2xl">
+            <video
+              src="/demo-vitreen.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover object-top"
+            />
+          </div>
         </div>
       </motion.div>
     </section>
