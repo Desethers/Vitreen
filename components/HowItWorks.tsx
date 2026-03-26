@@ -24,8 +24,8 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-28 px-8 md:px-14">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-20 px-4 md:px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -33,10 +33,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6, ease }}
           className="mb-16"
         >
-          <p className="text-xs tracking-widest uppercase text-[#ADADAA] mb-4">
-            Comment ça marche
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight">
+          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
             Trois piliers. Un système cohérent.
           </h2>
         </motion.div>

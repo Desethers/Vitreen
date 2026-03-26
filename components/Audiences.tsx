@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -12,6 +12,7 @@ type Audience = {
   title: string;
   description: string;
   features: string[];
+  video: string;
 };
 
 const audiences: Audience[] = [
@@ -26,6 +27,7 @@ const audiences: Audience[] = [
       "Archives d'expositions",
       "Formulaire de contact",
     ],
+    video: "/demo-galerie.mp4",
   },
   {
     label: "Artistes",
@@ -38,6 +40,7 @@ const audiences: Audience[] = [
       "CV d'exposition",
       "Prise de contact directe",
     ],
+    video: "/demo-vitreen.mp4",
   },
   {
     label: "Art Advisors",
@@ -50,6 +53,7 @@ const audiences: Audience[] = [
       "Fiches d'œuvres détaillées",
       "Interface confidentielle",
     ],
+    video: "/demo-vitreen.mp4",
   },
   {
     label: "Collection Privée",
@@ -62,6 +66,7 @@ const audiences: Audience[] = [
       "Documents associés",
       "Accès sécurisé",
     ],
+    video: "/demo-vitreen.mp4",
   },
 ];
 
@@ -69,56 +74,90 @@ export default function Audiences() {
   const [active, setActive] = useState(0);
   const current = audiences[active];
 
-  return (
-    <section className="py-4 px-8 md:px-14">
-      <div className="max-w-6xl mx-auto">
-      {/* Badges de navigation */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease }}
-        className="flex flex-wrap gap-3.5 py-2.5 mb-6"
-      >
-        {audiences.map((a, i) => (
-          <button
-            key={a.label}
-            onClick={() => setActive(i)}
-            className={
-              i === active
-                ? "inline-flex items-center px-4 py-2.5 rounded-full text-base font-medium bg-black text-white tracking-[-0.02em] transition-all duration-200"
-                : "inline-flex items-center px-4 py-2.5 rounded-full text-base font-medium border border-black text-black bg-white hover:bg-[#F5F5F3] tracking-[-0.02em] transition-all duration-200"
-            }
-          >
-            {a.label}
-          </button>
-        ))}
-      </motion.div>
+  const handleVideoEnd = useCallback(() => {
+    setActive((prev) => (prev + 1) % audiences.length);
+  }, []);
 
-      {/* Image B&W en fond + vidéo incrustée */}
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7, ease, delay: 0.1 }}
-        className="rounded-[10px] p-4 md:px-28 md:py-7"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-          backgroundSize: "140%",
-          backgroundPosition: "center 40%",
-        }}
-      >
-        <div className="aspect-video rounded-[10px] overflow-hidden shadow-2xl">
-          <video
-            src="/demo-vitreen.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-contain bg-white"
-          />
-        </div>
-      </motion.div>
+  return (
+    <section className="py-6 px-4 md:px-6 bg-white">
+      <div className="max-w-7xl mx-auto">
+        {/* Header Stripe-style */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+          className="mb-6"
+        >
+          {/* Tabs */}
+          <div className="flex flex-wrap gap-2">
+            {audiences.map((a, i) => (
+              <button
+                key={a.label}
+                onClick={() => setActive(i)}
+                className="inline-flex items-center px-4 py-1.5 rounded-full text-sm transition-all duration-200"
+                style={
+                  i === active
+                    ? {
+                        background: "#111110",
+                        color: "#fff",
+                        fontWeight: 500,
+                        letterSpacing: "-0.01em",
+                      }
+                    : {
+                        border: "1px solid #E8E8E6",
+                        color: "#6B6A67",
+                        background: "transparent",
+                        letterSpacing: "-0.01em",
+                      }
+                }
+                onMouseEnter={(e) => {
+                  if (i !== active) {
+                    e.currentTarget.style.borderColor = "#111110";
+                    e.currentTarget.style.color = "#111110";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (i !== active) {
+                    e.currentTarget.style.borderColor = "#E8E8E6";
+                    e.currentTarget.style.color = "#6B6A67";
+                  }
+                }}
+              >
+                {a.label}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Vidéo avec fond B&W */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease, delay: 0.08 }}
+          className="rounded-2xl p-4 md:px-28 md:py-7"
+          style={{
+            backgroundImage: `url(${bgImage})`,
+            backgroundSize: "140%",
+            backgroundPosition: "center 40%",
+          }}
+        >
+          <div
+            className="rounded-xl overflow-hidden shadow-2xl"
+            style={{ aspectRatio: "2922 / 1590" }}
+          >
+            <video
+              key={active}
+              src={current.video}
+              autoPlay
+              muted
+              playsInline
+              onEnded={handleVideoEnd}
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
