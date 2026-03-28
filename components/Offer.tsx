@@ -64,10 +64,10 @@ export default function Offer() {
           transition={{ duration: 0.6, ease }}
           className="mb-16"
         >
-          <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight mb-4">
+          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
             Choisissez votre formule.
           </h2>
-          <p className="text-[#6B6A67] text-base max-w-xl leading-relaxed">
+          <p className="mt-0.5 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
             Tout ce dont une galerie a besoin. Rien de superflu.
           </p>
         </motion.div>

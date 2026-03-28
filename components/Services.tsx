@@ -11,66 +11,75 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, ease, delay },
 });
 
-const services = [
+type Service = {
+  tier: string;
+  name: string;
+  subtitle?: string;
+  description: string;
+  featuresHeading?: string;
+  features: string[];
+  delivery?: string;
+  price: string;
+  priceNote?: string;
+  cta: string;
+  highlight: boolean;
+};
+
+const services: Service[] = [
   {
-    tier: "BASE",
-    name: "Présence",
-    description: "Un site structuré pour présenter vos artistes et vos œuvres",
+    tier: "SITE GALERIE",
+    name: "Gallery Website Package",
+    description: "Un site galerie clair, structuré et prêt à être utilisé.",
+    featuresHeading: "Inclus :",
     features: [
-      "Pages artistes, œuvres, expositions",
-      "CMS simple",
+      "Catalogue Dynamique : Structure illimitée (Artistes, Œuvres, Expositions).",
+      "Site responsive",
       "Images optimisées",
-      "Mobile et SEO",
+      "SEO Art Market : Indexation optimisée pour les collectionneurs.",
+      "Inquiry System : Contact direct sur chaque œuvre pour capturer l'achat.",
     ],
-    price: "À partir de 3 000€",
+    delivery: "Livraison : 2 semaines",
+    price: "À partir de 2 000 €",
     cta: "Commencer",
     highlight: false,
-  },
-  {
-    tier: "DIFFUSION",
-    name: "Communication",
-    description:
-      "Un système pour publier et rester en lien avec vos collectionneurs",
-    features: [
-      "Tout le pack Base",
-      "Templates emails (HTML)",
-      "Newsletter réutilisable",
-      "Viewing rooms",
-    ],
-    price: "À partir de 4 000€",
-    cta: "Commencer",
-    highlight: true,
   },
   {
     tier: "PARTNER",
-    name: "Évolution",
-    description: "Un site qui évolue avec votre galerie dans le temps",
+    name: "Partner",
+    subtitle: "Un responsable digital externalisé pour votre galerie.",
+    description:
+      "Vous déléguez la gestion de votre site et de votre diffusion.\n\nNous assurons la continuité, les mises à jour et la communication.",
+    featuresHeading: "Inclus :",
     features: [
-      "Ajout et mise à jour de contenus",
-      "Ajustements design",
-      "Nouvelles pages",
-      "Support et conseils",
+      "Création du site (incluse)",
+      "Publication du catalogue (œuvres et expositions)",
+      "Newsletter stratégique (conception, segmentation et envoi)",
+      "Formation aux outils IA (optimisation du workflow et rédaction assistée)",
+      "Structuration des emails",
+      "Stratégie d'Acquisition : Aide à la diffusion sur les plateformes tierces (Artsy, Artnet, etc.).",
+      "Data & Tracking : Analyse précise du parcours des collectionneurs sur le site.",
     ],
-    price: "À partir de 300€/mois",
-    cta: "Commencer",
-    highlight: false,
+    price: "800 € / mois",
+    priceNote: "Sans engagement. Résiliable à tout moment.",
+    cta: "Discuter du projet",
+    highlight: true,
   },
 ];
 
 export default function Services() {
   return (
-    <section id="offre" className="py-20 px-4 md:px-6 bg-white">
+    <section id="offre" className="py-16 md:py-24 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div {...fadeUp(0)} className="mb-16">
           <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
             Choisissez votre formule.
           </h2>
           <p className="mt-1 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
-            Tout ce dont une galerie a besoin. Rien de superflu.
+            Recrutez votre partenaire de croissance digitale.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {services.map((service, i) => (
             <motion.article
               key={service.tier}
@@ -83,20 +92,6 @@ export default function Services() {
                 background: service.highlight ? "#111110" : "#fff",
               }}
             >
-              {service.highlight && (
-                <div
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] tracking-widest uppercase"
-                  style={{
-                    background: "#fff",
-                    color: "#111110",
-                    border: "1px solid #E8E8E6",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Populaire
-                </div>
-              )}
-
               <div className="flex flex-col gap-4">
                 <span
                   className="text-[10px] tracking-[0.15em] uppercase"
@@ -110,8 +105,16 @@ export default function Services() {
                 >
                   {service.name}
                 </h3>
+                {service.subtitle ? (
+                  <p
+                    className="text-sm font-semibold leading-snug tracking-[-0.01em]"
+                    style={{ color: service.highlight ? "#fff" : "#111110" }}
+                  >
+                    {service.subtitle}
+                  </p>
+                ) : null}
                 <p
-                  className="text-sm leading-relaxed"
+                  className="text-sm leading-relaxed whitespace-pre-line"
                   style={{ color: service.highlight ? "rgba(255,255,255,0.5)" : "#6B6A67" }}
                 >
                   {service.description}
@@ -125,6 +128,17 @@ export default function Services() {
                       : "#E8E8E6",
                   }}
                 />
+
+                {service.featuresHeading ? (
+                  <p
+                    className="text-xs font-medium uppercase tracking-[0.08em]"
+                    style={{
+                      color: service.highlight ? "rgba(255,255,255,0.45)" : "#ADADAA",
+                    }}
+                  >
+                    {service.featuresHeading}
+                  </p>
+                ) : null}
 
                 <ul className="flex flex-col gap-2">
                   {service.features.map((f) => (
@@ -160,12 +174,32 @@ export default function Services() {
               </div>
 
               <div className="flex flex-col gap-4 mt-8">
-                <p
-                  className="text-sm font-medium"
-                  style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110" }}
-                >
-                  {service.price}
-                </p>
+                {service.delivery ? (
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110" }}
+                  >
+                    {service.delivery}
+                  </p>
+                ) : null}
+                <div className="flex flex-col gap-1.5">
+                  <p
+                    className="text-sm font-medium"
+                    style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110" }}
+                  >
+                    {service.price}
+                  </p>
+                  {service.priceNote ? (
+                    <p
+                      className="text-xs leading-relaxed"
+                      style={{
+                        color: service.highlight ? "rgba(255,255,255,0.45)" : "#6B6A67",
+                      }}
+                    >
+                      {service.priceNote}
+                    </p>
+                  ) : null}
+                </div>
                 <a
                   href="#contact"
                   className="inline-flex items-center justify-center text-sm px-5 py-2.5 rounded-full w-full font-medium transition-all duration-200"

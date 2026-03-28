@@ -4,91 +4,125 @@ import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-40px" },
+  transition: { duration: 0.6, ease, delay },
+});
+
 const steps = [
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-        <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-        <line x1="12" y1="22.08" x2="12" y2="12" />
-      </svg>
-    ),
-    title: "Structure.",
-    body: "Organisation de vos contenus — artistes, œuvres, expositions — et définition de l'arborescence du site. Une base claire pour une navigation fluide et une mise en valeur optimale de vos œuvres.",
-    days: "Semaine 1",
+    title: "Discovery",
+    body: "Nous commençons par comprendre vos contenus et votre fonctionnement. Artistes, œuvres, expositions : tout est structuré avant de concevoir.",
+    label: "Semaine 1",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-        <line x1="3" y1="9" x2="21" y2="9" />
-        <line x1="9" y1="21" x2="9" y2="9" />
-      </svg>
-    ),
     title: "Design & intégration.",
-    body: "Création de l'interface sur-mesure, intégration des contenus et mise en place de votre CMS. Un design précis, adapté à votre identité, pensé pour séduire collectionneurs et professionnels.",
-    days: "Semaine 2",
+    body: "Un design précis, adapté à votre identité et propulsé par un CMS intuitif, conçu pour engager durablement collectionneurs et professionnels.",
+    label: "Semaine 2",
   },
   {
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-        <polyline points="22 4 12 14.01 9 11.01" />
-      </svg>
-    ),
     title: "Mise en ligne.",
     body: "Site livré, formation à l'outil incluse. Vous êtes autonome dès le premier jour. Un système simple et durable pour faire évoluer vos contenus en toute indépendance.",
-    days: "Semaine 2",
+    label: "Semaine 2",
   },
 ];
 
+function StepCircle({ n }: { n: number }) {
+  return (
+    <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-[1px] border-solid border-[#000000] bg-white text-xs font-semibold tracking-[-0.02em] text-[#000000]">
+      {String(n).padStart(2, "0")}
+    </div>
+  );
+}
+
 export default function Process() {
   return (
-    <section id="processus" className="py-20 px-4 md:px-6 bg-white">
+    <section id="processus" className="py-16 md:py-24 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="mb-16 max-w-2xl"
-        >
+        <motion.div {...fadeUp(0)} className="mb-12 md:mb-16 max-w-3xl">
           <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
-            Passez d'un site statique à un outil actif.
+            Passez à une nouvelle génération de site galerie.
           </h2>
-          <p className="mt-1 text-[#6B6A67] text-[26px] font-normal leading-[1.3] tracking-[-0.02em]">
-            En ligne en 2 semaines. Des outils pensés pour présenter, diffuser et vendre vos œuvres efficacement.
+          <p className="mt-0.5 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
+            Site livré en 2 semaines.
           </p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Mobile : empilement avec pastille à gauche */}
+        <motion.ol
+          {...fadeUp(0.1)}
+          className="flex list-none flex-col gap-10 p-0 m-0 md:hidden"
+        >
           {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease, delay: i * 0.12 }}
-              className="bg-white flex flex-col"
-            >
-              {/* Icon */}
-              <div className="w-11 h-11 rounded-xl border border-[#E8E8E6] flex items-center justify-center text-[#111110] mb-4">
-                {step.icon}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <p className="text-base text-[#111110] leading-[1.6] mb-1">
-                  <span className="font-semibold">{step.title}</span>{" "}
-                  <span className="text-[#6B6A67]">{step.body}</span>
+            <li key={step.title} className="flex gap-4">
+              <StepCircle n={i + 1} />
+              <div className="min-w-0 pt-0.5">
+                <p
+                  className={`font-display text-base text-[#000000] tracking-[-0.02em] ${
+                    step.title === "Mise en ligne."
+                      ? "font-medium"
+                      : "font-semibold"
+                  }`}
+                >
+                  {step.title}
+                </p>
+                <p className="mt-2 text-[15px] leading-[1.65] text-[#000000]/80 tracking-[-0.01em]">
+                  {step.body}
+                </p>
+                <p className="mt-3 text-xs font-medium uppercase tracking-[0.06em] text-[#000000]/45">
+                  {step.label}
                 </p>
               </div>
-
-            </motion.div>
+            </li>
           ))}
-        </div>
+        </motion.ol>
+
+        {/* Desktop : rail horizontal + grille de textes */}
+        <motion.div {...fadeUp(0.1)} className="hidden md:block">
+          <div className="mb-10 grid w-full grid-cols-3 gap-6 lg:gap-10 items-center">
+            <div className="flex min-w-0 items-center">
+              <StepCircle n={1} />
+              <div
+                className="ml-4 h-px min-w-0 flex-1 bg-[#000000]/12"
+                aria-hidden
+              />
+            </div>
+            <div className="flex min-w-0 items-center">
+              <StepCircle n={2} />
+              <div
+                className="ml-4 h-px min-w-0 flex-1 bg-[#000000]/12"
+                aria-hidden
+              />
+            </div>
+            <div className="flex min-w-0 items-center">
+              <StepCircle n={3} />
+            </div>
+          </div>
+
+          <ol className="m-0 grid list-none grid-cols-3 gap-6 lg:gap-10 p-0">
+            {steps.map((step) => (
+              <li key={step.title} className="min-w-0">
+                <p
+                  className={`font-display text-base lg:text-lg text-[#000000] tracking-[-0.02em] ${
+                    step.title === "Mise en ligne."
+                      ? "font-medium"
+                      : "font-semibold"
+                  }`}
+                >
+                  {step.title}
+                </p>
+                <p className="mt-3 text-[15px] lg:text-base leading-[1.65] text-[#000000]/80 tracking-[-0.01em]">
+                  {step.body}
+                </p>
+                <p className="mt-4 text-xs font-medium uppercase tracking-[0.06em] text-[#000000]/45">
+                  {step.label}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </motion.div>
       </div>
     </section>
   );

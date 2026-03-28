@@ -22,7 +22,7 @@ export default function Contact() {
     "w-full bg-transparent border-b border-[#E8E8E6] py-3 text-[#111110] text-sm placeholder-[#ADADAA] focus:outline-none focus:border-[#111110] transition-colors duration-200";
 
   return (
-    <section id="contact" className="py-20 px-4 md:px-6 bg-white">
+    <section id="contact" className="py-16 md:py-24 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
           <motion.div

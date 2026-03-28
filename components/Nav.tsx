@@ -50,7 +50,7 @@ export default function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-[#6B6A67] hover:text-[#111110] transition-colors duration-200"
+              className="text-sm text-[#000000] hover:opacity-70 transition-opacity duration-200"
             >
               {link.label}
             </a>
@@ -60,13 +60,13 @@ export default function Nav() {
         {/* CTA */}
         <a
           href="#contact"
-          className={`text-sm rounded-full transition-all duration-500 shrink-0 ${
+          className={`text-sm rounded-full transition-all duration-500 shrink-0 font-medium ${
             scrolled
               ? "bg-[#111110] text-white px-4 py-2 hover:bg-[#2a2a28]"
-              : "border border-[#E8E8E6] text-[#111110] px-4 py-2 hover:bg-[#F5F5F3]"
+              : "bg-[#111110] text-white px-4 py-2 hover:bg-[#2a2a28]"
           }`}
         >
-          Contactez-nous
+          Nous contacter
         </a>
       </div>
 
@@ -88,7 +88,7 @@ export default function Nav() {
             onClick={() => setMenuOpen(false)}
             className="text-sm bg-[#111110] text-white px-4 py-2.5 rounded-full text-center"
           >
-            Contactez-nous
+            Nous contacter
           </a>
         </div>
       )}
