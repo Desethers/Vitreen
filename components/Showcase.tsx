@@ -16,9 +16,9 @@ const tabs = ["Selected Works", "Exhibitions", "News", "Press", "Biography"] as 
 type Tab = typeof tabs[number];
 
 const artworks = [
-  { bg: "#C8C4B8" },
-  { bg: "#8B9BB4" },
-  { bg: "#7B8FA3" },
+  "/artist page/ChatGPT Image 26 mars 2026, 19_42_09.png",
+  "/artist page/ChatGPT Image 26 mars 2026, 19_43_32.png",
+  "/artist page/ChatGPT Image 26 mars 2026, 19_45_19.png",
 ];
 
 function ArtistPageMock() {
@@ -30,7 +30,7 @@ function ArtistPageMock() {
       <div className="flex gap-3 px-4 pt-4 pb-3">
         {/* Photo */}
         <div className="w-[38%] shrink-0 rounded-[4px] overflow-hidden bg-[#B8B0A4]" style={{ aspectRatio: "3/4" }}>
-          <img src="/artist page.png" alt="Sun Dog" className="w-full h-full object-cover object-top" />
+          <img src="/artist page/sundog.png" alt="Sun Dog" className="w-full h-full object-cover object-top" />
         </div>
         {/* Bio */}
         <div className="flex flex-col gap-1.5 min-w-0 pt-0.5">
@@ -70,12 +70,14 @@ function ArtistPageMock() {
       <div className="flex-1 px-4 pb-4 overflow-hidden">
         {activeTab === "Selected Works" && (
           <div className="grid grid-cols-3 gap-2 h-full">
-            {artworks.map((a, i) => (
+            {artworks.map((src, i) => (
               <div
                 key={i}
-                className="rounded-[4px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
-                style={{ background: a.bg, minHeight: "60px" }}
-              />
+                className="rounded-[4px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity bg-[#E0DBD5]"
+                style={{ minHeight: "60px" }}
+              >
+                <img src={src} alt={`Artwork ${i + 1}`} className="w-full h-full object-cover" />
+              </div>
             ))}
           </div>
         )}
