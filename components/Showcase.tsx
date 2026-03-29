@@ -19,91 +19,106 @@ const artworks = [
   "/artist page/ChatGPT Image 26 mars 2026, 19_42_09.png",
   "/artist page/ChatGPT Image 26 mars 2026, 19_43_32.png",
   "/artist page/ChatGPT Image 26 mars 2026, 19_45_19.png",
+] as const;
+
+const artworkMeta = [
+  { title: "Untitled (Horizon)", year: "2024", medium: "Oil on canvas", dims: "152 × 122 cm" },
+  { title: "Dawn Study No. 7", year: "2023", medium: "Oil on canvas", dims: "183 × 152 cm" },
+  { title: "Evening Field", year: "2023", medium: "Oil on canvas", dims: "122 × 91 cm" },
 ];
 
 function ArtistPageMock() {
   const [activeTab, setActiveTab] = useState<Tab>("Selected Works");
 
   return (
-    <div className="w-full h-full flex flex-col bg-[#F5F0EB] text-[#111110] overflow-hidden select-none" style={{ fontFamily: "inherit" }}>
-      {/* Top: photo + bio */}
-      <div className="flex gap-3 px-4 pt-4 pb-3">
-        {/* Photo */}
-        <div className="w-[38%] shrink-0 rounded-[4px] overflow-hidden bg-[#B8B0A4]" style={{ aspectRatio: "3/4" }}>
-          <img src="/artist page/sundog.png" alt="Sun Dog" className="w-full h-full object-cover object-top" />
-        </div>
-        {/* Bio */}
-        <div className="flex flex-col gap-1.5 min-w-0 pt-0.5">
-          <p className="text-[11px] font-semibold tracking-[-0.01em] leading-tight">Sun Dog</p>
-          <p className="text-[8px] text-[#888] leading-tight">Born 1960, Oklahoma, USA — Lives and works in New York</p>
-          <p className="text-[7.5px] text-[#555] leading-[1.55] mt-0.5 line-clamp-5">
-            Sun Dog explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary. His paintings, often rendered in rich, saturated color fields, evoke a contemplative stillness.
-          </p>
-          <button className="mt-1.5 self-start border border-[#C0B9B0] rounded-full px-2.5 py-[3px] text-[7px] tracking-[0.03em] text-[#444] hover:bg-[#EAE4DC] transition-colors">
-            read full biography
-          </button>
-        </div>
-      </div>
-
-      {/* Divider + tabs */}
-      <div className="border-t border-[#DDD8D0] mx-4" />
-      <div className="flex items-center justify-between px-4 py-1.5">
-        <p className="text-[7px] uppercase tracking-[0.1em] text-[#ADADAA] font-medium">Selected Works</p>
-        <div className="flex gap-0.5">
-          {tabs.map((t) => (
-            <button
-              key={t}
-              onClick={() => setActiveTab(t)}
-              className="px-2 py-1 rounded-full text-[7px] transition-colors"
-              style={{
-                background: activeTab === t ? "#111110" : "transparent",
-                color: activeTab === t ? "#fff" : "#888",
-              }}
-            >
-              {t}
+    /* Outer container — scrollable */
+    <div className="w-full h-full overflow-y-auto overflow-x-hidden bg-white" style={{ scrollbarWidth: "none" }}>
+      {/* Inner page at full width, zoomed down */}
+      <div
+        style={{ zoom: 0.58 }}
+        className="font-sans text-[#111110]"
+      >
+        {/* Hero: photo + bio */}
+        <div className="flex gap-12 px-12 pt-10 pb-8">
+          <div className="w-[300px] shrink-0 rounded-[6px] overflow-hidden bg-[#C8C0B8]" style={{ height: 390 }}>
+            <img src="/artist page/sundog.png" alt="Sun Dog" className="w-full h-full object-cover object-top" />
+          </div>
+          <div className="flex flex-col gap-3 pt-2 min-w-0">
+            <h1 className="text-[38px] font-normal tracking-[-0.03em] leading-[1.1]">Sun Dog</h1>
+            <p className="text-[13px] text-[#888]">Born 1960, Oklahoma, USA — Lives and works in New York</p>
+            <p className="text-[14px] text-[#444] leading-[1.65] max-w-[520px] mt-1">
+              Sun Dog explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary. His paintings, often rendered in rich, saturated color fields, evoke a contemplative stillness that hovers between representation and pure sensation.
+            </p>
+            <p className="text-[14px] text-[#444] leading-[1.65] max-w-[520px]">
+              Working primarily with oil on canvas, his practice distills nature into its most essential forms — solitary trees, expansive skies, and luminous horizons emerge from layers of pigment with an almost meditative quality.
+            </p>
+            <button className="mt-2 self-start border border-[#C8C0B8] rounded-full px-5 py-2 text-[13px] text-[#333] hover:bg-[#F5F0EB] transition-colors">
+              read full biography
             </button>
-          ))}
+          </div>
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="flex-1 px-4 pb-4 overflow-hidden">
-        {activeTab === "Selected Works" && (
-          <div className="grid grid-cols-3 gap-2 h-full">
-            {artworks.map((src, i) => (
-              <div
-                key={i}
-                className="rounded-[4px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity bg-[#E0DBD5]"
-                style={{ minHeight: "60px" }}
+        {/* Tabs row */}
+        <div className="border-t border-[#E8E4DF] mx-12 pt-5 pb-4 flex items-center justify-between">
+          <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA] font-medium">Selected Works</p>
+          <div className="flex gap-2">
+            {tabs.map((t) => (
+              <button
+                key={t}
+                onClick={() => setActiveTab(t)}
+                className="px-4 py-1.5 rounded-full text-[12px] transition-colors border"
+                style={{
+                  background: activeTab === t ? "#111110" : "transparent",
+                  color: activeTab === t ? "#fff" : "#555",
+                  borderColor: activeTab === t ? "#111110" : "#D8D4CF",
+                }}
               >
-                <img src={src} alt={`Artwork ${i + 1}`} className="w-full h-full object-cover" />
-              </div>
+                {t}
+              </button>
             ))}
           </div>
-        )}
-        {activeTab === "Biography" && (
-          <p className="text-[7.5px] text-[#555] leading-[1.6]">
-            Sun Dog (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections. He lives and works in New York City, where he maintains a studio in Brooklyn.
-          </p>
-        )}
-        {activeTab === "Exhibitions" && (
-          <div className="flex flex-col gap-2">
-            {["Solo — Galerie Vitreen, Paris, 2024", "Group — Art Basel Miami Beach, 2023", "Solo — White Cube, London, 2022"].map((e) => (
-              <div key={e} className="border-b border-[#DDD8D0] pb-1.5">
-                <p className="text-[7.5px] text-[#333]">{e}</p>
-              </div>
-            ))}
-          </div>
-        )}
-        {(activeTab === "News" || activeTab === "Press") && (
-          <div className="flex flex-col gap-2">
-            {["Artforum — February 2024", "The Art Newspaper — October 2023", "Frieze — September 2023"].map((n) => (
-              <div key={n} className="border-b border-[#DDD8D0] pb-1.5">
-                <p className="text-[7.5px] text-[#333]">{n}</p>
-              </div>
-            ))}
-          </div>
-        )}
+        </div>
+
+        {/* Content */}
+        <div className="px-12 pb-10">
+          {activeTab === "Selected Works" && (
+            <div className="grid grid-cols-3 gap-5">
+              {artworks.map((src, i) => (
+                <div key={i} className="flex flex-col gap-2 cursor-pointer group">
+                  <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF]" style={{ height: 260 }}>
+                    <img src={src} alt={artworkMeta[i].title} className="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
+                  </div>
+                  <p className="text-[12px] text-[#888]">Sun Dog</p>
+                  <p className="text-[13px]">
+                    <span className="font-semibold">{artworkMeta[i].title},</span>{" "}
+                    <span className="text-[#555]">{artworkMeta[i].year}</span>
+                  </p>
+                  <p className="text-[12px] text-[#888] italic">{artworkMeta[i].medium}</p>
+                  <p className="text-[12px] text-[#888]">{artworkMeta[i].dims}</p>
+                </div>
+              ))}
+            </div>
+          )}
+          {activeTab === "Biography" && (
+            <p className="text-[14px] text-[#444] leading-[1.7] max-w-2xl">
+              Sun Dog (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections. He lives and works in New York City, where he maintains a studio in Brooklyn.
+            </p>
+          )}
+          {activeTab === "Exhibitions" && (
+            <div className="flex flex-col divide-y divide-[#E8E4DF]">
+              {["Solo — Galerie Vitreen, Paris, 2024", "Group — Art Basel Miami Beach, 2023", "Solo — White Cube, London, 2022"].map((e) => (
+                <p key={e} className="text-[13px] text-[#333] py-3">{e}</p>
+              ))}
+            </div>
+          )}
+          {(activeTab === "News" || activeTab === "Press") && (
+            <div className="flex flex-col divide-y divide-[#E8E4DF]">
+              {["Artforum — February 2024", "The Art Newspaper — October 2023", "Frieze — September 2023"].map((n) => (
+                <p key={n} className="text-[13px] text-[#333] py-3">{n}</p>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
