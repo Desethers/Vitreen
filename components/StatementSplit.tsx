@@ -30,12 +30,12 @@ export default function StatementSplit() {
 
         <motion.div
           {...fadeUp(0.06)}
-          className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-[#E5E7EB] border border-[#E5E7EB] rounded-2xl overflow-hidden"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3"
         >
           {marketStats.map((m) => (
             <div
               key={m.value}
-              className="flex flex-col gap-2 px-6 py-8 md:px-8 md:py-10"
+              className="flex flex-col gap-2 px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[8px]"
             >
               <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
                 {m.value}
