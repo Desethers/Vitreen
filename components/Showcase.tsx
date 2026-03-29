@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -10,6 +11,101 @@ const fadeUp = (delay = 0) => ({
   viewport: { once: true, margin: "-40px" },
   transition: { duration: 0.65, ease, delay },
 });
+
+const tabs = ["Selected Works", "Exhibitions", "News", "Press", "Biography"] as const;
+type Tab = typeof tabs[number];
+
+const artworks = [
+  { bg: "#C8C4B8" },
+  { bg: "#8B9BB4" },
+  { bg: "#7B8FA3" },
+];
+
+function ArtistPageMock() {
+  const [activeTab, setActiveTab] = useState<Tab>("Selected Works");
+
+  return (
+    <div className="w-full h-full flex flex-col bg-[#F5F0EB] text-[#111110] overflow-hidden select-none" style={{ fontFamily: "inherit" }}>
+      {/* Top: photo + bio */}
+      <div className="flex gap-3 px-4 pt-4 pb-3">
+        {/* Photo */}
+        <div className="w-[38%] shrink-0 rounded-[4px] overflow-hidden bg-[#B8B0A4]" style={{ aspectRatio: "3/4" }}>
+          <img src="/artist page.png" alt="Sun Dog" className="w-full h-full object-cover object-top" />
+        </div>
+        {/* Bio */}
+        <div className="flex flex-col gap-1.5 min-w-0 pt-0.5">
+          <p className="text-[11px] font-semibold tracking-[-0.01em] leading-tight">Sun Dog</p>
+          <p className="text-[8px] text-[#888] leading-tight">Born 1960, Oklahoma, USA — Lives and works in New York</p>
+          <p className="text-[7.5px] text-[#555] leading-[1.55] mt-0.5 line-clamp-5">
+            Sun Dog explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary. His paintings, often rendered in rich, saturated color fields, evoke a contemplative stillness.
+          </p>
+          <button className="mt-1.5 self-start border border-[#C0B9B0] rounded-full px-2.5 py-[3px] text-[7px] tracking-[0.03em] text-[#444] hover:bg-[#EAE4DC] transition-colors">
+            read full biography
+          </button>
+        </div>
+      </div>
+
+      {/* Divider + tabs */}
+      <div className="border-t border-[#DDD8D0] mx-4" />
+      <div className="flex items-center justify-between px-4 py-1.5">
+        <p className="text-[7px] uppercase tracking-[0.1em] text-[#ADADAA] font-medium">Selected Works</p>
+        <div className="flex gap-0.5">
+          {tabs.map((t) => (
+            <button
+              key={t}
+              onClick={() => setActiveTab(t)}
+              className="px-2 py-1 rounded-full text-[7px] transition-colors"
+              style={{
+                background: activeTab === t ? "#111110" : "transparent",
+                color: activeTab === t ? "#fff" : "#888",
+              }}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 px-4 pb-4 overflow-hidden">
+        {activeTab === "Selected Works" && (
+          <div className="grid grid-cols-3 gap-2 h-full">
+            {artworks.map((a, i) => (
+              <div
+                key={i}
+                className="rounded-[4px] overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                style={{ background: a.bg, minHeight: "60px" }}
+              />
+            ))}
+          </div>
+        )}
+        {activeTab === "Biography" && (
+          <p className="text-[7.5px] text-[#555] leading-[1.6]">
+            Sun Dog (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections. He lives and works in New York City, where he maintains a studio in Brooklyn.
+          </p>
+        )}
+        {activeTab === "Exhibitions" && (
+          <div className="flex flex-col gap-2">
+            {["Solo — Galerie Vitreen, Paris, 2024", "Group — Art Basel Miami Beach, 2023", "Solo — White Cube, London, 2022"].map((e) => (
+              <div key={e} className="border-b border-[#DDD8D0] pb-1.5">
+                <p className="text-[7.5px] text-[#333]">{e}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {(activeTab === "News" || activeTab === "Press") && (
+          <div className="flex flex-col gap-2">
+            {["Artforum — February 2024", "The Art Newspaper — October 2023", "Frieze — September 2023"].map((n) => (
+              <div key={n} className="border-b border-[#DDD8D0] pb-1.5">
+                <p className="text-[7.5px] text-[#333]">{n}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function ExhibitionMock() {
   return (
@@ -74,7 +170,9 @@ function ShowcaseCard({
         className="relative z-10 bg-white rounded-[8px] shadow-2xl overflow-hidden w-[85%]"
         style={{ aspectRatio: "766 / 523" }}
       >
-        {mockImage ? (
+        {mockImage === "/artist page.png" ? (
+          <ArtistPageMock />
+        ) : mockImage ? (
           <img src={mockImage} alt={title} className="w-full h-full object-cover object-top" />
         ) : (
           <div className="px-4 py-[20px] h-full">
