@@ -105,9 +105,19 @@ function ArtistPageMock() {
             </p>
           )}
           {activeTab === "Exhibitions" && (
-            <div className="flex flex-col divide-y divide-[#E8E4DF]">
-              {["Solo — Galerie Vitreen, Paris, 2024", "Group — Art Basel Miami Beach, 2023", "Solo — White Cube, London, 2022"].map((e) => (
-                <p key={e} className="text-[13px] text-[#333] py-3">{e}</p>
+            <div className="grid grid-cols-3 gap-5">
+              {[
+                { img: "/artist page/Exhibition2.png", title: "Recent Studies", location: "Paris, Turenne", dates: "Jan 12 — Feb 22, 2026" },
+                { img: "/artist page/Exhibition6.png", title: "Your friends", location: "London", dates: "Oct 05 — Nov 28, 2025" },
+                { img: "/artist page/Exhibition2.png", title: "Quiet Paintings", location: "New York", dates: "Mar 10 — Apr 30, 2025" },
+              ].map((e) => (
+                <div key={e.title} className="flex flex-col gap-2 cursor-pointer group">
+                  <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF]" style={{ height: 260 }}>
+                    <img src={e.img} alt={e.title} className="w-full h-full object-cover group-hover:opacity-90 transition-opacity" />
+                  </div>
+                  <p className="text-[14px] font-medium text-[#111110]">{e.title}</p>
+                  <p className="text-[12px] text-[#888]">{e.location} — {e.dates}</p>
+                </div>
               ))}
             </div>
           )}
