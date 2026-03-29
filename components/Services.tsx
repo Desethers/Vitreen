@@ -27,52 +27,42 @@ type Service = {
 
 const services: Service[] = [
   {
-    tier: "BASE",
-    name: "Présence",
-    description: "Un site structuré pour présenter vos artistes et vos œuvres.",
+    tier: "SITE GALERIE",
+    name: "Gallery Website Package",
+    description: "Un site galerie clair, structuré et prêt à être utilisé.",
     featuresHeading: "Inclus :",
     features: [
-      "Pages artistes, œuvres, expositions",
-      "CMS simple",
+      "Catalogue Dynamique : Structure illimitée (Artistes, Œuvres, Expositions).",
+      "Site responsive",
       "Images optimisées",
-      "Mobile et SEO",
+      "SEO Art Market : Indexation optimisée pour les collectionneurs.",
+      "Inquiry System : Contact direct sur chaque œuvre pour capturer l'achat.",
     ],
-    price: "À partir de 3 000€",
+    delivery: "Livraison : 2 semaines",
+    price: "À partir de 2 000 €",
     cta: "Commencer",
     highlight: false,
-  },
-  {
-    tier: "DIFFUSION",
-    name: "Communication",
-    subtitle: "Un système pour publier et rester en lien avec vos collectionneurs.",
-    description:
-      "Tout ce dont une galerie a besoin pour diffuser son programme et entretenir ses relations.",
-    featuresHeading: "Inclus :",
-    features: [
-      "Tout le pack Base",
-      "Templates emails (HTML)",
-      "Newsletter réutilisable",
-      "Viewing rooms",
-    ],
-    price: "À partir de 4 000€",
-    cta: "Commencer",
-    highlight: true,
   },
   {
     tier: "PARTNER",
-    name: "Évolution",
-    description: "Un site qui évolue avec votre galerie dans le temps.",
+    name: "Partner",
+    subtitle: "Un responsable digital externalisé pour votre galerie.",
+    description:
+      "Vous déléguez la gestion de votre site et de votre diffusion.\n\nNous assurons la continuité, les mises à jour et la communication.",
     featuresHeading: "Inclus :",
     features: [
-      "Ajout et mise à jour de contenus",
-      "Ajustements design",
-      "Nouvelles pages",
-      "Support et conseils",
+      "Création du site (incluse)",
+      "Publication du catalogue (œuvres et expositions)",
+      "Newsletter stratégique (conception, segmentation et envoi)",
+      "Formation aux outils IA (optimisation du workflow et rédaction assistée)",
+      "Structuration des emails",
+      "Stratégie d'Acquisition : Aide à la diffusion sur les plateformes tierces (Artsy, Artnet, etc.).",
+      "Data & Tracking : Analyse précise du parcours des collectionneurs sur le site.",
     ],
-    price: "À partir de 300€/mois",
+    price: "800 € / mois",
     priceNote: "Sans engagement. Résiliable à tout moment.",
-    cta: "Commencer",
-    highlight: false,
+    cta: "Discuter du projet",
+    highlight: true,
   },
 ];
 
@@ -85,11 +75,11 @@ export default function Services() {
             Choisissez votre formule.
           </h2>
           <p className="mt-1 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
-            Tout ce dont une galerie a besoin. Rien de superflu.
+            Recrutez votre partenaire de croissance digitale.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {services.map((service, i) => (
             <motion.article
               key={service.tier}
