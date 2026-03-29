@@ -8,7 +8,6 @@ import Stepper from "@/components/Stepper";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
 import Faq from "@/components/Faq";
-import Process from "@/components/Process";
 import CtaBand from "@/components/CtaBand";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -23,7 +22,6 @@ export default function Home() {
       <Solution />
       <ProcessFlow />
       <Stepper />
-      <Process />
       <Services />
       <StatementSplit />
       <Faq />
