@@ -7,7 +7,6 @@ import ProcessFlow from "@/components/ProcessFlow";
 import Stepper from "@/components/Stepper";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
-import Partner from "@/components/Partner";
 import Difference from "@/components/Difference";
 import Faq from "@/components/Faq";
 import Process from "@/components/Process";
@@ -28,7 +27,6 @@ export default function Home() {
       <Process />
       <Services />
       <StatementSplit />
-      <Partner />
       <Difference />
       <Faq />
       <CtaBand />
