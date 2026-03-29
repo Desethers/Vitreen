@@ -3,8 +3,10 @@ import Hero from "@/components/Hero";
 import Audiences from "@/components/Audiences";
 import Showcase from "@/components/Showcase";
 import Solution from "@/components/Solution";
+import ProcessFlow from "@/components/ProcessFlow";
 import Stepper from "@/components/Stepper";
 import Services from "@/components/Services";
+import StatementSplit from "@/components/StatementSplit";
 import Partner from "@/components/Partner";
 import Difference from "@/components/Difference";
 import Faq from "@/components/Faq";
@@ -21,9 +23,11 @@ export default function Home() {
       <Audiences />
       <Showcase />
       <Solution />
+      <ProcessFlow />
       <Stepper />
       <Process />
       <Services />
+      <StatementSplit />
       <Partner />
       <Difference />
       <Faq />
