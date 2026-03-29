@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Audiences from "@/components/Audiences";
+import Showcase from "@/components/Showcase";
 import Solution from "@/components/Solution";
 import Stepper from "@/components/Stepper";
 import Services from "@/components/Services";
@@ -18,6 +19,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Audiences />
+      <Showcase />
       <Solution />
       <Stepper />
       <Process />

@@ -392,25 +392,6 @@ export default function Solution() {
           className="mb-8"
         >
           <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-2xl">
-            Des interfaces pensées pour le monde de l&apos;art.
-          </h2>
-          <p className="mt-1 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
-            Galeries, artistes, advisors ou collections privées : publiez et diffusez vos œuvres simplement.
-          </p>
-        </motion.div>
-
-        {/* Row 1 Cards */}
-        <CardRow cards={row1} />
-
-        {/* Second block header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="mt-20 mb-8"
-        >
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-2xl">
             Faciliter les échanges autour des œuvres
           </h2>
           <p className="mt-1 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">

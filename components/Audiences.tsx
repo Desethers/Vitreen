@@ -153,7 +153,7 @@ export default function Audiences() {
               autoPlay
               muted
               playsInline
-              onEnded={handleVideoEnd}
+              loop
               className="w-full h-full object-contain"
             />
           </div>
