@@ -27,12 +27,57 @@ const artworkMeta = [
   { title: "Evening Field", year: "2023", medium: "Oil on canvas", dims: "122 × 91 cm" },
 ];
 
+const bioText = [
+  "Sun Dog (né en 1960 à Oklahoma City, Oklahoma) est un peintre américain reconnu pour ses paysages méditatifs à grande échelle. Formé à la peinture figurative à l'Art Students League de New York, il développe rapidement un langage visuel personnel, oscillant entre représentation et abstraction pure.",
+  "Son œuvre prend racine dans la contemplation de la nature — ciels vastess, horizons lumineux, arbres solitaires — qu'il distille en champs de couleur saturés, denses et silencieux. Travaillant principalement à l'huile sur toile, Sun Dog construit ses tableaux par couches successives de pigments, laissant parfois transparaître les strates sous-jacentes comme autant de traces du temps.",
+  "Ses expositions personnelles se sont tenues dans des galeries majeures à New York, Los Angeles, Paris et Berlin. Ses œuvres figurent dans de nombreuses collections publiques et privées, notamment au Whitney Museum of American Art, au Musée d'Art Moderne de Paris, et dans plusieurs fondations européennes dédiées à la peinture contemporaine.",
+  "En 2008, il reçoit le Prix de la Fondation Pollock-Krasner, récompense majeure du monde de l'art américain. En 2015, une rétrospective lui est consacrée à la Fondation Beyeler à Bâle, rassemblant plus de 80 œuvres couvrant trente ans de pratique.",
+  "Sun Dog vit et travaille à Brooklyn, New York, dans un atelier qu'il occupe depuis 1994.",
+];
+
 function ArtistPageMock() {
   const [activeTab, setActiveTab] = useState<Tab>("Selected Works");
+  const [bioOpen, setBioOpen] = useState(false);
 
   return (
-    /* Outer container — scrollable */
-    <div className="w-full h-full overflow-y-auto overflow-x-hidden bg-white" style={{ scrollbarWidth: "none" }}>
+    /* Outer container — scrollable, position:relative for modal */
+    <div className="w-full h-full overflow-y-auto overflow-x-hidden bg-white relative" style={{ scrollbarWidth: "none" }}>
+
+      {/* Biography modal — renders outside zoom */}
+      {bioOpen && (
+        <div
+          className="absolute inset-0 z-50 flex items-start justify-center"
+          style={{ background: "rgba(0,0,0,0.35)", paddingTop: 24, paddingLeft: 16, paddingRight: 16 }}
+          onClick={() => setBioOpen(false)}
+        >
+          <div
+            className="bg-white rounded-2xl w-full overflow-y-auto"
+            style={{ maxWidth: 380, maxHeight: "88%", padding: "22px 22px 28px", scrollbarWidth: "none" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="text-[15px] font-semibold text-[#111110] leading-tight">Sun Dog</h2>
+                <p className="text-[10px] text-[#888] mt-0.5">Born 1960, Oklahoma, USA — Lives and works in New York</p>
+              </div>
+              <button
+                onClick={() => setBioOpen(false)}
+                className="flex items-center justify-center w-5 h-5 rounded-full border border-[#D8D4CF] text-[#888] hover:bg-[#F5F0EB] transition-colors shrink-0 ml-4 mt-0.5"
+                style={{ fontSize: 10 }}
+              >
+                ✕
+              </button>
+            </div>
+            <div className="h-px bg-[#E8E4DF] mb-4" />
+            <div className="flex flex-col gap-2.5">
+              {bioText.map((p, i) => (
+                <p key={i} className="text-[10px] text-[#444] leading-[1.7]">{p}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
       {/* Inner page at full width, zoomed down */}
       <div
         style={{ zoom: 0.58 }}
@@ -52,7 +97,10 @@ function ArtistPageMock() {
             <p className="text-[14px] text-[#444] leading-[1.65] max-w-[520px]">
               Working primarily with oil on canvas, his practice distills nature into its most essential forms — solitary trees, expansive skies, and luminous horizons emerge from layers of pigment with an almost meditative quality.
             </p>
-            <button className="mt-2 self-start border border-[#C8C0B8] rounded-full px-5 py-2 text-[13px] text-[#333] hover:bg-[#F5F0EB] transition-colors">
+            <button
+              onClick={() => setBioOpen(true)}
+              className="mt-2 self-start border border-[#C8C0B8] rounded-full px-5 py-2 text-[13px] text-[#333] hover:bg-[#F5F0EB] transition-colors"
+            >
               read full biography
             </button>
           </div>
