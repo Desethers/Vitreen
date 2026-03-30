@@ -52,7 +52,7 @@ export default function StatementSplit() {
 
         <motion.blockquote
           {...fadeUp(0.12)}
-          className="mt-16 font-display text-2xl md:text-3xl lg:text-4xl text-[#111110] leading-relaxed tracking-tight max-w-4xl"
+          className="mt-16 font-display text-2xl md:text-3xl lg:text-4xl text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
         >
           "The digital space is a natural extension of the gallery's storefront.{" "}
           <span>

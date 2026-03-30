@@ -48,10 +48,9 @@ const services: Service[] = [
     name: "Partner",
     subtitle: "Un responsable digital externalisé pour votre galerie.",
     description:
-      "Vous déléguez la gestion de votre site et de votre diffusion.\n\nNous assurons la continuité, les mises à jour et la communication.",
+      "Nous pilotons votre présence digitale comme un canal actif : visibilité, conversion et suivi des collectionneurs.",
     featuresHeading: "Inclus :",
     features: [
-      "Création du site (incluse)",
       "Publication du catalogue (œuvres et expositions)",
       "Newsletter stratégique (conception, segmentation et envoi)",
       "Formation aux outils IA (optimisation du workflow et rédaction assistée)",
@@ -59,7 +58,7 @@ const services: Service[] = [
       "Stratégie d'Acquisition : Aide à la diffusion sur les plateformes tierces (Artsy, Artnet, etc.).",
       "Data & Tracking : Analyse précise du parcours des collectionneurs sur le site.",
     ],
-    price: "800 € / mois",
+    price: "1 200 € / mois",
     priceNote: "Sans engagement. Résiliable à tout moment.",
     cta: "Discuter du projet",
     highlight: true,

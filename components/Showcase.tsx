@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -182,38 +182,191 @@ function ArtistPageMock() {
   );
 }
 
-function ExhibitionMock() {
+function ExhibitionPageMock() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => setScrolled(el.scrollTop > 24);
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="flex gap-3 h-full">
-      <div className="w-[45%] bg-[#1a1a2e] rounded-lg flex items-end p-3 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#111]/40 to-transparent" />
-        <div className="w-5 h-5 rounded-full border border-white/40 flex items-center justify-center relative z-10">
-          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </div>
-      </div>
-      <div className="flex-1 flex flex-col gap-2.5 py-1">
-        <div>
-          <p className="text-[11px] font-medium text-[#111110]">Untitled, 2018</p>
-          <p className="text-[9px] text-[#ADADAA]">Acrylic on canvas</p>
-          <p className="text-[9px] text-[#ADADAA]">220 × 120 cm</p>
-        </div>
-        <p className="text-[11px] font-medium text-[#111110]">$16,500</p>
-        <div className="border border-[#E8E8E6] rounded-md py-1.5 text-center">
-          <span className="text-[9px] uppercase tracking-[0.08em] text-[#111110]">Add to cart</span>
-        </div>
-        <p className="text-[8px] text-[#ADADAA] leading-[1.5] line-clamp-4">
-          This monochromatic, large-scale painting explores color, surface, and minimalism. The paintings are not the centre of the discussion; rather, it is the relationship in which they are entwined.
-        </p>
-        <div className="mt-auto space-y-1.5">
-          <div className="flex items-center justify-between border-t border-[#E8E8E6] pt-1.5">
-            <span className="text-[8px] uppercase tracking-[0.08em] text-[#111110]">Shipping and taxes</span>
-            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
+    <div ref={scrollRef} className="w-full h-full overflow-y-auto bg-white relative" style={{ scrollbarWidth: "none" }}>
+      <div
+        className="font-sans text-[#111110]"
+        style={{ zoom: 0.58 }}
+      >
+
+        {/* Nav — glass pill on scroll */}
+        <div
+          className="sticky top-0 z-10 flex justify-center"
+          style={{
+            paddingTop: scrolled ? "0.5rem" : "1.25rem",
+            paddingLeft: "2.5rem",
+            paddingRight: "2.5rem",
+            transition: "padding 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        >
+          <div
+            className="flex items-center justify-between w-full"
+            style={{
+              maxWidth: scrolled ? "min(800px, calc(100% - 3rem))" : "1280px",
+              padding: scrolled ? "0.65rem 1.25rem" : "0.9rem 0",
+              gap: scrolled ? "0.75rem" : "1.25rem",
+              borderRadius: scrolled ? "18px" : "0",
+              background: scrolled
+                ? "linear-gradient(135deg, rgba(255,255,255,0.72), rgba(252,250,247,0.65))"
+                : "transparent",
+              backdropFilter: scrolled ? "blur(40px) saturate(2) brightness(1.05) contrast(0.98)" : "none",
+              WebkitBackdropFilter: scrolled ? "blur(40px) saturate(2) brightness(1.05) contrast(0.98)" : "none",
+              boxShadow: scrolled
+                ? "0 8px 48px rgba(0,0,0,.08), 0 2px 16px rgba(0,0,0,.04)"
+                : "none",
+              transition: "all 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          >
+            <span
+              className="font-medium uppercase"
+              style={{ fontSize: "0.78rem", letterSpacing: "0.15em", color: "#000" }}
+            >
+              Galerie
+            </span>
+            <div
+              className="flex text-[#555]"
+              style={{
+                gap: scrolled ? "1rem" : "1.75rem",
+                fontSize: "0.82rem",
+                transition: "gap 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              {["Exhibitions", "Artists", "Fairs", "News", "About"].map((n) => (
+                <span
+                  key={n}
+                  className={n === "Exhibitions" ? "text-[#111110] font-medium" : "hover:underline underline-offset-[3px] cursor-pointer"}
+                >
+                  {n}
+                </span>
+              ))}
+            </div>
+            <div
+              className="rounded-full flex items-center justify-center shrink-0"
+              style={{
+                width: 26,
+                height: 26,
+                border: "0.5px solid rgba(0,0,0,0.2)",
+              }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2.5">
+                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+              </svg>
+            </div>
           </div>
-          <div className="flex items-center justify-between border-t border-[#E8E8E6] pt-1.5">
-            <span className="text-[8px] uppercase tracking-[0.08em] text-[#111110]">FAQ</span>
-            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
+        </div>
+
+        {/* Body */}
+        <div className="flex gap-14 px-10 pt-10 pb-12">
+          {/* Sidebar */}
+          <div className="w-[200px] shrink-0 flex flex-col gap-5">
+            <p className="text-[10px] uppercase tracking-[0.12em] text-[#ADADAA]">
+              <span className="text-[#555] underline underline-offset-2">Exhibitions</span>
+              {" — "}Your friends
+            </p>
+            <div className="flex flex-col gap-1">
+              <p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Artist</p>
+              <p className="text-[13px] font-medium text-[#111110] underline underline-offset-2 cursor-pointer">Sun Dog</p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Dates</p>
+              <p className="text-[13px] text-[#333]">Feb 12 — Mar 22, 2026</p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Location</p>
+              <p className="text-[13px] text-[#333]">Galerie, Paris — Turenne</p>
+            </div>
+            <button className="mt-2 bg-[#111110] text-white rounded-full px-5 py-2.5 text-[12px] text-center">
+              Artwork Inquiry
+            </button>
+            <button className="border border-[#D8D4CF] text-[#333] rounded-full px-5 py-2.5 text-[12px] text-center">
+              View artist
+            </button>
+            <p className="text-[12px] text-[#ADADAA] underline underline-offset-2 cursor-pointer">All exhibitions</p>
+          </div>
+
+          {/* Main */}
+          <div className="flex-1 min-w-0">
+            <h1 className="text-[42px] font-normal tracking-[-0.03em] leading-[1.1] mb-5">
+              Sun Dog — <em>Your friends</em>
+            </h1>
+            <p className="text-[14px] text-[#333] leading-[1.7] max-w-[560px] mb-3">
+              A presentation of recent paintings and works on paper exploring friendship, memory, and shared light. The exhibition brings together a focused selection of pieces conceived as a single environment.
+            </p>
+            <p className="text-[14px] text-[#333] leading-[1.7] max-w-[560px] mb-3">
+              Arranged as a sequence of rooms, the works invite a slow reading: color fields, soft gradients, and restrained surfaces echo the quiet of the gallery itself.
+            </p>
+            <p className="text-[14px] text-[#888] leading-[1.7] max-w-[540px] mb-3">
+              Private viewing and availability: contact the gallery.
+            </p>
+          </div>
+        </div>
+
+        {/* Installation view 1 */}
+        <div className="mx-10 rounded-[8px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
+          <img
+            src="/exhibition page/Exhibition2.png"
+            alt="Installation view — cool room"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <p className="mx-10 mt-2 text-[11px] text-[#ADADAA] italic">
+          Installation view, Sun Dog : <em>Your friends</em>, Galerie, Paris, 2026
+        </p>
+
+        {/* Exhibition text */}
+        <div className="mx-10 mt-14 mb-6 text-center">
+          <p className="text-[10px] uppercase tracking-[0.14em] text-[#ADADAA] mb-4">Exhibition Text</p>
+          <p className="text-[14px] text-[#555] leading-[1.7] max-w-[480px] mx-auto">
+            Presented as one continuous sequence, the works below extend the show&apos;s themes — friendship, memory, and light — into individual canvases and works on paper.
+          </p>
+          <button className="mt-5 border border-[#D8D4CF] rounded-full px-6 py-2.5 text-[12px] text-[#333]">
+            read full exhibition text
+          </button>
+        </div>
+
+        {/* Installation view 2 */}
+        <div className="mx-10 mt-10 rounded-[8px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
+          <img
+            src="/exhibition page/painting-02.png"
+            alt="Sun Dog — Untitled (Yellow)"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <p className="mx-10 mt-2 text-[11px] text-[#ADADAA] italic">
+          Installation view, Sun Dog : <em>Your friends</em>, Galerie, Paris, 2026
+        </p>
+
+        {/* Artwork detail */}
+        <div className="mx-10 mt-14 pb-14 flex gap-8">
+          <div className="w-[50%] shrink-0 flex flex-col gap-2">
+            <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
+              <img src="/exhibition page/portrait2.jpg" alt="Sun Dog — Untitled (Blue), 2025" className="w-full h-full object-cover" />
+            </div>
+            <p className="text-[12px] text-[#888]">Sun Dog</p>
+            <p className="text-[13px] font-medium text-[#111110]">Untitled, 2025</p>
+            <p className="text-[12px] text-[#888] italic">Acrylic on canvas</p>
+            <p className="text-[12px] text-[#888]">120 × 120 cm</p>
+          </div>
+          <div className="flex flex-col justify-between py-2 flex-1">
+            <button className="border border-[#D8D4CF] rounded-[4px] px-6 py-2 text-[12px] text-[#111110] self-start">
+              Inquire
+            </button>
+            <blockquote className="text-[15px] italic text-[#999] leading-[1.7] max-w-[280px]">
+              &ldquo;Shared light is the simplest form of friendship—what falls on the wall falls on us both.&rdquo;
+              <footer className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sun Dog</footer>
+            </blockquote>
           </div>
         </div>
       </div>
@@ -250,9 +403,7 @@ function ShowcaseCard({
         ) : mockImage ? (
           <img src={mockImage} alt={title} className="w-full h-full object-cover object-top" />
         ) : (
-          <div className="px-4 py-[20px] h-full">
-            <ExhibitionMock />
-          </div>
+          <ExhibitionPageMock />
         )}
       </div>
     </div>

@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "generate:variations": "tsx scripts/generate-variations.ts"
   },
   "dependencies": {
     "framer-motion": "^12.36.0",
@@ -14,11 +15,14 @@
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@ai-sdk/google": "^3.0.53",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "ai": "^6.0.141",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
