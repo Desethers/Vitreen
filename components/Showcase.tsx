@@ -260,10 +260,10 @@ function ShowcaseCard({
 
   const textCol = (
     <div className="flex flex-col justify-center px-8 md:px-10 py-10 md:py-12">
-      <h3 className="font-display text-[22px] font-medium text-[#111110] tracking-[-0.02em] mb-3">
+      <h3 className="font-display text-[18px] font-medium text-[#111110] tracking-[-0.02em] mb-3">
         {title}
       </h3>
-      <p className="text-[#6B6A67] text-[22px] font-normal leading-[1.3] tracking-[-0.02em]">
+      <p className="text-[#6B6A67] text-[18px] font-normal leading-[1.3] tracking-[-0.02em]">
         {desc}
       </p>
     </div>
@@ -272,7 +272,8 @@ function ShowcaseCard({
   return (
     <motion.div
       {...fadeUp(delay)}
-      className="rounded-2xl overflow-hidden bg-[#FAF6F5]"
+      className="rounded-2xl overflow-hidden bg-[#F9FAFD]"
+      style={{ border: "0.1px solid #D4D4D0" }}
     >
       <div
         className={`grid ${
