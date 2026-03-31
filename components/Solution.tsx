@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -253,6 +253,36 @@ function EmailMock() {
 function ArtworkMock() {
   const [cartOpen, setCartOpen] = useState(false);
   const [addHover, setAddHover] = useState(false);
+
+  // Animation loop: hover → open cart → close → replay
+  useEffect(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    let cancelled = false;
+
+    function play() {
+      if (cancelled) return;
+      // Reset
+      setCartOpen(false);
+      setAddHover(false);
+
+      // t=800ms : hover sur le bouton
+      timers.push(setTimeout(() => { if (!cancelled) setAddHover(true); }, 800));
+      // t=1700ms : click → ouvre le volet
+      timers.push(setTimeout(() => { if (!cancelled) { setCartOpen(true); setAddHover(false); } }, 1700));
+      // t=4200ms : fermeture du volet
+      timers.push(setTimeout(() => { if (!cancelled) setCartOpen(false); }, 4200));
+      // t=5400ms : rejoue
+      timers.push(setTimeout(() => { if (!cancelled) play(); }, 5400));
+    }
+
+    // Délai initial avant le premier play
+    const init = setTimeout(play, 600);
+    return () => {
+      cancelled = true;
+      clearTimeout(init);
+      timers.forEach(clearTimeout);
+    };
+  }, []);
 
   return (
     <div className="relative flex h-full overflow-hidden" style={{ gap: 10 }}>
