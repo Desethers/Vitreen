@@ -33,9 +33,10 @@ const steps = [
   },
 ];
 
-// Timings : step s'active, puis la ligne se remplit, puis step suivant
-const STEP_TIMINGS = [0, 900, 1800]; // ms où chaque cercle s'allume
-const LINE_TIMINGS = [300, 1200];    // ms où chaque ligne commence à se remplir
+// Flux continu : cercle 01 → ligne 1 → cercle 02 → ligne 2 → cercle 03
+// Durée sweep ligne = 620ms. Le cercle suivant s'allume quand le segment arrive.
+const STEP_TIMINGS = [0, 980, 1960]; // cercles s'allument
+const LINE_TIMINGS = [160, 1140];    // sweeps démarrent (fin = +620ms = juste avant cercle suivant)
 
 export default function ProcessFlow() {
   const ref = useRef<HTMLDivElement>(null);
@@ -100,28 +101,28 @@ export default function ProcessFlow() {
                     animate={{
                       backgroundColor: isActive ? "#111110" : "#ffffff",
                       color: isActive ? "#ffffff" : "#111110",
-                      borderColor: "#111110",
-                      scale: isActive && activeStep === i ? [1, 1.12, 1] : 1,
                     }}
                     transition={{
-                      backgroundColor: { duration: 0.4, ease: "easeOut" },
-                      color: { duration: 0.3 },
-                      scale: { duration: 0.35, ease: [0.34, 1.56, 0.64, 1] },
+                      backgroundColor: { duration: 0.28, ease: "easeIn" },
+                      color: { duration: 0.2 },
                     }}
                     style={{ border: "1px solid #111110" }}
                   >
                     {step.number}
                   </motion.div>
 
-                  {/* Connector line */}
+                  {/* Connector line — segment sweep vers le cercle suivant */}
                   {i < steps.length - 1 && (
                     <div className="ml-4 h-px min-w-0 flex-1 relative bg-[#111110]/12 overflow-hidden">
                       <motion.div
                         className="absolute inset-y-0 bg-[#111110]"
                         initial={{ x: "-100%" }}
-                        animate={{ x: activeLine > i ? "260%" : "-100%" }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        style={{ left: 0, width: "35%" }}
+                        animate={{ x: activeLine > i ? "210%" : "-100%" }}
+                        transition={{
+                          duration: 0.62,
+                          ease: [0.4, 0, 0.6, 1], // linéaire au centre, ralentit à l'arrivée
+                        }}
+                        style={{ left: 0, width: "40%" }}
                       />
                     </div>
                   )}
