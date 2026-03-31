@@ -24,7 +24,7 @@ const row1 = [
 
 const row2 = [
   {
-    title: "Artwork Pages",
+    title: "Direct & Purchase",
     desc: "Présentation claire et œuvres disponibles en ligne.",
     mock: "artwork",
   },
