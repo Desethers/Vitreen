@@ -358,7 +358,7 @@ function ArtworkMock() {
           width: "58%",
           borderLeft: "1px solid #E8E8E6",
           transform: cartOpen ? "translateX(0)" : "translateX(100%)",
-          transition: "transform 0.55s cubic-bezier(0.16,1,0.3,1)",
+          transition: "transform 0.65s cubic-bezier(0.16,1,0.3,1)",
           padding: "10px 10px 8px",
           zIndex: 20,
         }}
