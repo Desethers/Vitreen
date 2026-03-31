@@ -251,51 +251,53 @@ function EmailMock() {
 
 function ArtworkMock() {
   return (
-    <div className="flex h-full gap-2.5">
-      {/* Left: gallery viewer */}
-      <div className="w-[52%] relative flex items-center justify-center bg-[#F5F4F2] rounded-lg overflow-hidden">
+    <div className="flex flex-col h-full gap-0">
+      {/* Top: gallery image viewer */}
+      <div className="relative flex items-center justify-center bg-[#F0EFEC] rounded-lg overflow-hidden shrink-0" style={{ height: "52%" }}>
         {/* Left arrow */}
-        <button className="absolute left-2 z-10 text-[#999] text-[10px]">‹</button>
-        {/* Painting */}
-        <div className="w-[62%] h-[72%] bg-[#1B1C2E] rounded-[2px] shadow-md" />
+        <span className="absolute left-2.5 z-10 text-[#888] text-[14px] leading-none select-none">‹</span>
+        {/* Painting — cropped vertically to fill zone */}
+        <div
+          className="rounded-[2px] shadow-[0_2px_12px_rgba(0,0,0,0.18)]"
+          style={{ width: "38%", height: "88%", background: "#1B1C2E" }}
+        />
         {/* Right arrow */}
-        <button className="absolute right-2 z-10 text-[#999] text-[10px]">›</button>
+        <span className="absolute right-2.5 z-10 text-[#888] text-[14px] leading-none select-none">›</span>
       </div>
 
-      {/* Right: product panel */}
-      <div className="flex-1 flex flex-col py-0.5">
-        {/* Title block */}
-        <div className="mb-2">
-          <p className="text-[11px] font-semibold text-[#111110] leading-tight">Untitled, 2018</p>
-          <p className="text-[8px] text-[#ADADAA] mt-0.5">Acrylic on canvas</p>
-          <p className="text-[8px] text-[#ADADAA]">220 × 120 cm</p>
+      {/* Bottom: product details */}
+      <div className="flex flex-col pt-3 flex-1 min-h-0">
+        {/* Title + price row */}
+        <div className="flex items-start justify-between mb-1.5">
+          <div>
+            <p className="text-[10.5px] font-semibold text-[#111110] leading-tight">Untitled, 2018</p>
+            <p className="text-[8px] text-[#ADADAA] mt-[2px]">Acrylic on canvas · 220 × 120 cm</p>
+          </div>
+          <p className="text-[11px] font-semibold text-[#111110] shrink-0 ml-2">$16,500</p>
         </div>
 
-        {/* Price */}
-        <p className="text-[13px] font-semibold text-[#111110] mb-2">$16,500</p>
-
         {/* Add to cart button */}
-        <div className="border border-[#C8C8C4] rounded-md py-1.5 text-center mb-2.5 transition-all duration-500 delay-300 group-hover:bg-[#111110] group-hover:border-[#111110]">
+        <div className="border border-[#C8C8C4] rounded-md py-[5px] text-center mb-2 transition-all duration-500 delay-300 group-hover:bg-[#111110] group-hover:border-[#111110]">
           <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110] transition-colors duration-500 delay-300 group-hover:text-white">Add to cart</span>
         </div>
 
         {/* Description */}
-        <p className="text-[7px] text-[#6B6A67] leading-[1.55] line-clamp-3 mb-1.5">
+        <p className="text-[7px] text-[#6B6A67] leading-[1.5] line-clamp-2 mb-1">
           This monochromatic, large-scale painting explores color, surface, and minimalism.
         </p>
 
-        {/* Request details note */}
-        <p className="text-[6.5px] text-[#ADADAA] leading-[1.4] mb-auto">
+        {/* Request note */}
+        <p className="text-[6.5px] text-[#ADADAA] leading-[1.35] mb-2">
           Request details about shipping and availability through the contact form.
         </p>
 
-        {/* Accordions */}
-        <div className="space-y-0 mt-2">
-          <div className="flex items-center justify-between border-t border-[#E8E8E6] py-1.5">
+        {/* Accordions — always visible at bottom */}
+        <div className="mt-auto">
+          <div className="flex items-center justify-between border-t border-[#E8E8E6] py-[5px]">
             <span className="text-[7px] uppercase tracking-[0.08em] text-[#111110]">Shipping and taxes</span>
             <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
           </div>
-          <div className="flex items-center justify-between border-t border-[#E8E8E6] py-1.5">
+          <div className="flex items-center justify-between border-t border-[#E8E8E6] py-[5px]">
             <span className="text-[7px] uppercase tracking-[0.08em] text-[#111110]">FAQ</span>
             <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
           </div>
