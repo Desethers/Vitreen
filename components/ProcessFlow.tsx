@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -32,7 +33,30 @@ const steps = [
   },
 ];
 
+// Timings : step s'active, puis la ligne se remplit, puis step suivant
+const STEP_TIMINGS = [0, 900, 1800]; // ms où chaque cercle s'allume
+const LINE_TIMINGS = [300, 1200];    // ms où chaque ligne commence à se remplir
+
 export default function ProcessFlow() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [activeStep, setActiveStep] = useState(-1);
+  const [activeLine, setActiveLine] = useState(-1);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    STEP_TIMINGS.forEach((t, i) => {
+      timers.push(setTimeout(() => setActiveStep(i), t));
+    });
+    LINE_TIMINGS.forEach((t, i) => {
+      timers.push(setTimeout(() => setActiveLine(i), t));
+    });
+
+    return () => timers.forEach(clearTimeout);
+  }, [isInView]);
+
   return (
     <section className="py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -63,32 +87,66 @@ export default function ProcessFlow() {
         </motion.ol>
 
         {/* Desktop */}
-        <motion.div {...fadeUp(0.1)} className="hidden md:block">
+        <div ref={ref} className="hidden md:block">
           {/* Circles + connectors */}
           <div className="mb-8 grid w-full grid-cols-3 items-center">
-            {steps.map((step, i) => (
-              <div key={step.number} className="flex min-w-0 items-center">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#111110] bg-white text-xs font-semibold tracking-[-0.02em] text-[#111110]">
-                  {step.number}
+            {steps.map((step, i) => {
+              const isActive = activeStep >= i;
+              return (
+                <div key={step.number} className="flex min-w-0 items-center">
+                  {/* Circle */}
+                  <motion.div
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xs font-semibold tracking-[-0.02em]"
+                    animate={{
+                      backgroundColor: isActive ? "#111110" : "#ffffff",
+                      color: isActive ? "#ffffff" : "#111110",
+                      borderColor: "#111110",
+                      scale: isActive && activeStep === i ? [1, 1.12, 1] : 1,
+                    }}
+                    transition={{
+                      backgroundColor: { duration: 0.4, ease: "easeOut" },
+                      color: { duration: 0.3 },
+                      scale: { duration: 0.35, ease: [0.34, 1.56, 0.64, 1] },
+                    }}
+                    style={{ border: "1px solid #111110" }}
+                  >
+                    {step.number}
+                  </motion.div>
+
+                  {/* Connector line */}
+                  {i < steps.length - 1 && (
+                    <div className="ml-4 h-px min-w-0 flex-1 relative bg-[#111110]/12 overflow-hidden">
+                      <motion.div
+                        className="absolute inset-y-0 left-0 bg-[#111110]"
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: activeLine > i ? 1 : 0 }}
+                        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ transformOrigin: "left", width: "100%" }}
+                      />
+                    </div>
+                  )}
                 </div>
-                {i < steps.length - 1 && (
-                  <div className="ml-4 h-px min-w-0 flex-1 bg-[#111110]/12" aria-hidden />
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Text columns */}
           <ol className="m-0 grid list-none grid-cols-3 gap-10 p-0">
-            {steps.map((step) => (
-              <li key={step.number} className="min-w-0">
+            {steps.map((step, i) => (
+              <motion.li
+                key={step.number}
+                className="min-w-0"
+                initial={{ opacity: 0.35 }}
+                animate={{ opacity: activeStep >= i ? 1 : 0.35 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+              >
                 <p className="font-medium text-base text-[#111110] tracking-[-0.02em] mb-0">{step.title}</p>
                 <p className="mt-2 text-[14px] leading-[1.6] text-[#6B6A67]">{step.desc}</p>
                 <p className="mt-4 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]">{step.week}</p>
-              </li>
+              </motion.li>
             ))}
           </ol>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
