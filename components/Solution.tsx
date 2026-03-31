@@ -251,66 +251,81 @@ function EmailMock() {
 
 function ArtworkMock() {
   return (
-    <div className="flex h-full" style={{ gap: "10px" }}>
+    <div className="flex h-full" style={{ gap: 10 }}>
 
-      {/* LEFT — gallery wall + painting + arrows */}
-      <div className="relative flex items-center justify-center shrink-0 rounded-lg overflow-hidden"
-        style={{ width: "52%", background: "#F2F1EE" }}>
-        {/* left arrow */}
-        <span className="absolute left-[6px] text-[#ADADAA] select-none" style={{ fontSize: 13 }}>‹</span>
-        {/* painting: portrait format, dark navy */}
+      {/* LEFT — white wall, painting portrait, arrow › at right edge */}
+      <div className="relative shrink-0 flex items-center justify-center"
+        style={{ width: "48%", background: "#fff" }}>
+        {/* painting — portrait, dark navy, almost full height */}
         <div style={{
-          width: "52%",
-          height: "78%",
-          background: "#1C1C2E",
-          borderRadius: 2,
-          boxShadow: "0 4px 20px rgba(0,0,0,0.22)"
+          width: "68%",
+          height: "90%",
+          background: "#1C1D2E",
+          boxShadow: "2px 2px 16px rgba(0,0,0,0.18)",
         }} />
-        {/* right arrow */}
-        <span className="absolute right-[6px] text-[#ADADAA] select-none" style={{ fontSize: 13 }}>›</span>
+        {/* › arrow at right edge */}
+        <span className="absolute text-[#ADADAA] select-none"
+          style={{ right: 5, fontSize: 11, lineHeight: 1 }}>›</span>
       </div>
 
-      {/* RIGHT — product panel */}
-      <div className="flex-1 flex flex-col" style={{ paddingTop: 2, paddingBottom: 2 }}>
+      {/* RIGHT — 3 stacked bordered cards */}
+      <div className="flex-1 flex flex-col" style={{ gap: 5 }}>
 
-        {/* Title */}
-        <p style={{ fontSize: 10, fontWeight: 600, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
-        <p style={{ fontSize: 7.5, color: "#ADADAA", marginBottom: 1 }}>Acrylic on canvas</p>
-        <p style={{ fontSize: 7.5, color: "#ADADAA", marginBottom: 8 }}>220 × 120 cm</p>
+        {/* Card 1 — main info */}
+        <div style={{
+          border: "1px solid #E4E4E0",
+          borderRadius: 7,
+          padding: "10px 10px 8px",
+          flex: "1 1 auto",
+          display: "flex",
+          flexDirection: "column",
+        }}>
+          {/* Title block */}
+          <p style={{ fontSize: 10.5, fontWeight: 600, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
+          <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
+          <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
 
-        {/* Price */}
-        <p style={{ fontSize: 13, fontWeight: 700, color: "#111110", marginBottom: 7 }}>$16,500</p>
+          {/* Price */}
+          <p style={{ fontSize: 14, fontWeight: 700, color: "#111110", marginBottom: 7 }}>$16,500</p>
 
-        {/* Add to cart */}
-        <div className="transition-all duration-500 delay-300 group-hover:bg-[#111110]"
-          style={{ border: "1px solid #C8C8C4", borderRadius: 5, padding: "5px 0", textAlign: "center", marginBottom: 8 }}>
-          <span className="transition-colors duration-500 delay-300 group-hover:text-white"
-            style={{ fontSize: 7, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>
-            Add to cart
-          </span>
+          {/* Add to cart */}
+          <div className="transition-all duration-500 delay-300 group-hover:bg-[#111110]"
+            style={{ border: "1px solid #C8C8C4", borderRadius: 5, padding: "5px 0", textAlign: "center", marginBottom: 7 }}>
+            <span className="transition-colors duration-500 delay-300 group-hover:text-white"
+              style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: "#111110" }}>
+              Add to cart
+            </span>
+          </div>
+
+          {/* Separator */}
+          <div style={{ height: 1, background: "#EEEEED", marginBottom: 7 }} />
+
+          {/* Description */}
+          <p style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: 5 }} className="line-clamp-3">
+            This monochromatic, large-scale painting explores color, surface, and minimalism.
+          </p>
+          <p style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: "auto" }} className="line-clamp-2">
+            The paintings are not the centre of the discussion; rather, it is the relationship in which they are entwined.
+          </p>
+
+          {/* Request note */}
+          <p style={{ fontSize: 6, color: "#ADADAA", lineHeight: 1.4, marginTop: 6 }}>
+            Request details about shipping and availability through the contact form.
+          </p>
         </div>
 
-        {/* Description */}
-        <p style={{ fontSize: 6.5, color: "#6B6A67", lineHeight: 1.55, marginBottom: 5 }}
-          className="line-clamp-3">
-          This monochromatic, large-scale painting explores color, surface, and minimalism. The paintings are not the centre of the discussion; rather, it is the relationship in which they are entwined.
-        </p>
+        {/* Card 2 — Shipping */}
+        <div className="flex items-center justify-between"
+          style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
+          <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>Shipping and taxes</span>
+          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
+        </div>
 
-        {/* Request note */}
-        <p style={{ fontSize: 6, color: "#ADADAA", lineHeight: 1.4, marginBottom: 6 }}>
-          Request details about shipping and availability through the contact form.
-        </p>
-
-        {/* Accordions */}
-        <div style={{ marginTop: "auto" }}>
-          <div className="flex items-center justify-between" style={{ borderTop: "1px solid #E8E8E6", padding: "5px 0" }}>
-            <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.08em", color: "#111110" }}>Shipping and taxes</span>
-            <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
-          </div>
-          <div className="flex items-center justify-between" style={{ borderTop: "1px solid #E8E8E6", padding: "5px 0" }}>
-            <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.08em", color: "#111110" }}>FAQ</span>
-            <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
-          </div>
+        {/* Card 3 — FAQ */}
+        <div className="flex items-center justify-between"
+          style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
+          <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>FAQ</span>
+          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
         </div>
 
       </div>
