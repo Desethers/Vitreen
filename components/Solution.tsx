@@ -289,8 +289,8 @@ function ArtworkMock() {
           <p style={{ fontSize: 14, fontWeight: 700, color: "#111110", marginBottom: 7 }}>$16,500</p>
 
           {/* Add to cart */}
-          <div className="transition-all duration-500 delay-300 group-hover:bg-[#111110]"
-            style={{ border: "1px solid #C8C8C4", borderRadius: 5, padding: "5px 0", textAlign: "center", marginBottom: 7 }}>
+          <div className="transition-all duration-500 delay-300 group-hover:bg-[#111110] flex items-center justify-center"
+            style={{ border: "1px solid #C8C8C4", borderRadius: 5, height: 20, marginBottom: 7 }}>
             <span className="transition-colors duration-500 delay-300 group-hover:text-white"
               style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: "#111110" }}>
               Add to cart
