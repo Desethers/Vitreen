@@ -278,7 +278,7 @@ function ArtworkMock() {
           <button
             onClick={() => setCartOpen(true)}
             className="flex items-center justify-center w-full transition-all duration-300 hover:bg-[#111110] group/btn"
-            style={{ border: "1px solid #C8C8C4", borderRadius: 5, height: 24, marginBottom: 7, background: "transparent", cursor: "pointer" }}
+            style={{ border: "1px solid #C8C8C4", borderRadius: 5, height: 24, marginBottom: 7, cursor: "pointer" }}
           >
             <span className="transition-colors duration-300 group-hover/btn:text-white"
               style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: "#111110" }}>
