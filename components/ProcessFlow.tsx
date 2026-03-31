@@ -117,11 +117,11 @@ export default function ProcessFlow() {
                   {i < steps.length - 1 && (
                     <div className="ml-4 h-px min-w-0 flex-1 relative bg-[#111110]/12 overflow-hidden">
                       <motion.div
-                        className="absolute inset-y-0 left-0 bg-[#111110]"
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: activeLine > i ? 1 : 0 }}
-                        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                        style={{ transformOrigin: "left", width: "100%" }}
+                        className="absolute inset-y-0 bg-[#111110]"
+                        initial={{ x: "-100%" }}
+                        animate={{ x: activeLine > i ? "260%" : "-100%" }}
+                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ left: 0, width: "35%" }}
                       />
                     </div>
                   )}
