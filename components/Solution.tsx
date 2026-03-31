@@ -327,7 +327,7 @@ function ArtworkMock() {
         <div className="flex items-start justify-between" style={{ marginBottom: 6 }}>
           <div>
             <p style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.1em", color: "#888", marginBottom: 1 }}>Your selection</p>
-            <p style={{ fontSize: 13, fontWeight: 600, color: "#111110" }}>1 piece</p>
+            <p style={{ fontSize: 11, fontWeight: 500, color: "#111110" }}>1 piece</p>
           </div>
           <button
             onClick={() => setCartOpen(false)}
