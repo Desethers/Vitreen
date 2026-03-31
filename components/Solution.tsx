@@ -269,7 +269,7 @@ function ArtworkMock() {
 
         {/* Card 1 — main info */}
         <div style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "10px 10px 8px", flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
-          <p style={{ fontSize: 10.5, fontWeight: 600, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
+          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
           <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 7 }}>$16,500</p>
