@@ -361,11 +361,11 @@ function ArtworkMock() {
         <div style={{ marginTop: "auto" }}>
           <div style={{ height: 1, background: "#EEEEED", marginBottom: 6 }} />
           <div className="flex items-center justify-between" style={{ marginBottom: 7 }}>
-            <span style={{ fontSize: 7.5, color: "#111110" }}>Total</span>
-            <span style={{ fontSize: 10, fontWeight: 700, color: "#111110" }}>$16 500</span>
+            <span style={{ fontSize: 7.5, fontWeight: 500, color: "#111110" }}>Total</span>
+            <span style={{ fontSize: 10, fontWeight: 500, color: "#111110" }}>$16 500</span>
           </div>
           {/* Proceed to checkout */}
-          <div className="flex items-center justify-center" style={{ background: "#111110", borderRadius: 5, height: 22, marginBottom: 5 }}>
+          <div className="flex items-center justify-center transition-colors duration-200 hover:bg-[#2F4FE0]" style={{ background: "#111110", borderRadius: 5, height: 22, marginBottom: 5 }}>
             <span style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.12em", color: "#fff" }}>Proceed to checkout</span>
           </div>
           <div className="text-center" style={{ marginBottom: 5 }}>
