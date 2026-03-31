@@ -24,8 +24,8 @@ const row1 = [
 
 const row2 = [
   {
-    title: "Direct & Purchase",
-    desc: "Présentation claire et œuvres disponibles en ligne.",
+    title: "Online Acquisition",
+    desc: "Œuvres disponibles à l'achat directement depuis leur page.",
     mock: "artwork",
   },
   {
