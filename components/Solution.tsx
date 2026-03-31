@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -250,85 +251,132 @@ function EmailMock() {
 /* Step 2 row mocks */
 
 function ArtworkMock() {
-  return (
-    <div className="flex h-full" style={{ gap: 10 }}>
+  const [cartOpen, setCartOpen] = useState(false);
 
-      {/* LEFT — white wall, painting portrait, arrow › at right edge */}
-      <div className="relative shrink-0 flex items-center justify-center"
+  return (
+    <div className="relative flex h-full overflow-hidden" style={{ gap: 10 }}>
+
+      {/* LEFT — white wall + painting */}
+      <div className="relative shrink-0 flex items-center justify-center transition-all duration-400"
         style={{ width: "48%", background: "#fff" }}>
-        {/* painting — portrait, dark navy, almost full height */}
-        <div style={{
-          width: "68%",
-          height: "90%",
-          background: "#1C1D2E",
-          boxShadow: "2px 2px 16px rgba(0,0,0,0.18)",
-        }} />
-        {/* › arrow at right edge */}
-        <span className="absolute text-[#ADADAA] select-none"
-          style={{ right: 5, fontSize: 11, lineHeight: 1 }}>›</span>
+        {cartOpen && <div className="absolute inset-0 bg-black/10 z-10 transition-opacity duration-400" />}
+        <div style={{ width: "68%", height: "90%", background: "#1C1D2E", boxShadow: "2px 2px 16px rgba(0,0,0,0.18)" }} />
+        <span className="absolute text-[#ADADAA] select-none" style={{ right: 5, fontSize: 11 }}>›</span>
       </div>
 
       {/* RIGHT — 3 stacked bordered cards */}
       <div className="flex-1 flex flex-col" style={{ gap: 5 }}>
 
         {/* Card 1 — main info */}
-        <div style={{
-          border: "1px solid #E4E4E0",
-          borderRadius: 7,
-          padding: "10px 10px 8px",
-          flex: "1 1 auto",
-          display: "flex",
-          flexDirection: "column",
-        }}>
-          {/* Title block */}
+        <div style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "10px 10px 8px", flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
           <p style={{ fontSize: 10.5, fontWeight: 600, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
-
-          {/* Price */}
           <p style={{ fontSize: 14, fontWeight: 700, color: "#111110", marginBottom: 7 }}>$16,500</p>
 
-          {/* Add to cart */}
-          <div className="transition-all duration-500 delay-300 group-hover:bg-[#111110] flex items-center justify-center"
-            style={{ border: "1px solid #C8C8C4", borderRadius: 5, height: 20, marginBottom: 7 }}>
-            <span className="transition-colors duration-500 delay-300 group-hover:text-white"
+          {/* Add to cart — cliquable */}
+          <button
+            onClick={() => setCartOpen(true)}
+            className="flex items-center justify-center w-full transition-all duration-300 hover:bg-[#111110] group/btn"
+            style={{ border: "1px solid #C8C8C4", borderRadius: 5, height: 24, marginBottom: 7, background: "transparent", cursor: "pointer" }}
+          >
+            <span className="transition-colors duration-300 group-hover/btn:text-white"
               style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: "#111110" }}>
               Add to cart
             </span>
-          </div>
+          </button>
 
-          {/* Separator */}
           <div style={{ height: 1, background: "#EEEEED", marginBottom: 7 }} />
-
-          {/* Description */}
           <p style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: 5 }} className="line-clamp-3">
             This monochromatic, large-scale painting explores color, surface, and minimalism.
           </p>
           <p style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: "auto" }} className="line-clamp-2">
             The paintings are not the centre of the discussion; rather, it is the relationship in which they are entwined.
           </p>
-
-          {/* Request note */}
           <p style={{ fontSize: 6, color: "#ADADAA", lineHeight: 1.4, marginTop: 6 }}>
             Request details about shipping and availability through the contact form.
           </p>
         </div>
 
         {/* Card 2 — Shipping */}
-        <div className="flex items-center justify-between"
-          style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
+        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
           <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>Shipping and taxes</span>
           <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
         </div>
 
         {/* Card 3 — FAQ */}
-        <div className="flex items-center justify-between"
-          style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
+        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
           <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>FAQ</span>
           <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
         </div>
-
       </div>
+
+      {/* CART PANEL — slide in from right */}
+      <div
+        className="absolute inset-y-0 right-0 bg-white flex flex-col"
+        style={{
+          width: "58%",
+          borderLeft: "1px solid #E8E8E6",
+          transform: cartOpen ? "translateX(0)" : "translateX(100%)",
+          transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+          padding: "10px 10px 8px",
+          zIndex: 20,
+        }}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between" style={{ marginBottom: 6 }}>
+          <div>
+            <p style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.1em", color: "#888", marginBottom: 1 }}>Your selection</p>
+            <p style={{ fontSize: 13, fontWeight: 600, color: "#111110" }}>1 piece</p>
+          </div>
+          <button
+            onClick={() => setCartOpen(false)}
+            className="flex items-center justify-center"
+            style={{ width: 16, height: 16, borderRadius: "50%", border: "1px solid #E4E4E0", background: "white", cursor: "pointer", flexShrink: 0 }}
+          >
+            <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5"><path d="M18 6 6 18M6 6l12 12" /></svg>
+          </button>
+        </div>
+
+        {/* Separator */}
+        <div style={{ height: 1, background: "#EEEEED", marginBottom: 8 }} />
+
+        {/* Item row */}
+        <div className="flex items-start" style={{ gap: 7, marginBottom: "auto" }}>
+          {/* Thumbnail */}
+          <div style={{ width: 26, height: 32, background: "#1C1D2E", borderRadius: 3, flexShrink: 0 }} />
+          {/* Info */}
+          <div className="flex-1">
+            <div className="flex items-start justify-between">
+              <p style={{ fontSize: 8, fontWeight: 600, color: "#111110" }}>Untitled, 2018</p>
+              <p style={{ fontSize: 8, fontWeight: 600, color: "#111110" }}>$16 500</p>
+            </div>
+            <p style={{ fontSize: 6.5, color: "#888", marginTop: 1 }}>Acrylic on canvas</p>
+            <p style={{ fontSize: 6.5, color: "#888" }}>220 × 120</p>
+            <p style={{ fontSize: 6.5, color: "#ADADAA", marginTop: 3 }}>Remove</p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ marginTop: "auto" }}>
+          <div style={{ height: 1, background: "#EEEEED", marginBottom: 6 }} />
+          <div className="flex items-center justify-between" style={{ marginBottom: 7 }}>
+            <span style={{ fontSize: 7.5, color: "#111110" }}>Total</span>
+            <span style={{ fontSize: 10, fontWeight: 700, color: "#111110" }}>$16 500</span>
+          </div>
+          {/* Proceed to checkout */}
+          <div className="flex items-center justify-center" style={{ background: "#111110", borderRadius: 20, height: 22, marginBottom: 5 }}>
+            <span style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.12em", color: "#fff" }}>Proceed to checkout</span>
+          </div>
+          <div className="text-center" style={{ marginBottom: 5 }}>
+            <span style={{ fontSize: 6, color: "#ADADAA" }}>Clear cart</span>
+          </div>
+          <p style={{ fontSize: 5.5, color: "#ADADAA", lineHeight: 1.4, textAlign: "center" }}>
+            Secure payment via Stripe. The studio will confirm your commission within 2–3 days.
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 }
