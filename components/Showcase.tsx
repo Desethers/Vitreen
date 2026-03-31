@@ -38,10 +38,21 @@ const bioText = [
 function ArtistPageMock() {
   const [activeTab, setActiveTab] = useState<Tab>("Selected Works");
   const [bioOpen, setBioOpen] = useState(false);
+  const artistScrollRef = useRef<HTMLDivElement>(null);
+  const [artistScrolled, setArtistScrolled] = useState(true);
+
+  useEffect(() => {
+    const el = artistScrollRef.current;
+    if (!el) return;
+    const update = () => setArtistScrolled(el.scrollTop > 24);
+    update();
+    el.addEventListener("scroll", update, { passive: true });
+    return () => el.removeEventListener("scroll", update);
+  }, []);
 
   return (
     /* Outer container — scrollable, position:relative for modal */
-    <div className="w-full h-full overflow-y-auto overflow-x-hidden bg-white relative" style={{ scrollbarWidth: "none" }}>
+    <div ref={artistScrollRef} className="w-full h-full overflow-y-auto bg-white relative" style={{ scrollbarWidth: "none" }}>
 
       {/* Biography modal — renders outside zoom */}
       {bioOpen && (
@@ -83,6 +94,68 @@ function ArtistPageMock() {
         style={{ zoom: 0.58 }}
         className="font-sans text-[#111110]"
       >
+        {/* Nav — glass pill on scroll */}
+        <div
+          className="sticky top-0 z-10 flex justify-center"
+          style={{
+            paddingTop: artistScrolled ? "0.5rem" : "1.25rem",
+            paddingLeft: "2.5rem",
+            paddingRight: "2.5rem",
+            transition: "padding 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        >
+          <div
+            className="flex items-center justify-between w-full"
+            style={{
+              maxWidth: artistScrolled ? "min(800px, calc(100% - 3rem))" : "1280px",
+              padding: artistScrolled ? "0.65rem 1.25rem" : "0.9rem 0",
+              gap: artistScrolled ? "0.75rem" : "1.25rem",
+              borderRadius: artistScrolled ? "18px" : "0",
+              background: artistScrolled
+                ? "linear-gradient(135deg, rgba(255,255,255,0.72), rgba(252,250,247,0.65))"
+                : "transparent",
+              backdropFilter: artistScrolled ? "blur(40px) saturate(2) brightness(1.05) contrast(0.98)" : "none",
+              WebkitBackdropFilter: artistScrolled ? "blur(40px) saturate(2) brightness(1.05) contrast(0.98)" : "none",
+              boxShadow: artistScrolled
+                ? "0 8px 48px rgba(0,0,0,.08), 0 2px 16px rgba(0,0,0,.04)"
+                : "none",
+              transition: "all 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          >
+            <span
+              className="font-medium uppercase"
+              style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#000" }}
+            >
+              Galerie
+            </span>
+            <div
+              className="flex text-[#555]"
+              style={{
+                gap: artistScrolled ? "1rem" : "1.75rem",
+                fontSize: "0.82rem",
+                transition: "gap 0.48s cubic-bezier(0.22, 1, 0.36, 1)",
+              }}
+            >
+              {["Exhibitions", "Artists", "Fairs", "News", "About"].map((n) => (
+                <span
+                  key={n}
+                  className={n === "Artists" ? "text-[#111110] font-medium" : "hover:underline underline-offset-[3px] cursor-pointer"}
+                >
+                  {n}
+                </span>
+              ))}
+            </div>
+            <div
+              className="rounded-full flex items-center justify-center shrink-0"
+              style={{ width: 26, height: 26, border: "0.5px solid rgba(0,0,0,0.2)" }}
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2.5">
+                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
         {/* Hero: photo + bio */}
         <div className="flex gap-12 px-12 pt-10 pb-8">
           <div className="w-[300px] shrink-0 rounded-[6px] overflow-hidden bg-[#C8C0B8]" style={{ height: 390 }}>
@@ -155,9 +228,9 @@ function ArtistPageMock() {
           {activeTab === "Exhibitions" && (
             <div className="grid grid-cols-3 gap-5">
               {[
-                { img: "/artist page/Exhibition2.png", title: "Recent Studies", location: "Paris, Turenne", dates: "Jan 12 — Feb 22, 2026" },
+                { img: "/artist page/exhibition5.jpg", title: "Recent Studies", location: "Paris, Turenne", dates: "Jan 12 — Feb 22, 2026" },
                 { img: "/artist page/Exhibition6.png", title: "Your friends", location: "London", dates: "Oct 05 — Nov 28, 2025" },
-                { img: "/artist page/Exhibition2.png", title: "Quiet Paintings", location: "New York", dates: "Mar 10 — Apr 30, 2025" },
+                { img: "/artist page/Exhibition8.png", title: "Quiet Paintings", location: "New York", dates: "Mar 10 — Apr 30, 2025" },
               ].map((e) => (
                 <div key={e.title} className="flex flex-col gap-2 cursor-pointer group">
                   <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF]" style={{ height: 260 }}>
@@ -185,6 +258,7 @@ function ArtistPageMock() {
 function ExhibitionPageMock() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -231,7 +305,7 @@ function ExhibitionPageMock() {
           >
             <span
               className="font-medium uppercase"
-              style={{ fontSize: "0.78rem", letterSpacing: "0.15em", color: "#000" }}
+              style={{ fontSize: "0.65rem", letterSpacing: "0.15em", color: "#000" }}
             >
               Galerie
             </span>
@@ -298,7 +372,7 @@ function ExhibitionPageMock() {
 
           {/* Main */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-[42px] font-normal tracking-[-0.03em] leading-[1.1] mb-5">
+            <h1 className="text-[34px] font-normal tracking-[-0.03em] leading-[1.1] mb-5">
               Sun Dog — <em>Your friends</em>
             </h1>
             <p className="text-[14px] text-[#333] leading-[1.7] max-w-[560px] mb-3">
@@ -331,7 +405,10 @@ function ExhibitionPageMock() {
           <p className="text-[14px] text-[#555] leading-[1.7] max-w-[480px] mx-auto">
             Presented as one continuous sequence, the works below extend the show&apos;s themes — friendship, memory, and light — into individual canvases and works on paper.
           </p>
-          <button className="mt-5 border border-[#D8D4CF] rounded-full px-6 py-2.5 text-[12px] text-[#333]">
+          <button
+            onClick={() => setShowModal(true)}
+            className="mt-5 border border-[#D8D4CF] rounded-full px-6 py-2.5 text-[12px] text-[#333] transition-all duration-150 hover:bg-[#111110] hover:border-[#111110] hover:text-white"
+          >
             read full exhibition text
           </button>
         </div>
@@ -341,7 +418,7 @@ function ExhibitionPageMock() {
           <img
             src="/exhibition page/painting-02.png"
             alt="Sun Dog — Untitled (Yellow)"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </div>
         <p className="mx-10 mt-2 text-[11px] text-[#ADADAA] italic">
@@ -354,21 +431,61 @@ function ExhibitionPageMock() {
             <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
               <img src="/exhibition page/portrait2.jpg" alt="Sun Dog — Untitled (Blue), 2025" className="w-full h-full object-cover" />
             </div>
-            <p className="text-[12px] text-[#888]">Sun Dog</p>
-            <p className="text-[13px] font-medium text-[#111110]">Untitled, 2025</p>
-            <p className="text-[12px] text-[#888] italic">Acrylic on canvas</p>
-            <p className="text-[12px] text-[#888]">120 × 120 cm</p>
+            <div className="flex items-start justify-between">
+              <div className="flex flex-col gap-0.5">
+                <p className="text-[12px] text-[#888]">Sun Dog</p>
+                <p className="text-[13px] font-medium text-[#111110]">Untitled, 2025</p>
+                <p className="text-[12px] text-[#888] italic">Acrylic on canvas</p>
+                <p className="text-[12px] text-[#888]">120 × 120 cm</p>
+              </div>
+              <button className="border border-[#D8D4CF] rounded-[4px] px-8 py-1.5 text-[12px] text-[#111110] shrink-0 transition-colors duration-150 hover:border-[#111110] hover:text-[#111110]">
+                Inquire
+              </button>
+            </div>
           </div>
-          <div className="flex flex-col justify-between py-2 flex-1">
-            <button className="border border-[#D8D4CF] rounded-[4px] px-6 py-2 text-[12px] text-[#111110] self-start">
-              Inquire
-            </button>
-            <blockquote className="text-[15px] italic text-[#999] leading-[1.7] max-w-[280px]">
+          <div className="flex flex-col justify-center items-center py-2 flex-1">
+            <blockquote className="text-[15px] italic text-[#999] leading-[1.7] max-w-[280px] text-center transition-colors duration-200 hover:text-[#111110] cursor-default">
               &ldquo;Shared light is the simplest form of friendship—what falls on the wall falls on us both.&rdquo;
               <footer className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sun Dog</footer>
             </blockquote>
           </div>
         </div>
+
+        {/* Exhibition text modal */}
+        {showModal && (
+          <div
+            className="absolute inset-0 z-50 flex items-center justify-center"
+            style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)" }}
+            onClick={() => setShowModal(false)}
+          >
+            <div
+              className="bg-white rounded-2xl overflow-y-auto shadow-2xl"
+              style={{ maxWidth: 480, width: "calc(100% - 48px)", maxHeight: "72%", padding: "28px 28px 32px", scrollbarWidth: "none" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-5">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-[#ADADAA]">Exhibition Text</p>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="text-[#ADADAA] hover:text-[#111110] transition-colors leading-none"
+                  style={{ fontSize: 18 }}
+                >
+                  &times;
+                </button>
+              </div>
+              <h2 className="text-[18px] font-normal tracking-[-0.02em] text-[#111110] mb-5">
+                Sun Dog — <em>Your friends</em>
+              </h2>
+              <div className="flex flex-col gap-4" style={{ fontSize: 13, color: "#555", lineHeight: 1.75 }}>
+                <p>The works gathered in <em>Your friends</em> do not announce themselves. They arrive quietly — through colour, through stillness, through the peculiar way light describes a surface without explaining it.</p>
+                <p>Sun Dog has spent the last three years returning to the same question: what remains of a landscape once it has been absorbed into the body? The paintings in this exhibition are not records of places. They are the residue of looking — the sensation that persists after the eye has moved on.</p>
+                <p>Working in oil on large-format canvases, he builds each surface through repeated acts of application and erasure. Colours that should not coexist find ways to hold together. Forms that suggest horizon, water, or canopy resist naming. The work hovers in the interval between recognition and abstraction.</p>
+                <p><em>Your friends</em> takes its title from a phrase that appeared in a notebook during the making of these paintings. It refers, obliquely, to the things we carry with us without knowing we carry them — the images, the light conditions, the half-remembered atmospheres that constitute a private visual life.</p>
+                <p>The exhibition presents sixteen works made between 2023 and 2025.</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
