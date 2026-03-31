@@ -252,6 +252,7 @@ function EmailMock() {
 
 function ArtworkMock() {
   const [cartOpen, setCartOpen] = useState(false);
+  const [addHover, setAddHover] = useState(false);
 
   return (
     <div className="relative flex h-full overflow-hidden" style={{ gap: 10 }}>
@@ -277,11 +278,20 @@ function ArtworkMock() {
           {/* Add to cart — cliquable */}
           <button
             onClick={() => setCartOpen(true)}
-            className="flex items-center justify-center w-full transition-all duration-300 hover:bg-[#111110] group/btn"
-            style={{ border: "0.5px solid #111110", borderRadius: 5, height: 24, marginBottom: 7, cursor: "pointer" }}
+            onMouseEnter={() => setAddHover(true)}
+            onMouseLeave={() => setAddHover(false)}
+            style={{
+              border: "0.5px solid #111110",
+              borderRadius: 5,
+              height: 24,
+              marginBottom: 7,
+              cursor: "pointer",
+              background: addHover ? "#111110" : "transparent",
+              transition: "background 0.2s",
+              display: "flex", alignItems: "center", justifyContent: "center", width: "100%"
+            }}
           >
-            <span className="transition-colors duration-300 group-hover/btn:text-white"
-              style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: "#111110" }}>
+            <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: addHover ? "#fff" : "#111110", transition: "color 0.2s" }}>
               Add to cart
             </span>
           </button>
