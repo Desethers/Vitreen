@@ -251,57 +251,68 @@ function EmailMock() {
 
 function ArtworkMock() {
   return (
-    <div className="flex flex-col h-full gap-0">
-      {/* Top: gallery image viewer */}
-      <div className="relative flex items-center justify-center bg-[#F0EFEC] rounded-lg overflow-hidden shrink-0" style={{ height: "52%" }}>
-        {/* Left arrow */}
-        <span className="absolute left-2.5 z-10 text-[#888] text-[14px] leading-none select-none">‹</span>
-        {/* Painting — cropped vertically to fill zone */}
-        <div
-          className="rounded-[2px] shadow-[0_2px_12px_rgba(0,0,0,0.18)]"
-          style={{ width: "38%", height: "88%", background: "#1B1C2E" }}
-        />
-        {/* Right arrow */}
-        <span className="absolute right-2.5 z-10 text-[#888] text-[14px] leading-none select-none">›</span>
+    <div className="flex h-full" style={{ gap: "10px" }}>
+
+      {/* LEFT — gallery wall + painting + arrows */}
+      <div className="relative flex items-center justify-center shrink-0 rounded-lg overflow-hidden"
+        style={{ width: "52%", background: "#F2F1EE" }}>
+        {/* left arrow */}
+        <span className="absolute left-[6px] text-[#ADADAA] select-none" style={{ fontSize: 13 }}>‹</span>
+        {/* painting: portrait format, dark navy */}
+        <div style={{
+          width: "52%",
+          height: "78%",
+          background: "#1C1C2E",
+          borderRadius: 2,
+          boxShadow: "0 4px 20px rgba(0,0,0,0.22)"
+        }} />
+        {/* right arrow */}
+        <span className="absolute right-[6px] text-[#ADADAA] select-none" style={{ fontSize: 13 }}>›</span>
       </div>
 
-      {/* Bottom: product details */}
-      <div className="flex flex-col pt-3 flex-1 min-h-0">
-        {/* Title + price row */}
-        <div className="flex items-start justify-between mb-1.5">
-          <div>
-            <p className="text-[10.5px] font-semibold text-[#111110] leading-tight">Untitled, 2018</p>
-            <p className="text-[8px] text-[#ADADAA] mt-[2px]">Acrylic on canvas · 220 × 120 cm</p>
-          </div>
-          <p className="text-[11px] font-semibold text-[#111110] shrink-0 ml-2">$16,500</p>
-        </div>
+      {/* RIGHT — product panel */}
+      <div className="flex-1 flex flex-col" style={{ paddingTop: 2, paddingBottom: 2 }}>
 
-        {/* Add to cart button */}
-        <div className="border border-[#C8C8C4] rounded-md py-[5px] text-center mb-2 transition-all duration-500 delay-300 group-hover:bg-[#111110] group-hover:border-[#111110]">
-          <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110] transition-colors duration-500 delay-300 group-hover:text-white">Add to cart</span>
+        {/* Title */}
+        <p style={{ fontSize: 10, fontWeight: 600, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
+        <p style={{ fontSize: 7.5, color: "#ADADAA", marginBottom: 1 }}>Acrylic on canvas</p>
+        <p style={{ fontSize: 7.5, color: "#ADADAA", marginBottom: 8 }}>220 × 120 cm</p>
+
+        {/* Price */}
+        <p style={{ fontSize: 13, fontWeight: 700, color: "#111110", marginBottom: 7 }}>$16,500</p>
+
+        {/* Add to cart */}
+        <div className="transition-all duration-500 delay-300 group-hover:bg-[#111110]"
+          style={{ border: "1px solid #C8C8C4", borderRadius: 5, padding: "5px 0", textAlign: "center", marginBottom: 8 }}>
+          <span className="transition-colors duration-500 delay-300 group-hover:text-white"
+            style={{ fontSize: 7, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>
+            Add to cart
+          </span>
         </div>
 
         {/* Description */}
-        <p className="text-[7px] text-[#6B6A67] leading-[1.5] line-clamp-2 mb-1">
-          This monochromatic, large-scale painting explores color, surface, and minimalism.
+        <p style={{ fontSize: 6.5, color: "#6B6A67", lineHeight: 1.55, marginBottom: 5 }}
+          className="line-clamp-3">
+          This monochromatic, large-scale painting explores color, surface, and minimalism. The paintings are not the centre of the discussion; rather, it is the relationship in which they are entwined.
         </p>
 
         {/* Request note */}
-        <p className="text-[6.5px] text-[#ADADAA] leading-[1.35] mb-2">
+        <p style={{ fontSize: 6, color: "#ADADAA", lineHeight: 1.4, marginBottom: 6 }}>
           Request details about shipping and availability through the contact form.
         </p>
 
-        {/* Accordions — always visible at bottom */}
-        <div className="mt-auto">
-          <div className="flex items-center justify-between border-t border-[#E8E8E6] py-[5px]">
-            <span className="text-[7px] uppercase tracking-[0.08em] text-[#111110]">Shipping and taxes</span>
+        {/* Accordions */}
+        <div style={{ marginTop: "auto" }}>
+          <div className="flex items-center justify-between" style={{ borderTop: "1px solid #E8E8E6", padding: "5px 0" }}>
+            <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.08em", color: "#111110" }}>Shipping and taxes</span>
             <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
           </div>
-          <div className="flex items-center justify-between border-t border-[#E8E8E6] py-[5px]">
-            <span className="text-[7px] uppercase tracking-[0.08em] text-[#111110]">FAQ</span>
+          <div className="flex items-center justify-between" style={{ borderTop: "1px solid #E8E8E6", padding: "5px 0" }}>
+            <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.08em", color: "#111110" }}>FAQ</span>
             <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
           </div>
         </div>
+
       </div>
     </div>
   );
