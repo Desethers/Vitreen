@@ -272,7 +272,7 @@ function ArtworkMock() {
           <p style={{ fontSize: 10.5, fontWeight: 600, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
-          <p style={{ fontSize: 14, fontWeight: 700, color: "#111110", marginBottom: 7 }}>$16,500</p>
+          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 7 }}>$16,500</p>
 
           {/* Add to cart — cliquable */}
           <button
