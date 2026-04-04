@@ -31,7 +31,6 @@ const services: Service[] = [
   {
     tier: "PORTFOLIO",
     name: "Artist Portfolio",
-    badge: "Le plus accessible",
     description: "Un site portfolio élégant et professionnel pour artistes indépendants.",
     featuresHeading: "Inclus :",
     features: [
@@ -48,8 +47,6 @@ const services: Service[] = [
     priceNote: "Paiement unique (one-time)",
     cta: "Commencer",
     highlight: false,
-    footerNote:
-      "Parfait pour démarrer. Vous pourrez upgrader vers le package Gallery plus tard.",
   },
   {
     tier: "SITE GALERIE",
@@ -65,15 +62,14 @@ const services: Service[] = [
     ],
     delivery: "Livraison : 2 semaines",
     price: "À partir de 3 000 €",
+    priceNote: "Paiement unique (one-time)",
     cta: "Commencer",
     highlight: false,
   },
   {
     tier: "PARTNER",
     name: "Partner",
-    subtitle: "Un responsable digital externalisé pour votre galerie.",
-    description:
-      "Nous pilotons votre présence digitale comme un canal actif : visibilité, conversion et suivi des collectionneurs.",
+    description: "Un responsable digital externalisé pour votre galerie.",
     featuresHeading: "Inclus :",
     features: [
       "Publication du catalogue (œuvres et expositions)",
@@ -117,45 +113,47 @@ export default function Services() {
               }}
             >
               <div className="flex flex-col gap-4">
-                <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-                  <span
-                    className="text-[10px] tracking-[0.15em] uppercase"
-                    style={{ color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA" }}
-                  >
-                    {service.tier}
-                  </span>
-                  {service.badge ? (
+                <div className="flex flex-col gap-4 min-h-[11rem]">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
                     <span
-                      className="text-[10px] tracking-[0.06em] uppercase shrink-0 px-2 py-0.5 rounded-full border font-medium"
-                      style={{
-                        color: service.highlight ? "rgba(255,255,255,0.55)" : "#6B6A67",
-                        borderColor: service.highlight ? "rgba(255,255,255,0.2)" : "#E8E8E6",
-                      }}
+                      className="text-[10px] tracking-[0.15em] uppercase"
+                      style={{ color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA" }}
                     >
-                      {service.badge}
+                      {service.tier}
                     </span>
-                  ) : null}
-                </div>
-                <h3
-                  className="font-display text-2xl tracking-tight"
-                  style={{ color: service.highlight ? "#fff" : "#111110" }}
-                >
-                  {service.name}
-                </h3>
-                {service.subtitle ? (
-                  <p
-                    className="text-sm font-semibold leading-snug tracking-[-0.01em]"
+                    {service.badge ? (
+                      <span
+                        className="text-[10px] tracking-[0.06em] uppercase shrink-0 px-2 py-0.5 rounded-full border font-medium"
+                        style={{
+                          color: service.highlight ? "rgba(255,255,255,0.55)" : "#6B6A67",
+                          borderColor: service.highlight ? "rgba(255,255,255,0.2)" : "#E8E8E6",
+                        }}
+                      >
+                        {service.badge}
+                      </span>
+                    ) : null}
+                  </div>
+                  <h3
+                    className="font-display text-2xl tracking-tight"
                     style={{ color: service.highlight ? "#fff" : "#111110" }}
                   >
-                    {service.subtitle}
+                    {service.name}
+                  </h3>
+                  {service.subtitle ? (
+                    <p
+                      className="text-sm font-semibold leading-snug tracking-[-0.01em]"
+                      style={{ color: service.highlight ? "#fff" : "#111110" }}
+                    >
+                      {service.subtitle}
+                    </p>
+                  ) : null}
+                  <p
+                    className="text-sm leading-relaxed whitespace-pre-line"
+                    style={{ color: service.highlight ? "rgba(255,255,255,0.5)" : "#6B6A67" }}
+                  >
+                    {service.description}
                   </p>
-                ) : null}
-                <p
-                  className="text-sm leading-relaxed whitespace-pre-line"
-                  style={{ color: service.highlight ? "rgba(255,255,255,0.5)" : "#6B6A67" }}
-                >
-                  {service.description}
-                </p>
+                </div>
 
                 <div
                   className="h-px w-full"
@@ -211,14 +209,12 @@ export default function Services() {
               </div>
 
               <div className="flex flex-col gap-4 mt-8">
-                {service.delivery ? (
-                  <p
-                    className="text-sm font-medium"
-                    style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110" }}
-                  >
-                    {service.delivery}
-                  </p>
-                ) : null}
+                <p
+                  className="text-sm font-medium"
+                  style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110", visibility: service.delivery ? "visible" : "hidden" }}
+                >
+                  {service.delivery ?? "\u00a0"}
+                </p>
                 <div className="flex flex-col gap-1.5">
                   <p
                     className="text-sm font-medium"
@@ -228,7 +224,7 @@ export default function Services() {
                   </p>
                   {service.priceNote ? (
                     <p
-                      className="text-xs leading-relaxed"
+                      className="text-xs leading-relaxed min-h-[2.5rem]"
                       style={{
                         color: service.highlight ? "rgba(255,255,255,0.45)" : "#6B6A67",
                       }}
@@ -237,6 +233,16 @@ export default function Services() {
                     </p>
                   ) : null}
                 </div>
+                {service.footerNote ? (
+                  <p
+                    className="text-xs leading-relaxed text-center"
+                    style={{
+                      color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA",
+                    }}
+                  >
+                    {service.footerNote}
+                  </p>
+                ) : null}
                 <a
                   href="#contact"
                   className="inline-flex items-center justify-center text-sm px-5 py-2.5 rounded-full w-full font-medium transition-all duration-200"
@@ -248,16 +254,6 @@ export default function Services() {
                 >
                   {service.cta}
                 </a>
-                {service.footerNote ? (
-                  <p
-                    className="text-xs leading-relaxed text-center"
-                    style={{
-                      color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA",
-                    }}
-                  >
-                    {service.footerNote}
-                  </p>
-                ) : null}
               </div>
             </motion.article>
           ))}

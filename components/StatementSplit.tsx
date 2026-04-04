@@ -20,39 +20,38 @@ const marketStats = [
 
 export default function StatementSplit() {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-6 bg-white">
+    <section className="py-16 md:py-24 px-4 md:px-6 bg-gradient-to-t from-white to-[#F9FAFD]">
       <div className="max-w-7xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-10 md:mb-14">
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl">
-            Amplifiez l&apos;influence de votre galerie.
+          <h2 style={{ fontSize: "32px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">
+            L&apos;économie de la vente d&apos;art en ligne explose
           </h2>
         </motion.div>
 
-        <motion.div
-          {...fadeUp(0.06)}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3"
-        >
+        <motion.div {...fadeUp(0.06)} className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {marketStats.map((m) => (
             <div
               key={m.value}
-              className="flex flex-col gap-2 px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[10px] transition-[border-color] duration-200 hover:border-[#111110]"
+              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[10px] transition-[border-color] duration-200 hover:border-[#111110]"
             >
               <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
                 {m.value}
               </span>
-              <span className="text-[13px] font-normal text-[#111110] leading-snug tracking-[-0.02em]">
-                {m.label}
-              </span>
-              <span className="text-[11px] font-normal leading-snug text-[#ADADAA] tracking-[-0.01em]">
-                {m.sub}
-              </span>
+              <div className="flex flex-col gap-1">
+                <span className="text-[13px] font-normal text-[#111110] leading-snug tracking-[-0.02em]">
+                  {m.label}
+                </span>
+                <span className="text-[11px] font-normal leading-snug text-[#ADADAA] tracking-[-0.01em]">
+                  {m.sub}
+                </span>
+              </div>
             </div>
           ))}
         </motion.div>
 
         <motion.blockquote
-          {...fadeUp(0.12)}
-          className="mt-16 font-display text-2xl md:text-3xl lg:text-4xl text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
+          {...fadeUp(0.09)}
+          className="mt-16 font-display text-[26px] text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
         >
           "The digital space is a natural extension of the gallery's storefront.{" "}
           <span>
@@ -71,6 +70,60 @@ export default function StatementSplit() {
             </div>
           </footer>
         </motion.blockquote>
+
+        <motion.div {...fadeUp(0.15)} className="mt-14 md:mt-20">
+          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-10 md:mb-14">
+            Amplifiez l&apos;influence de votre galerie.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+            {/* Block 1 */}
+            <div className="flex flex-col gap-4">
+              <div className="w-10 h-10 rounded-[8px] border border-[#E8E8E6] flex items-center justify-center shrink-0">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M2 11L6 7L9 10L14 4" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M11 4H14V7" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <p className="text-[15px] text-[#111110] leading-relaxed tracking-[-0.01em]">
+                Standardisez votre présence en ligne&nbsp;: sans infrastructure de vente, votre galerie reste invisible à l&apos;échelle globale.
+              </p>
+              <p className="text-[14px] text-[#6B6A67] leading-relaxed tracking-[-0.01em]">
+                Vitreen déploie une distribution native, permettant d&apos;exposer, diffuser et rendre accessibles vos œuvres en continu, sans dépendre des circuits traditionnels.
+              </p>
+            </div>
+            {/* Block 2 */}
+            <div className="flex flex-col gap-4">
+              <div className="w-10 h-10 rounded-[8px] border border-[#E8E8E6] flex items-center justify-center shrink-0">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="6" stroke="#111110" strokeWidth="1.5"/>
+                  <path d="M8 2C8 2 6 5 6 8C6 11 8 14 8 14" stroke="#111110" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M2 8H14" stroke="#111110" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <p className="text-[15px] text-[#111110] leading-relaxed tracking-[-0.01em]">
+                Transformez l&apos;attention en transactions grâce à des interfaces conçues pour réduire la friction, structurer la décision et activer l&apos;achat.
+              </p>
+              <p className="text-[14px] text-[#6B6A67] leading-relaxed tracking-[-0.01em]">
+                Chaque interaction est optimisée pour convertir la découverte en engagement réel, et l&apos;intérêt en relation commerciale.
+              </p>
+            </div>
+            {/* Block 3 */}
+            <div className="flex flex-col gap-4">
+              <div className="w-10 h-10 rounded-[8px] border border-[#E8E8E6] flex items-center justify-center shrink-0">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M8 2L3 4.5V8C3 11.5 5.5 13.8 8 14.5C10.5 13.8 13 11.5 13 8V4.5L8 2Z" stroke="#111110" strokeWidth="1.5" strokeLinejoin="round"/>
+                  <path d="M5.5 8L7 9.5L10.5 6" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <p className="text-[15px] text-[#111110] leading-relaxed tracking-[-0.01em]">
+                Reprenez le contrôle de votre relation avec vos collectionneurs&nbsp;: données, interactions et historique ne sont plus fragmentés.
+              </p>
+              <p className="text-[14px] text-[#6B6A67] leading-relaxed tracking-[-0.01em]">
+                Vitreen centralise et structure votre écosystème, transformant votre audience en actif stratégique plutôt qu&apos;en dépendance externe.
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

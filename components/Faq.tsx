@@ -65,14 +65,12 @@ export default function Faq() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-16"
+          className="flex flex-col gap-10"
         >
+          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
+            Questions fréquentes.
+          </h2>
           <div>
-            <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight">
-              Questions fréquentes.
-            </h2>
-          </div>
-          <div className="md:col-span-2">
             {faqs.map((f) => (
               <Item key={f.q} q={f.q} a={f.a} />
             ))}

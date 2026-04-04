@@ -22,7 +22,7 @@ export default function CtaBand() {
               Démarrer un projet
             </span>
 
-            <h2 className="font-display text-white text-[clamp(1.75rem,4.5vw,3rem)] md:text-[clamp(2rem,4vw,3.25rem)] leading-[1.12] tracking-[-0.03em] mb-5 md:mb-6 max-w-[22ch] md:max-w-none">
+            <h2 className="font-display text-white text-[clamp(1.25rem,3vw,1.75rem)] md:text-[clamp(1.5rem,2.5vw,2rem)] leading-[1.12] tracking-[-0.03em] mb-5 md:mb-6 max-w-[22ch] md:max-w-none">
               Donnez une nouvelle dimension à votre galerie.
             </h2>
 
