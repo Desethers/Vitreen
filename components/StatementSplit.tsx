@@ -20,7 +20,8 @@ const marketStats = [
 
 export default function StatementSplit() {
   return (
-    <section className="py-16 md:py-24 px-4 md:px-6 bg-gradient-to-t from-white to-[#F9FAFD]">
+    <section className="px-4 md:px-6 bg-white">
+      <div className="bg-gradient-to-b from-[#F9FAFD] to-white pt-16 md:pt-24 pb-14 md:pb-20">
       <div className="max-w-7xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-10 md:mb-14">
           <h2 style={{ fontSize: "32px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">
@@ -32,7 +33,7 @@ export default function StatementSplit() {
           {marketStats.map((m) => (
             <div
               key={m.value}
-              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[10px] transition-[border-color] duration-200 hover:border-[#111110]"
+              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[10px] transition-all duration-200 hover:border-[#111110] hover:bg-white"
             >
               <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
                 {m.value}
@@ -49,29 +50,7 @@ export default function StatementSplit() {
           ))}
         </motion.div>
 
-        <motion.blockquote
-          {...fadeUp(0.09)}
-          className="mt-16 font-display text-[26px] text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
-        >
-          "The digital space is a natural extension of the gallery's storefront.{" "}
-          <span>
-            In the current era, a robust online program and dedicated strategy is
-            essential in the art world."
-          </span>
-          <footer className="mt-8 flex items-center gap-4 not-italic">
-            <img
-              src="https://res.cloudinary.com/dqzqcuqf9/image/upload/v1772530245/vip-benefits-images/bztubujvn9fb0hhxyaxh.png"
-              alt="Elena Soboleva"
-              className="w-11 h-11 rounded-full object-cover flex-shrink-0 grayscale"
-            />
-            <div className="font-sans">
-              <p className="text-sm font-medium text-[#111110] leading-tight">Elena Soboleva</p>
-              <p className="text-xs text-[#ADADAA] mt-0.5">Global Head of Audience Growth & Intelligence, Art Basel</p>
-            </div>
-          </footer>
-        </motion.blockquote>
-
-        <motion.div {...fadeUp(0.15)} className="mt-14 md:mt-20">
+        <motion.div {...fadeUp(0.09)} className="mt-14 md:mt-20">
           <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-10 md:mb-14">
             Amplifiez l&apos;influence de votre galerie.
           </h2>
@@ -124,6 +103,31 @@ export default function StatementSplit() {
             </div>
           </div>
         </motion.div>
+      </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-0 pb-16 md:pb-24">
+        <motion.blockquote
+          {...fadeUp(0.15)}
+          className="mt-16 font-display text-[26px] text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
+        >
+          "The digital space is a natural extension of the gallery's storefront.{" "}
+          <span>
+            In the current era, a robust online program and dedicated strategy is
+            essential in the art world."
+          </span>
+          <footer className="mt-8 flex items-center gap-4 not-italic">
+            <img
+              src="https://res.cloudinary.com/dqzqcuqf9/image/upload/v1772530245/vip-benefits-images/bztubujvn9fb0hhxyaxh.png"
+              alt="Elena Soboleva"
+              className="w-11 h-11 rounded-full object-cover flex-shrink-0 grayscale"
+            />
+            <div className="font-sans">
+              <p className="text-sm font-medium text-[#111110] leading-tight">Elena Soboleva</p>
+              <p className="text-xs text-[#ADADAA] mt-0.5">Global Head of Audience Growth & Intelligence, Art Basel</p>
+            </div>
+          </footer>
+        </motion.blockquote>
       </div>
     </section>
   );

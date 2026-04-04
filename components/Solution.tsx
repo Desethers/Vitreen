@@ -393,15 +393,32 @@ function ShareableMomentMock() {
       if (e.key === "Escape") closeStoryModal();
     };
     document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     const autoClose = window.setTimeout(() => closeStoryModal(), 6200);
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
       clearTimeout(autoClose);
     };
   }, [storyModalOpen, closeStoryModal]);
+
+  // Auto-play loop
+  useEffect(() => {
+    let cancelled = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    function play() {
+      if (cancelled) return;
+      setStoryState("sending");
+      timers.push(window.setTimeout(() => { if (!cancelled) setStoryState("shared"); }, 650));
+      timers.push(window.setTimeout(() => { if (!cancelled) setStoryState(null); }, 2300));
+      setStoryModalKey((k) => k + 1);
+      timers.push(window.setTimeout(() => { if (!cancelled) setStoryModalOpen(true); }, 120));
+      // Replay after story closes + pause
+      timers.push(window.setTimeout(() => play(), 6200 + 2500));
+    }
+
+    timers.push(window.setTimeout(play, 1200));
+    return () => { cancelled = true; timers.forEach(clearTimeout); };
+  }, []);
 
   const bubbleSize = 48;
   const bubbleTop = 12;
@@ -773,6 +790,39 @@ function ShareableMomentMock() {
               </div>
             </div>
 
+            {/* ── Link Sticker flottant sur la photo ── */}
+            <motion.div
+              className="absolute z-30"
+              style={{ bottom: 120, left: "50%", transform: "translateX(-50%)", width: "70%" }}
+              initial={{ y: 10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{
+                display: "flex", alignItems: "center", gap: 0,
+                background: "rgba(255,255,255,0.95)", borderRadius: 8,
+                overflow: "hidden",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+              }}>
+                <div style={{ position: "relative", width: 30, height: 30, flexShrink: 0 }}>
+                  <Image src={shareableMomentArtwork.image} alt="" fill className="object-cover" sizes="30px" />
+                </div>
+                <div style={{ flex: 1, padding: "3px 6px", overflow: "hidden" }}>
+                  <p style={{ fontSize: 5, color: "#ADADAA", letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.2, marginBottom: 1 }}>galerie-fontaine.com</p>
+                  <p style={{ fontSize: 6.5, fontWeight: 600, color: "#111110", lineHeight: 1.2, overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                    {shareableMomentArtwork.title}
+                  </p>
+                </div>
+                <div style={{ padding: "0 6px", flexShrink: 0 }}>
+                  <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                  </svg>
+                </div>
+              </div>
+            </motion.div>
+
             {/* ── Artwork card (slide-up depuis le bas) ── */}
             <motion.div
               className="absolute bottom-0 left-0 right-0 z-30 px-2 pb-2"
@@ -828,18 +878,6 @@ function ShareableMomentMock() {
                   </div>
                 </div>
 
-                {/* Swipe up */}
-                <div
-                  className="flex items-center justify-center gap-1 py-1.5"
-                  style={{ borderTop: "1px solid #F0F0EE" }}
-                >
-                  <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 19V5M5 12l7-7 7 7" />
-                  </svg>
-                  <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.14em", color: "#ADADAA" }}>
-                    Swipe up to view
-                  </span>
-                </div>
               </div>
 
               {/* Reply bar façon Instagram */}

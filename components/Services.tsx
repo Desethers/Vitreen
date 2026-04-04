@@ -104,11 +104,9 @@ export default function Services() {
             <motion.article
               key={service.tier}
               {...fadeUp(i * 0.1)}
-              className="relative rounded-[10px] p-7 flex flex-col justify-between min-h-[420px]"
+              className={`relative rounded-[10px] p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${service.highlight ? "" : "border border-[#E8E8E6] hover:border-[#111110]"}`}
               style={{
-                border: service.highlight
-                  ? "1px solid #111110"
-                  : "1px solid #E8E8E6",
+                border: service.highlight ? "1px solid #111110" : undefined,
                 background: service.highlight ? "#111110" : "#fff",
               }}
             >

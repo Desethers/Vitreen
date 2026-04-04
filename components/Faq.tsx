@@ -18,6 +18,18 @@ const faqs = [
     q: "Dois-je utiliser un logiciel spécifique ?",
     a: "Non. Tout se gère depuis votre navigateur, sans installation.",
   },
+  {
+    q: "Que se passe-t-il si je veux arrêter ?",
+    a: "La formule Partner est sans engagement — vous pouvez résilier à tout moment, sans frais ni pénalité. Vos contenus restent accessibles.",
+  },
+  {
+    q: "Est-ce que Vitreen s'occupe du contenu ?",
+    a: "Oui, dans la formule Partner. Nous gérons la publication du catalogue, la rédaction des newsletters et la structuration de vos emails. Pour les formules site, vous gardez la main sur vos contenus.",
+  },
+  {
+    q: "Mon site sera-t-il visible sur Google ?",
+    a: "Oui. Chaque site est optimisé pour le SEO dès le départ : structure sémantique, balises meta, images optimisées et indexation adaptée au marché de l'art.",
+  },
 ];
 
 function Item({ q, a }: { q: string; a: string }) {

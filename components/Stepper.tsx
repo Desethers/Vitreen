@@ -451,9 +451,18 @@ const STEP_POSITIONS: React.CSSProperties[] = [
 
 export default function Stepper() {
   const [active, setActive] = useState(0);
+  const [revealed, setRevealed] = useState<Set<number>>(new Set([0]));
 
   const advance = useCallback(() => {
-    setActive((prev) => (prev + 1) % 3);
+    setActive((prev) => {
+      const next = (prev + 1) % 3;
+      if (next === 0) {
+        setRevealed(new Set([0]));
+      } else {
+        setRevealed((r) => new Set([...r, next]));
+      }
+      return next;
+    });
   }, []);
 
   useEffect(() => {
@@ -505,13 +514,14 @@ export default function Stepper() {
               {/* 3 small step cards — always visible, active one highlighted */}
               {STEP_DATA.map((step, i) => {
                 const isActive = active === i;
+                const isRevealed = revealed.has(i);
                 return (
                   <motion.div
                     key={step.number}
-                    initial={false}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     animate={{
-                      opacity: isActive ? 1 : 0.5,
-                      scale: isActive ? 1 : 0.95,
+                      opacity: isRevealed ? 1 : 0,
+                      scale: isRevealed ? 1 : 0.9,
                       boxShadow: isActive
                         ? "0 8px 24px rgba(0,0,0,0.14)"
                         : "0 2px 8px rgba(0,0,0,0.05)",
