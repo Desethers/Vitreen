@@ -2,11 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "galerie-studio (Next.js dev)",
+      "name": "vitreen",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "-p", "3005"],
-      "cwd": "galerie-studio",
-      "port": 3005
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000
     }
   ]
 }
