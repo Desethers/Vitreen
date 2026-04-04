@@ -9,7 +9,6 @@ import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
 import Faq from "@/components/Faq";
 import CtaBand from "@/components/CtaBand";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -26,7 +25,6 @@ export default function Home() {
       <StatementSplit />
       <Faq />
       <CtaBand />
-      <Contact />
       <Footer />
     </main>
   );
