@@ -478,7 +478,7 @@ export default function Stepper() {
   const Mock = MOCKS[active];
 
   return (
-    <section className="pt-12 md:pt-[46px] pb-12 md:pb-[46px] px-4 md:px-6 bg-white">
+    <section className="pt-12 md:pt-[51px] pb-12 md:pb-[51px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
