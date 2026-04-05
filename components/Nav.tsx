@@ -163,26 +163,48 @@ export default function Nav() {
         ref={pillRef}
         className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           scrolled
-            ? "bg-white rounded-full pl-1 pr-2 py-[7px] h-12 flex items-center gap-2 shadow-[0_0_0_1px_#E8E8E6,0_1px_3px_rgba(0,0,0,0.06)] min-w-0"
+            ? "bg-white rounded-full pl-1 pr-0.5 md:pr-2 py-[4px] h-10 md:py-[7px] md:h-12 flex items-center gap-2 shadow-[0_0_0_1px_#E8E8E6,0_1px_3px_rgba(0,0,0,0.06)] min-w-0"
             : "w-full max-w-7xl mx-auto flex items-center justify-between relative h-12"
         }`}
       >
-        {/* Logo */}
-        <motion.a
-          ref={logoRef}
-          href="#"
-          animate={{
-            opacity: scrolled && (ctaSlideX !== 0 || contactModalOpen) ? 0 : 1,
-          }}
-          transition={{ duration: 0.4, ease }}
-          className={`font-display text-base tracking-tight shrink-0 relative z-10 transition-all duration-500 text-[#111110] ${
-            scrolled ? "pl-1 pr-2" : "w-36"
-          }`}
-        >
-          Vitreen
-        </motion.a>
+        {/* Gauche : burger 2 traits (mobile, hors scroll) + logo Vitreen */}
+        <div className="flex items-center shrink-0 relative z-10">
+          {!scrolled && (
+            <button
+              type="button"
+              className="md:hidden flex flex-col justify-center gap-[5px] p-2 -ml-2 mr-1 shrink-0"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Fermer le menu" : "Menu"}
+              aria-expanded={menuOpen}
+            >
+              <span
+                className={`block w-5 h-px bg-[#111110] origin-center transition-all duration-300 ${
+                  menuOpen ? "translate-y-[3px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block w-5 h-px bg-[#111110] origin-center transition-all duration-300 ${
+                  menuOpen ? "-translate-y-[3px] -rotate-45" : ""
+                }`}
+              />
+            </button>
+          )}
+          <motion.a
+            ref={logoRef}
+            href="#"
+            animate={{
+              opacity: scrolled && (ctaSlideX !== 0 || contactModalOpen) ? 0 : 1,
+            }}
+            transition={{ duration: 0.4, ease }}
+            className={`font-display text-base tracking-tight shrink-0 transition-all duration-500 text-[#111110] ${
+              scrolled ? "pl-1 pr-2" : "w-36"
+            }`}
+          >
+            Vitreen
+          </motion.a>
+        </div>
 
-        {/* Centre links */}
+        {/* Centre : liens desktop uniquement */}
         <nav
           className={`hidden md:flex items-center gap-7 transition-all duration-300 ${
             scrolled
@@ -201,15 +223,12 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* CTA — slide over logo (pill) then modal */}
+        {/* Droite : CTA — slide sur logo (pill) puis modal */}
         {scrolled ? (
           <motion.div
             className="relative z-20 shrink-0 min-w-0 max-w-full will-change-transform"
             animate={{ x: ctaSlideX }}
-            transition={{
-              duration: 0.48,
-              ease,
-            }}
+            transition={{ duration: 0.48, ease }}
             onAnimationComplete={onCtaAnimationComplete}
           >
             <motion.button
@@ -221,16 +240,12 @@ export default function Nav() {
               dragElastic={0}
               dragMomentum={false}
               dragSnapToOrigin="x"
-              dragTransition={{
-                bounceStiffness: 380,
-                bounceDamping: 42,
-              }}
+              dragTransition={{ bounceStiffness: 380, bounceDamping: 42 }}
               onDragEnd={(_, info) => {
                 const commitAt = Math.max(-32, dragBoundsLeft * 0.38);
-                if (info.offset.x < commitAt) {
-                  openContactFromNav();
-                }
+                if (info.offset.x < commitAt) openContactFromNav();
               }}
+              onTap={() => openContactFromNav()}
               className={`${ctaBase} group bg-[#111110] text-white pl-3 pr-4 py-2 hover:bg-[#2a2a28] cursor-grab active:cursor-grabbing`}
               style={{ touchAction: "none" }}
               title="Glissez vers la gauche pour nous écrire"
@@ -261,14 +276,14 @@ export default function Nav() {
           <button
             type="button"
             onClick={() => openContactFromNav()}
-            className={`${ctaBase} border border-[#E8E8E6] text-[#111110] px-4 py-2 hover:bg-[#F5F5F3] z-20`}
+            className={`${ctaBase} border border-[#E8E8E6] text-[#111110] px-4 py-1 hover:bg-[#F5F5F3] z-20`}
           >
             Contactez-nous
           </button>
         )}
       </div>
 
-      {/* Menu mobile */}
+      {/* Menu mobile déroulant */}
       {menuOpen && (
         <div className="md:hidden mx-4 mt-2 rounded-[10px] px-6 py-6 flex flex-col gap-5 absolute top-full left-0 right-0 bg-white border border-[#E8E8E6] shadow-sm z-40">
           {navLinks.map((link) => (
@@ -293,19 +308,6 @@ export default function Nav() {
           </button>
         </div>
       )}
-
-      {/* Burger mobile */}
-      <button
-        className={`md:hidden absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-1.5 p-2 ${
-          scrolled ? "hidden" : ""
-        }`}
-        onClick={() => setMenuOpen(!menuOpen)}
-        aria-label="Menu"
-      >
-        <span className={`block w-5 h-px bg-[#111110] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-        <span className={`block w-5 h-px bg-[#111110] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-        <span className={`block w-5 h-px bg-[#111110] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-      </button>
 
       <AnimatePresence>
         {contactModalOpen && (

@@ -32,7 +32,7 @@ export default function CtaBand() {
 
             <a
               href="#contact"
-              className="inline-flex items-center justify-center gap-2.5 rounded-full text-[15px] md:text-base font-medium transition-opacity duration-200 bg-white text-black px-8 py-3.5 md:px-10 md:py-4 hover:opacity-90"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full text-[15px] md:text-base font-medium transition-opacity duration-200 bg-white text-black px-8 py-2.5 md:px-10 md:py-4 hover:opacity-90"
             >
               Commençons
               <span className="text-lg leading-none" aria-hidden>

@@ -35,7 +35,7 @@ const steps = [
 function StepCircle({ n, compact }: { n: string; compact?: boolean }) {
   return (
     <div
-      className={`relative z-10 flex shrink-0 items-center justify-center rounded-full border border-[#111110] bg-white text-xs font-semibold tracking-[-0.02em] text-[#111110] ${
+      className={`relative z-10 flex shrink-0 items-center justify-center rounded-full border border-[#111110] bg-white text-xs font-normal tracking-[-0.02em] text-[#111110] ${
         compact ? "h-9 w-9" : "h-11 w-11"
       }`}
     >
@@ -66,7 +66,7 @@ export default function StepperFlow() {
             <li key={step.number} className="flex gap-4">
               <StepCircle n={step.number} compact />
               <div className="min-w-0 pt-0.5">
-                <p className="font-semibold text-base text-[#111110] tracking-[-0.02em]">
+                <p className="font-normal text-base text-[#111110] tracking-[-0.02em]">
                   {step.action}
                 </p>
                 <p className="mt-2 text-[15px] leading-[1.65] text-[#111110]/80 tracking-[-0.01em]">
@@ -96,7 +96,7 @@ export default function StepperFlow() {
           <ol className="m-0 grid list-none grid-cols-3 gap-6 lg:gap-10 p-0">
             {steps.map((step) => (
               <li key={step.number} className="min-w-0">
-                <p className="font-semibold text-base lg:text-lg text-[#111110] tracking-[-0.02em]">
+                <p className="font-normal text-base lg:text-lg text-[#111110] tracking-[-0.02em]">
                   {step.action}
                 </p>
                 <p className="mt-3 text-[15px] lg:text-base leading-[1.65] text-[#111110]/80 tracking-[-0.01em]">

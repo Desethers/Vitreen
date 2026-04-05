@@ -595,7 +595,7 @@ export default function Stepper() {
 
             {/* Right: text — order-1 sur mobile = au-dessus de l’anim */}
             <div className="order-1 flex flex-col justify-center px-[15px] py-6 md:order-none md:px-10 md:py-12">
-              <h3 className="font-display text-[14px] md:text-[18px] font-medium text-[#111110] tracking-[-0.02em] mb-1 md:mb-3">
+              <h3 className="font-display text-[14px] md:text-[18px] font-normal text-[#111110] tracking-[-0.02em] mb-1 md:mb-3">
                 Publier du contenu — sans effort
               </h3>
               <p className="text-[#6B6A67] text-[14px] md:text-[18px] font-normal leading-[1.3] tracking-[-0.02em]">

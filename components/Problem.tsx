@@ -49,7 +49,7 @@ export default function Problem() {
               transition={{ duration: 0.5, ease, delay: i * 0.08 }}
               className="glass rounded-[10px] p-8"
             >
-              <h3 className="text-[#111110] text-sm font-medium mb-3">{card.title}</h3>
+              <h3 className="text-[#111110] text-sm font-normal mb-3">{card.title}</h3>
               <p className="text-[#6B6A67] text-sm leading-relaxed">{card.body}</p>
             </motion.div>
           ))}

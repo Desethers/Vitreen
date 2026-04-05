@@ -102,7 +102,7 @@ export default function ProcessFlow() {
               <li key={step.number} className="flex gap-4">
                 <div className="flex w-9 shrink-0 flex-col items-center self-stretch">
                   <motion.div
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold tracking-[-0.02em]"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-normal tracking-[-0.02em]"
                     animate={{
                       backgroundColor: activeCircle >= i ? "#111110" : "#ffffff",
                       color: activeCircle >= i ? "#ffffff" : "#111110",
@@ -173,7 +173,7 @@ export default function ProcessFlow() {
               <div key={step.number} className="flex min-w-0 items-center">
                 {/* Cercle */}
                 <motion.div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xs font-semibold tracking-[-0.02em]"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xs font-normal tracking-[-0.02em]"
                   animate={{
                     backgroundColor: activeCircle >= i ? "#111110" : "#ffffff",
                     color:           activeCircle >= i ? "#ffffff" : "#111110",

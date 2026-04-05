@@ -81,7 +81,7 @@ export default function Process() {
               {/* Content */}
               <div className="flex-1">
                 <p className="text-base text-[#111110] leading-[1.6] mb-1">
-                  <span className="font-semibold">{step.title}</span>{" "}
+                  <span className="font-normal">{step.title}</span>{" "}
                   <span className="text-[#6B6A67]">{step.body}</span>
                 </p>
               </div>

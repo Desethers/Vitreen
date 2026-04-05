@@ -51,7 +51,7 @@ export default function HowItWorks() {
               <span className="font-display text-4xl text-[#E8E8E6] mb-8 block">
                 {step.number}
               </span>
-              <h3 className="text-[#111110] text-sm font-medium mb-3">{step.title}</h3>
+              <h3 className="text-[#111110] text-sm font-normal mb-3">{step.title}</h3>
               <p className="text-[#6B6A67] text-sm leading-relaxed">{step.body}</p>
             </motion.div>
           ))}
