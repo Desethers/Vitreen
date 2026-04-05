@@ -1197,7 +1197,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             className="group rounded-[10px] bg-[#F9FAFD] p-[20px] flex flex-col"
             style={{ border: "0.1px solid #D4D4D0" }}
           >
-            <h3 className="font-medium text-[#111110] text-sm tracking-[-0.01em] mb-0">
+            <h3 className="font-medium text-[#111110] text-sm md:text-base tracking-[-0.01em] mb-0">
               {card.title}
             </h3>
             <p className="text-[#6B6A67] text-sm leading-[1.55] mb-5">
