@@ -835,13 +835,15 @@ function ShowcaseCard({
   );
 
   const textCol = (
-    <div className="flex flex-col justify-center px-[15px] md:px-10 pt-[15px] pb-4 md:py-12 gap-[2px] md:gap-3 order-first md:order-none">
-      <h3 className="font-display text-[14px] md:text-[18px] font-normal text-[#111110] tracking-[-0.02em] m-0">
-        {title}
-      </h3>
-      <p className="text-[#6B6A67] text-[14px] md:text-[18px] font-normal leading-[1.3] tracking-[-0.02em] m-0">
-        <ShowcaseDescText text={desc} />
-      </p>
+    <div className="flex flex-col justify-center px-[15px] md:px-10 pt-[15px] pb-4 md:py-12 order-first md:order-none">
+      <div className="text-[14px] md:text-[18px] leading-[1.3] w-full">
+        <h3 className="font-display font-normal text-[#111110] tracking-[-0.02em] m-0 p-0 leading-[inherit]">
+          {title}
+        </h3>
+        <p className="text-[#6B6A67] font-normal tracking-[-0.02em] m-0 p-0 leading-[inherit]">
+          <ShowcaseDescText text={desc} />
+        </p>
+      </div>
     </div>
   );
 
