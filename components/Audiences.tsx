@@ -195,8 +195,8 @@ function GalleryNavbar({
 function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPage) => void; isMobile?: boolean }) {
   const pastExhibitions = [
     { img: "/gallery hero mock/artwork-02.png", title: "Clémence Rivière", subtitle: "Other Rooms, Works from 1959–2017", dates: "Jan 10 — Mar 14, 2026" },
-    { img: "/Gallery hero mock/judd-wall-stack.png", title: "Jonas Mehler", subtitle: "Vetiver (Shanghai)", dates: "Jan 15 — Mar 7, 2026" },
-    { img: "/Gallery hero mock/sofia castellanos.png", title: "Sofia Castellanos", subtitle: "The Pulse of Ink, Paper, and Fire", dates: "Jan 21 — Mar 7, 2026" },
+    { img: "/gallery hero mock/judd-wall-stack.png", title: "Jonas Mehler", subtitle: "Vetiver (Shanghai)", dates: "Jan 15 — Mar 7, 2026" },
+    { img: "/gallery hero mock/sofia castellanos.png", title: "Sofia Castellanos", subtitle: "The Pulse of Ink, Paper, and Fire", dates: "Jan 21 — Mar 7, 2026" },
   ];
 
   const newsItems = [
