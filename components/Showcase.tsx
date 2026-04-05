@@ -632,7 +632,7 @@ function ExhibitionPageMock({ isMobile = false }: { isMobile?: boolean }) {
             onClick={() => setShowModal(false)}
           >
             <div
-              className="bg-white rounded-[10px] overflow-y-auto shadow-2xl"
+              className="bg-white rounded-[10px] overflow-y-auto"
               style={{ maxWidth: 480, width: "calc(100% - 48px)", maxHeight: "72%", padding: "28px 28px 32px", scrollbarWidth: "none" }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -680,7 +680,7 @@ function DraggableMockWindow({
   const PAD_H = 80;
   const [PAD_V, setPAD_V] = useState(45);
   useEffect(() => {
-    setPAD_V(window.innerWidth < 768 ? 20 : 45);
+    setPAD_V(window.innerWidth < 768 ? 25 : 45);
   }, []);
 
   // Set initial width from parent — height is CSS-driven (top/bottom: PAD_V)
@@ -747,7 +747,7 @@ function DraggableMockWindow({
   return (
     <div
       ref={containerRef}
-      className="z-10 bg-white rounded-[10px] shadow-2xl select-none overflow-hidden isolate"
+      className="z-10 bg-white rounded-[10px] select-none overflow-hidden isolate"
       style={{
         position: "absolute",
         width: `${widthPct}%`,
@@ -835,7 +835,7 @@ function ShowcaseCard({
   );
 
   const textCol = (
-    <div className="flex flex-col justify-center px-8 md:px-10 py-10 md:py-12 gap-3">
+    <div className="flex flex-col justify-center px-8 md:px-10 py-10 md:py-12 gap-3 order-first md:order-none">
       <h3 className="font-display text-[16px] font-medium text-[#111110] tracking-[-0.02em] m-0">
         {title}
       </h3>
