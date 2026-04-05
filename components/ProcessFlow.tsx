@@ -29,7 +29,7 @@ const steps = [
     number: "03",
     title: "Mise en ligne.",
     desc: "Site livré, formation à l'outil incluse. Vous êtes autonome dès le premier jour. Un système simple et durable pour faire évoluer vos contenus en toute indépendance.",
-    week: "SEMAINE 2",
+    week: "SEMAINE 3",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function ProcessFlow() {
             Passez à une nouvelle génération de site galerie
           </h2>
           <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
-            Site livré en 2 semaines
+            Site livré en 3 semaines
           </p>
         </motion.div>
 

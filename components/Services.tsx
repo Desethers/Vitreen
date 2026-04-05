@@ -60,7 +60,7 @@ const services: Service[] = [
       "SEO Art Market : Indexation optimisée pour les collectionneurs.",
       "Inquiry System : Contact direct sur chaque œuvre pour capturer l'achat.",
     ],
-    delivery: "Livraison : 2 semaines",
+    delivery: "Livraison : 3 semaines",
     price: "À partir de 3 000 €",
     priceNote: "Paiement unique (one-time)",
     cta: "Commencer",

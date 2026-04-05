@@ -502,12 +502,12 @@ export default function Stepper() {
                 className="absolute bg-white rounded-[10px] overflow-hidden"
                 style={{ top: isMobile ? 20 : 90, bottom: isMobile ? 20 : 90, left: isMobile ? "8%" : "18%", right: isMobile ? "8%" : "18%", zIndex: 10, boxShadow: "0 8px 40px rgba(0,0,0,0.14)" }}
               >
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="sync">
                   <motion.div
                     key={active}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    exit={{ opacity: 1 }}
                     transition={{ duration: 0.35 }}
                     className="absolute inset-0"
                   >
