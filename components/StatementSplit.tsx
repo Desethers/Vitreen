@@ -51,7 +51,7 @@ export default function StatementSplit() {
         </motion.div>
 
         <motion.div {...fadeUp(0.09)} className="mt-14 md:mt-20">
-          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-10 md:mb-14">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-10 md:mb-14">
             Amplifiez l&apos;influence de votre galerie.
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
@@ -109,7 +109,7 @@ export default function StatementSplit() {
       <div className="max-w-7xl mx-auto px-0 pb-16 md:pb-24">
         <motion.blockquote
           {...fadeUp(0.15)}
-          className="mt-16 font-display text-[26px] text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
+          className="mt-16 font-display text-[20px] md:text-[26px] text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
         >
           "The digital space is a natural extension of the gallery's storefront.{" "}
           <span>

@@ -83,10 +83,10 @@ export default function ProcessFlow() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div {...fadeUp(0)} className="mb-14">
-          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
             Passez à une nouvelle génération de site galerie.
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
+          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
             Site livré en 2 semaines.
           </p>
         </motion.div>

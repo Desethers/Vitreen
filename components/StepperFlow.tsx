@@ -45,10 +45,10 @@ export default function StepperFlow() {
     <section className="py-20 px-4 md:px-6 bg-white border-t border-[#E8E8E6]">
       <div className="max-w-7xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-12 md:mb-16 max-w-3xl">
-          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
             Du contenu à la diffusion.
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
+          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
             Un flux simple et stratégique.
           </p>
         </motion.div>

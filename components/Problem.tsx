@@ -34,7 +34,7 @@ export default function Problem() {
           transition={{ duration: 0.6, ease }}
           className="max-w-2xl mb-16"
         >
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
             La plupart des sites de galeries n&apos;ont pas évolué depuis dix ans.
           </h2>
         </motion.div>

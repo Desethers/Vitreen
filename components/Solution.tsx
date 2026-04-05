@@ -1197,7 +1197,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             className="group rounded-[10px] bg-[#F9FAFD] p-[20px] flex flex-col"
             style={{ border: "0.1px solid #D4D4D0" }}
           >
-            <h3 className="font-medium text-[#111110] text-base tracking-[-0.01em] mb-0">
+            <h3 className="font-medium text-[#111110] text-sm tracking-[-0.01em] mb-0">
               {card.title}
             </h3>
             <p className="text-[#6B6A67] text-sm leading-[1.55] mb-5">
@@ -1225,10 +1225,10 @@ export default function Solution() {
           transition={{ duration: 0.6, ease }}
           className="mb-8"
         >
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
             Faciliter les échanges autour des œuvres
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
+          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
             Interactions ciblées et simples. Renforcez votre visibilité et vos relations.
           </p>
         </motion.div>

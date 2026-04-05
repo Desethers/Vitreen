@@ -385,7 +385,7 @@ function ExhibitionPageMock({ isMobile = false }: { isMobile?: boolean }) {
           </svg>
         </div>
         {/* Mobile body */}
-        <div className="px-5 pt-6 pb-10">
+        <div className="px-5 pt-5 pb-5">
           <p className="text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] mb-4">
             <span className="text-[#555] underline underline-offset-2">Exhibitions</span>{" — "}Your friends
           </p>
@@ -646,7 +646,7 @@ function ExhibitionPageMock({ isMobile = false }: { isMobile?: boolean }) {
                   &times;
                 </button>
               </div>
-              <h2 className="text-[18px] font-normal tracking-[-0.02em] text-[#111110] mb-5">
+              <h2 className="text-[16px] font-normal tracking-[-0.02em] text-[#111110] mb-5">
                 Sun Dog — <em>Your friends</em>
               </h2>
               <div className="flex flex-col gap-4" style={{ fontSize: 13, color: "#555", lineHeight: 1.75 }}>
@@ -678,7 +678,10 @@ function DraggableMockWindow({
 
   // 20px (inset B&W) + 30px gap
   const PAD_H = 80;
-  const PAD_V = 45;
+  const [PAD_V, setPAD_V] = useState(45);
+  useEffect(() => {
+    setPAD_V(window.innerWidth < 768 ? 20 : 45);
+  }, []);
 
   // Set initial width from parent — height is CSS-driven (top/bottom: PAD_V)
   useEffect(() => {
@@ -810,9 +813,9 @@ function ShowcaseCard({
   mockScale?: number;
 }) {
   const imageCol = (
-    <div className="relative overflow-hidden min-h-[720px]">
+    <div className="relative overflow-hidden h-[420px] md:min-h-[720px]">
       <div
-        className="absolute inset-[20px] rounded-[10px] bg-cover bg-center"
+        className="absolute inset-[15px] rounded-[5px] bg-cover bg-center"
         style={{ backgroundImage: "url('/colin de land.jpg')" }}
       />
       <DraggableMockWindow initialWidthPct={mockScale * 85}>
@@ -833,10 +836,10 @@ function ShowcaseCard({
 
   const textCol = (
     <div className="flex flex-col justify-center px-8 md:px-10 py-10 md:py-12 gap-3">
-      <h3 className="font-display text-[18px] font-medium text-[#111110] tracking-[-0.02em] m-0">
+      <h3 className="font-display text-[16px] font-medium text-[#111110] tracking-[-0.02em] m-0">
         {title}
       </h3>
-      <p className="text-[#6B6A67] text-[18px] font-normal leading-[1.3] tracking-[-0.02em] m-0">
+      <p className="text-[#6B6A67] text-[16px] font-normal leading-[1.3] tracking-[-0.02em] m-0">
         <ShowcaseDescText text={desc} />
       </p>
     </div>
@@ -845,7 +848,7 @@ function ShowcaseCard({
   return (
     <motion.div
       {...fadeUp(delay)}
-      className="rounded-[10px] overflow-hidden bg-[#F9FAFD]"
+      className="rounded-[5px] overflow-hidden bg-[#F9FAFD]"
       style={{ border: "0.1px solid #D4D4D0" }}
     >
       <div
@@ -874,12 +877,12 @@ export default function Showcase() {
     <section id="blog" className="pt-20 pb-6 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto flex flex-col gap-[96px]">
         <motion.div {...fadeUp(0)} className="-mb-12">
-          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
             Des interfaces conçues pour l&apos;économie de l&apos;art.
           </h2>
           <p
             className="mt-0.5 mb-0 text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(0.9375rem, 1.05vw + 0.72rem, 1.625rem)" }}
+            style={{ fontSize: "clamp(1.25rem, 1.05vw + 0.72rem, 1.625rem)" }}
           >
             <span className="block min-[480px]:whitespace-nowrap">
               Galeries, artistes, advisors ou collections privées{"\u202F"}:

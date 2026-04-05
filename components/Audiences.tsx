@@ -864,7 +864,7 @@ export default function Audiences() {
           transition={{ duration: 0.6, ease }}
           className="mb-6"
         >
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-1 md:flex-wrap md:gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {audiences.map((a, i) => {
               const isDisabled =
                 a.label === "Art Advisors" || a.label === "Collection Privée";
@@ -882,7 +882,7 @@ export default function Audiences() {
                       }
                       setActive(i);
                     }}
-                    className="inline-flex items-center px-4 py-1.5 rounded-full text-sm transition-all duration-200"
+                    className="inline-flex items-center whitespace-nowrap px-3 py-1 rounded-full text-xs md:px-4 md:py-1.5 md:text-sm transition-all duration-200"
                     style={
                       isDisabled
                         ? {
@@ -947,17 +947,15 @@ export default function Audiences() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease, delay: 0.08 }}
-          className="rounded-[10px] px-4 py-0 md:px-28 md:py-[21px]"
+          className="rounded-[5px] overflow-hidden px-4 py-[10px] md:px-28 md:py-[21px] [background-size:cover] [background-repeat:no-repeat] md:[background-size:140%]"
           style={{
             backgroundImage: `url(${bgImage})`,
-            backgroundSize: "140%",
             backgroundPosition: "center 40%",
           }}
         >
           <div
             ref={mockContainerRef}
-            className="relative w-full"
-            style={{ aspectRatio: "2922 / 1770" }}
+            className="relative w-full aspect-[2922/4800] md:aspect-[2922/1770]"
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <div

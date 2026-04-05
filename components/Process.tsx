@@ -54,10 +54,10 @@ export default function Process() {
           transition={{ duration: 0.6, ease }}
           className="mb-16 max-w-2xl"
         >
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
             Passez d'un site statique à un outil actif.
           </h2>
-          <p className="mt-1 text-[#6B6A67] text-[26px] font-normal leading-[1.3] tracking-[-0.02em]">
+          <p className="mt-1 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.3] tracking-[-0.02em]">
             En ligne en 2 semaines. Des outils pensés pour présenter, diffuser et vendre vos œuvres efficacement.
           </p>
         </motion.div>

@@ -91,10 +91,10 @@ export default function Services() {
     <section id="offre" className="py-16 md:py-24 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div {...fadeUp(0)} className="mb-16">
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
             Choisissez votre formule.
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
+          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
             Recrutez votre partenaire de croissance digitale.
           </p>
         </motion.div>
@@ -111,7 +111,7 @@ export default function Services() {
               }}
             >
               <div className="flex flex-col gap-4">
-                <div className="flex flex-col gap-4 min-h-[11rem]">
+                <div className="flex flex-col gap-4 min-h-[clamp(7rem,9vw,11rem)]">
                   <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
                     <span
                       className="text-[10px] tracking-[0.15em] uppercase"

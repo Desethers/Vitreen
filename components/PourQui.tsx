@@ -54,7 +54,7 @@ export default function PourQui() {
           transition={{ duration: 0.6, ease }}
           className="mb-16"
         >
-          <h2 className="font-display text-[26px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-xl">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-xl">
             Trois métiers. Une même exigence.
           </h2>
         </motion.div>

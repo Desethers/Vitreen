@@ -79,7 +79,7 @@ export default function Faq() {
           transition={{ duration: 0.6, ease }}
           className="flex flex-col gap-10"
         >
-          <h2 className="font-display text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
             Questions fréquentes.
           </h2>
           <div>
