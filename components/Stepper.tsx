@@ -452,6 +452,11 @@ const STEP_POSITIONS: React.CSSProperties[] = [
 export default function Stepper() {
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState<Set<number>>(new Set([0]));
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const advance = useCallback(() => {
     setActive((prev) => {
@@ -485,7 +490,7 @@ export default function Stepper() {
         >
           <div className="grid md:grid-cols-[2fr_1fr]">
             {/* Left: B&W background + large card + 3 small step overlay cards */}
-            <div className="relative overflow-hidden min-h-[720px]">
+            <div className="relative overflow-hidden h-[380px] md:min-h-[720px]">
               {/* Fond photo */}
               <div
                 className="absolute inset-[20px] rounded-[10px] bg-cover bg-center"
@@ -495,7 +500,7 @@ export default function Stepper() {
               {/* Large main card — cycles between mocks */}
               <div
                 className="absolute bg-white rounded-[10px] overflow-hidden"
-                style={{ top: 90, bottom: 90, left: "18%", right: "18%", zIndex: 10, boxShadow: "0 8px 40px rgba(0,0,0,0.14)" }}
+                style={{ top: isMobile ? 20 : 90, bottom: isMobile ? 20 : 90, left: isMobile ? "8%" : "18%", right: isMobile ? "8%" : "18%", zIndex: 10, boxShadow: "0 8px 40px rgba(0,0,0,0.14)" }}
               >
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -527,7 +532,7 @@ export default function Stepper() {
                         : "0 2px 8px rgba(0,0,0,0.05)",
                     }}
                     transition={{ duration: 0.4, ease }}
-                    className="absolute bg-white rounded-[10px] px-3 py-2.5"
+                    className="hidden md:block absolute bg-white rounded-[10px] px-3 py-2.5"
                     style={{ ...STEP_POSITIONS[i], zIndex: 20, maxWidth: 210 }}
                   >
                     <div className="flex items-center gap-2">
@@ -564,12 +569,36 @@ export default function Stepper() {
               })}
             </div>
 
+            {/* Mobile steps list */}
+            <div className="block md:hidden px-[15px] py-4" style={{ borderTop: "0.5px solid #E8E8E6" }}>
+              {STEP_DATA.map((step, i) => {
+                const isActive = active === i;
+                return (
+                  <div key={step.number} className={`flex items-start gap-3 py-3 ${i > 0 ? "border-t border-[#F4F4F2]" : ""}`}>
+                    <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold mt-0.5 transition-colors duration-300 ${isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"}`}>
+                      {step.number}
+                    </div>
+                    <div>
+                      <p className={`text-[13px] font-medium leading-tight transition-colors duration-300 ${isActive ? "text-[#111110]" : "text-[#ADADAA]"}`}>
+                        {step.title}
+                      </p>
+                      {isActive && (
+                        <p className="text-[12px] text-[#6B6A67] leading-[1.45] mt-0.5">
+                          {step.desc}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
             {/* Right: text */}
-            <div className="flex flex-col justify-center px-8 md:px-10 py-10 md:py-12">
-              <h3 className="font-display text-[18px] font-medium text-[#111110] tracking-[-0.02em] mb-3">
+            <div className="flex flex-col justify-center px-[15px] md:px-10 py-6 md:py-12" style={{ borderTop: "0.5px solid #E8E8E6" }}>
+              <h3 className="font-display text-[14px] md:text-[18px] font-medium text-[#111110] tracking-[-0.02em] mb-1 md:mb-3">
                 Publier du contenu. Sans effort.
               </h3>
-              <p className="text-[#6B6A67] text-[18px] font-normal leading-[1.3] tracking-[-0.02em]">
+              <p className="text-[#6B6A67] text-[14px] md:text-[18px] font-normal leading-[1.3] tracking-[-0.02em]">
                 Vous publiez en autonomie. Ajoutez vos œuvres, elles apparaissent instantanément sur votre site.
               </p>
             </div>
