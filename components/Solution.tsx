@@ -393,7 +393,7 @@ function ShareableMomentMock() {
       if (e.key === "Escape") closeStoryModal();
     };
     document.addEventListener("keydown", onKey);
-    const autoClose = window.setTimeout(() => closeStoryModal(), 6200);
+    const autoClose = setTimeout(() => closeStoryModal(), 6200);
     return () => {
       document.removeEventListener("keydown", onKey);
       clearTimeout(autoClose);
@@ -408,15 +408,15 @@ function ShareableMomentMock() {
     function play() {
       if (cancelled) return;
       setStoryState("sending");
-      timers.push(window.setTimeout(() => { if (!cancelled) setStoryState("shared"); }, 650));
-      timers.push(window.setTimeout(() => { if (!cancelled) setStoryState(null); }, 2300));
+      timers.push(setTimeout(() => { if (!cancelled) setStoryState("shared"); }, 650));
+      timers.push(setTimeout(() => { if (!cancelled) setStoryState(null); }, 2300));
       setStoryModalKey((k) => k + 1);
-      timers.push(window.setTimeout(() => { if (!cancelled) setStoryModalOpen(true); }, 120));
+      timers.push(setTimeout(() => { if (!cancelled) setStoryModalOpen(true); }, 120));
       // Replay after story closes + pause
-      timers.push(window.setTimeout(() => play(), 6200 + 2500));
+      timers.push(setTimeout(() => play(), 6200 + 2500));
     }
 
-    timers.push(window.setTimeout(play, 1200));
+    timers.push(setTimeout(play, 1200));
     return () => { cancelled = true; timers.forEach(clearTimeout); };
   }, []);
 
@@ -442,15 +442,15 @@ function ShareableMomentMock() {
     setToken({ id, left, top, dx: targetX - left, dy: targetY - top });
     setStoryState("sending");
 
-    window.setTimeout(() => setToken(null), 900);
-    window.setTimeout(() => setStoryState("shared"), 650);
-    window.setTimeout(() => setStoryState(null), 2300);
+    setTimeout(() => setToken(null), 900);
+    setTimeout(() => setStoryState("shared"), 650);
+    setTimeout(() => setStoryState(null), 2300);
   };
 
   const onShare = async (origin: "image" | "panel") => {
     triggerAnimation(origin);
     setStoryModalKey((k) => k + 1);
-    window.setTimeout(() => setStoryModalOpen(true), 120);
+    setTimeout(() => setStoryModalOpen(true), 120);
     await handleShare(shareableMomentArtwork);
   };
 
