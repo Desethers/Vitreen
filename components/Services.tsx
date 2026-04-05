@@ -88,9 +88,9 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="offre" className="py-12 md:py-24 px-4 md:px-6 bg-white">
+    <section id="offre" className="pt-12 md:pt-[41px] pb-12 md:pb-[41px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto w-full">
-        <motion.div {...fadeUp(0)} className="mb-8 md:mb-16">
+        <motion.div {...fadeUp(0)} className="mb-8 md:mb-[48px]">
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
             Choisissez votre formule
           </h2>

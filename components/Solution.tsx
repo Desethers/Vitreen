@@ -1215,7 +1215,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
 
 export default function Solution() {
   return (
-    <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
+    <section className="pt-12 md:pt-[41px] pb-12 md:pb-[41px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -1223,7 +1223,7 @@ export default function Solution() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="mb-8 md:mb-16"
+          className="mb-8 md:mb-[48px]"
         >
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
             Faciliter les échanges autour des œuvres

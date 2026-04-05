@@ -876,26 +876,20 @@ function ShowcaseCard({
 
 export default function Showcase() {
   return (
-    <section id="blog" className="pt-12 md:pt-20 pb-6 px-4 md:px-6 bg-white">
-      <div className="max-w-7xl mx-auto flex flex-col gap-8 md:gap-[96px]">
+    <section id="blog" className="pt-12 md:pt-[41px] pb-12 md:pb-[41px] px-4 md:px-6 bg-white">
+      <div className="max-w-7xl mx-auto flex flex-col gap-4 md:gap-[48px]">
         <motion.div {...fadeUp(0)}>
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
             Des interfaces conçues pour l&apos;économie de l&apos;art
           </h2>
           <p
-            className="mt-0 mb-0 text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
-            style={{ fontSize: "clamp(1.25rem, 1.05vw + 0.72rem, 1.625rem)" }}
+            className="mt-0 mb-0 text-[20px] md:text-[26px] text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
           >
-            <span className="block min-[480px]:whitespace-nowrap">
-              Galeries, artistes, advisors ou collections privées{"\u202F"}:
-            </span>
-            <span className="block">
-              publiez et diffusez vos œuvres simplement
-            </span>
+            publiez et diffusez vos œuvres simplement
           </p>
         </motion.div>
 
-        <div className="flex flex-col gap-5 md:gap-[96px]">
+        <div className="flex flex-col gap-5 md:gap-[48px]">
           <ShowcaseCard
             title="Exhibition Pages"
             desc="Des pages d'exposition claires et structurées : avec textes, images et liste d'œuvres."
