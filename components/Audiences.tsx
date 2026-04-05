@@ -959,7 +959,7 @@ export default function Audiences() {
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <div
-                className="rounded-[10px] overflow-hidden shadow-2xl relative select-none"
+                className="rounded-[10px] overflow-hidden relative select-none"
                 style={{ width: `${mockWidthPct}%`, height: `${mockHeightPct}%` }}
               >
                 {current.mock ? (

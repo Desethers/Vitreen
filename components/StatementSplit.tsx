@@ -51,7 +51,7 @@ export default function StatementSplit() {
         </motion.div>
 
         <motion.div {...fadeUp(0.09)} className="mt-14 md:mt-20">
-          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-8 md:mb-14">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-5 md:mb-8">
             Amplifiez l&apos;influence de votre galerie
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
@@ -63,10 +63,12 @@ export default function StatementSplit() {
                   <path d="M11 4H14V7" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <p className="text-[15px] text-[#111110] leading-relaxed tracking-[-0.01em]">
-                Standardisez votre présence en ligne&nbsp;: sans infrastructure de vente, votre galerie reste invisible à l&apos;échelle globale.
+              <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
+                <span className="font-medium text-[#111110]">Standardisez votre présence en ligne.</span>
+                {" "}
+                Sans canal d&apos;achat à la hauteur, vous restez hors du champ des collectionneurs qui décident déjà en ligne — partout dans le monde.
               </p>
-              <p className="text-[14px] text-[#6B6A67] leading-relaxed tracking-[-0.01em]">
+              <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
                 Vitreen déploie une distribution native, permettant d&apos;exposer, diffuser et rendre accessibles vos œuvres en continu, sans dépendre des circuits traditionnels.
               </p>
             </div>
@@ -79,10 +81,12 @@ export default function StatementSplit() {
                   <path d="M2 8H14" stroke="#111110" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
               </div>
-              <p className="text-[15px] text-[#111110] leading-relaxed tracking-[-0.01em]">
-                Transformez l&apos;attention en transactions grâce à des interfaces conçues pour réduire la friction, structurer la décision et activer l&apos;achat.
+              <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
+                <span className="font-medium text-[#111110]">Transformez l&apos;attention en transactions.</span>
+                {" "}
+                Des parcours pensés pour faire passer l&apos;intérêt à l&apos;achat : moins de friction, des choix plus nets, des actions qui comptent.
               </p>
-              <p className="text-[14px] text-[#6B6A67] leading-relaxed tracking-[-0.01em]">
+              <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
                 Chaque interaction est optimisée pour convertir la découverte en engagement réel, et l&apos;intérêt en relation commerciale.
               </p>
             </div>
@@ -94,10 +98,12 @@ export default function StatementSplit() {
                   <path d="M5.5 8L7 9.5L10.5 6" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <p className="text-[15px] text-[#111110] leading-relaxed tracking-[-0.01em]">
-                Reprenez le contrôle de votre relation avec vos collectionneurs&nbsp;: données, interactions et historique ne sont plus fragmentés.
+              <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
+                <span className="font-medium text-[#111110]">Reprenez le contrôle de votre relation.</span>
+                {" "}
+                Données, échanges et historique avec chaque collectionneur se retrouvent au même endroit — fini les informations éparpillées entre mails et outils.
               </p>
-              <p className="text-[14px] text-[#6B6A67] leading-relaxed tracking-[-0.01em]">
+              <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
                 Vitreen centralise et structure votre écosystème, transformant votre audience en actif stratégique plutôt qu&apos;en dépendance externe.
               </p>
             </div>
@@ -123,7 +129,7 @@ export default function StatementSplit() {
               className="w-11 h-11 rounded-full object-cover flex-shrink-0 grayscale"
             />
             <div className="font-sans">
-              <p className="text-sm font-medium text-[#111110] leading-tight">Elena Soboleva</p>
+              <p className="text-sm font-normal text-[#111110] leading-tight">Elena Soboleva</p>
               <p className="text-xs text-[#ADADAA] mt-0.5">Global Head of Audience Growth & Intelligence, Art Basel</p>
             </div>
           </footer>

@@ -156,7 +156,7 @@ export default function ProcessFlow() {
                   <p className="font-normal text-base text-[#111110] tracking-[-0.02em]">
                     {step.title}
                   </p>
-                  <p className="mt-2 text-[14px] leading-[1.6] text-[#6B6A67]">{step.desc}</p>
+                  <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
                   <p className="mt-3 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]">
                     {step.week}
                   </p>
@@ -231,7 +231,7 @@ export default function ProcessFlow() {
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
                 <p className="font-normal text-base text-[#111110] tracking-[-0.02em] mb-0">{step.title}</p>
-                <p className="mt-2 text-[14px] leading-[1.6] text-[#6B6A67]">{step.desc}</p>
+                <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
                 <p className="mt-4 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]">{step.week}</p>
               </motion.li>
             ))}
