@@ -21,7 +21,7 @@ const marketStats = [
 export default function StatementSplit() {
   return (
     <section className="px-4 md:px-6 bg-white">
-      <div className="bg-gradient-to-b from-[#F9FAFD] to-white pt-12 md:pt-[80px] pb-10 md:pb-[41px]">
+      <div className="bg-gradient-to-b from-[#F9FAFD] to-white pt-12 md:pt-[80px] pb-10 md:pb-[46px]">
       <div className="max-w-7xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
           <h2 style={{ fontSize: "32px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">

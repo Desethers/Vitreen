@@ -855,7 +855,7 @@ export default function Audiences() {
   };
 
   return (
-    <section className="py-4 md:py-[41px] px-4 md:px-6 bg-white">
+    <section className="py-4 md:py-[46px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

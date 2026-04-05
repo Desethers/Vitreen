@@ -876,7 +876,7 @@ function ShowcaseCard({
 
 export default function Showcase() {
   return (
-    <section id="blog" className="pt-12 md:pt-[41px] pb-12 md:pb-[41px] px-4 md:px-6 bg-white">
+    <section id="blog" className="pt-12 md:pt-[46px] pb-12 md:pb-[46px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto flex flex-col gap-4 md:gap-[48px]">
         <motion.div {...fadeUp(0)}>
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
