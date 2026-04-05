@@ -703,6 +703,65 @@ function PrivateViewingMock() {
   );
 }
 
+function ArtistPortfolioMock() {
+  const [imgIdx, setImgIdx] = useState(0);
+  const artworks = [
+    { src: "/artworks/painting-02.png", title: "Don DeLillo 02, 2025", medium: "Acrylic on canvas", dims: "80 × 80 cm", price: "€1 300" },
+    { src: "/artworks/painting-06.png", title: "Untitled (Bloom), 2023", medium: "Watercolour", dims: "60 × 45 cm", price: "€850" },
+    { src: "/artworks/painting-09.png", title: "Soft Power I, 2025", medium: "Mixed media", dims: "100 × 100 cm", price: "Sur demande" },
+  ];
+  const aw = artworks[imgIdx];
+  return (
+    <div className="w-full h-full font-sans bg-white flex flex-col overflow-hidden">
+      {/* Navbar */}
+      <div className="flex items-center justify-between border-b border-[#F0F0EE]" style={{ padding: "8px 20px" }}>
+        <span style={{ fontSize: "0.65rem", fontWeight: 600, color: "#111110", letterSpacing: "-0.01em" }}>Raphaël Rossi</span>
+        <div className="flex gap-5">
+          {["Past exhibitions", "Gallery", "About"].map(item => (
+            <span key={item} style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{item}</span>
+          ))}
+        </div>
+      </div>
+      {/* Body */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left: image */}
+        <div className="flex-1 relative flex items-center justify-center bg-[#F8F8F6]">
+          <div className="relative w-[75%] h-[75%]">
+            <Image src={aw.src} alt="" fill className="object-contain" sizes="400px" />
+          </div>
+          <button
+            onClick={() => setImgIdx((imgIdx - 1 + artworks.length) % artworks.length)}
+            className="absolute left-2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+            style={{ width: 18, height: 18, fontSize: "0.6rem", color: "#111110" }}
+          >‹</button>
+          <button
+            onClick={() => setImgIdx((imgIdx + 1) % artworks.length)}
+            className="absolute right-2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+            style={{ width: 18, height: 18, fontSize: "0.6rem", color: "#111110" }}
+          >›</button>
+        </div>
+        {/* Right: details */}
+        <div className="flex flex-col overflow-hidden" style={{ width: "44%", padding: "16px 20px", gap: 4 }}>
+          <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#111110", lineHeight: 1.25 }}>{aw.title}</p>
+          <p style={{ fontSize: "0.48rem", color: "#6B6A67", marginTop: 2 }}>{aw.medium}</p>
+          <p style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{aw.dims}</p>
+          <p style={{ fontSize: "0.65rem", fontWeight: 500, color: "#111110", marginTop: 8 }}>{aw.price}</p>
+          <button style={{ border: "1px solid #111110", borderRadius: 5, padding: "5px 0", fontSize: "0.48rem", background: "transparent", color: "#111110", marginTop: 6 }}>
+            Buy this painting
+          </button>
+          <div style={{ height: "0.5px", background: "#F0F0EE", margin: "8px 0" }} />
+          <p style={{ fontSize: "0.44rem", color: "#6B6A67", lineHeight: 1.65 }}>
+            This painting is part of a unique series that explores the connection between formal and psychological relationships in fiction and urban environments. The geometric composition blends typographic motifs with color-field experimentation.
+          </p>
+          <p style={{ fontSize: "0.44rem", color: "#6B6A67", lineHeight: 1.65, marginTop: 6 }}>
+            In this series, I investigate the interplay between personal identity and cultural memory by using the names of contemporary authors as motifs in my paintings.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function GalleryHeroMock() {
   const [page, setPage] = useState<GalleryPage>("home");
   const [mockWidth, setMockWidth] = useState(800);
@@ -774,7 +833,7 @@ const audiences: Audience[] = [
       "CV d'exposition",
       "Prise de contact directe",
     ],
-    video: "/demo-vitreen.mp4",
+    mock: ArtistPortfolioMock,
   },
   {
     label: "Art Advisors",
@@ -855,7 +914,7 @@ export default function Audiences() {
   };
 
   return (
-    <section className="py-4 md:py-[51px] px-4 md:px-6 bg-white">
+    <section className="pt-2 pb-4 md:pt-4 md:pb-[51px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
