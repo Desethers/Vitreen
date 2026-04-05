@@ -836,7 +836,7 @@ function ShowcaseCard({
 
   const textCol = (
     <div className="flex flex-col justify-center px-[15px] md:px-10 pt-[15px] pb-4 md:py-12 gap-[2px] md:gap-3 order-first md:order-none">
-      <h3 className="font-display text-[14px] md:text-[18px] font-medium text-[#111110] tracking-[-0.02em] m-0">
+      <h3 className="font-display text-[14px] md:text-[18px] font-normal text-[#111110] tracking-[-0.02em] m-0">
         {title}
       </h3>
       <p className="text-[#6B6A67] text-[14px] md:text-[18px] font-normal leading-[1.3] tracking-[-0.02em] m-0">
@@ -874,39 +874,41 @@ function ShowcaseCard({
 
 export default function Showcase() {
   return (
-    <section id="blog" className="pt-20 pb-6 px-4 md:px-6 bg-white">
-      <div className="max-w-7xl mx-auto flex flex-col gap-[96px]">
-        <motion.div {...fadeUp(0)} className="-mb-12">
+    <section id="blog" className="pt-12 md:pt-20 pb-6 px-4 md:px-6 bg-white">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8 md:gap-[96px]">
+        <motion.div {...fadeUp(0)}>
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
-            Des interfaces conçues pour l&apos;économie de l&apos;art.
+            Des interfaces conçues pour l&apos;économie de l&apos;art
           </h2>
           <p
-            className="mt-0.5 mb-0 text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
+            className="mt-0 mb-0 text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
             style={{ fontSize: "clamp(1.25rem, 1.05vw + 0.72rem, 1.625rem)" }}
           >
             <span className="block min-[480px]:whitespace-nowrap">
               Galeries, artistes, advisors ou collections privées{"\u202F"}:
             </span>
             <span className="block">
-              publiez et diffusez vos œuvres simplement.
+              publiez et diffusez vos œuvres simplement
             </span>
           </p>
         </motion.div>
 
-        <ShowcaseCard
-          title="Exhibition Pages"
-          desc="Des pages d'exposition claires et structurées : avec textes, images et liste d'œuvres."
-          delay={0}
-          mockScale={0.9}
-        />
-        <ShowcaseCard
-          title="Artist Pages"
-          desc="Pages artistes complètes : biographie, œuvres et expositions réunies."
-          mockImage="/artist page.png"
-          reverse
-          delay={0.1}
-          mockScale={0.9}
-        />
+        <div className="flex flex-col gap-5 md:gap-[96px]">
+          <ShowcaseCard
+            title="Exhibition Pages"
+            desc="Des pages d'exposition claires et structurées : avec textes, images et liste d'œuvres."
+            delay={0}
+            mockScale={0.9}
+          />
+          <ShowcaseCard
+            title="Artist Pages"
+            desc="Pages artistes complètes : biographie, œuvres et expositions réunies."
+            mockImage="/artist page.png"
+            reverse
+            delay={0.1}
+            mockScale={0.9}
+          />
+        </div>
       </div>
     </section>
   );

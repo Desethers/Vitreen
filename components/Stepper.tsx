@@ -18,7 +18,7 @@ function AdminMock() {
       className="absolute inset-0 p-5 md:p-6 flex flex-col"
     >
       {/* Top bar */}
-      <div className="flex items-center gap-2.5 mb-5">
+      <div className="flex items-center gap-2.5 mb-3 md:mb-5">
         <div className="w-6 h-6 rounded-md bg-[#111110] flex items-center justify-center">
           <span className="text-white text-[8px] font-bold tracking-wider">V</span>
         </div>
@@ -478,22 +478,22 @@ export default function Stepper() {
   const Mock = MOCKS[active];
 
   return (
-    <section className="py-20 px-4 md:px-6 bg-white">
+    <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.65, ease }}
-          className="rounded-[10px] overflow-hidden bg-[#F9FAFD]"
+          className="rounded-[5px] overflow-hidden bg-[#F9FAFD]"
           style={{ border: "0.1px solid #D4D4D0" }}
         >
           <div className="grid md:grid-cols-[2fr_1fr]">
-            {/* Left: B&W background + large card + 3 small step overlay cards */}
-            <div className="relative overflow-hidden h-[380px] md:min-h-[720px]">
+            {/* Left: B&W background + large card + 3 small step overlay cards — order-2 sur mobile pour placer le texte au-dessus */}
+            <div className="relative order-2 overflow-hidden h-[500px] md:order-none md:min-h-[720px]">
               {/* Fond photo */}
               <div
-                className="absolute inset-[20px] rounded-[10px] bg-cover bg-center"
+                className="absolute inset-[10px] md:inset-[20px] rounded-[5px] bg-cover bg-center"
                 style={{ backgroundImage: "url('/colin de land.jpg')" }}
               />
 
@@ -570,7 +570,7 @@ export default function Stepper() {
             </div>
 
             {/* Mobile steps list */}
-            <div className="block md:hidden px-[15px] py-4" style={{ borderTop: "0.5px solid #E8E8E6" }}>
+            <div className="order-3 block md:hidden px-[15px] py-4 md:order-none" style={{ borderTop: "0.5px solid #E8E8E6" }}>
               {STEP_DATA.map((step, i) => {
                 const isActive = active === i;
                 return (
@@ -593,10 +593,10 @@ export default function Stepper() {
               })}
             </div>
 
-            {/* Right: text */}
-            <div className="flex flex-col justify-center px-[15px] md:px-10 py-6 md:py-12" style={{ borderTop: "0.5px solid #E8E8E6" }}>
+            {/* Right: text — order-1 sur mobile = au-dessus de l’anim */}
+            <div className="order-1 flex flex-col justify-center px-[15px] py-6 md:order-none md:px-10 md:py-12">
               <h3 className="font-display text-[14px] md:text-[18px] font-medium text-[#111110] tracking-[-0.02em] mb-1 md:mb-3">
-                Publier du contenu. Sans effort.
+                Publier du contenu — sans effort
               </h3>
               <p className="text-[#6B6A67] text-[14px] md:text-[18px] font-normal leading-[1.3] tracking-[-0.02em]">
                 Vous publiez en autonomie. Ajoutez vos œuvres, elles apparaissent instantanément sur votre site.

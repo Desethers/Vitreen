@@ -21,9 +21,9 @@ const marketStats = [
 export default function StatementSplit() {
   return (
     <section className="px-4 md:px-6 bg-white">
-      <div className="bg-gradient-to-b from-[#F9FAFD] to-white pt-16 md:pt-24 pb-14 md:pb-20">
+      <div className="bg-gradient-to-b from-[#F9FAFD] to-white pt-12 md:pt-24 pb-10 md:pb-20">
       <div className="max-w-7xl mx-auto">
-        <motion.div {...fadeUp(0)} className="mb-10 md:mb-14">
+        <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
           <h2 style={{ fontSize: "32px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">
             L&apos;économie de la vente d&apos;art en ligne explose
           </h2>
@@ -33,7 +33,7 @@ export default function StatementSplit() {
           {marketStats.map((m) => (
             <div
               key={m.value}
-              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[10px] transition-all duration-200 hover:border-[#111110] hover:bg-white"
+              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[5px] transition-all duration-200 hover:border-[#111110] hover:bg-white"
             >
               <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
                 {m.value}
@@ -51,8 +51,8 @@ export default function StatementSplit() {
         </motion.div>
 
         <motion.div {...fadeUp(0.09)} className="mt-14 md:mt-20">
-          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-10 md:mb-14">
-            Amplifiez l&apos;influence de votre galerie.
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-8 md:mb-14">
+            Amplifiez l&apos;influence de votre galerie
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {/* Block 1 */}

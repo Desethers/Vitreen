@@ -43,6 +43,7 @@ const steps = [
 //
 // Note : x="150%" = translateX(150% de la largeur propre de l'élément = 60% du container)
 // → bord droit = 60% + 40% = 100% du container = exactement sur le cercle suivant
+// Vertical (mobile) : même logique avec y / scaleY et transformOrigin bottom
 
 const T_CIRCLE_2 = 1060;
 const T_CIRCLE_3 = 1920;
@@ -79,36 +80,93 @@ export default function ProcessFlow() {
   }, [isInView, loopKey]);
 
   return (
-    <section className="py-20 px-4 md:px-6 bg-white">
+    <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div {...fadeUp(0)} className="mb-14">
+        <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
-            Passez à une nouvelle génération de site galerie.
+            Passez à une nouvelle génération de site galerie
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
-            Site livré en 2 semaines.
+          <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
+            Site livré en 2 semaines
           </p>
         </motion.div>
 
-        {/* Mobile */}
-        <motion.ol {...fadeUp(0.1)} className="flex list-none flex-col gap-10 p-0 m-0 md:hidden">
-          {steps.map((step) => (
-            <li key={step.number} className="flex gap-4">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#111110] bg-white text-xs font-semibold tracking-[-0.02em] text-[#111110]">
-                {step.number}
-              </div>
-              <div className="min-w-0 pt-0.5">
-                <p className="font-medium text-base text-[#111110] tracking-[-0.02em]">{step.title}</p>
-                <p className="mt-2 text-[14px] leading-[1.6] text-[#6B6A67]">{step.desc}</p>
-                <p className="mt-3 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]">{step.week}</p>
-              </div>
-            </li>
-          ))}
-        </motion.ol>
+        <div ref={ref}>
+          {/* Mobile — même séquence que le stepper horizontal, connecteurs verticaux */}
+          <motion.ol
+            {...fadeUp(0.1)}
+            className="m-0 flex list-none flex-col gap-0 p-0 md:hidden"
+          >
+            {steps.map((step, i) => (
+              <li key={step.number} className="flex gap-4">
+                <div className="flex w-9 shrink-0 flex-col items-center self-stretch">
+                  <motion.div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold tracking-[-0.02em]"
+                    animate={{
+                      backgroundColor: activeCircle >= i ? "#111110" : "#ffffff",
+                      color: activeCircle >= i ? "#ffffff" : "#111110",
+                    }}
+                    transition={{
+                      backgroundColor: { duration: 0.28, ease: "easeIn" },
+                      color: { duration: 0.2 },
+                    }}
+                    style={{ border: "1px solid #111110" }}
+                  >
+                    {step.number}
+                  </motion.div>
+                  {i < steps.length - 1 && (
+                    <div className="relative mx-auto min-h-[48px] w-px flex-1 bg-[#111110]/12 overflow-hidden">
+                      <motion.div
+                        key={`seg-v-${loopKey}-${i}`}
+                        className="absolute inset-x-0 bg-[#111110]"
+                        style={{
+                          top: 0,
+                          height: "40%",
+                          transformOrigin: "bottom center",
+                        }}
+                        initial={{ y: "-100%", scaleY: 1 }}
+                        animate={
+                          activeLine >= i
+                            ? {
+                                y: ["-100%", "150%", "150%"],
+                                scaleY: [1, 1, 0],
+                              }
+                            : { y: "-100%", scaleY: 1 }
+                        }
+                        transition={{
+                          duration: LINE_DUR,
+                          times: [0, ARRIVE_AT, 1],
+                          ease: [0.35, 0, 0.65, 1],
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+                <motion.div
+                  className={
+                    i < steps.length - 1
+                      ? "min-w-0 flex-1 pt-0.5 pb-10"
+                      : "min-w-0 flex-1 pt-0.5"
+                  }
+                  initial={{ opacity: 0.35 }}
+                  animate={{ opacity: activeCircle >= i ? 1 : 0.35 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  <p className="font-normal text-base text-[#111110] tracking-[-0.02em]">
+                    {step.title}
+                  </p>
+                  <p className="mt-2 text-[14px] leading-[1.6] text-[#6B6A67]">{step.desc}</p>
+                  <p className="mt-3 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]">
+                    {step.week}
+                  </p>
+                </motion.div>
+              </li>
+            ))}
+          </motion.ol>
 
-        {/* Desktop */}
-        <div ref={ref} className="hidden md:block">
+          {/* Desktop */}
+          <div className="hidden md:block">
           {/* Cercles + connecteurs */}
           <div className="mb-8 grid w-full grid-cols-3 items-center">
             {steps.map((step, i) => (
@@ -172,12 +230,13 @@ export default function ProcessFlow() {
                 animate={{ opacity: activeCircle >= i ? 1 : 0.35 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <p className="font-medium text-base text-[#111110] tracking-[-0.02em] mb-0">{step.title}</p>
+                <p className="font-normal text-base text-[#111110] tracking-[-0.02em] mb-0">{step.title}</p>
                 <p className="mt-2 text-[14px] leading-[1.6] text-[#6B6A67]">{step.desc}</p>
                 <p className="mt-4 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]">{step.week}</p>
               </motion.li>
             ))}
           </ol>
+          </div>
         </div>
       </div>
     </section>

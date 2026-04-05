@@ -48,8 +48,8 @@ const items = [
 
 export default function Partner() {
   return (
-    <section className="py-20 px-4 md:px-6 bg-white">
-      <div className="max-w-7xl mx-auto bg-[#111110] rounded-3xl px-10 md:px-16 py-20">
+    <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
+      <div className="max-w-7xl mx-auto bg-[#111110] rounded-3xl px-10 md:px-16 py-14 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
           {/* Left — text */}
@@ -60,10 +60,10 @@ export default function Partner() {
             transition={{ duration: 0.6, ease }}
           >
             <h2 className="font-display text-3xl md:text-4xl text-white leading-tight tracking-tight mb-6">
-              Un site qui évolue avec vous.
+              Un site qui évolue avec vous
             </h2>
             <p className="text-[#999997] text-base leading-relaxed max-w-md">
-              Votre galerie change. Votre site doit suivre.
+              Votre galerie change — votre site doit suivre
             </p>
           </motion.div>
 

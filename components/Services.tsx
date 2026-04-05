@@ -88,14 +88,14 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="offre" className="py-16 md:py-24 px-4 md:px-6 bg-white">
+    <section id="offre" className="py-12 md:py-24 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto w-full">
-        <motion.div {...fadeUp(0)} className="mb-16">
+        <motion.div {...fadeUp(0)} className="mb-8 md:mb-16">
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
-            Choisissez votre formule.
+            Choisissez votre formule
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
-            Recrutez votre partenaire de croissance digitale.
+          <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
+            Recrutez votre partenaire de croissance digitale
           </p>
         </motion.div>
 
@@ -104,7 +104,7 @@ export default function Services() {
             <motion.article
               key={service.tier}
               {...fadeUp(i * 0.1)}
-              className={`relative rounded-[10px] p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${service.highlight ? "" : "border border-[#E8E8E6] hover:border-[#111110]"}`}
+              className={`relative rounded-[5px] p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${service.highlight ? "" : "border border-[#E8E8E6] hover:border-[#111110]"}`}
               style={{
                 border: service.highlight ? "1px solid #111110" : undefined,
                 background: service.highlight ? "#111110" : "#fff",

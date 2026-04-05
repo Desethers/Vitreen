@@ -44,7 +44,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="processus" className="py-20 px-4 md:px-6 bg-white">
+    <section id="processus" className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -52,13 +52,13 @@ export default function Process() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="mb-16 max-w-2xl"
+          className="mb-8 md:mb-16 max-w-2xl"
         >
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
-            Passez d'un site statique à un outil actif.
+            Passez d&apos;un site statique à un outil actif
           </h2>
-          <p className="mt-1 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.3] tracking-[-0.02em]">
-            En ligne en 2 semaines. Des outils pensés pour présenter, diffuser et vendre vos œuvres efficacement.
+          <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.3] tracking-[-0.02em]">
+            En ligne en 2 semaines — des outils pensés pour présenter, diffuser et vendre vos œuvres efficacement
           </p>
         </motion.div>
 

@@ -1194,13 +1194,13 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, ease, delay: i * 0.1 }}
-            className="group rounded-[10px] bg-[#F9FAFD] p-[20px] flex flex-col"
+            className="group rounded-[5px] bg-[#F9FAFD] p-[20px] flex flex-col"
             style={{ border: "0.1px solid #D4D4D0" }}
           >
-            <h3 className="font-medium text-[#111110] text-sm md:text-base tracking-[-0.01em] mb-0">
+            <h3 className="font-normal text-[#111110] text-sm md:text-base tracking-[-0.01em] mb-0">
               {card.title}
             </h3>
-            <p className="text-[#6B6A67] text-sm leading-[1.55] mb-5">
+            <p className="mt-0 text-[#6B6A67] text-sm leading-[1.55] mb-4">
               {card.desc}
             </p>
             <div className="w-full max-w-[400px] h-[430px] mx-auto bg-white rounded-[10px] p-4 overflow-hidden">
@@ -1215,7 +1215,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
 
 export default function Solution() {
   return (
-    <section className="py-20 px-4 md:px-6 bg-white">
+    <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -1223,13 +1223,13 @@ export default function Solution() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="mb-8"
+          className="mb-8 md:mb-16"
         >
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
             Faciliter les échanges autour des œuvres
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
-            Interactions ciblées et simples. Renforcez votre visibilité et vos relations.
+          <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
+            Interactions ciblées et simples — renforcez votre visibilité et vos relations
           </p>
         </motion.div>
 

@@ -24,17 +24,17 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section className="py-20 px-4 md:px-6 bg-white">
+    <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="mb-16"
+          className="mb-8 md:mb-16"
         >
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
-            Trois piliers. Un système cohérent.
+            Trois piliers — un système cohérent
           </h2>
         </motion.div>
 

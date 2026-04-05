@@ -32,9 +32,13 @@ const steps = [
   },
 ];
 
-function StepCircle({ n }: { n: string }) {
+function StepCircle({ n, compact }: { n: string; compact?: boolean }) {
   return (
-    <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#111110] bg-white text-xs font-semibold tracking-[-0.02em] text-[#111110]">
+    <div
+      className={`relative z-10 flex shrink-0 items-center justify-center rounded-full border border-[#111110] bg-white text-xs font-semibold tracking-[-0.02em] text-[#111110] ${
+        compact ? "h-9 w-9" : "h-11 w-11"
+      }`}
+    >
       {n}
     </div>
   );
@@ -42,14 +46,14 @@ function StepCircle({ n }: { n: string }) {
 
 export default function StepperFlow() {
   return (
-    <section className="py-20 px-4 md:px-6 bg-white border-t border-[#E8E8E6]">
+    <section className="py-12 md:py-20 px-4 md:px-6 bg-white border-t border-[#E8E8E6]">
       <div className="max-w-7xl mx-auto">
-        <motion.div {...fadeUp(0)} className="mb-12 md:mb-16 max-w-3xl">
+        <motion.div {...fadeUp(0)} className="mb-8 md:mb-16 max-w-3xl">
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em]">
-            Du contenu à la diffusion.
+            Du contenu à la diffusion
           </h2>
-          <p className="mt-0.5 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
-            Un flux simple et stratégique.
+          <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.3] tracking-[-0.02em]">
+            Un flux simple et stratégique
           </p>
         </motion.div>
 
@@ -60,7 +64,7 @@ export default function StepperFlow() {
         >
           {steps.map((step, i) => (
             <li key={step.number} className="flex gap-4">
-              <StepCircle n={step.number} />
+              <StepCircle n={step.number} compact />
               <div className="min-w-0 pt-0.5">
                 <p className="font-semibold text-base text-[#111110] tracking-[-0.02em]">
                   {step.action}

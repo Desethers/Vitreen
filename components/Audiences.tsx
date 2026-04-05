@@ -855,14 +855,14 @@ export default function Audiences() {
   };
 
   return (
-    <section className="py-6 px-4 md:px-6 bg-white">
+    <section className="py-4 md:py-6 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="mb-6"
+          className="mb-8 md:mb-6"
         >
           <div className="flex flex-nowrap gap-1 md:flex-wrap md:gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {audiences.map((a, i) => {

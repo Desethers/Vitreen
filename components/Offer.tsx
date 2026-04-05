@@ -55,20 +55,20 @@ const plans = [
 
 export default function Offer() {
   return (
-    <section id="offre" className="py-20 px-4 md:px-6 bg-white">
+    <section id="offre" className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease }}
-          className="mb-16"
+          className="mb-8 md:mb-16"
         >
           <h2 className="font-display text-3xl md:text-4xl text-[#111110] leading-tight tracking-tight mb-4">
-            Choisissez votre formule.
+            Choisissez votre formule
           </h2>
           <p className="text-[#6B6A67] text-base max-w-xl leading-relaxed">
-            Tout ce dont une galerie a besoin. Rien de superflu.
+            Tout ce dont une galerie a besoin — rien de superflu
           </p>
         </motion.div>
 
