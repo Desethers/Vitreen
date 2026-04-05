@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section className="relative flex flex-col justify-center px-4 md:px-6 overflow-hidden bg-white pt-20 pb-6 md:pt-28 md:pb-10">
+    <section className="relative flex flex-col justify-center px-4 md:px-6 overflow-hidden bg-white pt-28 pb-6 md:pt-32 md:pb-10">
       <div className="max-w-7xl w-full mx-auto relative">
         <h1
           className="font-display text-[20px] md:text-[32px] leading-[1.1] tracking-[-0.03em] mb-2 md:mb-3 max-w-4xl hero-fade-up"
