@@ -740,6 +740,8 @@ const ARTIST_MOCK_PAD_X = 28;
 const ARTIST_MOCK_PAD_X_MOBILE = 16;
 /** Largeur du conteneur en dessous de laquelle le mock passe en mise en page « mobile ». */
 const ARTIST_MOCK_MOBILE_MAX_W = 440;
+/** Au-dessous de cette largeur, la grille « Past exhibitions » reste sur une colonne (expos empilées). */
+const ARTIST_MOCK_EXHIBITIONS_GRID_MAX_W = 640;
 
 function ArtistPortfolioMock() {
   const [page, setPage] = useState<ArtistPage>("home");
@@ -749,11 +751,15 @@ function ArtistPortfolioMock() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const detailScrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mockWidth, setMockWidth] = useState(800);
+  const navRef = useRef<HTMLDivElement>(null);
+  const [mockWidth, setMockWidth] = useState(0);
+  const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
+    const update = () => setMockWidth(el.getBoundingClientRect().width);
+    update();
     const ro = new ResizeObserver(([entry]) => {
       setMockWidth(entry.contentRect.width);
     });
@@ -761,10 +767,34 @@ function ArtistPortfolioMock() {
     return () => ro.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!navOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setNavOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, [navOpen]);
+
+  useEffect(() => {
+    if (!navOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setNavOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [navOpen]);
+
   const isMobile = mockWidth < ARTIST_MOCK_MOBILE_MAX_W;
   const padX = isMobile ? ARTIST_MOCK_PAD_X_MOBILE : ARTIST_MOCK_PAD_X;
+  const pastExhibitionsSingleColumn = mockWidth === 0 || mockWidth < ARTIST_MOCK_EXHIBITIONS_GRID_MAX_W;
+
+  useEffect(() => {
+    if (!isMobile) setNavOpen(false);
+  }, [isMobile]);
 
   const goTo = (p: ArtistPage) => {
+    setNavOpen(false);
     setPage(p);
     if (bodyRef.current) bodyRef.current.scrollTop = 0;
   };
@@ -787,40 +817,104 @@ function ArtistPortfolioMock() {
       <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}.buy-btn{background:transparent;color:#111110;border:0.5px solid #111110}.buy-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}`}</style>
       {/* Navbar */}
       <div
-        className="flex flex-shrink-0 min-w-0 items-center justify-between gap-2"
+        ref={navRef}
+        className="relative z-30 flex flex-shrink-0 min-w-0 items-center justify-between gap-2"
         style={{ padding: `${isMobile ? 12 : 16}px ${padX}px` }}
       >
         <span
           onClick={() => goTo("home")}
-          className="shrink-0 whitespace-nowrap"
+          className="min-w-0 shrink truncate whitespace-nowrap"
           style={{ fontSize: isMobile ? "0.7rem" : "0.75rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
         >
           Sun Dog
         </span>
-        <div className="flex min-w-0 max-w-[min(100%,calc(100%-5rem))] items-center justify-end gap-1 overflow-x-auto sm:max-w-none sm:gap-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {navItems.map(item => (
-            <span
-              key={item.label}
-              role={item.page ? "button" : undefined}
-              tabIndex={item.page ? 0 : undefined}
-              onClick={() => item.page && goTo(item.page)}
-              onKeyDown={(e) => {
-                if (item.page && (e.key === "Enter" || e.key === " ")) {
-                  e.preventDefault();
-                  goTo(item.page);
-                }
-              }}
-              className={[
-                "inline-flex shrink-0 items-center rounded-full text-[#111110] tracking-[-0.01em] transition-colors hover:bg-[#F5F5F5]",
-                isMobile ? "text-[0.65rem] px-2.5 py-1" : "text-[0.75rem] px-4 py-1.5",
-                page === item.page ? "font-semibold underline underline-offset-[2px] decoration-[#111110]" : "font-normal",
-                item.page ? "cursor-pointer" : "cursor-default",
-              ].join(" ")}
+        {isMobile ? (
+          <>
+            <button
+              type="button"
+              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-[#111110] hover:bg-[#F5F5F5]"
+              aria-expanded={navOpen}
+              aria-controls="artist-mock-nav-dropdown"
+              aria-label={navOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              onClick={() => setNavOpen((o) => !o)}
             >
-              {item.label}
-            </span>
-          ))}
-        </div>
+              {navOpen ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                  <path d="M4 7h16M4 12h16M4 17h16" />
+                </svg>
+              )}
+            </button>
+            <AnimatePresence>
+              {navOpen && (
+                <motion.div
+                  id="artist-mock-nav-dropdown"
+                  role="navigation"
+                  aria-label="Navigation"
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-0 right-0 top-full border-b border-[#E8E8E6] bg-white shadow-sm"
+                  style={{ paddingLeft: padX, paddingRight: padX, paddingTop: 6, paddingBottom: 10 }}
+                >
+                  <div className="flex flex-col gap-0.5">
+                    {navItems.map((item) =>
+                      item.page ? (
+                        <button
+                          key={item.label}
+                          type="button"
+                          onClick={() => goTo(item.page!)}
+                          className={[
+                            "w-full rounded-md py-2.5 text-left text-[0.8rem] tracking-[-0.01em] text-[#111110] transition-colors hover:bg-[#F5F5F5]",
+                            page === item.page ? "font-semibold" : "font-normal",
+                          ].join(" ")}
+                        >
+                          {item.label}
+                        </button>
+                      ) : (
+                        <div
+                          key={item.label}
+                          className="cursor-default py-2.5 text-left text-[0.8rem] font-normal tracking-[-0.01em] text-[#6B6A67]"
+                        >
+                          {item.label}
+                        </div>
+                      ),
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
+        ) : (
+          <div className="flex min-w-0 flex-1 items-center justify-end gap-1 overflow-x-auto sm:gap-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {navItems.map((item) => (
+              <span
+                key={item.label}
+                role={item.page ? "button" : undefined}
+                tabIndex={item.page ? 0 : undefined}
+                onClick={() => item.page && goTo(item.page)}
+                onKeyDown={(e) => {
+                  if (item.page && (e.key === "Enter" || e.key === " ")) {
+                    e.preventDefault();
+                    goTo(item.page);
+                  }
+                }}
+                className={[
+                  "inline-flex shrink-0 items-center rounded-full text-[#111110] tracking-[-0.01em] transition-colors hover:bg-[#F5F5F5]",
+                  "text-[0.75rem] px-4 py-1.5",
+                  page === item.page ? "font-semibold underline underline-offset-[2px] decoration-[#111110]" : "font-normal",
+                  item.page ? "cursor-pointer" : "cursor-default",
+                ].join(" ")}
+              >
+                {item.label}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Scrollable body */}
@@ -951,11 +1045,17 @@ function ArtistPortfolioMock() {
 
         {/* ── PAST EXHIBITIONS PAGE ── */}
         {page === "past-exhibitions" && (
-          <div style={{ padding: `18px ${padX}px 24px` }}>
+          <div style={{ padding: `${isMobile ? 8 : 18}px ${padX}px 24px` }}>
             <p style={{ fontSize: "1.3rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", marginBottom: 18 }}>
               Past exhibitions
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: pastExhibitionsSingleColumn ? "minmax(0, 1fr)" : "repeat(3, 1fr)",
+                gap: pastExhibitionsSingleColumn ? 16 : 20,
+              }}
+            >
               {pastExhibitions.map((ex) => (
                 <div key={ex.title} className="flex flex-col" style={{ gap: 6 }}>
                   <div className="relative overflow-hidden bg-[#F5F3F0]" style={{ borderRadius: 3, aspectRatio: "4/3" }}>
@@ -975,13 +1075,26 @@ function ArtistPortfolioMock() {
         {/* ── GALLERY PAGE ── */}
         {page === "gallery" && (
           <div style={{ padding: `18px ${padX}px 24px` }}>
-            {/* Header: title left, description right */}
-            <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
-              <div style={{ flex: "0 0 38%" }}>
+            {/* Header: desktop = titre | texte ; mobile = colonne (titre + sous-titre puis paragraphes) */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: isMobile ? "column" : "row",
+                gap: isMobile ? 10 : 20,
+                marginBottom: 20,
+              }}
+            >
+              <div style={isMobile ? { width: "100%" } : { flex: "0 0 38%" }}>
                 <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: 6 }}>Gallery</p>
                 <p style={{ fontSize: "0.71rem", color: "#6B6A67" }}>New pieces from the studio</p>
               </div>
-              <div style={{ flex: "0 0 42%", paddingTop: 29, marginLeft: "auto" }}>
+              <div
+                style={
+                  isMobile
+                    ? { width: "100%", minWidth: 0, paddingTop: 0, marginLeft: 0 }
+                    : { flex: "0 0 42%", paddingTop: 29, marginLeft: "auto" }
+                }
+              >
                 <p style={{ fontSize: "0.68rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6 }}>
                   The Gallery is the straight line from my studio to you—no intermediates. You're plugged straight into my production. Each piece—painting, collage, collectible—comes out of my hands.
                 </p>
