@@ -703,59 +703,245 @@ function PrivateViewingMock() {
   );
 }
 
+const artistWorks = [
+  { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "80 × 160 cm" },
+  { src: "/artworks/painting-02.png", title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm"  },
+  { src: "/artworks/painting-03.jpg", title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "124 × 124 cm" },
+  { src: "/artworks/painting-04.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm" },
+];
+
+const pastExhibitions = [
+  { src: "/artworks/painting-01.png", title: "Soft Geometry",          venue: "Galerie Veld, Oslo",          date: "3 sept. – 12 oct. 2024" },
+  { src: "/artworks/painting-03.jpg", title: "Neither Here Nor There", venue: "Halle Sievert, Munich",       date: "6 oct. – 18 nov. 2023" },
+  { src: "/artworks/painting-05.jpg", title: "The Weight of Light",    venue: "Espace Aurore, Paris",        date: "14 jan. – 3 mars 2024" },
+  { src: "/artworks/painting-07.jpg", title: "Quiet Figures",          venue: "Galerie Fenn, New York",      date: "2 fév. – 14 avr. 2023" },
+  { src: "/artworks/painting-08.jpg", title: "Interior Distance",      venue: "Kunsthaus Morgen, Zurich",    date: "9 mai – 28 juil. 2023" },
+  { src: "/artworks/painting-09.png", title: "Held Still",             venue: "Galerie Solin, Vienne",       date: "18 oct. – 20 déc. 2022" },
+];
+
+const galleryWorks = [
+  { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
+  { src: "/artworks/painting-06.png", title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm",   price: "€1 800" },
+  { src: "/artworks/painting-04.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
+  { src: "/artworks/painting-03.jpg", title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "123 × 123 cm",    price: "€2 200" },
+  { src: "/artworks/painting-02.png", title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm",      price: "€1 300" },
+  { src: "/artworks/painting-05.jpg", title: "Celadon Mass II, 2025",      medium: "Acrylic on canvas", dims: "100 × 100 cm",    price: "Sur demande" },
+  { src: "/artworks/painting-07.jpg", title: "Cobalt Threshold, 2023",     medium: "Acrylic on canvas", dims: "60 × 45 cm",      price: "€850" },
+  { src: "/artworks/painting-09.png", title: "Pale Form V, 2024",          medium: "Mixed media",        dims: "90 × 90 cm",     price: "€1 100" },
+];
+
+type ArtistPage = "home" | "past-exhibitions" | "gallery" | "artwork-detail";
+
 function ArtistPortfolioMock() {
-  const [imgIdx, setImgIdx] = useState(0);
-  const artworks = [
-    { src: "/artworks/painting-02.png", title: "Don DeLillo 02, 2025", medium: "Acrylic on canvas", dims: "80 × 80 cm", price: "€1 300" },
-    { src: "/artworks/painting-06.png", title: "Untitled (Bloom), 2023", medium: "Watercolour", dims: "60 × 45 cm", price: "€850" },
-    { src: "/artworks/painting-09.png", title: "Soft Power I, 2025", medium: "Mixed media", dims: "100 × 100 cm", price: "Sur demande" },
+  const [page, setPage] = useState<ArtistPage>("home");
+  const [selectedWork, setSelectedWork] = useState(0);
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  const goTo = (p: ArtistPage) => {
+    setPage(p);
+    if (bodyRef.current) bodyRef.current.scrollTop = 0;
+  };
+
+  const openWork = (idx: number) => {
+    setSelectedWork(idx);
+    goTo("artwork-detail");
+  };
+
+  const navItems: { label: string; page: ArtistPage | null }[] = [
+    { label: "Past exhibitions", page: "past-exhibitions" },
+    { label: "Gallery", page: "gallery" as ArtistPage },
+    { label: "About", page: null },
   ];
-  const aw = artworks[imgIdx];
+
   return (
     <div className="w-full h-full font-sans bg-white flex flex-col overflow-hidden">
+      <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}`}</style>
       {/* Navbar */}
-      <div className="flex items-center justify-between border-b border-[#F0F0EE]" style={{ padding: "8px 20px" }}>
-        <span style={{ fontSize: "0.65rem", fontWeight: 600, color: "#111110", letterSpacing: "-0.01em" }}>Raphaël Rossi</span>
+      <div className="flex items-center justify-between flex-shrink-0" style={{ padding: "16px 50px" }}>
+        <span
+          onClick={() => goTo("home")}
+          style={{ fontSize: "0.75rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
+        >
+          Sun Dog
+        </span>
         <div className="flex gap-5">
-          {["Past exhibitions", "Gallery", "About"].map(item => (
-            <span key={item} style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{item}</span>
+          {navItems.map(item => (
+            <span
+              key={item.label}
+              onClick={() => item.page && goTo(item.page)}
+              style={{
+                fontSize: "0.75rem",
+                color: page === item.page ? "#111110" : "#6B6A67",
+                fontWeight: page === item.page ? 600 : 400,
+                cursor: item.page ? "pointer" : "default",
+                textDecoration: page === item.page ? "underline" : "none",
+                textUnderlineOffset: 2,
+              }}
+            >
+              {item.label}
+            </span>
           ))}
         </div>
       </div>
-      {/* Body */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Left: image */}
-        <div className="flex-1 relative flex items-center justify-center bg-[#F8F8F6]">
-          <div className="relative w-[75%] h-[75%]">
-            <Image src={aw.src} alt="" fill className="object-contain" sizes="400px" />
+
+      {/* Scrollable body */}
+      <div ref={bodyRef} className="flex-1 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+
+        {/* ── HOME PAGE ── */}
+        {page === "home" && (
+          <>
+            <div className="w-full" style={{ padding: "10px 50px 0" }}>
+              <div className="relative w-full overflow-hidden" style={{ borderRadius: 3, aspectRatio: "16/7" }}>
+                <Image src="/artworks/painting-02.png" alt="" fill className="object-cover" sizes="800px" />
+              </div>
+            </div>
+            <div className="flex flex-col" style={{ padding: "14px 50px 10px", gap: 4 }}>
+              <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: -1 }}>Your friends</p>
+              <p style={{ fontSize: "0.66rem", color: "#6B6A67" }}>Galerie</p>
+              <p style={{ fontSize: "0.66rem", color: "#6B6A67", marginTop: -4 }}>13 juin - 4 juillet 2025</p>
+              <button className="mock-btn" style={{ display: "inline-flex", alignSelf: "flex-start", border: "0.5px solid #111110", borderRadius: 5, padding: "7px 16px", fontSize: "0.61rem", background: "transparent", color: "#111110", marginTop: 10, cursor: "pointer" }}>
+                Explore more exhibitions
+              </button>
+            </div>
+            <div style={{ padding: "24px 50px 36px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 16 }}>
+                {artistWorks.map((aw) => (
+                  <div key={aw.title} className="flex flex-col" style={{ background: "#F5F3F0", borderRadius: 5, padding: 5, gap: 5 }}>
+                    <div className="relative overflow-hidden bg-[#ECEAE7]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
+                      <Image src={aw.src} alt="" fill className="object-cover" sizes="600px" />
+                    </div>
+                    <p style={{ fontSize: "0.55rem", fontWeight: 500, color: "#111110", lineHeight: 1.3, marginTop: 4 }}>{aw.title}</p>
+                    <p style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{aw.medium}</p>
+                    <p style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{aw.dims}</p>
+                  </div>
+                ))}
+              </div>
+              <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 4 }}>Last artworks</p>
+              <p style={{ fontSize: "0.61rem", color: "#6B6A67", marginBottom: 4 }}>New pieces from the studio</p>
+              <button className="mock-btn" onClick={() => goTo("gallery")} style={{ display: "inline-flex", border: "0.5px solid #111110", borderRadius: 5, padding: "7px 16px", fontSize: "0.61rem", background: "transparent", color: "#111110", cursor: "pointer", marginTop: 10 }}>
+                Explore more artworks
+              </button>
+            </div>
+          </>
+        )}
+
+        {/* ── PAST EXHIBITIONS PAGE ── */}
+        {page === "past-exhibitions" && (
+          <div style={{ padding: "18px 50px 24px" }}>
+            <p style={{ fontSize: "1.3rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", marginBottom: 18 }}>
+              Past exhibitions
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+              {pastExhibitions.map((ex) => (
+                <div key={ex.title} className="flex flex-col" style={{ gap: 6 }}>
+                  <div className="relative overflow-hidden bg-[#F5F3F0]" style={{ borderRadius: 3, aspectRatio: "4/3" }}>
+                    <Image src={ex.src} alt="" fill className="object-cover" sizes="200px" />
+                  </div>
+                  <div className="flex flex-col">
+                    <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{ex.title}</p>
+                    <p style={{ fontSize: "0.55rem", color: "#6B6A67", marginTop: 6 }}>{ex.venue}</p>
+                    <p style={{ fontSize: "0.55rem", color: "#6B6A67", marginTop: 2 }}>{ex.date}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <button
-            onClick={() => setImgIdx((imgIdx - 1 + artworks.length) % artworks.length)}
-            className="absolute left-2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
-            style={{ width: 18, height: 18, fontSize: "0.6rem", color: "#111110" }}
-          >‹</button>
-          <button
-            onClick={() => setImgIdx((imgIdx + 1) % artworks.length)}
-            className="absolute right-2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
-            style={{ width: 18, height: 18, fontSize: "0.6rem", color: "#111110" }}
-          >›</button>
-        </div>
-        {/* Right: details */}
-        <div className="flex flex-col overflow-hidden" style={{ width: "44%", padding: "16px 20px", gap: 4 }}>
-          <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#111110", lineHeight: 1.25 }}>{aw.title}</p>
-          <p style={{ fontSize: "0.48rem", color: "#6B6A67", marginTop: 2 }}>{aw.medium}</p>
-          <p style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{aw.dims}</p>
-          <p style={{ fontSize: "0.65rem", fontWeight: 500, color: "#111110", marginTop: 8 }}>{aw.price}</p>
-          <button style={{ border: "1px solid #111110", borderRadius: 5, padding: "5px 0", fontSize: "0.48rem", background: "transparent", color: "#111110", marginTop: 6 }}>
-            Buy this painting
-          </button>
-          <div style={{ height: "0.5px", background: "#F0F0EE", margin: "8px 0" }} />
-          <p style={{ fontSize: "0.44rem", color: "#6B6A67", lineHeight: 1.65 }}>
-            This painting is part of a unique series that explores the connection between formal and psychological relationships in fiction and urban environments. The geometric composition blends typographic motifs with color-field experimentation.
-          </p>
-          <p style={{ fontSize: "0.44rem", color: "#6B6A67", lineHeight: 1.65, marginTop: 6 }}>
-            In this series, I investigate the interplay between personal identity and cultural memory by using the names of contemporary authors as motifs in my paintings.
-          </p>
+        )}
+
+        {/* ── GALLERY PAGE ── */}
+        {page === "gallery" && (
+          <div style={{ padding: "18px 50px 24px" }}>
+            {/* Header: title left, description right */}
+            <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
+              <div style={{ flex: "0 0 38%" }}>
+                <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: 6 }}>Gallery</p>
+                <p style={{ fontSize: "0.71rem", color: "#6B6A67" }}>New pieces from the studio</p>
+              </div>
+              <div style={{ flex: "0 0 42%", paddingTop: 29, marginLeft: "auto" }}>
+                <p style={{ fontSize: "0.68rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6 }}>
+                  The Gallery is the straight line from my studio to you—no intermediates. You're plugged straight into my production. Each piece—painting, collage, collectible—comes out of my hands.
+                </p>
+                <p style={{ fontSize: "0.68rem", color: "#6B6A67", lineHeight: 1.65 }}>
+                  Questions, commissions, or thoughts on a piece? Hit me up directly.
+                </p>
+              </div>
+            </div>
+            {/* Paintings section */}
+            <p style={{ fontSize: "0.68rem", fontWeight: 400, color: "#111110", marginBottom: 12 }}>Paintings</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+              {galleryWorks.map((aw, idx) => (
+                <div key={aw.title} onClick={() => openWork(idx)} className="flex flex-col" style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: "pointer" }}>
+                  <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
+                    <Image src={aw.src} alt="" fill className="object-cover" sizes="150px" />
+                  </div>
+                  <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
+                  <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
+                  <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── ARTWORK DETAIL PAGE ── */}
+        {page === "artwork-detail" && (() => {
+          const aw = galleryWorks[selectedWork];
+          return (
+            <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 30, padding: "16px 50px" }}>
+              {/* Left: image */}
+              <div className="relative flex-shrink-0" style={{ width: "54%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
+                <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" style={{ padding: 12 }} />
+                <button onClick={() => openWork((selectedWork - 1 + galleryWorks.length) % galleryWorks.length)}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+                  style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>‹</button>
+                <button onClick={() => openWork((selectedWork + 1) % galleryWorks.length)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+                  style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>›</button>
+              </div>
+              {/* Right: details */}
+              <div className="flex-1 overflow-y-auto" style={{ padding: "16px 0", scrollbarWidth: "none" }}>
+                <p style={{ fontSize: "1.05rem", fontWeight: 500, color: "#111110", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 5 }}>{aw.title}</p>
+                <p style={{ fontSize: "0.68rem", color: "#6B6A67", marginBottom: 2 }}>{aw.medium}</p>
+                <p style={{ fontSize: "0.68rem", color: "#6B6A67", marginBottom: 10 }}>{aw.dims}</p>
+                <p style={{ fontSize: "0.93rem", fontWeight: 500, color: "#111110", marginBottom: 10 }}>{aw.price}</p>
+                <button style={{ width: "100%", background: "#111110", color: "white", border: "none", borderRadius: 6, padding: "7px 0", fontSize: "0.72rem", fontWeight: 600, cursor: "pointer", marginBottom: 12 }}>
+                  Buy this painting
+                </button>
+                <p style={{ fontSize: "0.65rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6 }}>
+                  This diptyque of two paintings is part of a unique series that explores the connection between formal and psychological relationships in fiction and urban environments. The geometric composition features the typographic names of contemporary authors.
+                </p>
+                <p style={{ fontSize: "0.65rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 12 }}>
+                  In this series, I investigate the interplay between personal identity and cultural memory by using the names of contemporary authors as motifs in my paintings.
+                </p>
+                {/* Request more information */}
+                <div style={{ borderTop: "0.5px solid #F0F0EE", paddingTop: 12, marginBottom: 8 }}>
+                  <p style={{ fontSize: "0.75rem", fontWeight: 500, color: "#111110", marginBottom: 4 }}>Request more information</p>
+                  <p style={{ fontSize: "0.62rem", color: "#6B6A67", marginBottom: 10 }}>To learn more about this artwork or shipping method, please provide your contact information.</p>
+                  {["First name", "Last name", "Email address"].map(ph => (
+                    <div key={ph} style={{ border: "0.5px solid #D8D8D5", borderRadius: 4, padding: "6px 10px", marginBottom: 6 }}>
+                      <p style={{ fontSize: "0.62rem", color: "#ADADAA" }}>{ph}</p>
+                    </div>
+                  ))}
+                  <button style={{ background: "#111110", color: "white", border: "none", borderRadius: 5, padding: "6px 14px", fontSize: "0.65rem", fontWeight: 600, cursor: "pointer", marginTop: 2, marginBottom: 12 }}>
+                    Submit
+                  </button>
+                </div>
+                <span onClick={() => goTo("gallery")} style={{ fontSize: "0.65rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Footer */}
+        <div className="border-t border-[#F0F0EE]" style={{ padding: "16px 20px" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <span style={{ fontSize: "0.44rem", color: "#ADADAA" }}>© 2025 Sun Dog</span>
+            <div style={{ display: "flex", gap: 12 }}>
+              {["Instagram", "LinkedIn"].map(s => (
+                <span key={s} style={{ fontSize: "0.44rem", color: "#ADADAA" }}>{s}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -914,7 +1100,7 @@ export default function Audiences() {
   };
 
   return (
-    <section className="pt-2 pb-4 md:pt-4 md:pb-[51px] px-4 md:px-6 bg-white">
+    <section className="pt-2 pb-4 md:pt-4 md:pb-[50px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
