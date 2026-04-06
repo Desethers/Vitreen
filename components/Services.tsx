@@ -48,7 +48,7 @@ const services: Service[] = [
   },
   {
     tier: "SITE GALERIE",
-    name: "Gallery Website Package",
+    name: "Gallery Growth",
     description: "Un site galerie clair, structuré et prêt à être utilisé.",
     featuresHeading: "Inclus :",
     features: [
