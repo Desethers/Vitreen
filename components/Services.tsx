@@ -107,7 +107,7 @@ export default function Services() {
               className={`relative rounded-[5px] p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${
                 service.highlight
                   ? ""
-                  : "border border-transparent bg-white hover:border-[#111110]"
+                  : "border border-[#E8E8E6] bg-white hover:border-[#111110]"
               }`}
               style={
                 service.highlight
@@ -248,12 +248,11 @@ export default function Services() {
                 ) : null}
                 <a
                   href="#contact"
-                  className="inline-flex items-center justify-center text-sm px-5 py-2.5 rounded-full w-full font-medium transition-all duration-200"
-                  style={
+                  className={`inline-flex items-center justify-center text-sm px-5 py-2.5 rounded-full w-full font-medium transition-colors duration-200 ${
                     service.highlight
-                      ? { background: "#fff", color: "#111110" }
-                      : { background: "#111110", color: "#fff" }
-                  }
+                      ? "bg-white text-[#111110] hover:bg-[#F5F5F3]"
+                      : "bg-[#111110] text-white hover:bg-[#2a2a28]"
+                  }`}
                 >
                   {service.cta}
                 </a>
