@@ -704,10 +704,12 @@ function PrivateViewingMock() {
 }
 
 const artistWorks = [
-  { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "80 × 160 cm" },
+  { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "160 × 160 cm" },
   { src: "/artworks/painting-02.png", title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm"  },
   { src: "/artworks/painting-03.jpg", title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "124 × 124 cm" },
   { src: "/artworks/painting-04.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm" },
+  { src: "/artworks/painting-06.png", title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm" },
+  { src: "/artworks/painting-05.jpg", title: "Celadon Mass II, 2025",       medium: "Acrylic on canvas", dims: "100 × 100 cm" },
 ];
 
 const pastExhibitions = [
@@ -720,21 +722,24 @@ const pastExhibitions = [
 ];
 
 const galleryWorks = [
-  { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
-  { src: "/artworks/painting-06.png", title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm",   price: "€1 800" },
-  { src: "/artworks/painting-04.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
-  { src: "/artworks/painting-03.jpg", title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "123 × 123 cm",    price: "€2 200" },
-  { src: "/artworks/painting-02.png", title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm",      price: "€1 300" },
-  { src: "/artworks/painting-05.jpg", title: "Celadon Mass II, 2025",      medium: "Acrylic on canvas", dims: "100 × 100 cm",    price: "Sur demande" },
-  { src: "/artworks/painting-07.jpg", title: "Cobalt Threshold, 2023",     medium: "Acrylic on canvas", dims: "60 × 45 cm",      price: "€850" },
-  { src: "/artworks/painting-09.png", title: "Pale Form V, 2024",          medium: "Mixed media",        dims: "90 × 90 cm",     price: "€1 100" },
+  { srcs: ["/artworks/painting-01.png", "/artworks/painting-02.png"], title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
+  { srcs: ["/artworks/painting-06.png"],                               title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm",   price: "€1 800" },
+  { srcs: ["/artworks/painting-04.jpg"],                               title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
+  { srcs: ["/artworks/painting-03.jpg"],                               title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "123 × 123 cm",    price: "€2 200" },
+  { srcs: ["/artworks/painting-02.png"],                               title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm",      price: "€1 300" },
+  { srcs: ["/artworks/painting-05.jpg"],                               title: "Celadon Mass II, 2025",      medium: "Acrylic on canvas", dims: "100 × 100 cm",    price: "Sur demande" },
+  { srcs: ["/artworks/painting-07.jpg"],                               title: "Cobalt Threshold, 2023",     medium: "Acrylic on canvas", dims: "60 × 45 cm",      price: "€850" },
+  { srcs: ["/artworks/painting-09.png"],                               title: "Pale Form V, 2024",          medium: "Mixed media",        dims: "90 × 90 cm",     price: "€1 100" },
 ];
-
 type ArtistPage = "home" | "past-exhibitions" | "gallery" | "artwork-detail";
+
+const HOME_WORKS_SLIDES = 2;
 
 function ArtistPortfolioMock() {
   const [page, setPage] = useState<ArtistPage>("home");
   const [selectedWork, setSelectedWork] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [worksSlide, setWorksSlide] = useState(0);
   const bodyRef = useRef<HTMLDivElement>(null);
   const detailScrollRef = useRef<HTMLDivElement>(null);
 
@@ -745,6 +750,7 @@ function ArtistPortfolioMock() {
 
   const openWork = (idx: number) => {
     setSelectedWork(idx);
+    setSelectedImage(0);
     goTo("artwork-detail");
     setTimeout(() => { if (detailScrollRef.current) detailScrollRef.current.scrollTop = 0; }, 0);
   };
@@ -793,8 +799,8 @@ function ArtistPortfolioMock() {
         {page === "home" && (
           <>
             <div className="w-full" style={{ padding: "10px 50px 0" }}>
-              <div className="relative w-full overflow-hidden" style={{ borderRadius: 3, aspectRatio: "16/7" }}>
-                <Image src="/artworks/painting-02.png" alt="" fill className="object-cover" sizes="800px" />
+              <div className="relative w-full overflow-hidden" style={{ borderRadius: 3, aspectRatio: "16/7.5" }}>
+                <Image src="/artworks/v2-warm.png" alt="" fill className="object-cover" sizes="800px" />
               </div>
             </div>
             <div className="flex flex-col" style={{ padding: "14px 50px 10px", gap: 4 }}>
@@ -806,17 +812,68 @@ function ArtistPortfolioMock() {
               </button>
             </div>
             <div style={{ padding: "24px 50px 36px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 16 }}>
-                {artistWorks.map((aw) => (
-                  <div key={aw.title} className="flex flex-col" style={{ background: "#F5F3F0", borderRadius: 5, padding: 5, gap: 5 }}>
-                    <div className="relative overflow-hidden bg-[#ECEAE7]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
-                      <Image src={aw.src} alt="" fill className="object-cover" sizes="600px" />
+              <div style={{ marginBottom: 12 }}>
+                <motion.div
+                  key={worksSlide}
+                  initial={{ opacity: 0.72 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.22, ease }}
+                  style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 8 }}
+                >
+                  {artistWorks.slice(worksSlide * 2, worksSlide * 2 + 4).map((aw) => (
+                    <div
+                      key={`${worksSlide}-${aw.title}`}
+                      className="flex flex-col min-w-0"
+                      style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6 }}
+                    >
+                      <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
+                        <Image src={aw.src} alt="" fill className="object-cover" sizes="150px" />
+                      </div>
+                      <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
+                      <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
+                      <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
                     </div>
-                    <p style={{ fontSize: "0.55rem", fontWeight: 500, color: "#111110", lineHeight: 1.3, marginTop: 4 }}>{aw.title}</p>
-                    <p style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{aw.medium}</p>
-                    <p style={{ fontSize: "0.48rem", color: "#6B6A67" }}>{aw.dims}</p>
+                  ))}
+                </motion.div>
+                <div className="flex items-center justify-center gap-3" style={{ marginTop: 10 }}>
+                  <button
+                    type="button"
+                    aria-label="Œuvres précédentes"
+                    onClick={() => setWorksSlide((s) => Math.max(0, s - 1))}
+                    disabled={worksSlide === 0}
+                    className="flex items-center justify-center rounded-full border border-[#E8E8E6] bg-white text-[#111110] disabled:opacity-35 disabled:cursor-not-allowed"
+                    style={{ width: 22, height: 22, fontSize: "0.65rem", lineHeight: 1 }}
+                  >
+                    ‹
+                  </button>
+                  <div className="flex items-center gap-1.5">
+                    {Array.from({ length: HOME_WORKS_SLIDES }, (_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        aria-label={`Vue ${i + 1} sur ${HOME_WORKS_SLIDES}`}
+                        aria-current={worksSlide === i ? "true" : undefined}
+                        onClick={() => setWorksSlide(i)}
+                        className="rounded-full p-0 border-0 cursor-pointer"
+                        style={{
+                          width: 6,
+                          height: 6,
+                          background: worksSlide === i ? "#111110" : "#E8E8E6",
+                        }}
+                      />
+                    ))}
                   </div>
-                ))}
+                  <button
+                    type="button"
+                    aria-label="Œuvres suivantes"
+                    onClick={() => setWorksSlide((s) => Math.min(HOME_WORKS_SLIDES - 1, s + 1))}
+                    disabled={worksSlide >= HOME_WORKS_SLIDES - 1}
+                    className="flex items-center justify-center rounded-full border border-[#E8E8E6] bg-white text-[#111110] disabled:opacity-35 disabled:cursor-not-allowed"
+                    style={{ width: 22, height: 22, fontSize: "0.65rem", lineHeight: 1 }}
+                  >
+                    ›
+                  </button>
+                </div>
               </div>
               <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 4 }}>Last artworks</p>
               <p style={{ fontSize: "0.61rem", color: "#6B6A67", marginBottom: 4 }}>New pieces from the studio</p>
@@ -874,7 +931,7 @@ function ArtistPortfolioMock() {
               {galleryWorks.map((aw, idx) => (
                 <div key={aw.title} onClick={() => openWork(idx)} className="flex flex-col" style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: "pointer" }}>
                   <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
-                    <Image src={aw.src} alt="" fill className="object-cover" sizes="150px" />
+                    <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="150px" />
                   </div>
                   <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
                   <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
@@ -888,17 +945,30 @@ function ArtistPortfolioMock() {
         {/* ── ARTWORK DETAIL PAGE ── */}
         {page === "artwork-detail" && (() => {
           const aw = galleryWorks[selectedWork];
+          const srcs = aw?.srcs;
+          if (!aw || !srcs?.length) {
+            return (
+              <div style={{ padding: "24px 50px" }}>
+                <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 12 }}>Œuvre introuvable.</p>
+                <span onClick={() => goTo("gallery")} style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
+              </div>
+            );
+          }
           return (
             <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 50, padding: "16px 50px" }}>
               {/* Left: image */}
               <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
-                <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" style={{ padding: "12px 12px 12px 0" }} />
-                <button onClick={() => openWork((selectedWork - 1 + galleryWorks.length) % galleryWorks.length)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
-                  style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>‹</button>
-                <button onClick={() => openWork((selectedWork + 1) % galleryWorks.length)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
-                  style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>›</button>
+                <Image src={srcs[selectedImage % srcs.length]} alt="" fill className="object-cover" sizes="400px" style={{ padding: "12px 12px 12px 0" }} />
+                {srcs.length > 1 && (
+                  <>
+                    <button onClick={() => setSelectedImage((selectedImage - 1 + srcs.length) % srcs.length)}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+                      style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>‹</button>
+                    <button onClick={() => setSelectedImage((selectedImage + 1) % srcs.length)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+                      style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>›</button>
+                  </>
+                )}
               </div>
               {/* Right: details */}
               <div ref={detailScrollRef} className="flex-1 overflow-y-auto" style={{ padding: "16px 0", scrollbarWidth: "none" }}>

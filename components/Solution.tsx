@@ -126,10 +126,10 @@ function ArtistMock() {
         </div>
       </div>
 
-      {/* Tabs row — switches on hover */}
-      <div className="flex items-center justify-between mb-2.5">
+      {/* Tabs row — switches on hover (relative pour l’overlay « Exhibitions ») */}
+      <div className="relative flex items-center justify-between mb-2.5 min-h-[14px]">
         <span className="text-[7px] uppercase tracking-[0.1em] text-[#ADADAA] transition-opacity duration-500 group-hover:opacity-0">Selected Works</span>
-        <span className="text-[7px] uppercase tracking-[0.1em] text-[#ADADAA] absolute transition-opacity duration-500 opacity-0 group-hover:opacity-100">Exhibitions</span>
+        <span className="text-[7px] uppercase tracking-[0.1em] text-[#ADADAA] absolute left-0 top-0 transition-opacity duration-500 opacity-0 pointer-events-none group-hover:opacity-100">Exhibitions</span>
         <div className="flex gap-1">
           {["Selected Works", "Exhibitions", "News", "Press", "Biography"].map((tab, i) => (
             <span
@@ -1215,7 +1215,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
 
 export default function Solution() {
   return (
-    <section className="pt-12 md:pt-[51px] pb-12 md:pb-[51px] px-4 md:px-6 bg-white">
+    <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -1233,7 +1233,12 @@ export default function Solution() {
           </p>
         </motion.div>
 
-        {/* Row 2 Cards */}
+        {/* Row 1 — Exhibition / Artist / Email */}
+        <div className="mb-8 md:mb-12">
+          <CardRow cards={row1} />
+        </div>
+
+        {/* Row 2 — Artwork / Viewing / Shareable moment */}
         <CardRow cards={row2} />
       </div>
     </section>
