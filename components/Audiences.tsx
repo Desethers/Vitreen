@@ -763,7 +763,7 @@ function ArtistPortfolioMock() {
 
   return (
     <div className="w-full h-full font-sans bg-white flex flex-col overflow-hidden">
-      <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}.buy-btn{background:transparent;color:#111110;border:0.5px solid transparent}.buy-btn:hover{background:transparent!important;color:#111110!important;border:0.5px solid #111110!important}`}</style>
+      <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}.buy-btn{background:transparent;color:#111110;border:0.5px solid #111110}.buy-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}`}</style>
       {/* Navbar */}
       <div className="flex items-center justify-between flex-shrink-0" style={{ padding: "16px 50px" }}>
         <span
@@ -976,7 +976,7 @@ function ArtistPortfolioMock() {
                 <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 2 }}>{aw.medium}</p>
                 <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 10 }}>{aw.dims}</p>
                 <p style={{ fontSize: "1.03rem", fontWeight: 500, color: "#111110", marginBottom: 10 }}>{aw.price}</p>
-                <button className="buy-btn" style={{ width: "100%", borderRadius: 6, padding: "9px 0", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", marginBottom: 12 }}>
+                <button className="buy-btn" style={{ width: "100%", borderRadius: 6, padding: "9px 0", fontSize: "0.82rem", fontWeight: 500, cursor: "pointer", marginBottom: 12 }}>
                   Buy this painting
                 </button>
                 <p style={{ fontSize: "0.75rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6, marginTop: 16 }}>

@@ -104,11 +104,16 @@ export default function Services() {
             <motion.article
               key={service.tier}
               {...fadeUp(i * 0.1)}
-              className={`relative rounded-[5px] p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${service.highlight ? "" : "border border-[#E8E8E6] hover:border-[#111110]"}`}
-              style={{
-                border: service.highlight ? "1px solid #111110" : undefined,
-                background: service.highlight ? "#111110" : "#fff",
-              }}
+              className={`relative rounded-[5px] p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${
+                service.highlight
+                  ? ""
+                  : "border border-transparent bg-white hover:border-[#111110]"
+              }`}
+              style={
+                service.highlight
+                  ? { border: "1px solid #111110", background: "#111110" }
+                  : undefined
+              }
             >
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-4 min-h-[clamp(7rem,9vw,11rem)]">
