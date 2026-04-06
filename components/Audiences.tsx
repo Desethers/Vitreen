@@ -444,15 +444,12 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
             <button
               key={t}
               onClick={() => setTab(t)}
-              className="rounded-full transition-all"
+              className="rounded-full transition-all capitalize text-[0.55rem] px-[10px] py-[3px] md:text-[0.65rem] md:px-3.5 md:py-1"
               style={{
-                fontSize: "0.55rem",
-                padding: "3px 10px",
                 background: tab === t ? "#111110" : "transparent",
                 color: tab === t ? "#fff" : "#6B6A67",
                 border: tab === t ? "none" : "1px solid #E8E8E6",
                 fontWeight: tab === t ? 500 : 400,
-                textTransform: "capitalize",
               }}
             >
               {t.charAt(0).toUpperCase() + t.slice(1)}
@@ -460,7 +457,7 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
           ))}
         </div>
 
-        <p className={`${px} uppercase tracking-[0.18em] text-[#ADADAA] mb-3`} style={{ fontSize: "0.45rem" }}>
+        <p className={`${px} uppercase tracking-[0.18em] text-[#ADADAA] mb-3 text-[0.45rem] md:text-[0.52rem]`}>
           {tab} exhibitions
         </p>
 
@@ -478,16 +475,23 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
                     sizes="600px"
                   />
                 </div>
-                <div>
-                  <p className="font-normal leading-tight" style={{ fontSize: isMobile ? "0.9rem" : "1rem", color: "#111110" }}>
+                <div className="pt-[10px]">
+                  <p
+                    className={`font-normal leading-tight text-[#111110] ${
+                      isMobile ? "text-[0.9rem]" : "text-[1rem] md:text-[1.125rem]"
+                    }`}
+                  >
                     {ex.title}
                   </p>
-                  <p className="leading-tight" style={{ fontSize: "0.95rem", color: "#111110" }}>
-                    {ex.subtitle}
-                  </p>
-                  <p className="uppercase tracking-[0.1em] mt-0.5" style={{ fontSize: "0.6rem", color: "#ADADAA" }}>
-                    {ex.dates}
-                  </p>
+                  <p className="leading-tight text-[#ADADAA] text-[0.95rem] md:text-[1.05rem]">{ex.subtitle}</p>
+                  <p className="uppercase tracking-[0.1em] pt-1 text-[#ADADAA] text-[0.6rem] md:text-[0.7rem]">{ex.dates}</p>
+                  <a
+                    href="#"
+                    className="pt-1 inline-block text-[#111110] no-underline hover:underline underline-offset-[3px] decoration-[#111110] text-[0.6rem] md:text-[0.7rem]"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    Learn More
+                  </a>
                 </div>
               </div>
             ))}
@@ -512,8 +516,8 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
 function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPage) => void; isMobile?: boolean }) {
   const artists = [
     { img: "/artist page/sundog.png", name: "Sun Dog", origin: "Oklahoma, USA" },
-    { img: "/artworks/painting-03.jpg", name: "Claire Tabouret", origin: "Paris, France" },
-    { img: "/artworks/painting-05.jpg", name: "Rashid Johnson", origin: "Chicago, USA" },
+    { img: "/artworks/painting-03.jpg", name: "Jonas Krell", origin: "Berlin, Allemagne" },
+    { img: "/artworks/painting-05.jpg", name: "Valentina Rossi", origin: "Milan, Italie" },
     { img: "/artworks/painting-07.jpg", name: "Nina Beier", origin: "Copenhagen, DK" },
     { img: "/artworks/painting-04.jpg", name: "Loie Hollowell", origin: "Woodland, USA" },
     { img: "/artworks/painting-08.jpg", name: "Kehinde Wiley", origin: "Los Angeles, USA" },
