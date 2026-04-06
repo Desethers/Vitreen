@@ -736,6 +736,7 @@ function ArtistPortfolioMock() {
   const [page, setPage] = useState<ArtistPage>("home");
   const [selectedWork, setSelectedWork] = useState(0);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const detailScrollRef = useRef<HTMLDivElement>(null);
 
   const goTo = (p: ArtistPage) => {
     setPage(p);
@@ -745,6 +746,7 @@ function ArtistPortfolioMock() {
   const openWork = (idx: number) => {
     setSelectedWork(idx);
     goTo("artwork-detail");
+    setTimeout(() => { if (detailScrollRef.current) detailScrollRef.current.scrollTop = 0; }, 0);
   };
 
   const navItems: { label: string; page: ArtistPage | null }[] = [
@@ -755,7 +757,7 @@ function ArtistPortfolioMock() {
 
   return (
     <div className="w-full h-full font-sans bg-white flex flex-col overflow-hidden">
-      <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}`}</style>
+      <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}.buy-btn{background:transparent;color:#111110;border:0.5px solid transparent}.buy-btn:hover{background:transparent!important;color:#111110!important;border:0.5px solid #111110!important}`}</style>
       {/* Navbar */}
       <div className="flex items-center justify-between flex-shrink-0" style={{ padding: "16px 50px" }}>
         <span
@@ -887,10 +889,10 @@ function ArtistPortfolioMock() {
         {page === "artwork-detail" && (() => {
           const aw = galleryWorks[selectedWork];
           return (
-            <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 30, padding: "16px 50px" }}>
+            <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 50, padding: "16px 50px" }}>
               {/* Left: image */}
-              <div className="relative flex-shrink-0" style={{ width: "54%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
-                <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" style={{ padding: 12 }} />
+              <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
+                <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" style={{ padding: "12px 12px 12px 0" }} />
                 <button onClick={() => openWork((selectedWork - 1 + galleryWorks.length) % galleryWorks.length)}
                   className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
                   style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>‹</button>
@@ -899,34 +901,34 @@ function ArtistPortfolioMock() {
                   style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>›</button>
               </div>
               {/* Right: details */}
-              <div className="flex-1 overflow-y-auto" style={{ padding: "16px 0", scrollbarWidth: "none" }}>
-                <p style={{ fontSize: "1.05rem", fontWeight: 500, color: "#111110", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 5 }}>{aw.title}</p>
-                <p style={{ fontSize: "0.68rem", color: "#6B6A67", marginBottom: 2 }}>{aw.medium}</p>
-                <p style={{ fontSize: "0.68rem", color: "#6B6A67", marginBottom: 10 }}>{aw.dims}</p>
-                <p style={{ fontSize: "0.93rem", fontWeight: 500, color: "#111110", marginBottom: 10 }}>{aw.price}</p>
-                <button style={{ width: "100%", background: "#111110", color: "white", border: "none", borderRadius: 6, padding: "7px 0", fontSize: "0.72rem", fontWeight: 600, cursor: "pointer", marginBottom: 12 }}>
+              <div ref={detailScrollRef} className="flex-1 overflow-y-auto" style={{ padding: "16px 0", scrollbarWidth: "none" }}>
+                <p style={{ fontSize: "1.15rem", fontWeight: 500, color: "#111110", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 5 }}>{aw.title}</p>
+                <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 2 }}>{aw.medium}</p>
+                <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 10 }}>{aw.dims}</p>
+                <p style={{ fontSize: "1.03rem", fontWeight: 500, color: "#111110", marginBottom: 10 }}>{aw.price}</p>
+                <button className="buy-btn" style={{ width: "100%", borderRadius: 6, padding: "9px 0", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", marginBottom: 12 }}>
                   Buy this painting
                 </button>
-                <p style={{ fontSize: "0.65rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6 }}>
-                  This diptyque of two paintings is part of a unique series that explores the connection between formal and psychological relationships in fiction and urban environments. The geometric composition features the typographic names of contemporary authors.
+                <p style={{ fontSize: "0.75rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6, marginTop: 16 }}>
+                  A single field of vermillion, dense and warm. The surface holds variations in pressure and direction — a record of repeated gestures across several weeks. The red is not chosen for drama but for its weight.
                 </p>
-                <p style={{ fontSize: "0.65rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 12 }}>
-                  In this series, I investigate the interplay between personal identity and cultural memory by using the names of contemporary authors as motifs in my paintings.
+                <p style={{ fontSize: "0.75rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 20 }}>
+                  This work belongs to a series of monochromes in which colour is treated as subject rather than support. Each painting begins with a single pigment and ends when the surface has nothing left to give.
                 </p>
                 {/* Request more information */}
                 <div style={{ borderTop: "0.5px solid #F0F0EE", paddingTop: 12, marginBottom: 8 }}>
-                  <p style={{ fontSize: "0.75rem", fontWeight: 500, color: "#111110", marginBottom: 4 }}>Request more information</p>
-                  <p style={{ fontSize: "0.62rem", color: "#6B6A67", marginBottom: 10 }}>To learn more about this artwork or shipping method, please provide your contact information.</p>
+                  <p style={{ fontSize: "0.85rem", fontWeight: 500, color: "#111110", marginBottom: 4 }}>Request more information</p>
+                  <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 10 }}>To learn more about this artwork or shipping method, please provide your contact information.</p>
                   {["First name", "Last name", "Email address"].map(ph => (
                     <div key={ph} style={{ border: "0.5px solid #D8D8D5", borderRadius: 4, padding: "6px 10px", marginBottom: 6 }}>
-                      <p style={{ fontSize: "0.62rem", color: "#ADADAA" }}>{ph}</p>
+                      <p style={{ fontSize: "0.72rem", color: "#ADADAA" }}>{ph}</p>
                     </div>
                   ))}
-                  <button style={{ background: "#111110", color: "white", border: "none", borderRadius: 5, padding: "6px 14px", fontSize: "0.65rem", fontWeight: 600, cursor: "pointer", marginTop: 2, marginBottom: 12 }}>
+                  <button style={{ background: "#111110", color: "white", border: "none", borderRadius: 5, padding: "6px 14px", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", marginTop: 2, marginBottom: 12 }}>
                     Submit
                   </button>
                 </div>
-                <span onClick={() => goTo("gallery")} style={{ fontSize: "0.65rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
+                <span onClick={() => goTo("gallery")} style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
               </div>
             </div>
           );
