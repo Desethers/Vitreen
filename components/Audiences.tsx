@@ -3,11 +3,12 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { ExhibitionPageMock } from "./Showcase";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const bgImage = "/allen14.jpg-preview3.jpg";
 
-type GalleryPage = "home" | "exhibitions" | "artists";
+type GalleryPage = "home" | "exhibitions" | "artists" | "exhibition-detail";
 
 const NAV_ITEMS = ["Exhibitions", "Artists", "Fairs", "News", "About"];
 
@@ -155,16 +156,16 @@ function GalleryNavbar({
     <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-10 pt-5 pb-4">
       <span
         className="font-medium uppercase cursor-pointer"
-        style={{ fontSize: "0.6rem", letterSpacing: "0.12em", color: textColor }}
+        style={{ fontSize: "0.72rem", letterSpacing: "0.12em", color: textColor }}
         onClick={() => onNavigate("home")}
       >
         Galerie
       </span>
       <div className="flex items-center gap-5">
-        <div className="flex gap-5" style={{ fontSize: "0.62rem", color: navColor }}>
+        <div className="flex gap-5" style={{ fontSize: "0.74rem", color: navColor }}>
           {NAV_ITEMS.map((n) => {
             const isActive =
-              (n === "Exhibitions" && page === "exhibitions") ||
+              (n === "Exhibitions" && (page === "exhibitions" || page === "exhibition-detail")) ||
               (n === "Artists" && page === "artists");
             return (
               <span
@@ -313,13 +314,13 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
           className="absolute bottom-0 left-0 right-0 px-10 pb-[29px] pt-20"
           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }}
         >
-          <p className="uppercase tracking-[0.18em] text-white/70 mb-1" style={{ fontSize: "0.5rem" }}>Paris</p>
-          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "1.9rem" }}>Sun Dog</h1>
-          <p className="italic text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "1.4rem" }}>Your friends</p>
-          <p className="text-white/55 mt-1.5" style={{ fontSize: "0.58rem" }}>Feb 12 — Mar 22, 2026</p>
+          <p className="uppercase tracking-[0.18em] text-white/70 mb-1" style={{ fontSize: "0.75rem" }}>Paris</p>
+          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "2.8rem" }}>Sun Dog</h1>
+          <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "2rem" }}>Your friends</p>
+          <p className="text-white/55 mt-1.5" style={{ fontSize: "0.82rem" }}>Feb 12 — Mar 22, 2026</p>
           <button
             className="mt-3 border border-white/40 rounded-full px-4 py-1 text-white"
-            style={{ fontSize: "0.58rem" }}
+            style={{ fontSize: "0.82rem" }}
             onClick={() => onNavigate("exhibitions")}
           >
             Learn more
@@ -330,8 +331,8 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
       {/* Past Exhibitions */}
       <div className="px-8 pt-7 pb-6">
         <div className="flex items-center justify-between mb-4">
-          <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.5rem" }}>Past Exhibitions</span>
-          <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>view all</span>
+          <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.62rem" }}>Past Exhibitions</span>
+          <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.62rem" }}>view all</span>
         </div>
         <div className="grid grid-cols-3 gap-4">
           {pastExhibitions.map((ex, i) => (
@@ -342,13 +343,13 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
               <div>
                 <span
                   className="inline-block rounded-sm px-1 py-[1px] text-[#ADADAA] uppercase tracking-wider border border-solid border-[#ADADAA]"
-                  style={{ fontSize: "0.35rem", borderWidth: "0.1px" }}
+                  style={{ fontSize: "0.45rem", borderWidth: "0.1px" }}
                 >
                   Paris
                 </span>
-                <p className="font-normal mt-1 leading-tight" style={{ fontSize: "0.6rem", color: "#111110" }}>{ex.title}</p>
-                <p className="italic leading-tight" style={{ fontSize: "0.52rem", color: "#333" }}>{ex.subtitle}</p>
-                <p className="uppercase tracking-[0.1em] mt-1" style={{ fontSize: "0.37rem", color: "#ADADAA" }}>{ex.dates}</p>
+                <p className="font-normal mt-1 leading-tight" style={{ fontSize: "0.72rem", color: "#111110" }}>{ex.title}</p>
+                <p className="italic leading-tight" style={{ fontSize: "0.62rem", color: "#333" }}>{ex.subtitle}</p>
+                <p className="uppercase tracking-[0.1em] mt-1" style={{ fontSize: "0.48rem", color: "#ADADAA" }}>{ex.dates}</p>
               </div>
             </div>
           ))}
@@ -368,13 +369,13 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
                 <Image src={item.img} alt="" fill className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" sizes="200px" />
               </div>
               <div>
-                <p className="uppercase tracking-[0.08em] text-[#ADADAA] mb-0.5 leading-snug" style={{ fontSize: "0.35rem" }}>{item.venue}</p>
-                <p className="font-normal leading-tight" style={{ fontSize: "0.58rem", color: "#111110" }}>{item.title}</p>
+                <p className="uppercase tracking-[0.08em] text-[#ADADAA] mb-0.5 leading-snug" style={{ fontSize: "0.47rem" }}>{item.venue}</p>
+                <p className="font-normal leading-tight" style={{ fontSize: "0.7rem", color: "#111110" }}>{item.title}</p>
                 {item.subtitle && (
-                  <p className="italic leading-tight" style={{ fontSize: "0.48rem", color: "#555" }}>{item.subtitle}</p>
+                  <p className="italic leading-tight" style={{ fontSize: "0.6rem", color: "#555" }}>{item.subtitle}</p>
                 )}
-                <p className="text-[#ADADAA] mt-0.5" style={{ fontSize: "0.37rem" }}>{item.dates}</p>
-                <span className="text-[#111110] mt-1 inline-block" style={{ fontSize: "0.42rem" }}>Learn more →</span>
+                <p className="text-[#ADADAA] mt-0.5" style={{ fontSize: "0.49rem" }}>{item.dates}</p>
+                <span className="text-[#111110] mt-1 inline-block" style={{ fontSize: "0.54rem" }}>Learn more →</span>
               </div>
             </div>
           ))}
@@ -387,12 +388,12 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         style={{ background: "#111110" }}
       >
         <div className="min-w-0">
-          <p className="text-white font-medium mb-1" style={{ fontSize: "0.65rem" }}>Be the first to know</p>
-          <p className="text-white/50 leading-snug" style={{ fontSize: "0.45rem", maxWidth: 420 }}>
+          <p className="text-white font-medium mb-1" style={{ fontSize: "0.78rem" }}>Be the first to know</p>
+          <p className="text-white/50 leading-snug" style={{ fontSize: "0.58rem", maxWidth: 420 }}>
             Join our mailing list to never miss upcoming exhibitions, art fairs, news, events, films & more.
           </p>
         </div>
-        <button className="shrink-0 border border-white/30 rounded-full px-4 py-1.5 text-white" style={{ fontSize: "0.5rem" }}>
+        <button className="shrink-0 border border-white/30 rounded-full px-4 py-1.5 text-white" style={{ fontSize: "0.63rem" }}>
           Subscribe
         </button>
       </div>
@@ -418,11 +419,9 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
   const exhibitions = {
     current: [
       { img: "/exhibition page/Exhibition1.png", title: "Sun Dog", subtitle: "Your friends", dates: "Feb 12 — Mar 22, 2026" },
-      { img: "/exhibition page/Exhibition2.png", title: "Claire Tabouret", subtitle: "Night Garden", dates: "Jan 8 — Feb 5, 2026" },
     ],
     upcoming: [
-      { img: "/exhibition page/painting-01.png", title: "Rashid Johnson", subtitle: "Anxious Men", dates: "Apr 3 — May 17, 2026" },
-      { img: "/exhibition page/painting-02.png", title: "Nina Beier", subtitle: "Soft Power", dates: "May 28 — Jul 4, 2026" },
+      { img: "/exhibition page/painting-01.png", title: "Marcus Vael", subtitle: "Anxious Men", dates: "Apr 3 — May 17, 2026" },
     ],
     past: [
       { img: "/exhibition page/Exhibition6.png", title: "Kehinde Wiley", subtitle: "New Republic", dates: "Oct 2 — Nov 30, 2025" },
@@ -466,31 +465,44 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
         </p>
 
         {/* Exhibition list */}
-        <div className={`flex-1 overflow-hidden ${px} flex flex-col gap-4`}>
-          {shown.map((ex, i) => (
-            <div key={i} className="flex flex-col gap-1.5 cursor-pointer group">
-              <div className="overflow-hidden rounded-sm relative" style={{ aspectRatio: "16/7" }}>
-                <Image
-                  src={ex.img}
-                  alt=""
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                  sizes="600px"
-                />
+        <div className="flex-1 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
+          <div className={`${px} flex flex-col gap-4`}>
+            {shown.map((ex, i) => (
+              <div key={i} className="flex flex-col gap-1.5 group" style={{ cursor: "default" }}>
+                <div className="overflow-hidden rounded-sm relative" style={{ aspectRatio: "16/7" }}>
+                  <Image
+                    src={ex.img}
+                    alt=""
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="600px"
+                  />
+                </div>
+                <div>
+                  <p className="font-normal leading-tight" style={{ fontSize: isMobile ? "0.9rem" : "1rem", color: "#111110" }}>
+                    {ex.title}
+                  </p>
+                  <p className="leading-tight" style={{ fontSize: "0.95rem", color: "#111110" }}>
+                    {ex.subtitle}
+                  </p>
+                  <p className="uppercase tracking-[0.1em] mt-0.5" style={{ fontSize: "0.6rem", color: "#ADADAA" }}>
+                    {ex.dates}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="font-normal leading-tight" style={{ fontSize: isMobile ? "0.65rem" : "0.75rem", color: "#111110" }}>
-                  {ex.title}
-                </p>
-                <p className="italic leading-tight" style={{ fontSize: "0.6rem", color: "#111110" }}>
-                  {ex.subtitle}
-                </p>
-                <p className="uppercase tracking-[0.1em] mt-0.5" style={{ fontSize: "0.4rem", color: "#ADADAA" }}>
-                  {ex.dates}
-                </p>
-              </div>
+            ))}
+          </div>
+          {/* Footer */}
+          <div className="px-8 py-4 flex items-center justify-between border-t mt-6" style={{ borderColor: "#F0EFED" }}>
+            <span className="uppercase tracking-[0.15em] font-medium text-[#111110]" style={{ fontSize: "0.48rem" }}>Galerie</span>
+            <GallerySocialFooterIcons />
+            <div className="flex items-center gap-2 text-[#ADADAA]" style={{ fontSize: "0.38rem" }}>
+              {["The Gallery", "Jobs", "Terms", "Privacy", "Accessibility"].map((l) => (
+                <span key={l} className="cursor-pointer">{l}</span>
+              ))}
+              <span>| © 2026</span>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
@@ -1243,6 +1255,7 @@ function GalleryHeroMock() {
           {page === "home" && <HomeView onNavigate={setPage} isMobile={isMobile} />}
           {page === "exhibitions" && <ExhibitionsView onNavigate={setPage} isMobile={isMobile} />}
           {page === "artists" && <ArtistsView onNavigate={setPage} isMobile={isMobile} />}
+          {page === "exhibition-detail" && <ExhibitionPageMock isMobile={isMobile} onBack={() => setPage("exhibitions")} />}
         </motion.div>
       </AnimatePresence>
     </div>

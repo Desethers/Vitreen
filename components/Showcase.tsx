@@ -39,8 +39,13 @@ const bioText = [
 function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
   const [activeTab, setActiveTab] = useState<Tab>("Selected Works");
   const [bioOpen, setBioOpen] = useState(false);
+  const [showExhibition, setShowExhibition] = useState(false);
   const artistScrollRef = useRef<HTMLDivElement>(null);
   const [artistScrolled, setArtistScrolled] = useState(true);
+
+  if (showExhibition) {
+    return <ExhibitionPageMock isMobile={isMobile} onBack={() => setShowExhibition(false)} />;
+  }
 
   useEffect(() => {
     const el = artistScrollRef.current;
@@ -356,7 +361,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
   );
 }
 
-function ExhibitionPageMock({ isMobile = false }: { isMobile?: boolean }) {
+export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: boolean; onBack?: () => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -386,6 +391,9 @@ function ExhibitionPageMock({ isMobile = false }: { isMobile?: boolean }) {
         </div>
         {/* Mobile body */}
         <div className="px-5 pt-5 pb-5">
+          {onBack && (
+            <button onClick={onBack} className="text-[11px] text-[#888] mb-4 flex items-center gap-1">← Back</button>
+          )}
           <p className="text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] mb-4">
             <span className="text-[#555] underline underline-offset-2">Exhibitions</span>{" — "}Your friends
           </p>
@@ -516,6 +524,9 @@ function ExhibitionPageMock({ isMobile = false }: { isMobile?: boolean }) {
         <div className="flex gap-14 px-10 pt-10 pb-12">
           {/* Sidebar */}
           <div className="w-[200px] shrink-0 flex flex-col gap-5">
+            {onBack && (
+              <button onClick={onBack} className="text-[11px] text-[#888] flex items-center gap-1 self-start">← Back</button>
+            )}
             <p className="text-[10px] uppercase tracking-[0.12em] text-[#ADADAA]">
               <span className="text-[#555] underline underline-offset-2">Exhibitions</span>
               {" — "}Your friends
