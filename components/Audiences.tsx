@@ -735,6 +735,12 @@ type ArtistPage = "home" | "past-exhibitions" | "gallery" | "artwork-detail";
 
 const HOME_WORKS_SLIDES = 2;
 
+/** Marge horizontale du mock artiste (contenu + header + footer), desktop. */
+const ARTIST_MOCK_PAD_X = 28;
+const ARTIST_MOCK_PAD_X_MOBILE = 16;
+/** Largeur du conteneur en dessous de laquelle le mock passe en mise en page « mobile ». */
+const ARTIST_MOCK_MOBILE_MAX_W = 440;
+
 function ArtistPortfolioMock() {
   const [page, setPage] = useState<ArtistPage>("home");
   const [selectedWork, setSelectedWork] = useState(0);
@@ -742,6 +748,21 @@ function ArtistPortfolioMock() {
   const [worksSlide, setWorksSlide] = useState(0);
   const bodyRef = useRef<HTMLDivElement>(null);
   const detailScrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mockWidth, setMockWidth] = useState(800);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => {
+      setMockWidth(entry.contentRect.width);
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const isMobile = mockWidth < ARTIST_MOCK_MOBILE_MAX_W;
+  const padX = isMobile ? ARTIST_MOCK_PAD_X_MOBILE : ARTIST_MOCK_PAD_X;
 
   const goTo = (p: ArtistPage) => {
     setPage(p);
@@ -756,35 +777,45 @@ function ArtistPortfolioMock() {
   };
 
   const navItems: { label: string; page: ArtistPage | null }[] = [
-    { label: "Past exhibitions", page: "past-exhibitions" },
+    { label: isMobile ? "Exhibitions" : "Past exhibitions", page: "past-exhibitions" },
     { label: "Gallery", page: "gallery" as ArtistPage },
     { label: "About", page: null },
   ];
 
   return (
-    <div className="w-full h-full font-sans bg-white flex flex-col overflow-hidden">
+    <div ref={containerRef} className="w-full h-full font-sans bg-white flex flex-col overflow-hidden min-w-0">
       <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}.buy-btn{background:transparent;color:#111110;border:0.5px solid #111110}.buy-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}`}</style>
       {/* Navbar */}
-      <div className="flex items-center justify-between flex-shrink-0" style={{ padding: "16px 50px" }}>
+      <div
+        className="flex flex-shrink-0 min-w-0 items-center justify-between gap-2"
+        style={{ padding: `${isMobile ? 12 : 16}px ${padX}px` }}
+      >
         <span
           onClick={() => goTo("home")}
-          style={{ fontSize: "0.75rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
+          className="shrink-0 whitespace-nowrap"
+          style={{ fontSize: isMobile ? "0.7rem" : "0.75rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
         >
           Sun Dog
         </span>
-        <div className="flex gap-5">
+        <div className="flex min-w-0 max-w-[min(100%,calc(100%-5rem))] items-center justify-end gap-1 overflow-x-auto sm:max-w-none sm:gap-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {navItems.map(item => (
             <span
               key={item.label}
+              role={item.page ? "button" : undefined}
+              tabIndex={item.page ? 0 : undefined}
               onClick={() => item.page && goTo(item.page)}
-              style={{
-                fontSize: "0.75rem",
-                color: page === item.page ? "#111110" : "#6B6A67",
-                fontWeight: page === item.page ? 600 : 400,
-                cursor: item.page ? "pointer" : "default",
-                textDecoration: page === item.page ? "underline" : "none",
-                textUnderlineOffset: 2,
+              onKeyDown={(e) => {
+                if (item.page && (e.key === "Enter" || e.key === " ")) {
+                  e.preventDefault();
+                  goTo(item.page);
+                }
               }}
+              className={[
+                "inline-flex shrink-0 items-center rounded-full text-[#111110] tracking-[-0.01em] transition-colors hover:bg-[#F5F5F5]",
+                isMobile ? "text-[0.65rem] px-2.5 py-1" : "text-[0.75rem] px-4 py-1.5",
+                page === item.page ? "font-semibold underline underline-offset-[2px] decoration-[#111110]" : "font-normal",
+                item.page ? "cursor-pointer" : "cursor-default",
+              ].join(" ")}
             >
               {item.label}
             </span>
@@ -798,42 +829,70 @@ function ArtistPortfolioMock() {
         {/* ── HOME PAGE ── */}
         {page === "home" && (
           <>
-            <div className="w-full" style={{ padding: "10px 50px 0" }}>
+            <div className="w-full" style={{ padding: `10px ${padX}px 0` }}>
               <div className="relative w-full overflow-hidden" style={{ borderRadius: 3, aspectRatio: "16/7.5" }}>
                 <Image src="/artworks/v2-warm.png" alt="" fill className="object-cover" sizes="800px" />
               </div>
             </div>
-            <div className="flex flex-col" style={{ padding: "14px 50px 10px", gap: 4 }}>
-              <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: -1 }}>Your friends</p>
-              <p style={{ fontSize: "0.66rem", color: "#6B6A67" }}>Galerie</p>
-              <p style={{ fontSize: "0.66rem", color: "#6B6A67", marginTop: -4 }}>13 juin - 4 juillet 2025</p>
-              <button className="mock-btn" style={{ display: "inline-flex", alignSelf: "flex-start", border: "0.5px solid #111110", borderRadius: 5, padding: "7px 16px", fontSize: "0.61rem", background: "transparent", color: "#111110", marginTop: 10, cursor: "pointer" }}>
+            <div className="flex flex-col" style={{ padding: `14px ${padX}px 10px`, gap: 4 }}>
+              <p className="font-medium text-[#111110] leading-[1.1] tracking-[-0.025em] mb-[-1px] text-[1rem] xl:text-[1.125rem]">
+                Your friends
+              </p>
+              <p className="text-[#6B6A67] text-[0.66rem] xl:text-[0.75rem]">Galerie</p>
+              <p className="text-[#6B6A67] text-[0.66rem] xl:text-[0.75rem] -mt-1">13 juin - 4 juillet 2025</p>
+              <button
+                type="button"
+                className="mock-btn inline-flex self-start cursor-pointer mt-2.5 rounded-[5px] border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
+              >
                 Explore more exhibitions
               </button>
             </div>
-            <div style={{ padding: "24px 50px 36px" }}>
+            <div style={{ padding: `24px ${padX}px 36px` }}>
               <div style={{ marginBottom: 12 }}>
                 <motion.div
                   key={worksSlide}
                   initial={{ opacity: 0.72 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.22, ease }}
-                  style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: 8 }}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: isMobile ? "minmax(0, 1fr)" : "repeat(4, minmax(0, 1fr))",
+                    gap: 8,
+                  }}
                 >
-                  {artistWorks.slice(worksSlide * 2, worksSlide * 2 + 4).map((aw) => (
-                    <div
-                      key={`${worksSlide}-${aw.title}`}
-                      className="flex flex-col min-w-0"
-                      style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6 }}
-                    >
-                      <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
-                        <Image src={aw.src} alt="" fill className="object-cover" sizes="150px" />
+                  {artistWorks.slice(worksSlide * 2, worksSlide * 2 + 4).map((aw) => {
+                    const galleryIdx = galleryWorks.findIndex((w) => w.title === aw.title);
+                    const clickable = galleryIdx >= 0;
+                    return (
+                      <div
+                        key={`${worksSlide}-${aw.title}`}
+                        role={clickable ? "button" : undefined}
+                        tabIndex={clickable ? 0 : undefined}
+                        className="flex flex-col min-w-0"
+                        style={{
+                          gap: 5,
+                          background: "#F9F9F8",
+                          borderRadius: 6,
+                          padding: 6,
+                          cursor: clickable ? "pointer" : "default",
+                        }}
+                        onClick={() => clickable && openWork(galleryIdx)}
+                        onKeyDown={(e) => {
+                          if (clickable && (e.key === "Enter" || e.key === " ")) {
+                            e.preventDefault();
+                            openWork(galleryIdx);
+                          }
+                        }}
+                      >
+                        <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
+                          <Image src={aw.src} alt="" fill className="object-cover" sizes="150px" />
+                        </div>
+                        <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
+                        <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
+                        <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
                       </div>
-                      <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
-                      <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
-                      <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </motion.div>
                 <div className="flex items-center justify-center gap-3" style={{ marginTop: 10 }}>
                   <button
@@ -875,9 +934,15 @@ function ArtistPortfolioMock() {
                   </button>
                 </div>
               </div>
-              <p style={{ fontSize: "1rem", fontWeight: 500, color: "#111110", lineHeight: 1.1, letterSpacing: "-0.025em", marginBottom: 4 }}>Last artworks</p>
-              <p style={{ fontSize: "0.61rem", color: "#6B6A67", marginBottom: 4 }}>New pieces from the studio</p>
-              <button className="mock-btn" onClick={() => goTo("gallery")} style={{ display: "inline-flex", border: "0.5px solid #111110", borderRadius: 5, padding: "7px 16px", fontSize: "0.61rem", background: "transparent", color: "#111110", cursor: "pointer", marginTop: 10 }}>
+              <p className="font-medium text-[#111110] leading-[1.1] tracking-[-0.025em] mb-1 text-[1rem] xl:text-[1.125rem]">
+                Last artworks
+              </p>
+              <p className="text-[#6B6A67] mb-1 text-[0.66rem] xl:text-[0.75rem]">New pieces from the studio</p>
+              <button
+                type="button"
+                className="mock-btn inline-flex cursor-pointer mt-2.5 rounded-[5px] border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
+                onClick={() => goTo("gallery")}
+              >
                 Explore more artworks
               </button>
             </div>
@@ -886,7 +951,7 @@ function ArtistPortfolioMock() {
 
         {/* ── PAST EXHIBITIONS PAGE ── */}
         {page === "past-exhibitions" && (
-          <div style={{ padding: "18px 50px 24px" }}>
+          <div style={{ padding: `18px ${padX}px 24px` }}>
             <p style={{ fontSize: "1.3rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", marginBottom: 18 }}>
               Past exhibitions
             </p>
@@ -909,7 +974,7 @@ function ArtistPortfolioMock() {
 
         {/* ── GALLERY PAGE ── */}
         {page === "gallery" && (
-          <div style={{ padding: "18px 50px 24px" }}>
+          <div style={{ padding: `18px ${padX}px 24px` }}>
             {/* Header: title left, description right */}
             <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
               <div style={{ flex: "0 0 38%" }}>
@@ -927,7 +992,13 @@ function ArtistPortfolioMock() {
             </div>
             {/* Paintings section */}
             <p style={{ fontSize: "0.68rem", fontWeight: 400, color: "#111110", marginBottom: 12 }}>Paintings</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "minmax(0, 1fr)" : "repeat(4, 1fr)",
+                gap: 8,
+              }}
+            >
               {galleryWorks.map((aw, idx) => (
                 <div key={aw.title} onClick={() => openWork(idx)} className="flex flex-col" style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: "pointer" }}>
                   <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
@@ -948,14 +1019,14 @@ function ArtistPortfolioMock() {
           const srcs = aw?.srcs;
           if (!aw || !srcs?.length) {
             return (
-              <div style={{ padding: "24px 50px" }}>
+              <div style={{ padding: `24px ${padX}px` }}>
                 <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 12 }}>Œuvre introuvable.</p>
                 <span onClick={() => goTo("gallery")} style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
               </div>
             );
           }
           return (
-            <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 50, padding: "16px 50px" }}>
+            <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 36, padding: `16px ${padX}px` }}>
               {/* Left: image */}
               <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
                 <Image src={srcs[selectedImage % srcs.length]} alt="" fill className="object-cover" sizes="400px" style={{ padding: "12px 12px 12px 0" }} />
@@ -1005,7 +1076,7 @@ function ArtistPortfolioMock() {
         })()}
 
         {/* Footer */}
-        <div className="border-t border-[#F0F0EE]" style={{ padding: "16px 20px" }}>
+        <div className="border-t border-[#F0F0EE]" style={{ padding: `16px ${padX}px` }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: "0.44rem", color: "#ADADAA" }}>© 2025 Sun Dog</span>
             <div style={{ display: "flex", gap: 12 }}>
