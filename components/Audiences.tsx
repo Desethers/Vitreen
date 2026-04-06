@@ -155,13 +155,13 @@ function GalleryNavbar({
     <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-10 pt-5 pb-4">
       <span
         className="font-medium uppercase cursor-pointer"
-        style={{ fontSize: "0.52rem", letterSpacing: "0.12em", color: textColor }}
+        style={{ fontSize: "0.6rem", letterSpacing: "0.12em", color: textColor }}
         onClick={() => onNavigate("home")}
       >
         Galerie
       </span>
       <div className="flex items-center gap-5">
-        <div className="flex gap-5" style={{ fontSize: "0.54rem", color: navColor }}>
+        <div className="flex gap-5" style={{ fontSize: "0.62rem", color: navColor }}>
           {NAV_ITEMS.map((n) => {
             const isActive =
               (n === "Exhibitions" && page === "exhibitions") ||
@@ -1112,16 +1112,24 @@ function ArtistPortfolioMock() {
                 gap: 8,
               }}
             >
-              {galleryWorks.map((aw, idx) => (
-                <div key={aw.title} onClick={() => openWork(idx)} className="flex flex-col" style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: "pointer" }}>
-                  <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
-                    <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="150px" />
+              {galleryWorks.map((aw, idx) => {
+                const isDemo = idx === 0;
+                return (
+                  <div
+                    key={aw.title}
+                    onClick={() => isDemo && openWork(idx)}
+                    className="flex flex-col"
+                    style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: isDemo ? "pointer" : "default", opacity: isDemo ? 1 : 0.4 }}
+                  >
+                    <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
+                      <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="150px" />
+                    </div>
+                    <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
+                    <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
+                    <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
                   </div>
-                  <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
-                  <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
-                  <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
@@ -1448,7 +1456,7 @@ export default function Audiences() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease, delay: 0.08 }}
-          className="rounded-[5px] overflow-hidden px-4 py-[10px] md:px-28 md:py-[21px] [background-size:cover] [background-repeat:no-repeat] md:[background-size:140%]"
+          className="rounded-[5px] overflow-hidden px-4 pt-[10px] pb-[30px] md:px-28 md:py-[21px] [background-size:cover] [background-repeat:no-repeat] md:[background-size:140%]"
           style={{
             backgroundImage: `url(${bgImage})`,
             backgroundPosition: "center 40%",

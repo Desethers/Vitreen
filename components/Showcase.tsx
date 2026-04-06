@@ -804,6 +804,7 @@ function ShowcaseCard({
   delay = 0,
   mockImage,
   mockScale = 1,
+  bgImage = "/colin de land.jpg",
 }: {
   title: string;
   desc: string;
@@ -811,12 +812,13 @@ function ShowcaseCard({
   delay?: number;
   mockImage?: string;
   mockScale?: number;
+  bgImage?: string;
 }) {
   const imageCol = (
     <div className="relative overflow-hidden h-[420px] md:min-h-[720px]">
       <div
         className="absolute inset-[15px] rounded-[5px] bg-cover bg-center"
-        style={{ backgroundImage: "url('/colin de land.jpg')" }}
+        style={{ backgroundImage: `url('${bgImage}')` }}
       />
       <DraggableMockWindow initialWidthPct={mockScale * 85}>
         {(widthPx) => mockImage === "/artist page.png" ? (
@@ -895,6 +897,7 @@ export default function Showcase() {
             desc="Des pages d'exposition claires et structurées : avec textes, images et liste d'œuvres."
             delay={0}
             mockScale={0.9}
+            bgImage="/paula-cooper-background.jpg"
           />
           <ShowcaseCard
             title="Artist Pages"
