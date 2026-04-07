@@ -94,7 +94,7 @@ function AdminMock() {
             {/* Artist field */}
             <div>
               <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
-                Artiste
+                {m.artistField}
               </div>
               <motion.div
                 initial={{ width: 0 }}
@@ -116,7 +116,7 @@ function AdminMock() {
             {/* Image upload */}
             <div>
               <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
-                Image
+                {m.imageField}
               </div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -137,7 +137,7 @@ function AdminMock() {
                   <path d="m21 15-5-5L5 21" />
                 </svg>
                 <span className="text-[10px] text-[#ADADAA]">
-                  Glissez ou cliquez
+                  {m.dragClick}
                 </span>
               </motion.div>
             </div>
@@ -146,7 +146,7 @@ function AdminMock() {
             <div className="flex gap-2">
               <div className="flex-1">
                 <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
-                  Prix
+                  {m.priceField}
                 </div>
                 <motion.div
                   initial={{ width: 0 }}
@@ -160,13 +160,13 @@ function AdminMock() {
                     transition={{ delay: 1.1 }}
                     className="text-[11px] text-[#111110] whitespace-nowrap"
                   >
-                    Sur demande
+                    {m.priceValue}
                   </motion.span>
                 </motion.div>
               </div>
               <div className="flex-1">
                 <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
-                  Dimensions
+                  {m.dimField}
                 </div>
                 <motion.div
                   initial={{ width: 0 }}
@@ -194,6 +194,8 @@ function AdminMock() {
 
 /* Step 2 — Live site preview showing the artwork */
 function LiveSiteMock() {
+  const { t } = useLang();
+  const m = t.stepper.mock.livesite;
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -224,7 +226,7 @@ function LiveSiteMock() {
             Galerie Fontaine
           </span>
           <div className="flex gap-4">
-            {["Œuvres", "Artistes", "Expositions", "Contact"].map((item) => (
+            {m.navItems.map((item) => (
               <span key={item} className="text-[9px] text-[#6B6A67]">
                 {item}
               </span>
@@ -271,16 +273,16 @@ function LiveSiteMock() {
             <div className="h-px bg-[#F0F0EE]" />
             <div className="space-y-1">
               <div className="flex justify-between">
-                <span className="text-[9px] text-[#ADADAA]">Technique</span>
-                <span className="text-[9px] text-[#6B6A67]">Huile sur toile</span>
+                <span className="text-[9px] text-[#ADADAA]">{m.technique}</span>
+                <span className="text-[9px] text-[#6B6A67]">{m.techniqueValue}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[9px] text-[#ADADAA]">Dimensions</span>
+                <span className="text-[9px] text-[#ADADAA]">{m.dimensions}</span>
                 <span className="text-[9px] text-[#6B6A67]">120 × 80 cm</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[9px] text-[#ADADAA]">Prix</span>
-                <span className="text-[9px] text-[#6B6A67]">Sur demande</span>
+                <span className="text-[9px] text-[#ADADAA]">{m.price}</span>
+                <span className="text-[9px] text-[#6B6A67]">{m.priceValue}</span>
               </div>
             </div>
             <motion.div
@@ -289,7 +291,7 @@ function LiveSiteMock() {
               transition={{ delay: 0.9, duration: 0.3 }}
               className="mt-auto text-[10px] px-3 py-1.5 rounded-full bg-[#111110] text-white font-medium text-center"
             >
-              Demander le prix
+              {m.inquire}
             </motion.div>
           </motion.div>
         </div>
@@ -308,7 +310,7 @@ function LiveSiteMock() {
           className="w-2 h-2 rounded-full bg-[#4CAF50]"
         />
         <span className="text-[10px] text-[#6B6A67]">
-          Visible en ligne — mis à jour il y a 2 secondes
+          {m.liveStatus}
         </span>
       </motion.div>
     </motion.div>
@@ -317,6 +319,8 @@ function LiveSiteMock() {
 
 /* Step 3 — Email send to collector */
 function ShareMock() {
+  const { t } = useLang();
+  const m = t.stepper.mock.share;
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -325,8 +329,8 @@ function ShareMock() {
       transition={{ duration: 0.4, ease }}
       className="absolute inset-0 p-5 md:p-6 flex flex-col"
     >
-      <div className="text-[12px] font-medium text-[#111110] mb-1">Nouveau message</div>
-      <div className="text-[10px] text-[#ADADAA] mb-4">Notifier un collectionneur</div>
+      <div className="text-[12px] font-medium text-[#111110] mb-1">{m.newMessage}</div>
+      <div className="text-[10px] text-[#ADADAA] mb-4">{m.notifyCollector}</div>
 
       {/* Email card */}
       <motion.div
@@ -337,11 +341,11 @@ function ShareMock() {
       >
         {/* To / From fields */}
         <div className="border-b border-[#F0F0EE] px-3.5 py-2 flex items-center gap-2">
-          <span className="text-[9px] text-[#ADADAA] w-8">De</span>
+          <span className="text-[9px] text-[#ADADAA] w-8">{m.from}</span>
           <span className="text-[10px] text-[#6B6A67]">galerie@fontaine.com</span>
         </div>
         <div className="border-b border-[#F0F0EE] px-3.5 py-2 flex items-center gap-2">
-          <span className="text-[9px] text-[#ADADAA] w-8">À</span>
+          <span className="text-[9px] text-[#ADADAA] w-8">{m.to}</span>
           <motion.span
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: "auto", opacity: 1 }}
@@ -352,7 +356,7 @@ function ShareMock() {
           </motion.span>
         </div>
         <div className="border-b border-[#F0F0EE] px-3.5 py-2 flex items-center gap-2">
-          <span className="text-[9px] text-[#ADADAA] w-8">Objet</span>
+          <span className="text-[9px] text-[#ADADAA] w-8">{m.subject}</span>
           <motion.span
             initial={{ width: 0, opacity: 0 }}
             animate={{ width: "auto", opacity: 1 }}
@@ -375,7 +379,7 @@ function ShareMock() {
             <div className="w-10 h-10 rounded-md bg-[#D8D4CE] flex-shrink-0" />
             <div>
               <div className="text-[10px] font-medium text-[#111110]">Composition No. 7, 2024</div>
-              <div className="text-[9px] text-[#ADADAA]">Claire Fontaine · Sur demande</div>
+              <div className="text-[9px] text-[#ADADAA]">{m.artworkSub}</div>
             </div>
           </div>
           {/* Text lines */}
@@ -409,7 +413,7 @@ function ShareMock() {
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="m22 2-7 20-4-9-9-4Z" /><path d="M22 2 11 13" />
                 </svg>
-                <span className="text-[9px] text-white font-medium">Envoyer</span>
+                <span className="text-[9px] text-white font-medium">{m.send}</span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -420,10 +424,10 @@ function ShareMock() {
                 <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
-                <span className="text-[9px] text-white font-medium">Envoyé</span>
+                <span className="text-[9px] text-white font-medium">{m.sent}</span>
               </motion.div>
             </motion.div>
-            <span className="text-[9px] text-[#ADADAA]">1 sur 3 collectionneurs</span>
+            <span className="text-[9px] text-[#ADADAA]">{m.recipientsCount}</span>
           </motion.div>
         </div>
       </motion.div>
@@ -435,12 +439,6 @@ function ShareMock() {
 
 const MOCKS = [AdminMock, LiveSiteMock, ShareMock];
 
-const STEP_DATA = [
-  { number: 1, title: "Ajoutez une œuvre", desc: "Formulaire simple, publié en un clic." },
-  { number: 2, title: "Site mis à jour", desc: "L'œuvre apparaît instantanément, sans code." },
-  { number: 3, title: "Partagez", desc: "Lien, Viewing Room privé, email collectionneurs." },
-];
-
 const STEP_POSITIONS: React.CSSProperties[] = [
   { top: 75, right: 40 },
   { top: "calc(50% - 20px)", right: 40 },
@@ -448,6 +446,9 @@ const STEP_POSITIONS: React.CSSProperties[] = [
 ];
 
 export default function Stepper() {
+  const { t } = useLang();
+  const stepData = t.stepper.steps;
+
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState<Set<number>>(new Set([0]));
   const [isMobile, setIsMobile] = useState(false);
@@ -487,7 +488,7 @@ export default function Stepper() {
           style={{ border: "0.1px solid #D4D4D0" }}
         >
           <div className="grid md:grid-cols-[2fr_1fr]">
-            {/* Left: B&W background + large card + 3 small step overlay cards — order-2 sur mobile pour placer le texte au-dessus */}
+            {/* Left: B&W background + large card + 3 small step overlay cards */}
             <div className="relative order-2 overflow-hidden h-[500px] md:order-none md:min-h-[720px]">
               {/* Fond photo */}
               <div
@@ -515,12 +516,12 @@ export default function Stepper() {
               </div>
 
               {/* 3 small step cards — always visible, active one highlighted */}
-              {STEP_DATA.map((step, i) => {
+              {stepData.map((step, i) => {
                 const isActive = active === i;
                 const isRevealed = revealed.has(i);
                 return (
                   <motion.div
-                    key={step.number}
+                    key={i}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{
                       opacity: isRevealed ? 1 : 0,
@@ -539,7 +540,7 @@ export default function Stepper() {
                           isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"
                         }`}
                       >
-                        {step.number}
+                        {i + 1}
                       </div>
                       <span
                         className={`text-[11px] font-medium leading-tight transition-colors duration-300 ${
@@ -569,12 +570,12 @@ export default function Stepper() {
 
             {/* Mobile steps list */}
             <div className="order-3 block md:hidden px-[15px] py-4 md:order-none" style={{ borderTop: "0.5px solid #E8E8E6" }}>
-              {STEP_DATA.map((step, i) => {
+              {stepData.map((step, i) => {
                 const isActive = active === i;
                 return (
-                  <div key={step.number} className={`flex items-start gap-3 py-3 ${i > 0 ? "border-t border-[#F4F4F2]" : ""}`}>
+                  <div key={i} className={`flex items-start gap-3 py-3 ${i > 0 ? "border-t border-[#F4F4F2]" : ""}`}>
                     <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold mt-0.5 transition-colors duration-300 ${isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"}`}>
-                      {step.number}
+                      {i + 1}
                     </div>
                     <div>
                       <p className={`text-[13px] font-medium leading-tight transition-colors duration-300 ${isActive ? "text-[#111110]" : "text-[#ADADAA]"}`}>
@@ -591,14 +592,14 @@ export default function Stepper() {
               })}
             </div>
 
-            {/* Right: text — order-1 sur mobile = au-dessus de l’anim */}
+            {/* Right: text */}
             <div className="order-1 flex flex-col justify-center px-[15px] py-6 md:order-none md:px-10 md:py-12">
               <div className="text-[14px] md:text-[18px] leading-[1.3] w-full">
                 <h3 className="font-display font-normal text-[#111110] tracking-[-0.02em] m-0 p-0 leading-[inherit]">
-                  Publier du contenu — sans effort
+                  {t.stepper.title}
                 </h3>
                 <p className="text-[#6B6A67] font-normal tracking-[-0.02em] m-0 p-0 leading-[inherit]">
-                  Vous publiez en autonomie. Ajoutez vos œuvres, elles apparaissent instantanément sur votre site.
+                  {t.stepper.subtitle}
                 </p>
               </div>
             </div>
