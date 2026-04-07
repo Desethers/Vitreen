@@ -19,12 +19,16 @@ export default function Nav() {
 
   const [form, setForm] = useState({ nom: "", galerie: "", email: "", projet: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const closeContactModal = useCallback(() => {
     setContactModalOpen(false);
     setCtaSlideX(0);
     openModalAfterSlideRef.current = false;
     setSubmitted(false);
+    setSending(false);
+    setSendError(null);
     setForm({ nom: "", galerie: "", email: "", projet: "" });
   }, []);
 
@@ -33,6 +37,12 @@ export default function Nav() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onOpenContact = () => setContactModalOpen(true);
+    window.addEventListener("open-contact-modal", onOpenContact);
+    return () => window.removeEventListener("open-contact-modal", onOpenContact);
   }, []);
 
   useEffect(() => {
@@ -138,9 +148,26 @@ export default function Nav() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setSendError(null);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Erreur lors de l'envoi");
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : "Erreur lors de l'envoi");
+    } finally {
+      setSending(false);
+    }
   };
 
   const navLinks = [
@@ -390,11 +417,15 @@ export default function Nav() {
                     rows={4}
                     className={`${inputClass} resize-none`}
                   />
+                  {sendError && (
+                    <p className="text-sm text-red-500 -mt-2">{sendError}</p>
+                  )}
                   <button
                     type="submit"
-                    className="mt-1 bg-[#111110] text-white px-7 py-3 rounded-full text-sm font-medium hover:bg-[#2a2a28] transition-colors duration-200 w-fit"
+                    disabled={sending}
+                    className="mt-1 bg-[#111110] text-white px-7 py-3 rounded-full text-sm font-medium hover:bg-[#2a2a28] transition-colors duration-200 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Envoyer →
+                    {sending ? "Envoi…" : "Envoyer →"}
                   </button>
                 </form>
               )}

@@ -244,8 +244,9 @@ export default function Services() {
                     {service.footerNote}
                   </p>
                 ) : null}
-                <a
-                  href="#contact"
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
                   className={`inline-flex items-center justify-center text-sm px-5 py-2.5 rounded-full w-full font-medium transition-colors duration-200 ${
                     service.highlight
                       ? "bg-white text-[#111110] hover:bg-[#F5F5F3]"
@@ -253,7 +254,7 @@ export default function Services() {
                   }`}
                 >
                   {service.cta}
-                </a>
+                </button>
               </div>
             </motion.article>
           ))}
