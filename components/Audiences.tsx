@@ -24,7 +24,7 @@ function SearchIcon({ stroke, size = 7 }: { stroke: string; size?: number }) {
 function GallerySocialFooterIcons() {
   const linkClass =
     "text-[#111110] hover:opacity-60 transition-opacity inline-flex items-center justify-center";
-  const svgClass = "h-[14px] w-[14px] shrink-0";
+  const svgClass = "h-[11px] w-[11px] shrink-0";
   return (
     <div className="flex items-center gap-3.5">
       <a
@@ -738,7 +738,7 @@ const pastExhibitions = [
 ];
 
 const galleryWorks = [
-  { srcs: ["/artworks/painting-01.png", "/artworks/painting-02.png"], title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
+  { srcs: ["/artworks/painting-01.png"], title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
   { srcs: ["/artworks/painting-06.png"],                               title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm",   price: "€1 800" },
   { srcs: ["/artworks/painting-04.jpg"],                               title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
   { srcs: ["/artworks/painting-03.jpg"],                               title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "123 × 123 cm",    price: "€2 200" },
@@ -995,7 +995,7 @@ function ArtistPortfolioMock() {
                         }}
                       >
                         <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
-                          <Image src={aw.src} alt="" fill className="object-cover" sizes="150px" />
+                          <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" />
                         </div>
                         <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
                         <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
@@ -1135,10 +1135,10 @@ function ArtistPortfolioMock() {
                     key={aw.title}
                     onClick={() => isDemo && openWork(idx)}
                     className="flex flex-col"
-                    style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: isDemo ? "pointer" : "default", opacity: isDemo ? 1 : 0.4 }}
+                    style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: isDemo ? "pointer" : "default" }}
                   >
                     <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
-                      <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="150px" />
+                      <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="400px" />
                     </div>
                     <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
                     <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
@@ -1166,7 +1166,7 @@ function ArtistPortfolioMock() {
             <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 36, padding: `16px ${padX}px` }}>
               {/* Left: image */}
               <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
-                <Image src={srcs[selectedImage % srcs.length]} alt="" fill className="object-cover" sizes="400px" style={{ padding: "12px 12px 12px 0" }} />
+                <Image src={srcs[selectedImage % srcs.length]} alt="" fill className="object-cover" sizes="1200px" style={{ padding: "12px 12px 12px 0" }} />
                 {srcs.length > 1 && (
                   <>
                     <button onClick={() => setSelectedImage((selectedImage - 1 + srcs.length) % srcs.length)}

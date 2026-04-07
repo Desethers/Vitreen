@@ -278,7 +278,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             </p>
             <button
               onClick={() => setBioOpen(true)}
-              className="mt-2 self-start border border-[#C8C0B8] rounded-full px-5 py-2 text-[13px] text-[#333] hover:bg-[#F5F0EB] transition-colors"
+              className="mt-2 self-start border border-[#C8C0B8] rounded-full px-5 py-2 text-[13px] text-[#333] hover:bg-[#111110] hover:text-white hover:border-[#111110] transition-colors"
             >
               read full biography
             </button>
@@ -898,7 +898,7 @@ export default function Showcase() {
           <p
             className="mt-0 mb-0 text-[20px] md:text-[26px] text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
           >
-            publiez et diffusez vos œuvres simplement
+            publiez et diffusez vos œuvres simplement.
           </p>
         </motion.div>
 

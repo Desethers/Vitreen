@@ -14,7 +14,7 @@ export default function Hero() {
           style={{ color: "#6B6A67" }}
         >
           Vitreen conçoit des interfaces digitales contemporaines pour galeries,
-          artistes et art advisors
+          artistes et art advisors.
         </p>
       </div>
     </section>

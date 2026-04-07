@@ -129,8 +129,8 @@ export default function StatementSplit() {
               className="w-11 h-11 rounded-full object-cover flex-shrink-0 grayscale"
             />
             <div className="font-sans">
-              <p className="text-sm font-normal text-[#111110] leading-tight">Elena Soboleva</p>
-              <p className="text-xs text-[#ADADAA] mt-0.5">Global Head of Audience Growth & Intelligence, Art Basel</p>
+              <p className="text-base font-normal text-[#111110] leading-tight">Elena Soboleva</p>
+              <p className="text-sm text-[#ADADAA] mt-0.5">Global Head of Audience Growth & Intelligence, Art Basel</p>
             </div>
           </footer>
         </motion.blockquote>

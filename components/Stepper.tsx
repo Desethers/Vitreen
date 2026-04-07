@@ -494,7 +494,7 @@ export default function Stepper() {
               {/* Fond photo */}
               <div
                 className="absolute inset-[10px] md:inset-[20px] rounded-[5px] bg-cover bg-center"
-                style={{ backgroundImage: "url('/colin de land.jpg')" }}
+                style={{ backgroundImage: "url('/max hetzler-kippen.jpg')" }}
               />
 
               {/* Large main card — cycles between mocks */}

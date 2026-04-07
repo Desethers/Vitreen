@@ -93,7 +93,7 @@ export default function Services() {
             Choisissez votre formule
           </h2>
           <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
-            Recrutez votre partenaire de croissance digitale
+            Recrutez votre partenaire de croissance digitale.
           </p>
         </motion.div>
 

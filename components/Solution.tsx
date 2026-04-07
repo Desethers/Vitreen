@@ -1001,7 +1001,7 @@ export default function Solution() {
             Faciliter les échanges autour des œuvres
           </h2>
           <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
-            Interactions ciblées et simples — renforcez votre visibilité et vos relations
+            Interactions ciblées et simples — renforcez votre visibilité et vos relations.
           </p>
         </motion.div>
 
