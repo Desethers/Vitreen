@@ -52,17 +52,6 @@ export default function Services() {
                     >
                       {service.tier}
                     </span>
-                    {service.badge ? (
-                      <span
-                        className="text-[10px] tracking-[0.06em] uppercase shrink-0 px-2 py-0.5 rounded-full border font-medium"
-                        style={{
-                          color: service.highlight ? "rgba(255,255,255,0.55)" : "#6B6A67",
-                          borderColor: service.highlight ? "rgba(255,255,255,0.2)" : "#E8E8E6",
-                        }}
-                      >
-                        {service.badge}
-                      </span>
-                    ) : null}
                   </div>
                   <h3
                     className="font-display text-2xl tracking-tight"
@@ -70,14 +59,6 @@ export default function Services() {
                   >
                     {service.name}
                   </h3>
-                  {service.subtitle ? (
-                    <p
-                      className="text-sm font-semibold leading-snug tracking-[-0.01em]"
-                      style={{ color: service.highlight ? "#fff" : "#111110" }}
-                    >
-                      {service.subtitle}
-                    </p>
-                  ) : null}
                   <p
                     className="text-sm leading-relaxed whitespace-pre-line"
                     style={{ color: service.highlight ? "rgba(255,255,255,0.5)" : "#6B6A67" }}
@@ -164,16 +145,6 @@ export default function Services() {
                     </p>
                   ) : null}
                 </div>
-                {service.footerNote ? (
-                  <p
-                    className="text-xs leading-relaxed text-center"
-                    style={{
-                      color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA",
-                    }}
-                  >
-                    {service.footerNote}
-                  </p>
-                ) : null}
                 <button
                   type="button"
                   onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
