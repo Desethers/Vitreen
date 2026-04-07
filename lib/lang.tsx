@@ -456,7 +456,7 @@ export const translations = {
 type LangContextType = {
   lang: Lang;
   setLang: (l: Lang) => void;
-  t: typeof translations.fr;
+  t: typeof translations[Lang];
 };
 
 const LangContext = createContext<LangContextType>({
