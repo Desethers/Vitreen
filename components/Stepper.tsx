@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -9,6 +10,8 @@ const INTERVAL = 4500;
 
 /* Step 1 — Branded admin interface */
 function AdminMock() {
+  const { t } = useLang();
+  const m = t.stepper.mock.admin;
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -23,10 +26,10 @@ function AdminMock() {
           <span className="text-white text-[8px] font-bold tracking-wider">V</span>
         </div>
         <span className="text-[11px] font-medium text-[#111110] tracking-[-0.01em]">
-          Mon espace galerie
+          {m.workspace}
         </span>
         <div className="ml-auto flex items-center gap-3">
-          <span className="text-[10px] text-[#6B6A67]">En ligne</span>
+          <span className="text-[10px] text-[#6B6A67]">{m.online}</span>
           <div className="w-6 h-6 rounded-full bg-[#E8E8E6]" />
         </div>
       </div>
@@ -35,21 +38,16 @@ function AdminMock() {
       <div className="flex flex-1 gap-4 overflow-hidden">
         {/* Sidebar */}
         <div className="hidden md:flex w-32 flex-col gap-0.5">
-          {[
-            { label: "Œuvres", active: true },
-            { label: "Artistes", active: false },
-            { label: "Expositions", active: false },
-            { label: "Viewing Rooms", active: false },
-          ].map((item) => (
+          {m.sidebar.map((label, idx) => (
             <div
-              key={item.label}
+              key={label}
               className={`text-[11px] px-2.5 py-1.5 rounded-md ${
-                item.active
+                idx === 0
                   ? "bg-[#111110] text-white font-medium"
                   : "text-[#6B6A67]"
               }`}
             >
-              {item.label}
+              {label}
             </div>
           ))}
         </div>
@@ -58,7 +56,7 @@ function AdminMock() {
         <div className="flex-1 bg-white rounded-[10px] border border-[#E8E8E6] p-4 md:p-5 flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <span className="text-[12px] font-medium text-[#111110]">
-              Nouvelle œuvre
+              {m.newArtwork}
             </span>
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -66,7 +64,7 @@ function AdminMock() {
               transition={{ delay: 0.3, duration: 0.3 }}
               className="text-[10px] px-2.5 py-1 rounded-full bg-[#111110] text-white font-medium cursor-pointer"
             >
-              Publier
+              {m.publish}
             </motion.div>
           </div>
 
@@ -74,7 +72,7 @@ function AdminMock() {
             {/* Title field */}
             <div>
               <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
-                Titre
+                {m.titleField}
               </div>
               <motion.div
                 initial={{ width: 0 }}

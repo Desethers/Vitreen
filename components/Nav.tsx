@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Nav() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
@@ -170,11 +172,7 @@ export default function Nav() {
     }
   };
 
-  const navLinks = [
-    { label: "Offres", href: "#offre" },
-    { label: "Blog", href: "#blog" },
-    { label: "À propos", href: "#approche" },
-  ];
+  const navLinks = t.nav.links;
 
   const inputClass =
     "w-full bg-transparent border-b border-[#E8E8E6] py-3 text-[#111110] text-sm placeholder-[#ADADAA] focus:outline-none focus:border-[#111110] transition-colors duration-200";
@@ -275,8 +273,8 @@ export default function Nav() {
               onTap={() => openContactFromNav()}
               className={`${ctaBase} group bg-[#111110] text-white pl-3 pr-4 py-2 hover:bg-[#2a2a28] cursor-grab active:cursor-grabbing`}
               style={{ touchAction: "none" }}
-              title="Glissez vers la gauche pour nous écrire"
-              aria-label="Contactez-nous. Faites glisser le bouton vers la gauche pour ouvrir le formulaire."
+              title={t.nav.modal.dragHint}
+              aria-label={t.nav.modal.ariaLabel}
             >
               <span className="inline-flex items-center gap-0 transition-[gap] duration-200 ease-out group-hover:gap-1.5 group-focus-visible:gap-1.5 select-none">
                 <span
@@ -295,7 +293,7 @@ export default function Nav() {
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </span>
-                <span>Contactez-nous</span>
+                <span>{t.nav.cta}</span>
               </span>
             </motion.button>
           </motion.div>
@@ -305,7 +303,7 @@ export default function Nav() {
             onClick={() => openContactFromNav()}
             className={`${ctaBase} border border-[#E8E8E6] text-[#111110] px-4 py-1 hover:bg-[#F5F5F3] z-20`}
           >
-            Contactez-nous
+            {t.nav.cta}
           </button>
         )}
       </div>
@@ -331,7 +329,7 @@ export default function Nav() {
             }}
             className="text-sm bg-[#111110] text-white px-4 py-2.5 rounded-full text-center"
           >
-            Contactez-nous
+            {t.nav.cta}
           </button>
         </div>
       )}
@@ -363,28 +361,28 @@ export default function Nav() {
                 type="button"
                 onClick={closeContactModal}
                 className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-[#6B6A67] hover:bg-[#F5F5F3] hover:text-[#111110] transition-colors"
-                aria-label="Fermer"
+                aria-label={t.nav.modal.close}
               >
                 <span className="text-lg leading-none">×</span>
               </button>
 
               <h2 id="contact-modal-title" className="font-display text-xl text-[#111110] pr-10 mb-2">
-                Nous contacter
+                {t.nav.modal.title}
               </h2>
               <p className="text-sm text-[#6B6A67] mb-6">
-                Décrivez votre projet — réponse sous 48 h.
+                {t.nav.modal.subtitle}
               </p>
 
               {submitted ? (
                 <p className="font-display text-lg text-[#111110] leading-relaxed py-4">
-                  Merci. Je reviens vers vous très prochainement.
+                  {t.nav.modal.success}
                 </p>
               ) : (
                 <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
                   <input
                     type="text"
                     name="nom"
-                    placeholder="Nom"
+                    placeholder={t.nav.modal.fields.nom}
                     value={form.nom}
                     onChange={handleFormChange}
                     required
@@ -393,7 +391,7 @@ export default function Nav() {
                   <input
                     type="text"
                     name="galerie"
-                    placeholder="Galerie"
+                    placeholder={t.nav.modal.fields.galerie}
                     value={form.galerie}
                     onChange={handleFormChange}
                     required
@@ -402,7 +400,7 @@ export default function Nav() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="Email"
+                    placeholder={t.nav.modal.fields.email}
                     value={form.email}
                     onChange={handleFormChange}
                     required
@@ -410,7 +408,7 @@ export default function Nav() {
                   />
                   <textarea
                     name="projet"
-                    placeholder="Votre projet"
+                    placeholder={t.nav.modal.fields.projet}
                     value={form.projet}
                     onChange={handleFormChange}
                     required
@@ -425,7 +423,7 @@ export default function Nav() {
                     disabled={sending}
                     className="mt-1 bg-[#111110] text-white px-7 py-3 rounded-full text-sm font-medium hover:bg-[#2a2a28] transition-colors duration-200 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {sending ? "Envoi…" : "Envoyer →"}
+                    {sending ? t.nav.modal.sending : t.nav.modal.submit}
                   </button>
                 </form>
               )}

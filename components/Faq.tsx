@@ -2,35 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-
-const faqs = [
-  {
-    q: "Puis-je modifier le site moi-même ?",
-    a: "Oui, via une interface simple. Pas besoin de compétences techniques — vous gérez vos contenus en autonomie.",
-  },
-  {
-    q: "Combien de temps prend la mise en ligne ?",
-    a: "Environ 2 semaines, du premier échange à la mise en ligne.",
-  },
-  {
-    q: "Dois-je utiliser un logiciel spécifique ?",
-    a: "Non. Tout se gère depuis votre navigateur, sans installation.",
-  },
-  {
-    q: "Que se passe-t-il si je veux arrêter ?",
-    a: "La formule Partner est sans engagement — vous pouvez résilier à tout moment, sans frais ni pénalité. Vos contenus restent accessibles.",
-  },
-  {
-    q: "Est-ce que Vitreen s'occupe du contenu ?",
-    a: "Oui, dans la formule Partner. Nous gérons la publication du catalogue, la rédaction des newsletters et la structuration de vos emails. Pour les formules site, vous gardez la main sur vos contenus.",
-  },
-  {
-    q: "Mon site sera-t-il visible sur Google ?",
-    a: "Oui. Chaque site est optimisé pour le SEO dès le départ : structure sémantique, balises meta, images optimisées et indexation adaptée au marché de l'art.",
-  },
-];
 
 function Item({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -69,6 +43,7 @@ function Item({ q, a }: { q: string; a: string }) {
 }
 
 export default function Faq() {
+  const { t } = useLang();
   return (
     <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -80,10 +55,10 @@ export default function Faq() {
           className="flex flex-col gap-8 md:gap-10"
         >
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
-            Questions fréquentes
+            {t.faq.title}
           </h2>
           <div>
-            {faqs.map((f) => (
+            {t.faq.items.map((f) => (
               <Item key={f.q} q={f.q} a={f.a} />
             ))}
           </div>

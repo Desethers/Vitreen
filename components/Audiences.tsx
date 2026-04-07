@@ -4,6 +4,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExhibitionPageMock } from "./Showcase";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 const bgImage = "/allen14.jpg-preview3.jpg";
@@ -1331,6 +1332,7 @@ const audiences: Audience[] = [
 ];
 
 export default function Audiences() {
+  const { t } = useLang();
   const [active, setActive] = useState(0);
   const current = audiences[active];
   const [mockWidthPct, setMockWidthPct] = useState(100);
@@ -1392,11 +1394,11 @@ export default function Audiences() {
         >
           <div className="flex flex-nowrap gap-1 md:flex-wrap md:gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {audiences.map((a, i) => {
-              const isDisabled =
-                a.label === "Art Advisors" || a.label === "Collection Privée";
+              const isDisabled = i >= 2;
+              const label = t.audiences.tabs[i] ?? a.label;
 
               return (
-                <span key={a.label} className="relative inline-flex">
+                <span key={i} className="relative inline-flex">
                   <button
                     type="button"
                     aria-disabled={isDisabled}
@@ -1451,14 +1453,14 @@ export default function Audiences() {
                       e.currentTarget.style.color = "#6B6A67";
                     }}
                   >
-                    {a.label}
+                    {label}
                   </button>
                   {isDisabled && (
                     <span
                       className="pointer-events-none absolute -right-1 -top-1 z-10 rounded-full border border-[#E8E8E6] bg-white px-1.5 py-px text-[9px] font-medium uppercase tracking-[0.12em] text-[#ADADAA] shadow-sm"
                       aria-hidden
                     >
-                      Soon
+                      {t.audiences.soon}
                     </span>
                   )}
                 </span>

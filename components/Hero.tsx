@@ -1,4 +1,8 @@
+"use client";
+import { useLang } from "@/lib/lang";
+
 export default function Hero() {
+  const { t } = useLang();
   return (
     <section className="relative flex flex-col justify-center px-4 md:px-6 overflow-hidden bg-white pt-28 pb-3 md:pt-32 md:pb-6">
       <div className="max-w-7xl w-full mx-auto relative">
@@ -6,15 +10,13 @@ export default function Hero() {
           className="font-display text-[20px] md:text-[32px] leading-[1.1] tracking-[-0.03em] mb-2 md:mb-3 max-w-4xl hero-fade-up"
           style={{ color: "#111110" }}
         >
-          L&apos;art doit être vu dans son époque
+          {t.hero.title}
         </h1>
-
         <p
           className="text-[18px] md:text-[26px] font-normal leading-[1.3] tracking-[-0.02em] max-w-xl hero-fade-up hero-fade-up-delay"
           style={{ color: "#6B6A67" }}
         >
-          Vitreen conçoit des interfaces digitales contemporaines pour galeries,
-          artistes et art advisors.
+          {t.hero.subtitle}
         </p>
       </div>
     </section>

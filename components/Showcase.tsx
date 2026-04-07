@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -37,6 +38,7 @@ const bioText = [
 ];
 
 function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState<Tab>("Selected Works");
   const [bioOpen, setBioOpen] = useState(false);
   const [showExhibition, setShowExhibition] = useState(false);
@@ -88,7 +90,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             onClick={() => setBioOpen(true)}
             className="mt-3 mb-6 text-[12px] text-[#555] underline underline-offset-2"
           >
-            read full biography
+            {t.showcase.readBio}
           </button>
           {/* Tabs horizontal scroll */}
           <div className="flex gap-2 overflow-x-auto pb-1 mb-5" style={{ scrollbarWidth: "none" }}>
@@ -188,7 +190,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             </div>
             <div className="h-px bg-[#E8E4DF] mb-4" />
             <div className="flex flex-col gap-2.5">
-              {bioText.map((p, i) => (
+              {t.showcase.bio.map((p, i) => (
                 <p key={i} className="text-[10px] text-[#444] leading-[1.7]">{p}</p>
               ))}
             </div>
@@ -280,7 +282,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
               onClick={() => setBioOpen(true)}
               className="mt-2 self-start border border-[#C8C0B8] rounded-full px-5 py-2 text-[13px] text-[#333] hover:bg-[#111110] hover:text-white hover:border-[#111110] transition-colors"
             >
-              read full biography
+              {t.showcase.readBio}
             </button>
           </div>
         </div>
@@ -888,31 +890,32 @@ function ShowcaseCard({
 }
 
 export default function Showcase() {
+  const { t } = useLang();
   return (
     <section id="blog" className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto flex flex-col gap-4 md:gap-[48px]">
         <motion.div {...fadeUp(0)}>
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
-            Des interfaces conçues pour l&apos;économie de l&apos;art
+            {t.showcase.title}
           </h2>
           <p
             className="mt-0 mb-0 text-[20px] md:text-[26px] text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
           >
-            publiez et diffusez vos œuvres simplement.
+            {t.showcase.subtitle}
           </p>
         </motion.div>
 
         <div className="flex flex-col gap-5 md:gap-[48px]">
           <ShowcaseCard
-            title="Exhibition Pages"
-            desc="Des pages d'exposition claires et structurées : avec textes, images et liste d'œuvres."
+            title={t.showcase.cards[0].title}
+            desc={t.showcase.cards[0].desc}
             delay={0}
             mockScale={0.9}
             bgImage="/paula-cooper-background.jpg"
           />
           <ShowcaseCard
-            title="Artist Pages"
-            desc="Pages artistes complètes : biographie, œuvres et expositions réunies."
+            title={t.showcase.cards[1].title}
+            desc={t.showcase.cards[1].desc}
             mockImage="/artist page.png"
             reverse
             delay={0.1}

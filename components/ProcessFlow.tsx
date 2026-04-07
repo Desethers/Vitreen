@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -12,26 +13,6 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, ease, delay },
 });
 
-const steps = [
-  {
-    number: "01",
-    title: "Discovery",
-    desc: "Nous commençons par comprendre vos contenus et votre fonctionnement. Artistes, œuvres, expositions : tout est structuré avant de concevoir.",
-    week: "SEMAINE 1",
-  },
-  {
-    number: "02",
-    title: "Design & intégration.",
-    desc: "Un design précis, adapté à votre identité et propulsé par un CMS intuitif, conçu pour engager durablement collectionneurs et professionnels.",
-    week: "SEMAINE 2",
-  },
-  {
-    number: "03",
-    title: "Mise en ligne.",
-    desc: "Site livré, formation à l'outil incluse. Vous êtes autonome dès le premier jour. Un système simple et durable pour faire évoluer vos contenus en toute indépendance.",
-    week: "SEMAINE 3",
-  },
-];
 
 // Séquence (continuité maximale) :
 // t=0ms    → cercle 01 s'allume
@@ -54,6 +35,8 @@ const ARRIVE_AT  = 0.82;  // fraction de LINE_DUR où le bord droit touche le ce
 const LOOP_MS    = 3600;
 
 export default function ProcessFlow() {
+  const { t } = useLang();
+  const steps = t.processFlow.steps;
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -85,10 +68,10 @@ export default function ProcessFlow() {
         {/* Header */}
         <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
-            Passez à une nouvelle génération de site galerie
+            {t.processFlow.title}
           </h2>
           <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
-            Site livré en 3 semaines.
+            {t.processFlow.subtitle}
           </p>
         </motion.div>
 

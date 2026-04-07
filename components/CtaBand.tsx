@@ -1,10 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function CtaBand() {
+  const { t } = useLang();
   return (
     <section className="relative pt-20 pb-8 md:pt-[100px] md:pb-[60px] px-4 md:px-6 overflow-hidden bg-[var(--background)]">
       <div className="max-w-6xl mx-auto">
@@ -19,26 +21,27 @@ export default function CtaBand() {
             <span
               className="inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] md:text-xs font-medium tracking-wide mb-8 md:mb-10 border border-white/[0.14] bg-white/[0.06] text-white/50"
             >
-              Démarrer un projet
+              {t.ctaBand.badge}
             </span>
 
             <h2 className="font-display text-white text-[clamp(1.25rem,3vw,1.75rem)] md:text-[clamp(1.5rem,2.5vw,2rem)] leading-[1.12] tracking-[-0.03em] mb-5 md:mb-6 max-w-[22ch] md:max-w-none">
-              Donnez une nouvelle dimension à votre galerie
+              {t.ctaBand.title}
             </h2>
 
             <p className="text-base md:text-lg leading-relaxed max-w-lg mb-10 md:mb-12 text-white/45">
-              Discutons de votre projet — sans engagement
+              {t.ctaBand.subtitle}
             </p>
 
-            <a
-              href="#contact"
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
               className="inline-flex items-center justify-center gap-2.5 rounded-full text-[15px] md:text-base font-medium transition-opacity duration-200 bg-white text-black px-8 py-2.5 md:px-10 md:py-4 hover:opacity-90"
             >
-              Commençons
+              {t.ctaBand.cta}
               <span className="text-lg leading-none" aria-hidden>
                 →
               </span>
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>

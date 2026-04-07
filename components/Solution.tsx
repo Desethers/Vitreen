@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -986,6 +987,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
 }
 
 export default function Solution() {
+  const { t } = useLang();
   return (
     <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -998,14 +1000,14 @@ export default function Solution() {
           className="mb-8 md:mb-[48px]"
         >
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
-            Faciliter les échanges autour des œuvres
+            {t.solution.title}
           </h2>
           <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
-            Interactions ciblées et simples — renforcez votre visibilité et vos relations.
+            {t.solution.subtitle}
           </p>
         </motion.div>
 
-        <CardRow cards={row2} />
+        <CardRow cards={row2.map((card, i) => ({ ...card, title: t.solution.cards[i].title, desc: t.solution.cards[i].desc }))} />
       </div>
     </section>
   );

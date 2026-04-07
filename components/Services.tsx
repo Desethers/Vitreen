@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -11,89 +12,18 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, ease, delay },
 });
 
-type Service = {
-  tier: string;
-  name: string;
-  badge?: string;
-  subtitle?: string;
-  description: string;
-  featuresHeading?: string;
-  features: string[];
-  delivery?: string;
-  price: string;
-  priceNote?: string;
-  cta: string;
-  highlight: boolean;
-  footerNote?: string;
-};
-
-const services: Service[] = [
-  {
-    tier: "PORTFOLIO",
-    name: "Artist Portfolio",
-    description: "Un site portfolio élégant et professionnel pour artistes indépendants.",
-    featuresHeading: "Inclus :",
-    features: [
-      "Site rapide & responsive",
-      "Jusqu'à 50 œuvres",
-      "Pages essentielles",
-      "Contact sur chaque œuvre",
-      "SEO de base",
-    ],
-    delivery: "Livraison : 5 jours ouvrés",
-    price: "À partir de 990 €",
-    priceNote: "Paiement unique (one-time)",
-    cta: "Commencer",
-    highlight: false,
-  },
-  {
-    tier: "SITE GALERIE",
-    name: "Gallery Growth",
-    description: "Un site galerie clair, structuré et prêt à être utilisé.",
-    featuresHeading: "Inclus :",
-    features: [
-      "Catalogue illimité",
-      "Artistes, œuvres, expositions",
-      "Parcours orienté collectionneur",
-      "Inquiry system optimisé",
-      "SEO marché de l'art",
-    ],
-    delivery: "Livraison : 3 semaines",
-    price: "À partir de 3 000 €",
-    priceNote: "Paiement unique (one-time)",
-    cta: "Commencer",
-    highlight: false,
-  },
-  {
-    tier: "PARTNER",
-    name: "Partner",
-    description: "Un responsable digital externalisé pour votre galerie.",
-    featuresHeading: "Inclus :",
-    features: [
-      "Gestion continue du site",
-      "Publication & mise à jour",
-      "Newsletter stratégique",
-      "Structuration des contacts",
-      "Diffusion sur plateformes",
-      "Tracking & analyse",
-    ],
-    price: "1 200 € / mois",
-    priceNote: "Sans engagement. Résiliable à tout moment.",
-    cta: "Discuter du projet",
-    highlight: true,
-  },
-];
-
 export default function Services() {
+  const { t } = useLang();
+  const services = t.services.items;
   return (
     <section id="offre" className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto w-full">
         <motion.div {...fadeUp(0)} className="mb-8 md:mb-[48px]">
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
-            Choisissez votre formule
+            {t.services.title}
           </h2>
           <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal max-w-xl leading-[1.2] tracking-[-0.02em]">
-            Recrutez votre partenaire de croissance digitale.
+            {t.services.subtitle}
           </p>
         </motion.div>
 
