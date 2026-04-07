@@ -460,13 +460,13 @@ type LangContextType = {
 };
 
 const LangContext = createContext<LangContextType>({
-  lang: "fr",
+  lang: "en",
   setLang: () => {},
-  t: translations.fr,
+  t: translations.en,
 });
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>("fr");
+  const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
     const stored = localStorage.getItem("lang") as Lang | null;
