@@ -57,7 +57,7 @@ export const translations = {
     },
     showcase: {
       title: "Des interfaces conçues pour l\u2019économie de l\u2019art",
-      subtitle: "publiez et diffusez vos œuvres simplement.",
+      subtitle: "Publiez et diffusez vos œuvres simplement.",
       cards: [
         { title: "Exhibition Pages", desc: "Des pages d\u2019exposition claires et structurées : avec textes, images et liste d\u2019œuvres." },
         { title: "Artist Pages", desc: "Pages artistes complètes : biographie, œuvres et expositions réunies." },
