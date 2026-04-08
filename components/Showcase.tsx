@@ -407,19 +407,19 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             <div><p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Dates</p><p className="text-[13px] text-[#333]">Feb 12 — Mar 22, 2026</p></div>
             <div><p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Location</p><p className="text-[13px] text-[#333]">Galerie, Paris — Turenne</p></div>
           </div>
+          <p className="text-[14px] text-[#333] leading-[1.7] mb-3">
+            A presentation of recent paintings and works on paper exploring friendship, memory, and shared light.
+          </p>
+          <p className="text-[14px] text-[#888] leading-[1.7] mb-7">
+            Private viewing and availability: contact the gallery.
+          </p>
           <div className="flex flex-col gap-2 mb-7">
             <button className="bg-[#111110] text-white rounded-full px-5 py-3 text-[12px] text-center w-full">Artwork Inquiry</button>
             <button className="border border-[#D8D4CF] text-[#333] rounded-full px-5 py-3 text-[12px] text-center w-full">View artist</button>
           </div>
-          <div className="rounded-[10px] overflow-hidden bg-[#E8E4DF] mb-6" style={{ height: 300 }}>
+          <div className="rounded-[10px] overflow-hidden bg-[#E8E4DF] mb-8" style={{ height: 300 }}>
             <img src="/exhibition page/Exhibition2.png" alt="Installation view" className="w-full h-full object-cover" />
           </div>
-          <p className="text-[14px] text-[#333] leading-[1.7] mb-3">
-            A presentation of recent paintings and works on paper exploring friendship, memory, and shared light.
-          </p>
-          <p className="text-[14px] text-[#888] leading-[1.7] mb-8">
-            Private viewing and availability: contact the gallery.
-          </p>
 
           {/* Exhibition Text */}
           <div className="mb-8 text-center">
