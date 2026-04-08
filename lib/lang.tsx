@@ -72,8 +72,8 @@ export const translations = {
       readBio: "Lire la biographie complète",
     },
     solution: {
-      title: "Faciliter les échanges autour des œuvres",
-      subtitle: "Interactions ciblées et simples — renforcez votre visibilité et vos relations.",
+      title: "Des fonctionnalit\u00e9s pens\u00e9es pour vendre et connecter",
+      subtitle: "Interactions simples et efficaces pour faciliter l\u2019achat, le partage et les vues priv\u00e9es.",
       cards: [
         { title: "Online Inquire", desc: "Achat direct depuis la page œuvre." },
         { title: "Private Viewing", desc: "Envoyez facilement une sélection à vos collectionneurs." },
@@ -178,7 +178,7 @@ export const translations = {
       ],
     },
     statementSplit: {
-      statTitle: "L\u2019économie de la vente d\u2019art en ligne explose",
+      statTitle: "L\u2019art en ligne red\u00e9finit l\u2019\u00e9conomie du march\u00e9 de l\u2019art",
       stats: [
         { value: "$10,5Mds", label: "Ventes en ligne en 2024", sub: "Marché mondial" },
         { value: "18%", label: "Du marché total", sub: "Part du digital" },
@@ -295,8 +295,8 @@ export const translations = {
       readBio: "Read full biography",
     },
     solution: {
-      title: "Facilitating dialogue around artworks",
-      subtitle: "Targeted, frictionless interactions — strengthen your visibility and your relationships.",
+      title: "Tools that turn viewers into buyers and collectors",
+      subtitle: "Smart, effortless interactions designed to increase sales and deepen your professional relationships.",
       cards: [
         { title: "Online Inquire", desc: "Direct purchase from the artwork page." },
         { title: "Private Viewing", desc: "Easily send a curated selection to your collectors." },
@@ -401,7 +401,7 @@ export const translations = {
       ],
     },
     statementSplit: {
-      statTitle: "Online art sales are exploding",
+      statTitle: "Online art is redefining the economics of the art market",
       stats: [
         { value: "$10.5B", label: "Online sales in 2024", sub: "Global market" },
         { value: "18%", label: "Of the total market", sub: "Digital share" },

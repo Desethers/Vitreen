@@ -1,7 +1,9 @@
+import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import Audiences from "@/components/Audiences";
 import Showcase from "@/components/Showcase";
+
+const Audiences = dynamic(() => import("@/components/Audiences"));
 import Solution from "@/components/Solution";
 import ProcessFlow from "@/components/ProcessFlow";
 import Stepper from "@/components/Stepper";

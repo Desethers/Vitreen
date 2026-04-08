@@ -214,7 +214,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
 
         {/* Hero image — ratio naturel (px mobile pour respirer sur les bords) */}
         <div className="overflow-hidden px-[10px] rounded-[10px]" style={{ marginTop: "2.2rem" }}>
-          <Image src="/exhibition page/Exhibition1.png" alt="" width={900} height={560} className="w-full h-auto" sizes="500px" priority />
+          <Image src="/exhibition page/Exhibition1.png" alt="" width={900} height={560} className="w-full h-auto" sizes="500px" />
         </div>
 
         {/* Exhibition intro */}
@@ -309,7 +309,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
     <div className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white" style={{ scrollbarWidth: "none" }}>
       {/* Hero — légèrement moins haut que 200/123 (~−8px) */}
       <div className="relative w-full" style={{ aspectRatio: "400/243" }}>
-        <Image src="/exhibition page/Exhibition1.png" alt="" fill className="object-cover" sizes="(max-width: 1400px) 100vw, 1400px" priority />
+        <Image src="/exhibition page/Exhibition1.png" alt="" fill className="object-cover" sizes="(max-width: 1400px) 100vw, 1400px" />
         <GalleryNavbar page="home" onNavigate={onNavigate} isMobile={false} />
         <div
           className="absolute bottom-0 left-0 right-0 px-10 pb-[29px] pt-20"
