@@ -27,7 +27,7 @@ export const translations = {
     },
     hero: {
       title: "L\u2019art doit être vu dans son époque",
-      subtitle: "Vitreen conçoit des interfaces digitales contemporaines pour galeries, artistes et art advisors.",
+      subtitle: "Vitreen conçoit des expériences digitales de nouvelle génération pour galeries et artistes.",
     },
     audiences: {
       tabs: ["Galeries", "Artistes", "Art Advisors", "Collection Privée"],
@@ -250,7 +250,7 @@ export const translations = {
     },
     hero: {
       title: "Art must be seen in its time",
-      subtitle: "Vitreen builds contemporary digital experiences for galleries, artists and art advisors.",
+      subtitle: "Vitreen empowers galleries and artists with next-level digital experiences.",
     },
     audiences: {
       tabs: ["Galleries", "Artists", "Art Advisors", "Private Collection"],
