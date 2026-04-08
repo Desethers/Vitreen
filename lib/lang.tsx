@@ -469,13 +469,13 @@ export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
   useEffect(() => {
-    const stored = localStorage.getItem("lang") as Lang | null;
+    const stored = localStorage.getItem("vitreen-lang") as Lang | null;
     if (stored === "fr" || stored === "en") setLangState(stored);
   }, []);
 
   const setLang = (l: Lang) => {
     setLangState(l);
-    localStorage.setItem("lang", l);
+    localStorage.setItem("vitreen-lang", l);
   };
 
   return (
