@@ -421,6 +421,12 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             <img src="/exhibition page/Exhibition2.png" alt="Installation view" className="w-full h-full object-cover" />
           </div>
 
+          {/* Quote */}
+          <blockquote className="mb-8 text-[14px] italic text-[#999] leading-[1.7] text-center">
+            &ldquo;Shared light is the simplest form of friendship—what falls on the wall falls on us both.&rdquo;
+            <footer className="mt-2 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sun Dog</footer>
+          </blockquote>
+
           {/* Exhibition Text */}
           <div className="mb-8 text-center">
             <p className="text-[10px] uppercase tracking-[0.14em] text-[#ADADAA] mb-4">Exhibition Text</p>
