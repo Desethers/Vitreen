@@ -417,9 +417,17 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
           <p className="text-[14px] text-[#333] leading-[1.7] mb-3">
             A presentation of recent paintings and works on paper exploring friendship, memory, and shared light.
           </p>
-          <p className="text-[14px] text-[#888] leading-[1.7] mb-10">
+          <p className="text-[14px] text-[#888] leading-[1.7] mb-8">
             Private viewing and availability: contact the gallery.
           </p>
+
+          {/* Exhibition Text */}
+          <div className="mb-8 text-center">
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#ADADAA] mb-4">Exhibition Text</p>
+            <p className="text-[14px] text-[#555] leading-[1.7]">
+              Presented as one continuous sequence, the works below extend the show&apos;s themes — friendship, memory, and light — into individual canvases and works on paper.
+            </p>
+          </div>
 
           {/* Selected Works */}
           <p className="text-[10px] uppercase tracking-[0.14em] text-[#ADADAA] mb-5">Selected Works</p>
