@@ -23,6 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" className={`bg-white ${inter.variable}`}>
+      <head>
+        <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" />
+      </head>
       <body className="antialiased bg-white font-sans">
         <LangProvider>
           {children}
