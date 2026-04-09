@@ -520,7 +520,7 @@ function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gallery
     { img: "/artworks/painting-03.jpg", name: "Jonas Krell", origin: "Berlin, Allemagne" },
     { img: "/artworks/painting-05.jpg", name: "Valentina Rossi", origin: "Milan, Italie" },
     { img: "/artworks/painting-07.jpg", name: "Nina Beier", origin: "Copenhagen, DK" },
-    { img: "/artworks/painting-04.jpg", name: "Loie Hollowell", origin: "Woodland, USA" },
+    { img: "/artworks/painting-10.jpg", name: "Loie Hollowell", origin: "Woodland, USA" },
     { img: "/artworks/painting-08.jpg", name: "Kehinde Wiley", origin: "Los Angeles, USA" },
   ];
 
@@ -724,7 +724,7 @@ const artistWorks = [
   { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "160 × 160 cm" },
   { src: "/artworks/painting-02.png", title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm"  },
   { src: "/artworks/painting-03.jpg", title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "124 × 124 cm" },
-  { src: "/artworks/painting-04.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm" },
+  { src: "/artworks/painting-10.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm" },
   { src: "/artworks/painting-06.png", title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm" },
   { src: "/artworks/painting-05.jpg", title: "Celadon Mass II, 2025",       medium: "Acrylic on canvas", dims: "100 × 100 cm" },
 ];
@@ -741,7 +741,7 @@ const pastExhibitions = [
 const galleryWorks = [
   { srcs: ["/artworks/painting-01.png"], title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
   { srcs: ["/artworks/painting-06.png"],                               title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm",   price: "€1 800" },
-  { srcs: ["/artworks/painting-04.jpg"],                               title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
+  { srcs: ["/artworks/painting-10.jpg"],                               title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
   { srcs: ["/artworks/painting-03.jpg"],                               title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "123 × 123 cm",    price: "€2 200" },
   { srcs: ["/artworks/painting-02.png"],                               title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm",      price: "€1 300" },
   { srcs: ["/artworks/painting-05.jpg"],                               title: "Celadon Mass II, 2025",      medium: "Acrylic on canvas", dims: "100 × 100 cm",    price: "Sur demande" },
