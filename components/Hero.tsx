@@ -16,7 +16,7 @@ export default function Hero() {
           className="font-normal tracking-[-0.03em] max-w-xl md:max-w-2xl hero-fade-up hero-fade-up-delay m-0 leading-[inherit] text-[22px] md:text-[30px]"
           style={{ color: "#6B6A67" }}
         >
-          {t.hero.subtitle}
+          Vitreen empowers galleries and artists with<br className="hidden md:block" /> next-level digital experiences.
         </p>
       </div>
     </section>
