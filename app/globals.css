@@ -64,3 +64,13 @@ body {
 .hero-fade-up-delay {
   animation-delay: 0.2s;
 }
+
+/* Mock window scaling — slightly larger on 13" / md+ */
+.mock-scale {
+  zoom: 0.58;
+}
+@media (min-width: 768px) {
+  .mock-scale {
+    zoom: 0.64;
+  }
+}
