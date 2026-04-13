@@ -417,8 +417,8 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             <button className="bg-[#111110] text-white rounded-full px-5 py-3 text-[12px] text-center w-full">Artwork Inquiry</button>
             <button className="border border-[#D8D4CF] text-[#333] rounded-full px-5 py-3 text-[12px] text-center w-full">View artist</button>
           </div>
-          <div className="rounded-[10px] overflow-hidden bg-[#E8E4DF] mb-8" style={{ height: 300 }}>
-            <img src="/exhibition page/Exhibition2.png" alt="Installation view" className="w-full h-full object-cover" />
+          <div className="relative rounded-[10px] overflow-hidden bg-[#E8E4DF] mb-8" style={{ height: 300 }}>
+            <Image src="/exhibition page/Exhibition2.png" alt="Installation view" fill className="object-cover" sizes="400px" />
           </div>
 
           {/* Exhibition Text */}
@@ -584,11 +584,13 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
         </div>
 
         {/* Installation view 1 */}
-        <div className="mx-10 rounded-[10px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
-          <img
+        <div className="mx-10 relative rounded-[10px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
+          <Image
             src="/exhibition page/Exhibition2.png"
             alt="Installation view — cool room"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            sizes="700px"
           />
         </div>
         <p className="mx-10 mt-2 text-[11px] text-[#ADADAA] italic">

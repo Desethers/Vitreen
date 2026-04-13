@@ -121,12 +121,6 @@ export default function Services() {
               </div>
 
               <div className="flex flex-col gap-4 mt-8">
-                <p
-                  className="text-sm font-medium"
-                  style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110", visibility: service.delivery ? "visible" : "hidden" }}
-                >
-                  {service.delivery ?? "\u00a0"}
-                </p>
                 <div className="flex flex-col gap-1.5">
                   <p
                     className="text-sm font-medium"
