@@ -702,10 +702,12 @@ function DraggableMockWindow({
   const parentWRef = useRef(0);
 
   // 20px (inset B&W) + 30px gap
-  const PAD_H = 80;
+  const [PAD_H, setPAD_H] = useState(80);
   const [PAD_V, setPAD_V] = useState(45);
   useEffect(() => {
-    setPAD_V(window.innerWidth < 768 ? 25 : 45);
+    const isMobile = window.innerWidth < 768;
+    setPAD_H(isMobile ? 35 : 80);
+    setPAD_V(isMobile ? 25 : 45);
   }, []);
 
   // Set initial width from parent — height is CSS-driven (top/bottom: PAD_V)
@@ -839,15 +841,23 @@ function ShowcaseCard({
   mockScale?: number;
   bgImage?: string;
 }) {
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobileViewport(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const imageCol = (
     <div className="relative overflow-hidden h-[420px] md:min-h-[720px]">
       <div
         className="absolute inset-[15px] rounded-[5px] bg-cover bg-center"
         style={{ backgroundImage: `url('${bgImage}')` }}
       />
-      <DraggableMockWindow initialWidthPct={mockScale * 85}>
+      <DraggableMockWindow initialWidthPct={mockScale * (isMobileViewport ? 95 : 85)}>
         {(widthPx) => mockImage === "/artist page.png" ? (
-          <ArtistPageMock isMobile={widthPx < 500} />
+          <ArtistPageMock isMobile={isMobileViewport || widthPx < 500} />
         ) : mockImage ? (
           <div className="w-full h-full p-[20px]">
             <div className="relative w-full h-full">
@@ -855,7 +865,7 @@ function ShowcaseCard({
             </div>
           </div>
         ) : (
-          <ExhibitionPageMock isMobile={widthPx < 500} />
+          <ExhibitionPageMock isMobile={isMobileViewport || widthPx < 500} />
         )}
       </DraggableMockWindow>
     </div>

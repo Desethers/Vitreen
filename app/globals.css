@@ -67,7 +67,7 @@ body {
 
 /* Mock window scaling — slightly larger on 13" / md+ */
 .mock-scale {
-  zoom: 0.58;
+  zoom: 0.62;
 }
 @media (min-width: 768px) {
   .mock-scale {
