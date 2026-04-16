@@ -399,7 +399,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
           <p className="text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] mb-4">
             <span className="text-[#555] underline underline-offset-2">Exhibitions</span>{" — "}Your friends
           </p>
-          <h1 className="text-[26px] font-normal tracking-[-0.03em] leading-[1.1] mb-6">
+          <h1 className="text-[20px] font-normal tracking-[-0.03em] leading-[1.1] mb-6">
             Sun Dog — <em>Your friends</em>
           </h1>
           <div className="flex flex-col gap-3 mb-6 pb-6" style={{ borderBottom: "0.5px solid rgba(0,0,0,0.08)" }}>
