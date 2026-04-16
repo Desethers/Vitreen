@@ -710,7 +710,7 @@ function DraggableMockWindow({
   // Merge both effects so padH is correct when computing widthPct
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
-    const padH = isMobile ? 12 : 80;
+    const padH = isMobile ? 35 : 80;
     const padV = isMobile ? 25 : 45;
     setPAD_H(padH);
     setPAD_V(padV);
