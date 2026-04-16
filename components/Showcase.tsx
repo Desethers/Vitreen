@@ -859,8 +859,8 @@ function ShowcaseCard({
         style={{ backgroundImage: `url('${bgImage}')` }}
       />
       <DraggableMockWindow initialWidthPct={mockScale * (isMobileViewport ? 95 : 85)}>
-        {(widthPx) => mockImage === "/artist page.png" ? (
-          <ArtistPageMock isMobile={isMobileViewport || widthPx < 500} />
+        {() => mockImage === "/artist page.png" ? (
+          <ArtistPageMock isMobile={isMobileViewport} />
         ) : mockImage ? (
           <div className="w-full h-full p-[20px]">
             <div className="relative w-full h-full">
@@ -868,7 +868,7 @@ function ShowcaseCard({
             </div>
           </div>
         ) : (
-          <ExhibitionPageMock isMobile={isMobileViewport || widthPx < 500} />
+          <ExhibitionPageMock isMobile={isMobileViewport} />
         )}
       </DraggableMockWindow>
     </div>
