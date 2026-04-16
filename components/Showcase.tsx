@@ -60,7 +60,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
 
   if (isMobile) return (
     <div ref={artistScrollRef} className="w-full h-full overflow-y-auto bg-white relative" style={{ scrollbarWidth: "none" }}>
-      <div className="font-sans text-[#111110]">
+      <div className="font-sans text-[#111110]" style={{ zoom: 0.78 }}>
         {/* Mobile nav */}
         <div
           className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t-[8px]"
@@ -378,7 +378,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
 
   if (isMobile) return (
     <div ref={scrollRef} className="w-full h-full overflow-y-auto bg-white relative" style={{ scrollbarWidth: "none" }}>
-      <div className="font-sans text-[#111110]">
+      <div className="font-sans text-[#111110]" style={{ zoom: 0.78 }}>
         {/* Mobile nav */}
         <div
           className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t-[8px]"
