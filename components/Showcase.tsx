@@ -60,7 +60,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
 
   if (isMobile) return (
     <div ref={artistScrollRef} className="w-full h-full overflow-y-auto bg-white relative" style={{ scrollbarWidth: "none" }}>
-      <div className="font-sans text-[#111110]" style={{ zoom: 0.58 }}>
+      <div className="font-sans text-[#111110]">
         {/* Mobile nav */}
         <div
           className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t-[8px]"
@@ -378,7 +378,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
 
   if (isMobile) return (
     <div ref={scrollRef} className="w-full h-full overflow-y-auto bg-white relative" style={{ scrollbarWidth: "none" }}>
-      <div className="mock-scale font-sans text-[#111110]">
+      <div className="font-sans text-[#111110]">
         {/* Mobile nav */}
         <div
           className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t-[8px]"
@@ -706,19 +706,20 @@ function DraggableMockWindow({
   // 20px (inset B&W) + 30px gap
   const [PAD_H, setPAD_H] = useState(80);
   const [PAD_V, setPAD_V] = useState(45);
+
+  // Merge both effects so padH is correct when computing widthPct
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
-    setPAD_H(isMobile ? 35 : 80);
-    setPAD_V(isMobile ? 25 : 45);
-  }, []);
+    const padH = isMobile ? 12 : 80;
+    const padV = isMobile ? 25 : 45;
+    setPAD_H(padH);
+    setPAD_V(padV);
 
-  // Set initial width from parent — height is CSS-driven (top/bottom: PAD_V)
-  useEffect(() => {
     const parent = containerRef.current?.parentElement;
     if (!parent) return;
     const parentW = parent.offsetWidth;
     parentWRef.current = parentW;
-    const maxMockW = parentW - 2 * PAD_H;
+    const maxMockW = parentW - 2 * padH;
     const finalPct = Math.max(28, (maxMockW / parentW) * 100);
     setWidthPct(finalPct);
     setPosX(0);
