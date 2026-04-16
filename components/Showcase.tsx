@@ -117,10 +117,12 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                   <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 240 }}>
                     <Image src={src} alt={artworkMeta[i].title} fill className="object-cover" sizes="600px" />
                   </div>
-                  <p className="text-[11px] text-[#888]">Sun Dog</p>
-                  <p className="text-[13px]"><span className="font-normal">{artworkMeta[i].title},</span>{" "}<span className="text-[#555]">{artworkMeta[i].year}</span></p>
-                  <p className="text-[11px] text-[#888] italic">{artworkMeta[i].medium}</p>
-                  <p className="text-[11px] text-[#888]">{artworkMeta[i].dims}</p>
+                  <div className="flex flex-col gap-0.5">
+                    <p className="text-[11px] text-[#888]">Sun Dog</p>
+                    <p className="text-[13px]"><span className="font-normal">{artworkMeta[i].title},</span>{" "}<span className="text-[#555]">{artworkMeta[i].year}</span></p>
+                    <p className="text-[11px] text-[#888] italic">{artworkMeta[i].medium}</p>
+                    <p className="text-[11px] text-[#888]">{artworkMeta[i].dims}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -859,8 +861,8 @@ function ShowcaseCard({
         style={{ backgroundImage: `url('${bgImage}')` }}
       />
       <DraggableMockWindow initialWidthPct={mockScale * (isMobileViewport ? 95 : 85)}>
-        {() => mockImage === "/artist page.png" ? (
-          <ArtistPageMock isMobile={isMobileViewport} />
+        {(widthPx) => mockImage === "/artist page.png" ? (
+          <ArtistPageMock isMobile={isMobileViewport || widthPx < 420} />
         ) : mockImage ? (
           <div className="w-full h-full p-[20px]">
             <div className="relative w-full h-full">
@@ -868,7 +870,7 @@ function ShowcaseCard({
             </div>
           </div>
         ) : (
-          <ExhibitionPageMock isMobile={isMobileViewport} />
+          <ExhibitionPageMock isMobile={isMobileViewport || widthPx < 420} />
         )}
       </DraggableMockWindow>
     </div>

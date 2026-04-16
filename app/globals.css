@@ -71,6 +71,6 @@ body {
 }
 @media (min-width: 768px) {
   .mock-scale {
-    zoom: 0.64;
+    zoom: 0.72;
   }
 }
