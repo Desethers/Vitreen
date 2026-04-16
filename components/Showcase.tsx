@@ -118,7 +118,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                     <Image src={src} alt={artworkMeta[i].title} fill className="object-cover" sizes="600px" />
                   </div>
                   <p className="text-[11px] text-[#888]">Sun Dog</p>
-                  <p className="text-[13px]"><span className="font-medium">{artworkMeta[i].title},</span>{" "}<span className="text-[#555]">{artworkMeta[i].year}</span></p>
+                  <p className="text-[13px]"><span className="font-normal">{artworkMeta[i].title},</span>{" "}<span className="text-[#555]">{artworkMeta[i].year}</span></p>
                   <p className="text-[11px] text-[#888] italic">{artworkMeta[i].medium}</p>
                   <p className="text-[11px] text-[#888]">{artworkMeta[i].dims}</p>
                 </div>
@@ -319,7 +319,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                   </div>
                   <p className="text-[12px] text-[#888]">Sun Dog</p>
                   <p className="text-[13px]">
-                    <span className="font-medium">{artworkMeta[i].title},</span>{" "}
+                    <span className="font-normal">{artworkMeta[i].title},</span>{" "}
                     <span className="text-[#555]">{artworkMeta[i].year}</span>
                   </p>
                   <p className="text-[12px] text-[#888] italic">{artworkMeta[i].medium}</p>
