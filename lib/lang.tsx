@@ -56,8 +56,8 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "Des interfaces conçues pour l\u2019économie de l\u2019art",
-      subtitle: "Publiez et diffusez vos œuvres simplement.",
+      title: "Des interfaces taillées pour le monde de l\u2019art",
+      subtitle: "Conçu pour présenter, engager et connecter.",
       cards: [
         { title: "Exhibition Pages", desc: "Des pages d\u2019exposition claires et structurées : avec textes, images et liste d\u2019œuvres." },
         { title: "Artist Pages", desc: "Pages artistes complètes : biographie, œuvres et expositions réunies." },
@@ -72,8 +72,8 @@ export const translations = {
       readBio: "Lire la biographie complète",
     },
     solution: {
-      title: "Des fonctionnalit\u00e9s pens\u00e9es pour vendre et connecter",
-      subtitle: "Interactions simples et efficaces pour faciliter l\u2019achat, le partage et les vues priv\u00e9es.",
+      title: "Transformer les visiteurs en collectionneurs — naturellement.",
+      subtitle: "Des interactions fluides pour augmenter les ventes et cultiver des relations durables.",
       cards: [
         { title: "Online Inquire", desc: "Achat direct depuis la page œuvre." },
         { title: "Private Viewing", desc: "Envoyez facilement une sélection à vos collectionneurs." },
@@ -146,7 +146,7 @@ export const translations = {
           featuresHeading: "Inclus :",
           features: ["Site rapide & responsive", "Jusqu\u2019à 50 œuvres", "Pages essentielles", "Contact sur chaque œuvre", "SEO de base"],
           delivery: "Livraison : 5 jours ouvrés",
-          price: "À partir de 990 €",
+          price: "À partir de 1 500 €",
           priceNote: "Paiement unique (one-time)",
           cta: "Commencer",
           highlight: false as const,
@@ -158,7 +158,7 @@ export const translations = {
           featuresHeading: "Inclus :",
           features: ["Catalogue illimité", "Artistes, œuvres, expositions", "Parcours orienté collectionneur", "Inquiry system optimisé", "SEO marché de l\u2019art"],
           delivery: "Livraison : 3 semaines",
-          price: "À partir de 3 000 €",
+          price: "À partir de 4 000 €",
           priceNote: "Paiement unique (one-time)",
           cta: "Commencer",
           highlight: false as const,
@@ -279,8 +279,8 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "Interfaces built for the art market",
-      subtitle: "publish and share your works with ease.",
+      title: "Interfaces crafted for the art world",
+      subtitle: "Designed to present, engage, and connect.",
       cards: [
         { title: "Exhibition Pages", desc: "Clear, structured exhibition pages — with texts, images and artwork listings." },
         { title: "Artist Pages", desc: "Complete artist pages — biography, works and exhibitions in one place." },
@@ -295,8 +295,8 @@ export const translations = {
       readBio: "Read full biography",
     },
     solution: {
-      title: "Tools that turn viewers into buyers and collectors",
-      subtitle: "Smart, effortless interactions designed to increase sales and deepen your professional relationships.",
+      title: "Turning viewers into collectors — effortlessly.",
+      subtitle: "Seamless interactions designed to increase sales and cultivate meaningful connections.",
       cards: [
         { title: "Online Inquire", desc: "Direct purchase from the artwork page." },
         { title: "Private Viewing", desc: "Easily send a curated selection to your collectors." },
@@ -369,7 +369,7 @@ export const translations = {
           featuresHeading: "Included:",
           features: ["Fast & responsive website", "Up to 50 works", "Essential pages", "Contact on each artwork", "Basic SEO"],
           delivery: "Delivery: 5 business days",
-          price: "From \u20ac990",
+          price: "From \u20ac1,500",
           priceNote: "One-time payment",
           cta: "Get started",
           highlight: false as const,
@@ -381,7 +381,7 @@ export const translations = {
           featuresHeading: "Included:",
           features: ["Unlimited catalogue", "Artists, works, exhibitions", "Collector-oriented journey", "Optimised inquiry system", "Art market SEO"],
           delivery: "Delivery: 3 weeks",
-          price: "From \u20ac3,000",
+          price: "From \u20ac4,000",
           priceNote: "One-time payment",
           cta: "Get started",
           highlight: false as const,
