@@ -67,7 +67,7 @@ export default function PourQui() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease, delay: i * 0.1 }}
-              className="glass rounded-[10px] p-8 flex flex-col"
+              className="glass rounded p-8 flex flex-col"
             >
               <p className="text-xs tracking-widest uppercase text-[#ADADAA] mb-6">
                 {a.label}

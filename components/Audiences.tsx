@@ -176,7 +176,7 @@ function GalleryNavbar({
                   color: isActive ? activeColor : navColor,
                   fontWeight: isActive ? 500 : 400,
                   borderBottom: isActive ? `1px solid ${activeColor}` : "none",
-                  paddingBottom: isActive ? "1px" : "0",
+                  paddingBottom: isActive ? "10px" : "0",
                 }}
                 onClick={() => {
                   if (n === "Exhibitions") onNavigate("exhibitions");
@@ -213,7 +213,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         <GalleryNavbar page="home" onNavigate={onNavigate} isMobile dark={false} />
 
         {/* Hero image — ratio naturel (px mobile pour respirer sur les bords) */}
-        <div className="overflow-hidden px-[10px] rounded-[10px]" style={{ marginTop: "2.2rem" }}>
+        <div className="overflow-hidden px-[10px] rounded" style={{ marginTop: "2.2rem" }}>
           <Image src="/exhibition page/Exhibition1.png" alt="" width={900} height={560} className="w-full h-auto" sizes="500px" priority />
         </div>
 
@@ -262,7 +262,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         </div>
 
         {/* News — 1 col */}
-        <div className="mx-4 mb-4 rounded-[10px] p-4" style={{ background: "#F8F7F5" }}>
+        <div className="mx-4 mb-4 rounded p-4" style={{ background: "#F8F7F5" }}>
           <div className="flex items-center justify-between mb-3">
             <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.5rem" }}>News</span>
             <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>view all</span>
@@ -286,7 +286,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         </div>
 
         {/* Newsletter */}
-        <div className="mx-4 mb-4 rounded-[10px] px-5 py-6 flex flex-col gap-2" style={{ background: "#111110" }}>
+        <div className="mx-4 mb-4 rounded px-5 py-6 flex flex-col gap-2" style={{ background: "#111110" }}>
           <p className="text-white font-medium" style={{ fontSize: "0.65rem" }}>Be the first to know</p>
           <p className="text-white/50 leading-snug" style={{ fontSize: "0.45rem" }}>
             Join our mailing list to never miss upcoming exhibitions, art fairs, news, events, films & more.
@@ -358,7 +358,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
       </div>
 
       {/* News */}
-      <div className="mx-6 mb-6 rounded-[10px] p-5" style={{ background: "#F8F7F5" }}>
+      <div className="mx-6 mb-6 rounded p-5" style={{ background: "#F8F7F5" }}>
         <div className="flex items-center justify-between mb-4">
           <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.5rem" }}>News</span>
           <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>view all</span>
@@ -385,7 +385,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
 
       {/* Newsletter */}
       <div
-        className="mx-6 mb-6 rounded-[10px] px-6 py-8 grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 items-center"
+        className="mx-6 mb-6 rounded px-6 py-8 grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 items-center"
         style={{ background: "#111110" }}
       >
         <div className="min-w-0">
@@ -941,7 +941,7 @@ function ArtistPortfolioMock() {
         {page === "home" && (
           <>
             <div className="w-full" style={{ padding: `10px ${padX}px 0` }}>
-              <div className="relative w-full overflow-hidden" style={{ borderRadius: 3, aspectRatio: "16/7.5" }}>
+              <div className="relative w-full overflow-hidden" style={{ borderRadius: 4, aspectRatio: "16/7.5" }}>
                 <Image src="/artworks/v2-warm.png" alt="" fill className="object-cover" sizes="800px" />
               </div>
             </div>
@@ -953,7 +953,7 @@ function ArtistPortfolioMock() {
               <p className="text-[#6B6A67] text-[0.66rem] xl:text-[0.75rem] -mt-1">13 juin - 4 juillet 2025</p>
               <button
                 type="button"
-                className="mock-btn inline-flex self-start cursor-pointer mt-2.5 rounded-[5px] border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
+                className="mock-btn inline-flex self-start cursor-pointer mt-2.5 rounded border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
               >
                 Explore more exhibitions
               </button>
@@ -983,7 +983,7 @@ function ArtistPortfolioMock() {
                         style={{
                           gap: 5,
                           background: "#F9F9F8",
-                          borderRadius: 6,
+                          borderRadius: 4,
                           padding: 6,
                           cursor: clickable ? "pointer" : "default",
                         }}
@@ -995,7 +995,7 @@ function ArtistPortfolioMock() {
                           }
                         }}
                       >
-                        <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "4/5" }}>
+                        <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 4, aspectRatio: "4/5" }}>
                           <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" />
                         </div>
                         <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
@@ -1051,7 +1051,7 @@ function ArtistPortfolioMock() {
               <p className="text-[#6B6A67] mb-1 text-[0.66rem] xl:text-[0.75rem]">New pieces from the studio</p>
               <button
                 type="button"
-                className="mock-btn inline-flex cursor-pointer mt-2.5 rounded-[5px] border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
+                className="mock-btn inline-flex cursor-pointer mt-2.5 rounded border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
                 onClick={() => goTo("gallery")}
               >
                 Explore more artworks
@@ -1075,7 +1075,7 @@ function ArtistPortfolioMock() {
             >
               {pastExhibitions.map((ex) => (
                 <div key={ex.title} className="flex flex-col" style={{ gap: 6 }}>
-                  <div className="relative overflow-hidden bg-[#F5F3F0]" style={{ borderRadius: 3, aspectRatio: "4/3" }}>
+                  <div className="relative overflow-hidden bg-[#F5F3F0]" style={{ borderRadius: 4, aspectRatio: "4/3" }}>
                     <Image src={ex.src} alt="" fill className="object-cover" sizes="200px" />
                   </div>
                   <div className="flex flex-col">
@@ -1136,9 +1136,9 @@ function ArtistPortfolioMock() {
                     key={aw.title}
                     onClick={() => isDemo && openWork(idx)}
                     className="flex flex-col"
-                    style={{ gap: 5, background: "#F9F9F8", borderRadius: 6, padding: 6, cursor: isDemo ? "pointer" : "default" }}
+                    style={{ gap: 5, background: "#F9F9F8", borderRadius: 4, padding: 6, cursor: isDemo ? "pointer" : "default" }}
                   >
-                    <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 3, aspectRatio: "1/1" }}>
+                    <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 4, aspectRatio: "1/1" }}>
                       <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="400px" />
                     </div>
                     <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
@@ -1166,7 +1166,7 @@ function ArtistPortfolioMock() {
           return (
             <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 36, padding: `16px ${padX}px` }}>
               {/* Left: image */}
-              <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 3 }}>
+              <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 4 }}>
                 <Image src={srcs[selectedImage % srcs.length]} alt="" fill className="object-cover" sizes="1200px" style={{ padding: "12px 12px 12px 0" }} />
                 {srcs.length > 1 && (
                   <>
@@ -1185,7 +1185,7 @@ function ArtistPortfolioMock() {
                 <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 2 }}>{aw.medium}</p>
                 <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 10 }}>{aw.dims}</p>
                 <p style={{ fontSize: "1.03rem", fontWeight: 500, color: "#111110", marginBottom: 10 }}>{aw.price}</p>
-                <button className="buy-btn" style={{ width: "100%", borderRadius: 6, padding: "9px 0", fontSize: "0.82rem", fontWeight: 500, cursor: "pointer", marginBottom: 12 }}>
+                <button className="buy-btn" style={{ width: "100%", borderRadius: 4, padding: "9px 0", fontSize: "0.82rem", fontWeight: 500, cursor: "pointer", marginBottom: 12 }}>
                   Buy this painting
                 </button>
                 <p style={{ fontSize: "0.75rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6, marginTop: 16 }}>
@@ -1203,7 +1203,7 @@ function ArtistPortfolioMock() {
                       <p style={{ fontSize: "0.72rem", color: "#ADADAA" }}>{ph}</p>
                     </div>
                   ))}
-                  <button style={{ background: "#111110", color: "white", border: "none", borderRadius: 5, padding: "6px 14px", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", marginTop: 2, marginBottom: 12 }}>
+                  <button style={{ background: "#111110", color: "white", border: "none", borderRadius: 4, padding: "6px 14px", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", marginTop: 2, marginBottom: 12 }}>
                     Submit
                   </button>
                 </div>
@@ -1304,10 +1304,10 @@ const PAGES: (PageExample & { description: string })[] = [
 ];
 
 const WINDOW_LAYOUT = [
-  { left: "4%", top: "2%", width: "58%", height: "62%" },
-  { left: "16%", top: "13%", width: "58%", height: "62%" },
-  { left: "28%", top: "24%", width: "58%", height: "62%" },
-  { left: "40%", top: "35%", width: "58%", height: "62%" },
+  { left: "4%", top: "2%", width: "58%", height: "58%" },
+  { left: "16%", top: "13%", width: "58%", height: "58%" },
+  { left: "28%", top: "24%", width: "58%", height: "58%" },
+  { left: "40%", top: "35%", width: "58%", height: "58%" },
 ] as const;
 
 function useTypewriter(text: string, active: boolean, speed = 24) {
@@ -1377,7 +1377,7 @@ function PageWindow({
       }}
     >
       <div
-        className="w-full h-full rounded-[10px] overflow-hidden bg-white flex flex-col"
+        className="w-full h-full rounded overflow-hidden bg-white flex flex-col"
         style={{
           boxShadow:
             "0 18px 50px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)",
@@ -1446,13 +1446,12 @@ export default function Audiences() {
   return (
     <section className="pt-0 pb-4 md:pt-0 md:pb-[50px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        {/* Desktop: draggable overlapping windows */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease, delay: 0.08 }}
-          className="hidden md:block rounded-[10px] overflow-hidden px-16 py-[24px] bg-[#1C1C1A]"
+          className="rounded overflow-hidden px-4 py-[16px] md:px-16 md:py-[24px] bg-[#1C1C1A]"
         >
           <div
             ref={canvasRef}
@@ -1469,46 +1468,6 @@ export default function Audiences() {
               />
             ))}
           </div>
-        </motion.div>
-
-        {/* Mobile: stacked static windows */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="md:hidden rounded-[10px] px-4 pt-[10px] pb-[20px] bg-[#F7F7F5] flex flex-col gap-4"
-        >
-          {PAGES.map((page, i) => {
-            const Mock = page.mock;
-            return (
-              <div
-                key={i}
-                className="relative rounded-[10px] overflow-hidden bg-white flex flex-col aspect-[2922/2400]"
-                style={{
-                  boxShadow:
-                    "0 10px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
-                }}
-              >
-                <div className="flex items-center gap-2 px-3 h-7 border-b border-[#E8E8E6] bg-[#FAFAF8] shrink-0">
-                  <div className="flex gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
-                    <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
-                    <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
-                  </div>
-                  <div className="flex-1 h-4 rounded border border-[#E8E8E6] bg-white flex items-center justify-center px-2">
-                    <span className="text-[9px] text-[#6B6A67] truncate">
-                      {SITE_DOMAIN}
-                      {page.path}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex-1 relative overflow-hidden">
-                  <Mock />
-                </div>
-              </div>
-            );
-          })}
         </motion.div>
       </div>
     </section>

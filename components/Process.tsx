@@ -74,7 +74,7 @@ export default function Process() {
               className="bg-white flex flex-col"
             >
               {/* Icon */}
-              <div className="w-11 h-11 rounded-[10px] border border-[#E8E8E6] flex items-center justify-center text-[#111110] mb-4">
+              <div className="w-11 h-11 rounded border border-[#E8E8E6] flex items-center justify-center text-[#111110] mb-4">
                 {step.icon}
               </div>
 

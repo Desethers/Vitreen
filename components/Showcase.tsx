@@ -63,7 +63,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
       <div className="font-sans text-[#111110]" style={{ zoom: 0.78 }}>
         {/* Mobile nav */}
         <div
-          className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t-[8px]"
+          className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t"
           style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)", borderBottom: "0.5px solid rgba(0,0,0,0.06)" }}
         >
           <span className="font-medium uppercase" style={{ fontSize: "0.65rem", letterSpacing: "0.15em" }}>Galerie</span>
@@ -75,7 +75,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
         </div>
         {/* Photo with padding + rounded */}
         <div className="px-5 pt-4">
-          <div className="bg-[#C8C0B8] relative rounded-[10px] overflow-hidden" style={{ height: 300 }}>
+          <div className="bg-[#C8C0B8] relative rounded overflow-hidden" style={{ height: 300 }}>
             <Image src="/artist page/sundog.png" alt="Sacha Elron" fill className="object-cover object-top" sizes="600px" />
           </div>
         </div>
@@ -114,7 +114,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             <div className="flex flex-col gap-6">
               {artworks.map((src, i) => (
                 <div key={i} className="flex flex-col gap-2">
-                  <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 240 }}>
+                  <div className="rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 240 }}>
                     <Image src={src} alt={artworkMeta[i].title} fill className="object-cover" sizes="600px" />
                   </div>
                   <div className="flex flex-col gap-0.5">
@@ -139,7 +139,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                 { img: "/artist page/Exhibition6.png", title: "Your friends", location: "London", dates: "Oct 05 — Nov 28, 2025" },
               ].map((e) => (
                 <div key={e.title} className="flex flex-col gap-2">
-                  <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 200 }}>
+                  <div className="rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 200 }}>
                     <Image src={e.img} alt={e.title} fill className="object-cover" sizes="600px" />
                   </div>
                   <p className="text-[13px] font-medium">{e.title}</p>
@@ -172,7 +172,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
           onClick={() => setBioOpen(false)}
         >
           <div
-            className="bg-white rounded-[10px] w-full overflow-y-auto"
+            className="bg-white rounded w-full overflow-y-auto"
             style={{ maxWidth: 380, maxHeight: "88%", padding: "22px 22px 28px", scrollbarWidth: "none" }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -220,7 +220,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
               maxWidth: artistScrolled ? "min(800px, calc(100% - 3rem))" : "1280px",
               padding: artistScrolled ? "0.65rem 1.25rem" : "0.9rem 0",
               gap: artistScrolled ? "0.75rem" : "1.25rem",
-              borderRadius: artistScrolled ? "18px" : "0",
+              borderRadius: artistScrolled ? "4px" : "0",
               background: artistScrolled
                 ? "linear-gradient(135deg, rgba(255,255,255,0.72), rgba(252,250,247,0.65))"
                 : "transparent",
@@ -268,7 +268,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
 
         {/* Hero: photo + bio */}
         <div className="flex gap-12 px-12 pt-10 pb-8">
-          <div className="w-[300px] shrink-0 rounded-[6px] overflow-hidden bg-[#C8C0B8] relative" style={{ height: 390 }}>
+          <div className="w-[300px] shrink-0 rounded overflow-hidden bg-[#C8C0B8] relative" style={{ height: 390 }}>
             <Image src="/artist page/sundog.png" alt="Sacha Elron" fill className="object-cover object-top" sizes="300px" />
           </div>
           <div className="flex flex-col gap-3 pt-2 min-w-0">
@@ -316,7 +316,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             <div className="grid grid-cols-3 gap-5">
               {artworks.map((src, i) => (
                 <div key={i} className="flex flex-col gap-2 cursor-pointer group">
-                  <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 260 }}>
+                  <div className="rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 260 }}>
                     <Image src={src} alt={artworkMeta[i].title} fill className="object-cover group-hover:opacity-90 transition-opacity" sizes="300px" />
                   </div>
                   <p className="text-[12px] text-[#888]">Sacha Elron</p>
@@ -343,7 +343,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                 { img: "/artist page/Exhibition8.png", title: "Quiet Paintings", location: "New York", dates: "Mar 10 — Apr 30, 2025" },
               ].map((e) => (
                 <div key={e.title} className="flex flex-col gap-2 cursor-pointer group">
-                  <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 260 }}>
+                  <div className="rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 260 }}>
                     <Image src={e.img} alt={e.title} fill className="object-cover group-hover:opacity-90 transition-opacity" sizes="300px" />
                   </div>
                   <p className="text-[14px] font-medium text-[#111110]">{e.title}</p>
@@ -383,7 +383,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
       <div className="font-sans text-[#111110]" style={{ zoom: 0.78 }}>
         {/* Mobile nav */}
         <div
-          className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t-[8px]"
+          className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 rounded-t"
           style={{ background: "rgba(255,255,255,0.92)", backdropFilter: "blur(20px)", borderBottom: "0.5px solid rgba(0,0,0,0.06)" }}
         >
           <span className="font-medium uppercase" style={{ fontSize: "0.65rem", letterSpacing: "0.15em" }}>Galerie</span>
@@ -419,7 +419,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             <button className="bg-[#111110] text-white rounded-full px-5 py-3 text-[12px] text-center w-full">Artwork Inquiry</button>
             <button className="border border-[#D8D4CF] text-[#333] rounded-full px-5 py-3 text-[12px] text-center w-full">View artist</button>
           </div>
-          <div className="relative rounded-[10px] overflow-hidden bg-[#E8E4DF] mb-8" style={{ height: 300 }}>
+          <div className="relative rounded overflow-hidden bg-[#E8E4DF] mb-8" style={{ height: 300 }}>
             <Image src="/exhibition page/Exhibition2.png" alt="Installation view" fill className="object-cover" sizes="400px" />
           </div>
 
@@ -439,7 +439,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
               { title: "Untitled (Lavender)", year: "2024", medium: "Oil on canvas", size: "100 × 80 cm", img: "/exhibition page/painting-02.png" },
             ].map((work) => (
               <div key={work.title} className="flex flex-col gap-2">
-                <div className="rounded-[10px] overflow-hidden bg-[#E8E4DF]" style={{ height: 260 }}>
+                <div className="rounded overflow-hidden bg-[#E8E4DF]" style={{ height: 260 }}>
                   <img src={work.img} alt={work.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex items-start justify-between">
@@ -448,7 +448,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
                     <p className="text-[12px] text-[#888] italic">{work.medium}</p>
                     <p className="text-[12px] text-[#888]">{work.size}</p>
                   </div>
-                  <button className="border border-[#D8D4CF] rounded-[4px] px-6 py-1.5 text-[12px] text-[#111110] shrink-0">Inquire</button>
+                  <button className="border border-[#D8D4CF] rounded px-6 py-1.5 text-[12px] text-[#111110] shrink-0">Inquire</button>
                 </div>
               </div>
             ))}
@@ -486,7 +486,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
               maxWidth: scrolled ? "min(800px, calc(100% - 3rem))" : "1280px",
               padding: scrolled ? "0.65rem 1.25rem" : "0.9rem 0",
               gap: scrolled ? "0.75rem" : "1.25rem",
-              borderRadius: scrolled ? "18px" : "0",
+              borderRadius: scrolled ? "4px" : "0",
               background: scrolled
                 ? "linear-gradient(135deg, rgba(255,255,255,0.72), rgba(252,250,247,0.65))"
                 : "transparent",
@@ -586,7 +586,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
         </div>
 
         {/* Installation view 1 */}
-        <div className="mx-10 relative rounded-[10px] overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
+        <div className="mx-10 relative rounded overflow-hidden bg-[#E8E4DF]" style={{ height: 440 }}>
           <Image
             src="/exhibition page/Exhibition2.png"
             alt="Installation view — cool room"
@@ -614,7 +614,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
         </div>
 
         {/* Installation view 2 */}
-        <div className="mx-10 mt-10 rounded-[10px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
+        <div className="mx-10 mt-10 rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
           <Image
             src="/exhibition page/painting-02.png"
             alt="Sacha Elron — Untitled (Yellow)"
@@ -630,7 +630,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
         {/* Artwork detail */}
         <div className="mx-10 mt-14 pb-14 flex gap-8">
           <div className="w-[50%] shrink-0 flex flex-col gap-2">
-            <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
+            <div className="rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
               <Image src="/exhibition page/portrait2.jpg" alt="Sacha Elron — Untitled (Blue), 2025" fill className="object-cover" sizes="500px" />
             </div>
             <div className="flex items-start justify-between">
@@ -640,7 +640,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
                 <p className="text-[12px] text-[#888] italic">Acrylic on canvas</p>
                 <p className="text-[12px] text-[#888]">120 × 120 cm</p>
               </div>
-              <button className="border border-[#D8D4CF] rounded-[4px] px-8 py-1.5 text-[12px] text-[#111110] shrink-0 transition-colors duration-150 hover:border-[#111110] hover:text-[#111110]">
+              <button className="border border-[#D8D4CF] rounded px-8 py-1.5 text-[12px] text-[#111110] shrink-0 transition-colors duration-150 hover:border-[#111110] hover:text-[#111110]">
                 Inquire
               </button>
             </div>
@@ -661,7 +661,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             onClick={() => setShowModal(false)}
           >
             <div
-              className="bg-white rounded-[10px] overflow-y-auto"
+              className="bg-white rounded overflow-y-auto"
               style={{ maxWidth: 480, width: "calc(100% - 48px)", maxHeight: "72%", padding: "28px 28px 32px", scrollbarWidth: "none" }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -779,7 +779,7 @@ function DraggableMockWindow({
   return (
     <div
       ref={containerRef}
-      className="z-10 bg-white rounded-[10px] select-none overflow-hidden isolate"
+      className="z-10 bg-white rounded select-none overflow-hidden isolate"
       style={{
         position: "absolute",
         width: `${widthPct}%`,
@@ -791,7 +791,7 @@ function DraggableMockWindow({
     >
       {/* Barre de drag — en haut */}
       <div
-        className="absolute top-0 left-0 right-0 z-30 flex items-center justify-center cursor-grab active:cursor-grabbing rounded-t-[8px]"
+        className="absolute top-0 left-0 right-0 z-30 flex items-center justify-center cursor-grab active:cursor-grabbing rounded-t"
         style={{ height: 20 }}
         onMouseDown={startDrag}
       >
@@ -859,7 +859,7 @@ function ShowcaseCard({
   const imageCol = (
     <div className="relative overflow-hidden h-[420px] md:min-h-[720px]">
       <div
-        className="absolute inset-[15px] rounded-[5px] bg-cover bg-center"
+        className="absolute inset-[15px] rounded bg-cover bg-center"
         style={{ backgroundImage: `url('${bgImage}')` }}
       />
       <DraggableMockWindow initialWidthPct={mockScale * (isMobileViewport ? 95 : 85)}>
@@ -896,7 +896,7 @@ function ShowcaseCard({
   return (
     <motion.div
       {...fadeUp(delay)}
-      className="rounded-[5px] overflow-hidden bg-[#F9FAFD]"
+      className="rounded overflow-hidden bg-[#F9FAFD]"
       style={{ border: "0.1px solid #D4D4D0" }}
     >
       <div
@@ -964,7 +964,7 @@ function AdminMock() {
           ))}
         </div>
 
-        <div className="flex-1 bg-white rounded-[10px] border border-[#E8E8E6] p-4 md:p-5 flex flex-col gap-3">
+        <div className="flex-1 bg-white rounded border border-[#E8E8E6] p-4 md:p-5 flex flex-col gap-3">
           <div className="flex items-center justify-between">
             <span className="text-[12px] font-medium text-[#111110]">
               {m.newArtwork}
@@ -1115,7 +1115,7 @@ function LiveSiteMock() {
         </div>
       </div>
 
-      <div className="flex-1 bg-white rounded-[10px] border border-[#E8E8E6] overflow-hidden flex flex-col">
+      <div className="flex-1 bg-white rounded border border-[#E8E8E6] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#F0F0EE]">
           <span className="text-[11px] font-medium text-[#111110] tracking-[-0.01em]">
             Galerie Fontaine
@@ -1134,7 +1134,7 @@ function LiveSiteMock() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.5, ease }}
-            className="flex-1 bg-[#F7F7F5] rounded-[10px] flex items-center justify-center"
+            className="flex-1 bg-[#F7F7F5] rounded flex items-center justify-center"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#CCCCC9" strokeWidth="1">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -1252,7 +1252,7 @@ export default function Showcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.65, ease }}
-          className="rounded-[10px] overflow-hidden relative"
+          className="rounded overflow-hidden relative"
           style={{ border: "0.1px solid #D4D4D0" }}
         >
           <div className="relative overflow-hidden h-[500px] md:h-[720px]">
@@ -1262,7 +1262,7 @@ export default function Showcase() {
             />
 
             <div
-              className="absolute bg-white rounded-[10px] overflow-hidden"
+              className="absolute bg-white rounded overflow-hidden"
               style={{
                 top: isMobile ? 40 : 90,
                 bottom: isMobile ? 40 : 90,
@@ -1301,7 +1301,7 @@ export default function Showcase() {
                       : "0 2px 8px rgba(0,0,0,0.05)",
                   }}
                   transition={{ duration: 0.4, ease }}
-                  className="hidden md:block absolute bg-white rounded-[10px] px-3 py-2.5"
+                  className="hidden md:block absolute bg-white rounded px-3 py-2.5"
                   style={{ ...STEP_POSITIONS[i], zIndex: 20, maxWidth: 240 }}
                 >
                   <div className="flex items-center gap-2">

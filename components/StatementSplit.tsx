@@ -44,7 +44,7 @@ export default function StatementSplit() {
           {t.statementSplit.stats.map((m) => (
             <div
               key={m.value}
-              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded-[5px] transition-all duration-200 hover:border-[#111110] hover:bg-white"
+              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded transition-all duration-200 hover:border-[#111110] hover:bg-white"
             >
               <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
                 {m.value}
@@ -68,7 +68,7 @@ export default function StatementSplit() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {t.statementSplit.blocks.map((block, i) => (
               <div key={i} className="flex flex-col gap-4">
-                <div className="w-10 h-10 rounded-[8px] border border-[#E8E8E6] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded border border-[#E8E8E6] flex items-center justify-center shrink-0">
                   {BLOCK_ICONS[i]}
                 </div>
                 <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">

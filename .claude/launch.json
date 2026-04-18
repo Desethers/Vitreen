@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "vitreen",
-      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeExecutable": "/Users/thomasguigue/.nvm/versions/node/v20.19.0/bin/node",
       "runtimeArgs": ["node_modules/.bin/next", "dev", "--webpack"],
       "autoPort": true
     }

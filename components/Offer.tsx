@@ -81,7 +81,7 @@ export default function Offer() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease, delay: i * 0.1 }}
-              className={`relative flex flex-col p-8 rounded-[10px] ${
+              className={`relative flex flex-col p-8 rounded ${
                 plan.highlighted
                   ? "bg-[#111110]"
                   : "glass"

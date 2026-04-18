@@ -161,7 +161,7 @@ export function ExhibitionSchedulerMock() {
                   ))}
                 </div>
                 <div
-                  className="absolute top-0 bottom-0 rounded-[3px] flex items-center px-2 text-white"
+                  className="absolute top-0 bottom-0 rounded flex items-center px-2 text-white"
                   style={{ left: `${leftPct}%`, width: `${widthPct}%`, background: s.color }}
                 >
                   <span className="text-[9px] md:text-[10px] truncate">{s.title}</span>

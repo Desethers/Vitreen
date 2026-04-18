@@ -16,7 +16,7 @@ export default function CtaBand() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.65, ease }}
-          className="rounded-[10px] bg-[#000000] px-6 py-12 md:px-12 md:py-20 lg:py-24"
+          className="rounded bg-[#000000] px-6 py-12 md:px-12 md:py-20 lg:py-24"
         >
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
             <span

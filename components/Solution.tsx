@@ -325,7 +325,7 @@ function ShareableMomentMock() {
               padding: "6px 26px",
               fontSize: 10,
               fontWeight: 500,
-              borderRadius: 5,
+              borderRadius: 4,
               width: "fit-content",
               alignSelf: "flex-start",
             }}
@@ -577,7 +577,7 @@ function ShareableMomentMock() {
             >
               <div style={{
                 display: "flex", alignItems: "center", gap: 0,
-                background: "rgba(255,255,255,0.95)", borderRadius: 8,
+                background: "rgba(255,255,255,0.95)", borderRadius: 4,
                 overflow: "hidden",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
               }}>
@@ -609,7 +609,7 @@ function ShareableMomentMock() {
             >
               {/* Card artwork */}
               <div
-                className="overflow-hidden rounded-[10px]"
+                className="overflow-hidden rounded"
                 style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(16px)" }}
               >
                 <div className="flex gap-2.5 p-2.5">
@@ -735,7 +735,7 @@ function ArtworkMock() {
       <div className="flex-1 flex flex-col" style={{ gap: 5 }}>
 
         {/* Card 1 — main info */}
-        <div style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "10px 10px 8px", flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
+        <div style={{ border: "1px solid #E4E4E0", borderRadius: 4, padding: "10px 10px 8px", flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
           <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
@@ -748,7 +748,7 @@ function ArtworkMock() {
             onMouseLeave={() => setAddHover(false)}
             style={{
               border: "0.5px solid #111110",
-              borderRadius: 5,
+              borderRadius: 4,
               height: 24,
               marginBottom: 7,
               cursor: "pointer",
@@ -775,13 +775,13 @@ function ArtworkMock() {
         </div>
 
         {/* Card 2 — Shipping */}
-        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
+        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 4, padding: "7px 10px", flexShrink: 0 }}>
           <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>Shipping and taxes</span>
           <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
         </div>
 
         {/* Card 3 — FAQ */}
-        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 7, padding: "7px 10px", flexShrink: 0 }}>
+        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 4, padding: "7px 10px", flexShrink: 0 }}>
           <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>FAQ</span>
           <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
         </div>
@@ -820,7 +820,7 @@ function ArtworkMock() {
         {/* Item row */}
         <div className="flex items-start" style={{ gap: 7, marginBottom: "auto" }}>
           {/* Thumbnail */}
-          <div style={{ width: 26, height: 32, background: "#1C1D2E", borderRadius: 3, flexShrink: 0 }} />
+          <div style={{ width: 26, height: 32, background: "#1C1D2E", borderRadius: 4, flexShrink: 0 }} />
           {/* Info */}
           <div className="flex-1">
             <div className="flex items-start justify-between">
@@ -843,7 +843,7 @@ function ArtworkMock() {
           {/* Proceed to checkout */}
           <div
             className="flex items-center justify-center transition-colors duration-200 hover:bg-[#2F4FE0]"
-            style={{ background: "#111110", borderRadius: 5, height: 22, marginBottom: 5 }}
+            style={{ background: "#111110", borderRadius: 4, height: 22, marginBottom: 5 }}
           >
             <span style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.12em", color: "#fff" }}>
               Proceed to checkout
@@ -967,7 +967,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, ease, delay: i * 0.1 }}
-            className="group rounded-[5px] bg-[#1C1C1A] p-[20px] flex flex-col"
+            className="group rounded bg-[#1C1C1A] p-[20px] flex flex-col"
             style={{ border: "0.1px solid #1C1C1A" }}
           >
             <h3 className="font-normal text-white text-sm md:text-base tracking-[-0.01em] mb-0">
@@ -976,7 +976,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             <p className="mt-0 text-[#ADADAA] text-sm leading-[1.55] mb-4">
               {card.desc}
             </p>
-            <div className="w-full max-w-[400px] h-[430px] mx-auto bg-white rounded-[5px] p-4 overflow-hidden">
+            <div className="w-full max-w-[400px] h-[430px] mx-auto bg-white rounded p-4 overflow-hidden">
               <MockComponent />
             </div>
           </motion.div>

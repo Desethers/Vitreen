@@ -78,7 +78,7 @@ export default function Partner() {
                 transition={{ duration: 0.5, ease, delay: i * 0.1 }}
                 className="flex gap-5 items-start border-b border-[#2a2a28] pb-6 last:border-0 last:pb-0"
               >
-                <div className="flex-shrink-0 w-10 h-10 rounded-[10px] border border-[#2a2a28] flex items-center justify-center text-[#999997]">
+                <div className="flex-shrink-0 w-10 h-10 rounded border border-[#2a2a28] flex items-center justify-center text-[#999997]">
                   {item.icon}
                 </div>
                 <div>

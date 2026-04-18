@@ -46,7 +46,7 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease, delay: i * 0.12 }}
-              className="glass rounded-[10px] p-8"
+              className="glass rounded p-8"
             >
               <span className="font-display text-4xl text-[#E8E8E6] mb-8 block">
                 {step.number}

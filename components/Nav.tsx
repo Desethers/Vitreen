@@ -256,7 +256,7 @@ export default function Nav() {
 
       {/* Menu mobile déroulant */}
       {menuOpen && (
-        <div className="md:hidden mx-4 mt-2 rounded-[10px] px-6 py-6 flex flex-col gap-5 absolute top-full left-0 right-0 bg-white border border-[#E8E8E6] shadow-sm z-40">
+        <div className="md:hidden mx-4 mt-2 rounded px-6 py-6 flex flex-col gap-5 absolute top-full left-0 right-0 bg-white border border-[#E8E8E6] shadow-sm z-40">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -300,7 +300,7 @@ export default function Nav() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.35, ease }}
-              className="relative w-full max-w-md rounded-[10px] bg-white p-6 md:p-8 shadow-[0_24px_80px_rgba(0,0,0,0.12)] border border-[#E8E8E6]"
+              className="relative w-full max-w-md rounded bg-white p-6 md:p-8 shadow-[0_24px_80px_rgba(0,0,0,0.12)] border border-[#E8E8E6]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
