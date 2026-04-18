@@ -1303,11 +1303,15 @@ const PAGES: (PageExample & { description: string })[] = [
   },
 ];
 
+/**
+ * Stacked mocks — % of canvas, height 54%. Tops / stagger chosen so inset above
+ * the first card and below the last match (~2% each); ~14% step between cards.
+ */
 const WINDOW_LAYOUT = [
-  { left: "4%", top: "2%", width: "58%", height: "58%" },
-  { left: "16%", top: "13%", width: "58%", height: "58%" },
-  { left: "28%", top: "24%", width: "58%", height: "58%" },
-  { left: "40%", top: "35%", width: "58%", height: "58%" },
+  { left: "4%", top: "2%", width: "58%", height: "54%" },
+  { left: "16%", top: "16%", width: "58%", height: "54%" },
+  { left: "28%", top: "30%", width: "58%", height: "54%" },
+  { left: "40%", top: "44%", width: "58%", height: "54%" },
 ] as const;
 
 function useTypewriter(text: string, active: boolean, speed = 24) {
@@ -1451,11 +1455,11 @@ export default function Audiences() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease, delay: 0.08 }}
-          className="rounded overflow-hidden px-4 py-[16px] md:px-16 md:py-[24px] bg-[#1C1C1A]"
+          className="rounded overflow-hidden px-4 py-3 md:px-16 md:py-5 bg-[#1C1C1A]"
         >
           <div
             ref={canvasRef}
-            className="relative w-full aspect-[2922/2100]"
+            className="relative w-full aspect-[2922/3000] md:aspect-[2922/1750]"
           >
             {PAGES.map((page, i) => (
               <PageWindow
