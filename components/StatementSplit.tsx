@@ -35,7 +35,7 @@ export default function StatementSplit() {
       <div className="bg-gradient-to-b from-[#F9FAFD] to-white pt-12 md:pt-[80px] pb-10 md:pb-[60px]">
       <div className="max-w-7xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
-          <h2 style={{ fontSize: "32px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">
+          <h2 style={{ fontSize: "38px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">
             {t.statementSplit.statTitle}
           </h2>
         </motion.div>

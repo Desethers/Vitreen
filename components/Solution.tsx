@@ -40,7 +40,7 @@ type Artwork = {
 
 const shareableMomentArtwork: Artwork = {
   id: "untitled-horizon",
-  artist: "Sun Dog",
+  artist: "Sacha Elron",
   title: "Untitled (Horizon)",
   year: "2024",
   medium: "Oil on canvas",
@@ -863,10 +863,10 @@ function ArtworkMock() {
 }
 
 const viewingArtworks = [
-  { img: "/artworks/painting-10.jpg", artist: "Sun Dog", title: "Sun Dog 02", year: "2025", medium: "Acrylic on canvas", dims: "80 × 80 cm" },
-  { img: "/artworks/painting-05.jpg", artist: "Sun Dog", title: "Night Garden IV", year: "2024", medium: "Oil on linen", dims: "120 × 90 cm" },
-  { img: "/artworks/painting-06.png", artist: "Sun Dog", title: "Untitled (Bloom)", year: "2023", medium: "Watercolour", dims: "60 × 45 cm" },
-  { img: "/artworks/painting-09.png", artist: "Sun Dog", title: "Soft Power I", year: "2025", medium: "Mixed media", dims: "100 × 100 cm" },
+  { img: "/artworks/painting-10.jpg", artist: "Sacha Elron", title: "Sacha Elron 02", year: "2025", medium: "Acrylic on canvas", dims: "80 × 80 cm" },
+  { img: "/artworks/painting-05.jpg", artist: "Sacha Elron", title: "Night Garden IV", year: "2024", medium: "Oil on linen", dims: "120 × 90 cm" },
+  { img: "/artworks/painting-06.png", artist: "Sacha Elron", title: "Untitled (Bloom)", year: "2023", medium: "Watercolour", dims: "60 × 45 cm" },
+  { img: "/artworks/painting-09.png", artist: "Sacha Elron", title: "Soft Power I", year: "2025", medium: "Mixed media", dims: "100 × 100 cm" },
 ];
 
 function ViewingMock() {

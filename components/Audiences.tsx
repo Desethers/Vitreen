@@ -222,7 +222,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
           <p className="uppercase tracking-[0.18em] text-[#ADADAA] mb-1" style={{ fontSize: "0.38rem" }}>
             Paris · Feb 12 — Mar 22, 2026
           </p>
-          <h1 className="font-normal text-[#111110] leading-[1.05]" style={{ fontSize: "1rem" }}>Sun Dog</h1>
+          <h1 className="font-normal text-[#111110] leading-[1.05]" style={{ fontSize: "1rem" }}>Sacha Elron</h1>
           <p className="italic text-[#555] leading-[1.2] mt-0.5" style={{ fontSize: "0.72rem" }}>Your friends</p>
           <button
             className="mt-2 bg-[#111110] rounded-full px-4 py-1 text-white"
@@ -316,7 +316,7 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }}
         >
           <p className="uppercase tracking-[0.18em] text-white/70 mb-1" style={{ fontSize: "0.75rem" }}>Paris</p>
-          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "2.8rem" }}>Sun Dog</h1>
+          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "2.8rem" }}>Sacha Elron</h1>
           <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "2rem" }}>Your friends</p>
           <p className="text-white/55 mt-1.5" style={{ fontSize: "0.82rem" }}>Feb 12 — Mar 22, 2026</p>
           <button
@@ -419,7 +419,7 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
 
   const exhibitions = {
     current: [
-      { img: "/exhibition page/Exhibition1.png", title: "Sun Dog", subtitle: "Your friends", dates: "Feb 12 — Mar 22, 2026" },
+      { img: "/exhibition page/Exhibition1.png", title: "Sacha Elron", subtitle: "Your friends", dates: "Feb 12 — Mar 22, 2026" },
     ],
     upcoming: [
       { img: "/exhibition page/painting-01.png", title: "Marcus Vael", subtitle: "Anxious Men", dates: "Apr 3 — May 17, 2026" },
@@ -516,7 +516,7 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
 
 function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPage) => void; isMobile?: boolean }) {
   const artists = [
-    { img: "/artist page/sundog.png", name: "Sun Dog", origin: "Oklahoma, USA" },
+    { img: "/artist page/sundog.png", name: "Sacha Elron", origin: "Oklahoma, USA" },
     { img: "/artworks/painting-03.jpg", name: "Jonas Krell", origin: "Berlin, Allemagne" },
     { img: "/artworks/painting-05.jpg", name: "Valentina Rossi", origin: "Milan, Italie" },
     { img: "/artworks/painting-07.jpg", name: "Nina Beier", origin: "Copenhagen, DK" },
@@ -587,10 +587,10 @@ function PrivateViewingMock() {
   const isMobile = mockWidth < 440;
 
   const artworks = [
-    { img: "/artworks/painting-10.jpg", artist: "Sun Dog", title: "Sun Dog 02", year: "2025", medium: "Acrylic on canvas", dims: "80 × 80 cm" },
-    { img: "/artworks/painting-02.png", artist: "Sun Dog", title: "Night Garden IV", year: "2024", medium: "Oil on linen", dims: "120 × 90 cm" },
-    { img: "/artworks/painting-06.png", artist: "Sun Dog", title: "Untitled (Bloom)", year: "2023", medium: "Watercolour", dims: "60 × 45 cm" },
-    { img: "/artworks/painting-09.png", artist: "Sun Dog", title: "Soft Power I", year: "2025", medium: "Mixed media", dims: "100 × 100 cm" },
+    { img: "/artworks/painting-10.jpg", artist: "Sacha Elron", title: "Sacha Elron 02", year: "2025", medium: "Acrylic on canvas", dims: "80 × 80 cm" },
+    { img: "/artworks/painting-02.png", artist: "Sacha Elron", title: "Night Garden IV", year: "2024", medium: "Oil on linen", dims: "120 × 90 cm" },
+    { img: "/artworks/painting-06.png", artist: "Sacha Elron", title: "Untitled (Bloom)", year: "2023", medium: "Watercolour", dims: "60 × 45 cm" },
+    { img: "/artworks/painting-09.png", artist: "Sacha Elron", title: "Soft Power I", year: "2025", medium: "Mixed media", dims: "100 × 100 cm" },
   ];
 
   const gridCols = isMobile ? "grid-cols-2" : "grid-cols-2";
@@ -843,7 +843,7 @@ function ArtistPortfolioMock() {
           className="min-w-0 shrink truncate whitespace-nowrap"
           style={{ fontSize: isMobile ? "0.7rem" : "0.75rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
         >
-          Sun Dog
+          Sacha Elron
         </span>
         {isMobile ? (
           <>
@@ -1216,7 +1216,7 @@ function ArtistPortfolioMock() {
         {/* Footer */}
         <div className="border-t border-[#F0F0EE]" style={{ padding: `16px ${padX}px` }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontSize: "0.44rem", color: "#ADADAA" }}>© 2025 Sun Dog</span>
+            <span style={{ fontSize: "0.44rem", color: "#ADADAA" }}>© 2025 Sacha Elron</span>
             <div style={{ display: "flex", gap: 12 }}>
               {["Instagram", "LinkedIn"].map(s => (
                 <span key={s} style={{ fontSize: "0.44rem", color: "#ADADAA" }}>{s}</span>

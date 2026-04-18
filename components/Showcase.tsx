@@ -30,11 +30,11 @@ const artworkMeta = [
 ];
 
 const bioText = [
-  "Sun Dog (né en 1960 à Oklahoma City, Oklahoma) est un peintre américain reconnu pour ses paysages méditatifs à grande échelle. Formé à la peinture figurative à l'Art Students League de New York, il développe rapidement un langage visuel personnel, oscillant entre représentation et abstraction pure.",
-  "Son œuvre prend racine dans la contemplation de la nature — ciels vastess, horizons lumineux, arbres solitaires — qu'il distille en champs de couleur saturés, denses et silencieux. Travaillant principalement à l'huile sur toile, Sun Dog construit ses tableaux par couches successives de pigments, laissant parfois transparaître les strates sous-jacentes comme autant de traces du temps.",
+  "Sacha Elron (né en 1960 à Oklahoma City, Oklahoma) est un peintre américain reconnu pour ses paysages méditatifs à grande échelle. Formé à la peinture figurative à l'Art Students League de New York, il développe rapidement un langage visuel personnel, oscillant entre représentation et abstraction pure.",
+  "Son œuvre prend racine dans la contemplation de la nature — ciels vastess, horizons lumineux, arbres solitaires — qu'il distille en champs de couleur saturés, denses et silencieux. Travaillant principalement à l'huile sur toile, Sacha Elron construit ses tableaux par couches successives de pigments, laissant parfois transparaître les strates sous-jacentes comme autant de traces du temps.",
   "Ses expositions personnelles se sont tenues dans des galeries majeures à New York, Los Angeles, Paris et Berlin. Ses œuvres figurent dans de nombreuses collections publiques et privées, notamment au Whitney Museum of American Art, au Musée d'Art Moderne de Paris, et dans plusieurs fondations européennes dédiées à la peinture contemporaine.",
   "En 2008, il reçoit le Prix de la Fondation Pollock-Krasner, récompense majeure du monde de l'art américain. En 2015, une rétrospective lui est consacrée à la Fondation Beyeler à Bâle, rassemblant plus de 80 œuvres couvrant trente ans de pratique.",
-  "Sun Dog vit et travaille à Brooklyn, New York, dans un atelier qu'il occupe depuis 1994.",
+  "Sacha Elron vit et travaille à Brooklyn, New York, dans un atelier qu'il occupe depuis 1994.",
 ];
 
 function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
@@ -76,15 +76,15 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
         {/* Photo with padding + rounded */}
         <div className="px-5 pt-4">
           <div className="bg-[#C8C0B8] relative rounded-[10px] overflow-hidden" style={{ height: 300 }}>
-            <Image src="/artist page/sundog.png" alt="Sun Dog" fill className="object-cover object-top" sizes="600px" />
+            <Image src="/artist page/sundog.png" alt="Sacha Elron" fill className="object-cover object-top" sizes="600px" />
           </div>
         </div>
         {/* Body */}
         <div className="px-5 pt-5 pb-10">
-          <h1 className="text-[28px] font-normal tracking-[-0.03em] leading-[1.1] mb-1">Sun Dog</h1>
+          <h1 className="text-[28px] font-normal tracking-[-0.03em] leading-[1.1] mb-1">Sacha Elron</h1>
           <p className="text-[12px] text-[#888] mb-4">Born 1960, Oklahoma, USA — Lives and works in New York</p>
           <p className="text-[13px] text-[#444] leading-[1.65] mb-1">
-            Sun Dog explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary.
+            Sacha Elron explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary.
           </p>
           <button
             onClick={() => setBioOpen(true)}
@@ -118,7 +118,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                     <Image src={src} alt={artworkMeta[i].title} fill className="object-cover" sizes="600px" />
                   </div>
                   <div className="flex flex-col gap-0.5">
-                    <p className="text-[11px] text-[#888]">Sun Dog</p>
+                    <p className="text-[11px] text-[#888]">Sacha Elron</p>
                     <p className="text-[13px]"><span className="font-normal">{artworkMeta[i].title},</span>{" "}<span className="text-[#555]">{artworkMeta[i].year}</span></p>
                     <p className="text-[11px] text-[#888] italic">{artworkMeta[i].medium}</p>
                     <p className="text-[11px] text-[#888]">{artworkMeta[i].dims}</p>
@@ -129,7 +129,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
           )}
           {activeTab === "Biography" && (
             <p className="text-[13px] text-[#444] leading-[1.7]">
-              Sun Dog (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections.
+              Sacha Elron (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections.
             </p>
           )}
           {activeTab === "Exhibitions" && (
@@ -179,7 +179,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h2 className="text-[15px] font-semibold text-[#111110] leading-tight">Sun Dog</h2>
+                <h2 className="text-[15px] font-semibold text-[#111110] leading-tight">Sacha Elron</h2>
                 <p className="text-[10px] text-[#888] mt-0.5">Born 1960, Oklahoma, USA — Lives and works in New York</p>
               </div>
               <button
@@ -269,13 +269,13 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
         {/* Hero: photo + bio */}
         <div className="flex gap-12 px-12 pt-10 pb-8">
           <div className="w-[300px] shrink-0 rounded-[6px] overflow-hidden bg-[#C8C0B8] relative" style={{ height: 390 }}>
-            <Image src="/artist page/sundog.png" alt="Sun Dog" fill className="object-cover object-top" sizes="300px" />
+            <Image src="/artist page/sundog.png" alt="Sacha Elron" fill className="object-cover object-top" sizes="300px" />
           </div>
           <div className="flex flex-col gap-3 pt-2 min-w-0">
-            <h1 className="text-[38px] font-normal tracking-[-0.03em] leading-[1.1]">Sun Dog</h1>
+            <h1 className="text-[38px] font-normal tracking-[-0.03em] leading-[1.1]">Sacha Elron</h1>
             <p className="text-[13px] text-[#888]">Born 1960, Oklahoma, USA — Lives and works in New York</p>
             <p className="text-[14px] text-[#444] leading-[1.65] max-w-[520px] mt-1">
-              Sun Dog explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary. His paintings, often rendered in rich, saturated color fields, evoke a contemplative stillness that hovers between representation and pure sensation.
+              Sacha Elron explores the boundaries of landscape and abstraction through a deeply personal visual vocabulary. His paintings, often rendered in rich, saturated color fields, evoke a contemplative stillness that hovers between representation and pure sensation.
             </p>
             <p className="text-[14px] text-[#444] leading-[1.65] max-w-[520px]">
               Working primarily with oil on canvas, his practice distills nature into its most essential forms — solitary trees, expansive skies, and luminous horizons emerge from layers of pigment with an almost meditative quality.
@@ -319,7 +319,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
                   <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 260 }}>
                     <Image src={src} alt={artworkMeta[i].title} fill className="object-cover group-hover:opacity-90 transition-opacity" sizes="300px" />
                   </div>
-                  <p className="text-[12px] text-[#888]">Sun Dog</p>
+                  <p className="text-[12px] text-[#888]">Sacha Elron</p>
                   <p className="text-[13px]">
                     <span className="font-normal">{artworkMeta[i].title},</span>{" "}
                     <span className="text-[#555]">{artworkMeta[i].year}</span>
@@ -332,7 +332,7 @@ function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
           )}
           {activeTab === "Biography" && (
             <p className="text-[14px] text-[#444] leading-[1.7] max-w-2xl">
-              Sun Dog (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections. He lives and works in New York City, where he maintains a studio in Brooklyn.
+              Sacha Elron (born 1960 in Oklahoma) is an American painter known for his large-scale, meditative landscapes. His work has been exhibited internationally and is held in numerous public and private collections. He lives and works in New York City, where he maintains a studio in Brooklyn.
             </p>
           )}
           {activeTab === "Exhibitions" && (
@@ -402,10 +402,10 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             <span className="text-[#555] underline underline-offset-2">Exhibitions</span>{" — "}Your friends
           </p>
           <h1 className="text-[20px] font-normal tracking-[-0.03em] leading-[1.1] mb-6">
-            Sun Dog — <em>Your friends</em>
+            Sacha Elron — <em>Your friends</em>
           </h1>
           <div className="flex flex-col gap-3 mb-6 pb-6" style={{ borderBottom: "0.5px solid rgba(0,0,0,0.08)" }}>
-            <div><p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Artist</p><p className="text-[13px] font-medium text-[#111110]">Sun Dog</p></div>
+            <div><p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Artist</p><p className="text-[13px] font-medium text-[#111110]">Sacha Elron</p></div>
             <div><p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Dates</p><p className="text-[13px] text-[#333]">Feb 12 — Mar 22, 2026</p></div>
             <div><p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Location</p><p className="text-[13px] text-[#333]">Galerie, Paris — Turenne</p></div>
           </div>
@@ -456,7 +456,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
           {/* Quote */}
           <blockquote className="mt-10 mb-4 text-[14px] italic text-[#999] leading-[1.7] text-center">
             &ldquo;Shared light is the simplest form of friendship—what falls on the wall falls on us both.&rdquo;
-            <footer className="mt-2 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sun Dog</footer>
+            <footer className="mt-2 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sacha Elron</footer>
           </blockquote>
           <p className="mt-4 text-[12px] text-[#ADADAA] underline underline-offset-2 cursor-pointer text-center pb-4">All exhibitions</p>
         </div>
@@ -549,7 +549,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
             </p>
             <div className="flex flex-col gap-1">
               <p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Artist</p>
-              <p className="text-[13px] font-medium text-[#111110] underline underline-offset-2 cursor-pointer">Sun Dog</p>
+              <p className="text-[13px] font-medium text-[#111110] underline underline-offset-2 cursor-pointer">Sacha Elron</p>
             </div>
             <div className="flex flex-col gap-1">
               <p className="text-[10px] uppercase tracking-[0.1em] text-[#ADADAA]">Dates</p>
@@ -571,7 +571,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
           {/* Main */}
           <div className="flex-1 min-w-0">
             <h1 className="text-[34px] font-normal tracking-[-0.03em] leading-[1.1] mb-5">
-              Sun Dog — <em>Your friends</em>
+              Sacha Elron — <em>Your friends</em>
             </h1>
             <p className="text-[14px] text-[#333] leading-[1.7] max-w-[560px] mb-3">
               A presentation of recent paintings and works on paper exploring friendship, memory, and shared light. The exhibition brings together a focused selection of pieces conceived as a single environment.
@@ -596,7 +596,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
           />
         </div>
         <p className="mx-10 mt-2 text-[11px] text-[#ADADAA] italic">
-          Installation view, Sun Dog : <em>Your friends</em>, Galerie, Paris, 2026
+          Installation view, Sacha Elron : <em>Your friends</em>, Galerie, Paris, 2026
         </p>
 
         {/* Exhibition text */}
@@ -617,25 +617,25 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
         <div className="mx-10 mt-10 rounded-[10px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
           <Image
             src="/exhibition page/painting-02.png"
-            alt="Sun Dog — Untitled (Yellow)"
+            alt="Sacha Elron — Untitled (Yellow)"
             fill
             className="object-contain"
             sizes="900px"
           />
         </div>
         <p className="mx-10 mt-2 text-[11px] text-[#ADADAA] italic">
-          Installation view, Sun Dog : <em>Your friends</em>, Galerie, Paris, 2026
+          Installation view, Sacha Elron : <em>Your friends</em>, Galerie, Paris, 2026
         </p>
 
         {/* Artwork detail */}
         <div className="mx-10 mt-14 pb-14 flex gap-8">
           <div className="w-[50%] shrink-0 flex flex-col gap-2">
             <div className="rounded-[6px] overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
-              <Image src="/exhibition page/portrait2.jpg" alt="Sun Dog — Untitled (Blue), 2025" fill className="object-cover" sizes="500px" />
+              <Image src="/exhibition page/portrait2.jpg" alt="Sacha Elron — Untitled (Blue), 2025" fill className="object-cover" sizes="500px" />
             </div>
             <div className="flex items-start justify-between">
               <div className="flex flex-col gap-0.5">
-                <p className="text-[12px] text-[#888]">Sun Dog</p>
+                <p className="text-[12px] text-[#888]">Sacha Elron</p>
                 <p className="text-[13px] font-medium text-[#111110]">Untitled, 2025</p>
                 <p className="text-[12px] text-[#888] italic">Acrylic on canvas</p>
                 <p className="text-[12px] text-[#888]">120 × 120 cm</p>
@@ -648,7 +648,7 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
           <div className="flex flex-col justify-center items-center py-2 flex-1">
             <blockquote className="text-[15px] italic text-[#999] leading-[1.7] max-w-[280px] text-center transition-colors duration-200 hover:text-[#111110] cursor-default">
               &ldquo;Shared light is the simplest form of friendship—what falls on the wall falls on us both.&rdquo;
-              <footer className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sun Dog</footer>
+              <footer className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#ADADAA] not-italic">Sacha Elron</footer>
             </blockquote>
           </div>
         </div>
@@ -676,11 +676,11 @@ export function ExhibitionPageMock({ isMobile = false, onBack }: { isMobile?: bo
                 </button>
               </div>
               <h2 className="text-[16px] font-normal tracking-[-0.02em] text-[#111110] mb-5">
-                Sun Dog — <em>Your friends</em>
+                Sacha Elron — <em>Your friends</em>
               </h2>
               <div className="flex flex-col gap-4" style={{ fontSize: 13, color: "#555", lineHeight: 1.75 }}>
                 <p>The works gathered in <em>Your friends</em> do not announce themselves. They arrive quietly — through colour, through stillness, through the peculiar way light describes a surface without explaining it.</p>
-                <p>Sun Dog has spent the last three years returning to the same question: what remains of a landscape once it has been absorbed into the body? The paintings in this exhibition are not records of places. They are the residue of looking — the sensation that persists after the eye has moved on.</p>
+                <p>Sacha Elron has spent the last three years returning to the same question: what remains of a landscape once it has been absorbed into the body? The paintings in this exhibition are not records of places. They are the residue of looking — the sensation that persists after the eye has moved on.</p>
                 <p>Working in oil on large-format canvases, he builds each surface through repeated acts of application and erasure. Colours that should not coexist find ways to hold together. Forms that suggest horizon, water, or canopy resist naming. The work hovers in the interval between recognition and abstraction.</p>
                 <p><em>Your friends</em> takes its title from a phrase that appeared in a notebook during the making of these paintings. It refers, obliquely, to the things we carry with us without knowing we carry them — the images, the light conditions, the half-remembered atmospheres that constitute a private visual life.</p>
                 <p>The exhibition presents sixteen works made between 2023 and 2025.</p>
