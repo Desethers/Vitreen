@@ -18,11 +18,11 @@ export default function Home() {
       <Nav />
       <Hero />
       <Audiences />
-      <Solution />
-      <Showcase />
       <ProcessFlow />
-      <Services />
+      <Showcase />
+      <Solution />
       <StatementSplit />
+      <Services />
       <Faq />
       <CtaBand />
       <Footer />
