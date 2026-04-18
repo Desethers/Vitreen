@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import { Button } from "@/components/ui/Button";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -9,13 +10,13 @@ export default function CtaBand() {
   const { t } = useLang();
   return (
     <section className="relative pt-20 pb-8 md:pt-[100px] md:pb-[60px] px-4 md:px-6 overflow-hidden bg-[var(--background)]">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.65, ease }}
-          className="rounded-[28px] md:rounded-[32px] bg-[#000000] px-6 py-12 md:px-12 md:py-20 lg:py-24"
+          className="rounded-[10px] bg-[#000000] px-6 py-12 md:px-12 md:py-20 lg:py-24"
         >
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
             <span
@@ -32,16 +33,13 @@ export default function CtaBand() {
               {t.ctaBand.subtitle}
             </p>
 
-            <button
-              type="button"
+            <Button
+              size="lg"
+              variant="inverse"
               onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
-              className="inline-flex items-center justify-center gap-2.5 rounded-full text-[15px] md:text-base font-medium transition-opacity duration-200 bg-white text-black px-8 py-2.5 md:px-10 md:py-4 hover:opacity-90"
             >
               {t.ctaBand.cta}
-              <span className="text-lg leading-none" aria-hidden>
-                →
-              </span>
-            </button>
+            </Button>
           </div>
         </motion.div>
       </div>

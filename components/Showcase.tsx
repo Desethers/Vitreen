@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -837,6 +837,7 @@ function ShowcaseCard({
   mockImage,
   mockScale = 1,
   bgImage = "/colin de land.jpg",
+  MockComponent,
 }: {
   title: string;
   desc: string;
@@ -845,6 +846,7 @@ function ShowcaseCard({
   mockImage?: string;
   mockScale?: number;
   bgImage?: string;
+  MockComponent?: React.ComponentType<{ isMobile?: boolean }>;
 }) {
   const [isMobileViewport, setIsMobileViewport] = useState(false);
   useEffect(() => {
@@ -861,7 +863,9 @@ function ShowcaseCard({
         style={{ backgroundImage: `url('${bgImage}')` }}
       />
       <DraggableMockWindow initialWidthPct={mockScale * (isMobileViewport ? 95 : 85)}>
-        {(widthPx) => mockImage === "/artist page.png" ? (
+        {(widthPx) => MockComponent ? (
+          <MockComponent isMobile={isMobileViewport || widthPx < 420} />
+        ) : mockImage === "/artist page.png" ? (
           <ArtistPageMock isMobile={isMobileViewport || widthPx < 420} />
         ) : mockImage ? (
           <div className="w-full h-full p-[20px]">
@@ -916,8 +920,321 @@ function ShowcaseCard({
   );
 }
 
+const INTERVAL = 4500;
+const bgImage = "/allen14.jpg-preview3.jpg";
+
+/* Step 1 — Branded admin interface */
+function AdminMock() {
+  const { t } = useLang();
+  const m = t.stepper.mock.admin;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.4, ease }}
+      className="absolute inset-0 p-5 md:p-6 flex flex-col"
+    >
+      <div className="flex items-center gap-2.5 mb-3 md:mb-5">
+        <div className="w-6 h-6 rounded-md bg-[#111110] flex items-center justify-center">
+          <span className="text-white text-[8px] font-bold tracking-wider">V</span>
+        </div>
+        <span className="text-[11px] font-medium text-[#111110] tracking-[-0.01em]">
+          {m.workspace}
+        </span>
+        <div className="ml-auto flex items-center gap-3">
+          <span className="text-[10px] text-[#6B6A67]">{m.online}</span>
+          <div className="w-6 h-6 rounded-full bg-[#E8E8E6]" />
+        </div>
+      </div>
+
+      <div className="flex flex-1 gap-4 overflow-hidden">
+        <div className="hidden md:flex w-32 flex-col gap-0.5">
+          {m.sidebar.map((label, idx) => (
+            <div
+              key={label}
+              className={`text-[11px] px-2.5 py-1.5 rounded-md ${
+                idx === 0
+                  ? "bg-[#111110] text-white font-medium"
+                  : "text-[#6B6A67]"
+              }`}
+            >
+              {label}
+            </div>
+          ))}
+        </div>
+
+        <div className="flex-1 bg-white rounded-[10px] border border-[#E8E8E6] p-4 md:p-5 flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[12px] font-medium text-[#111110]">
+              {m.newArtwork}
+            </span>
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+              className="text-[10px] px-2.5 py-1 rounded-full bg-[#111110] text-white font-medium cursor-pointer"
+            >
+              {m.publish}
+            </motion.div>
+          </div>
+
+          <div className="space-y-2.5">
+            <div>
+              <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
+                {m.titleField}
+              </div>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ delay: 0.35, duration: 0.5, ease }}
+                className="h-7 bg-[#F7F7F5] rounded-md border border-[#E8E8E6] flex items-center px-2.5 overflow-hidden"
+              >
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  className="text-[11px] text-[#111110] whitespace-nowrap"
+                >
+                  Composition No. 7, 2024
+                </motion.span>
+              </motion.div>
+            </div>
+
+            <div>
+              <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
+                {m.artistField}
+              </div>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "70%" }}
+                transition={{ delay: 0.55, duration: 0.45, ease }}
+                className="h-7 bg-[#F7F7F5] rounded-md border border-[#E8E8E6] flex items-center px-2.5 overflow-hidden"
+              >
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.85 }}
+                  className="text-[11px] text-[#111110] whitespace-nowrap"
+                >
+                  Claire Fontaine
+                </motion.span>
+              </motion.div>
+            </div>
+
+            <div>
+              <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
+                {m.imageField}
+              </div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.75, duration: 0.4 }}
+                className="h-[72px] bg-[#F7F7F5] rounded-md border border-dashed border-[#CCCCC9] flex items-center justify-center gap-2"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <path d="m21 15-5-5L5 21" />
+                </svg>
+                <span className="text-[10px] text-[#ADADAA]">{m.dragClick}</span>
+              </motion.div>
+            </div>
+
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
+                  {m.priceField}
+                </div>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 0.9, duration: 0.35, ease }}
+                  className="h-7 bg-[#F7F7F5] rounded-md border border-[#E8E8E6] flex items-center px-2.5 overflow-hidden"
+                >
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.1 }}
+                    className="text-[11px] text-[#111110] whitespace-nowrap"
+                  >
+                    {m.priceValue}
+                  </motion.span>
+                </motion.div>
+              </div>
+              <div className="flex-1">
+                <div className="text-[9px] uppercase tracking-[0.1em] text-[#ADADAA] mb-1">
+                  {m.dimField}
+                </div>
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: "100%" }}
+                  transition={{ delay: 1.0, duration: 0.35, ease }}
+                  className="h-7 bg-[#F7F7F5] rounded-md border border-[#E8E8E6] flex items-center px-2.5 overflow-hidden"
+                >
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                    className="text-[11px] text-[#111110] whitespace-nowrap"
+                  >
+                    120 × 80 cm
+                  </motion.span>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* Step 2 — Live site preview showing the artwork */
+function LiveSiteMock() {
+  const { t } = useLang();
+  const m = t.stepper.mock.livesite;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.4, ease }}
+      className="absolute inset-0 p-5 md:p-6 flex flex-col"
+    >
+      <div className="flex items-center gap-2 mb-4">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
+        </div>
+        <div className="flex-1 h-6 bg-white rounded-md border border-[#E8E8E6] flex items-center px-3">
+          <span className="text-[9px] text-[#ADADAA]">
+            galerie-fontaine.com/oeuvres/composition-no-7
+          </span>
+        </div>
+      </div>
+
+      <div className="flex-1 bg-white rounded-[10px] border border-[#E8E8E6] overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#F0F0EE]">
+          <span className="text-[11px] font-medium text-[#111110] tracking-[-0.01em]">
+            Galerie Fontaine
+          </span>
+          <div className="flex gap-4">
+            {m.navItems.map((item) => (
+              <span key={item} className="text-[9px] text-[#6B6A67]">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex-1 flex gap-4 p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.5, ease }}
+            className="flex-1 bg-[#F7F7F5] rounded-[10px] flex items-center justify-center"
+          >
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#CCCCC9" strokeWidth="1">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m21 15-5-5L5 21" />
+            </svg>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.4, ease }}
+            className="w-36 md:w-44 flex flex-col gap-2"
+          >
+            <div>
+              <p className="text-[12px] font-medium text-[#111110]">Composition No. 7</p>
+              <p className="text-[10px] text-[#6B6A67]">Claire Fontaine, 2024</p>
+            </div>
+            <div className="h-px bg-[#F0F0EE]" />
+            <div className="space-y-1">
+              <div className="flex justify-between">
+                <span className="text-[9px] text-[#ADADAA]">{m.technique}</span>
+                <span className="text-[9px] text-[#6B6A67]">{m.techniqueValue}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[9px] text-[#ADADAA]">{m.dimensions}</span>
+                <span className="text-[9px] text-[#6B6A67]">120 × 80 cm</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-[9px] text-[#ADADAA]">{m.price}</span>
+                <span className="text-[9px] text-[#6B6A67]">{m.priceValue}</span>
+              </div>
+            </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.3 }}
+              className="mt-auto text-[10px] px-3 py-1.5 rounded-full bg-[#111110] text-white font-medium text-center"
+            >
+              {m.inquire}
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.4 }}
+        className="mt-3 flex items-center gap-2 justify-center"
+      >
+        <motion.div
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-2 h-2 rounded-full bg-[#4CAF50]"
+        />
+        <span className="text-[10px] text-[#6B6A67]">{m.liveStatus}</span>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+const MOCKS = [AdminMock, LiveSiteMock];
+
+const STEP_POSITIONS: React.CSSProperties[] = [
+  { top: 60, right: "calc(22% - 40px)" },
+  { bottom: 60, left: "calc(22% - 40px)" },
+];
+
 export default function Showcase() {
   const { t } = useLang();
+  const stepData = t.stepper.steps.slice(0, 2);
+
+  const [active, setActive] = useState(0);
+  const [revealed, setRevealed] = useState<Set<number>>(new Set([0]));
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
+  const advance = useCallback(() => {
+    setActive((prev) => {
+      const next = (prev + 1) % MOCKS.length;
+      if (next === 0) {
+        setRevealed(new Set([0]));
+      } else {
+        setRevealed((r) => new Set([...r, next]));
+      }
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(advance, INTERVAL);
+    return () => clearInterval(id);
+  }, [advance]);
+
+  const Mock = MOCKS[active];
+
   return (
     <section id="blog" className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto flex flex-col gap-4 md:gap-[48px]">
@@ -925,30 +1242,125 @@ export default function Showcase() {
           <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em] max-w-2xl">
             {t.showcase.title}
           </h2>
-          <p
-            className="mt-0 mb-0 text-[20px] md:text-[26px] text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]"
-          >
+          <p className="mt-0 mb-0 text-[20px] md:text-[26px] text-[#6B6A67] font-normal max-w-5xl leading-[1.2] tracking-[-0.02em]">
             {t.showcase.subtitle}
           </p>
         </motion.div>
 
-        <div className="flex flex-col gap-5 md:gap-[48px]">
-          <ShowcaseCard
-            title={t.showcase.cards[0].title}
-            desc={t.showcase.cards[0].desc}
-            delay={0}
-            mockScale={0.9}
-            bgImage="/paula-cooper-background.jpg"
-          />
-          <ShowcaseCard
-            title={t.showcase.cards[1].title}
-            desc={t.showcase.cards[1].desc}
-            mockImage="/artist page.png"
-            reverse
-            delay={0.1}
-            mockScale={0.9}
-          />
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.65, ease }}
+          className="rounded-[10px] overflow-hidden relative"
+          style={{ border: "0.1px solid #D4D4D0" }}
+        >
+          <div className="relative overflow-hidden h-[500px] md:h-[720px]">
+            <div
+              className="absolute inset-0 bg-center"
+              style={{ backgroundImage: `url('${bgImage}')`, backgroundSize: "150%" }}
+            />
+
+            <div
+              className="absolute bg-white rounded-[10px] overflow-hidden"
+              style={{
+                top: isMobile ? 40 : 90,
+                bottom: isMobile ? 40 : 90,
+                left: isMobile ? "8%" : "22%",
+                right: isMobile ? "8%" : "22%",
+                zIndex: 10,
+                boxShadow: "0 8px 40px rgba(0,0,0,0.14)",
+              }}
+            >
+              <AnimatePresence mode="sync">
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 1 }}
+                  transition={{ duration: 0.35 }}
+                  className="absolute inset-0"
+                >
+                  <Mock />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {stepData.map((step, i) => {
+              const isActive = active === i;
+              const isRevealed = revealed.has(i);
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{
+                    opacity: isRevealed ? 1 : 0,
+                    scale: isRevealed ? 1 : 0.9,
+                    boxShadow: isActive
+                      ? "0 8px 24px rgba(0,0,0,0.14)"
+                      : "0 2px 8px rgba(0,0,0,0.05)",
+                  }}
+                  transition={{ duration: 0.4, ease }}
+                  className="hidden md:block absolute bg-white rounded-[10px] px-3 py-2.5"
+                  style={{ ...STEP_POSITIONS[i], zIndex: 20, maxWidth: 240 }}
+                >
+                  <div className="flex items-center gap-2">
+                    <div
+                      className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold transition-colors duration-300 ${
+                        isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"
+                      }`}
+                    >
+                      {i + 1}
+                    </div>
+                    <span
+                      className={`text-[11px] font-medium leading-tight transition-colors duration-300 ${
+                        isActive ? "text-[#111110]" : "text-[#ADADAA]"
+                      }`}
+                    >
+                      {step.title}
+                    </span>
+                  </div>
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.p
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-[10px] text-[#ADADAA] leading-[1.45] mt-1.5 pl-7 overflow-hidden"
+                      >
+                        {step.desc}
+                      </motion.p>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <div className="block md:hidden px-[15px] py-4" style={{ borderTop: "0.5px solid #E8E8E6" }}>
+            {stepData.map((step, i) => {
+              const isActive = active === i;
+              return (
+                <div key={i} className={`flex items-start gap-3 py-3 ${i > 0 ? "border-t border-[#F4F4F2]" : ""}`}>
+                  <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold mt-0.5 transition-colors duration-300 ${isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"}`}>
+                    {i + 1}
+                  </div>
+                  <div>
+                    <p className={`text-[13px] font-medium leading-tight transition-colors duration-300 ${isActive ? "text-[#111110]" : "text-[#ADADAA]"}`}>
+                      {step.title}
+                    </p>
+                    {isActive && (
+                      <p className="text-[12px] text-[#6B6A67] leading-[1.45] mt-0.5">
+                        {step.desc}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

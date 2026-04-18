@@ -6,7 +6,6 @@ import Showcase from "@/components/Showcase";
 const Audiences = dynamic(() => import("@/components/Audiences"));
 import Solution from "@/components/Solution";
 import ProcessFlow from "@/components/ProcessFlow";
-import Stepper from "@/components/Stepper";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
 import Faq from "@/components/Faq";
@@ -19,10 +18,9 @@ export default function Home() {
       <Nav />
       <Hero />
       <Audiences />
-      <Showcase />
       <Solution />
+      <Showcase />
       <ProcessFlow />
-      <Stepper />
       <Services />
       <StatementSplit />
       <Faq />

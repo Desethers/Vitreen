@@ -967,16 +967,16 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, ease, delay: i * 0.1 }}
-            className="group rounded-[5px] bg-[#F9FAFD] p-[20px] flex flex-col"
-            style={{ border: "0.1px solid #D4D4D0" }}
+            className="group rounded-[5px] bg-[#1C1C1A] p-[20px] flex flex-col"
+            style={{ border: "0.1px solid #1C1C1A" }}
           >
-            <h3 className="font-normal text-[#111110] text-sm md:text-base tracking-[-0.01em] mb-0">
+            <h3 className="font-normal text-white text-sm md:text-base tracking-[-0.01em] mb-0">
               {card.title}
             </h3>
-            <p className="mt-0 text-[#6B6A67] text-sm leading-[1.55] mb-4">
+            <p className="mt-0 text-[#ADADAA] text-sm leading-[1.55] mb-4">
               {card.desc}
             </p>
-            <div className="w-full max-w-[400px] h-[430px] mx-auto bg-white rounded-[10px] p-4 overflow-hidden">
+            <div className="w-full max-w-[400px] h-[430px] mx-auto bg-white rounded-[5px] p-4 overflow-hidden">
               <MockComponent />
             </div>
           </motion.div>

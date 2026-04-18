@@ -12,12 +12,12 @@ export const translations = {
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
       ],
-      cta: "Contactez-nous",
+      cta: "Réserver une démo",
       modal: {
         title: "Nous contacter",
-        subtitle: "Décrivez votre projet — réponse sous 48 h.",
+        subtitle: "Décrivez votre projet. Réponse sous 48 h.",
         fields: { nom: "Nom", galerie: "Galerie", email: "Email", projet: "Votre projet" },
-        submit: "Envoyer →",
+        submit: "Envoyer",
         sending: "Envoi…",
         success: "Merci. Je reviens vers vous très prochainement.",
         close: "Fermer",
@@ -26,8 +26,10 @@ export const translations = {
       },
     },
     hero: {
-      title: "L\u2019art doit être vu dans son époque",
-      subtitle: "Vitreen conçoit des expériences digitales de nouvelle génération pour galeries et artistes.",
+      title: "Toute votre galerie, sur une seule plateforme.",
+      subtitle: "Expositions, viewing rooms, ventes et relation collectionneurs. Tout ce que fait votre galerie, au même endroit.",
+      ctaPrimary: "Réserver une démo",
+      ctaSecondary: "Voir les tarifs",
     },
     audiences: {
       tabs: ["Galeries", "Artistes", "Art Advisors", "Collection Privée"],
@@ -56,11 +58,12 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "Des interfaces taillées pour le monde de l\u2019art",
-      subtitle: "Conçu pour présenter, engager et connecter.",
+      title: "Et en coulisses, un back office pensé pour les galeries.",
+      subtitle: "Demandes, expositions, inventaire. Tout ce qu'il faut pour la faire tourner.",
       cards: [
-        { title: "Exhibition Pages", desc: "Des pages d\u2019exposition claires et structurées : avec textes, images et liste d\u2019œuvres." },
-        { title: "Artist Pages", desc: "Pages artistes complètes : biographie, œuvres et expositions réunies." },
+        { title: "Les demandes, classées.", desc: "Chaque demande d\u2019œuvre arrive dans une seule boîte — reliée à l\u2019artiste, à l\u2019œuvre et au collectionneur." },
+        { title: "Planifiez l\u2019année sur une seule vue.", desc: "Glissez pour programmer les expositions. Les œuvres liées et les pages se publient toutes seules." },
+        { title: "Un inventaire toujours à jour.", desc: "Prix, statut, provenance et fiches artistes — une seule source de vérité." },
       ],
       bio: [
         "Sacha Elron (né en 1960 à Oklahoma City, Oklahoma) est un peintre américain reconnu pour ses paysages méditatifs à grande échelle. Formé à la peinture figurative à l\u2019Art Students League de New York, il développe rapidement un langage visuel personnel, oscillant entre représentation et abstraction pure.",
@@ -72,12 +75,12 @@ export const translations = {
       readBio: "Lire la biographie complète",
     },
     solution: {
-      title: "Transformer les visiteurs en collectionneurs — naturellement.",
-      subtitle: "Des interactions fluides pour augmenter les ventes et cultiver des relations durables.",
+      title: "Transformez les visiteurs en collectionneurs.",
+      subtitle: "Chaque page d'œuvre invite à une demande, un viewing privé ou un partage.",
       cards: [
-        { title: "Online Inquire", desc: "Achat direct depuis la page œuvre." },
-        { title: "Private Viewing", desc: "Envoyez facilement une sélection à vos collectionneurs." },
-        { title: "Shareable moment", desc: "Contact direct depuis chaque œuvre." },
+        { title: "Direct Inquiry", desc: "Achat ou demande depuis la page œuvre." },
+        { title: "Private Viewing", desc: "Envoyez une sélection à vos collectionneurs." },
+        { title: "One-tap Share", desc: "Publiez en story, envoyez un lien, relancez la conversation." },
       ],
     },
     processFlow: {
@@ -90,7 +93,7 @@ export const translations = {
       ],
     },
     stepper: {
-      title: "Publier du contenu — sans effort",
+      title: "Publier du contenu, sans effort",
       subtitle: "Vous publiez en autonomie. Ajoutez vos œuvres, elles apparaissent instantanément sur votre site.",
       steps: [
         { title: "Ajoutez une œuvre", desc: "Formulaire simple, publié en un clic." },
@@ -219,8 +222,8 @@ export const translations = {
     ctaBand: {
       badge: "Démarrer un projet",
       title: "Donnez une nouvelle dimension à votre galerie",
-      subtitle: "Discutons de votre projet — sans engagement",
-      cta: "Commençons",
+      subtitle: "Discutons de votre projet, sans engagement",
+      cta: "Réserver une démo",
     },
     footer: {
       copy: "© 2025 — Sites web pour galeries d\u2019art contemporain",
@@ -235,12 +238,12 @@ export const translations = {
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
       ],
-      cta: "Contact us",
+      cta: "Book a demo",
       modal: {
         title: "Get in touch",
-        subtitle: "Tell us about your project — we\u2019ll reply within 48 hours.",
+        subtitle: "Tell us about your project. We\u2019ll reply within 48 hours.",
         fields: { nom: "Name", galerie: "Gallery", email: "Email", projet: "Your project" },
-        submit: "Send →",
+        submit: "Send",
         sending: "Sending\u2026",
         success: "Thank you. I\u2019ll get back to you shortly.",
         close: "Close",
@@ -249,8 +252,10 @@ export const translations = {
       },
     },
     hero: {
-      title: "Art must be seen in its time",
-      subtitle: "Vitreen empowers galleries and artists with next-level digital experiences.",
+      title: "Your whole gallery, on one platform.",
+      subtitle: "Exhibitions, viewing rooms, sales, and collector outreach. Everything your gallery does, in one place.",
+      ctaPrimary: "Book a demo",
+      ctaSecondary: "See pricing",
     },
     audiences: {
       tabs: ["Galleries", "Artists", "Art Advisors", "Private Collection"],
@@ -279,11 +284,12 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "Interfaces crafted for the art world",
-      subtitle: "Designed to present, engage, and connect.",
+      title: "And behind the scenes, a back office built for galleries.",
+      subtitle: "Inquiries, exhibitions, inventory. Everything you need to run it.",
       cards: [
-        { title: "Exhibition Pages", desc: "Clear, structured exhibition pages — with texts, images and artwork listings." },
-        { title: "Artist Pages", desc: "Complete artist pages — biography, works and exhibitions in one place." },
+        { title: "Collector inquiries, organised.", desc: "Every artwork inquiry lands in one inbox — tied to the artist, the work, and the collector." },
+        { title: "Plan your year on one canvas.", desc: "Drag to schedule exhibitions. Linked artworks and pages publish themselves." },
+        { title: "Inventory, always up to date.", desc: "Price, status, provenance and artist records — a single source of truth." },
       ],
       bio: [
         "Sacha Elron (born 1960 in Oklahoma City, Oklahoma) is an American painter celebrated for his large-scale meditative landscapes. Trained in figurative painting at the Art Students League of New York, he quickly developed a distinctive visual language oscillating between representation and pure abstraction.",
@@ -295,12 +301,12 @@ export const translations = {
       readBio: "Read full biography",
     },
     solution: {
-      title: "Turning viewers into collectors — effortlessly.",
-      subtitle: "Seamless interactions designed to increase sales and cultivate meaningful connections.",
+      title: "Turn viewers into collectors.",
+      subtitle: "Every artwork page invites collectors to inquire, view privately, or share.",
       cards: [
-        { title: "Online Inquire", desc: "Direct purchase from the artwork page." },
-        { title: "Private Viewing", desc: "Easily send a curated selection to your collectors." },
-        { title: "Shareable moment", desc: "Direct contact from each artwork." },
+        { title: "Direct Inquiry", desc: "Buy or ask from the artwork page." },
+        { title: "Private Viewing", desc: "Send a curated selection to your collectors." },
+        { title: "One-tap Share", desc: "Post to stories, send a link, spark a reply." },
       ],
     },
     processFlow: {
@@ -313,7 +319,7 @@ export const translations = {
       ],
     },
     stepper: {
-      title: "Publishing content — effortlessly",
+      title: "Publishing content, effortlessly",
       subtitle: "You publish independently. Add your works and they appear instantly on your website.",
       steps: [
         { title: "Add an artwork", desc: "Simple form, published in one click." },
@@ -443,7 +449,7 @@ export const translations = {
       badge: "Start a project",
       title: "Give your gallery a new dimension",
       subtitle: "Let\u2019s talk about your project \u2014 no commitment",
-      cta: "Let\u2019s begin",
+      cta: "Book a demo",
     },
     footer: {
       copy: "\u00a9 2025 \u2014 Websites for contemporary art galleries",

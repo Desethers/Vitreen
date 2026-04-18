@@ -1267,262 +1267,248 @@ function GalleryHeroMock() {
   );
 }
 
-type Audience = {
+type PageExample = {
   label: string;
-  title: string;
-  description: string;
-  features: string[];
-  video?: string;
-  mock?: React.ComponentType;
+  path: string;
+  mock: React.ComponentType;
 };
 
-const audiences: Audience[] = [
+const SITE_DOMAIN = "galerie-fontaine.com";
+const SITE_NAME = "Galerie Fontaine";
+
+const PAGES: (PageExample & { description: string })[] = [
   {
-    label: "Galeries",
-    title: "Une vitrine à la hauteur de votre programme.",
-    description:
-      "Présentez vos artistes, archivez vos expositions, gérez votre catalogue en ligne — sans compétences techniques.",
-    features: [
-      "Catalogue d'œuvres",
-      "Pages artistes",
-      "Archives d'expositions",
-      "Formulaire de contact",
-    ],
+    label: "Home",
+    path: "",
     mock: GalleryHeroMock,
+    description: "Homepage",
   },
   {
-    label: "Artistes",
-    title: "Votre œuvre mérite un espace à elle.",
-    description:
-      "Un portfolio conçu pour vous — biographie, CV d'exposition, séries d'œuvres — mis à jour par vous, sans intermédiaire.",
-    features: [
-      "Portfolio en ligne",
-      "Séries et œuvres",
-      "CV d'exposition",
-      "Prise de contact directe",
-    ],
+    label: "Exhibition",
+    path: "/exhibitions/your-friends",
+    mock: ExhibitionPageMock,
+    description: "Exhibition page",
+  },
+  {
+    label: "Artist",
+    path: "/artists/sacha-elron",
     mock: ArtistPortfolioMock,
+    description: "Artist portfolio",
   },
   {
-    label: "Art Advisors",
-    title: "Partagez des sélections, pas des fichiers.",
-    description:
-      "Présentez vos recommandations à vos clients dans un espace professionnel, confidentiel et facile à naviguer.",
-    features: [
-      "Partage de sélections",
-      "Espaces clients",
-      "Fiches d'œuvres détaillées",
-      "Interface confidentielle",
-    ],
+    label: "Viewing Room",
+    path: "/viewing-rooms/spring-2026",
     mock: PrivateViewingMock,
-  },
-  {
-    label: "Collection Privée",
-    title: "Votre collection, organisée et accessible.",
-    description:
-      "Centralisez l'ensemble de vos œuvres dans un espace privé : fiches, documents, historique — tout en un lieu.",
-    features: [
-      "Inventaire complet",
-      "Fiches détaillées",
-      "Documents associés",
-      "Accès sécurisé",
-    ],
-    video: "/demo-vitreen.mp4",
+    description: "Private viewing room",
   },
 ];
 
+const WINDOW_LAYOUT = [
+  { left: "4%", top: "2%", width: "58%", height: "62%" },
+  { left: "16%", top: "13%", width: "58%", height: "62%" },
+  { left: "28%", top: "24%", width: "58%", height: "62%" },
+  { left: "40%", top: "35%", width: "58%", height: "62%" },
+] as const;
+
+function useTypewriter(text: string, active: boolean, speed = 24) {
+  const [out, setOut] = useState("");
+  useEffect(() => {
+    if (!active) {
+      setOut("");
+      return;
+    }
+    let i = 0;
+    setOut("");
+    const id = setInterval(() => {
+      i += 1;
+      setOut(text.slice(0, i));
+      if (i >= text.length) clearInterval(id);
+    }, speed);
+    return () => clearInterval(id);
+  }, [text, active, speed]);
+  return out;
+}
+
+function PageWindow({
+  page,
+  dragConstraints,
+  z,
+  onActivate,
+  layout,
+}: {
+  page: (typeof PAGES)[number];
+  dragConstraints: React.RefObject<HTMLDivElement>;
+  z: number;
+  onActivate: () => void;
+  layout: (typeof WINDOW_LAYOUT)[number];
+}) {
+  const Mock = page.mock;
+  const [hovered, setHovered] = useState(false);
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const typed = useTypewriter(page.description, hovered);
+  return (
+    <motion.div
+      drag
+      dragConstraints={dragConstraints}
+      dragElastic={0.08}
+      dragMomentum={false}
+      onPointerDown={onActivate}
+      onMouseEnter={() => {
+        setHovered(true);
+        onActivate();
+      }}
+      onMouseLeave={() => setHovered(false)}
+      onMouseMove={(e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+      }}
+      whileDrag={{ scale: 1.01, cursor: "grabbing" }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, ease }}
+      className="absolute select-none touch-none cursor-grab active:cursor-grabbing"
+      style={{
+        left: layout.left,
+        top: layout.top,
+        width: layout.width,
+        height: layout.height,
+        zIndex: z,
+      }}
+    >
+      <div
+        className="w-full h-full rounded-[10px] overflow-hidden bg-white flex flex-col"
+        style={{
+          boxShadow:
+            "0 18px 50px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)",
+        }}
+      >
+        <div className="flex items-center gap-2 px-3 h-7 md:h-8 border-b border-[#E8E8E6] bg-[#FAFAF8] shrink-0">
+          <div className="flex gap-1.5">
+            <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
+            <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
+            <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
+          </div>
+          <div className="flex-1 h-4 md:h-5 rounded border border-[#E8E8E6] bg-white flex items-center justify-center px-2">
+            <span className="text-[9px] md:text-[10px] text-[#6B6A67] truncate">
+              {SITE_DOMAIN}
+              {page.path}
+            </span>
+          </div>
+          <span className="hidden md:inline text-[9px] uppercase tracking-[0.12em] text-[#ADADAA]">
+            {page.label}
+          </span>
+        </div>
+        <div className="flex-1 relative overflow-hidden pointer-events-none">
+          <Mock />
+        </div>
+      </div>
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            key="desc"
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, ease }}
+            className="pointer-events-none absolute px-3 py-2 rounded-md bg-[#111110]/95 backdrop-blur-sm shadow-lg"
+            style={{
+              left: cursor.x + 16,
+              top: cursor.y + 18,
+              maxWidth: "280px",
+              zIndex: 999,
+            }}
+          >
+            <span className="text-[14px] leading-snug text-white font-normal tracking-[-0.01em] whitespace-nowrap">
+              {typed}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function Audiences() {
-  const { t } = useLang();
-  const [active, setActive] = useState(0);
-  const current = audiences[active];
-  const [mockWidthPct, setMockWidthPct] = useState(100);
-  const [mockHeightPct, setMockHeightPct] = useState(100);
-  const mockContainerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const [zOrder, setZOrder] = useState<number[]>(() => PAGES.map((_, i) => i + 1));
 
-
-  const handleVideoEnd = useCallback(() => {
-    setActive((prev) => (prev + 1) % audiences.length);
+  const bringToFront = useCallback((i: number) => {
+    setZOrder((prev) => {
+      const max = Math.max(...prev);
+      if (prev[i] === max) return prev;
+      const next = [...prev];
+      next[i] = max + 1;
+      return next;
+    });
   }, []);
 
-  // Resize latéral (bord droit) — largeur uniquement
-  const startResizeX = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const containerW = mockContainerRef.current?.offsetWidth ?? 800;
-    const startX = e.clientX;
-    const startPct = mockWidthPct;
-    const onMove = (ev: MouseEvent) => {
-      const deltaPct = ((ev.clientX - startX) / containerW) * 100;
-      setMockWidthPct(Math.max(20, Math.min(100, startPct + deltaPct)));
-    };
-    const onUp = () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
-    };
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
-  };
-
-  // Resize vertical (bord bas) — hauteur uniquement
-  const startResizeY = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const containerH = mockContainerRef.current?.offsetHeight ?? 400;
-    const startY = e.clientY;
-    const startPct = mockHeightPct;
-    const onMove = (ev: MouseEvent) => {
-      const deltaPct = ((ev.clientY - startY) / containerH) * 100;
-      setMockHeightPct(Math.max(20, Math.min(100, startPct + deltaPct)));
-    };
-    const onUp = () => {
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseup", onUp);
-    };
-    window.addEventListener("mousemove", onMove);
-    window.addEventListener("mouseup", onUp);
-  };
-
   return (
-    <section className="pt-2 pb-4 md:pt-4 md:pb-[50px] px-4 md:px-6 bg-white">
+    <section className="pt-0 pb-4 md:pt-0 md:pb-[50px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease }}
-          className="mb-8 md:mb-6"
-        >
-          <div className="flex flex-nowrap gap-1 md:flex-wrap md:gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {audiences.map((a, i) => {
-              const isDisabled = i >= 2;
-              const label = t.audiences.tabs[i] ?? a.label;
-
-              return (
-                <span key={i} className="relative inline-flex">
-                  <button
-                    type="button"
-                    aria-disabled={isDisabled}
-                    tabIndex={isDisabled ? -1 : undefined}
-                    onClick={(e) => {
-                      if (isDisabled) {
-                        e.preventDefault();
-                        return;
-                      }
-                      setActive(i);
-                    }}
-                    className="inline-flex items-center whitespace-nowrap px-3 py-1 rounded-full text-xs md:px-4 md:py-1.5 md:text-sm transition-all duration-200"
-                    style={
-                      isDisabled
-                        ? {
-                            border: "1px solid #E8E8E6",
-                            color: "#ADADAA",
-                            background: "transparent",
-                            letterSpacing: "-0.01em",
-                            cursor: "not-allowed",
-                            opacity: 0.9,
-                          }
-                        : i === active
-                        ? {
-                            background: "#111110",
-                            color: "#fff",
-                            fontWeight: 500,
-                            letterSpacing: "-0.01em",
-                          }
-                        : {
-                            border: "1px solid #E8E8E6",
-                            color: "#6B6A67",
-                            background: "transparent",
-                            letterSpacing: "-0.01em",
-                          }
-                    }
-                    onMouseEnter={(e) => {
-                      if (i === active) return;
-                      e.currentTarget.style.borderColor = "#111110";
-                      e.currentTarget.style.color = "#111110";
-                      if (isDisabled) e.currentTarget.style.opacity = "1";
-                    }}
-                    onMouseLeave={(e) => {
-                      if (i === active) return;
-                      if (isDisabled) {
-                        e.currentTarget.style.borderColor = "#E8E8E6";
-                        e.currentTarget.style.color = "#ADADAA";
-                        e.currentTarget.style.opacity = "0.9";
-                        return;
-                      }
-                      e.currentTarget.style.borderColor = "#E8E8E6";
-                      e.currentTarget.style.color = "#6B6A67";
-                    }}
-                  >
-                    {label}
-                  </button>
-                  {isDisabled && (
-                    <span
-                      className="pointer-events-none absolute -right-1 -top-1 z-10 rounded-full border border-[#E8E8E6] bg-white px-1.5 py-px text-[9px] font-medium uppercase tracking-[0.12em] text-[#ADADAA] shadow-sm"
-                      aria-hidden
-                    >
-                      {t.audiences.soon}
-                    </span>
-                  )}
-                </span>
-              );
-            })}
-          </div>
-        </motion.div>
-
-        {/* Carte mock : ne pas modifier le rendu desktop (md+) — évolutions mobile uniquement via max-md: */}
+        {/* Desktop: draggable overlapping windows */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease, delay: 0.08 }}
-          className="rounded-[5px] overflow-hidden px-4 pt-[10px] pb-[30px] md:px-28 md:py-[21px] [background-size:cover] [background-repeat:no-repeat] md:[background-size:140%]"
-          style={{
-            backgroundImage: `url(${bgImage})`,
-            backgroundPosition: "center 40%",
-          }}
+          className="hidden md:block rounded-[10px] overflow-hidden px-16 py-[24px] bg-[#1C1C1A]"
         >
           <div
-            ref={mockContainerRef}
-            className="relative w-full aspect-[2922/4800] md:aspect-[2922/1770]"
+            ref={canvasRef}
+            className="relative w-full aspect-[2922/2100]"
           >
-            <div className="absolute inset-0 flex items-center justify-center">
+            {PAGES.map((page, i) => (
+              <PageWindow
+                key={i}
+                page={page}
+                dragConstraints={canvasRef}
+                z={zOrder[i]}
+                onActivate={() => bringToFront(i)}
+                layout={WINDOW_LAYOUT[i]}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Mobile: stacked static windows */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+          className="md:hidden rounded-[10px] px-4 pt-[10px] pb-[20px] bg-[#F7F7F5] flex flex-col gap-4"
+        >
+          {PAGES.map((page, i) => {
+            const Mock = page.mock;
+            return (
               <div
-                className="rounded-[10px] overflow-hidden relative select-none"
-                style={{ width: `${mockWidthPct}%`, height: `${mockHeightPct}%` }}
+                key={i}
+                className="relative rounded-[10px] overflow-hidden bg-white flex flex-col aspect-[2922/2400]"
+                style={{
+                  boxShadow:
+                    "0 10px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04)",
+                }}
               >
-                {current.mock ? (
-                  <current.mock />
-                ) : (
-                  <video
-                    key={active}
-                    src={current.video}
-                    autoPlay
-                    muted
-                    playsInline
-                    loop
-                    onEnded={handleVideoEnd}
-                    className="w-full h-full object-contain"
-                  />
-                )}
-                {/* Right-edge handle — largeur */}
-                <div
-                  className="absolute top-0 right-0 bottom-0 z-30 cursor-ew-resize flex items-center justify-center"
-                  style={{ width: 14 }}
-                  onMouseDown={startResizeX}
-                >
-                  <div className="w-[2.5px] h-8 rounded-full bg-white/40" />
+                <div className="flex items-center gap-2 px-3 h-7 border-b border-[#E8E8E6] bg-[#FAFAF8] shrink-0">
+                  <div className="flex gap-1.5">
+                    <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
+                    <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
+                    <div className="w-2 h-2 rounded-full bg-[#E8E8E6]" />
+                  </div>
+                  <div className="flex-1 h-4 rounded border border-[#E8E8E6] bg-white flex items-center justify-center px-2">
+                    <span className="text-[9px] text-[#6B6A67] truncate">
+                      {SITE_DOMAIN}
+                      {page.path}
+                    </span>
+                  </div>
                 </div>
-                {/* Bottom-edge handle — hauteur */}
-                <div
-                  className="absolute bottom-0 left-0 right-0 z-30 cursor-ns-resize flex items-end justify-center"
-                  style={{ height: 14 }}
-                  onMouseDown={startResizeY}
-                >
-                  <div className="h-[2.5px] w-8 rounded-full bg-white/40 mb-1" />
+                <div className="flex-1 relative overflow-hidden">
+                  <Mock />
                 </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

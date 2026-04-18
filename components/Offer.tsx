@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/Button";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -113,16 +114,13 @@ export default function Offer() {
                 ))}
               </ul>
 
-              <a
+              <Button
                 href="#contact"
-                className={`inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-medium transition-colors duration-200 ${
-                  plan.highlighted
-                    ? "bg-white text-[#111110] hover:bg-white/90"
-                    : "bg-[#111110] text-white hover:bg-[#2a2a28]"
-                }`}
+                size="md"
+                variant={plan.highlighted ? "inverse" : "primary"}
               >
-                {plan.cta} →
-              </a>
+                {plan.cta}
+              </Button>
             </motion.div>
           ))}
         </div>

@@ -3,6 +3,7 @@
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import { Button } from "@/components/ui/Button";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -248,64 +249,9 @@ export default function Nav() {
           ))}
         </nav>
 
-        {/* Droite : CTA — slide sur logo (pill) puis modal */}
-        {scrolled ? (
-          <motion.div
-            className="relative z-20 shrink-0 min-w-0 max-w-full will-change-transform"
-            animate={{ x: ctaSlideX }}
-            transition={{ duration: 0.48, ease }}
-            onAnimationComplete={onCtaAnimationComplete}
-          >
-            <motion.button
-              key={ctaSlideX !== 0 ? "cta-slide" : "cta-idle"}
-              ref={ctaRef}
-              type="button"
-              drag={ctaPillIdleHint ? "x" : false}
-              dragConstraints={{ left: dragBoundsLeft, right: 0 }}
-              dragElastic={0}
-              dragMomentum={false}
-              dragSnapToOrigin="x"
-              dragTransition={{ bounceStiffness: 380, bounceDamping: 42 }}
-              onDragEnd={(_, info) => {
-                const commitAt = Math.max(-32, dragBoundsLeft * 0.38);
-                if (info.offset.x < commitAt) openContactFromNav();
-              }}
-              onTap={() => openContactFromNav()}
-              className={`${ctaBase} group bg-[#111110] text-white pl-3 pr-4 py-2 hover:bg-[#2a2a28] cursor-grab active:cursor-grabbing`}
-              style={{ touchAction: "none" }}
-              title={t.nav.modal.dragHint}
-              aria-label={t.nav.modal.ariaLabel}
-            >
-              <span className="inline-flex items-center gap-0 transition-[gap] duration-200 ease-out group-hover:gap-1.5 group-focus-visible:gap-1.5 select-none">
-                <span
-                  aria-hidden
-                  className="inline-flex w-0 max-w-0 opacity-0 overflow-hidden text-white/70 shrink-0 transition-[max-width,opacity] duration-200 ease-out group-hover:w-[14px] group-hover:max-w-[14px] group-hover:opacity-100 group-focus-visible:w-[14px] group-focus-visible:max-w-[14px] group-focus-visible:opacity-100"
-                >
-                  <svg
-                    className="shrink-0 w-[14px] h-[14px]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M15 18l-6-6 6-6" />
-                  </svg>
-                </span>
-                <span>{t.nav.cta}</span>
-              </span>
-            </motion.button>
-          </motion.div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => openContactFromNav()}
-            className={`${ctaBase} border border-[#E8E8E6] text-[#111110] px-4 py-1 hover:bg-[#F5F5F3] z-20`}
-          >
-            {t.nav.cta}
-          </button>
-        )}
+        <Button size="sm" onClick={() => openContactFromNav()} className="shrink-0 z-20">
+          {t.nav.cta}
+        </Button>
       </div>
 
       {/* Menu mobile déroulant */}
@@ -418,13 +364,14 @@ export default function Nav() {
                   {sendError && (
                     <p className="text-sm text-red-500 -mt-2">{sendError}</p>
                   )}
-                  <button
+                  <Button
                     type="submit"
+                    size="md"
                     disabled={sending}
-                    className="mt-1 bg-[#111110] text-white px-7 py-3 rounded-full text-sm font-medium hover:bg-[#2a2a28] transition-colors duration-200 w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="mt-1 w-fit"
                   >
                     {sending ? t.nav.modal.sending : t.nav.modal.submit}
-                  </button>
+                  </Button>
                 </form>
               )}
             </motion.div>

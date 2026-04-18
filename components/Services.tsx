@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import { Button } from "@/components/ui/Button";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -139,17 +140,14 @@ export default function Services() {
                     </p>
                   ) : null}
                 </div>
-                <button
-                  type="button"
+                <Button
+                  size="md"
+                  variant={service.highlight ? "inverse" : "primary"}
                   onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
-                  className={`inline-flex items-center justify-center text-sm px-5 py-2.5 rounded-full w-full font-medium transition-colors duration-200 ${
-                    service.highlight
-                      ? "bg-white text-[#111110] hover:bg-[#F5F5F3]"
-                      : "bg-[#111110] text-white hover:bg-[#2a2a28]"
-                  }`}
+                  className="w-full"
                 >
                   {service.cta}
-                </button>
+                </Button>
               </div>
             </motion.article>
           ))}
