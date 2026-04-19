@@ -1373,9 +1373,9 @@ function ShareMock() {
 const MOCKS = [AdminMock, LiveSiteMock, ShareMock];
 
 const STEP_POSITIONS: React.CSSProperties[] = [
-  { top: 60, right: "calc(22% - 80px)" },
-  { bottom: 60, left: "calc(22% - 80px)" },
-  { top: 60, left: "calc(22% - 80px)" },
+  { top: 60, right: "calc(22% - 140px)" },
+  { bottom: 60, left: "calc(22% - 140px)" },
+  { top: 60, left: "calc(22% - 140px)" },
 ];
 
 export default function Showcase() {
@@ -1431,7 +1431,7 @@ export default function Showcase() {
             />
 
             <div
-              className="absolute bg-white rounded overflow-hidden top-6 bottom-6 left-[4%] right-[4%] md:top-[90px] md:bottom-[90px] md:left-[22%] md:right-[22%]"
+              className="absolute bg-white rounded overflow-hidden top-6 bottom-6 left-[4%] right-[4%] md:top-[70px] md:bottom-[70px] md:left-[22%] md:right-[22%]"
               style={{
                 zIndex: 10,
                 boxShadow: "0 8px 40px rgba(0,0,0,0.14)",
@@ -1466,18 +1466,18 @@ export default function Showcase() {
                       : "0 2px 10px rgba(0,0,0,0.06)",
                   }}
                   transition={{ duration: 0.4, ease }}
-                  className="hidden md:block absolute bg-white rounded-xl px-4 py-3"
-                  style={{ ...STEP_POSITIONS[i], zIndex: 20, width: 220 }}
+                  className="hidden md:block absolute bg-white rounded-xl px-5 py-3"
+                  style={{ ...STEP_POSITIONS[i], zIndex: 20, width: 300 }}
                 >
                   <div className="flex items-center gap-2.5">
                     <div
-                      className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors duration-300 ${
+                      className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold transition-colors duration-300 ${
                         isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#111110]"
                       }`}
                     >
                       {i + 1}
                     </div>
-                    <span className="text-[13px] font-medium leading-tight text-[#111110]">
+                    <span className="text-[14px] font-medium leading-tight text-[#111110]">
                       {step.title}
                     </span>
                   </div>
@@ -1485,7 +1485,7 @@ export default function Showcase() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: isRevealed ? 1 : 0, height: isRevealed ? "auto" : 0 }}
                     transition={{ duration: 0.35, delay: isRevealed ? 0.15 : 0 }}
-                    className="text-[11px] text-[#6B6A67] leading-[1.45] mt-2 pl-[34px] overflow-hidden"
+                    className="text-[12px] text-[#6B6A67] leading-[1.5] mt-1.5 pl-[38px] overflow-hidden truncate"
                   >
                     {step.desc}
                   </motion.p>
