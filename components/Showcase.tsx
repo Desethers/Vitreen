@@ -1384,11 +1384,6 @@ export default function Showcase() {
 
   const [active, setActive] = useState(0);
   const [revealed, setRevealed] = useState<Set<number>>(new Set([0]));
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   const advance = useCallback(() => {
     setActive((prev) => {
@@ -1436,12 +1431,8 @@ export default function Showcase() {
             />
 
             <div
-              className="absolute bg-white rounded overflow-hidden"
+              className="absolute bg-white rounded overflow-hidden top-6 bottom-6 left-[4%] right-[4%] md:top-[90px] md:bottom-[90px] md:left-[22%] md:right-[22%]"
               style={{
-                top: isMobile ? 24 : 90,
-                bottom: isMobile ? 24 : 90,
-                left: isMobile ? "4%" : "22%",
-                right: isMobile ? "4%" : "22%",
                 zIndex: 10,
                 boxShadow: "0 8px 40px rgba(0,0,0,0.14)",
               }}
