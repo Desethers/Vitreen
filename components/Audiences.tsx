@@ -1341,7 +1341,7 @@ function PageWindow({
   layout,
 }: {
   page: (typeof PAGES)[number];
-  dragConstraints: React.RefObject<HTMLDivElement>;
+  dragConstraints: React.RefObject<HTMLDivElement | null>;
   z: number;
   onActivate: () => void;
   layout: (typeof WINDOW_LAYOUT)[number];
