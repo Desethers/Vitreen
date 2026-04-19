@@ -135,7 +135,7 @@ export const translations = {
         },
         {
           title: "One-tap Share",
-          desc: "Publiez en story, envoyez un lien, relancez la conversation.",
+          desc: "Story, lien partageable, relance — en un clic.",
         },
       ],
     },

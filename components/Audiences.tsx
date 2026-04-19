@@ -157,7 +157,7 @@ function GalleryNavbar({
     <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-10 pt-5 pb-4">
       <span
         className="font-medium uppercase cursor-pointer"
-        style={{ fontSize: "0.72rem", letterSpacing: "0.12em", color: textColor }}
+        style={{ fontSize: "0.58rem", letterSpacing: "0.12em", color: textColor }}
         onClick={() => onNavigate("home")}
       >
         Galerie
@@ -315,10 +315,10 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
           className="absolute bottom-0 left-0 right-0 px-10 pb-[29px] pt-20"
           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }}
         >
-          <p className="uppercase tracking-[0.18em] text-white/70 mb-1" style={{ fontSize: "0.75rem" }}>Paris</p>
-          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "2.8rem" }}>Sacha Elron</h1>
-          <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "2rem" }}>Your friends</p>
-          <p className="text-white/55 mt-1.5" style={{ fontSize: "0.82rem" }}>Feb 12 — Mar 22, 2026</p>
+          <p className="uppercase tracking-[0.18em] text-white/70 mb-1" style={{ fontSize: "0.62rem" }}>Paris</p>
+          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "1.5rem" }}>Sacha Elron</h1>
+          <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "1.1rem" }}>Your friends</p>
+          <p className="text-white/55 mt-1.5" style={{ fontSize: "0.68rem" }}>Feb 12 — Mar 22, 2026</p>
           <button
             className="mt-3 border border-white/40 rounded-full px-4 py-1 text-white"
             style={{ fontSize: "0.82rem" }}
@@ -841,7 +841,7 @@ function ArtistPortfolioMock() {
         <span
           onClick={() => goTo("home")}
           className="min-w-0 shrink truncate whitespace-nowrap"
-          style={{ fontSize: isMobile ? "0.7rem" : "0.75rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
+          style={{ fontSize: isMobile ? "0.58rem" : "0.62rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
         >
           Sacha Elron
         </span>
@@ -922,7 +922,7 @@ function ArtistPortfolioMock() {
                 }}
                 className={[
                   "inline-flex shrink-0 items-center rounded-full text-[#111110] tracking-[-0.01em] transition-colors hover:bg-[#F5F5F5]",
-                  "text-[0.75rem] px-4 py-1.5",
+                  "text-[0.62rem] px-4 py-1.5",
                   page === item.page ? "font-semibold underline underline-offset-[2px] decoration-[#111110]" : "font-normal",
                   item.page ? "cursor-pointer" : "cursor-default",
                 ].join(" ")}

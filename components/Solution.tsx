@@ -967,7 +967,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, ease, delay: i * 0.1 }}
-            className="group rounded bg-[#1C1C1A] p-[20px] flex flex-col"
+            className="group rounded bg-[#1C1C1A] p-[15px] flex flex-col"
             style={{ border: "0.1px solid #1C1C1A" }}
           >
             <h3 className="font-normal text-white text-sm md:text-base tracking-[-0.01em] mb-0">

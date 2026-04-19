@@ -19,7 +19,7 @@ export default function CtaBand() {
           className="px-6 py-12 md:px-12 md:py-20 lg:py-24"
         >
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            <h2 className="font-display font-normal text-[#111110] text-[30px] md:text-[44px] leading-[1.15] tracking-[-0.03em] mb-0 max-w-[22ch] md:max-w-none">
+            <h2 className="font-display font-normal text-[#111110] text-[30px] md:text-[44px] leading-[1.15] tracking-[-0.03em] mb-0 max-w-[22ch] md:max-w-none md:whitespace-nowrap">
               {t.ctaBand.title}
             </h2>
 
