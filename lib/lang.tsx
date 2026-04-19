@@ -227,7 +227,7 @@ export const translations = {
           tier: "PORTFOLIO",
           name: "Artist Studio",
           description:
-            "Un studio digital raffiné pour artistes indépendants — présentez votre travail, gérez votre archive, connectez-vous avec vos collectionneurs.",
+            "Un studio digital pour artistes indépendants — présentez votre travail, gérez votre archive, connectez vos collectionneurs.",
           featuresHeading: "Inclus :",
           features: [
             "Site rapide & responsive",
@@ -580,7 +580,7 @@ export const translations = {
           tier: "PORTFOLIO",
           name: "Artist Studio",
           description:
-            "A refined digital studio for independent artists — present your work, manage your archive, connect with collectors.",
+            "A refined studio for artists — present your work, manage your archive, connect with collectors.",
           featuresHeading: "Included:",
           features: [
             "Fast & responsive website",

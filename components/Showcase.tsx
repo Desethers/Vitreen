@@ -921,7 +921,7 @@ function ShowcaseCard({
 }
 
 const INTERVAL = 4500;
-const bgImage = "/allen14.jpg-preview3.jpg";
+const bgImage = "/colin deland.jpeg";
 
 /* Step 1 — Branded admin interface */
 function AdminMock() {
@@ -947,6 +947,23 @@ function AdminMock() {
     "Consignment",
   ];
 
+  const tabIcons = [
+    /* Overview */
+    <svg key="ov" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>,
+    /* Artworks */
+    <svg key="art" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>,
+    /* Artists */
+    <svg key="ar" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>,
+    /* Exhibitions */
+    <svg key="ex" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>,
+    /* Inquiries */
+    <svg key="inq" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>,
+    /* OVR */
+    <svg key="ovr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
+    /* Collectors */
+    <svg key="col" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -955,147 +972,140 @@ function AdminMock() {
       transition={{ duration: 0.4, ease }}
       className="absolute inset-0 flex overflow-hidden rounded"
     >
-      {/* Sidebar */}
+      {/* ── Desktop sidebar ── */}
       <div className="hidden md:flex w-[130px] shrink-0 bg-white border-r border-[#EBEBEA] flex-col py-4 px-3">
-        {/* Logo */}
         <div className="flex items-center gap-2 mb-5 px-1">
           <div className="w-5 h-5 rounded bg-[#111110] flex items-center justify-center shrink-0">
             <span className="text-white text-[7px] font-bold">GOS</span>
           </div>
           <span className="text-[10px] font-semibold text-[#111110] tracking-[-0.01em]">Gallery OS</span>
         </div>
-
-        {/* Nav */}
         <div className="flex flex-col gap-0.5 flex-1">
           {sidebarItems.map(({ label, active }) => (
-            <div
-              key={label}
-              className={`text-[10px] px-2.5 py-1.5 rounded-md tracking-[-0.01em] ${
-                active ? "bg-[#F0F0EE] text-[#111110] font-medium" : "text-[#888886]"
-              }`}
-            >
+            <div key={label} className={`text-[10px] px-2.5 py-1.5 rounded-md tracking-[-0.01em] ${active ? "bg-[#F0F0EE] text-[#111110] font-medium" : "text-[#888886]"}`}>
               {label}
             </div>
           ))}
         </div>
-
         <p className="text-[8px] text-[#ADADAA] px-1">Powered by Vitreen</p>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 bg-[#FAFAF8] overflow-hidden flex flex-col p-4 md:p-5 gap-3">
-        {/* Breadcrumb + title */}
-        <div>
-          <p className="text-[9px] text-[#ADADAA] mb-1">← {isFr ? "Retour aux œuvres" : "Back to artworks"}</p>
-          <p className="text-[13px] font-semibold text-[#111110] tracking-[-0.02em]">{m.newArtwork}</p>
-          <p className="text-[9px] text-[#888886] mt-0.5">{isFr ? "Publié instantanément sur votre site." : "Saved directly — visible on your site immediately."}</p>
+      {/* ── Mobile header ── */}
+      <div className="md:hidden absolute top-0 left-0 right-0 h-9 bg-white border-b border-[#EBEBEA] flex items-center px-3 gap-2 z-10">
+        <div className="w-5 h-5 rounded bg-[#111110] flex items-center justify-center shrink-0">
+          <span className="text-white text-[7px] font-bold">GOS</span>
         </div>
+        <span className="text-[11px] font-semibold text-[#111110] tracking-[-0.01em] flex-1">Gallery OS</span>
+        <div className="w-5 h-5 rounded-full bg-[#F0F0EE]" />
+      </div>
 
-        {/* Two-column form */}
-        <div className="flex gap-3 flex-1 overflow-hidden">
-          {/* Left: fields */}
-          <div className="flex-1 flex flex-col gap-2 overflow-hidden">
-            {/* Title */}
-            <div>
-              <p className="text-[8.5px] font-medium text-[#111110] mb-1">{m.titleField} <span className="text-red-400">*</span></p>
-              <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2"
-              >
-                <span className="text-[10px] text-[#111110]">Untitled (Horizon), 2024</span>
-              </motion.div>
-            </div>
-
-            {/* Artist */}
-            <div>
-              <p className="text-[8.5px] font-medium text-[#111110] mb-1">{m.artistField}</p>
-              <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 }}
-                className="h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2"
-              >
-                <span className="text-[10px] text-[#111110]">Claire Fontaine</span>
-              </motion.div>
-            </div>
-
-            {/* Year + Medium */}
-            <div className="flex gap-2">
-              <div className="flex-1">
-                <p className="text-[8.5px] font-medium text-[#111110] mb-1">{isFr ? "Année" : "Year"}</p>
-                <div className="h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2">
-                  <span className="text-[10px] text-[#111110]">2024</span>
-                </div>
-              </div>
-              <div className="flex-1">
-                <p className="text-[8.5px] font-medium text-[#111110] mb-1">{isFr ? "Technique" : "Medium"}</p>
-                <div className="h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2">
-                  <span className="text-[10px] text-[#111110]">{isFr ? "Huile sur toile" : "Oil on canvas"}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Status */}
-            <div>
-              <p className="text-[8.5px] font-medium text-[#111110] mb-1">Status</p>
-              <div className="flex flex-wrap gap-1">
-                {statusPills.map((s, i) => (
-                  <div
-                    key={s}
-                    className={`text-[8.5px] px-2 py-0.5 rounded-full border ${
-                      i === 0
-                        ? "bg-[#111110] text-white border-[#111110]"
-                        : "bg-white text-[#555] border-[#E0E0DE]"
-                    }`}
-                  >
-                    {s}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Price */}
-            <div>
-              <p className="text-[8.5px] font-medium text-[#111110] mb-1">{m.priceField}</p>
-              <div className="flex gap-1.5">
-                <div className="h-6 flex-1 bg-white rounded border border-[#E0E0DE] flex items-center px-2">
-                  <span className="text-[10px] text-[#ADADAA]">e.g. 4500</span>
-                </div>
-                <div className="h-6 w-12 bg-white rounded border border-[#E0E0DE] flex items-center px-2">
-                  <span className="text-[10px] text-[#111110]">EUR</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex gap-2 mt-auto pt-1">
-              <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="text-[9.5px] px-3 py-1.5 rounded-md bg-[#111110] text-white font-medium cursor-pointer"
-              >
-                {m.publish}
-              </motion.div>
-              <div className="text-[9.5px] px-3 py-1.5 rounded-md border border-[#E0E0DE] text-[#555] cursor-pointer">
-                {isFr ? "Annuler" : "Cancel"}
-              </div>
-            </div>
+      {/* ── Main content ── */}
+      <div className="flex-1 bg-[#FAFAF8] overflow-hidden flex flex-col pt-9 md:pt-0 pb-10 md:pb-0">
+        <div className="flex-1 overflow-y-auto p-3 md:p-5 flex flex-col gap-2.5 md:gap-3">
+          {/* Breadcrumb + title */}
+          <div>
+            <p className="text-[9px] md:text-[9px] text-[#ADADAA] mb-0.5">← {isFr ? "Retour aux œuvres" : "Back to artworks"}</p>
+            <p className="text-[14px] md:text-[13px] font-semibold text-[#111110] tracking-[-0.02em]">{m.newArtwork}</p>
+            <p className="text-[10px] md:text-[9px] text-[#888886] mt-0.5">{isFr ? "Publié instantanément sur votre site." : "Saved directly — visible on your site immediately."}</p>
           </div>
 
-          {/* Right: image upload */}
-          <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="w-[38%] shrink-0 bg-white rounded border border-dashed border-[#D0D0CE] flex flex-col items-center justify-center gap-1.5"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="17 8 12 3 7 8" />
-              <line x1="12" y1="3" x2="12" y2="15" />
-            </svg>
-            <p className="text-[8.5px] text-[#ADADAA] text-center leading-tight">{m.dragClick}<br />{isFr ? "ou cliquer" : "or click to browse"}</p>
-          </motion.div>
+          {/* Desktop: side-by-side / Mobile: stacked fields */}
+          <div className="flex gap-3 flex-1 overflow-hidden">
+            <div className="flex-1 flex flex-col gap-2 overflow-hidden">
+
+              {/* Title */}
+              <div>
+                <p className="text-[9px] md:text-[8.5px] font-medium text-[#111110] mb-1">{m.titleField} <span className="text-red-400">*</span></p>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+                  className="h-7 md:h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2.5">
+                  <span className="text-[11px] md:text-[10px] text-[#111110]">Untitled (Horizon), 2024</span>
+                </motion.div>
+              </div>
+
+              {/* Artist */}
+              <div>
+                <p className="text-[9px] md:text-[8.5px] font-medium text-[#111110] mb-1">{m.artistField}</p>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
+                  className="h-7 md:h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2.5">
+                  <span className="text-[11px] md:text-[10px] text-[#111110]">Claire Fontaine</span>
+                </motion.div>
+              </div>
+
+              {/* Year + Medium */}
+              <div className="flex gap-2">
+                <div className="flex-1">
+                  <p className="text-[9px] md:text-[8.5px] font-medium text-[#111110] mb-1">{isFr ? "Année" : "Year"}</p>
+                  <div className="h-7 md:h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2.5">
+                    <span className="text-[11px] md:text-[10px] text-[#111110]">2024</span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <p className="text-[9px] md:text-[8.5px] font-medium text-[#111110] mb-1">{isFr ? "Technique" : "Medium"}</p>
+                  <div className="h-7 md:h-6 bg-white rounded border border-[#E0E0DE] flex items-center px-2.5">
+                    <span className="text-[11px] md:text-[10px] text-[#111110]">{isFr ? "Huile sur toile" : "Oil on canvas"}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status */}
+              <div>
+                <p className="text-[9px] md:text-[8.5px] font-medium text-[#111110] mb-1">Status</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {statusPills.map((s, i) => (
+                    <div key={s} className={`text-[9px] md:text-[8.5px] px-2.5 py-1 md:py-0.5 rounded-full border ${i === 0 ? "bg-[#111110] text-white border-[#111110]" : "bg-white text-[#555] border-[#E0E0DE]"}`}>
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price */}
+              <div>
+                <p className="text-[9px] md:text-[8.5px] font-medium text-[#111110] mb-1">{m.priceField}</p>
+                <div className="flex gap-1.5">
+                  <div className="h-7 md:h-6 flex-1 bg-white rounded border border-[#E0E0DE] flex items-center px-2.5">
+                    <span className="text-[11px] md:text-[10px] text-[#ADADAA]">e.g. 4500</span>
+                  </div>
+                  <div className="h-7 md:h-6 w-14 md:w-12 bg-white rounded border border-[#E0E0DE] flex items-center px-2.5">
+                    <span className="text-[11px] md:text-[10px] text-[#111110]">EUR</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Buttons */}
+              <div className="flex gap-2 mt-auto pt-1">
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
+                  className="text-[10px] md:text-[9.5px] px-4 md:px-3 py-2 md:py-1.5 rounded-md bg-[#111110] text-white font-medium cursor-pointer">
+                  {m.publish}
+                </motion.div>
+                <div className="text-[10px] md:text-[9.5px] px-4 md:px-3 py-2 md:py-1.5 rounded-md border border-[#E0E0DE] text-[#555] cursor-pointer">
+                  {isFr ? "Annuler" : "Cancel"}
+                </div>
+              </div>
+            </div>
+
+            {/* Image upload — hidden on mobile to save space */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
+              className="hidden md:flex w-[38%] shrink-0 bg-white rounded border border-dashed border-[#D0D0CE] flex-col items-center justify-center gap-1.5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              <p className="text-[8.5px] text-[#ADADAA] text-center leading-tight">{m.dragClick}<br />{isFr ? "ou cliquer" : "or click to browse"}</p>
+            </motion.div>
+          </div>
         </div>
+      </div>
+
+      {/* ── Mobile bottom tab bar ── */}
+      <div className="md:hidden absolute bottom-0 left-0 right-0 h-10 bg-white border-t border-[#EBEBEA] flex items-center justify-around px-1 z-10">
+        {sidebarItems.map(({ label, active }, i) => (
+          <div key={label} className={`flex flex-col items-center gap-0.5 flex-1 ${active ? "text-[#111110]" : "text-[#ADADAA]"}`}>
+            {tabIcons[i]}
+            <span className="text-[6.5px] font-medium leading-none">{label}</span>
+          </div>
+        ))}
       </div>
     </motion.div>
   );
@@ -1120,9 +1130,7 @@ function LiveSiteMock() {
           <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
         </div>
         <div className="flex-1 h-6 bg-white rounded-md border border-[#E8E8E6] flex items-center px-3">
-          <span className="text-[9px] text-[#ADADAA]">
-            galerie-fontaine.com/oeuvres/composition-no-7
-          </span>
+          <span className="text-[9px] text-[#ADADAA] truncate">galerie-fontaine.com/oeuvres/composition-no-7</span>
         </div>
       </div>
 
@@ -1140,12 +1148,15 @@ function LiveSiteMock() {
           </div>
         </div>
 
-        <div className="flex-1 flex gap-4 p-4">
+        {/* Mobile: vertical stack — Desktop: side by side */}
+        <div className="flex-1 flex flex-col md:flex-row gap-0 md:gap-4 md:p-4 overflow-hidden">
+          {/* Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.5, ease }}
-            className="flex-1 bg-[#F7F7F5] rounded flex items-center justify-center"
+            className="w-full md:flex-1 bg-[#F7F7F5] flex items-center justify-center"
+            style={{ minHeight: 0, flex: "1 1 0" }}
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#CCCCC9" strokeWidth="1">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -1154,36 +1165,37 @@ function LiveSiteMock() {
             </svg>
           </motion.div>
 
+          {/* Details */}
           <motion.div
             initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.4, ease }}
-            className="w-36 md:w-44 flex flex-col gap-2"
+            className="shrink-0 md:w-44 flex flex-col gap-2 p-4 md:p-0 md:py-0"
           >
             <div>
-              <p className="text-[12px] font-medium text-[#111110]">Composition No. 7</p>
-              <p className="text-[10px] text-[#6B6A67]">Claire Fontaine, 2024</p>
+              <p className="text-[13px] md:text-[12px] font-medium text-[#111110]">Composition No. 7</p>
+              <p className="text-[11px] md:text-[10px] text-[#6B6A67]">Claire Fontaine, 2024</p>
             </div>
             <div className="h-px bg-[#F0F0EE]" />
-            <div className="space-y-1">
+            <div className="space-y-1.5 md:space-y-1">
               <div className="flex justify-between">
-                <span className="text-[9px] text-[#ADADAA]">{m.technique}</span>
-                <span className="text-[9px] text-[#6B6A67]">{m.techniqueValue}</span>
+                <span className="text-[10px] md:text-[9px] text-[#ADADAA]">{m.technique}</span>
+                <span className="text-[10px] md:text-[9px] text-[#6B6A67]">{m.techniqueValue}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[9px] text-[#ADADAA]">{m.dimensions}</span>
-                <span className="text-[9px] text-[#6B6A67]">120 × 80 cm</span>
+                <span className="text-[10px] md:text-[9px] text-[#ADADAA]">{m.dimensions}</span>
+                <span className="text-[10px] md:text-[9px] text-[#6B6A67]">120 × 80 cm</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[9px] text-[#ADADAA]">{m.price}</span>
-                <span className="text-[9px] text-[#6B6A67]">{m.priceValue}</span>
+                <span className="text-[10px] md:text-[9px] text-[#ADADAA]">{m.price}</span>
+                <span className="text-[10px] md:text-[9px] text-[#6B6A67]">{m.priceValue}</span>
               </div>
             </div>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.3 }}
-              className="mt-auto text-[10px] px-3 py-1.5 rounded-full bg-[#111110] text-white font-medium text-center"
+              className="mt-auto text-[11px] md:text-[10px] px-3 py-2 md:py-1.5 rounded-full bg-[#111110] text-white font-medium text-center"
             >
               {m.inquire}
             </motion.div>
@@ -1224,47 +1236,95 @@ function ShareMock() {
     { label: m.subject, value: "Sélection Printemps 2026 — Viewing Room" },
   ];
 
+  const isFr = m.from === "De";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -12 }}
       transition={{ duration: 0.4, ease }}
-      className="absolute inset-0 p-4 md:p-6 flex items-center justify-center"
+      className="absolute inset-0 flex overflow-hidden"
     >
-      <div className="w-full bg-white rounded-2xl shadow-[0_12px_48px_rgba(0,0,0,0.13)] overflow-hidden flex flex-col gap-0">
-
+      {/* Left panel — collector list */}
+      <div className="hidden md:flex w-[200px] shrink-0 bg-[#FAFAF8] border-r border-[#EBEBEA] flex-col">
         {/* Header */}
-        <div className="px-5 pt-5 pb-4 border-b border-[#F0F0EE]">
-          <p className="text-[14px] font-semibold text-[#111110] tracking-[-0.01em]">{m.newMessage}</p>
-          <p className="text-[10px] text-[#ADADAA] mt-0.5">{m.notifyCollector}</p>
+        <div className="px-4 pt-4 pb-3 border-b border-[#EBEBEA]">
+          <p className="text-[11px] font-semibold text-[#111110] tracking-[-0.01em]">{m.notifyCollector}</p>
+          <p className="text-[9px] text-[#ADADAA] mt-0.5">{m.recipientsCount}</p>
+        </div>
+        {/* Collector rows */}
+        {[
+          { name: "Marc Durand", tag: isFr ? "Collectionneur" : "Collector", selected: true },
+          { name: "Sophie Veil", tag: isFr ? "Art Advisor" : "Art Advisor", selected: false },
+          { name: "James Howell", tag: isFr ? "Collectionneur" : "Collector", selected: false },
+        ].map(({ name, tag, selected }) => (
+          <div key={name} className={`flex items-center gap-2.5 px-3 py-2.5 ${selected ? "bg-white border-r-2 border-[#111110]" : ""}`}>
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 ${selected ? "bg-[#111110] text-white" : "bg-[#E8E8E6] text-[#6B6A67]"}`}>
+              {name[0]}
+            </div>
+            <div className="min-w-0">
+              <p className={`text-[10px] font-medium truncate ${selected ? "text-[#111110]" : "text-[#6B6A67]"}`}>{name}</p>
+              <p className="text-[8.5px] text-[#ADADAA]">{tag}</p>
+            </div>
+            <div className={`ml-auto w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 ${selected ? "bg-[#111110] border-[#111110]" : "border-[#D0D0CE]"}`}>
+              {selected && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Right panel — compose */}
+      <div className="flex-1 bg-white flex flex-col overflow-hidden">
+        {/* Toolbar */}
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[#F0F0EE]">
+          <p className="text-[12px] font-semibold text-[#111110] tracking-[-0.01em] flex-1">{m.newMessage}</p>
+          <div className="flex gap-1.5">
+            <div className="w-5 h-5 rounded-md bg-[#F4F4F2] flex items-center justify-center">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#6B6A67" strokeWidth="2" strokeLinecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </div>
+            <div className="w-5 h-5 rounded-md bg-[#F4F4F2] flex items-center justify-center">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#6B6A67" strokeWidth="2" strokeLinecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+          </div>
         </div>
 
         {/* Fields */}
         <div className="flex flex-col divide-y divide-[#F4F4F2]">
           {fields.map(({ label, value }) => (
-            <div key={label} className="flex items-baseline gap-3 px-5 py-2.5">
-              <span className="text-[10px] text-[#ADADAA] w-11 shrink-0 pt-px">{label}</span>
-              <span className="text-[11px] text-[#111110] leading-snug">{value}</span>
+            <div key={label} className="flex items-center gap-3 px-4 py-2">
+              <span className="text-[9.5px] text-[#ADADAA] w-10 shrink-0">{label}</span>
+              <span className="text-[10.5px] text-[#111110] truncate">{value}</span>
             </div>
           ))}
         </div>
 
-        {/* Attachment — Viewing Room card */}
+        {/* Viewing Room attachment */}
         <motion.div
-          initial={{ opacity: 0, y: 4 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.35 }}
-          className="mx-5 mt-3 rounded-xl bg-[#F7F7F5] border border-[#EBEBEA] flex items-center gap-3 px-3 py-2.5"
+          className="mx-4 mt-3 rounded-xl bg-[#F7F7F5] border border-[#EBEBEA] overflow-hidden"
         >
-          <div className="w-9 h-9 rounded-lg bg-white border border-[#E8E8E6] flex items-center justify-center shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B6A67" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
+          {/* OVR preview image strip */}
+          <div className="flex gap-px h-16 bg-[#E8E8E6]">
+            {[0.15, 0.25, 0.2, 0.4].map((o, i) => (
+              <div key={i} className="flex-1 bg-[#D4D4D0]" style={{ opacity: o + 0.5 }} />
+            ))}
           </div>
-          <div className="min-w-0">
-            <p className="text-[11px] font-medium text-[#111110] leading-tight truncate">Private Viewing · Spring 2026</p>
-            <p className="text-[9.5px] text-[#ADADAA] mt-0.5">4 works — galerie-fontaine.com</p>
+          <div className="flex items-center gap-3 px-3 py-2.5">
+            <div className="w-7 h-7 rounded-lg bg-white border border-[#E8E8E6] flex items-center justify-center shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B6A67" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[10.5px] font-medium text-[#111110] leading-tight">Private Viewing · Spring 2026</p>
+              <p className="text-[9px] text-[#ADADAA] mt-0.5">4 {isFr ? "œuvres" : "works"} — galerie-fontaine.com</p>
+            </div>
+            <div className="text-[8.5px] px-2 py-1 rounded-full bg-[#111110] text-white font-medium shrink-0">
+              {isFr ? "Voir" : "View"}
+            </div>
           </div>
         </motion.div>
 
@@ -1272,43 +1332,38 @@ function ShareMock() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.45, duration: 0.35 }}
-          className="mx-5 mt-3 mb-1 flex flex-col gap-[7px]"
+          transition={{ delay: 0.45 }}
+          className="mx-4 mt-3 flex flex-col gap-[6px]"
         >
-          <div className="h-[7px] rounded-full bg-[#F0F0EE] w-[90%]" />
-          <div className="h-[7px] rounded-full bg-[#F0F0EE] w-[74%]" />
-          <div className="h-[7px] rounded-full bg-[#F0F0EE] w-[52%]" />
+          <div className="h-[6px] rounded-full bg-[#F0F0EE] w-[88%]" />
+          <div className="h-[6px] rounded-full bg-[#F0F0EE] w-[72%]" />
+          <div className="h-[6px] rounded-full bg-[#F0F0EE] w-[48%]" />
         </motion.div>
 
-        {/* Footer */}
-        <div className="flex items-center justify-between px-5 py-4 mt-2 border-t border-[#F0F0EE]">
+        {/* Send bar */}
+        <div className="flex items-center justify-between px-4 py-3 mt-auto border-t border-[#F0F0EE]">
           <motion.button
-            animate={sent
-              ? { backgroundColor: "#111110" }
-              : { backgroundColor: "#111110" }}
-            className="flex items-center gap-1.5 text-[11px] px-4 py-[7px] rounded-full bg-[#111110] text-white font-medium tracking-[-0.01em]"
+            className="flex items-center gap-1.5 text-[10.5px] px-4 py-[7px] rounded-full bg-[#111110] text-white font-medium tracking-[-0.01em]"
           >
             <AnimatePresence mode="wait">
               {sent ? (
-                <motion.span
-                  key="sent"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex items-center gap-1.5"
-                >
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="20 6 9 17 4 12" />
+                <motion.span key="sent" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-1.5">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
                   </svg>
                   {m.sent}
                 </motion.span>
               ) : (
-                <motion.span key="send" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                  {m.send}
-                </motion.span>
+                <motion.span key="send" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{m.send}</motion.span>
               )}
             </AnimatePresence>
           </motion.button>
-          <span className="text-[10px] text-[#ADADAA]">{m.recipientsCount}</span>
+          <div className="flex items-center gap-1.5">
+            <div className="w-5 h-5 rounded-md bg-[#F4F4F2] flex items-center justify-center">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#6B6A67" strokeWidth="2" strokeLinecap="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </div>
+            <span className="text-[9px] text-[#ADADAA]">{m.recipientsCount}</span>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -1318,9 +1373,9 @@ function ShareMock() {
 const MOCKS = [AdminMock, LiveSiteMock, ShareMock];
 
 const STEP_POSITIONS: React.CSSProperties[] = [
-  { top: 60, right: "calc(22% - 40px)" },
-  { bottom: 60, left: "calc(22% - 40px)" },
-  { top: 60, left: "calc(22% - 40px)" },
+  { top: 60, right: "calc(22% - 80px)" },
+  { bottom: 60, left: "calc(22% - 80px)" },
+  { top: 60, left: "calc(22% - 80px)" },
 ];
 
 export default function Showcase() {
@@ -1376,17 +1431,17 @@ export default function Showcase() {
         >
           <div className="relative overflow-hidden h-[500px] md:h-[720px]">
             <div
-              className="absolute inset-0 bg-center"
-              style={{ backgroundImage: `url('${bgImage}')`, backgroundSize: "150%" }}
+              className="absolute inset-0 bg-cover"
+              style={{ backgroundImage: `url('${bgImage}')`, backgroundPosition: "25% center" }}
             />
 
             <div
               className="absolute bg-white rounded overflow-hidden"
               style={{
-                top: isMobile ? 40 : 90,
-                bottom: isMobile ? 40 : 90,
-                left: isMobile ? "8%" : "22%",
-                right: isMobile ? "8%" : "22%",
+                top: isMobile ? 24 : 90,
+                bottom: isMobile ? 24 : 90,
+                left: isMobile ? "4%" : "22%",
+                right: isMobile ? "4%" : "22%",
                 zIndex: 10,
                 boxShadow: "0 8px 40px rgba(0,0,0,0.14)",
               }}
@@ -1416,42 +1471,33 @@ export default function Showcase() {
                     opacity: isRevealed ? 1 : 0,
                     scale: isRevealed ? 1 : 0.9,
                     boxShadow: isActive
-                      ? "0 8px 24px rgba(0,0,0,0.14)"
-                      : "0 2px 8px rgba(0,0,0,0.05)",
+                      ? "0 8px 32px rgba(0,0,0,0.16)"
+                      : "0 2px 10px rgba(0,0,0,0.06)",
                   }}
                   transition={{ duration: 0.4, ease }}
-                  className="hidden md:block absolute bg-white rounded px-3 py-2.5"
-                  style={{ ...STEP_POSITIONS[i], zIndex: 20, maxWidth: 240 }}
+                  className="hidden md:block absolute bg-white rounded-xl px-4 py-3"
+                  style={{ ...STEP_POSITIONS[i], zIndex: 20, width: 220 }}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <div
-                      className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold transition-colors duration-300 ${
-                        isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"
+                      className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-colors duration-300 ${
+                        isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#111110]"
                       }`}
                     >
                       {i + 1}
                     </div>
-                    <span
-                      className={`text-[11px] font-medium leading-tight transition-colors duration-300 ${
-                        isActive ? "text-[#111110]" : "text-[#ADADAA]"
-                      }`}
-                    >
+                    <span className="text-[13px] font-medium leading-tight text-[#111110]">
                       {step.title}
                     </span>
                   </div>
-                  <AnimatePresence>
-                    {isActive && (
-                      <motion.p
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-[10px] text-[#ADADAA] leading-[1.45] mt-1.5 pl-7 overflow-hidden"
-                      >
-                        {step.desc}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
+                  <motion.p
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: isRevealed ? 1 : 0, height: isRevealed ? "auto" : 0 }}
+                    transition={{ duration: 0.35, delay: isRevealed ? 0.15 : 0 }}
+                    className="text-[11px] text-[#6B6A67] leading-[1.45] mt-2 pl-[34px] overflow-hidden"
+                  >
+                    {step.desc}
+                  </motion.p>
                 </motion.div>
               );
             })}
