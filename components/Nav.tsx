@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useLayoutEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/lib/lang";
 import { Button } from "@/components/ui/Button";
@@ -184,6 +185,7 @@ export default function Nav() {
   const ctaPillIdleHint = scrolled && ctaSlideX === 0 && !contactModalOpen;
 
   return (
+    <>
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center py-4 px-4 md:px-6">
       <div
         ref={pillRef}
@@ -280,6 +282,9 @@ export default function Nav() {
         </div>
       )}
 
+    </header>
+
+    {typeof document !== "undefined" && createPortal(
       <AnimatePresence>
         {contactModalOpen && (
           <motion.div
@@ -290,7 +295,7 @@ export default function Nav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-[#111110]/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-[#111110]/40 backdrop-blur-sm"
             onClick={(e) => {
               if (e.target === e.currentTarget) closeContactModal();
             }}
@@ -377,7 +382,9 @@ export default function Nav() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
-    </header>
+      </AnimatePresence>,
+      document.body
+    )}
+    </>
   );
 }
