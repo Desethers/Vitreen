@@ -320,7 +320,12 @@ export const translations = {
             "Vitreen centralise et structure votre écosystème, transformant votre audience en actif stratégique plutôt qu\u2019en dépendance externe.",
         },
       ],
-      quoteAttrib: "Global Head of Audience Growth & Intelligence, Art Basel",
+    },
+    quoteSection: {
+      quote:
+        "L\u2019espace num\u00e9rique est le prolongement naturel de la vitrine de la galerie. \u00c0 l\u2019heure actuelle, un programme en ligne solide et une strat\u00e9gie d\u00e9di\u00e9e sont essentiels dans le monde de l\u2019art.",
+      name: "Elena Soboleva",
+      role: "Global Head of Audience Growth & Intelligence, Art Basel",
     },
     faq: {
       title: "Questions fréquentes",
@@ -352,7 +357,6 @@ export const translations = {
       ],
     },
     ctaBand: {
-      badge: "Démarrer un projet",
       title: "Donnez une nouvelle dimension à votre galerie",
       subtitle: "Discutons de votre projet, sans engagement",
       cta: "Réserver une démo",
@@ -672,7 +676,12 @@ export const translations = {
             "Vitreen centralises and structures your ecosystem, turning your audience into a strategic asset rather than an external dependency.",
         },
       ],
-      quoteAttrib: "Global Head of Audience Growth & Intelligence, Art Basel",
+    },
+    quoteSection: {
+      quote:
+        "The digital space is a natural extension of the gallery\u2019s storefront. In the current era, a robust online program and dedicated strategy is essential in the art world.",
+      name: "Elena Soboleva",
+      role: "Global Head of Audience Growth & Intelligence, Art Basel",
     },
     faq: {
       title: "Frequently asked questions",
@@ -704,7 +713,6 @@ export const translations = {
       ],
     },
     ctaBand: {
-      badge: "Start a project",
       title: "Give your gallery a new dimension",
       subtitle: "Let\u2019s talk about your project \u2014 no commitment",
       cta: "Book a demo",

@@ -13,29 +13,29 @@ const fadeUp = (delay = 0) => ({
 });
 
 const BLOCK_ICONS = [
-  <svg key="chart" width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M2 11L6 7L9 10L14 4" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M11 4H14V7" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg key="chart" width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white">
+    <path d="M2 11L6 7L9 10L14 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M11 4H14V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>,
-  <svg key="globe" width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="6" stroke="#111110" strokeWidth="1.5"/>
-    <path d="M8 2C8 2 6 5 6 8C6 11 8 14 8 14" stroke="#111110" strokeWidth="1.5" strokeLinecap="round"/>
-    <path d="M2 8H14" stroke="#111110" strokeWidth="1.5" strokeLinecap="round"/>
+  <svg key="globe" width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white">
+    <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5"/>
+    <path d="M8 2C8 2 6 5 6 8C6 11 8 14 8 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    <path d="M2 8H14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
   </svg>,
-  <svg key="shield" width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M8 2L3 4.5V8C3 11.5 5.5 13.8 8 14.5C10.5 13.8 13 11.5 13 8V4.5L8 2Z" stroke="#111110" strokeWidth="1.5" strokeLinejoin="round"/>
-    <path d="M5.5 8L7 9.5L10.5 6" stroke="#111110" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <svg key="shield" width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-white">
+    <path d="M8 2L3 4.5V8C3 11.5 5.5 13.8 8 14.5C10.5 13.8 13 11.5 13 8V4.5L8 2Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+    <path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
   </svg>,
 ];
 
 export default function StatementSplit() {
   const { t } = useLang();
   return (
-    <section className="px-4 md:px-6 bg-white">
-      <div className="pt-12 md:pt-[80px] pb-10 md:pb-[60px]">
+    <section className="px-4 md:px-6 bg-[#111110]">
+      <div className="pt-12 md:pt-[80px] pb-20 md:pb-[120px]">
       <div className="max-w-7xl mx-auto">
         <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
-          <h2 style={{ fontSize: "38px" }} className="font-display font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] text-center">
+          <h2 className="font-display font-normal text-white text-[22px] leading-[1.25] tracking-[-0.02em] text-center sm:text-[26px] md:text-[32px] lg:text-[38px] md:leading-[1.3]">
             {t.statementSplit.statTitle}
           </h2>
         </motion.div>
@@ -44,13 +44,13 @@ export default function StatementSplit() {
           {t.statementSplit.stats.map((m) => (
             <div
               key={m.value}
-              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#E5E7EB] rounded transition-all duration-200 hover:border-[#111110] hover:bg-white"
+              className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-white/[0.12] rounded transition-all duration-200 hover:border-white/25 hover:bg-white/[0.04]"
             >
-              <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
+              <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-white leading-[1.05] tracking-[-0.03em]">
                 {m.value}
               </span>
               <div className="flex flex-col gap-1">
-                <span className="text-[13px] font-normal text-[#111110] leading-snug tracking-[-0.02em]">
+                <span className="text-[13px] font-normal text-white leading-snug tracking-[-0.02em]">
                   {m.label}
                 </span>
                 <span className="text-[11px] font-normal leading-snug text-[#ADADAA] tracking-[-0.01em]">
@@ -61,22 +61,22 @@ export default function StatementSplit() {
           ))}
         </motion.div>
 
-        <motion.div {...fadeUp(0.09)} className="mt-14 md:mt-20">
-          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-5 md:mb-[48px]">
+        <motion.div {...fadeUp(0.09)} className="mt-24 md:mt-36">
+          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-white leading-[1.3] tracking-[-0.02em] max-w-3xl mb-5 md:mb-[48px]">
             {t.statementSplit.amplifyTitle}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {t.statementSplit.blocks.map((block, i) => (
               <div key={i} className="flex flex-col gap-4">
-                <div className="w-10 h-10 rounded border border-[#E8E8E6] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded border border-white/20 flex items-center justify-center shrink-0 text-white">
                   {BLOCK_ICONS[i]}
                 </div>
-                <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
-                  <span className="font-medium text-[#111110]">{block.heading}</span>
+                <p className="text-[15px] text-[#C8C8C5] leading-relaxed tracking-[-0.01em]">
+                  <span className="font-medium text-white">{block.heading}</span>
                   {" "}
                   {block.body1}
                 </p>
-                <p className="text-[15px] text-[#425466] leading-relaxed tracking-[-0.01em]">
+                <p className="text-[15px] text-[#C8C8C5] leading-relaxed tracking-[-0.01em]">
                   {block.body2}
                 </p>
               </div>
@@ -84,30 +84,6 @@ export default function StatementSplit() {
           </div>
         </motion.div>
       </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-0 pb-16 md:pb-24">
-        <motion.blockquote
-          {...fadeUp(0.15)}
-          className="mt-16 font-display text-[20px] md:text-[26px] text-[#111110] leading-relaxed tracking-tight max-w-4xl mx-auto"
-        >
-          &ldquo;The digital space is a natural extension of the gallery&apos;s storefront.{" "}
-          <span>
-            In the current era, a robust online program and dedicated strategy is
-            essential in the art world.&rdquo;
-          </span>
-          <footer className="mt-8 flex items-center gap-4 not-italic">
-            <img
-              src="https://res.cloudinary.com/dqzqcuqf9/image/upload/v1772530245/vip-benefits-images/bztubujvn9fb0hhxyaxh.png"
-              alt="Elena Soboleva"
-              className="w-11 h-11 rounded-full object-cover flex-shrink-0 grayscale"
-            />
-            <div className="font-sans">
-              <p className="text-base font-normal text-[#111110] leading-tight">Elena Soboleva</p>
-              <p className="text-sm text-[#ADADAA] mt-0.5">{t.statementSplit.quoteAttrib}</p>
-            </div>
-          </footer>
-        </motion.blockquote>
       </div>
     </section>
   );
