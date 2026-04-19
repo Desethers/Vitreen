@@ -49,7 +49,7 @@ const items = [
 export default function Partner() {
   return (
     <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
-      <div className="max-w-7xl mx-auto bg-[#111110] rounded-3xl px-10 md:px-16 py-14 md:py-20">
+      <div className="max-w-7xl mx-auto bg-[#F7F7F5] rounded-3xl px-10 md:px-16 py-14 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
           {/* Left — text */}

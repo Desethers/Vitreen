@@ -1455,7 +1455,7 @@ export default function Audiences() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease, delay: 0.08 }}
-          className="rounded overflow-hidden px-4 py-3 md:px-16 md:py-5 bg-[#1C1C1A]"
+          className="rounded overflow-hidden px-4 py-3 md:px-16 md:py-5 bg-[rgb(217,213,207)]"
         >
           <div
             ref={canvasRef}

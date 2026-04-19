@@ -3,7 +3,7 @@
 import React from "react";
 
 type Size = "sm" | "md" | "lg";
-type Variant = "primary" | "inverse";
+type Variant = "primary" | "inverse" | "tertiary";
 
 const sizeClass: Record<Size, string> = {
   sm: "px-4 py-2 text-[13px]",
@@ -14,6 +14,7 @@ const sizeClass: Record<Size, string> = {
 const variantClass: Record<Variant, string> = {
   primary: "bg-[#111110] text-white hover:bg-[#2a2a28]",
   inverse: "bg-white text-[#111110] hover:bg-[#F5F5F3]",
+  tertiary: "bg-transparent text-[#111110] border border-[#111110] hover:bg-[#111110] hover:text-white",
 };
 
 const base =

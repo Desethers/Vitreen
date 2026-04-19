@@ -33,57 +33,27 @@ export default function Services() {
             <motion.article
               key={service.tier}
               {...fadeUp(i * 0.1)}
-              className={`relative rounded p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${
-                service.highlight
-                  ? ""
-                  : "border border-[#E8E8E6] bg-white hover:border-[#111110]"
-              }`}
-              style={
-                service.highlight
-                  ? { border: "1px solid #111110", background: "#111110" }
-                  : undefined
-              }
+              className="relative rounded p-7 flex flex-col justify-between min-h-[420px] bg-[#F7F7F5]"
             >
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-4 min-h-[clamp(7rem,9vw,11rem)]">
                   <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
-                    <span
-                      className="text-[10px] tracking-[0.15em] uppercase"
-                      style={{ color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA" }}
-                    >
+                    <span className="text-[10px] tracking-[0.15em] uppercase text-[#ADADAA]">
                       {service.tier}
                     </span>
                   </div>
-                  <h3
-                    className="font-display text-2xl tracking-tight"
-                    style={{ color: service.highlight ? "#fff" : "#111110" }}
-                  >
+                  <h3 className="font-display text-2xl tracking-tight text-[#111110]">
                     {service.name}
                   </h3>
-                  <p
-                    className="text-sm leading-relaxed whitespace-pre-line"
-                    style={{ color: service.highlight ? "rgba(255,255,255,0.5)" : "#6B6A67" }}
-                  >
+                  <p className="text-sm leading-relaxed whitespace-pre-line text-[#6B6A67]">
                     {service.description}
                   </p>
                 </div>
 
-                <div
-                  className="h-px w-full"
-                  style={{
-                    background: service.highlight
-                      ? "rgba(255,255,255,0.1)"
-                      : "#E8E8E6",
-                  }}
-                />
+                <div className="h-px w-full bg-[#E8E8E6]" />
 
                 {service.featuresHeading ? (
-                  <p
-                    className="text-xs font-medium uppercase tracking-[0.08em]"
-                    style={{
-                      color: service.highlight ? "rgba(255,255,255,0.45)" : "#ADADAA",
-                    }}
-                  >
+                  <p className="text-xs font-medium uppercase tracking-[0.08em] text-[#ADADAA]">
                     {service.featuresHeading}
                   </p>
                 ) : null}
@@ -92,20 +62,14 @@ export default function Services() {
                   {service.features.map((f) => (
                     <li
                       key={f}
-                      className="flex items-start gap-2.5 text-sm leading-relaxed"
-                      style={{ color: service.highlight ? "rgba(255,255,255,0.75)" : "#111110" }}
+                      className="flex items-start gap-2.5 text-sm leading-relaxed text-[#111110]"
                     >
                       <svg
                         width="14"
                         height="14"
                         viewBox="0 0 16 16"
                         fill="none"
-                        className="mt-0.5 shrink-0"
-                        style={{
-                          color: service.highlight
-                            ? "rgba(255,255,255,0.4)"
-                            : "#ADADAA",
-                        }}
+                        className="mt-0.5 shrink-0 text-[#ADADAA]"
                       >
                         <path
                           d="M3 8l3.5 3.5L13 4"
@@ -123,26 +87,18 @@ export default function Services() {
 
               <div className="flex flex-col gap-4 mt-8">
                 <div className="flex flex-col gap-1.5">
-                  <p
-                    className="text-sm font-medium"
-                    style={{ color: service.highlight ? "rgba(255,255,255,0.7)" : "#111110" }}
-                  >
+                  <p className="text-sm font-medium text-[#111110]">
                     {service.price}
                   </p>
                   {service.priceNote ? (
-                    <p
-                      className="text-xs leading-relaxed min-h-[2.5rem]"
-                      style={{
-                        color: service.highlight ? "rgba(255,255,255,0.45)" : "#6B6A67",
-                      }}
-                    >
+                    <p className="text-xs leading-relaxed min-h-[2.5rem] text-[#6B6A67]">
                       {service.priceNote}
                     </p>
                   ) : null}
                 </div>
                 <Button
                   size="md"
-                  variant={service.highlight ? "inverse" : "primary"}
+                  variant={service.highlight ? "primary" : "tertiary"}
                   onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
                   className="w-full"
                 >

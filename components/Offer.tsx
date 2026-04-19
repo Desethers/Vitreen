@@ -81,26 +81,22 @@ export default function Offer() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, ease, delay: i * 0.1 }}
-              className={`relative flex flex-col p-8 rounded ${
-                plan.highlighted
-                  ? "bg-[#111110]"
-                  : "glass"
-              }`}
+              className="relative flex flex-col p-8 rounded bg-[#F7F7F5]"
             >
               {plan.highlighted && (
-                <span className="absolute top-6 right-6 text-[10px] tracking-widest uppercase text-white/30">
+                <span className="absolute top-6 right-6 text-[10px] tracking-widest uppercase text-[#ADADAA]">
                   Recommandé
                 </span>
               )}
 
               <div className="mb-8">
-                <p className={`text-xs tracking-widest uppercase mb-4 ${plan.highlighted ? "text-white/40" : "text-[#ADADAA]"}`}>
+                <p className="text-xs tracking-widest uppercase mb-4 text-[#ADADAA]">
                   {plan.name}
                 </p>
-                <p className={`font-display text-4xl mb-3 ${plan.highlighted ? "text-white" : "text-[#111110]"}`}>
+                <p className="font-display text-4xl mb-3 text-[#111110]">
                   {plan.price}
                 </p>
-                <p className={`text-sm leading-relaxed ${plan.highlighted ? "text-white/50" : "text-[#6B6A67]"}`}>
+                <p className="text-sm leading-relaxed text-[#6B6A67]">
                   {plan.description}
                 </p>
               </div>
@@ -108,8 +104,8 @@ export default function Offer() {
               <ul className="flex flex-col gap-3 mb-10 flex-1">
                 {plan.features.map((feat) => (
                   <li key={feat} className="flex items-start gap-3">
-                    <span className={`text-xs mt-0.5 shrink-0 ${plan.highlighted ? "text-white/25" : "text-[#ADADAA]"}`}>—</span>
-                    <span className={`text-sm ${plan.highlighted ? "text-white/60" : "text-[#6B6A67]"}`}>{feat}</span>
+                    <span className="text-xs mt-0.5 shrink-0 text-[#ADADAA]">—</span>
+                    <span className="text-sm text-[#6B6A67]">{feat}</span>
                   </li>
                 ))}
               </ul>
@@ -117,7 +113,7 @@ export default function Offer() {
               <Button
                 href="#contact"
                 size="md"
-                variant={plan.highlighted ? "inverse" : "primary"}
+                variant={plan.highlighted ? "primary" : "tertiary"}
               >
                 {plan.cta}
               </Button>

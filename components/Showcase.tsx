@@ -921,7 +921,7 @@ function ShowcaseCard({
 }
 
 const INTERVAL = 4500;
-const bgImage = "/allen14.jpg-preview3.jpg";
+const bgImage = "/paula-cooper-background.jpg";
 
 /* Step 1 — Branded admin interface */
 function AdminMock() {
