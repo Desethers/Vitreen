@@ -68,7 +68,7 @@ export default function OvrLandingPage() {
           className="max-w-2xl mx-auto"
         >
           <span className="inline-block text-xs uppercase tracking-[0.18em] text-[#6B6A67] mb-6 border border-[#E8E8E6] px-3 py-1 rounded-full">
-            OVR Studio · 29 €/mois
+            Viewing Room Studio · 29 €/mois
           </span>
           <h1 className="font-display text-[36px] md:text-[52px] text-[#111110] leading-tight tracking-tight mb-6">
             Vos sélections d&rsquo;œuvres prêtes à envoyer en 2 minutes
