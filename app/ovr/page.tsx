@@ -74,8 +74,8 @@ export default function OvrLandingPage() {
             Le viewing room de votre galerie
           </h1>
           <p className="text-[#6B6A67] text-lg leading-relaxed max-w-xl mx-auto mb-10">
-            Créez des présentations d&rsquo;œuvres personnalisées pour vos collecteurs.
-            PDF téléchargeable, lien de partage privé, mise en page libre.
+            Créez une sélection d&rsquo;œuvres, organisez-la librement, puis envoyez-la à vos collectionneurs via un lien privé ou un PDF.{" "}
+            Tout est prêt en quelques minutes, sans mise en page complexe ni outils externes.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button href="/ovr/editor" size="lg">
