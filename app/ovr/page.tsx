@@ -74,7 +74,7 @@ export default function OvrLandingPage() {
             Vos sélections d&rsquo;œuvres prêtes à envoyer en 2 minutes
           </h1>
           <p className="text-[#6B6A67] text-lg leading-relaxed max-w-xl mx-auto mb-10">
-            Fini les mises en page PDF interminables. Organisez vos œuvres librement dans un espace digital professionnel et partagez-les instantanément à vos contacts privilégiés.
+            Fini les mises en page PDF interminables. Organisez vos œuvres librement dans votre Viewing Room et partagez-les instantanément à vos contacts privilégiés.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button href="/ovr/editor" size="lg">
