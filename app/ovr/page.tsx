@@ -53,12 +53,15 @@ export default function OvrLandingPage() {
   const router = useRouter()
   const [loadingCheckout, setLoadingCheckout] = useState(false)
 
+  const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === 'true'
+
   const handleCta = async () => {
     if (!isSignedIn) {
       router.push('/sign-in?redirect_url=/ovr')
       return
     }
-    if (isPro) {
+    // If Stripe not yet configured, go straight to editor
+    if (!stripeConfigured || isPro) {
       router.push('/ovr/editor')
       return
     }
