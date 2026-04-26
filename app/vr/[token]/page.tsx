@@ -32,9 +32,7 @@ async function getVR(token: string): Promise<VR | null> {
 }
 
 function SlotView({ slot }: { slot: Slot }) {
-  const imgUrl = slot.image?.asset?._ref
-    ? urlFor(slot.image as Parameters<typeof urlFor>[0]).width(800).fit('max').url()
-    : null
+  const imgUrl = slot.image?.asset?._ref ? urlFor(slot.image as Parameters<typeof urlFor>[0]).width(800).fit('max').url() : null
   return (
     <div className="flex flex-col gap-3">
       <div className="bg-gray-50 aspect-[3/4] flex items-center justify-center overflow-hidden">
@@ -45,11 +43,7 @@ function SlotView({ slot }: { slot: Slot }) {
       </div>
       <div className="border-t border-gray-100 pt-3 space-y-0.5">
         {slot.artist && <p className="text-[10px] uppercase tracking-[0.15em] text-gray-400">{slot.artist}</p>}
-        {slot.title && (
-          <p className="font-serif text-sm text-gray-900">
-            <em>{slot.title}</em>{slot.year ? `, ${slot.year}` : ''}
-          </p>
-        )}
+        {slot.title && <p className="font-serif text-sm text-gray-900"><em>{slot.title}</em>{slot.year ? `, ${slot.year}` : ''}</p>}
         {slot.medium && <p className="text-[11px] text-gray-500">{slot.medium}</p>}
         {slot.dimensions && <p className="text-[11px] text-gray-500">{slot.dimensions}</p>}
         {slot.showPrice && slot.price && <p className="text-[11px] text-gray-900 mt-1">{slot.price}</p>}
@@ -63,16 +57,16 @@ function BlockView({ block }: { block: Block }) {
     return (
       <div className="py-20 px-8 text-center max-w-xl mx-auto">
         <p className="font-serif text-2xl text-gray-700 italic leading-relaxed mb-4">{block.quoteText}</p>
-        {block.quoteAuthor && (
-          <p className="text-xs text-gray-400 tracking-widest uppercase">{block.quoteAuthor}</p>
-        )}
+        {block.quoteAuthor && <p className="text-xs text-gray-400 tracking-widest uppercase">{block.quoteAuthor}</p>}
       </div>
     )
   }
+
   if (block.blockType === 'full') {
     const s = block.slots?.[0]
     return s ? <div className="max-w-lg mx-auto"><SlotView slot={s} /></div> : null
   }
+
   if (block.blockType === 'pair') {
     return (
       <div className="grid grid-cols-2 gap-8 max-w-3xl mx-auto">
@@ -80,6 +74,7 @@ function BlockView({ block }: { block: Block }) {
       </div>
     )
   }
+
   if (block.blockType === 'trio') {
     return (
       <div className="grid grid-cols-3 gap-6">
@@ -87,19 +82,19 @@ function BlockView({ block }: { block: Block }) {
       </div>
     )
   }
+
   if (block.blockType === 'side') {
     const s = block.slots?.[0]
     return (
       <div className="grid grid-cols-2 gap-12 items-center max-w-4xl mx-auto">
         <div className="max-w-xs mx-auto w-full">{s && <SlotView slot={s} />}</div>
         <div className="space-y-4">
-          {block.quoteText && (
-            <p className="font-serif text-lg text-gray-700 italic leading-relaxed">{block.quoteText}</p>
-          )}
+          {block.quoteText && <p className="font-serif text-lg text-gray-700 italic leading-relaxed">{block.quoteText}</p>}
         </div>
       </div>
     )
   }
+
   return null
 }
 
@@ -130,9 +125,7 @@ export default async function VRPage({ params }: { params: Promise<{ token: stri
         <h1 className="font-serif text-4xl text-gray-900 mb-6">Viewing Room</h1>
         {vr.recipientName && <p className="text-sm text-gray-500 mb-4">Pour {vr.recipientName}</p>}
         {vr.introText && (
-          <p className="text-sm text-gray-500 max-w-md mx-auto leading-relaxed mt-6 italic">
-            {vr.introText}
-          </p>
+          <p className="text-sm text-gray-500 max-w-md mx-auto leading-relaxed mt-6 italic">{vr.introText}</p>
         )}
       </div>
 
