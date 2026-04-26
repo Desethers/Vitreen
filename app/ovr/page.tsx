@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
@@ -46,6 +49,32 @@ const features = [
 ];
 
 export default function OvrLandingPage() {
+  const { isSignedIn, user } = useUser()
+  const router = useRouter()
+  const [loadingCheckout, setLoadingCheckout] = useState(false)
+
+  const isPro = user?.publicMetadata?.isPro === true
+
+  const handleCta = async () => {
+    if (!isSignedIn) {
+      router.push('/sign-in?redirect_url=/ovr')
+      return
+    }
+    if (isPro) {
+      router.push('/ovr/editor')
+      return
+    }
+    // Signed in but not Pro — create Stripe Checkout session
+    setLoadingCheckout(true)
+    try {
+      const res = await fetch('/api/stripe/checkout', { method: 'POST' })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+    } catch {
+      setLoadingCheckout(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Nav */}
@@ -54,8 +83,8 @@ export default function OvrLandingPage() {
           Vitreen
         </Link>
         <span className="text-sm text-[#6B6A67]">Viewing Room Studio</span>
-        <Button href="/ovr/editor" size="sm">
-          Commencer
+        <Button onClick={handleCta} size="sm" disabled={loadingCheckout}>
+          {isPro ? 'Éditeur' : 'Commencer'}
         </Button>
       </header>
 
@@ -77,8 +106,8 @@ export default function OvrLandingPage() {
             Fini les mises en page PDF interminables. Organisez vos œuvres librement dans votre Viewing Room et partagez-les instantanément à vos contacts privilégiés.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button href="/ovr/editor" size="lg">
-              Créer un viewing room
+            <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
+              {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'Commencer'}
             </Button>
             <Button href="/" variant="inverse" size="lg" className="border border-[#E8E8E6]">
               Retour à Vitreen
@@ -162,10 +191,10 @@ export default function OvrLandingPage() {
             Viewing rooms illimités. PDF illimités.<br />
             Liens de partage privés. Annulez à tout moment.
           </p>
-          <Button href="/ovr/editor" size="lg" className="w-full justify-center">
-            Commencer gratuitement
+          <Button onClick={handleCta} size="lg" className="w-full justify-center" disabled={loadingCheckout}>
+            {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'S\'abonner — 29 €/mois'}
           </Button>
-          <p className="text-[#ADADAA] text-xs mt-4">14 jours d&rsquo;essai gratuit · Sans carte bancaire</p>
+          <p className="text-[#ADADAA] text-xs mt-4">Annulez à tout moment · Paiement sécurisé par Stripe</p>
         </motion.div>
       </section>
 

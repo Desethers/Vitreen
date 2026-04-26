@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { useUser, UserButton } from '@clerk/nextjs'
 import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
 import ThemeToggle from '@/components/ovr/ThemeToggle'
 import type { Block, BlockType, BlockSlot, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
@@ -445,11 +446,11 @@ const TEMPLATES: {
   },
 ]
 
-function TemplatesSection({ onChange }: { onChange: (b: Block[]) => void }) {
+function TemplatesSection({ onChange, isPro }: { onChange: (b: Block[]) => void; isPro: boolean }) {
   const [applied, setApplied] = useState<string | null>(null)
 
   const applyTemplate = (tpl: typeof TEMPLATES[number]) => {
-    if (tpl.locked) return
+    if (tpl.locked && !isPro) return
     const newBlocks = tpl.blocks.map(t => makeBlock(t))
     onChange(newBlocks)
     setApplied(tpl.id)
@@ -458,38 +459,41 @@ function TemplatesSection({ onChange }: { onChange: (b: Block[]) => void }) {
 
   return (
     <div className="grid grid-cols-2 gap-2">
-      {TEMPLATES.map(tpl => (
-        <div key={tpl.id} className="relative">
-          <button
-            type="button"
-            onClick={() => applyTemplate(tpl)}
-            disabled={tpl.locked}
-            className={`w-full text-left p-3 rounded-xl border transition-all ${
-              tpl.locked
-                ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 opacity-50 cursor-not-allowed'
-                : applied === tpl.id
-                ? 'border-gray-900 dark:border-gray-100 bg-gray-50 dark:bg-gray-800'
-                : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-900'
-            }`}
-          >
-            <div className="mb-2.5 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              {tpl.thumb}
-            </div>
-            <p className="text-xs font-medium text-gray-800 dark:text-gray-200 leading-tight">
-              {applied === tpl.id ? '✓ Applied' : tpl.name}
-            </p>
-            <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 leading-tight">{tpl.description}</p>
-          </button>
-          {tpl.locked && (
-            <div className="absolute top-2 right-2 flex items-center gap-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full px-1.5 py-0.5">
-              <svg width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-              </svg>
-              <span className="text-[9px] text-gray-400 font-medium">Pro</span>
-            </div>
-          )}
-        </div>
-      ))}
+      {TEMPLATES.map(tpl => {
+        const isLocked = tpl.locked && !isPro
+        return (
+          <div key={tpl.id} className="relative">
+            <button
+              type="button"
+              onClick={() => applyTemplate(tpl)}
+              disabled={isLocked}
+              className={`w-full text-left p-3 rounded-xl border transition-all ${
+                isLocked
+                  ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 opacity-50 cursor-not-allowed'
+                  : applied === tpl.id
+                  ? 'border-gray-900 dark:border-gray-100 bg-gray-50 dark:bg-gray-800'
+                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-900'
+              }`}
+            >
+              <div className="mb-2.5 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                {tpl.thumb}
+              </div>
+              <p className="text-xs font-medium text-gray-800 dark:text-gray-200 leading-tight">
+                {applied === tpl.id ? '✓ Applied' : tpl.name}
+              </p>
+              <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 leading-tight">{tpl.description}</p>
+            </button>
+            {isLocked && (
+              <div className="absolute top-2 right-2 flex items-center gap-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full px-1.5 py-0.5">
+                <svg width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <span className="text-[9px] text-gray-400 font-medium">Pro</span>
+              </div>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }
@@ -904,6 +908,9 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
 const DEFAULT_SETUP: VrSetup = { galleryName: '', headline: '', title: '', recipientName: '', recipientEmail: '', introText: '' }
 
 export default function ViewingRoomApp() {
+  const { user } = useUser()
+  const isPro = user?.publicMetadata?.isPro === true
+
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP)
   const [images, setImages] = useState<ImageItem[]>([])
   const [blocks, setBlocks] = useState<Block[]>([])
@@ -937,6 +944,7 @@ export default function ViewingRoomApp() {
           <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room</span>
           <div className="flex items-center gap-2">
             <ThemeToggle />
+            <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
             <button
               onClick={() => setExportOpen(true)}
               disabled={blocks.length === 0}
@@ -962,7 +970,7 @@ export default function ViewingRoomApp() {
           </Accordion>
 
           <Accordion title="Templates" defaultOpen={false}>
-            <TemplatesSection onChange={saveBlocks} />
+            <TemplatesSection onChange={saveBlocks} isPro={isPro} />
           </Accordion>
         </div>
       </aside>
