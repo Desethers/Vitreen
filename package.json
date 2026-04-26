@@ -11,6 +11,7 @@
     "generate:variations": "tsx scripts/generate-variations.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.2.7",
     "@hello-pangea/dnd": "^18.0.1",
     "@sanity/client": "^7.22.0",
     "@sanity/image-url": "^2.1.1",
@@ -23,6 +24,7 @@
     "react-dom": "19.2.3",
     "resend": "^6.10.0",
     "sanity": "^5.22.0",
+    "stripe": "^22.1.0",
     "styled-components": "^6.4.1"
   },
   "devDependencies": {
