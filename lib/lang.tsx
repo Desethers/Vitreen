@@ -226,7 +226,7 @@ export const translations = {
       items: [
         {
           tier: "PORTFOLIO",
-          name: "Artist Studio",
+          name: "Viewing Room Studio",
           description:
             "Un studio digital pour artistes indépendants — présentez votre travail, gérez votre archive, connectez vos collectionneurs.",
           featuresHeading: "Inclus :",
@@ -580,7 +580,7 @@ export const translations = {
       items: [
         {
           tier: "PORTFOLIO",
-          name: "Artist Studio",
+          name: "Viewing Room Studio",
           description:
             "A refined studio for artists — present your work, manage your archive, connect with collectors.",
           featuresHeading: "Included:",
