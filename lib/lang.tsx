@@ -225,7 +225,7 @@ export const translations = {
       subtitle: "Recrutez votre partenaire de croissance digitale.",
       items: [
         {
-          tier: "PORTFOLIO",
+          tier: "Viewing Room",
           name: "Viewing Room Studio",
           description:
             "Créez un viewing room curated, partagez-le instantanément, et engagez la conversation avec vos collectionneurs.",
@@ -579,7 +579,7 @@ export const translations = {
       subtitle: "Hire your digital growth partner.",
       items: [
         {
-          tier: "PORTFOLIO",
+          tier: "Viewing Room",
           name: "Viewing Room Studio",
           description:
             "Create a curated viewing room, share it instantly, and start conversations with collectors.",
