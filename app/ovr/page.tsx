@@ -68,7 +68,7 @@ export default function OvrLandingPage() {
           className="max-w-2xl mx-auto"
         >
           <span className="inline-block text-xs uppercase tracking-[0.18em] text-[#6B6A67] mb-6 border border-[#E8E8E6] px-3 py-1 rounded-full">
-            OVR Studio · 29 $/mois
+            OVR Studio · 29 €/mois
           </span>
           <h1 className="font-display text-[36px] md:text-[52px] text-[#111110] leading-tight tracking-tight mb-6">
             Vos sélections d&rsquo;œuvres prêtes à envoyer en 2 minutes
@@ -156,7 +156,7 @@ export default function OvrLandingPage() {
           <p className="text-[#6B6A67] text-xs uppercase tracking-[0.18em] mb-3">Abonnement mensuel</p>
           <div className="flex items-end justify-center gap-1 mb-2">
             <span className="font-display text-[48px] text-[#111110] leading-none">29</span>
-            <span className="text-[#6B6A67] text-lg mb-2">$/mois</span>
+            <span className="text-[#6B6A67] text-lg mb-2">€/mois</span>
           </div>
           <p className="text-[#6B6A67] text-sm mb-8">
             Viewing rooms illimités. PDF illimités.<br />
