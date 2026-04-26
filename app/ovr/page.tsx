@@ -71,7 +71,7 @@ export default function OvrLandingPage() {
             OVR Studio · 29 $/mois
           </span>
           <h1 className="font-display text-[36px] md:text-[52px] text-[#111110] leading-tight tracking-tight mb-6">
-            Le viewing room de votre galerie
+            Vos sélections d&rsquo;œuvres prêtes à envoyer en 2 minutes
           </h1>
           <p className="text-[#6B6A67] text-lg leading-relaxed max-w-xl mx-auto mb-10">
             Créez une sélection d&rsquo;œuvres, organisez-la librement, puis envoyez-la à vos collectionneurs via un lien privé ou un PDF.{" "}
