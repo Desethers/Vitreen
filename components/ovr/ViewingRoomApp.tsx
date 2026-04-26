@@ -1,7 +1,13 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useUser, UserButton } from '@clerk/nextjs'
+import dynamic from 'next/dynamic'
+import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
 import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
+
+// Dynamically imported so @clerk/nextjs is never loaded when Clerk is disabled
+const UserButton = clerkEnabled
+  ? dynamic(() => import('@clerk/nextjs').then(m => ({ default: m.UserButton })), { ssr: false })
+  : () => null
 import ThemeToggle from '@/components/ovr/ThemeToggle'
 import type { Block, BlockType, BlockSlot, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
 import { makeBlock, BLOCK_CONFIGS } from '@/lib/ovr/buildTypes'
@@ -908,8 +914,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
 const DEFAULT_SETUP: VrSetup = { galleryName: '', headline: '', title: '', recipientName: '', recipientEmail: '', introText: '' }
 
 export default function ViewingRoomApp() {
-  const { user } = useUser()
-  const isPro = user?.publicMetadata?.isPro === true
+  const { isPro } = useOptionalUser()
 
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP)
   const [images, setImages] = useState<ImageItem[]>([])

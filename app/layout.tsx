@@ -10,6 +10,15 @@ const inter = Inter({
   display: "swap",
 });
 
+const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ?? ''
+const clerkEnabled = clerkKey.startsWith('pk_') && !clerkKey.includes('REPLACE_ME')
+
+async function MaybeClerkProvider({ children }: { children: React.ReactNode }) {
+  if (!clerkEnabled) return <>{children}</>
+  const { ClerkProvider } = await import('@clerk/nextjs')
+  return <ClerkProvider>{children}</ClerkProvider>
+}
+
 export const metadata: Metadata = {
   title: "Vitreen — Sites web pour galeries d'art contemporain",
   description:
@@ -27,9 +36,11 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" fetchPriority="high" />
       </head>
       <body className="antialiased bg-white font-sans">
-        <LangProvider>
-          {children}
-        </LangProvider>
+        <MaybeClerkProvider>
+          <LangProvider>
+            {children}
+          </LangProvider>
+        </MaybeClerkProvider>
         <Analytics />
       </body>
     </html>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useOptionalUser } from "@/lib/useOptionalUser";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
@@ -49,11 +49,9 @@ const features = [
 ];
 
 export default function OvrLandingPage() {
-  const { isSignedIn, user } = useUser()
+  const { isSignedIn, isPro } = useOptionalUser()
   const router = useRouter()
   const [loadingCheckout, setLoadingCheckout] = useState(false)
-
-  const isPro = user?.publicMetadata?.isPro === true
 
   const handleCta = async () => {
     if (!isSignedIn) {
