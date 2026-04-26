@@ -53,7 +53,7 @@ export default function OvrLandingPage() {
         <Link href="/" className="font-display text-base tracking-tight text-[#111110]">
           Vitreen
         </Link>
-        <span className="text-sm text-[#6B6A67]">OVR Studio</span>
+        <span className="text-sm text-[#6B6A67]">Viewing Room Studio</span>
         <Button href="/ovr/editor" size="sm">
           Commencer
         </Button>
