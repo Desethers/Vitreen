@@ -74,8 +74,7 @@ export default function OvrLandingPage() {
             Vos sélections d&rsquo;œuvres prêtes à envoyer en 2 minutes
           </h1>
           <p className="text-[#6B6A67] text-lg leading-relaxed max-w-xl mx-auto mb-10">
-            Créez une sélection d&rsquo;œuvres, organisez-la librement, puis envoyez-la à vos collectionneurs via un lien privé ou un PDF.{" "}
-            Tout est prêt en quelques minutes, sans mise en page complexe ni outils externes.
+            Fini les mises en page PDF interminables. Organisez vos œuvres librement dans un espace digital professionnel et partagez-les instantanément à vos contacts privilégiés.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button href="/ovr/editor" size="lg">
