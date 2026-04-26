@@ -106,12 +106,52 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const IMG_FIELDS = [
-  { key: 'title',      placeholder: 'Artwork title' },
-  { key: 'artist',     placeholder: 'Artist' },
-  { key: 'year',       placeholder: 'Year' },
-  { key: 'medium',     placeholder: 'Medium' },
-  { key: 'dimensions', placeholder: 'Dimensions' },
+  { key: 'title',  placeholder: 'Artwork title' },
+  { key: 'artist', placeholder: 'Artist' },
+  { key: 'year',   placeholder: 'Year' },
+  { key: 'medium', placeholder: 'Medium' },
 ]
+
+// Parse "W × H cm …" → [w, h] or ['','']
+function parseDimCm(s: string): [string, string] {
+  const m = s.match(/^(\d+(?:[.,]\d+)?)\s*[×x]\s*(\d+(?:[.,]\d+)?)/)
+  return m ? [m[1], m[2]] : ['', '']
+}
+
+function DimensionsInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [w, h] = parseDimCm(value)
+  const toIn = (cm: string) => cm ? (parseFloat(cm.replace(',', '.')) / 2.54).toFixed(1) : ''
+  const build = (nw: string, nh: string) => {
+    if (!nw && !nh) return ''
+    const cm = `${nw || '0'} × ${nh || '0'} cm`
+    const wIn = toIn(nw); const hIn = toIn(nh)
+    return wIn && hIn ? `${cm} (${wIn} × ${hIn} in)` : cm
+  }
+  return (
+    <div>
+      <p className={smlabel}>Dimensions</p>
+      <div className="flex items-center gap-1">
+        <input
+          type="number" min="0" value={w} placeholder="W"
+          onChange={e => onChange(build(e.target.value, h))}
+          className={`${input} [appearance:textfield] min-w-0`}
+        />
+        <span className="text-gray-400 text-xs shrink-0">×</span>
+        <input
+          type="number" min="0" value={h} placeholder="H"
+          onChange={e => onChange(build(w, e.target.value))}
+          className={`${input} [appearance:textfield] min-w-0`}
+        />
+        <span className="text-gray-400 text-xs shrink-0">cm</span>
+      </div>
+      {(w || h) && (
+        <p className="text-[10px] text-gray-400 mt-1">
+          {toIn(w) || '–'} × {toIn(h) || '–'} in
+        </p>
+      )}
+    </div>
+  )
+}
 
 function ImageRow({ item, onUpdate, onDelete }: {
   item: ImageItem; onUpdate: (u: ImageItem) => void; onDelete: () => void
@@ -181,6 +221,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
                 className={input} />
             </div>
           ))}
+          <DimensionsInput value={item.dimensions} onChange={v => set('dimensions', v)} />
           <div>
             <p className={smlabel}>Price</p>
             <input value={item.price} onChange={e => set('price', e.target.value)} placeholder="4,500 €" className={input} />
@@ -473,7 +514,7 @@ function TemplatesSection({ onChange, isPro }: { onChange: (b: Block[]) => void;
               type="button"
               onClick={() => applyTemplate(tpl)}
               disabled={isLocked}
-              className={`w-full text-left p-3 rounded-xl border transition-all ${
+              className={`w-full text-left p-3 rounded-xl border transition-all flex flex-col ${
                 isLocked
                   ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 opacity-50 cursor-not-allowed'
                   : applied === tpl.id
@@ -481,8 +522,8 @@ function TemplatesSection({ onChange, isPro }: { onChange: (b: Block[]) => void;
                   : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-900'
               }`}
             >
-              <div className="mb-2.5 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                {tpl.thumb}
+              <div className="mb-2.5 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg h-24 flex items-center justify-center">
+                <div className="w-full">{tpl.thumb}</div>
               </div>
               <p className="text-xs font-medium text-gray-800 dark:text-gray-200 leading-tight">
                 {applied === tpl.id ? '✓ Applied' : tpl.name}
@@ -607,7 +648,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { image
       <div className="border-t border-gray-100 dark:border-gray-800 pt-2 space-y-0.5">
         {img.artist && <p className="text-[9px] uppercase tracking-[0.15em] text-gray-400">{img.artist}</p>}
         {img.title && (
-          <p className="font-serif text-xs text-gray-900 dark:text-gray-100">
+          <p className="font-sans text-xs text-gray-900 dark:text-gray-100">
             <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
           </p>
         )}
@@ -628,7 +669,7 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   if (block.type === 'quote') {
     return (
       <div className="py-12 px-6 text-center max-w-lg mx-auto">
-        <p className="font-serif text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
+        <p className="font-sans text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
           {block.quoteText || <span className="text-gray-300">Quote…</span>}
         </p>
         {block.quoteAuthor && <p className="text-[10px] text-gray-400 tracking-widest uppercase">{block.quoteAuthor}</p>}
@@ -661,7 +702,7 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
             <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">{img.artist}</p>
           )}
           {img?.title && (
-            <p className="font-serif text-sm text-gray-700 dark:text-gray-300 italic">{img.title}{img.year ? `, b. ${img.year}` : ''}</p>
+            <p className="font-sans text-sm text-gray-700 dark:text-gray-300 italic">{img.title}{img.year ? `, b. ${img.year}` : ''}</p>
           )}
           {block.quoteText && (
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{block.quoteText}</p>
@@ -678,7 +719,7 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
     return (
       <div className="space-y-8">
         <div className="text-center max-w-lg mx-auto px-4">
-          <p className="font-serif text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
+          <p className="font-sans text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
             {block.quoteText || <span className="text-gray-300">Quote…</span>}
           </p>
           {block.quoteAuthor && <p className="text-[10px] text-gray-400 tracking-widest uppercase">{block.quoteAuthor}</p>}
@@ -714,7 +755,7 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
         </div>
         <div>
           {block.quoteText
-            ? <p className="font-serif text-base text-gray-700 dark:text-gray-300 italic leading-relaxed">{block.quoteText}</p>
+            ? <p className="font-sans text-base text-gray-700 dark:text-gray-300 italic leading-relaxed">{block.quoteText}</p>
             : <p className="text-xs text-gray-300 italic">Accompanying text…</p>}
         </div>
       </div>
@@ -749,19 +790,19 @@ function ViewingRoomPreview({ setup, images, blocks }: {
     <div className="min-h-full bg-gray-50 dark:bg-[#111111] pl-[422px] pr-8 py-8">
       <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
         {/* Cover */}
-        <div className="py-16 px-10 text-center border-b border-gray-100 dark:border-gray-800">
+        <div className="py-16 px-10 text-left border-b border-gray-100 dark:border-gray-800">
           {setup.galleryName && (
             <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 mb-6">{setup.galleryName}</p>
           )}
-          <h1 className="font-serif text-2xl text-gray-900 dark:text-gray-100 mb-2">{setup.headline || 'Viewing Room'}</h1>
+          <h1 className="font-sans text-[24px] leading-tight text-gray-900 dark:text-gray-100 mb-1">{setup.headline || 'Viewing Room'}</h1>
           {setup.title && (
-            <p className="text-xs text-gray-400 dark:text-gray-500 mb-4">{setup.title}</p>
+            <p className="text-[24px] leading-tight text-gray-400 dark:text-gray-500 mb-4">{setup.title}</p>
           )}
           {setup.recipientName && (
             <p className="text-xs text-gray-500 mb-3">For {setup.recipientName}</p>
           )}
           {setup.introText && (
-            <p className="text-xs text-gray-500 max-w-sm mx-auto leading-relaxed mt-4 italic">{setup.introText}</p>
+            <p className="text-xs text-gray-500 leading-relaxed mt-4 italic">{setup.introText}</p>
           )}
         </div>
 
@@ -831,7 +872,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
-          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export</h2>
+          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
           <button type="button" onClick={onClose}
             className="w-7 h-7 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -914,7 +955,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
 const DEFAULT_SETUP: VrSetup = { galleryName: '', headline: '', title: '', recipientName: '', recipientEmail: '', introText: '' }
 
 export default function ViewingRoomApp() {
-  const { isPro } = useOptionalUser()
+  const { isPro, isSignedIn } = useOptionalUser()
 
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP)
   const [images, setImages] = useState<ImageItem[]>([])
@@ -936,24 +977,31 @@ export default function ViewingRoomApp() {
   return (
     <div className="h-screen relative overflow-hidden bg-gray-50 dark:bg-[#111111]">
 
+      {/* ── Top-right auth button ───────────────────────────────────────────── */}
+      <div className="absolute top-4 right-5 z-20 flex items-center gap-2">
+        {isSignedIn && clerkEnabled
+          ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
+          : <a href="/sign-in" className="text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors bg-white/80 dark:bg-[#1c1c1c]/80 backdrop-blur px-3 py-1.5 rounded-[5px] border border-gray-200 dark:border-gray-700">Se connecter</a>
+        }
+      </div>
+
       {/* ── Preview — full screen background ───────────────────────────────── */}
-      <main className="absolute inset-0 overflow-y-auto">
+      <main className="absolute inset-0 overflow-y-auto pt-16">
         <ViewingRoomPreview setup={setup} images={images} blocks={blocks} />
       </main>
 
       {/* ── Side panel — floating overlay ──────────────────────────────────── */}
-      <aside className="absolute left-3 top-3 bottom-3 w-[390px] flex flex-col bg-white dark:bg-[#1c1c1c] rounded-2xl border border-gray-200/70 dark:border-gray-800 shadow-lg overflow-hidden z-10">
+      <aside className="absolute left-3 top-3 bottom-3 w-[390px] flex flex-col bg-white dark:bg-[#1c1c1c] rounded-[15px] border border-gray-200/70 dark:border-gray-800 shadow-lg overflow-hidden z-10">
 
         {/* Panel header — Viewing Room + actions */}
         <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
           <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room</span>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
             <button
               onClick={() => setExportOpen(true)}
               disabled={blocks.length === 0}
-              className="px-3.5 py-1.5 rounded-full bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-xs font-medium hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-30 transition-colors"
+              className="px-3.5 py-1.5 rounded-[5px] bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-xs font-medium hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-30 transition-colors"
             >
               Export →
             </button>
@@ -974,7 +1022,7 @@ export default function ViewingRoomApp() {
             <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
           </Accordion>
 
-          <Accordion title="Templates" defaultOpen={false}>
+          <Accordion title="Templates" defaultOpen={true}>
             <TemplatesSection onChange={saveBlocks} isPro={isPro} />
           </Accordion>
         </div>

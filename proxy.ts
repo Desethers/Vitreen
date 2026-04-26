@@ -1,10 +1,17 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { type NextRequest, NextResponse, type NextFetchEvent } from 'next/server'
 
-const isProtectedRoute = createRouteMatcher(['/ovr/editor(.*)'])
+const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
 
-export const proxy = clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect()
-})
+export async function proxy(req: NextRequest, event: NextFetchEvent) {
+  if (!clerkEnabled) return NextResponse.next()
+
+  const { clerkMiddleware, createRouteMatcher } = await import('@clerk/nextjs/server')
+  const isProtectedRoute = createRouteMatcher(['/ovr/editor(.*)'])
+  const handler = clerkMiddleware(async (auth, request) => {
+    if (isProtectedRoute(request)) await auth.protect()
+  })
+  return handler(req, event)
+}
 
 export const proxyConfig = {
   matcher: [

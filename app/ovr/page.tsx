@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useOptionalUser } from "@/lib/useOptionalUser";
+import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
@@ -56,7 +56,7 @@ export default function OvrLandingPage() {
   const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === 'true'
 
   const handleCta = async () => {
-    if (!isSignedIn) {
+    if (clerkEnabled && !isSignedIn) {
       router.push('/sign-in?redirect_url=/ovr')
       return
     }
