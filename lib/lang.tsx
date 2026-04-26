@@ -228,7 +228,7 @@ export const translations = {
           tier: "PORTFOLIO",
           name: "Viewing Room Studio",
           description:
-            "Un studio digital pour artistes indépendants — présentez votre travail, gérez votre archive, connectez vos collectionneurs.",
+            "Créez un viewing room curated, partagez-le instantanément, et engagez la conversation avec vos collectionneurs.",
           featuresHeading: "Inclus :",
           features: [
             "Viewing rooms instantanés (mobile-first, collector-ready)",
@@ -582,7 +582,7 @@ export const translations = {
           tier: "PORTFOLIO",
           name: "Viewing Room Studio",
           description:
-            "A refined studio for artists — present your work, manage your archive, connect with collectors.",
+            "Create a curated viewing room, share it instantly, and start conversations with collectors.",
           featuresHeading: "Included:",
           features: [
             "Instant viewing rooms (mobile-first, collector-ready)",
