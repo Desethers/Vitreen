@@ -981,7 +981,7 @@ export default function ViewingRoomApp() {
       <div className="absolute top-4 right-5 z-20 flex items-center gap-2">
         {isSignedIn && clerkEnabled
           ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-          : <a href="/sign-in" className="text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors bg-white/80 dark:bg-[#1c1c1c]/80 backdrop-blur px-3 py-1.5 rounded-[5px] border border-gray-200 dark:border-gray-700">Se connecter</a>
+          : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px]">Se connecter</a>
         }
       </div>
 
@@ -1023,7 +1023,7 @@ export default function ViewingRoomApp() {
       <button
         onClick={() => setExportOpen(true)}
         disabled={blocks.length === 0}
-        className="fixed bottom-6 right-6 z-20 text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors bg-white/80 dark:bg-[#1c1c1c]/80 backdrop-blur px-3 py-1.5 rounded-[5px] border border-gray-200 dark:border-gray-700 disabled:opacity-30 shadow-lg"
+        className="cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg"
       >
         Export →
       </button>
