@@ -1023,7 +1023,7 @@ export default function ViewingRoomApp() {
       <button
         onClick={() => setExportOpen(true)}
         disabled={blocks.length === 0}
-        className="fixed bottom-6 right-6 z-20 px-3 py-1.5 rounded-[5px] bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-xs font-medium hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-30 transition-colors shadow-lg"
+        className="fixed bottom-6 right-6 z-20 text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors bg-white/80 dark:bg-[#1c1c1c]/80 backdrop-blur px-3 py-1.5 rounded-[5px] border border-gray-200 dark:border-gray-700 disabled:opacity-30 shadow-lg"
       >
         Export →
       </button>
