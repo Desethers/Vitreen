@@ -974,9 +974,9 @@ function SubscriptionModal({ reason, onClose }: {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Blurred backdrop */}
-      <div className="absolute inset-0 backdrop-blur-sm bg-white/40 dark:bg-black/40" onClick={onClose} />
+    <div className="fixed inset-0 lg:left-[406px] z-50 flex items-center justify-center">
+      {/* Blurred backdrop — preview area only */}
+      <div className="absolute inset-0 backdrop-blur-md bg-white/50 dark:bg-black/50" onClick={onClose} />
 
       {/* Modal */}
       <div className="relative bg-white dark:bg-[#1c1c1c] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
@@ -1120,12 +1120,11 @@ export default function ViewingRoomApp() {
 
       {/* ── Side panel — floating overlay (desktop) / full screen (mobile) ── */}
       <aside className={[
-        // mobile: full screen when edit tab active
-        "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-10",
+        "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-10 transition-[filter] duration-300",
         "max-lg:absolute max-lg:inset-0 max-lg:pb-16",
         mobileTab === 'edit' ? "max-lg:flex" : "max-lg:hidden",
-        // desktop: floating card on the left
         "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[15px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
+        paywallOpen ? "blur-sm pointer-events-none" : "",
       ].join(" ")}>
 
         {/* Panel header */}
