@@ -961,6 +961,7 @@ export default function ViewingRoomApp() {
   const [images, setImages] = useState<ImageItem[]>([])
   const [blocks, setBlocks] = useState<Block[]>([])
   const [exportOpen, setExportOpen] = useState(false)
+  const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
 
   useEffect(() => {
     try {
@@ -977,26 +978,48 @@ export default function ViewingRoomApp() {
   return (
     <div className="h-screen relative overflow-hidden bg-gray-50 dark:bg-[#111111]">
 
-      {/* ── Top-right auth button ───────────────────────────────────────────── */}
-      <div className="absolute top-4 right-5 z-20 flex items-center gap-2">
+      {/* ── Top-right auth button — desktop only ───────────────────────────── */}
+      <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
         {isSignedIn && clerkEnabled
           ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
           : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px]">Se connecter</a>
         }
       </div>
 
-      {/* ── Preview — full screen background ───────────────────────────────── */}
-      <main className="absolute inset-0 overflow-y-auto pt-16">
+      {/* ── Preview — full screen background (desktop) / tab view (mobile) ── */}
+      <main className={[
+        "absolute inset-0 overflow-y-auto",
+        "lg:pt-16",
+        // mobile: only visible on preview tab, add bottom padding for tab bar
+        "max-lg:pb-16",
+        mobileTab === 'preview' ? "max-lg:block" : "max-lg:hidden",
+      ].join(" ")}>
         <ViewingRoomPreview setup={setup} images={images} blocks={blocks} />
       </main>
 
-      {/* ── Side panel — floating overlay ──────────────────────────────────── */}
-      <aside className="absolute left-3 top-3 bottom-3 w-[390px] flex flex-col bg-white dark:bg-[#1c1c1c] rounded-[15px] border border-gray-200/70 dark:border-gray-800 shadow-lg overflow-hidden z-10">
+      {/* ── Side panel — floating overlay (desktop) / full screen (mobile) ── */}
+      <aside className={[
+        // mobile: full screen when edit tab active
+        "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-10",
+        "max-lg:absolute max-lg:inset-0 max-lg:pb-16",
+        mobileTab === 'edit' ? "max-lg:flex" : "max-lg:hidden",
+        // desktop: floating card on the left
+        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[15px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
+      ].join(" ")}>
 
-        {/* Panel header — Viewing Room + actions */}
+        {/* Panel header */}
         <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
           <span className="text-sm font-medium text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            {/* Mobile: auth button inline in header */}
+            <div className="lg:hidden">
+              {isSignedIn && clerkEnabled
+                ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
+                : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px]">Se connecter</a>
+              }
+            </div>
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* Scrollable accordion sections */}
@@ -1019,11 +1042,48 @@ export default function ViewingRoomApp() {
         </div>
       </aside>
 
-      {/* Export button — fixed bottom right */}
+      {/* ── Mobile bottom tab bar ───────────────────────────────────────────── */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-30 bg-white dark:bg-[#1c1c1c] border-t border-gray-100 dark:border-gray-800 flex">
+        <button
+          onClick={() => setMobileTab('edit')}
+          className={[
+            "flex-1 flex flex-col items-center justify-center gap-1 py-3 text-[11px] transition-colors",
+            mobileTab === 'edit'
+              ? "text-gray-900 dark:text-gray-100 font-medium"
+              : "text-gray-400 dark:text-gray-600",
+          ].join(" ")}
+        >
+          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487z" />
+          </svg>
+          Edit
+        </button>
+        <button
+          onClick={() => setMobileTab('preview')}
+          className={[
+            "flex-1 flex flex-col items-center justify-center gap-1 py-3 text-[11px] transition-colors",
+            mobileTab === 'preview'
+              ? "text-gray-900 dark:text-gray-100 font-medium"
+              : "text-gray-400 dark:text-gray-600",
+          ].join(" ")}
+        >
+          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+            <path d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Preview
+        </button>
+      </nav>
+
+      {/* ── Export button — fixed bottom right (desktop) / hidden on mobile edit, shown on preview ── */}
       <button
         onClick={() => setExportOpen(true)}
         disabled={blocks.length === 0}
-        className="group cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg flex items-center gap-1.5"
+        className={[
+          "group cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg flex items-center gap-1.5",
+          // on mobile, only show on preview tab
+          mobileTab === 'edit' ? "max-lg:hidden" : "max-lg:bottom-20",
+        ].join(" ")}
       >
         Export
         <span className="relative inline-flex items-center w-3 h-3 overflow-hidden">
