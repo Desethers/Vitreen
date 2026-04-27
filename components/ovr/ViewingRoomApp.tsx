@@ -996,16 +996,7 @@ export default function ViewingRoomApp() {
         {/* Panel header — Viewing Room + actions */}
         <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
           <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <button
-              onClick={() => setExportOpen(true)}
-              disabled={blocks.length === 0}
-              className="px-3.5 py-1.5 rounded-[5px] bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-xs font-medium hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-30 transition-colors"
-            >
-              Export →
-            </button>
-          </div>
+          <ThemeToggle />
         </div>
 
         {/* Scrollable accordion sections */}
@@ -1027,6 +1018,15 @@ export default function ViewingRoomApp() {
           </Accordion>
         </div>
       </aside>
+
+      {/* Export button — fixed bottom right */}
+      <button
+        onClick={() => setExportOpen(true)}
+        disabled={blocks.length === 0}
+        className="fixed bottom-6 right-6 z-20 px-5 py-2.5 rounded-[8px] bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm font-medium hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-30 transition-colors shadow-lg"
+      >
+        Export →
+      </button>
 
       <ExportPanel
         open={exportOpen}
