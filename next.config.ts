@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
       {
         source: "/",
         has: [{ type: "host", value: "room.vitreen.art" }],
-        destination: "/ovr",
+        destination: "/room",
       },
     ];
   },
