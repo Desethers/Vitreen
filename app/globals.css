@@ -16,7 +16,9 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-serif: var(--font-inter), "Inter", system-ui, sans-serif;
   --font-display: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-inter), "Inter", system-ui, sans-serif;
 
   --radius: 4px;
   --radius-xs: 4px;
