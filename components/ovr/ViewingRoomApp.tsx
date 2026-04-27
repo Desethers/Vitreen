@@ -1023,9 +1023,13 @@ export default function ViewingRoomApp() {
       <button
         onClick={() => setExportOpen(true)}
         disabled={blocks.length === 0}
-        className="cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg"
+        className="group cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg flex items-center gap-1.5"
       >
-        Export →
+        Export
+        <span className="relative inline-flex items-center w-3 h-3 overflow-hidden">
+          <span className="absolute inset-0 flex items-center justify-center transition-all duration-200 group-hover:translate-x-3 group-hover:opacity-0">›</span>
+          <span className="absolute inset-0 flex items-center justify-center transition-all duration-200 -translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100">→</span>
+        </span>
       </button>
 
       <ExportPanel
