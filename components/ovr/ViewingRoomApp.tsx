@@ -493,11 +493,11 @@ const TEMPLATES: {
   },
 ]
 
-function TemplatesSection({ onChange, isPro }: { onChange: (b: Block[]) => void; isPro: boolean }) {
+function TemplatesSection({ onChange, isPro, onPaywall }: { onChange: (b: Block[]) => void; isPro: boolean; onPaywall: () => void }) {
   const [applied, setApplied] = useState<string | null>(null)
 
   const applyTemplate = (tpl: typeof TEMPLATES[number]) => {
-    if (tpl.locked && !isPro) return
+    if (tpl.locked && !isPro) { onPaywall(); return }
     const newBlocks = tpl.blocks.map(t => makeBlock(t))
     onChange(newBlocks)
     setApplied(tpl.id)
@@ -513,10 +513,9 @@ function TemplatesSection({ onChange, isPro }: { onChange: (b: Block[]) => void;
             <button
               type="button"
               onClick={() => applyTemplate(tpl)}
-              disabled={isLocked}
               className={`w-full text-left p-3 rounded-xl border transition-all flex flex-col ${
                 isLocked
-                  ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 opacity-50 cursor-not-allowed'
+                  ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 cursor-pointer hover:border-gray-300'
                   : applied === tpl.id
                   ? 'border-gray-900 dark:border-gray-100 bg-gray-50 dark:bg-gray-800'
                   : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-900'
@@ -949,6 +948,105 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// SUBSCRIPTION MODAL
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function SubscriptionModal({ reason, onClose }: {
+  reason: 'template' | 'export_limit'
+  onClose: () => void
+}) {
+  const [loading, setLoading] = useState(false)
+  const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === 'true'
+
+  const handleSubscribe = async () => {
+    if (!stripeConfigured) {
+      onClose()
+      return
+    }
+    setLoading(true)
+    try {
+      const res = await fetch('/api/stripe/checkout', { method: 'POST' })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
+    } catch {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Blurred backdrop */}
+      <div className="absolute inset-0 backdrop-blur-sm bg-white/40 dark:bg-black/40" onClick={onClose} />
+
+      {/* Modal */}
+      <div className="relative bg-white dark:bg-[#1c1c1c] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+        {/* Close */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center rounded-full border border-gray-200 dark:border-gray-700 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+        >
+          <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="px-7 pt-8 pb-7">
+          {/* Icon */}
+          <div className="w-10 h-10 rounded-xl bg-gray-900 dark:bg-white flex items-center justify-center mb-5">
+            <svg width="18" height="18" fill="none" stroke="white" className="dark:stroke-gray-900" strokeWidth="1.5" viewBox="0 0 24 24">
+              <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+          </div>
+
+          <p className="text-[10px] uppercase tracking-[0.18em] text-gray-400 mb-2">
+            {reason === 'export_limit' ? 'Free limit reached' : 'Pro feature'}
+          </p>
+          <h2 className="text-xl font-medium text-gray-900 dark:text-gray-100 mb-2">
+            {reason === 'export_limit'
+              ? 'You\'ve used your 3 free exports'
+              : 'This template is Pro'}
+          </h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-6">
+            {reason === 'export_limit'
+              ? 'Upgrade to continue exporting — unlimited PDF, unlimited share links.'
+              : 'Access all templates, unlimited exports and private share links.'}
+          </p>
+
+          {/* Price */}
+          <div className="flex items-end gap-1 mb-6">
+            <span className="text-4xl font-medium text-gray-900 dark:text-gray-100 leading-none">$19</span>
+            <span className="text-sm text-gray-400 mb-0.5">/ month</span>
+          </div>
+
+          {/* Features */}
+          <ul className="space-y-2 mb-7">
+            {['Unlimited exports (PDF + share links)', 'All Pro templates', 'Cancel anytime'].map(f => (
+              <li key={f} className="flex items-center gap-2.5 text-sm text-gray-600 dark:text-gray-400">
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="shrink-0 text-gray-900 dark:text-gray-100">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <button
+            onClick={handleSubscribe}
+            disabled={loading}
+            className="w-full cursor-pointer bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm font-medium py-3 rounded-[8px] hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors disabled:opacity-50"
+          >
+            {loading ? 'Redirecting…' : 'Subscribe — $19 / month'}
+          </button>
+          <p className="text-center text-[11px] text-gray-400 mt-3">Secure payment · Cancel anytime</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // MAIN APP
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -962,6 +1060,29 @@ export default function ViewingRoomApp() {
   const [blocks, setBlocks] = useState<Block[]>([])
   const [exportOpen, setExportOpen] = useState(false)
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
+  const [paywallOpen, setPaywallOpen] = useState(false)
+  const [paywallReason, setPaywallReason] = useState<'template' | 'export_limit'>('template')
+  const [exportCount, setExportCount] = useState(() => {
+    try { return parseInt(localStorage.getItem('vr_export_count') ?? '0', 10) } catch { return 0 }
+  })
+
+  const FREE_EXPORT_LIMIT = 3
+
+  const openPaywall = (reason: 'template' | 'export_limit') => {
+    setPaywallReason(reason)
+    setPaywallOpen(true)
+  }
+
+  const handleExportClick = () => {
+    if (!isPro && exportCount >= FREE_EXPORT_LIMIT) {
+      openPaywall('export_limit')
+      return
+    }
+    const next = exportCount + 1
+    setExportCount(next)
+    try { localStorage.setItem('vr_export_count', String(next)) } catch { /* ignore */ }
+    setExportOpen(true)
+  }
 
   useEffect(() => {
     try {
@@ -1037,7 +1158,7 @@ export default function ViewingRoomApp() {
           </Accordion>
 
           <Accordion title="Templates" defaultOpen={true}>
-            <TemplatesSection onChange={saveBlocks} isPro={isPro} />
+            <TemplatesSection onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
       </aside>
@@ -1077,7 +1198,7 @@ export default function ViewingRoomApp() {
 
       {/* ── Export button — fixed bottom right (desktop) / hidden on mobile edit, shown on preview ── */}
       <button
-        onClick={() => setExportOpen(true)}
+        onClick={handleExportClick}
         disabled={blocks.length === 0}
         className={[
           "group cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg flex items-center gap-1.5",
@@ -1099,6 +1220,13 @@ export default function ViewingRoomApp() {
         images={images}
         setup={setup}
       />
+
+      {paywallOpen && (
+        <SubscriptionModal
+          reason={paywallReason}
+          onClose={() => setPaywallOpen(false)}
+        />
+      )}
     </div>
   )
 }
