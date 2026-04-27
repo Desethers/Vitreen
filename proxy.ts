@@ -1,21 +1,17 @@
-import { type NextRequest, NextResponse, type NextFetchEvent } from 'next/server'
+import { NextRequest, NextResponse } from "next/server";
 
-const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
+export function proxy(request: NextRequest) {
+  const host = request.headers.get("host") ?? "";
 
-export async function proxy(req: NextRequest, event: NextFetchEvent) {
-  if (!clerkEnabled) return NextResponse.next()
+  if (host === "room.vitreen.art" && request.nextUrl.pathname === "/") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/room";
+    return NextResponse.rewrite(url);
+  }
 
-  const { clerkMiddleware, createRouteMatcher } = await import('@clerk/nextjs/server')
-  const isProtectedRoute = createRouteMatcher(['/ovr/editor(.*)'])
-  const handler = clerkMiddleware(async (auth, request) => {
-    if (isProtectedRoute(request)) await auth.protect()
-  })
-  return handler(req, event)
+  return NextResponse.next();
 }
 
-export const proxyConfig = {
-  matcher: [
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    '/(api|trpc)(.*)',
-  ],
-}
+export const config = {
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|icon.png).*)"],
+};
