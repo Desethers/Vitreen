@@ -995,7 +995,7 @@ export default function ViewingRoomApp() {
 
         {/* Panel header — Viewing Room + actions */}
         <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
-          <span className="text-sm font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
+          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
           <ThemeToggle />
         </div>
 
