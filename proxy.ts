@@ -6,10 +6,16 @@ const isProtected = createRouteMatcher(['/ovr/editor(.*)'])
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
   const host = request.headers.get("host") ?? "";
-  if (host === "room.vitreen.art" && request.nextUrl.pathname === "/") {
+  if (host === "room.vitreen.art") {
     const url = request.nextUrl.clone();
-    url.pathname = "/room";
-    return NextResponse.rewrite(url);
+    if (request.nextUrl.pathname === "/editor") {
+      url.pathname = "/ovr/editor";
+      return NextResponse.rewrite(url);
+    }
+    if (request.nextUrl.pathname === "/") {
+      url.pathname = "/room";
+      return NextResponse.rewrite(url);
+    }
   }
   return null;
 }
