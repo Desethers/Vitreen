@@ -14,7 +14,7 @@ import { makeBlock, BLOCK_CONFIGS } from '@/lib/ovr/buildTypes'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
-const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-2.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
+const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
 const label = 'block text-sm font-normal text-gray-900 dark:text-gray-100 mb-1.5'
 const smlabel = 'block text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-1.5'
 
@@ -95,7 +95,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
       <Field name="Introduction message">
         <textarea value={setup.introText} onChange={e => set('introText', e.target.value)}
           placeholder="Here is a selection of artworks that I have specially chosen for you…"
-          rows={4} className={input + ' resize-none'} />
+          rows={6} className={input + ' resize-none'} />
       </Field>
     </div>
   )
@@ -121,32 +121,36 @@ function parseDimCm(s: string): [string, string] {
 function DimensionsInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [w, h] = parseDimCm(value)
   const toIn = (cm: string) => cm ? (parseFloat(cm.replace(',', '.')) / 2.54).toFixed(1) : ''
-  const build = (nw: string, nh: string) => {
-    if (!nw && !nh) return ''
+  const [raw, setRaw] = useState(w && h ? `${w} × ${h}` : w || h ? `${w || h}` : '')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const txt = e.target.value
+    setRaw(txt)
+    const parts = txt.split(/[x×\s]+/).map(s => s.trim()).filter(Boolean)
+    const nw = parts[0] || ''; const nh = parts[1] || ''
+    if (!nw && !nh) { onChange(''); return }
     const cm = `${nw || '0'} × ${nh || '0'} cm`
     const wIn = toIn(nw); const hIn = toIn(nh)
-    return wIn && hIn ? `${cm} (${wIn} × ${hIn} in)` : cm
+    onChange(wIn && hIn ? `${cm} (${wIn} × ${hIn} in)` : cm)
   }
+
+  const parts = raw.split(/[x×\s]+/).map(s => s.trim()).filter(Boolean)
+  const rw = parts[0] || ''; const rh = parts[1] || ''
+
   return (
     <div>
       <p className={smlabel}>Dimensions</p>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1.5">
         <input
-          type="number" min="0" value={w} placeholder="W"
-          onChange={e => onChange(build(e.target.value, h))}
-          className={`${input} [appearance:textfield] min-w-0`}
-        />
-        <span className="text-gray-400 text-xs shrink-0">×</span>
-        <input
-          type="number" min="0" value={h} placeholder="H"
-          onChange={e => onChange(build(w, e.target.value))}
-          className={`${input} [appearance:textfield] min-w-0`}
+          type="text" value={raw} placeholder="W × H"
+          onChange={handleChange}
+          className={`${input} min-w-0`}
         />
         <span className="text-gray-400 text-xs shrink-0">cm</span>
       </div>
-      {(w || h) && (
+      {(rw || rh) && (
         <p className="text-[10px] text-gray-400 mt-1">
-          {toIn(w) || '–'} × {toIn(h) || '–'} in
+          {toIn(rw) || '–'} × {toIn(rh) || '–'} in
         </p>
       )}
     </div>
@@ -167,7 +171,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
 
   return (
     <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-      <div className="flex items-center gap-3 px-3.5 py-2.5">
+      <div className="flex items-center gap-3 px-3.5 py-1.5">
         {/* Thumb */}
         <div
           className="w-9 h-9 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 cursor-pointer"
@@ -266,7 +270,7 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
         onDragLeave={() => setOver(false)}
         onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
         onClick={() => ref.current?.click()}
-        className={`border-2 border-dashed rounded-xl flex flex-col items-center justify-center py-10 cursor-pointer transition-colors ${
+        className={`border-2 border-dashed rounded-xl flex flex-col items-center justify-center py-6 cursor-pointer transition-colors ${
           over ? 'border-gray-400 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
         }`}
       >
@@ -288,7 +292,7 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
               onDelete={() => onChange(images.filter(x => x.id !== img.id))} />
           ))}
           <button type="button" onClick={() => ref.current?.click()}
-            className="w-full border border-dashed border-gray-200 dark:border-gray-700 rounded-xl py-2.5 text-sm text-gray-400 hover:border-gray-400 hover:text-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-300 transition-colors flex items-center justify-center gap-1.5">
+            className="w-full border border-dashed border-gray-200 dark:border-gray-700 rounded-xl py-1.5 text-sm text-gray-400 hover:border-gray-400 hover:text-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-300 transition-colors flex items-center justify-center gap-1.5">
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
@@ -362,7 +366,7 @@ function BlockCard({ block, images, expanded, dragHandleProps, onExpand, onDelet
 
   return (
     <div className={`border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden transition-shadow ${expanded ? 'shadow-sm' : ''}`}>
-      <div className="flex items-center gap-2.5 px-3.5 py-2.5 bg-white dark:bg-gray-900">
+      <div className="flex items-center gap-2.5 px-3.5 py-1.5 bg-white dark:bg-gray-900">
         <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 cursor-grab active:cursor-grabbing touch-none">
           <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
             <circle cx="4" cy="3" r="1.2"/><circle cx="4" cy="7" r="1.2"/><circle cx="4" cy="11" r="1.2"/>
@@ -416,7 +420,7 @@ function BlockCard({ block, images, expanded, dragHandleProps, onExpand, onDelet
               )}
             </div>
           )}
-          {block.type === 'pair' && (
+          {(block.type === 'pair' || block.type === 'full') && (
             <label className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 cursor-pointer select-none">
               <input type="checkbox" checked={block.showInquire}
                 onChange={e => onUpdate({ ...block, showInquire: e.target.checked })}
@@ -587,7 +591,7 @@ function LayoutSection({ images, blocks, onChange }: {
       <div className="flex flex-wrap gap-1.5">
         {BLOCK_TYPES.map(t => (
           <button key={t} type="button" onClick={() => addBlock(t)}
-            className="px-2.5 py-1 rounded-full text-xs border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-gray-400 hover:text-gray-900 dark:hover:border-gray-500 dark:hover:text-gray-100 bg-white dark:bg-gray-900 transition-colors">
+            className="px-3.5 py-1.5 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:border-gray-400 hover:text-gray-900 dark:hover:border-gray-500 dark:hover:text-gray-100 bg-white dark:bg-gray-900 transition-colors">
             + {BLOCK_CONFIGS[t].label}
           </button>
         ))}
@@ -639,27 +643,34 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { image
     <div className={`bg-gray-100 dark:bg-gray-800 ${aspect}`} />
   )
   return (
-    <div className="flex flex-col gap-2">
-      <div className={`${aspect} overflow-hidden`}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={img.dataUrl} alt={img.title || ''} className={`w-full h-full ${cover ? 'object-cover' : 'object-contain'}`} />
-      </div>
-      <div className="border-t border-gray-100 dark:border-gray-800 pt-2 space-y-0.5">
-        {img.artist && <p className="text-[9px] uppercase tracking-[0.15em] text-gray-400">{img.artist}</p>}
-        {img.title && (
-          <p className="font-sans text-xs text-gray-900 dark:text-gray-100">
-            <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
-          </p>
-        )}
-        {img.medium && <p className="text-[10px] text-gray-500">{img.medium}</p>}
-        {img.dimensions && <p className="text-[10px] text-gray-500">{img.dimensions}</p>}
-        {img.showPrice && img.price && <p className="text-[10px] text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>}
-      </div>
-      {showInquire && (
-        <button className="mt-2 w-full border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase py-2 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors">
-          Inquire
-        </button>
+    <div className="flex flex-col gap-0">
+      {cover ? (
+        <div className={`${aspect} overflow-hidden`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img.dataUrl} alt={img.title || ''} className="w-full h-full object-cover" />
+        </div>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={img.dataUrl} alt={img.title || ''} className="w-full h-auto" />
       )}
+      <div className="pt-[10px] flex items-start justify-between gap-4">
+        <div className="space-y-0.5">
+          {img.artist && <p className="text-[9px] uppercase tracking-[0.15em] text-gray-400">{img.artist}</p>}
+          {img.title && (
+            <p className="font-sans text-xs text-gray-900 dark:text-gray-100">
+              <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
+            </p>
+          )}
+          {img.medium && <p className="text-[10px] text-gray-500">{img.medium}</p>}
+          {img.dimensions && <p className="text-[10px] text-gray-500">{img.dimensions}</p>}
+          {img.showPrice && img.price && <p className="text-[10px] text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>}
+        </div>
+        {showInquire && (
+          <button className="shrink-0 border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-4 py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors">
+            Inquire
+          </button>
+        )}
+      </div>
     </div>
   )
 }
@@ -679,7 +690,7 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   if (block.type === 'full') {
     return (
       <div className="w-full">
-        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape />
+        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={block.showInquire} />
       </div>
     )
   }
@@ -923,7 +934,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
             <div className="flex gap-2 pt-1">
               {whatsappHref && (
                 <a href={whatsappHref} target="_blank" rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#25D366] text-white text-sm hover:bg-[#1ebe5d] transition-colors">
+                  className="flex-1 flex items-center justify-center gap-2 py-1.5 rounded-full bg-[#25D366] text-white text-sm hover:bg-[#1ebe5d] transition-colors">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                   </svg>
@@ -932,7 +943,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
               )}
               {emailHref && (
                 <a href={emailHref}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 transition-colors">
+                  className="flex-1 flex items-center justify-center gap-2 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 transition-colors">
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                   </svg>
@@ -1103,7 +1114,7 @@ export default function ViewingRoomApp() {
       <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
         {isSignedIn && clerkEnabled
           ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-          : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px]">Se connecter</a>
+          : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
         }
       </div>
 
@@ -1120,11 +1131,10 @@ export default function ViewingRoomApp() {
 
       {/* ── Side panel — floating overlay (desktop) / full screen (mobile) ── */}
       <aside className={[
-        "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-10 transition-[filter] duration-300",
+        "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-20",
         "max-lg:absolute max-lg:inset-0 max-lg:pb-16",
         mobileTab === 'edit' ? "max-lg:flex" : "max-lg:hidden",
         "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[15px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
-        paywallOpen ? "blur-sm pointer-events-none" : "",
       ].join(" ")}>
 
         {/* Panel header */}
@@ -1135,7 +1145,7 @@ export default function ViewingRoomApp() {
             <div className="lg:hidden">
               {isSignedIn && clerkEnabled
                 ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-                : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px]">Se connecter</a>
+                : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
               }
             </div>
             <ThemeToggle />
@@ -1200,7 +1210,7 @@ export default function ViewingRoomApp() {
         onClick={handleExportClick}
         disabled={blocks.length === 0}
         className={[
-          "group cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-3 py-1.5 rounded-[5px] disabled:opacity-30 shadow-lg flex items-center gap-1.5",
+          "group cursor-pointer fixed bottom-6 right-6 z-20 text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px] disabled:opacity-30 shadow-lg flex items-center gap-1.5",
           // on mobile, only show on preview tab
           mobileTab === 'edit' ? "max-lg:hidden" : "max-lg:bottom-20",
         ].join(" ")}
