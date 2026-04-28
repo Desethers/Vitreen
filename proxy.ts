@@ -2,7 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from "next/server";
 
 const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
-const isProtected = createRouteMatcher(['/ovr/editor(.*)'])
+const isEditorRoute = createRouteMatcher(['/ovr/editor(.*)'])
 
 export const proxy = clerkEnabled
   ? clerkMiddleware(async (auth, request) => {
@@ -11,12 +11,12 @@ export const proxy = clerkEnabled
       if (host === "room.vitreen.art") {
         const { pathname } = request.nextUrl;
 
-        // Block internal routes leaking — redirect /ovr/* to /editor
+        // Clean URL: block internal /ovr/* routes, redirect to /editor
         if (pathname.startsWith("/ovr/")) {
           return NextResponse.redirect(new URL("/editor", request.url));
         }
 
-        // Protect /editor — check auth BEFORE rewriting
+        // Protect /editor, then rewrite to internal route
         if (pathname === "/editor") {
           await auth.protect();
           const url = request.nextUrl.clone();
@@ -24,6 +24,7 @@ export const proxy = clerkEnabled
           return NextResponse.rewrite(url);
         }
 
+        // Landing page
         if (pathname === "/") {
           const url = request.nextUrl.clone();
           url.pathname = "/room";
@@ -31,13 +32,8 @@ export const proxy = clerkEnabled
         }
       }
 
-      // On vitreen.art : redirect /ovr/editor → room.vitreen.art/editor (after Clerk sign-in)
-      if (host === "vitreen.art" && request.nextUrl.pathname.startsWith("/ovr/editor")) {
-        return NextResponse.redirect("https://room.vitreen.art/editor");
-      }
-
-      // Protect /ovr/editor on vitreen.art (direct access)
-      if (isProtected(request)) await auth.protect();
+      // vitreen.art: protect /ovr/editor if accessed directly
+      if (isEditorRoute(request)) await auth.protect();
     })
   : function proxy(request: NextRequest) {
       const host = request.headers.get("host") ?? "";
