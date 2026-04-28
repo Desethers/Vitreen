@@ -4,42 +4,60 @@ import { NextRequest, NextResponse } from "next/server";
 const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
 const isProtected = createRouteMatcher(['/ovr/editor(.*)'])
 
-function applyHostRewrite(request: NextRequest): NextResponse | null {
-  const host = request.headers.get("host") ?? "";
-
-  // On room.vitreen.art : rewrite paths to internal routes
-  if (host === "room.vitreen.art") {
-    const url = request.nextUrl.clone();
-    // Block internal route leaking — redirect /ovr/editor to /editor
-    if (request.nextUrl.pathname.startsWith("/ovr/")) {
-      return NextResponse.redirect(new URL("/editor", request.url));
-    }
-    if (request.nextUrl.pathname === "/editor") {
-      url.pathname = "/ovr/editor";
-      return NextResponse.rewrite(url);
-    }
-    if (request.nextUrl.pathname === "/") {
-      url.pathname = "/room";
-      return NextResponse.rewrite(url);
-    }
-  }
-
-  // On vitreen.art : redirect /ovr/editor to room.vitreen.art/editor (after Clerk sign-in)
-  if (host === "vitreen.art" && request.nextUrl.pathname.startsWith("/ovr/editor")) {
-    return NextResponse.redirect("https://room.vitreen.art/editor");
-  }
-
-  return null;
-}
-
 export const proxy = clerkEnabled
   ? clerkMiddleware(async (auth, request) => {
-      const rewrite = applyHostRewrite(request);
-      if (rewrite) return rewrite;
+      const host = request.headers.get("host") ?? "";
+
+      if (host === "room.vitreen.art") {
+        const { pathname } = request.nextUrl;
+
+        // Block internal routes leaking — redirect /ovr/* to /editor
+        if (pathname.startsWith("/ovr/")) {
+          return NextResponse.redirect(new URL("/editor", request.url));
+        }
+
+        // Protect /editor — check auth BEFORE rewriting
+        if (pathname === "/editor") {
+          await auth.protect();
+          const url = request.nextUrl.clone();
+          url.pathname = "/ovr/editor";
+          return NextResponse.rewrite(url);
+        }
+
+        if (pathname === "/") {
+          const url = request.nextUrl.clone();
+          url.pathname = "/room";
+          return NextResponse.rewrite(url);
+        }
+      }
+
+      // On vitreen.art : redirect /ovr/editor → room.vitreen.art/editor (after Clerk sign-in)
+      if (host === "vitreen.art" && request.nextUrl.pathname.startsWith("/ovr/editor")) {
+        return NextResponse.redirect("https://room.vitreen.art/editor");
+      }
+
+      // Protect /ovr/editor on vitreen.art (direct access)
       if (isProtected(request)) await auth.protect();
     })
   : function proxy(request: NextRequest) {
-      return applyHostRewrite(request) ?? NextResponse.next();
+      const host = request.headers.get("host") ?? "";
+      if (host === "room.vitreen.art") {
+        const { pathname } = request.nextUrl;
+        if (pathname.startsWith("/ovr/")) {
+          return NextResponse.redirect(new URL("/editor", request.url));
+        }
+        if (pathname === "/editor") {
+          const url = request.nextUrl.clone();
+          url.pathname = "/ovr/editor";
+          return NextResponse.rewrite(url);
+        }
+        if (pathname === "/") {
+          const url = request.nextUrl.clone();
+          url.pathname = "/room";
+          return NextResponse.rewrite(url);
+        }
+      }
+      return NextResponse.next();
     };
 
 export const config = {
