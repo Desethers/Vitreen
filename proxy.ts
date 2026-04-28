@@ -20,11 +20,6 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
     }
   }
 
-  // On vitreen.art : redirect /ovr/editor to room.vitreen.art/editor
-  if (host === "vitreen.art" && request.nextUrl.pathname.startsWith("/ovr/editor")) {
-    return NextResponse.redirect("https://room.vitreen.art/editor");
-  }
-
   return null;
 }
 
