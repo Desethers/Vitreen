@@ -103,7 +103,7 @@ export default function RoomLandingPage() {
             Fini les mises en page PDF interminables. Organisez vos œuvres librement dans votre Viewing Room et partagez-les instantanément à vos contacts privilégiés.
           </p>
           <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
-            {loadingCheckout ? "Redirection..." : isPro ? "Ouvrir l'éditeur" : "Commencer"}
+            {loadingCheckout ? "Redirection..." : isPro ? "Ouvrir l'éditeur" : "Essayer gratuitement"}
           </Button>
         </motion.div>
       </section>
