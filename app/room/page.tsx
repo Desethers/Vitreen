@@ -5,6 +5,7 @@ import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -56,11 +57,11 @@ export default function RoomLandingPage() {
 
   const handleCta = async () => {
     if (clerkEnabled && !isSignedIn) {
-      router.push("/sign-in?redirect_url=/ovr/editor");
+      window.location.href = "https://vitreen.art/sign-in?redirect_url=/ovr/editor";
       return;
     }
     if (!stripeConfigured || isPro) {
-      router.push("/ovr/editor");
+      window.location.href = "https://vitreen.art/ovr/editor";
       return;
     }
     setLoadingCheckout(true);
@@ -77,10 +78,10 @@ export default function RoomLandingPage() {
     <div className="min-h-screen bg-white">
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur border-b border-[#E8E8E6]">
-        <span className="font-display text-base tracking-tight text-[#111110]">OVR Studio</span>
+        <Link href="/" className="font-display text-base tracking-tight text-[#111110]">Vitreen</Link>
         <span className="text-sm text-[#6B6A67]">Viewing Room Studio</span>
         <Button onClick={handleCta} size="sm" disabled={loadingCheckout}>
-          {isPro ? "Éditeur" : "Commencer"}
+          {isPro ? "Éditeur" : "Essayer gratuitement"}
         </Button>
       </header>
 
