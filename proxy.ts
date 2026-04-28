@@ -6,6 +6,8 @@ const isProtected = createRouteMatcher(['/ovr/editor(.*)'])
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
   const host = request.headers.get("host") ?? "";
+
+  // On room.vitreen.art : rewrite paths to internal routes
   if (host === "room.vitreen.art") {
     const url = request.nextUrl.clone();
     if (request.nextUrl.pathname === "/editor") {
@@ -17,6 +19,12 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
       return NextResponse.rewrite(url);
     }
   }
+
+  // On vitreen.art : redirect /ovr/editor to room.vitreen.art/editor
+  if (host === "vitreen.art" && request.nextUrl.pathname.startsWith("/ovr/editor")) {
+    return NextResponse.redirect("https://room.vitreen.art/editor");
+  }
+
   return null;
 }
 
