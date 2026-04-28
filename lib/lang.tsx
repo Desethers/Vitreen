@@ -17,7 +17,6 @@ export const translations = {
         { label: "Offres", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
-        { label: "OVR Studio", href: "/ovr" },
       ],
       cta: "Réserver une démo",
       modal: {
@@ -374,7 +373,6 @@ export const translations = {
         { label: "Offers", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
-        { label: "OVR Studio", href: "/ovr" },
       ],
       cta: "Book a demo",
       modal: {

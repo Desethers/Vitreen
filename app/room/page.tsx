@@ -57,11 +57,11 @@ export default function RoomLandingPage() {
 
   const handleCta = async () => {
     if (clerkEnabled && !isSignedIn) {
-      window.location.href = "https://vitreen.art/sign-in?redirect_url=/ovr/editor";
+      window.location.href = "https://vitreen.art/sign-in?redirect_url=https://room.vitreen.art/editor";
       return;
     }
     if (!stripeConfigured || isPro) {
-      window.location.href = "https://vitreen.art/ovr/editor";
+      window.location.href = "https://room.vitreen.art/editor";
       return;
     }
     setLoadingCheckout(true);
