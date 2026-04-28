@@ -10,6 +10,10 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
   // On room.vitreen.art : rewrite paths to internal routes
   if (host === "room.vitreen.art") {
     const url = request.nextUrl.clone();
+    // Block internal route leaking — redirect /ovr/editor to /editor
+    if (request.nextUrl.pathname.startsWith("/ovr/")) {
+      return NextResponse.redirect(new URL("/editor", request.url));
+    }
     if (request.nextUrl.pathname === "/editor") {
       url.pathname = "/ovr/editor";
       return NextResponse.rewrite(url);
