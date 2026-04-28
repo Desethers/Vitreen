@@ -1114,7 +1114,7 @@ export default function ViewingRoomApp() {
       <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
         {isSignedIn && clerkEnabled
           ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-          : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
+          : <a href="https://vitreen.art/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
         }
       </div>
 
@@ -1145,7 +1145,7 @@ export default function ViewingRoomApp() {
             <div className="lg:hidden">
               {isSignedIn && clerkEnabled
                 ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-                : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
+                : <a href="https://vitreen.art/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
               }
             </div>
             <ThemeToggle />
