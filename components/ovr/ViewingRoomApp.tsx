@@ -1139,7 +1139,7 @@ export default function ViewingRoomApp() {
 
         {/* Panel header */}
         <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-gray-100 dark:border-gray-800">
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
+          <span className="text-base font-medium text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
           <div className="flex items-center gap-3">
             {/* Mobile: auth button inline in header */}
             <div className="lg:hidden">

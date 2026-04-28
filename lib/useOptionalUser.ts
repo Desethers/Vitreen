@@ -1,5 +1,7 @@
 'use client'
 
+import { useUser } from '@clerk/nextjs'
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type OptionalUser = { isSignedIn: boolean; user: any | null; isPro: boolean }
 
@@ -10,8 +12,6 @@ function useNoopUser(): OptionalUser {
 }
 
 function useClerkUser(): OptionalUser {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-explicit-any
-  const { useUser } = require('@clerk/nextjs') as any
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { isSignedIn, user } = useUser()
   return { isSignedIn: isSignedIn ?? false, user: user ?? null, isPro: user?.publicMetadata?.isPro === true }

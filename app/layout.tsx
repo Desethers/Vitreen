@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { LangProvider } from "@/components/LangProvider";
+import { ClerkClientProvider } from "@/components/ClerkClientProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,14 +10,6 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
-
-const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
-
-async function MaybeClerk({ children }: { children: React.ReactNode }) {
-  if (!clerkEnabled) return <>{children}</>
-  const { ClerkProvider } = await import('@clerk/nextjs')
-  return <ClerkProvider>{children}</ClerkProvider>
-}
 
 export const metadata: Metadata = {
   title: "Vitreen — Sites web pour galeries d'art contemporain",
@@ -35,11 +28,11 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" fetchPriority="high" />
       </head>
       <body className="antialiased bg-white font-sans">
-        <MaybeClerk>
+        <ClerkClientProvider>
           <LangProvider>
             {children}
           </LangProvider>
-        </MaybeClerk>
+        </ClerkClientProvider>
         <Analytics />
       </body>
     </html>
