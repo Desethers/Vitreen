@@ -102,9 +102,17 @@ export default function RoomLandingPage() {
           <p className="text-[#6B6A67] text-lg leading-relaxed max-w-xl mx-auto mb-10">
             Fini les mises en page PDF interminables. Organisez vos œuvres librement dans votre Viewing Room et partagez-les instantanément à vos contacts privilégiés.
           </p>
-          <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
-            {loadingCheckout ? "Redirection..." : isPro ? "Ouvrir l'éditeur" : "Essayer gratuitement"}
-          </Button>
+          <div className="flex items-center justify-center gap-3">
+            <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
+              {loadingCheckout ? "Redirection..." : isPro ? "Ouvrir l'éditeur" : "Essayer gratuitement"}
+            </Button>
+            <Link
+              href="https://vitreen.art"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-[#E8E8E6] text-[#111110] text-sm font-medium hover:bg-[#F5F5F3] transition-colors"
+            >
+              Retour à Vitreen
+            </Link>
+          </div>
         </motion.div>
       </section>
 
@@ -192,7 +200,7 @@ export default function RoomLandingPage() {
 
       {/* Footer */}
       <footer className="border-t border-[#E8E8E6] py-8 px-4 md:px-6 flex items-center justify-center text-xs text-[#ADADAA]">
-        <p>OVR Studio</p>
+        <p>Vitreen · Viewing Room Studio</p>
       </footer>
     </div>
   );
