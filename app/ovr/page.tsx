@@ -85,7 +85,7 @@ export default function OvrLandingPage() {
         </Link>
         <span className="text-sm text-[#6B6A67]">Viewing Room Studio</span>
         <Button onClick={handleCta} size="sm" disabled={loadingCheckout}>
-          {isPro ? 'Éditeur' : 'Commencer'}
+          {isPro ? 'Éditeur' : 'Essayer gratuitement'}
         </Button>
       </header>
 
@@ -98,7 +98,7 @@ export default function OvrLandingPage() {
           className="max-w-2xl mx-auto"
         >
           <span className="inline-block text-xs uppercase tracking-[0.18em] text-[#6B6A67] mb-6 border border-[#E8E8E6] px-3 py-1 rounded-full">
-            Viewing Room Studio · 29 €/mois
+            Viewing Room Studio · 19 €/mois
           </span>
           <h1 className="font-display text-[36px] md:text-[52px] text-[#111110] leading-tight tracking-tight mb-6">
             Vos sélections d&rsquo;œuvres prêtes à envoyer en 2 minutes
@@ -108,7 +108,7 @@ export default function OvrLandingPage() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
-              {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'Commencer'}
+              {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'Essayer gratuitement'}
             </Button>
             <Button href="/" variant="inverse" size="lg" className="border border-[#E8E8E6]">
               Retour à Vitreen
@@ -185,7 +185,7 @@ export default function OvrLandingPage() {
         >
           <p className="text-[#6B6A67] text-xs uppercase tracking-[0.18em] mb-3">Abonnement mensuel</p>
           <div className="flex items-end justify-center gap-1 mb-2">
-            <span className="font-display text-[48px] text-[#111110] leading-none">29</span>
+            <span className="font-display text-[48px] text-[#111110] leading-none">19</span>
             <span className="text-[#6B6A67] text-lg mb-2">€/mois</span>
           </div>
           <p className="text-[#6B6A67] text-sm mb-8">
@@ -193,7 +193,7 @@ export default function OvrLandingPage() {
             Liens de partage privés. Annulez à tout moment.
           </p>
           <Button onClick={handleCta} size="lg" className="w-full justify-center" disabled={loadingCheckout}>
-            {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'S\'abonner — 29 €/mois'}
+            {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'S\'abonner — 19 €/mois'}
           </Button>
           <p className="text-[#ADADAA] text-xs mt-4">Annulez à tout moment · Paiement sécurisé par Stripe</p>
         </motion.div>
