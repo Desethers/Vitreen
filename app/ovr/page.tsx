@@ -55,17 +55,23 @@ export default function OvrLandingPage() {
 
   const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === 'true'
 
-  const handleCta = async () => {
+  const goToEditor = () => {
+    window.location.href = 'https://room.vitreen.art/editor'
+  }
+
+  const handleSubscribe = async () => {
+    if (isPro) {
+      goToEditor()
+      return
+    }
     if (clerkEnabled && !isSignedIn) {
       router.push('/sign-in?redirect_url=/ovr')
       return
     }
-    // If Stripe not yet configured, go straight to editor
-    if (!stripeConfigured || isPro) {
-      window.location.href = 'https://room.vitreen.art/editor'
+    if (!stripeConfigured) {
+      goToEditor()
       return
     }
-    // Signed in but not Pro — create Stripe Checkout session
     setLoadingCheckout(true)
     try {
       const res = await fetch('/api/stripe/checkout', { method: 'POST' })
@@ -84,7 +90,7 @@ export default function OvrLandingPage() {
           Vitreen
         </Link>
         <span className="text-sm text-[#6B6A67]">Viewing Room Studio</span>
-        <Button onClick={handleCta} size="sm" disabled={loadingCheckout}>
+        <Button onClick={goToEditor} size="sm">
           {isPro ? 'Éditeur' : 'Essayer gratuitement'}
         </Button>
       </header>
@@ -107,8 +113,8 @@ export default function OvrLandingPage() {
             Fini les mises en page PDF interminables. Organisez vos œuvres librement dans votre Viewing Room et partagez-les instantanément à vos contacts privilégiés.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
-              {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'Essayer gratuitement'}
+            <Button onClick={goToEditor} size="lg">
+              {isPro ? 'Ouvrir l\'éditeur' : 'Essayer gratuitement'}
             </Button>
             <Button href="/" variant="inverse" size="lg" className="border border-[#E8E8E6]">
               Retour à Vitreen
@@ -192,7 +198,7 @@ export default function OvrLandingPage() {
             Viewing rooms illimités. PDF illimités.<br />
             Liens de partage privés. Annulez à tout moment.
           </p>
-          <Button onClick={handleCta} size="lg" className="w-full justify-center" disabled={loadingCheckout}>
+          <Button onClick={handleSubscribe} size="lg" className="w-full justify-center" disabled={loadingCheckout}>
             {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'S\'abonner — 19 €/mois'}
           </Button>
           <p className="text-[#ADADAA] text-xs mt-4">Annulez à tout moment · Paiement sécurisé par Stripe</p>
