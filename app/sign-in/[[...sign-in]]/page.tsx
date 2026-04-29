@@ -2,22 +2,13 @@ import { redirect } from 'next/navigation'
 
 const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
 
-export default async function SignInPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ redirect_url?: string }>
-}) {
+export default async function SignInPage() {
   if (!clerkEnabled) redirect('/')
 
-  const { redirect_url } = await searchParams
   const { SignIn } = await import('@clerk/nextjs')
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F5F5F3]">
-      <SignIn
-        routing="path"
-        path="/sign-in"
-        forceRedirectUrl={redirect_url ?? 'https://room.vitreen.art/editor'}
-      />
+      <SignIn routing="path" path="/sign-in" forceRedirectUrl="/editor" />
     </div>
   )
 }
