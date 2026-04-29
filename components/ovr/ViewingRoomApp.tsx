@@ -498,12 +498,32 @@ const TEMPLATES: {
   },
 ]
 
-function TemplatesSection({ onChange, isPro, onPaywall }: { onChange: (b: Block[]) => void; isPro: boolean; onPaywall: () => void }) {
+function TemplatesSection({ blocks, onChange, isPro, onPaywall }: { blocks: Block[]; onChange: (b: Block[]) => void; isPro: boolean; onPaywall: () => void }) {
   const [applied, setApplied] = useState<string | null>(null)
 
   const applyTemplate = (tpl: typeof TEMPLATES[number]) => {
     if (tpl.locked && !isPro) { onPaywall(); return }
-    const newBlocks = tpl.blocks.map(t => makeBlock(t))
+    // Collect existing imageIds (in slot order) and quote content from current blocks
+    const existingImageIds = blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => id !== null))
+    const existingQuote = blocks.find(b => b.quoteText)?.quoteText ?? ''
+    const existingAuthor = blocks.find(b => b.quoteAuthor)?.quoteAuthor ?? ''
+
+    let imageCursor = 0
+    let quoteUsed = false
+    const newBlocks = tpl.blocks.map(t => {
+      const block = makeBlock(t)
+      block.slots = block.slots.map(() => {
+        const id = existingImageIds[imageCursor] ?? null
+        imageCursor++
+        return { imageId: id }
+      })
+      if (BLOCK_CONFIGS[t].hasQuote && !quoteUsed && (existingQuote || existingAuthor)) {
+        block.quoteText = existingQuote
+        block.quoteAuthor = existingAuthor
+        quoteUsed = true
+      }
+      return block
+    })
     onChange(newBlocks)
     setApplied(tpl.id)
     setTimeout(() => setApplied(null), 1500)
@@ -1175,7 +1195,7 @@ export default function ViewingRoomApp() {
           </Accordion>
 
           <Accordion title="Templates" defaultOpen={true}>
-            <TemplatesSection onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
+            <TemplatesSection blocks={blocks} onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
       </aside>
