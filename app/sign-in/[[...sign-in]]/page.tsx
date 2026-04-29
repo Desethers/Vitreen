@@ -16,7 +16,7 @@ export default async function SignInPage({
       <SignIn
         routing="path"
         path="/sign-in"
-        fallbackRedirectUrl={redirect_url ?? 'https://room.vitreen.art/editor'}
+        forceRedirectUrl={redirect_url ?? 'https://room.vitreen.art/editor'}
       />
     </div>
   )
