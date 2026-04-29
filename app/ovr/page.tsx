@@ -123,34 +123,99 @@ export default function OvrLandingPage() {
         </motion.div>
       </section>
 
-      {/* Preview image placeholder */}
+      {/* Editor mockup */}
       <section className="px-4 md:px-6 pb-20">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease, delay: 0.15 }}
-          className="max-w-4xl mx-auto rounded-lg overflow-hidden border border-[#E8E8E6] shadow-[0_8px_40px_rgba(0,0,0,0.08)] bg-[#F5F5F3]"
+          className="max-w-5xl mx-auto rounded-xl overflow-hidden border border-[#E8E8E6] shadow-[0_24px_80px_rgba(0,0,0,0.08)] bg-white"
         >
-          <div className="h-12 bg-white border-b border-[#E8E8E6] flex items-center px-4 gap-2">
+          {/* Browser chrome */}
+          <div className="h-9 bg-[#FAFAF9] border-b border-[#E8E8E6] flex items-center px-4 gap-3">
             <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full bg-[#E8E8E6]" />
-              <div className="w-3 h-3 rounded-full bg-[#E8E8E6]" />
-              <div className="w-3 h-3 rounded-full bg-[#E8E8E6]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#E8E8E6]" />
             </div>
             <div className="flex-1 flex justify-center">
-              <div className="flex items-center gap-2 text-xs text-[#6B6A67]">
-                <span className="px-3 py-1 bg-[#111110] text-white text-[10px] uppercase tracking-widest">Infos</span>
-                <span className="text-[#ADADAA]">→</span>
-                <span className="text-[#ADADAA] text-[10px] uppercase tracking-widest">Images</span>
-                <span className="text-[#ADADAA]">→</span>
-                <span className="text-[#ADADAA] text-[10px] uppercase tracking-widest">Mise en page</span>
-                <span className="text-[#ADADAA]">→</span>
-                <span className="text-[#ADADAA] text-[10px] uppercase tracking-widest">Exporter</span>
+              <div className="px-3 py-0.5 bg-white border border-[#E8E8E6] rounded text-[10px] text-[#6B6A67] tracking-tight">
+                room.vitreen.art/editor
               </div>
             </div>
           </div>
-          <div className="h-72 md:h-96 flex items-center justify-center">
-            <p className="text-[#ADADAA] text-sm">Aperçu de l&rsquo;éditeur</p>
+
+          {/* Editor body */}
+          <div className="relative h-[420px] md:h-[480px] bg-[#F5F5F3] overflow-hidden">
+            {/* Viewing Room preview (full bg) */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="px-12 md:px-20 pt-10 md:pt-14 pb-6 max-w-2xl mx-auto">
+                <p className="text-[9px] md:text-[10px] tracking-[0.22em] uppercase text-[#6B6A67] text-center mb-2">Galerie Solène — Pour Marie Laurent</p>
+                <h3 className="font-display text-[18px] md:text-[22px] text-[#111110] text-center leading-tight mb-1">Hiver intérieur</h3>
+                <p className="text-[10px] md:text-[11px] text-[#6B6A67] text-center italic">Une sélection de cinq œuvres pour votre collection.</p>
+              </div>
+              {/* Artwork blocks */}
+              <div className="px-12 md:px-20 max-w-3xl mx-auto space-y-3">
+                <div className="aspect-[16/8] bg-gradient-to-br from-[#E8E4DC] to-[#D9D4C8] rounded-sm" />
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="aspect-[4/5] bg-gradient-to-br from-[#D4C8B8] to-[#B8A88E] rounded-sm" />
+                  <div className="aspect-[4/5] bg-gradient-to-br from-[#C8BCA8] to-[#A89880] rounded-sm" />
+                </div>
+              </div>
+            </div>
+
+            {/* Floating side panel */}
+            <div className="absolute left-3 top-3 bottom-3 w-[260px] md:w-[300px] bg-white rounded-[12px] border border-[#E8E8E6] shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
+              {/* Panel header */}
+              <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-[#F0EFEC]">
+                <span className="text-[12px] font-medium text-[#111110]">Viewing Room Studio</span>
+                <div className="w-6 h-6 rounded-full border border-[#E8E8E6] flex items-center justify-center">
+                  <svg className="w-3 h-3 text-[#6B6A67]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/></svg>
+                </div>
+              </div>
+              {/* Accordion sections */}
+              <div className="flex-1 overflow-hidden">
+                {/* Content (open) */}
+                <div className="px-4 py-2.5 border-b border-[#F0EFEC]">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-medium text-[#111110]">Content</span>
+                    <span className="text-[9px] text-[#ADADAA]">−</span>
+                  </div>
+                  <div className="space-y-1.5">
+                    <div className="h-1 bg-[#E8E8E6] rounded-full w-2/3" />
+                    <div className="h-5 bg-[#FAFAF9] rounded border border-[#E8E8E6]" />
+                    <div className="h-1 bg-[#E8E8E6] rounded-full w-1/2 mt-2" />
+                    <div className="h-5 bg-[#FAFAF9] rounded border border-[#E8E8E6]" />
+                  </div>
+                </div>
+                {/* Media */}
+                <div className="px-4 py-2.5 border-b border-[#F0EFEC] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-medium text-[#111110]">Media</span>
+                    <span className="text-[9px] px-1.5 py-px rounded-full bg-[#F0EFEC] text-[#6B6A67]">5</span>
+                  </div>
+                  <span className="text-[9px] text-[#ADADAA]">+</span>
+                </div>
+                {/* Layout */}
+                <div className="px-4 py-2.5 border-b border-[#F0EFEC] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-medium text-[#111110]">Layout</span>
+                    <span className="text-[9px] px-1.5 py-px rounded-full bg-[#F0EFEC] text-[#6B6A67]">3</span>
+                  </div>
+                  <span className="text-[9px] text-[#ADADAA]">+</span>
+                </div>
+                {/* Templates */}
+                <div className="px-4 py-2.5 flex items-center justify-between">
+                  <span className="text-[11px] font-medium text-[#111110]">Templates</span>
+                  <span className="text-[9px] text-[#ADADAA]">+</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Top-right Sign in button */}
+            <div className="absolute top-3 right-4">
+              <div className="text-[10px] text-white bg-[#111110] px-3 py-1.5 rounded-md">Sign in</div>
+            </div>
           </div>
         </motion.div>
       </section>
