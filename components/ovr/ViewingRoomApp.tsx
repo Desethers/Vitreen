@@ -968,11 +968,13 @@ function SubscriptionModal({ reason, onClose }: {
   onClose: () => void
 }) {
   const [loading, setLoading] = useState(false)
+  const { isSignedIn } = useOptionalUser()
   const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === 'true'
 
   const handleSubscribe = async () => {
-    if (!stripeConfigured) {
-      onClose()
+    if (!stripeConfigured) { onClose(); return }
+    if (!isSignedIn) {
+      window.location.href = 'https://vitreen.art/sign-in'
       return
     }
     setLoading(true)
@@ -980,6 +982,7 @@ function SubscriptionModal({ reason, onClose }: {
       const res = await fetch('/api/stripe/checkout', { method: 'POST' })
       const data = await res.json()
       if (data.url) window.location.href = data.url
+      else setLoading(false)
     } catch {
       setLoading(false)
     }

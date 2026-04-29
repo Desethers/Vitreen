@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
-  const host = request.headers.get("host") ?? "";
+  const host = request.nextUrl.hostname;
 
   const { pathname } = request.nextUrl;
   const url = request.nextUrl.clone();
