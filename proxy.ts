@@ -5,19 +5,13 @@ const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
   const host = request.nextUrl.hostname;
-
   const { pathname } = request.nextUrl;
   const url = request.nextUrl.clone();
 
   if (host === "room.vitreen.art") {
-    // Block internal routes — redirect /ovr/* → /editor
-    if (pathname.startsWith("/ovr/")) {
+    // Legacy /ovr/editor → /editor (kept for old links)
+    if (pathname === "/ovr/editor" || pathname === "/ovr") {
       return NextResponse.redirect(new URL("/editor", request.url));
-    }
-    // Editor: rewrite /editor → /ovr/editor (auth handled client-side)
-    if (pathname === "/editor") {
-      url.pathname = "/ovr/editor";
-      return NextResponse.rewrite(url);
     }
     // Landing
     if (pathname === "/") {
@@ -26,8 +20,8 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
     }
   }
 
-  // On vitreen.art, block direct access to /ovr/editor — redirect to room subdomain
-  if (host === "vitreen.art" && pathname.startsWith("/ovr/editor")) {
+  // On vitreen.art, /editor lives on the room subdomain only
+  if (host === "vitreen.art" && pathname === "/editor") {
     return NextResponse.redirect(new URL("https://room.vitreen.art/editor", request.url));
   }
 
