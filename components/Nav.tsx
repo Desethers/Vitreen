@@ -247,9 +247,9 @@ export default function Nav() {
               className="flex items-center gap-1.5 text-sm text-[#6B6A67] hover:text-[#111110] transition-colors duration-200"
             >
               {link.label}
-              {link.badge && (
+              {('badge' in link) && (link as { badge: string }).badge && (
                 <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#111110] text-white leading-none">
-                  {link.badge}
+                  {(link as { badge: string }).badge}
                 </span>
               )}
             </a>
@@ -272,9 +272,9 @@ export default function Nav() {
               className="flex items-center gap-2 text-[#111110] text-base"
             >
               {link.label}
-              {link.badge && (
+              {('badge' in link) && (link as { badge: string }).badge && (
                 <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#111110] text-white leading-none">
-                  {link.badge}
+                  {(link as { badge: string }).badge}
                 </span>
               )}
             </a>
