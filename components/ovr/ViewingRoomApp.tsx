@@ -833,7 +833,7 @@ function ViewingRoomPreview({ setup, images, blocks }: {
             <p className="text-xs text-gray-500 mb-3">For {setup.recipientName}</p>
           )}
           {setup.introText && (
-            <p className="text-xs text-gray-500 leading-relaxed mt-4 italic">{setup.introText}</p>
+            <p className="text-xs text-gray-500 leading-relaxed mt-4 italic whitespace-pre-wrap">{setup.introText}</p>
           )}
         </div>
 
