@@ -8,9 +8,7 @@ import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvidedDra
 const UserButton = clerkEnabled
   ? dynamic(() => import('@clerk/nextjs').then(m => ({ default: m.UserButton })), { ssr: false })
   : () => null
-const SignInButton = clerkEnabled
-  ? dynamic(() => import('@clerk/nextjs').then(m => ({ default: m.SignInButton })), { ssr: false })
-  : () => null
+
 import ThemeToggle from '@/components/ovr/ThemeToggle'
 import type { Block, BlockType, BlockSlot, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
 import { makeBlock, BLOCK_CONFIGS } from '@/lib/ovr/buildTypes'
@@ -1118,7 +1116,7 @@ export default function ViewingRoomApp() {
         <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
           {isSignedIn
             ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-            : <SignInButton mode="modal"><button className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</button></SignInButton>
+            : <a href="https://vitreen.art/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
           }
         </div>
       )}
@@ -1151,7 +1149,7 @@ export default function ViewingRoomApp() {
               <div className="lg:hidden">
                 {isSignedIn
                   ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-                  : <SignInButton mode="modal"><button className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</button></SignInButton>
+                  : <a href="https://vitreen.art/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
                 }
               </div>
             )}

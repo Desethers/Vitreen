@@ -8,7 +8,7 @@ export default async function SignInPage() {
   const { SignIn } = await import('@clerk/nextjs')
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F5F5F3]">
-      <SignIn routing="path" path="/sign-in" forceRedirectUrl="/editor" />
+      <SignIn routing="path" path="/sign-in" forceRedirectUrl="https://room.vitreen.art/editor" />
     </div>
   )
 }
