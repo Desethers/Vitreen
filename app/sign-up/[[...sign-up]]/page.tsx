@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
 
 export default async function SignUpPage() {
-  if (!clerkEnabled) redirect('/ovr/editor')
+  if (!clerkEnabled) redirect('/')
 
   const { SignUp } = await import('@clerk/nextjs')
   return (

@@ -21,7 +21,7 @@ export async function POST() {
       },
     ],
     metadata: { clerkUserId: userId },
-    success_url: `${process.env.NEXT_PUBLIC_APP_URL}/ovr/editor?subscribed=1`,
+    success_url: `https://room.vitreen.art/editor?subscribed=1`,
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/ovr`,
   })
 

@@ -1111,12 +1111,14 @@ export default function ViewingRoomApp() {
     <div className="h-screen relative overflow-hidden bg-gray-50 dark:bg-[#111111]">
 
       {/* ── Top-right auth button — desktop only ───────────────────────────── */}
-      <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
-        {isSignedIn && clerkEnabled
-          ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-          : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
-        }
-      </div>
+      {clerkEnabled && (
+        <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
+          {isSignedIn
+            ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
+            : <a href="/sign-in?redirect_url=https://room.vitreen.art/editor" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
+          }
+        </div>
+      )}
 
       {/* ── Preview — full screen background (desktop) / tab view (mobile) ── */}
       <main className={[
@@ -1142,12 +1144,14 @@ export default function ViewingRoomApp() {
           <span className="text-base font-medium text-gray-900 dark:text-gray-100 tracking-tight">Viewing Room Studio</span>
           <div className="flex items-center gap-3">
             {/* Mobile: auth button inline in header */}
-            <div className="lg:hidden">
-              {isSignedIn && clerkEnabled
-                ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-                : <a href="/sign-in" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
-              }
-            </div>
+            {clerkEnabled && (
+              <div className="lg:hidden">
+                {isSignedIn
+                  ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
+                  : <a href="/sign-in?redirect_url=https://room.vitreen.art/editor" className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]">Sign in</a>
+                }
+              </div>
+            )}
             <ThemeToggle />
           </div>
         </div>

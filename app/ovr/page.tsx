@@ -62,7 +62,7 @@ export default function OvrLandingPage() {
     }
     // If Stripe not yet configured, go straight to editor
     if (!stripeConfigured || isPro) {
-      router.push('/ovr/editor')
+      window.location.href = 'https://room.vitreen.art/editor'
       return
     }
     // Signed in but not Pro — create Stripe Checkout session

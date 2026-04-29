@@ -1,16 +1,15 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware } from '@clerk/nextjs/server'
 import { NextRequest, NextResponse } from "next/server";
 
 const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
-const isProtected = createRouteMatcher(['/ovr/editor(.*)'])
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
   const host = request.headers.get("host") ?? "";
 
-  if (host === "room.vitreen.art") {
-    const { pathname } = request.nextUrl;
-    const url = request.nextUrl.clone();
+  const { pathname } = request.nextUrl;
+  const url = request.nextUrl.clone();
 
+  if (host === "room.vitreen.art") {
     // Block internal routes — redirect /ovr/* → /editor
     if (pathname.startsWith("/ovr/")) {
       return NextResponse.redirect(new URL("/editor", request.url));
@@ -27,15 +26,18 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
     }
   }
 
+  // On vitreen.art, block direct access to /ovr/editor — redirect to room subdomain
+  if (host === "vitreen.art" && pathname.startsWith("/ovr/editor")) {
+    return NextResponse.redirect(new URL("https://room.vitreen.art/editor", request.url));
+  }
+
   return null;
 }
 
 export const proxy = clerkEnabled
-  ? clerkMiddleware(async (auth, request) => {
+  ? clerkMiddleware(async (_auth, request) => {
       const rewrite = applyHostRewrite(request);
       if (rewrite) return rewrite;
-      // Protect /ovr/editor only on vitreen.art (direct access)
-      if (isProtected(request)) await auth.protect();
     })
   : function proxy(request: NextRequest) {
       return applyHostRewrite(request) ?? NextResponse.next();
