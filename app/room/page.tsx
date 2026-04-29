@@ -48,40 +48,50 @@ const features = [
   },
 ];
 
-export default function RoomLandingPage() {
-  const { isSignedIn, isPro } = useOptionalUser();
-  const router = useRouter();
-  const [loadingCheckout, setLoadingCheckout] = useState(false);
+export default function OvrLandingPage() {
+  const { isSignedIn, isPro } = useOptionalUser()
+  const router = useRouter()
+  const [loadingCheckout, setLoadingCheckout] = useState(false)
 
-  const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === "true";
+  const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === 'true'
 
-  const handleCta = async () => {
+  const goToEditor = () => {
+    window.location.href = 'https://room.vitreen.art/editor'
+  }
+
+  const handleSubscribe = async () => {
+    if (isPro) {
+      goToEditor()
+      return
+    }
     if (clerkEnabled && !isSignedIn) {
-      window.location.href = "/sign-in";
-      return;
+      router.push('/sign-in?redirect_url=/ovr')
+      return
     }
-    if (!stripeConfigured || isPro) {
-      window.location.href = "/editor";
-      return;
+    if (!stripeConfigured) {
+      goToEditor()
+      return
     }
-    setLoadingCheckout(true);
+    setLoadingCheckout(true)
     try {
-      const res = await fetch("/api/stripe/checkout", { method: "POST" });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      const res = await fetch('/api/stripe/checkout', { method: 'POST' })
+      const data = await res.json()
+      if (data.url) window.location.href = data.url
     } catch {
-      setLoadingCheckout(false);
+      setLoadingCheckout(false)
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-white">
       {/* Nav */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur border-b border-[#E8E8E6]">
-        <Link href="/" className="font-display text-base tracking-tight text-[#111110]">Vitreen</Link>
+        <Link href="/" className="font-display text-base tracking-tight text-[#111110]">
+          Vitreen
+        </Link>
         <span className="text-sm text-[#6B6A67]">Viewing Room Studio</span>
-        <Button onClick={handleCta} size="sm" disabled={loadingCheckout}>
-          {isPro ? "Éditeur" : "Essayer gratuitement"}
+        <Button onClick={goToEditor} size="sm">
+          {isPro ? 'Éditeur' : 'Essayer gratuitement'}
         </Button>
       </header>
 
@@ -102,16 +112,13 @@ export default function RoomLandingPage() {
           <p className="text-[#6B6A67] text-lg leading-relaxed max-w-xl mx-auto mb-10">
             Fini les mises en page PDF interminables. Organisez vos œuvres librement dans votre Viewing Room et partagez-les instantanément à vos contacts privilégiés.
           </p>
-          <div className="flex items-center justify-center gap-3">
-            <Button onClick={handleCta} size="lg" disabled={loadingCheckout}>
-              {loadingCheckout ? "Redirection..." : isPro ? "Ouvrir l'éditeur" : "Essayer gratuitement"}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button onClick={goToEditor} size="lg">
+              {isPro ? 'Ouvrir l\'éditeur' : 'Essayer gratuitement'}
             </Button>
-            <Link
-              href="https://vitreen.art"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-[#E8E8E6] text-[#111110] text-sm font-medium hover:bg-[#F5F5F3] transition-colors"
-            >
+            <Button href="/" variant="inverse" size="lg" className="border border-[#E8E8E6]">
               Retour à Vitreen
-            </Link>
+            </Button>
           </div>
         </motion.div>
       </section>
@@ -191,16 +198,17 @@ export default function RoomLandingPage() {
             Viewing rooms illimités. PDF illimités.<br />
             Liens de partage privés. Annulez à tout moment.
           </p>
-          <Button onClick={handleCta} size="lg" className="w-full justify-center" disabled={loadingCheckout}>
-            {loadingCheckout ? "Redirection..." : isPro ? "Ouvrir l'éditeur" : "S'abonner — 19 €/mois"}
+          <Button onClick={handleSubscribe} size="lg" className="w-full justify-center" disabled={loadingCheckout}>
+            {loadingCheckout ? 'Redirection...' : isPro ? 'Ouvrir l\'éditeur' : 'S\'abonner — 19 €/mois'}
           </Button>
           <p className="text-[#ADADAA] text-xs mt-4">Annulez à tout moment · Paiement sécurisé par Stripe</p>
         </motion.div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#E8E8E6] py-8 px-4 md:px-6 flex items-center justify-center text-xs text-[#ADADAA]">
-        <p>Vitreen · Viewing Room Studio</p>
+      <footer className="border-t border-[#E8E8E6] py-8 px-4 md:px-6 flex items-center justify-between text-xs text-[#ADADAA]">
+        <Link href="/" className="hover:text-[#111110] transition-colors">← Vitreen</Link>
+        <p>OVR Studio by Vitreen</p>
       </footer>
     </div>
   );
