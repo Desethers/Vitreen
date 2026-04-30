@@ -30,8 +30,8 @@ function Field({ name, required, children }: { name: string; required?: boolean;
 
 // ─── Accordion section ────────────────────────────────────────────────────────
 
-function Accordion({ title, badge, defaultOpen = true, children }: {
-  title: string; badge?: number; defaultOpen?: boolean; children: React.ReactNode
+function Accordion({ title, badge, icon, defaultOpen = true, children }: {
+  title: string; badge?: number; icon?: React.ReactNode; defaultOpen?: boolean; children: React.ReactNode
 }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
@@ -42,6 +42,7 @@ function Accordion({ title, badge, defaultOpen = true, children }: {
         className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
       >
         <div className="flex items-center gap-2">
+          {icon && <span className="text-gray-900 dark:text-gray-100">{icon}</span>}
           <span className="text-sm font-normal text-gray-800 dark:text-gray-200">{title}</span>
           {badge !== undefined && badge > 0 && (
             <span className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded-full tabular-nums">
@@ -98,6 +99,17 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
           placeholder="Here is a selection of artworks that I have specially chosen for you…"
           rows={6} className={input + ' resize-none'} />
       </Field>
+      <div className="border-t border-gray-100 dark:border-gray-800 pt-4 space-y-3">
+        <p className={smlabel}>Gallery footer</p>
+        <Field name="Address">
+          <input value={setup.galleryAddress} onChange={e => set('galleryAddress', e.target.value)}
+            placeholder="12 rue de la Paix, 75001 Paris" className={input} />
+        </Field>
+        <Field name="Contact">
+          <input value={setup.galleryContact} onChange={e => set('galleryContact', e.target.value)}
+            placeholder="contact@gallery.com · +33 1 23 45 67 89" className={input} />
+        </Field>
+      </div>
     </div>
   )
 }
@@ -143,7 +155,7 @@ function DimensionsInput({ value, onChange }: { value: string; onChange: (v: str
       <p className={smlabel}>Dimensions</p>
       <div className="flex items-center gap-1.5">
         <input
-          type="text" value={raw} placeholder="W × H"
+          type="text" value={raw} placeholder="H × W"
           onChange={handleChange}
           className={`${input} min-w-0`}
         />
@@ -421,7 +433,7 @@ function BlockCard({ block, images, expanded, dragHandleProps, onExpand, onDelet
               )}
             </div>
           )}
-          {(block.type === 'pair' || block.type === 'full') && (
+          {(block.type === 'pair' || block.type === 'full' || block.type === 'side') && (
             <label className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 cursor-pointer select-none">
               <input type="checkbox" checked={block.showInquire}
                 onChange={e => onUpdate({ ...block, showInquire: e.target.checked })}
@@ -476,9 +488,9 @@ const TEMPLATES: {
   {
     id: 'editorial',
     name: 'Editorial',
-    description: 'Quote+Full · Pair · Art+text',
-    thumb: <div className="space-y-1.5"><ThumbQuoteFull /><ThumbPair /><ThumbSide /></div>,
-    blocks: ['quotefull', 'pair', 'side'],
+    description: 'Full · Pair · Art+text',
+    thumb: <div className="space-y-1.5"><ThumbFull /><ThumbPair /><ThumbSide /></div>,
+    blocks: ['full', 'pair', 'side'],
   },
   {
     id: 'intimate',
@@ -676,18 +688,18 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { image
       )}
       <div className="pt-[10px] flex items-start justify-between gap-4">
         <div className="space-y-0.5">
-          {img.artist && <p className="text-[9px] uppercase tracking-[0.15em] text-gray-400">{img.artist}</p>}
+          {img.artist && <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>}
           {img.title && (
-            <p className="font-sans text-xs text-gray-900 dark:text-gray-100">
+            <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">
               <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
             </p>
           )}
-          {img.medium && <p className="text-[10px] text-gray-500">{img.medium}</p>}
-          {img.dimensions && <p className="text-[10px] text-gray-500">{img.dimensions}</p>}
-          {img.showPrice && img.price && <p className="text-[10px] text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>}
+          {img.medium && <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>}
+          {img.dimensions && <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>}
+          {img.showPrice && img.price && <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>}
         </div>
         {showInquire && (
-          <button className="shrink-0 border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-4 py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors">
+          <button className="shrink-0 border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-[31px] py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors">
             Inquire
           </button>
         )}
@@ -781,8 +793,8 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   if (block.type === 'side') {
     return (
       <div className="grid grid-cols-2 gap-8 items-center">
-        <div className="max-w-[180px] mx-auto w-full">
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} />
+        <div>
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={block.showInquire} />
         </div>
         <div>
           {block.quoteText
@@ -796,8 +808,8 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   return null
 }
 
-function ViewingRoomPreview({ setup, images, blocks }: {
-  setup: VrSetup; images: ImageItem[]; blocks: Block[]
+function ViewingRoomPreview({ setup, images, blocks, isPro }: {
+  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean
 }) {
   const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0
 
@@ -833,7 +845,7 @@ function ViewingRoomPreview({ setup, images, blocks }: {
             <p className="text-xs text-gray-500 mb-3">For {setup.recipientName}</p>
           )}
           {setup.introText && (
-            <p className="text-xs text-gray-500 leading-relaxed mt-4 italic whitespace-pre-wrap">{setup.introText}</p>
+            <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed mt-4 whitespace-pre-wrap">{setup.introText}</p>
           )}
         </div>
 
@@ -847,11 +859,24 @@ function ViewingRoomPreview({ setup, images, blocks }: {
         )}
 
         {/* Footer */}
-        {(setup.galleryName || blocks.length > 0) && (
-          <div className="border-t border-gray-100 dark:border-gray-800 py-5 text-center">
-            <p className="text-[9px] uppercase tracking-[0.2em] text-gray-300 dark:text-gray-700">
-              {setup.galleryName || 'Viewing Room'}
-            </p>
+        {(setup.galleryName || setup.galleryAddress || setup.galleryContact) && (
+          <div className="border-t border-gray-100 dark:border-gray-800 py-8 px-10 text-center space-y-0.5">
+            {setup.galleryName && (
+              <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryName}</p>
+            )}
+            {setup.galleryAddress && (
+              <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryAddress}</p>
+            )}
+            {setup.galleryContact && (
+              <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryContact}</p>
+            )}
+          </div>
+        )}
+
+        {/* Watermark */}
+        {!isPro && (
+          <div className="py-4 text-center">
+            <p className="text-[12px] text-gray-300 dark:text-gray-700 tracking-wide">Designed with care by <span className="font-medium">Vitreen</span></p>
           </div>
         )}
       </div>
@@ -863,9 +888,10 @@ function ViewingRoomPreview({ setup, images, blocks }: {
 // EXPORT PANEL
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function ExportPanel({ open, onClose, blocks, images, setup }: {
+function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
   open: boolean; onClose: () => void
   blocks: Block[]; images: ImageItem[]; setup: VrSetup
+  onPaywall: () => void
 }) {
   const [generating, setGenerating] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -877,6 +903,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
     setGenerating(true); setError(null)
     try {
       const res = await fetch('/api/ovr/generate-pdf', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ blocks, images, setup }) })
+      if (res.status === 402) { onClose(); onPaywall(); return }
       if (!res.ok) throw new Error()
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
@@ -888,6 +915,7 @@ function ExportPanel({ open, onClose, blocks, images, setup }: {
     setSaving(true); setError(null)
     try {
       const res = await fetch('/api/ovr/viewing-rooms', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ blocks, images, setup }) })
+      if (res.status === 402) { onClose(); onPaywall(); return }
       if (!res.ok) throw new Error()
       const data = await res.json()
       setShareUrl(`${window.location.origin}/vr/${data.token}`)
@@ -1085,7 +1113,7 @@ function SubscriptionModal({ reason, onClose }: {
 // MAIN APP
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const DEFAULT_SETUP: VrSetup = { galleryName: '', headline: '', title: '', recipientName: '', recipientEmail: '', introText: '' }
+const DEFAULT_SETUP: VrSetup = { galleryName: '', headline: '', title: '', recipientName: '', recipientEmail: '', introText: '', galleryAddress: '', galleryContact: '' }
 
 export default function ViewingRoomApp() {
   const { isPro, isSignedIn } = useOptionalUser()
@@ -1097,11 +1125,6 @@ export default function ViewingRoomApp() {
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
   const [paywallOpen, setPaywallOpen] = useState(false)
   const [paywallReason, setPaywallReason] = useState<'template' | 'export_limit'>('template')
-  const [exportCount, setExportCount] = useState(() => {
-    try { return parseInt(localStorage.getItem('vr_export_count') ?? '0', 10) } catch { return 0 }
-  })
-
-  const FREE_EXPORT_LIMIT = 3
 
   const openPaywall = (reason: 'template' | 'export_limit') => {
     setPaywallReason(reason)
@@ -1109,13 +1132,6 @@ export default function ViewingRoomApp() {
   }
 
   const handleExportClick = () => {
-    if (!isPro && exportCount >= FREE_EXPORT_LIMIT) {
-      openPaywall('export_limit')
-      return
-    }
-    const next = exportCount + 1
-    setExportCount(next)
-    try { localStorage.setItem('vr_export_count', String(next)) } catch { /* ignore */ }
     setExportOpen(true)
   }
 
@@ -1152,7 +1168,7 @@ export default function ViewingRoomApp() {
         "max-lg:pb-16",
         mobileTab === 'preview' ? "max-lg:block" : "max-lg:hidden",
       ].join(" ")}>
-        <ViewingRoomPreview setup={setup} images={images} blocks={blocks} />
+        <ViewingRoomPreview setup={setup} images={images} blocks={blocks} isPro={isPro} />
       </main>
 
       {/* ── Side panel — floating overlay (desktop) / full screen (mobile) ── */}
@@ -1182,19 +1198,19 @@ export default function ViewingRoomApp() {
 
         {/* Scrollable accordion sections */}
         <div className="flex-1 overflow-y-auto">
-          <Accordion title="Content" defaultOpen>
+          <Accordion title="Content" defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10"/></svg>}>
             <InfosSection setup={setup} onChange={saveSetup} />
           </Accordion>
 
-          <Accordion title="Media" badge={images.length} defaultOpen>
+          <Accordion title="Media" badge={images.length} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/></svg>}>
             <ImagesSection images={images} onChange={saveImages} />
           </Accordion>
 
-          <Accordion title="Layout" badge={blocks.length} defaultOpen>
+          <Accordion title="Layout" badge={blocks.length} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>}>
             <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
           </Accordion>
 
-          <Accordion title="Templates" defaultOpen={true}>
+          <Accordion title="Templates" defaultOpen={true} icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z"/></svg>}>
             <TemplatesSection blocks={blocks} onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
@@ -1256,6 +1272,7 @@ export default function ViewingRoomApp() {
         blocks={blocks}
         images={images}
         setup={setup}
+        onPaywall={() => openPaywall('export_limit')}
       />
 
       {paywallOpen && (

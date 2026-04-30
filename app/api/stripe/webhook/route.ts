@@ -27,6 +27,7 @@ export async function POST(req: NextRequest) {
     if (clerkUserId) {
       await clerk.users.updateUserMetadata(clerkUserId, {
         publicMetadata: { isPro: true, stripeCustomerId: customerId },
+        privateMetadata: { exportCount: 0 },
       })
     }
   }

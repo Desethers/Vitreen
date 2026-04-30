@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { writeClient } from '@/lib/ovr/sanityClient'
+import { checkExportQuota, consumeExport } from '@/lib/ovr/exportQuota'
 import type { Block, BlockSlot, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
 
 function generateToken() {
@@ -22,6 +23,9 @@ async function uploadDataUrl(dataUrl: string): Promise<string | null> {
 
 export async function POST(req: NextRequest) {
   try {
+    const quota = await checkExportQuota()
+    if (!quota.ok) return NextResponse.json({ error: quota.error }, { status: quota.status })
+
     const { blocks, images, setup } = await req.json() as {
       blocks: Block[]; images: ImageItem[]; setup: VrSetup | null
     }
@@ -77,6 +81,9 @@ export async function POST(req: NextRequest) {
     }
 
     const created = await writeClient.create(doc)
+
+    if (!quota.isPro) await consumeExport(quota.userId, quota.used)
+
     return NextResponse.json({ _id: created._id, token }, { status: 201 })
   } catch (err) {
     console.error('Create viewing room error:', err)

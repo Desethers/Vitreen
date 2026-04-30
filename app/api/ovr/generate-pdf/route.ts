@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateBlocksPDF } from '@/lib/ovr/pdfTemplate'
+import { checkExportQuota, consumeExport } from '@/lib/ovr/exportQuota'
 import type { Block, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
 
 export async function POST(req: NextRequest) {
+  const quota = await checkExportQuota()
+  if (!quota.ok) return NextResponse.json({ error: quota.error }, { status: quota.status })
+
   const { blocks, images, setup } = await req.json() as {
     blocks: Block[]
     images: ImageItem[]
@@ -25,6 +29,8 @@ export async function POST(req: NextRequest) {
       margin: { top: 0, right: 0, bottom: 0, left: 0 },
     })
     await browser.close()
+
+    if (!quota.isPro) await consumeExport(quota.userId, quota.used)
 
     return new NextResponse(pdf as unknown as BodyInit, {
       headers: {

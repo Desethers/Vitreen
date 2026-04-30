@@ -39,6 +39,8 @@ export interface VrSetup {
   recipientName: string
   recipientEmail: string
   introText: string
+  galleryAddress: string
+  galleryContact: string
 }
 
 // ─── Config ───────────────────────────────────────────────────────────────────
