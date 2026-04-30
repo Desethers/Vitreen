@@ -30,8 +30,8 @@ function Field({ name, required, children }: { name: string; required?: boolean;
 
 // ─── Accordion section ────────────────────────────────────────────────────────
 
-function Accordion({ title, badge, icon, defaultOpen = true, children }: {
-  title: string; badge?: number; icon?: React.ReactNode; defaultOpen?: boolean; children: React.ReactNode
+function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children }: {
+  title: string; badge?: number; icon?: React.ReactNode; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode
 }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
@@ -39,16 +39,23 @@ function Accordion({ title, badge, icon, defaultOpen = true, children }: {
       <button
         type="button"
         onClick={() => setOpen(x => !x)}
-        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-3.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors gap-3"
       >
-        <div className="flex items-center gap-2">
-          {icon && <span className="text-gray-900 dark:text-gray-100">{icon}</span>}
-          <span className="text-sm font-normal text-gray-800 dark:text-gray-200">{title}</span>
-          {badge !== undefined && badge > 0 && (
-            <span className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded-full tabular-nums">
-              {badge}
-            </span>
-          )}
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          {icon && <span className="text-gray-900 dark:text-gray-100 shrink-0">{icon}</span>}
+          <div className="flex flex-col items-start min-w-0 flex-1">
+            <div className="flex items-center gap-2 max-w-full">
+              <span className="text-sm font-normal text-gray-800 dark:text-gray-200 shrink-0">{title}</span>
+              {badge !== undefined && badge > 0 && (
+                <span className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded-full tabular-nums shrink-0">
+                  {badge}
+                </span>
+              )}
+            </div>
+            {!open && subtitle && (
+              <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full mt-0.5">{subtitle}</span>
+            )}
+          </div>
         </div>
         <svg
           className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
@@ -1147,6 +1154,11 @@ export default function ViewingRoomApp() {
   const saveImages = useCallback((imgs: ImageItem[]) => { setImages(imgs); try { sessionStorage.setItem('vr_images', JSON.stringify(imgs)) } catch { /* ignore */ } }, [])
   const saveBlocks = useCallback((blks: Block[]) => { setBlocks(blks); try { sessionStorage.setItem('vr_blocks', JSON.stringify(blks)) } catch { /* ignore */ } }, [])
 
+  const contentSubtitle = [setup.galleryName, setup.title || setup.headline, setup.recipientName].filter(Boolean).join(' · ')
+  const layoutSubtitle = blocks.map(b => BLOCK_CONFIGS[b.type].label).join(' · ')
+  const activeTemplate = TEMPLATES.find(t => t.blocks.length === blocks.length && t.blocks.every((bt, i) => bt === blocks[i]?.type))
+  const templatesSubtitle = activeTemplate?.name ?? ''
+
   return (
     <div className="h-screen relative overflow-hidden bg-gray-50 dark:bg-[#111111]">
 
@@ -1198,7 +1210,7 @@ export default function ViewingRoomApp() {
 
         {/* Scrollable accordion sections */}
         <div className="flex-1 overflow-y-auto">
-          <Accordion title="Content" defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10"/></svg>}>
+          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10"/></svg>}>
             <InfosSection setup={setup} onChange={saveSetup} />
           </Accordion>
 
@@ -1206,11 +1218,11 @@ export default function ViewingRoomApp() {
             <ImagesSection images={images} onChange={saveImages} />
           </Accordion>
 
-          <Accordion title="Layout" badge={blocks.length} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>}>
+          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>}>
             <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
           </Accordion>
 
-          <Accordion title="Templates" defaultOpen={true} icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z"/></svg>}>
+          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true} icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z"/></svg>}>
             <TemplatesSection blocks={blocks} onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
