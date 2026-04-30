@@ -328,10 +328,12 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
 // PANEL 3 — MISE EN PAGE (Layout)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function LayoutSlot({ slot, image, landscape, cover, onDrop, onClear }: {
-  slot: BlockSlot; image: ImageItem | undefined; landscape?: boolean; cover?: boolean; onDrop: (id: string) => void; onClear: () => void
+function LayoutSlot({ slot, image, landscape, cover, imageDragging, onDrop, onClear }: {
+  slot: BlockSlot; image: ImageItem | undefined; landscape?: boolean; cover?: boolean; imageDragging?: boolean; onDrop: (id: string) => void; onClear: () => void
 }) {
   const [over, setOver] = useState(false)
+  const empty = !image
+  const armed = empty && imageDragging
   return (
     <div
       onDragOver={e => { e.preventDefault(); setOver(true) }}
@@ -339,6 +341,7 @@ function LayoutSlot({ slot, image, landscape, cover, onDrop, onClear }: {
       onDrop={e => { e.preventDefault(); setOver(false); const id = e.dataTransfer.getData('text/plain'); if (id) onDrop(id) }}
       className={`relative ${landscape ? 'aspect-[4/3]' : 'aspect-[3/4]'} rounded-lg border-2 flex items-center justify-center transition-colors ${
         over ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
+        : armed ? 'border-dashed border-blue-300 bg-blue-50/40 dark:border-blue-700 dark:bg-blue-950/10 animate-pulse'
         : image ? 'border-transparent'
         : 'border-dashed border-gray-200 dark:border-gray-700'
       }`}
@@ -356,19 +359,20 @@ function LayoutSlot({ slot, image, landscape, cover, onDrop, onClear }: {
         </>
       ) : (
         <div className="text-center pointer-events-none">
-          <svg className="w-4 h-4 mx-auto text-gray-200 dark:text-gray-700 mb-1" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+          <svg className={`w-4 h-4 mx-auto mb-1 ${armed ? 'text-blue-400 dark:text-blue-500' : 'text-gray-200 dark:text-gray-700'}`} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
             <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909"/>
           </svg>
-          <p className="text-[9px] text-gray-300 dark:text-gray-600">Drag</p>
+          <p className={`text-[9px] ${armed ? 'text-blue-500 dark:text-blue-400 font-medium' : 'text-gray-300 dark:text-gray-600'}`}>{armed ? 'Drop here' : 'Drag'}</p>
         </div>
       )}
     </div>
   )
 }
 
-function BlockCard({ block, images, expanded, dragHandleProps, onExpand, onDelete, onUpdate }: {
+function BlockCard({ block, images, expanded, dragHandleProps, imageDragging, onExpand, onDelete, onUpdate }: {
   block: Block; images: ImageItem[]; expanded: boolean
   dragHandleProps: DraggableProvidedDragHandleProps | null | undefined
+  imageDragging?: boolean
   onExpand: () => void; onDelete: () => void; onUpdate: (b: Block) => void
 }) {
   const config = BLOCK_CONFIGS[block.type]
@@ -421,7 +425,7 @@ function BlockCard({ block, images, expanded, dragHandleProps, onExpand, onDelet
             <div className={`grid gap-2 ${block.slots.length === 1 ? 'grid-cols-1 max-w-[100px]' : block.slots.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
               {block.slots.map((slot, i) => (
                 <div key={i}>
-                  <LayoutSlot slot={slot} image={resolved[i]} landscape={block.type === 'full' || block.type === 'quotefull'} cover={block.type === 'pair'} onDrop={id => setSlot(i, id)} onClear={() => setSlot(i, null)} />
+                  <LayoutSlot slot={slot} image={resolved[i]} landscape={block.type === 'full' || block.type === 'quotefull'} cover={block.type === 'pair'} imageDragging={imageDragging} onDrop={id => setSlot(i, id)} onClear={() => setSlot(i, null)} />
                   {resolved[i] && (
                     <p className="text-[9px] text-gray-400 truncate mt-1 text-center">{resolved[i]!.title || resolved[i]!.artist}</p>
                   )}
@@ -592,6 +596,7 @@ function LayoutSection({ images, blocks, onChange }: {
   images: ImageItem[]; blocks: Block[]; onChange: (b: Block[]) => void
 }) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [imageDragging, setImageDragging] = useState(false)
 
   const addBlock = (type: BlockType) => {
     const b = makeBlock(type)
@@ -607,22 +612,60 @@ function LayoutSection({ images, blocks, onChange }: {
     onChange(items)
   }
 
+  const usedIds = new Set(blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => id !== null)))
+  const unusedImages = images.filter(img => !usedIds.has(img.id))
+  const hasEmptySlots = blocks.some(b => b.slots.some(s => s.imageId === null))
+  const canAutoFill = hasEmptySlots && unusedImages.length > 0
+
+  const autoFillEmptySlots = () => {
+    let cursor = 0
+    const next = blocks.map(b => ({
+      ...b,
+      slots: b.slots.map(s => {
+        if (s.imageId !== null) return s
+        const img = unusedImages[cursor]
+        if (!img) return s
+        cursor++
+        return { imageId: img.id }
+      }),
+    }))
+    onChange(next)
+  }
+
   return (
     <div className="space-y-4">
       {/* Images pool */}
       {images.length > 0 && (
         <div>
-          <p className={smlabel}>Drag to a block</p>
+          <div className="flex items-center justify-between mb-1.5">
+            <p className="block text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Drag to a block{unusedImages.length < images.length ? ` · ${unusedImages.length} unused` : ''}</p>
+            {canAutoFill && (
+              <button type="button" onClick={autoFillEmptySlots}
+                className="text-[10px] font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 transition-colors">
+                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                Auto-fill empty slots
+              </button>
+            )}
+          </div>
           <div className="grid grid-cols-5 gap-1.5">
-            {images.map(img => (
-              <div key={img.id} draggable
-                onDragStart={e => { e.dataTransfer.setData('text/plain', img.id); e.dataTransfer.effectAllowed = 'copy' }}
-                className="cursor-grab active:cursor-grabbing group rounded-lg overflow-hidden"
-                title={[img.title, img.artist].filter(Boolean).join(' — ')}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img.dataUrl} alt={img.title || ''} className="w-full aspect-square object-cover group-hover:opacity-75 transition-opacity rounded-lg" />
-              </div>
-            ))}
+            {images.map(img => {
+              const used = usedIds.has(img.id)
+              return (
+                <div key={img.id} draggable
+                  onDragStart={e => { e.dataTransfer.setData('text/plain', img.id); e.dataTransfer.effectAllowed = 'copy'; setImageDragging(true) }}
+                  onDragEnd={() => setImageDragging(false)}
+                  className={`cursor-grab active:cursor-grabbing group rounded-lg overflow-hidden relative ${used ? 'opacity-40' : ''}`}
+                  title={[img.title, img.artist].filter(Boolean).join(' — ') + (used ? ' (already placed)' : '')}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img.dataUrl} alt={img.title || ''} className="w-full aspect-square object-cover group-hover:opacity-75 transition-opacity rounded-lg" />
+                  {used && (
+                    <div className="absolute top-0.5 right-0.5 w-3 h-3 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-sm">
+                      <svg width="7" height="7" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="text-gray-500"><path d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       )}
@@ -655,6 +698,7 @@ function LayoutSection({ images, blocks, onChange }: {
                         <BlockCard block={block} images={images}
                           expanded={expandedId === block.id}
                           dragHandleProps={provided.dragHandleProps}
+                          imageDragging={imageDragging}
                           onExpand={() => setExpandedId(expandedId === block.id ? null : block.id)}
                           onDelete={() => { onChange(blocks.filter(b => b.id !== block.id)); if (expandedId === block.id) setExpandedId(null) }}
                           onUpdate={updated => onChange(blocks.map(b => b.id === updated.id ? updated : b))} />
