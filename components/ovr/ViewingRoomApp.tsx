@@ -328,12 +328,22 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
 // PANEL 3 — MISE EN PAGE (Layout)
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function LayoutSlot({ slot, image, landscape, cover, imageDragging, onDrop, onClear }: {
-  slot: BlockSlot; image: ImageItem | undefined; landscape?: boolean; cover?: boolean; imageDragging?: boolean; onDrop: (id: string) => void; onClear: () => void
+function LayoutSlot({ slot, image, landscape, cover, imageDragging, unusedImages, onDrop, onClear }: {
+  slot: BlockSlot; image: ImageItem | undefined; landscape?: boolean; cover?: boolean; imageDragging?: boolean; unusedImages?: ImageItem[]; onDrop: (id: string) => void; onClear: () => void
 }) {
   const [over, setOver] = useState(false)
+  const [pickerOpen, setPickerOpen] = useState(false)
   const empty = !image
   const armed = empty && imageDragging
+  const canPick = empty && (unusedImages?.length ?? 0) > 0
+
+  useEffect(() => {
+    if (!pickerOpen) return
+    const close = () => setPickerOpen(false)
+    document.addEventListener('click', close)
+    return () => document.removeEventListener('click', close)
+  }, [pickerOpen])
+
   return (
     <div
       onDragOver={e => { e.preventDefault(); setOver(true) }}
@@ -358,21 +368,56 @@ function LayoutSlot({ slot, image, landscape, cover, imageDragging, onDrop, onCl
           </button>
         </>
       ) : (
-        <div className="text-center pointer-events-none">
-          <svg className={`w-4 h-4 mx-auto mb-1 ${armed ? 'text-blue-400 dark:text-blue-500' : 'text-gray-200 dark:text-gray-700'}`} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-            <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909"/>
-          </svg>
-          <p className={`text-[9px] ${armed ? 'text-blue-500 dark:text-blue-400 font-medium' : 'text-gray-300 dark:text-gray-600'}`}>{armed ? 'Drop here' : 'Drag'}</p>
+        <button
+          type="button"
+          disabled={!canPick && !armed}
+          onClick={e => { e.stopPropagation(); if (canPick) setPickerOpen(o => !o) }}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-1 rounded-lg cursor-pointer disabled:cursor-default group/slot"
+        >
+          <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+            armed ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-500 dark:text-blue-400'
+            : canPick ? 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 group-hover/slot:bg-blue-100 group-hover/slot:text-blue-500 dark:group-hover/slot:bg-blue-900/40 dark:group-hover/slot:text-blue-400'
+            : 'bg-gray-50 dark:bg-gray-800/40 text-gray-300 dark:text-gray-600'
+          }`}>
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <p className={`text-[10px] font-medium ${
+            armed ? 'text-blue-600 dark:text-blue-400'
+            : canPick ? 'text-gray-500 dark:text-gray-400'
+            : 'text-gray-300 dark:text-gray-600'
+          }`}>{armed ? 'Drop here' : canPick ? 'Add image' : 'No image'}</p>
+          {canPick && !armed && (
+            <p className="text-[9px] text-gray-300 dark:text-gray-600">click or drag</p>
+          )}
+        </button>
+      )}
+      {pickerOpen && unusedImages && unusedImages.length > 0 && (
+        <div
+          onClick={e => e.stopPropagation()}
+          className="absolute z-30 top-full left-0 right-0 mt-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl p-1.5 max-h-48 overflow-y-auto">
+          <p className="text-[9px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 px-1 pb-1">Pick image</p>
+          <div className="grid grid-cols-3 gap-1">
+            {unusedImages.map(img => (
+              <button key={img.id} type="button"
+                onClick={() => { onDrop(img.id); setPickerOpen(false) }}
+                className="rounded overflow-hidden hover:ring-2 hover:ring-blue-400 transition-all"
+                title={[img.title, img.artist].filter(Boolean).join(' — ')}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img.dataUrl} alt={img.title || ''} className="w-full aspect-square object-cover" />
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
   )
 }
 
-function BlockCard({ block, images, expanded, dragHandleProps, imageDragging, onExpand, onDelete, onUpdate }: {
+function BlockCard({ block, images, expanded, dragHandleProps, imageDragging, unusedImages, onExpand, onDelete, onUpdate }: {
   block: Block; images: ImageItem[]; expanded: boolean
   dragHandleProps: DraggableProvidedDragHandleProps | null | undefined
   imageDragging?: boolean
+  unusedImages?: ImageItem[]
   onExpand: () => void; onDelete: () => void; onUpdate: (b: Block) => void
 }) {
   const config = BLOCK_CONFIGS[block.type]
@@ -425,7 +470,7 @@ function BlockCard({ block, images, expanded, dragHandleProps, imageDragging, on
             <div className={`grid gap-2 ${block.slots.length === 1 ? 'grid-cols-1 max-w-[100px]' : block.slots.length === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
               {block.slots.map((slot, i) => (
                 <div key={i}>
-                  <LayoutSlot slot={slot} image={resolved[i]} landscape={block.type === 'full' || block.type === 'quotefull'} cover={block.type === 'pair'} imageDragging={imageDragging} onDrop={id => setSlot(i, id)} onClear={() => setSlot(i, null)} />
+                  <LayoutSlot slot={slot} image={resolved[i]} landscape={block.type === 'full' || block.type === 'quotefull'} cover={block.type === 'pair'} imageDragging={imageDragging} unusedImages={unusedImages} onDrop={id => setSlot(i, id)} onClear={() => setSlot(i, null)} />
                   {resolved[i] && (
                     <p className="text-[9px] text-gray-400 truncate mt-1 text-center">{resolved[i]!.title || resolved[i]!.artist}</p>
                   )}
@@ -699,6 +744,7 @@ function LayoutSection({ images, blocks, onChange }: {
                           expanded={expandedId === block.id}
                           dragHandleProps={provided.dragHandleProps}
                           imageDragging={imageDragging}
+                          unusedImages={unusedImages}
                           onExpand={() => setExpandedId(expandedId === block.id ? null : block.id)}
                           onDelete={() => { onChange(blocks.filter(b => b.id !== block.id)); if (expandedId === block.id) setExpandedId(null) }}
                           onUpdate={updated => onChange(blocks.map(b => b.id === updated.id ? updated : b))} />
