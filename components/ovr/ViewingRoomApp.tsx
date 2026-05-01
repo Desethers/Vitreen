@@ -76,7 +76,7 @@ function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children,
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {open && <div className="px-5 pb-5">{children}</div>}
+      {open && <div className={`px-5 pb-5 ${cardPaddingTop}`}>{children}</div>}
     </div>
   )
 }
@@ -1640,20 +1640,20 @@ export default function ViewingRoomApp() {
         </div>
 
         {/* Scrollable accordion sections */}
-        <div className="flex-1 overflow-y-auto px-[5px] py-[2px] space-y-[2px] bg-white dark:bg-[#1c1c1c]">
-          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen titleAbove>
+        <div className="flex-1 overflow-y-auto px-[5px] pt-3 pb-[2px] space-y-3 bg-white dark:bg-[#1c1c1c]">
+          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen>
             <InfosSection setup={setup} onChange={saveSetup} />
           </Accordion>
 
-          <Accordion title="Media" badge={images.length} defaultOpen titleAbove cardPaddingTop="pt-4">
+          <Accordion title="Media" badge={images.length} defaultOpen cardPaddingTop="pt-3">
             <ImagesSection images={images} onChange={saveImages} />
           </Accordion>
 
-          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen titleAbove cardPaddingTop="pt-4">
+          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen cardPaddingTop="pt-3">
             <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
           </Accordion>
 
-          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true} titleAbove noBorder>
+          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true}>
             <TemplatesSection blocks={blocks} onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
