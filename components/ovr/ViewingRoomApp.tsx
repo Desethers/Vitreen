@@ -15,8 +15,8 @@ import { makeBlock, BLOCK_CONFIGS } from '@/lib/ovr/buildTypes'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
-const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
-const label = 'block text-sm font-normal text-gray-900 dark:text-gray-100 mb-1.5'
+const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-[12px] bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
+const label = 'block text-[13px] font-normal text-gray-900 dark:text-gray-100 mb-1.5'
 const smlabel = 'block text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-1.5'
 
 function Field({ name, required, children }: { name: string; required?: boolean; children: React.ReactNode }) {
@@ -30,10 +30,22 @@ function Field({ name, required, children }: { name: string; required?: boolean;
 
 // ─── Accordion section ────────────────────────────────────────────────────────
 
-function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children }: {
-  title: string; badge?: number; icon?: React.ReactNode; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode
+function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children, titleAbove, cardRounded = 'rounded-[20px]', cardPaddingTop = 'pt-0', noBorder }: {
+  title: string; badge?: number; icon?: React.ReactNode; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode; titleAbove?: boolean; cardRounded?: string; cardPaddingTop?: string; noBorder?: boolean
 }) {
   const [open, setOpen] = useState(defaultOpen)
+
+  if (titleAbove) {
+    return (
+      <div>
+        <p className="pl-[15px] pr-1 pt-3 pb-2 text-[16px] font-medium text-gray-900 dark:text-gray-100 tracking-tight">{title}</p>
+        <div className={`${cardRounded} ${noBorder ? '' : 'border border-gray-200/80 dark:border-gray-800'} bg-white dark:bg-[#1c1c1c] overflow-hidden`}>
+          <div className={`px-5 pb-5 ${cardPaddingTop}`}>{children}</div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="rounded-[20px] border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] overflow-hidden">
       <button
@@ -77,12 +89,12 @@ type ContentGroup = 'identity' | 'recipient' | 'intro'
 
 function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSetup) => void }) {
   const set = (k: keyof VrSetup, v: string) => onChange({ ...setup, [k]: v })
-  const [open, setOpen] = useState<ContentGroup>('identity')
+  const [open, setOpen] = useState<ContentGroup | null>('identity')
   const [footerEditing, setFooterEditing] = useState(false)
   const [footerDraft, setFooterDraft] = useState({ address: setup.galleryAddress, contact: setup.galleryContact })
   const footerRef = useRef<HTMLInputElement>(null)
 
-  const toggle = (g: ContentGroup) => setOpen(prev => prev === g ? 'identity' : g)
+  const toggle = (g: ContentGroup) => setOpen(prev => prev === g ? null : g)
 
   useEffect(() => { if (footerEditing) footerRef.current?.focus() }, [footerEditing])
   useEffect(() => {
@@ -97,7 +109,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
   const introSummary = setup.introText ? 'Message added' : 'No message'
 
   const rowCls = 'w-full flex items-center gap-2.5 px-5 py-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors'
-  const bodyCls = 'px-5 py-3.5 space-y-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800'
+  const bodyCls = 'px-5 py-3.5 space-y-3 bg-white dark:bg-[#1c1c1c] border-t border-gray-100 dark:border-gray-800'
   const chevron = (isOpen: boolean) => (
     <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`}
       fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
@@ -115,7 +127,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Room identity</span>
+            <span className="text-[14px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Room identity</span>
             {open !== 'identity' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{identitySummary}</span>}
           </div>
           {chevron(open === 'identity')}
@@ -147,7 +159,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Recipient</span>
+            <span className="text-[14px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Recipient</span>
             {open !== 'recipient' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{recipientSummary}</span>}
           </div>
           {chevron(open === 'recipient')}
@@ -178,7 +190,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Introduction</span>
+            <span className="text-[14px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Introduction</span>
             {open !== 'intro' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{introSummary}</span>}
           </div>
           {chevron(open === 'intro')}
@@ -194,8 +206,8 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
       </div>
 
       {/* ── Pied de page galerie — card détachée ── */}
-      <div className="mt-2 px-[5px] pb-[5px]">
-      <div className="rounded-[20px] bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
+      <div className="mt-2 px-[8px] pb-[8px]">
+      <div className="rounded-[15px] bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-gray-400 dark:text-gray-500">Gallery footer</span>
           {footerEditing ? (
@@ -317,7 +329,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
   const set = (k: string, v: string | boolean) => onUpdate({ ...item, [k]: v })
 
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-[20px] overflow-hidden">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-[8px] overflow-hidden">
       <div className="flex items-center gap-3 px-3.5 py-1.5">
         {/* Thumb */}
         <div
@@ -363,7 +375,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
       </div>
 
       {open && (
-        <div className="border-t border-gray-100 dark:border-gray-800 px-3.5 py-3 grid grid-cols-2 gap-2.5 bg-gray-50 dark:bg-gray-900/50">
+        <div className="border-t border-gray-100 dark:border-gray-800 px-3.5 py-3 grid grid-cols-2 gap-2.5 bg-white dark:bg-[#1c1c1c]">
           {IMG_FIELDS.map(f => (
             <div key={f.key} className={f.key === 'title' ? 'col-span-2' : ''}>
               <p className={smlabel}>{f.placeholder}</p>
@@ -537,7 +549,7 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, 
       className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors ${
         over ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
         : imageDragging && canReceive ? 'border-dashed border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
-        : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
+        : 'border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900'
       }`}
     >
       {/* Drag handle */}
@@ -632,10 +644,10 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
       onDragOver={e => { if (!imageDragging || !canReceiveImage) return; e.preventDefault(); setOver(true) }}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
-      className={`border rounded-[20px] overflow-hidden transition-colors ${
+      className={`border rounded-xl overflow-hidden transition-colors ${
         over ? 'border-blue-400'
         : imageDragging && canReceiveImage ? 'border-dashed border-blue-200 dark:border-blue-800'
-        : 'border-gray-200 dark:border-gray-700'
+        : 'border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100'
       }`}
     >
       <div className="flex items-center gap-2.5 px-3 py-2 bg-white dark:bg-gray-900">
@@ -808,7 +820,7 @@ function TemplatesSection({ blocks, onChange, isPro, onPaywall }: { blocks: Bloc
 
   return (
     <div className="space-y-2">
-    <div ref={scrollRef} onScroll={handleScroll} className="-mx-5 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
+    <div ref={scrollRef} onScroll={handleScroll} className="-mx-5 pl-[15px] pr-5 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
       <div className="flex gap-2 pb-1" style={{ width: 'max-content' }}>
         {TEMPLATES.map(tpl => {
           const isLocked = tpl.locked && !isPro
@@ -1592,20 +1604,20 @@ export default function ViewingRoomApp() {
         </div>
 
         {/* Scrollable accordion sections */}
-        <div className="flex-1 overflow-y-auto px-[2px] py-[2px] space-y-[2px] bg-gray-50 dark:bg-[#151515]">
-          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10"/></svg>}>
+        <div className="flex-1 overflow-y-auto px-[5px] py-[2px] space-y-[2px] bg-white dark:bg-[#1c1c1c]">
+          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen titleAbove>
             <InfosSection setup={setup} onChange={saveSetup} />
           </Accordion>
 
-          <Accordion title="Media" badge={images.length} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/></svg>}>
+          <Accordion title="Media" badge={images.length} defaultOpen titleAbove cardPaddingTop="pt-4">
             <ImagesSection images={images} onChange={saveImages} />
           </Accordion>
 
-          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>}>
+          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen titleAbove cardPaddingTop="pt-4">
             <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
           </Accordion>
 
-          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true} icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z"/></svg>}>
+          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true} titleAbove noBorder>
             <TemplatesSection blocks={blocks} onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
