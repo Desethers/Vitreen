@@ -709,22 +709,22 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
 // ─── Template thumbnails ───────────────────────────────────────────────────────
 
 function ThumbFull() {
-  return <div className="w-full h-6 rounded-sm bg-gray-300 dark:bg-gray-600" />
+  return <div className="w-full h-4 rounded-sm bg-gray-300 dark:bg-gray-600" />
 }
 function ThumbPair() {
-  return <div className="flex gap-1 w-full"><div className="flex-1 h-8 rounded-sm bg-gray-300 dark:bg-gray-600"/><div className="flex-1 h-8 rounded-sm bg-gray-300 dark:bg-gray-600"/></div>
+  return <div className="flex gap-1 w-full"><div className="flex-1 h-6 rounded-sm bg-gray-300 dark:bg-gray-600"/><div className="flex-1 h-6 rounded-sm bg-gray-300 dark:bg-gray-600"/></div>
 }
 function ThumbTrio() {
-  return <div className="flex gap-0.5 w-full"><div className="flex-1 h-7 rounded-sm bg-gray-300 dark:bg-gray-600"/><div className="flex-1 h-7 rounded-sm bg-gray-300 dark:bg-gray-600"/><div className="flex-1 h-7 rounded-sm bg-gray-300 dark:bg-gray-600"/></div>
+  return <div className="flex gap-0.5 w-full"><div className="flex-1 h-[14px] rounded-sm bg-gray-300 dark:bg-gray-600"/><div className="flex-1 h-[14px] rounded-sm bg-gray-300 dark:bg-gray-600"/><div className="flex-1 h-[14px] rounded-sm bg-gray-300 dark:bg-gray-600"/></div>
 }
 function ThumbText() {
   return <div className="space-y-1 w-full px-2"><div className="h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full w-3/4 mx-auto"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2 mx-auto"/></div>
 }
 function ThumbSide() {
-  return <div className="flex gap-1.5 w-full items-center"><div className="w-10 h-9 rounded-sm bg-gray-300 dark:bg-gray-600 shrink-0"/><div className="flex-1 space-y-1"><div className="h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-3/4"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2"/></div></div>
+  return <div className="flex gap-1 w-full items-center"><div className="w-8 h-6 rounded-sm bg-gray-300 dark:bg-gray-600 shrink-0"/><div className="flex-1 space-y-1"><div className="h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-3/4"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2"/></div></div>
 }
 function ThumbQuoteFull() {
-  return <div className="space-y-1.5 w-full"><div className="space-y-1 px-3"><div className="h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full w-3/4 mx-auto"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2 mx-auto"/></div><div className="w-full h-5 rounded-sm bg-gray-300 dark:bg-gray-600"/></div>
+  return <div className="space-y-1 w-full"><div className="space-y-1 px-3"><div className="h-1.5 bg-gray-300 dark:bg-gray-600 rounded-full w-3/4 mx-auto"/><div className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full w-1/2 mx-auto"/></div><div className="w-full h-4 rounded-sm bg-gray-300 dark:bg-gray-600"/></div>
 }
 
 const TEMPLATES: {
@@ -739,21 +739,21 @@ const TEMPLATES: {
     id: 'classic',
     name: 'Classic',
     description: 'Full · Pair · Text',
-    thumb: <div className="space-y-1.5"><ThumbFull /><ThumbPair /><ThumbText /></div>,
+    thumb: <div className="space-y-1"><ThumbFull /><ThumbPair /><ThumbText /></div>,
     blocks: ['full', 'pair', 'quote'],
   },
   {
     id: 'editorial',
     name: 'Editorial',
     description: 'Full · Pair · Art+text',
-    thumb: <div className="space-y-1.5"><ThumbFull /><ThumbPair /><ThumbSide /></div>,
+    thumb: <div className="space-y-1"><ThumbFull /><ThumbPair /><ThumbSide /></div>,
     blocks: ['full', 'pair', 'side'],
   },
   {
     id: 'intimate',
     name: 'Intimate',
     description: 'Text · Full · Art+text · Full',
-    thumb: <div className="space-y-1.5"><ThumbText /><ThumbFull /><ThumbSide /><ThumbFull /></div>,
+    thumb: <div className="space-y-1"><ThumbText /><ThumbFull /><ThumbSide /><ThumbFull /></div>,
     blocks: ['quote', 'full', 'side', 'full'],
     locked: true,
   },
@@ -761,7 +761,7 @@ const TEMPLATES: {
     id: 'collection',
     name: 'Collection',
     description: 'Trio · Pair · Trio · Text',
-    thumb: <div className="space-y-1.5"><ThumbTrio /><ThumbPair /><ThumbTrio /><ThumbText /></div>,
+    thumb: <div className="space-y-1"><ThumbTrio /><ThumbPair /><ThumbTrio /><ThumbText /></div>,
     blocks: ['trio', 'pair', 'trio', 'quote'],
     locked: true,
   },
@@ -769,10 +769,18 @@ const TEMPLATES: {
 
 function TemplatesSection({ blocks, onChange, isPro, onPaywall }: { blocks: Block[]; onChange: (b: Block[]) => void; isPro: boolean; onPaywall: () => void }) {
   const [applied, setApplied] = useState<string | null>(null)
+  const [activeIdx, setActiveIdx] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const handleScroll = () => {
+    const el = scrollRef.current
+    if (!el) return
+    const cardW = 120 + 8 // width + gap
+    setActiveIdx(Math.round(el.scrollLeft / cardW))
+  }
 
   const applyTemplate = (tpl: typeof TEMPLATES[number]) => {
     if (tpl.locked && !isPro) { onPaywall(); return }
-    // Collect existing imageIds (in slot order) and quote content from current blocks
     const existingImageIds = blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => id !== null))
     const existingQuote = blocks.find(b => b.quoteText)?.quoteText ?? ''
     const existingAuthor = blocks.find(b => b.quoteAuthor)?.quoteAuthor ?? ''
@@ -799,41 +807,51 @@ function TemplatesSection({ blocks, onChange, isPro, onPaywall }: { blocks: Bloc
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      {TEMPLATES.map(tpl => {
-        const isLocked = tpl.locked && !isPro
-        return (
-          <div key={tpl.id} className="relative">
-            <button
-              type="button"
-              onClick={() => applyTemplate(tpl)}
-              className={`w-full text-left p-3 rounded-[20px] border transition-all flex flex-col ${
-                isLocked
-                  ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 cursor-pointer hover:border-gray-300'
-                  : applied === tpl.id
-                  ? 'border-gray-900 dark:border-gray-100 bg-gray-50 dark:bg-gray-800'
-                  : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-900'
-              }`}
-            >
-              <div className="mb-2.5 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg h-24 flex items-center justify-center">
-                <div className="w-full">{tpl.thumb}</div>
-              </div>
-              <p className="text-xs font-medium text-gray-800 dark:text-gray-200 leading-tight">
-                {applied === tpl.id ? '✓ Applied' : tpl.name}
-              </p>
-              <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 leading-tight">{tpl.description}</p>
-            </button>
-            {isLocked && (
-              <div className="absolute top-2 right-2 flex items-center gap-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full px-1.5 py-0.5">
-                <svg width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                </svg>
-                <span className="text-[9px] text-gray-400 font-medium">Pro</span>
-              </div>
-            )}
-          </div>
-        )
-      })}
+    <div className="space-y-2">
+    <div ref={scrollRef} onScroll={handleScroll} className="-mx-5 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
+      <div className="flex gap-2 pb-1" style={{ width: 'max-content' }}>
+        {TEMPLATES.map(tpl => {
+          const isLocked = tpl.locked && !isPro
+          return (
+            <div key={tpl.id} className="relative w-[120px] shrink-0">
+              <button
+                type="button"
+                onClick={() => applyTemplate(tpl)}
+                className={`w-full text-left p-2.5 rounded-[20px] border transition-all flex flex-col ${
+                  isLocked
+                    ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 cursor-pointer hover:border-gray-300'
+                    : applied === tpl.id
+                    ? 'border-gray-900 dark:border-gray-100 bg-gray-50 dark:bg-gray-800'
+                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 bg-white dark:bg-gray-900'
+                }`}
+              >
+                <div className="mb-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg h-24 overflow-hidden flex items-center justify-center">
+                  <div className="w-full">{tpl.thumb}</div>
+                </div>
+                <p className="text-[11px] font-medium text-gray-800 dark:text-gray-200 leading-tight truncate">
+                  {applied === tpl.id ? '✓ Applied' : tpl.name}
+                </p>
+                <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-0.5 leading-tight truncate">{tpl.description}</p>
+              </button>
+              {isLocked && (
+                <div className="absolute top-2 right-2 flex items-center gap-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-full px-1.5 py-0.5">
+                  <svg width="9" height="9" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-400">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  <span className="text-[9px] text-gray-400 font-medium">Pro</span>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+    {/* Dots */}
+    <div className="flex justify-center gap-1.5">
+      {TEMPLATES.map((_, i) => (
+        <div key={i} className={`rounded-full transition-all duration-200 ${i === activeIdx ? 'w-3 h-1.5 bg-gray-500 dark:bg-gray-400' : 'w-1.5 h-1.5 bg-gray-200 dark:bg-gray-700'}`} />
+      ))}
+    </div>
     </div>
   )
 }
