@@ -127,7 +127,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[14px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Room identity</span>
+            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Headline</span>
             {open !== 'identity' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{identitySummary}</span>}
           </div>
           {chevron(open === 'identity')}
@@ -159,7 +159,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[14px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Recipient</span>
+            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Recipient</span>
             {open !== 'recipient' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{recipientSummary}</span>}
           </div>
           {chevron(open === 'recipient')}
@@ -190,7 +190,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[14px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Introduction</span>
+            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Introduction</span>
             {open !== 'intro' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{introSummary}</span>}
           </div>
           {chevron(open === 'intro')}
@@ -207,7 +207,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
 
       {/* ── Pied de page galerie — card détachée ── */}
       <div className="mt-2 px-[8px] pb-[8px]">
-      <div className="rounded-[15px] bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
+      <div className="rounded-xl bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-gray-400 dark:text-gray-500">Gallery footer</span>
           {footerEditing ? (
@@ -277,7 +277,7 @@ function parseDimCm(s: string): [string, string] {
   return m ? [m[1], m[2]] : ['', '']
 }
 
-function DimensionsInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function DimensionsInput({ value, onChange, inline }: { value: string; onChange: (v: string) => void; inline?: boolean }) {
   const [w, h] = parseDimCm(value)
   const toIn = (cm: string) => cm ? (parseFloat(cm.replace(',', '.')) / 2.54).toFixed(1) : ''
   const [raw, setRaw] = useState(w && h ? `${w} × ${h}` : w || h ? `${w || h}` : '')
@@ -295,6 +295,18 @@ function DimensionsInput({ value, onChange }: { value: string; onChange: (v: str
 
   const parts = raw.split(/[x×\s]+/).map(s => s.trim()).filter(Boolean)
   const rw = parts[0] || ''; const rh = parts[1] || ''
+
+  if (inline) return (
+    <div className="flex items-center gap-3 px-3.5 py-[7px]">
+      <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">Dimensions</span>
+      <div className="flex-1 flex items-center gap-1 min-w-0">
+        <input type="text" value={raw} placeholder="H × W" onChange={handleChange}
+          className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
+        <span className="text-[10px] text-gray-400 shrink-0">cm</span>
+        {(rw || rh) && <span className="text-[10px] text-gray-400 shrink-0">{toIn(rw) || '–'}×{toIn(rh) || '–'} in</span>}
+      </div>
+    </div>
+  )
 
   return (
     <div>
@@ -329,11 +341,11 @@ function ImageRow({ item, onUpdate, onDelete }: {
   const set = (k: string, v: string | boolean) => onUpdate({ ...item, [k]: v })
 
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-[8px] overflow-hidden">
-      <div className="flex items-center gap-3 px-3.5 py-1.5">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+      <div className="flex items-center gap-3 px-3 py-2">
         {/* Thumb */}
         <div
-          className="w-9 h-9 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 cursor-pointer"
+          className="w-8 h-8 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 cursor-pointer"
           onClick={() => ref.current?.click()}
           onDragOver={e => e.preventDefault()}
           onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f?.type.startsWith('image/')) load(f) }}
@@ -354,9 +366,9 @@ function ImageRow({ item, onUpdate, onDelete }: {
         {/* Info */}
         <div className="flex-1 min-w-0">
           {item.title
-            ? <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate leading-tight">{item.title}</p>
-            : <p className="text-sm text-gray-400">Untitled</p>}
-          {item.artist && <p className="text-xs text-gray-400 truncate">{item.artist}</p>}
+            ? <p className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug truncate">{item.title}</p>
+            : <p className="text-[13px] text-gray-400 tracking-[-0.01em]">Untitled</p>}
+          {item.artist && <p className="text-[11px] text-gray-400 truncate">{item.artist}</p>}
         </div>
 
         {/* Fiche toggle */}
@@ -367,7 +379,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
 
         {/* Delete */}
         <button type="button" onClick={onDelete}
-          className="text-gray-300 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-300 shrink-0 transition-colors">
+          className="text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400 shrink-0 transition-colors">
           <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
@@ -375,22 +387,24 @@ function ImageRow({ item, onUpdate, onDelete }: {
       </div>
 
       {open && (
-        <div className="border-t border-gray-100 dark:border-gray-800 px-3.5 py-3 grid grid-cols-2 gap-2.5 bg-white dark:bg-[#1c1c1c]">
+        <div className="border-t border-gray-100 dark:border-gray-800 divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-[#1c1c1c]">
           {IMG_FIELDS.map(f => (
-            <div key={f.key} className={f.key === 'title' ? 'col-span-2' : ''}>
-              <p className={smlabel}>{f.placeholder}</p>
+            <div key={f.key} className="flex items-center gap-3 px-3.5 py-[7px]">
+              <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">{f.placeholder}</span>
               <input value={(item as unknown as Record<string, string>)[f.key]}
-                onChange={e => set(f.key, e.target.value)} placeholder={f.placeholder}
-                className={input} />
+                onChange={e => set(f.key, e.target.value)} placeholder="—"
+                className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
             </div>
           ))}
-          <DimensionsInput value={item.dimensions} onChange={v => set('dimensions', v)} />
-          <div>
-            <p className={smlabel}>Price</p>
-            <input value={item.price} onChange={e => set('price', e.target.value)} placeholder="4,500 €" className={input} />
+          <DimensionsInput value={item.dimensions} onChange={v => set('dimensions', v)} inline />
+          <div className="flex items-center gap-3 px-3.5 py-[7px]">
+            <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">Price</span>
+            <input value={item.price} onChange={e => set('price', e.target.value)} placeholder="—"
+              className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
           </div>
-          <div className="flex items-end pb-1">
-            <label className="flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer">
+          <div className="flex items-center gap-3 px-3.5 py-[7px]">
+            <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500" />
+            <label className="flex items-center gap-1.5 text-[11px] text-gray-400 cursor-pointer">
               <input type="checkbox" checked={item.showPrice} onChange={e => set('showPrice', e.target.checked)}
                 className="rounded border-gray-300" />
               Show price
@@ -421,41 +435,54 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
     })
   }
 
+  const hasImages = images.length > 0
+
   return (
     <div className="space-y-3">
-      {/* Drop zone */}
-      <div
-        onDragOver={e => { e.preventDefault(); setOver(true) }}
-        onDragLeave={() => setOver(false)}
-        onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
-        onClick={() => ref.current?.click()}
-        className={`border-2 border-dashed rounded-xl flex flex-col items-center justify-center py-6 cursor-pointer transition-colors ${
-          over ? 'border-gray-400 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
-        }`}
-      >
-        <svg className="w-7 h-7 text-gray-300 dark:text-gray-600 mb-2.5" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 24 24">
-          <path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
-        </svg>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Drop here</p>
-        <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">or click to browse</p>
-        <input ref={ref} type="file" accept="image/*" multiple className="hidden"
-          onChange={e => { const fs = [...(e.target.files ?? [])]; if (fs.length) addFiles(fs) }} />
-      </div>
+      <input ref={ref} type="file" accept="image/*" multiple className="hidden"
+        onChange={e => { const fs = [...(e.target.files ?? [])]; if (fs.length) addFiles(fs); e.target.value = '' }} />
 
-      {/* Image list */}
-      {images.length > 0 && (
+      {/* Empty state: full drop zone */}
+      {!hasImages && (
+        <div
+          onDragOver={e => { e.preventDefault(); setOver(true) }}
+          onDragLeave={() => setOver(false)}
+          onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
+          onClick={() => ref.current?.click()}
+          className={`border-2 border-dashed rounded-xl flex flex-col items-center justify-center py-6 cursor-pointer transition-colors ${
+            over ? 'border-gray-400 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+          }`}
+        >
+          <svg className="w-7 h-7 text-gray-300 dark:text-gray-600 mb-2.5" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 24 24">
+            <path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
+          </svg>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Drop here</p>
+          <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">or click to browse</p>
+        </div>
+      )}
+
+      {/* With images: list + compact add strip */}
+      {hasImages && (
         <div className="space-y-2">
           {images.map(img => (
             <ImageRow key={img.id} item={img}
               onUpdate={u => onChange(images.map(x => x.id === u.id ? u : x))}
               onDelete={() => onChange(images.filter(x => x.id !== img.id))} />
           ))}
-          <button type="button" onClick={() => ref.current?.click()}
-            className="w-full border border-dashed border-gray-200 dark:border-gray-700 rounded-xl py-1.5 text-sm text-gray-400 hover:border-gray-400 hover:text-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-300 transition-colors flex items-center justify-center gap-1.5">
-            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+          <button
+            type="button"
+            onClick={() => ref.current?.click()}
+            onDragOver={e => { e.preventDefault(); setOver(true) }}
+            onDragLeave={() => setOver(false)}
+            onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
+            className={`w-full border border-dashed rounded-xl py-2 text-[12px] flex items-center justify-center gap-1.5 transition-colors ${
+              over ? 'border-gray-400 text-gray-600 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 text-gray-400 hover:border-gray-400 hover:text-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-300'
+            }`}
+          >
+            <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
-            Add images
+            Add image
           </button>
         </div>
       )}
@@ -561,7 +588,7 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, 
       </div>
 
       {/* Block label */}
-      <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 shrink-0 w-[62px]">
+      <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400 shrink-0 w-[62px]">
         {blockLabel}
       </span>
 
@@ -952,7 +979,10 @@ function LayoutSection({ images, blocks, onChange }: {
       {/* Artwork tray */}
       {images.length > 0 && (
         <div>
-          <p className={smlabel}>Artworks — drag to place</p>
+          <div className="flex items-center gap-1.5 mb-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Artworks — drag to place</span>
+          </div>
           <div className="grid grid-cols-5 gap-1.5">
             {images.map(img => (
               <ArtworkChip
@@ -974,7 +1004,10 @@ function LayoutSection({ images, blocks, onChange }: {
 
       {/* Text tray */}
       <div>
-        <p className={smlabel}>Text — click to add</p>
+        <div className="flex items-center gap-1.5 mb-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Text — click to add</span>
+          </div>
         <div className="flex gap-1.5">
           {TEXT_BLOCKS_DEF.map(({ type, label, thumb }) => (
             <button
@@ -1000,7 +1033,10 @@ function LayoutSection({ images, blocks, onChange }: {
       {/* Block sequence */}
       {blocks.length > 0 && (
         <div>
-          <p className={smlabel}>Sequence</p>
+          <div className="flex items-center gap-1.5 mb-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Sequence</span>
+          </div>
           <DragDropContext onDragEnd={onDragEnd}>
             <Droppable droppableId="blocks">
               {provided => (
@@ -1583,7 +1619,7 @@ export default function ViewingRoomApp() {
         "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-20",
         "max-lg:absolute max-lg:inset-0 max-lg:pb-16",
         mobileTab === 'edit' ? "max-lg:flex" : "max-lg:hidden",
-        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[20px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
+        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[370px] lg:rounded-[20px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
       ].join(" ")}>
 
         {/* Panel header */}
