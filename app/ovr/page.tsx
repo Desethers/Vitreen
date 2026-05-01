@@ -129,7 +129,7 @@ export default function OvrLandingPage() {
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease, delay: 0.15 }}
-          className="max-w-5xl mx-auto rounded-xl overflow-hidden border border-[#E8E8E6] shadow-[0_24px_80px_rgba(0,0,0,0.08)] bg-white"
+          className="max-w-5xl mx-auto rounded-[20px] overflow-hidden border border-[#E8E8E6] shadow-[0_24px_80px_rgba(0,0,0,0.08)] bg-white"
         >
           {/* Browser chrome */}
           <div className="h-9 bg-[#FAFAF9] border-b border-[#E8E8E6] flex items-center px-4 gap-3">
@@ -165,7 +165,7 @@ export default function OvrLandingPage() {
             </div>
 
             {/* Floating side panel */}
-            <div className="absolute left-3 top-3 bottom-3 w-[260px] md:w-[300px] bg-white rounded-[12px] border border-[#E8E8E6] shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
+            <div className="absolute left-3 top-3 bottom-3 w-[260px] md:w-[300px] bg-white rounded-[20px] border border-[#E8E8E6] shadow-[0_4px_24px_rgba(0,0,0,0.06)] overflow-hidden flex flex-col">
               {/* Panel header */}
               <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-[#F0EFEC]">
                 <span className="text-[12px] font-medium text-[#111110]">Viewing Room Studio</span>
@@ -252,7 +252,7 @@ export default function OvrLandingPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.55, ease }}
-          className="max-w-md mx-auto text-center border border-[#E8E8E6] rounded-lg p-8 md:p-10"
+          className="max-w-md mx-auto text-center border border-[#E8E8E6] rounded-[20px] p-8 md:p-10"
         >
           <p className="text-[#6B6A67] text-xs uppercase tracking-[0.18em] mb-3">Abonnement mensuel</p>
           <div className="flex items-end justify-center gap-1 mb-2">

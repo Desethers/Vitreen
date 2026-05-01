@@ -35,11 +35,11 @@ function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children 
 }) {
   const [open, setOpen] = useState(defaultOpen)
   return (
-    <div className="rounded-[18px] border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] overflow-hidden">
+    <div className="rounded-[20px] border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] overflow-hidden">
       <button
         type="button"
         onClick={() => setOpen(x => !x)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors gap-3"
+        className="w-full flex items-center justify-between px-5 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors gap-3"
       >
         <div className="flex items-center gap-2 min-w-0 flex-1">
           {icon && <span className="text-gray-900 dark:text-gray-100 shrink-0">{icon}</span>}
@@ -64,7 +64,7 @@ function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children 
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {open && <div className="px-4 pb-4">{children}</div>}
+      {open && <div className="px-5 pb-5">{children}</div>}
     </div>
   )
 }
@@ -96,15 +96,15 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
   const recipientSummary = [setup.recipientName, setup.recipientEmail].filter(Boolean).join(' · ') || 'No recipient'
   const introSummary = setup.introText ? 'Message added' : 'No message'
 
-  const rowCls = 'w-full flex items-center gap-2.5 px-4 py-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors'
-  const bodyCls = 'px-4 py-3.5 space-y-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800'
+  const rowCls = 'w-full flex items-center gap-2.5 px-5 py-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors'
+  const bodyCls = 'px-5 py-3.5 space-y-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800'
   const chevron = (isOpen: boolean) => (
     <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`}
       fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
   )
 
   return (
-    <div className="-mx-4 -mb-4">
+    <div className="-mx-5 -mb-5">
 
       {/* ── Identité de la salle ── */}
       <div className="border-b border-gray-100 dark:border-gray-800">
@@ -195,7 +195,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
 
       {/* ── Pied de page galerie — card détachée ── */}
       <div className="mt-2 px-[5px] pb-[5px]">
-      <div className="rounded-[18px] bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
+      <div className="rounded-[20px] bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-gray-400 dark:text-gray-500">Gallery footer</span>
           {footerEditing ? (
@@ -317,7 +317,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
   const set = (k: string, v: string | boolean) => onUpdate({ ...item, [k]: v })
 
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-[20px] overflow-hidden">
       <div className="flex items-center gap-3 px-3.5 py-1.5">
         {/* Thumb */}
         <div
@@ -632,7 +632,7 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
       onDragOver={e => { if (!imageDragging || !canReceiveImage) return; e.preventDefault(); setOver(true) }}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
-      className={`border rounded-xl overflow-hidden transition-colors ${
+      className={`border rounded-[20px] overflow-hidden transition-colors ${
         over ? 'border-blue-400'
         : imageDragging && canReceiveImage ? 'border-dashed border-blue-200 dark:border-blue-800'
         : 'border-gray-200 dark:border-gray-700'
@@ -807,7 +807,7 @@ function TemplatesSection({ blocks, onChange, isPro, onPaywall }: { blocks: Bloc
             <button
               type="button"
               onClick={() => applyTemplate(tpl)}
-              className={`w-full text-left p-3 rounded-xl border transition-all flex flex-col ${
+              className={`w-full text-left p-3 rounded-[20px] border transition-all flex flex-col ${
                 isLocked
                   ? 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 cursor-pointer hover:border-gray-300'
                   : applied === tpl.id
@@ -1301,7 +1301,7 @@ function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-[20px] shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
           <button type="button" onClick={onClose}
@@ -1316,7 +1316,7 @@ function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
           {error && <p className="text-xs text-red-500 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-800 px-4 py-3 rounded-lg">{error}</p>}
 
           {shareUrl && (
-            <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3">
+            <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[20px] px-4 py-3">
               <svg className="w-3.5 h-3.5 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
               </svg>
@@ -1414,7 +1414,7 @@ function SubscriptionModal({ reason, onClose }: {
       <div className="absolute inset-0 backdrop-blur-md bg-white/50 dark:bg-black/50" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative bg-white dark:bg-[#1c1c1c] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
+      <div className="relative bg-white dark:bg-[#1c1c1c] rounded-[20px] border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-sm mx-4 overflow-hidden">
         {/* Close */}
         <button
           onClick={onClose}
@@ -1553,7 +1553,7 @@ export default function ViewingRoomApp() {
         "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-20",
         "max-lg:absolute max-lg:inset-0 max-lg:pb-16",
         mobileTab === 'edit' ? "max-lg:flex" : "max-lg:hidden",
-        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[15px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
+        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[20px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
       ].join(" ")}>
 
         {/* Panel header */}

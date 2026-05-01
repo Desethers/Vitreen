@@ -1304,7 +1304,7 @@ function ShareMock() {
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.35 }}
-          className="mx-4 mt-3 rounded-xl bg-[#F7F7F5] border border-[#EBEBEA] overflow-hidden"
+          className="mx-4 mt-3 rounded-[20px] bg-[#F7F7F5] border border-[#EBEBEA] overflow-hidden"
         >
           {/* OVR preview image strip */}
           <div className="flex gap-px h-16 bg-[#E8E8E6]">
@@ -1466,7 +1466,7 @@ export default function Showcase() {
                       : "0 2px 10px rgba(0,0,0,0.06)",
                   }}
                   transition={{ duration: 0.4, ease }}
-                  className="hidden md:block absolute bg-white rounded-xl px-5 py-3"
+                  className="hidden md:block absolute bg-white rounded-[20px] px-5 py-3"
                   style={{ ...STEP_POSITIONS[i], zIndex: 20, width: 300 }}
                 >
                   <div className="flex items-center gap-2.5">
