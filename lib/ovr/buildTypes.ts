@@ -31,6 +31,26 @@ export interface Block {
   sideTextType?: 'quote' | 'quotefull'
 }
 
+// ─── Text pool (canvas-first editor) ──────────────────────────────────────────
+
+export interface QuoteItem {
+  id: string
+  text: string
+  author: string
+}
+
+export interface TextPool {
+  intro: string
+  quotes: QuoteItem[]
+  closing: string
+}
+
+export const EMPTY_TEXT_POOL: TextPool = { intro: '', quotes: [], closing: '' }
+
+export function makeQuote(text = '', author = ''): QuoteItem {
+  return { id: Math.random().toString(36).slice(2), text, author }
+}
+
 // ─── Setup (step 1) ───────────────────────────────────────────────────────────
 
 export interface VrSetup {

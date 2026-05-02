@@ -2,7 +2,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
-import type { Block, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
+import type { Block, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
+import { EMPTY_TEXT_POOL, makeQuote } from '@/lib/ovr/buildTypes'
 import { autoCompose } from '@/lib/ovr/autoCompose'
 import ThemeToggle from '@/components/ovr/ThemeToggle'
 import { ViewingRoomPreview, ExportPanel, SubscriptionModal } from '@/components/ovr/ViewingRoomApp'
@@ -266,10 +267,130 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
   )
 }
 
+// ─── Texts section (intro / quotes pool / closing) ───────────────────────────
+
+function TextsSection({
+  textPool, onChange, inputCls,
+}: { textPool: TextPool; onChange: (tp: TextPool) => void; inputCls: string }) {
+  const [introOpen, setIntroOpen] = useState(!!textPool.intro)
+  const [closingOpen, setClosingOpen] = useState(!!textPool.closing)
+
+  const updateQuote = (id: string, patch: Partial<QuoteItem>) => {
+    onChange({ ...textPool, quotes: textPool.quotes.map(q => q.id === id ? { ...q, ...patch } : q) })
+  }
+  const removeQuote = (id: string) => {
+    onChange({ ...textPool, quotes: textPool.quotes.filter(q => q.id !== id) })
+  }
+  const addQuote = () => {
+    onChange({ ...textPool, quotes: [...textPool.quotes, makeQuote()] })
+  }
+
+  return (
+    <section>
+      <div className="flex items-baseline justify-between mb-3">
+        <h3 className="text-[11px] uppercase tracking-[0.15em] text-gray-400 dark:text-gray-600">Texts</h3>
+        <span className="text-[10px] text-gray-400 dark:text-gray-600">{textPool.quotes.length} quote{textPool.quotes.length === 1 ? '' : 's'}</span>
+      </div>
+
+      {/* Intro */}
+      <div className="mb-3">
+        {introOpen || textPool.intro ? (
+          <div className="space-y-1.5">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600 px-1">Opening text</p>
+            <textarea
+              className={inputCls}
+              placeholder="Set the tone — a poetic line, a context"
+              rows={2}
+              value={textPool.intro}
+              onChange={e => onChange({ ...textPool, intro: e.target.value })}
+              onBlur={() => { if (!textPool.intro) setIntroOpen(false) }}
+            />
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setIntroOpen(true)}
+            className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+          >
+            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
+            Add an opening text
+          </button>
+        )}
+      </div>
+
+      {/* Quotes */}
+      <div className="space-y-2 mb-3">
+        {textPool.quotes.map((q, i) => (
+          <div key={q.id} className="group/q rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30 p-2.5 space-y-1.5 hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600">Quote {i + 1}</span>
+              <button
+                type="button"
+                onClick={() => removeQuote(q.id)}
+                className="opacity-0 group-hover/q:opacity-100 transition-opacity w-5 h-5 flex items-center justify-center rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+                aria-label="Remove quote"
+              >
+                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+              </button>
+            </div>
+            <textarea
+              className={inputCls}
+              placeholder="Quote text"
+              rows={2}
+              value={q.text}
+              onChange={e => updateQuote(q.id, { text: e.target.value })}
+            />
+            <input
+              className={inputCls}
+              placeholder="Author"
+              value={q.author}
+              onChange={e => updateQuote(q.id, { author: e.target.value })}
+            />
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addQuote}
+          className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+        >
+          <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
+          Add a quote
+        </button>
+      </div>
+
+      {/* Closing */}
+      <div>
+        {closingOpen || textPool.closing ? (
+          <div className="space-y-1.5">
+            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600 px-1">Closing word</p>
+            <textarea
+              className={inputCls}
+              placeholder="Final note — invitation, signature, gratitude"
+              rows={2}
+              value={textPool.closing}
+              onChange={e => onChange({ ...textPool, closing: e.target.value })}
+              onBlur={() => { if (!textPool.closing) setClosingOpen(false) }}
+            />
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setClosingOpen(true)}
+            className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+          >
+            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
+            Add a closing word
+          </button>
+        )}
+      </div>
+    </section>
+  )
+}
+
 // ─── Settings drawer (slide-in from right) ───────────────────────────────────
 
 function SettingsDrawer({
-  open, onClose, setup, onChangeSetup, images, onChangeImages,
+  open, onClose, setup, onChangeSetup, images, onChangeImages, textPool, onChangeTextPool,
 }: {
   open: boolean
   onClose: () => void
@@ -277,6 +398,8 @@ function SettingsDrawer({
   onChangeSetup: (s: VrSetup) => void
   images: ImageItem[]
   onChangeImages: (imgs: ImageItem[]) => void
+  textPool: TextPool
+  onChangeTextPool: (tp: TextPool) => void
 }) {
   const set = (k: keyof VrSetup, v: string) => onChangeSetup({ ...setup, [k]: v })
   const inputCls = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-[13px] bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 transition-colors'
@@ -321,9 +444,11 @@ function SettingsDrawer({
               <input className={inputCls} placeholder="Gallery name" value={setup.galleryName} onChange={e => set('galleryName', e.target.value)} />
               <input className={inputCls} placeholder="Headline" value={setup.headline} onChange={e => set('headline', e.target.value)} />
               <input className={inputCls} placeholder="Subtitle" value={setup.title} onChange={e => set('title', e.target.value)} />
-              <textarea className={inputCls} placeholder="Intro message" rows={3} value={setup.introText} onChange={e => set('introText', e.target.value)} />
+              <textarea className={inputCls} placeholder="Personal greeting (shown on cover)" rows={3} value={setup.introText} onChange={e => set('introText', e.target.value)} />
             </div>
           </section>
+
+          <TextsSection textPool={textPool} onChange={onChangeTextPool} inputCls={inputCls} />
 
           <section>
             <h3 className="text-[11px] uppercase tracking-[0.15em] text-gray-400 dark:text-gray-600 mb-3">Images ({images.length})</h3>
@@ -369,6 +494,7 @@ export default function EditorCanvasFirst() {
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP)
   const [images, setImages] = useState<ImageItem[]>([])
   const [blocks, setBlocks] = useState<Block[]>([])
+  const [textPool, setTextPool] = useState<TextPool>(EMPTY_TEXT_POOL)
   const [composeSeed, setComposeSeed] = useState(0)
   const [shouldAnimate, setShouldAnimate] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -383,6 +509,7 @@ export default function EditorCanvasFirst() {
       const s = sessionStorage.getItem('vr_setup'); if (s) setSetup(JSON.parse(s))
       const i = sessionStorage.getItem('vr_images'); if (i) setImages(JSON.parse(i))
       const b = sessionStorage.getItem('vr_blocks'); if (b) setBlocks(JSON.parse(b))
+      const t = sessionStorage.getItem('vr_text_pool'); if (t) setTextPool(JSON.parse(t))
     } catch { /* ignore */ }
     setHydrated(true)
   }, [])
@@ -399,6 +526,10 @@ export default function EditorCanvasFirst() {
     setBlocks(blks)
     try { sessionStorage.setItem('vr_blocks', JSON.stringify(blks)) } catch { /* ignore */ }
   }, [])
+  const saveTextPool = useCallback((tp: TextPool) => {
+    setTextPool(tp)
+    try { sessionStorage.setItem('vr_text_pool', JSON.stringify(tp)) } catch { /* ignore */ }
+  }, [])
 
   const filesToImages = (files: File[]): Promise<ImageItem[]> =>
     Promise.all(files.map(f => new Promise<ImageItem>(resolve => {
@@ -412,16 +543,19 @@ export default function EditorCanvasFirst() {
       r.readAsDataURL(f)
     })))
 
+  const triggerStagger = () => {
+    setShouldAnimate(true)
+    setTimeout(() => setShouldAnimate(false), 1200)
+  }
+
   // Initial upload from Hero — auto-compose
   const handleHeroUpload = async (files: File[]) => {
     const newImages = await filesToImages(files)
     saveImages(newImages)
-    const composed = autoCompose(newImages, 0)
+    const composed = autoCompose(newImages, textPool, 0)
     saveBlocks(composed)
     setComposeSeed(0)
-    setShouldAnimate(true)
-    // Clear animation flag after first render so subsequent edits don't re-stagger
-    setTimeout(() => setShouldAnimate(false), 1200)
+    triggerStagger()
   }
 
   // Add images later — append, no recompose
@@ -431,13 +565,23 @@ export default function EditorCanvasFirst() {
   }
 
   const regenerate = () => {
-    if (images.length === 0) return
+    if (images.length === 0 && textPool.quotes.length === 0 && !textPool.intro && !textPool.closing) return
     const next = composeSeed + 1
-    const composed = autoCompose(images, next)
+    const composed = autoCompose(images, textPool, next)
     setComposeSeed(next)
     saveBlocks(composed)
-    setShouldAnimate(true)
-    setTimeout(() => setShouldAnimate(false), 1200)
+    triggerStagger()
+  }
+
+  // When the text pool changes from the drawer, recompose immediately so the
+  // canvas reflects the new narrative. Keep the same seed so layout stability
+  // is preserved across text edits.
+  const handleTextPoolChange = (tp: TextPool) => {
+    saveTextPool(tp)
+    if (images.length > 0 || tp.intro || tp.quotes.length > 0 || tp.closing) {
+      const composed = autoCompose(images, tp, composeSeed)
+      saveBlocks(composed)
+    }
   }
 
   const health = computeHealth(setup, images, blocks)
@@ -495,6 +639,8 @@ export default function EditorCanvasFirst() {
         onChangeSetup={saveSetup}
         images={images}
         onChangeImages={saveImages}
+        textPool={textPool}
+        onChangeTextPool={handleTextPoolChange}
       />
 
       <ExportPanel

@@ -1,70 +1,170 @@
-import type { Block, BlockType, ImageItem } from './buildTypes'
+import type { Block, BlockType, ImageItem, TextPool } from './buildTypes'
 import { makeBlock } from './buildTypes'
 
-type Recipe = BlockType[]
+// ─── Image-only recipes (used when textPool is empty) ────────────────────────
 
-const RECIPES_BY_COUNT: Record<number, Recipe[]> = {
+const IMAGE_RECIPES_BY_COUNT: Record<number, BlockType[][]> = {
   1: [['full']],
   2: [['pair'], ['full', 'full']],
-  3: [['quote', 'trio'], ['full', 'pair'], ['side', 'pair']],
-  4: [['quote', 'pair', 'pair'], ['full', 'trio'], ['side', 'trio']],
-  5: [['quote', 'full', 'pair', 'pair'], ['side', 'pair', 'pair'], ['full', 'pair', 'pair']],
-  6: [['quote', 'trio', 'pair', 'full'], ['side', 'pair', 'trio'], ['full', 'pair', 'side', 'pair']],
-  7: [['quote', 'full', 'pair', 'pair', 'pair'], ['side', 'pair', 'trio', 'pair'], ['full', 'pair', 'side', 'trio']],
-  8: [['quote', 'trio', 'side', 'pair', 'pair'], ['full', 'pair', 'side', 'trio', 'pair'], ['side', 'pair', 'trio', 'pair', 'full']],
+  3: [['trio'], ['full', 'pair']],
+  4: [['pair', 'pair'], ['full', 'trio']],
+  5: [['full', 'pair', 'pair'], ['pair', 'trio']],
+  6: [['trio', 'pair', 'full'], ['pair', 'pair', 'pair'], ['full', 'pair', 'trio']],
+  7: [['full', 'pair', 'pair', 'pair'], ['trio', 'pair', 'pair'], ['pair', 'trio', 'pair']],
+  8: [['trio', 'pair', 'trio'], ['full', 'pair', 'trio', 'pair'], ['pair', 'pair', 'pair', 'pair']],
 }
 
-function pickRecipe(count: number, seed: number): Recipe {
-  const bucket = RECIPES_BY_COUNT[Math.min(count, 8)] ?? RECIPES_BY_COUNT[8]
-  if (!bucket) return ['full']
-  return bucket[seed % bucket.length]
-}
-
-function recipeForCount(count: number, seed: number): Recipe {
-  if (count <= 8) return pickRecipe(count, seed)
-  const recipe: BlockType[] = ['quote']
+function imageOnlyRecipe(count: number, seed: number): BlockType[] {
+  if (count === 0) return []
+  if (count <= 8) {
+    const bucket = IMAGE_RECIPES_BY_COUNT[count] ?? [['full']]
+    return bucket[seed % bucket.length]
+  }
+  // Long sequences: groups of 3-2-1 with seed-driven variety
+  const out: BlockType[] = []
   let remaining = count
   let i = seed
   while (remaining > 0) {
-    if (remaining >= 3 && i % 3 === 0) { recipe.push('trio'); remaining -= 3 }
-    else if (remaining >= 2 && i % 3 === 1) { recipe.push('pair'); remaining -= 2 }
-    else if (remaining >= 1 && i % 5 === 2) { recipe.push('side'); remaining -= 1 }
-    else { recipe.push('full'); remaining -= 1 }
+    if (remaining >= 3 && (i % 4 === 0 || remaining >= 6)) { out.push('trio'); remaining -= 3 }
+    else if (remaining >= 2 && i % 3 !== 2) { out.push('pair'); remaining -= 2 }
+    else { out.push('full'); remaining -= 1 }
     i++
   }
-  return recipe
+  return out
 }
 
-const QUOTES: { text: string; author: string }[] = [
-  { text: 'A work of art is a corner of nature seen through a temperament.', author: 'Émile Zola' },
-  { text: 'Painting is poetry that is seen rather than felt.', author: 'Leonardo da Vinci' },
-  { text: 'Every artist dips his brush in his own soul.', author: 'Henry Ward Beecher' },
-  { text: 'Art enables us to find ourselves and lose ourselves at the same time.', author: 'Thomas Merton' },
-  { text: 'The work of art must seize upon you, wrap you up in itself, carry you away.', author: 'Auguste Renoir' },
-]
+// ─── Group images into "chapters" so quotes can sit between them ─────────────
 
-export function autoCompose(images: ImageItem[], seed = 0): Block[] {
-  if (images.length === 0) return []
+function chunkImagesIntoChapters(count: number, chapters: number, seed: number): number[] {
+  // Returns array of image counts per chapter, each ≥ 1, summing to count
+  if (chapters <= 0) return [count]
+  if (chapters >= count) return Array.from({ length: count }, () => 1)
+  const base = Math.floor(count / chapters)
+  const extras = count - base * chapters
+  const sizes = Array.from({ length: chapters }, (_, i) => base + (i < extras ? 1 : 0))
+  // Light shuffle by seed for variety
+  if (seed % 2 === 1 && sizes.length > 1) sizes.reverse()
+  return sizes
+}
 
-  const recipe = recipeForCount(images.length, seed)
-  const quote = QUOTES[seed % QUOTES.length]
+function recipeForChapter(count: number, seed: number): BlockType[] {
+  return imageOnlyRecipe(count, seed)
+}
 
-  let cursor = 0
-  let quoteFilled = false
+// ─── Main composer ───────────────────────────────────────────────────────────
 
-  return recipe.map(type => {
-    const block = makeBlock(type)
-    block.slots = block.slots.map(() => {
-      const id = images[cursor]?.id ?? null
-      cursor++
-      return { imageId: id }
-    })
-    if ((type === 'quote' || type === 'side' || type === 'quotefull') && !quoteFilled) {
-      block.quoteText = quote.text
-      block.quoteAuthor = quote.author
-      if (type === 'side') block.sideTextType = 'quote'
-      quoteFilled = true
+export function autoCompose(
+  images: ImageItem[],
+  textPool: TextPool = { intro: '', quotes: [], closing: '' },
+  seed = 0,
+): Block[] {
+  if (images.length === 0 && !textPool.intro && textPool.quotes.length === 0 && !textPool.closing) {
+    return []
+  }
+
+  // Images-only path
+  const hasAnyText = !!textPool.intro || textPool.quotes.length > 0 || !!textPool.closing
+  if (!hasAnyText) {
+    return imageOnlyRecipe(images.length, seed).map(buildBlockOfType(images, () => null))
+  }
+
+  // Text + images path: split images into chapters separated by quotes
+  const quoteCount = textPool.quotes.length
+  const chapterCount = Math.max(1, quoteCount + 1)
+  const chapterSizes = chunkImagesIntoChapters(images.length, chapterCount, seed)
+
+  const result: Block[] = []
+  let imgCursor = 0
+
+  // Intro block
+  if (textPool.intro) {
+    const intro = makeBlock('quotefull')
+    intro.quoteText = textPool.intro
+    intro.quoteAuthor = ''
+    // intro's image slot left empty — first image will appear in chapter 1
+    result.push(intro)
+  }
+
+  // Walk chapters: chapter images, then quote (except last)
+  for (let c = 0; c < chapterCount; c++) {
+    const size = chapterSizes[c] ?? 0
+    const chapterImages = images.slice(imgCursor, imgCursor + size)
+    imgCursor += size
+
+    const chapterBlocks = recipeForChapter(chapterImages.length, seed + c).map(
+      buildBlockOfType(chapterImages, makeImgIdResolver(chapterImages)),
+    )
+    result.push(...chapterBlocks)
+
+    // Quote between chapters (not after last chapter)
+    if (c < quoteCount) {
+      const q = textPool.quotes[c]
+      // Alternate quote vs side: side gives variety when chapter has follow-up images
+      const useSide = (seed + c) % 3 === 0 && imgCursor < images.length
+      if (useSide) {
+        const sideBlock = makeBlock('side')
+        sideBlock.quoteText = q.text
+        sideBlock.quoteAuthor = q.author
+        sideBlock.sideTextType = 'quote'
+        // pull next image into the side slot
+        if (imgCursor < images.length) {
+          sideBlock.slots = [{ imageId: images[imgCursor].id }]
+          imgCursor++
+        }
+        result.push(sideBlock)
+      } else {
+        const quoteBlock = makeBlock('quote')
+        quoteBlock.quoteText = q.text
+        quoteBlock.quoteAuthor = q.author
+        result.push(quoteBlock)
+      }
     }
+  }
+
+  // Drain any leftover images (when chapters didn't consume all)
+  while (imgCursor < images.length) {
+    const remaining = images.length - imgCursor
+    const types = imageOnlyRecipe(remaining, seed + 17)
+    const tail = images.slice(imgCursor)
+    let tailCursor = 0
+    types.forEach(t => {
+      const b = makeBlock(t)
+      b.slots = b.slots.map(() => {
+        const id = tail[tailCursor]?.id ?? null
+        tailCursor++
+        return { imageId: id }
+      })
+      result.push(b)
+    })
+    imgCursor = images.length
+  }
+
+  // Closing block
+  if (textPool.closing) {
+    const closing = makeBlock('quote')
+    closing.quoteText = textPool.closing
+    closing.quoteAuthor = ''
+    result.push(closing)
+  }
+
+  return result
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function makeImgIdResolver(pool: ImageItem[]) {
+  let i = 0
+  return () => {
+    const id = pool[i]?.id ?? null
+    i++
+    return id
+  }
+}
+
+function buildBlockOfType(_allImages: ImageItem[], nextImageId: () => string | null) {
+  return (type: BlockType): Block => {
+    const block = makeBlock(type)
+    block.slots = block.slots.map(() => ({ imageId: nextImageId() }))
     return block
-  })
+  }
 }
