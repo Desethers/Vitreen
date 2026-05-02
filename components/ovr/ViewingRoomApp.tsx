@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
-import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
+import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
 
 // Dynamically imported so @clerk/nextjs is never loaded when Clerk is disabled
 const UserButton = clerkEnabled
@@ -15,7 +15,7 @@ import { makeBlock, BLOCK_CONFIGS } from '@/lib/ovr/buildTypes'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
-const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-[12px] bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
+const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-[12px] bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
 const label = 'block text-[13px] font-normal text-gray-900 dark:text-gray-100 mb-1.5'
 const smlabel = 'block text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-1.5'
 
@@ -453,7 +453,7 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
             over ? 'border-gray-400 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
           }`}
         >
-          <svg className="w-7 h-7 text-gray-300 dark:text-gray-600 mb-2.5" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 24 24">
+          <svg className="w-7 h-7 text-gray-300 dark:text-gray-600 mb-2.5" fill="none" stroke="currentColor" strokeWidth="0.8" viewBox="0 0 24 24">
             <path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
           </svg>
           <p className="text-sm text-gray-500 dark:text-gray-400">Drop here</p>
@@ -541,23 +541,30 @@ function ArtworkChip({ img, placed, onDragStart, onDragEnd }: {
 
 // ─── Art block row (full / pair / trio) ───────────────────────────────────────
 
-function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, onUpdate }: {
+function ArtBlockRow({ block, images, dragHandleProps, imageDragging, textDragging, onDelete, onUpdate, onAppendText }: {
   block: Block; images: ImageItem[]
   dragHandleProps: DraggableProvidedDragHandleProps | null | undefined
-  imageDragging: boolean
+  imageDragging: boolean; textDragging: string | null
   onDelete: () => void; onUpdate: (b: Block) => void
+  onAppendText: (type: BlockType) => void
 }) {
   const [over, setOver] = useState(false)
+  const [textOver, setTextOver] = useState(false)
   const artworks = block.slots.map(s => images.find(i => i.id === s.imageId)).filter((x): x is ImageItem => Boolean(x))
-  const canReceive = block.slots.length < 3
+  const filledCount = block.slots.filter(s => s.imageId !== null).length
+  const canReceive = filledCount < 3
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault(); setOver(false)
     if (!canReceive) return
     const id = e.dataTransfer.getData('text/plain')
     if (!id || block.slots.some(s => s.imageId === id)) return
-    const newSlots = [...block.slots, { imageId: id }]
-    onUpdate({ ...block, slots: newSlots, type: artBlockType(newSlots.length) })
+    const emptyIdx = block.slots.findIndex(s => s.imageId === null)
+    const newSlots = emptyIdx !== -1
+      ? block.slots.map((s, i) => i === emptyIdx ? { ...s, imageId: id } : s)
+      : [...block.slots, { imageId: id }]
+    const newFilledCount = newSlots.filter(s => s.imageId !== null).length
+    onUpdate({ ...block, slots: newSlots, type: artBlockType(newFilledCount) })
   }
 
   const removeArtwork = (imageId: string) => {
@@ -566,38 +573,76 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, 
     onUpdate({ ...block, slots: newSlots, type: artBlockType(newSlots.length) })
   }
 
-  const blockLabel = block.slots.length >= 3 ? 'Triptych' : block.slots.length === 2 ? 'Pair' : 'Full page'
+  const blockIcon = filledCount >= 3
+    ? /* triptych: page with 3 columns + full strip on top */
+      <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+        <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+        <rect x="2.5" y="2.5" width="15" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+        <rect x="2.5" y="12" width="4.5" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+        <rect x="7.75" y="12" width="4.5" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+        <rect x="13" y="12" width="4.5" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    : filledCount === 2
+    ? /* diptych: page with 2 columns */
+      <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+        <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+        <rect x="2.5" y="2.5" width="15" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+        <rect x="2.5" y="12" width="7" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+        <rect x="10.5" y="12" width="7" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    : /* full: page with one image */
+      <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+        <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+        <rect x="2.5" y="2.5" width="15" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+        <rect x="2.5" y="12" width="15" height="11.5" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+
+  const handleTextDrop = (e: React.DragEvent) => {
+    const textType = e.dataTransfer.getData('application/x-text-type') as BlockType | ''
+    if (!textType) return
+    e.preventDefault(); setTextOver(false)
+    if (block.type === 'full') {
+      onUpdate({ ...block, type: 'side' })
+      return
+    }
+    onAppendText(textType)
+  }
 
   return (
     <div
-      onDragOver={e => { if (!imageDragging || !canReceive) return; e.preventDefault(); setOver(true) }}
-      onDragLeave={() => setOver(false)}
-      onDrop={handleDrop}
-      className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors ${
-        over ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
+      onDragOver={e => {
+        if (imageDragging && canReceive) { e.preventDefault(); setOver(true); return }
+        if (textDragging) { e.preventDefault(); setTextOver(true) }
+      }}
+      onDragLeave={() => { setOver(false); setTextOver(false) }}
+      onDrop={e => { handleTextDrop(e); if (!e.defaultPrevented) handleDrop(e) }}
+      className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-colors ${
+        textOver ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/20'
+        : over ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
         : imageDragging && canReceive ? 'border-dashed border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
+        : textDragging ? 'border-dashed border-violet-200 dark:border-violet-800'
         : 'border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900'
       }`}
     >
       {/* Drag handle */}
-      <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 cursor-grab active:cursor-grabbing touch-none">
+      <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 hover:text-blue-400 active:text-blue-500 cursor-grab active:cursor-grabbing touch-none transition-colors">
         <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
           <circle cx="2.5" cy="2" r="1.2"/><circle cx="2.5" cy="6" r="1.2"/><circle cx="2.5" cy="10" r="1.2"/>
           <circle cx="7.5" cy="2" r="1.2"/><circle cx="7.5" cy="6" r="1.2"/><circle cx="7.5" cy="10" r="1.2"/>
         </svg>
       </div>
 
-      {/* Block label */}
-      <span className="text-[11px] font-medium text-gray-500 dark:text-gray-400 shrink-0 w-[62px]">
-        {blockLabel}
-      </span>
+      {/* Block icon */}
+      <div className="shrink-0 w-5 flex items-center justify-center">
+        {blockIcon}
+      </div>
 
       {/* Artwork thumbnails */}
       <div className="flex items-center gap-1 flex-1 min-w-0">
         {artworks.map(img => (
           <div key={img.id} className="relative group/art shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={img.dataUrl} alt={img.title || ''} className="w-7 h-7 rounded object-cover" />
+            <img src={img.dataUrl} alt={img.title || ''} className="w-9 h-9 rounded object-cover" />
             <button
               type="button"
               onClick={() => removeArtwork(img.id)}
@@ -639,10 +684,18 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, 
 
 // ─── Text block row ────────────────────────────────────────────────────────────
 
-const TEXT_TYPE_META: Record<string, { label: string; pill: string }> = {
+const TEXT_TYPE_META: Record<string, { label: string; pill: string; icon?: React.ReactNode }> = {
   quote:     { label: 'Text',       pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800' },
   quotefull: { label: 'Quote',      pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800' },
-  side:      { label: 'Art + text', pill: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-800' },
+  side:      { label: 'Art + text', pill: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-800', icon: (
+    <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+      <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+      <rect x="2.5" y="2.5" width="7" height="21" rx="1" fill="currentColor" opacity="0.4"/>
+      <rect x="11.5" y="6" width="6" height="1.5" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <rect x="11.5" y="10" width="6" height="1.5" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <rect x="11.5" y="14" width="4" height="1.5" rx="0.5" fill="currentColor" opacity="0.3"/>
+    </svg>
+  ) },
   imgbio:    { label: 'Img + Bio',  pill: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-800' },
 }
 
@@ -677,8 +730,8 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
         : 'border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100'
       }`}
     >
-      <div className="flex items-center gap-2.5 px-3 py-2 bg-white dark:bg-gray-900">
-        <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 cursor-grab active:cursor-grabbing touch-none">
+      <div className="flex items-center gap-2.5 px-3 py-3 bg-white dark:bg-gray-900">
+        <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 hover:text-blue-400 active:text-blue-500 cursor-grab active:cursor-grabbing touch-none transition-colors">
           <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
             <circle cx="2.5" cy="2" r="1.2"/><circle cx="2.5" cy="6" r="1.2"/><circle cx="2.5" cy="10" r="1.2"/>
             <circle cx="7.5" cy="2" r="1.2"/><circle cx="7.5" cy="6" r="1.2"/><circle cx="7.5" cy="10" r="1.2"/>
@@ -686,17 +739,27 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
         </div>
 
         <button type="button" onClick={onExpand} className="flex-1 flex items-center gap-2 text-left min-w-0">
-          <span className={`px-2 py-0.5 text-[10px] font-medium border rounded-full shrink-0 ${meta.pill}`}>
-            {meta.label}
-          </span>
+          {meta.icon
+            ? <div className="shrink-0 w-5 flex items-center justify-center">{meta.icon}</div>
+            : <span className={`px-2 py-0.5 text-[10px] font-medium border rounded-full shrink-0 ${meta.pill}`}>{meta.label}</span>
+          }
           {slotImage && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={slotImage.dataUrl} alt="" className="w-[18px] h-[18px] rounded object-cover shrink-0" />
+            <img src={slotImage.dataUrl} alt="" className="w-9 h-9 rounded object-cover shrink-0" />
           )}
-          {block.quoteText
+          {block.type === 'side' && (
+            <div className="flex items-center gap-1 shrink-0">
+              <span className="text-[10px] text-gray-300 dark:text-gray-600">+</span>
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="text-gray-900 dark:text-gray-100 shrink-0">
+                <rect x="1" y="1" width="34" height="34" rx="4" stroke="currentColor" strokeWidth="0.8"/>
+                <path d="M8 12h20M8 18h20M8 24h14" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round"/>
+              </svg>
+            </div>
+          )}
+          {block.type !== 'side' && (block.quoteText
             ? <span className="text-[11px] text-gray-400 truncate italic">"{block.quoteText}"</span>
             : <span className="text-[11px] text-gray-300 dark:text-gray-600">Add text…</span>
-          }
+          )}
           <svg className={`w-3 h-3 text-gray-400 ml-auto shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
             fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
         </button>
@@ -935,16 +998,17 @@ function WireSide() {
 }
 
 const TEXT_BLOCKS_DEF: { type: BlockType; label: string; thumb: React.ReactNode }[] = [
-  { type: 'quote',     label: 'Texte',       thumb: <WireText /> },
-  { type: 'quotefull', label: 'Citation',    thumb: <WireQuote /> },
-  { type: 'side',      label: 'Img + texte', thumb: <WireSide /> },
+  { type: 'quote',     label: 'Texte',    thumb: <WireText /> },
+  { type: 'quotefull', label: 'Citation', thumb: <WireQuote /> },
 ]
 
-function LayoutSection({ images, blocks, onChange }: {
+function LayoutSection({ images, blocks, onChange, onBlockDragStart, onBlockDragEnd }: {
   images: ImageItem[]; blocks: Block[]; onChange: (b: Block[]) => void
+  onBlockDragStart?: (id: string) => void; onBlockDragEnd?: () => void
 }) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [imageDragging, setImageDragging] = useState(false)
+  const [textDragging, setTextDragging] = useState<string | null>(null)
   const [dropZoneOver, setDropZoneOver] = useState(false)
 
   const usedIds = new Set(blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => id !== null)))
@@ -965,7 +1029,14 @@ function LayoutSection({ images, blocks, onChange }: {
   }
 
   const handleDropOnNewZone = (e: React.DragEvent) => {
-    e.preventDefault(); setDropZoneOver(false)
+    e.preventDefault(); setDropZoneOver(false); setTextDragging(null)
+    const textType = e.dataTransfer.getData('application/x-text-type') as BlockType | ''
+    if (textType) {
+      const b = makeBlock(textType)
+      onChange([...blocks, b])
+      setExpandedId(b.id)
+      return
+    }
     const id = e.dataTransfer.getData('text/plain')
     if (!id) return
     const b = makeBlock('full')
@@ -1006,15 +1077,18 @@ function LayoutSection({ images, blocks, onChange }: {
       <div>
         <div className="flex items-center gap-1.5 mb-2">
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
-            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Text — click to add</span>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Text — click or drag</span>
           </div>
         <div className="flex gap-1.5">
           {TEXT_BLOCKS_DEF.map(({ type, label, thumb }) => (
             <button
               key={type}
               type="button"
+              draggable
+              onDragStart={e => { e.dataTransfer.setData('application/x-text-type', type); e.dataTransfer.effectAllowed = 'copy'; setTextDragging(type) }}
+              onDragEnd={() => setTextDragging(null)}
               onClick={() => addTextBlock(type)}
-              className="flex-1 flex flex-col items-center gap-2 pt-2.5 pb-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900 transition-colors group"
+              className="flex-1 flex flex-col items-center gap-2 pt-2.5 pb-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900 transition-colors group cursor-grab active:cursor-grabbing"
             >
               <div className="w-full px-1">{thumb}</div>
               <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors">{label}</span>
@@ -1037,7 +1111,10 @@ function LayoutSection({ images, blocks, onChange }: {
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
             <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Sequence</span>
           </div>
-          <DragDropContext onDragEnd={onDragEnd}>
+          <DragDropContext
+            onDragStart={(start: DragStart) => onBlockDragStart?.(start.draggableId)}
+            onDragEnd={result => { onBlockDragEnd?.(); onDragEnd(result) }}
+          >
             <Droppable droppableId="blocks">
               {provided => (
                 <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-1.5">
@@ -1052,8 +1129,16 @@ function LayoutSection({ images, blocks, onChange }: {
                               images={images}
                               dragHandleProps={provided.dragHandleProps}
                               imageDragging={imageDragging}
+                              textDragging={textDragging}
                               onDelete={() => onChange(blocks.filter(b => b.id !== block.id))}
                               onUpdate={updated => onChange(blocks.map(b => b.id === updated.id ? updated : b))}
+                              onAppendText={type => {
+                                const tb = makeBlock(type)
+                                const next = [...blocks]
+                                next.splice(index + 1, 0, tb)
+                                onChange(next)
+                                setExpandedId(tb.id)
+                              }}
                             />
                           ) : (
                             <TextBlockRow
@@ -1081,21 +1166,21 @@ function LayoutSection({ images, blocks, onChange }: {
 
       {/* New block drop zone */}
       <div
-        onDragOver={e => { if (!imageDragging) return; e.preventDefault(); setDropZoneOver(true) }}
+        onDragOver={e => { if (!imageDragging && !textDragging) return; e.preventDefault(); setDropZoneOver(true) }}
         onDragLeave={() => setDropZoneOver(false)}
         onDrop={handleDropOnNewZone}
         className={`rounded-xl border-2 border-dashed flex items-center justify-center py-4 transition-colors ${
           dropZoneOver ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
-          : imageDragging ? 'border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
+          : (imageDragging || textDragging) ? 'border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
           : 'border-gray-100 dark:border-gray-800'
         }`}
       >
         <p className={`text-[11px] transition-colors ${
           dropZoneOver ? 'text-blue-600 dark:text-blue-400'
-          : imageDragging ? 'text-blue-400 dark:text-blue-500'
+          : (imageDragging || textDragging) ? 'text-blue-400 dark:text-blue-500'
           : 'text-gray-300 dark:text-gray-700'
         }`}>
-          {dropZoneOver ? '+ New block' : imageDragging ? 'Drop to create a new block' : '+ New artwork block'}
+          {dropZoneOver ? '+ New block' : (imageDragging || textDragging) ? 'Drop to add to sequence' : '+ New artwork block'}
         </p>
       </div>
 
@@ -1147,6 +1232,20 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { image
 }
 
 function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) {
+  const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
+
+  useEffect(() => {
+    block.slots.forEach(slot => {
+      if (!slot.imageId) return
+      const id = slot.imageId
+      const img = images.find(i => i.id === id)
+      if (!img?.dataUrl) return
+      const el = new window.Image()
+      el.onload = () => setOrientations(p => p[id] ? p : { ...p, [id]: el.naturalHeight > el.naturalWidth ? 'portrait' : 'landscape' })
+      el.src = img.dataUrl
+    })
+  }, [block.slots, images])
+
   if (block.type === 'quote') {
     return (
       <div className="py-12 px-6 text-center max-w-lg mx-auto">
@@ -1213,19 +1312,21 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   }
 
   if (block.type === 'pair') {
-    return (
-      <div className="grid grid-cols-2 gap-6">
-        {block.slots.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover showInquire={block.showInquire} />)}
-      </div>
-    )
+    const filled = block.slots.filter(s => s.imageId !== null)
+    return filled.length === 1
+      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={block.showInquire} /></div>
+      : <div className="grid grid-cols-2 gap-6">{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover showInquire={block.showInquire} />)}</div>
   }
 
   if (block.type === 'trio') {
-    return (
-      <div className="grid grid-cols-3 gap-4">
-        {block.slots.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} />)}
-      </div>
-    )
+    const filled = block.slots.filter(s => s.imageId !== null)
+    const knownOrientations = filled.map(s => s.imageId ? orientations[s.imageId] : undefined).filter(Boolean)
+    const portraitCount = knownOrientations.filter(o => o === 'portrait').length
+    const isPortrait = portraitCount > knownOrientations.length / 2
+    const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
+    return cols
+      ? <div className={`grid ${cols} gap-4`}>{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover landscape={!isPortrait} />)}</div>
+      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover /></div>
   }
 
   if (block.type === 'side') {
@@ -1246,8 +1347,8 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   return null
 }
 
-function ViewingRoomPreview({ setup, images, blocks, isPro }: {
-  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean
+function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
+  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null
 }) {
   const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0
 
@@ -1291,7 +1392,12 @@ function ViewingRoomPreview({ setup, images, blocks, isPro }: {
         {blocks.length > 0 && (
           <div className="px-10 py-10 space-y-12">
             {blocks.map(block => (
-              <PreviewBlock key={block.id} block={block} images={images} />
+              <div
+                key={block.id}
+                className={`transition-all duration-200 ${draggingBlockId === block.id ? '-translate-y-1 shadow-2xl rounded-xl ring-1 ring-gray-900/8' : ''}`}
+              >
+                <PreviewBlock block={block} images={images} />
+              </div>
             ))}
           </div>
         )}
@@ -1559,6 +1665,7 @@ export default function ViewingRoomApp() {
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP)
   const [images, setImages] = useState<ImageItem[]>([])
   const [blocks, setBlocks] = useState<Block[]>([])
+  const [draggingBlockId, setDraggingBlockId] = useState<string | null>(null)
   const [exportOpen, setExportOpen] = useState(false)
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
   const [paywallOpen, setPaywallOpen] = useState(false)
@@ -1611,7 +1718,7 @@ export default function ViewingRoomApp() {
         "max-lg:pb-16",
         mobileTab === 'preview' ? "max-lg:block" : "max-lg:hidden",
       ].join(" ")}>
-        <ViewingRoomPreview setup={setup} images={images} blocks={blocks} isPro={isPro} />
+        <ViewingRoomPreview setup={setup} images={images} blocks={blocks} isPro={isPro} draggingBlockId={draggingBlockId} />
       </main>
 
       {/* ── Side panel — floating overlay (desktop) / full screen (mobile) ── */}
@@ -1650,7 +1757,7 @@ export default function ViewingRoomApp() {
           </Accordion>
 
           <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen cardPaddingTop="pt-3">
-            <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
+            <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} onBlockDragStart={setDraggingBlockId} onBlockDragEnd={() => setDraggingBlockId(null)} />
           </Accordion>
 
           <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true}>
