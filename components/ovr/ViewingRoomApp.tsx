@@ -57,7 +57,7 @@ function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children,
           {icon && <span className="text-gray-900 dark:text-gray-100 shrink-0">{icon}</span>}
           <div className="flex flex-col items-start min-w-0 flex-1">
             <div className="flex items-center gap-2 max-w-full">
-              <span className="text-sm font-normal text-gray-800 dark:text-gray-200 shrink-0">{title}</span>
+              <span className="text-sm font-medium text-gray-800 dark:text-gray-200 shrink-0">{title}</span>
               {badge !== undefined && badge > 0 && (
                 <span className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded-full tabular-nums shrink-0">
                   {badge}
@@ -602,7 +602,7 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, textDraggi
     if (!textType) return
     e.preventDefault(); setTextOver(false)
     if (block.type === 'full') {
-      onUpdate({ ...block, type: 'side' })
+      onUpdate({ ...block, type: 'side', sideTextType: textType === 'quotefull' ? 'quotefull' : 'quote' })
       return
     }
     onAppendText(textType)
@@ -685,8 +685,20 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, textDraggi
 // ─── Text block row ────────────────────────────────────────────────────────────
 
 const TEXT_TYPE_META: Record<string, { label: string; pill: string; icon?: React.ReactNode }> = {
-  quote:     { label: 'Text',       pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800' },
-  quotefull: { label: 'Quote',      pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800' },
+  quote:     { label: 'Text',  pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800', icon: (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+      <path d="M3 5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M9 5v9"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  ) },
+  quotefull: { label: 'Quote', pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800', icon: (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+      <path d="M4 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M4 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      <path d="M10 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M10 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  ) },
   side:      { label: 'Art + text', pill: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-800', icon: (
     <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
       <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
@@ -708,20 +720,24 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
   const meta = TEXT_TYPE_META[block.type] ?? { label: block.type, pill: 'bg-gray-100 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700' }
   const hasImageSlot = BLOCK_CONFIGS[block.type].slotCount > 0
   const imageSlotFilled = hasImageSlot && !!block.slots[0]?.imageId
-  const canReceiveImage = hasImageSlot && !imageSlotFilled
+  const canReceiveImage = (hasImageSlot && !imageSlotFilled) || block.type === 'quote'
   const slotImage = hasImageSlot ? images.find(i => i.id === block.slots[0]?.imageId) : undefined
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault(); setOver(false)
-    if (!canReceiveImage) return
     const id = e.dataTransfer.getData('text/plain')
     if (!id) return
+    if (block.type === 'quote') {
+      onUpdate({ ...block, type: 'side', slots: [{ imageId: id }] })
+      return
+    }
+    if (!canReceiveImage) return
     onUpdate({ ...block, slots: [{ imageId: id }, ...block.slots.slice(1)] })
   }
 
   return (
     <div
-      onDragOver={e => { if (!imageDragging || !canReceiveImage) return; e.preventDefault(); setOver(true) }}
+      onDragOver={e => { if (!canReceiveImage) return; if (!e.dataTransfer.types.includes('text/plain')) return; e.preventDefault(); setOver(true) }}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
       className={`border rounded-xl overflow-hidden transition-colors ${
@@ -738,24 +754,71 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
           </svg>
         </div>
 
-        <button type="button" onClick={onExpand} className="flex-1 flex items-center gap-2 text-left min-w-0">
-          {meta.icon
-            ? <div className="shrink-0 w-5 flex items-center justify-center">{meta.icon}</div>
-            : <span className={`px-2 py-0.5 text-[10px] font-medium border rounded-full shrink-0 ${meta.pill}`}>{meta.label}</span>
-          }
-          {slotImage && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={slotImage.dataUrl} alt="" className="w-9 h-9 rounded object-cover shrink-0" />
-          )}
-          {block.type === 'side' && (
-            <div className="flex items-center gap-1 shrink-0">
-              <span className="text-[10px] text-gray-300 dark:text-gray-600">+</span>
-              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" className="text-gray-900 dark:text-gray-100 shrink-0">
-                <rect x="1" y="1" width="34" height="34" rx="4" stroke="currentColor" strokeWidth="0.8"/>
-                <path d="M8 12h20M8 18h20M8 24h14" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round"/>
-              </svg>
+        {/* Layout icon */}
+        <div className="shrink-0 w-5 flex items-center justify-center">
+          {meta.icon ?? <span className={`px-2 py-0.5 text-[10px] font-medium border rounded-full ${meta.pill}`}>{meta.label}</span>}
+        </div>
+
+        {/* Side block slots — outside expand button (contains its own buttons) */}
+        {block.type === 'side' && (
+          <div className="flex items-center gap-1.5 shrink-0">
+            {slotImage ? (
+              <div className="relative group/slot shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={slotImage.dataUrl} alt="" className="w-9 h-9 rounded object-cover" />
+                <button
+                  type="button"
+                  onClick={() => onUpdate({ ...block, slots: [{ imageId: null }, ...block.slots.slice(1)] })}
+                  className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-400 hover:text-red-500 flex items-center justify-center opacity-0 group-hover/slot:opacity-100 transition-opacity shadow-sm"
+                >
+                  <svg width="6" height="6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <div className="w-9 h-9 rounded border border-dashed border-gray-200 dark:border-gray-700 flex items-center justify-center shrink-0">
+                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-300 dark:text-gray-600">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+              </div>
+            )}
+            <span className="text-[10px] text-gray-300 dark:text-gray-600 select-none">+</span>
+            <div className="relative group/text shrink-0 w-9 h-9 rounded border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+              {block.sideTextType === 'quotefull' ? (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500">
+                  <path d="M4 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M4 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                  <path d="M10 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M10 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500">
+                  <path d="M3 5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M9 5v9"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              )}
+              <button
+                type="button"
+                onClick={() => onUpdate({ ...block, type: slotImage ? 'full' : 'quote', slots: slotImage ? [{ imageId: slotImage.id }] : [] })}
+                className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-400 hover:text-red-500 flex items-center justify-center opacity-0 group-hover/text:opacity-100 transition-opacity shadow-sm"
+              >
+                <svg width="6" height="6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
             </div>
-          )}
+          </div>
+        )}
+
+        {/* Non-side slot image */}
+        {block.type !== 'side' && slotImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={slotImage.dataUrl} alt="" className="w-9 h-9 rounded object-cover shrink-0" />
+        )}
+
+        {/* Expand button — text preview + arrow only */}
+        <button type="button" onClick={onExpand} className="flex-1 flex items-center gap-2 text-left min-w-0">
           {block.type !== 'side' && (block.quoteText
             ? <span className="text-[11px] text-gray-400 truncate italic">"{block.quoteText}"</span>
             : <span className="text-[11px] text-gray-300 dark:text-gray-600">Add text…</span>
@@ -998,8 +1061,8 @@ function WireSide() {
 }
 
 const TEXT_BLOCKS_DEF: { type: BlockType; label: string; thumb: React.ReactNode }[] = [
-  { type: 'quote',     label: 'Texte',    thumb: <WireText /> },
-  { type: 'quotefull', label: 'Citation', thumb: <WireQuote /> },
+  { type: 'quote',     label: 'Text',  thumb: <WireText /> },
+  { type: 'quotefull', label: 'Quote', thumb: <WireQuote /> },
 ]
 
 function LayoutSection({ images, blocks, onChange, onBlockDragStart, onBlockDragEnd }: {
@@ -1372,7 +1435,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
     <div className="min-h-full bg-gray-50 dark:bg-[#111111] pl-[422px] pr-8 py-8">
       <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
         {/* Cover */}
-        <div className="py-16 px-10 text-left border-b border-gray-100 dark:border-gray-800">
+        <div className="py-16 px-10 text-left">
           {setup.galleryName && (
             <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 mb-6">{setup.galleryName}</p>
           )}
@@ -1387,6 +1450,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
             <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed mt-4 whitespace-pre-wrap">{setup.introText}</p>
           )}
         </div>
+        <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
 
         {/* Blocks */}
         {blocks.length > 0 && (
@@ -1404,7 +1468,9 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
 
         {/* Footer */}
         {(setup.galleryName || setup.galleryAddress || setup.galleryContact) && (
-          <div className="border-t border-gray-100 dark:border-gray-800 py-8 px-10 text-center space-y-0.5">
+          <div>
+          <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
+          <div className="py-8 px-10 text-center space-y-0.5">
             {setup.galleryName && (
               <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryName}</p>
             )}
@@ -1414,6 +1480,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
             {setup.galleryContact && (
               <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryContact}</p>
             )}
+          </div>
           </div>
         )}
 
