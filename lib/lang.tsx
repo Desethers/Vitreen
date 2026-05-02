@@ -14,7 +14,7 @@ export const translations = {
   fr: {
     nav: {
       links: [
-        { label: "Viewing Room Studio", href: "/ovr", badge: "Nouveau" },
+        { label: "Viewing Room Studio", href: "", badge: "Bientôt" },
         { label: "Offres", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
@@ -371,7 +371,7 @@ export const translations = {
   en: {
     nav: {
       links: [
-        { label: "Viewing Room Studio", href: "/ovr", badge: "New" },
+        { label: "Viewing Room Studio", href: "", badge: "Soon" },
         { label: "Offers", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },

@@ -240,20 +240,20 @@ export default function Nav() {
               : "absolute left-1/2 -translate-x-1/2"
           }`}
         >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="flex items-center gap-1.5 text-sm text-[#6B6A67] hover:text-[#111110] transition-colors duration-200"
-            >
+          {navLinks.map((link) => {
+            const badge = ('badge' in link) && (link as { badge: string }).badge
+            const inner = <>
               {link.label}
-              {('badge' in link) && (link as { badge: string }).badge && (
+              {badge && (
                 <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#111110] text-white leading-none">
-                  {(link as { badge: string }).badge}
+                  {badge}
                 </span>
               )}
-            </a>
-          ))}
+            </>
+            return link.href
+              ? <a key={link.label} href={link.href} className="flex items-center gap-1.5 text-sm text-[#6B6A67] hover:text-[#111110] transition-colors duration-200">{inner}</a>
+              : <span key={link.label} className="flex items-center gap-1.5 text-sm text-[#6B6A67] cursor-default">{inner}</span>
+          })}
         </nav>
 
         <Button size="sm" onClick={() => openContactFromNav()} className="shrink-0 z-20">
@@ -264,21 +264,20 @@ export default function Nav() {
       {/* Menu mobile déroulant */}
       {menuOpen && (
         <div className="md:hidden mx-4 mt-2 rounded px-6 py-6 flex flex-col gap-5 absolute top-full left-0 right-0 bg-white border border-[#E8E8E6] shadow-sm z-40">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center gap-2 text-[#111110] text-base"
-            >
+          {navLinks.map((link) => {
+            const badge = ('badge' in link) && (link as { badge: string }).badge
+            const inner = <>
               {link.label}
-              {('badge' in link) && (link as { badge: string }).badge && (
+              {badge && (
                 <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#111110] text-white leading-none">
-                  {(link as { badge: string }).badge}
+                  {badge}
                 </span>
               )}
-            </a>
-          ))}
+            </>
+            return link.href
+              ? <a key={link.label} href={link.href} onClick={() => setMenuOpen(false)} className="flex items-center gap-2 text-[#111110] text-base">{inner}</a>
+              : <span key={link.label} className="flex items-center gap-2 text-[#6B6A67] text-base cursor-default">{inner}</span>
+          })}
           <button
             type="button"
             onClick={() => {
