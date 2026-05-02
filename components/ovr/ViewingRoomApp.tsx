@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
-import { DragDropContext, Droppable, Draggable, DropResult, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
+import { DragDropContext, Droppable, Draggable, DropResult, DragStart, DraggableProvidedDragHandleProps } from '@hello-pangea/dnd'
 
 // Dynamically imported so @clerk/nextjs is never loaded when Clerk is disabled
 const UserButton = clerkEnabled
@@ -15,8 +15,8 @@ import { makeBlock, BLOCK_CONFIGS } from '@/lib/ovr/buildTypes'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
-const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
-const label = 'block text-sm font-normal text-gray-900 dark:text-gray-100 mb-1.5'
+const input = 'w-full border border-gray-200 dark:border-gray-700 rounded-lg px-3.5 py-1.5 text-[12px] bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-900/8 focus:border-gray-400 dark:focus:border-gray-500 transition-colors'
+const label = 'block text-[13px] font-normal text-gray-900 dark:text-gray-100 mb-1.5'
 const smlabel = 'block text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-1.5'
 
 function Field({ name, required, children }: { name: string; required?: boolean; children: React.ReactNode }) {
@@ -30,10 +30,22 @@ function Field({ name, required, children }: { name: string; required?: boolean;
 
 // ─── Accordion section ────────────────────────────────────────────────────────
 
-function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children }: {
-  title: string; badge?: number; icon?: React.ReactNode; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode
+function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children, titleAbove, cardRounded = 'rounded-[20px]', cardPaddingTop = 'pt-0', noBorder }: {
+  title: string; badge?: number; icon?: React.ReactNode; subtitle?: string; defaultOpen?: boolean; children: React.ReactNode; titleAbove?: boolean; cardRounded?: string; cardPaddingTop?: string; noBorder?: boolean
 }) {
   const [open, setOpen] = useState(defaultOpen)
+
+  if (titleAbove) {
+    return (
+      <div>
+        <p className="pl-[15px] pr-1 pt-3 pb-2 text-[16px] font-medium text-gray-900 dark:text-gray-100 tracking-tight">{title}</p>
+        <div className={`${cardRounded} ${noBorder ? '' : 'border border-gray-200/80 dark:border-gray-800'} bg-white dark:bg-[#1c1c1c] overflow-hidden`}>
+          <div className={`px-5 pb-5 ${cardPaddingTop}`}>{children}</div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="rounded-[20px] border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#1c1c1c] overflow-hidden">
       <button
@@ -45,7 +57,7 @@ function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children 
           {icon && <span className="text-gray-900 dark:text-gray-100 shrink-0">{icon}</span>}
           <div className="flex flex-col items-start min-w-0 flex-1">
             <div className="flex items-center gap-2 max-w-full">
-              <span className="text-sm font-normal text-gray-800 dark:text-gray-200 shrink-0">{title}</span>
+              <span className="text-sm font-medium text-gray-800 dark:text-gray-200 shrink-0">{title}</span>
               {badge !== undefined && badge > 0 && (
                 <span className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 px-1.5 py-0.5 rounded-full tabular-nums shrink-0">
                   {badge}
@@ -64,7 +76,7 @@ function Accordion({ title, badge, icon, subtitle, defaultOpen = true, children 
           <path d="M19 9l-7 7-7-7" />
         </svg>
       </button>
-      {open && <div className="px-5 pb-5">{children}</div>}
+      {open && <div className={`px-5 pb-5 ${cardPaddingTop}`}>{children}</div>}
     </div>
   )
 }
@@ -77,12 +89,12 @@ type ContentGroup = 'identity' | 'recipient' | 'intro'
 
 function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSetup) => void }) {
   const set = (k: keyof VrSetup, v: string) => onChange({ ...setup, [k]: v })
-  const [open, setOpen] = useState<ContentGroup>('identity')
+  const [open, setOpen] = useState<ContentGroup | null>('identity')
   const [footerEditing, setFooterEditing] = useState(false)
   const [footerDraft, setFooterDraft] = useState({ address: setup.galleryAddress, contact: setup.galleryContact })
   const footerRef = useRef<HTMLInputElement>(null)
 
-  const toggle = (g: ContentGroup) => setOpen(prev => prev === g ? 'identity' : g)
+  const toggle = (g: ContentGroup) => setOpen(prev => prev === g ? null : g)
 
   useEffect(() => { if (footerEditing) footerRef.current?.focus() }, [footerEditing])
   useEffect(() => {
@@ -97,7 +109,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
   const introSummary = setup.introText ? 'Message added' : 'No message'
 
   const rowCls = 'w-full flex items-center gap-2.5 px-5 py-2.5 text-left hover:bg-gray-50 dark:hover:bg-gray-900/30 transition-colors'
-  const bodyCls = 'px-5 py-3.5 space-y-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-800'
+  const bodyCls = 'px-5 py-3.5 space-y-3 bg-white dark:bg-[#1c1c1c] border-t border-gray-100 dark:border-gray-800'
   const chevron = (isOpen: boolean) => (
     <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`}
       fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
@@ -115,7 +127,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
             </svg>
           </div>
           <div className="flex flex-col items-start flex-1 min-w-0">
-            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Room identity</span>
+            <span className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug">Headline</span>
             {open !== 'identity' && <span className="text-[11px] text-gray-400 dark:text-gray-500 truncate max-w-full">{identitySummary}</span>}
           </div>
           {chevron(open === 'identity')}
@@ -194,8 +206,8 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
       </div>
 
       {/* ── Pied de page galerie — card détachée ── */}
-      <div className="mt-2 px-[5px] pb-[5px]">
-      <div className="rounded-[20px] bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
+      <div className="mt-2 px-[8px] pb-[8px]">
+      <div className="rounded-xl bg-gray-50 dark:bg-gray-900/50 px-4 py-3 space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.08em] text-gray-400 dark:text-gray-500">Gallery footer</span>
           {footerEditing ? (
@@ -265,7 +277,7 @@ function parseDimCm(s: string): [string, string] {
   return m ? [m[1], m[2]] : ['', '']
 }
 
-function DimensionsInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function DimensionsInput({ value, onChange, inline }: { value: string; onChange: (v: string) => void; inline?: boolean }) {
   const [w, h] = parseDimCm(value)
   const toIn = (cm: string) => cm ? (parseFloat(cm.replace(',', '.')) / 2.54).toFixed(1) : ''
   const [raw, setRaw] = useState(w && h ? `${w} × ${h}` : w || h ? `${w || h}` : '')
@@ -283,6 +295,18 @@ function DimensionsInput({ value, onChange }: { value: string; onChange: (v: str
 
   const parts = raw.split(/[x×\s]+/).map(s => s.trim()).filter(Boolean)
   const rw = parts[0] || ''; const rh = parts[1] || ''
+
+  if (inline) return (
+    <div className="flex items-center gap-3 px-3.5 py-[7px]">
+      <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">Dimensions</span>
+      <div className="flex-1 flex items-center gap-1 min-w-0">
+        <input type="text" value={raw} placeholder="H × W" onChange={handleChange}
+          className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
+        <span className="text-[10px] text-gray-400 shrink-0">cm</span>
+        {(rw || rh) && <span className="text-[10px] text-gray-400 shrink-0">{toIn(rw) || '–'}×{toIn(rh) || '–'} in</span>}
+      </div>
+    </div>
+  )
 
   return (
     <div>
@@ -317,11 +341,11 @@ function ImageRow({ item, onUpdate, onDelete }: {
   const set = (k: string, v: string | boolean) => onUpdate({ ...item, [k]: v })
 
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-[20px] overflow-hidden">
-      <div className="flex items-center gap-3 px-3.5 py-1.5">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+      <div className="flex items-center gap-3 px-3 py-2">
         {/* Thumb */}
         <div
-          className="w-9 h-9 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 cursor-pointer"
+          className="w-8 h-8 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-800 shrink-0 cursor-pointer"
           onClick={() => ref.current?.click()}
           onDragOver={e => e.preventDefault()}
           onDrop={e => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f?.type.startsWith('image/')) load(f) }}
@@ -342,9 +366,9 @@ function ImageRow({ item, onUpdate, onDelete }: {
         {/* Info */}
         <div className="flex-1 min-w-0">
           {item.title
-            ? <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate leading-tight">{item.title}</p>
-            : <p className="text-sm text-gray-400">Untitled</p>}
-          {item.artist && <p className="text-xs text-gray-400 truncate">{item.artist}</p>}
+            ? <p className="text-[13px] text-gray-900 dark:text-gray-100 tracking-[-0.01em] leading-snug truncate">{item.title}</p>
+            : <p className="text-[13px] text-gray-400 tracking-[-0.01em]">Untitled</p>}
+          {item.artist && <p className="text-[11px] text-gray-400 truncate">{item.artist}</p>}
         </div>
 
         {/* Fiche toggle */}
@@ -355,7 +379,7 @@ function ImageRow({ item, onUpdate, onDelete }: {
 
         {/* Delete */}
         <button type="button" onClick={onDelete}
-          className="text-gray-300 hover:text-gray-600 dark:text-gray-600 dark:hover:text-gray-300 shrink-0 transition-colors">
+          className="text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400 shrink-0 transition-colors">
           <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
@@ -363,22 +387,24 @@ function ImageRow({ item, onUpdate, onDelete }: {
       </div>
 
       {open && (
-        <div className="border-t border-gray-100 dark:border-gray-800 px-3.5 py-3 grid grid-cols-2 gap-2.5 bg-gray-50 dark:bg-gray-900/50">
+        <div className="border-t border-gray-100 dark:border-gray-800 divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-[#1c1c1c]">
           {IMG_FIELDS.map(f => (
-            <div key={f.key} className={f.key === 'title' ? 'col-span-2' : ''}>
-              <p className={smlabel}>{f.placeholder}</p>
+            <div key={f.key} className="flex items-center gap-3 px-3.5 py-[7px]">
+              <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">{f.placeholder}</span>
               <input value={(item as unknown as Record<string, string>)[f.key]}
-                onChange={e => set(f.key, e.target.value)} placeholder={f.placeholder}
-                className={input} />
+                onChange={e => set(f.key, e.target.value)} placeholder="—"
+                className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
             </div>
           ))}
-          <DimensionsInput value={item.dimensions} onChange={v => set('dimensions', v)} />
-          <div>
-            <p className={smlabel}>Price</p>
-            <input value={item.price} onChange={e => set('price', e.target.value)} placeholder="4,500 €" className={input} />
+          <DimensionsInput value={item.dimensions} onChange={v => set('dimensions', v)} inline />
+          <div className="flex items-center gap-3 px-3.5 py-[7px]">
+            <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">Price</span>
+            <input value={item.price} onChange={e => set('price', e.target.value)} placeholder="—"
+              className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
           </div>
-          <div className="flex items-end pb-1">
-            <label className="flex items-center gap-1.5 text-xs text-gray-500 cursor-pointer">
+          <div className="flex items-center gap-3 px-3.5 py-[7px]">
+            <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500" />
+            <label className="flex items-center gap-1.5 text-[11px] text-gray-400 cursor-pointer">
               <input type="checkbox" checked={item.showPrice} onChange={e => set('showPrice', e.target.checked)}
                 className="rounded border-gray-300" />
               Show price
@@ -409,41 +435,54 @@ function ImagesSection({ images, onChange }: { images: ImageItem[]; onChange: (i
     })
   }
 
+  const hasImages = images.length > 0
+
   return (
     <div className="space-y-3">
-      {/* Drop zone */}
-      <div
-        onDragOver={e => { e.preventDefault(); setOver(true) }}
-        onDragLeave={() => setOver(false)}
-        onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
-        onClick={() => ref.current?.click()}
-        className={`border-2 border-dashed rounded-xl flex flex-col items-center justify-center py-6 cursor-pointer transition-colors ${
-          over ? 'border-gray-400 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
-        }`}
-      >
-        <svg className="w-7 h-7 text-gray-300 dark:text-gray-600 mb-2.5" fill="none" stroke="currentColor" strokeWidth="1.2" viewBox="0 0 24 24">
-          <path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
-        </svg>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Drop here</p>
-        <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">or click to browse</p>
-        <input ref={ref} type="file" accept="image/*" multiple className="hidden"
-          onChange={e => { const fs = [...(e.target.files ?? [])]; if (fs.length) addFiles(fs) }} />
-      </div>
+      <input ref={ref} type="file" accept="image/*" multiple className="hidden"
+        onChange={e => { const fs = [...(e.target.files ?? [])]; if (fs.length) addFiles(fs); e.target.value = '' }} />
 
-      {/* Image list */}
-      {images.length > 0 && (
+      {/* Empty state: full drop zone */}
+      {!hasImages && (
+        <div
+          onDragOver={e => { e.preventDefault(); setOver(true) }}
+          onDragLeave={() => setOver(false)}
+          onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
+          onClick={() => ref.current?.click()}
+          className={`border-2 border-dashed rounded-xl flex flex-col items-center justify-center py-6 cursor-pointer transition-colors ${
+            over ? 'border-gray-400 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+          }`}
+        >
+          <svg className="w-7 h-7 text-gray-300 dark:text-gray-600 mb-2.5" fill="none" stroke="currentColor" strokeWidth="0.8" viewBox="0 0 24 24">
+            <path d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"/>
+          </svg>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Drop here</p>
+          <p className="text-xs text-gray-400 dark:text-gray-600 mt-0.5">or click to browse</p>
+        </div>
+      )}
+
+      {/* With images: list + compact add strip */}
+      {hasImages && (
         <div className="space-y-2">
           {images.map(img => (
             <ImageRow key={img.id} item={img}
               onUpdate={u => onChange(images.map(x => x.id === u.id ? u : x))}
               onDelete={() => onChange(images.filter(x => x.id !== img.id))} />
           ))}
-          <button type="button" onClick={() => ref.current?.click()}
-            className="w-full border border-dashed border-gray-200 dark:border-gray-700 rounded-xl py-1.5 text-sm text-gray-400 hover:border-gray-400 hover:text-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-300 transition-colors flex items-center justify-center gap-1.5">
-            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+          <button
+            type="button"
+            onClick={() => ref.current?.click()}
+            onDragOver={e => { e.preventDefault(); setOver(true) }}
+            onDragLeave={() => setOver(false)}
+            onDrop={e => { e.preventDefault(); setOver(false); const fs = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/')); if (fs.length) addFiles(fs) }}
+            className={`w-full border border-dashed rounded-xl py-2 text-[12px] flex items-center justify-center gap-1.5 transition-colors ${
+              over ? 'border-gray-400 text-gray-600 bg-gray-50 dark:bg-gray-800' : 'border-gray-200 dark:border-gray-700 text-gray-400 hover:border-gray-400 hover:text-gray-600 dark:hover:border-gray-500 dark:hover:text-gray-300'
+            }`}
+          >
+            <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
             </svg>
-            Add images
+            Add image
           </button>
         </div>
       )}
@@ -502,23 +541,30 @@ function ArtworkChip({ img, placed, onDragStart, onDragEnd }: {
 
 // ─── Art block row (full / pair / trio) ───────────────────────────────────────
 
-function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, onUpdate }: {
+function ArtBlockRow({ block, images, dragHandleProps, imageDragging, textDragging, onDelete, onUpdate, onAppendText }: {
   block: Block; images: ImageItem[]
   dragHandleProps: DraggableProvidedDragHandleProps | null | undefined
-  imageDragging: boolean
+  imageDragging: boolean; textDragging: string | null
   onDelete: () => void; onUpdate: (b: Block) => void
+  onAppendText: (type: BlockType) => void
 }) {
   const [over, setOver] = useState(false)
+  const [textOver, setTextOver] = useState(false)
   const artworks = block.slots.map(s => images.find(i => i.id === s.imageId)).filter((x): x is ImageItem => Boolean(x))
-  const canReceive = block.slots.length < 3
+  const filledCount = block.slots.filter(s => s.imageId !== null).length
+  const canReceive = filledCount < 3
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault(); setOver(false)
     if (!canReceive) return
     const id = e.dataTransfer.getData('text/plain')
     if (!id || block.slots.some(s => s.imageId === id)) return
-    const newSlots = [...block.slots, { imageId: id }]
-    onUpdate({ ...block, slots: newSlots, type: artBlockType(newSlots.length) })
+    const emptyIdx = block.slots.findIndex(s => s.imageId === null)
+    const newSlots = emptyIdx !== -1
+      ? block.slots.map((s, i) => i === emptyIdx ? { ...s, imageId: id } : s)
+      : [...block.slots, { imageId: id }]
+    const newFilledCount = newSlots.filter(s => s.imageId !== null).length
+    onUpdate({ ...block, slots: newSlots, type: artBlockType(newFilledCount) })
   }
 
   const removeArtwork = (imageId: string) => {
@@ -527,38 +573,76 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, 
     onUpdate({ ...block, slots: newSlots, type: artBlockType(newSlots.length) })
   }
 
-  const blockLabel = block.slots.length >= 3 ? 'Triptych' : block.slots.length === 2 ? 'Pair' : 'Full page'
+  const blockIcon = filledCount >= 3
+    ? /* triptych: page with 3 columns + full strip on top */
+      <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+        <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+        <rect x="2.5" y="2.5" width="15" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+        <rect x="2.5" y="12" width="4.5" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+        <rect x="7.75" y="12" width="4.5" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+        <rect x="13" y="12" width="4.5" height="6" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    : filledCount === 2
+    ? /* diptych: page with 2 columns */
+      <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+        <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+        <rect x="2.5" y="2.5" width="15" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+        <rect x="2.5" y="12" width="7" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+        <rect x="10.5" y="12" width="7" height="10" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+    : /* full: page with one image */
+      <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+        <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+        <rect x="2.5" y="2.5" width="15" height="8" rx="1" fill="currentColor" opacity="0.25"/>
+        <rect x="2.5" y="12" width="15" height="11.5" rx="1" fill="currentColor" opacity="0.5"/>
+      </svg>
+
+  const handleTextDrop = (e: React.DragEvent) => {
+    const textType = e.dataTransfer.getData('application/x-text-type') as BlockType | ''
+    if (!textType) return
+    e.preventDefault(); setTextOver(false)
+    if (block.type === 'full') {
+      onUpdate({ ...block, type: 'side', sideTextType: textType === 'quotefull' ? 'quotefull' : 'quote' })
+      return
+    }
+    onAppendText(textType)
+  }
 
   return (
     <div
-      onDragOver={e => { if (!imageDragging || !canReceive) return; e.preventDefault(); setOver(true) }}
-      onDragLeave={() => setOver(false)}
-      onDrop={handleDrop}
-      className={`flex items-center gap-2 px-3 py-2 rounded-xl border transition-colors ${
-        over ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
+      onDragOver={e => {
+        if (imageDragging && canReceive) { e.preventDefault(); setOver(true); return }
+        if (textDragging) { e.preventDefault(); setTextOver(true) }
+      }}
+      onDragLeave={() => { setOver(false); setTextOver(false) }}
+      onDrop={e => { handleTextDrop(e); if (!e.defaultPrevented) handleDrop(e) }}
+      className={`flex items-center gap-2 px-3 py-3 rounded-xl border transition-colors ${
+        textOver ? 'border-violet-400 bg-violet-50 dark:bg-violet-950/20'
+        : over ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
         : imageDragging && canReceive ? 'border-dashed border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
-        : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900'
+        : textDragging ? 'border-dashed border-violet-200 dark:border-violet-800'
+        : 'border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900'
       }`}
     >
       {/* Drag handle */}
-      <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 cursor-grab active:cursor-grabbing touch-none">
+      <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 hover:text-blue-400 active:text-blue-500 cursor-grab active:cursor-grabbing touch-none transition-colors">
         <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
           <circle cx="2.5" cy="2" r="1.2"/><circle cx="2.5" cy="6" r="1.2"/><circle cx="2.5" cy="10" r="1.2"/>
           <circle cx="7.5" cy="2" r="1.2"/><circle cx="7.5" cy="6" r="1.2"/><circle cx="7.5" cy="10" r="1.2"/>
         </svg>
       </div>
 
-      {/* Block label */}
-      <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 shrink-0 w-[62px]">
-        {blockLabel}
-      </span>
+      {/* Block icon */}
+      <div className="shrink-0 w-5 flex items-center justify-center">
+        {blockIcon}
+      </div>
 
       {/* Artwork thumbnails */}
       <div className="flex items-center gap-1 flex-1 min-w-0">
         {artworks.map(img => (
           <div key={img.id} className="relative group/art shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={img.dataUrl} alt={img.title || ''} className="w-7 h-7 rounded object-cover" />
+            <img src={img.dataUrl} alt={img.title || ''} className="w-9 h-9 rounded object-cover" />
             <button
               type="button"
               onClick={() => removeArtwork(img.id)}
@@ -600,10 +684,30 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, onDelete, 
 
 // ─── Text block row ────────────────────────────────────────────────────────────
 
-const TEXT_TYPE_META: Record<string, { label: string; pill: string }> = {
-  quote:     { label: 'Text',       pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800' },
-  quotefull: { label: 'Quote',      pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800' },
-  side:      { label: 'Art + text', pill: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-800' },
+const TEXT_TYPE_META: Record<string, { label: string; pill: string; icon?: React.ReactNode }> = {
+  quote:     { label: 'Text',  pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800', icon: (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+      <path d="M3 5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M9 5v9"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  ) },
+  quotefull: { label: 'Quote', pill: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-800', icon: (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+      <path d="M4 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M4 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      <path d="M10 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <path d="M10 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+    </svg>
+  ) },
+  side:      { label: 'Art + text', pill: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-800', icon: (
+    <svg width="20" height="26" viewBox="0 0 20 26" fill="none" className="text-gray-400 dark:text-gray-500 shrink-0">
+      <rect x="0.75" y="0.75" width="18.5" height="24.5" rx="2" stroke="currentColor" strokeWidth="0.8"/>
+      <rect x="2.5" y="2.5" width="7" height="21" rx="1" fill="currentColor" opacity="0.4"/>
+      <rect x="11.5" y="6" width="6" height="1.5" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <rect x="11.5" y="10" width="6" height="1.5" rx="0.5" fill="currentColor" opacity="0.3"/>
+      <rect x="11.5" y="14" width="4" height="1.5" rx="0.5" fill="currentColor" opacity="0.3"/>
+    </svg>
+  ) },
   imgbio:    { label: 'Img + Bio',  pill: 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-950/20 dark:text-purple-400 dark:border-purple-800' },
 }
 
@@ -616,48 +720,109 @@ function TextBlockRow({ block, expanded, images, imageDragging, dragHandleProps,
   const meta = TEXT_TYPE_META[block.type] ?? { label: block.type, pill: 'bg-gray-100 text-gray-600 border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700' }
   const hasImageSlot = BLOCK_CONFIGS[block.type].slotCount > 0
   const imageSlotFilled = hasImageSlot && !!block.slots[0]?.imageId
-  const canReceiveImage = hasImageSlot && !imageSlotFilled
+  const canReceiveImage = (hasImageSlot && !imageSlotFilled) || block.type === 'quote'
   const slotImage = hasImageSlot ? images.find(i => i.id === block.slots[0]?.imageId) : undefined
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault(); setOver(false)
-    if (!canReceiveImage) return
     const id = e.dataTransfer.getData('text/plain')
     if (!id) return
+    if (block.type === 'quote') {
+      onUpdate({ ...block, type: 'side', slots: [{ imageId: id }] })
+      return
+    }
+    if (!canReceiveImage) return
     onUpdate({ ...block, slots: [{ imageId: id }, ...block.slots.slice(1)] })
   }
 
   return (
     <div
-      onDragOver={e => { if (!imageDragging || !canReceiveImage) return; e.preventDefault(); setOver(true) }}
+      onDragOver={e => { if (!canReceiveImage) return; if (!e.dataTransfer.types.includes('text/plain')) return; e.preventDefault(); setOver(true) }}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
-      className={`border rounded-[20px] overflow-hidden transition-colors ${
+      className={`border rounded-xl overflow-hidden transition-colors ${
         over ? 'border-blue-400'
         : imageDragging && canReceiveImage ? 'border-dashed border-blue-200 dark:border-blue-800'
-        : 'border-gray-200 dark:border-gray-700'
+        : 'border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100'
       }`}
     >
-      <div className="flex items-center gap-2.5 px-3 py-2 bg-white dark:bg-gray-900">
-        <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 cursor-grab active:cursor-grabbing touch-none">
+      <div className="flex items-center gap-2.5 px-3 py-3 bg-white dark:bg-gray-900">
+        <div {...dragHandleProps} className="shrink-0 text-gray-300 dark:text-gray-600 hover:text-blue-400 active:text-blue-500 cursor-grab active:cursor-grabbing touch-none transition-colors">
           <svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor">
             <circle cx="2.5" cy="2" r="1.2"/><circle cx="2.5" cy="6" r="1.2"/><circle cx="2.5" cy="10" r="1.2"/>
             <circle cx="7.5" cy="2" r="1.2"/><circle cx="7.5" cy="6" r="1.2"/><circle cx="7.5" cy="10" r="1.2"/>
           </svg>
         </div>
 
+        {/* Layout icon */}
+        <div className="shrink-0 w-5 flex items-center justify-center">
+          {meta.icon ?? <span className={`px-2 py-0.5 text-[10px] font-medium border rounded-full ${meta.pill}`}>{meta.label}</span>}
+        </div>
+
+        {/* Side block slots — outside expand button (contains its own buttons) */}
+        {block.type === 'side' && (
+          <div className="flex items-center gap-1.5 shrink-0">
+            {slotImage ? (
+              <div className="relative group/slot shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={slotImage.dataUrl} alt="" className="w-9 h-9 rounded object-cover" />
+                <button
+                  type="button"
+                  onClick={() => onUpdate({ ...block, slots: [{ imageId: null }, ...block.slots.slice(1)] })}
+                  className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-400 hover:text-red-500 flex items-center justify-center opacity-0 group-hover/slot:opacity-100 transition-opacity shadow-sm"
+                >
+                  <svg width="6" height="6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+              </div>
+            ) : (
+              <div className="w-9 h-9 rounded border border-dashed border-gray-200 dark:border-gray-700 flex items-center justify-center shrink-0">
+                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" className="text-gray-300 dark:text-gray-600">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                </svg>
+              </div>
+            )}
+            <span className="text-[10px] text-gray-300 dark:text-gray-600 select-none">+</span>
+            <div className="relative group/text shrink-0 w-9 h-9 rounded border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+              {block.sideTextType === 'quotefull' ? (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500">
+                  <path d="M4 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M4 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                  <path d="M10 4v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M10 9c0 2-1 3-2.5 3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="text-gray-400 dark:text-gray-500">
+                  <path d="M3 5h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M9 5v9"  stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              )}
+              <button
+                type="button"
+                onClick={() => onUpdate({ ...block, type: slotImage ? 'full' : 'quote', slots: slotImage ? [{ imageId: slotImage.id }] : [] })}
+                className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-400 hover:text-red-500 flex items-center justify-center opacity-0 group-hover/text:opacity-100 transition-opacity shadow-sm"
+              >
+                <svg width="6" height="6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Non-side slot image */}
+        {block.type !== 'side' && slotImage && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={slotImage.dataUrl} alt="" className="w-9 h-9 rounded object-cover shrink-0" />
+        )}
+
+        {/* Expand button — text preview + arrow only */}
         <button type="button" onClick={onExpand} className="flex-1 flex items-center gap-2 text-left min-w-0">
-          <span className={`px-2 py-0.5 text-[10px] font-medium border rounded-full shrink-0 ${meta.pill}`}>
-            {meta.label}
-          </span>
-          {slotImage && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={slotImage.dataUrl} alt="" className="w-[18px] h-[18px] rounded object-cover shrink-0" />
-          )}
-          {block.quoteText
+          {block.type !== 'side' && (block.quoteText
             ? <span className="text-[11px] text-gray-400 truncate italic">"{block.quoteText}"</span>
             : <span className="text-[11px] text-gray-300 dark:text-gray-600">Add text…</span>
-          }
+          )}
           <svg className={`w-3 h-3 text-gray-400 ml-auto shrink-0 transition-transform ${expanded ? 'rotate-180' : ''}`}
             fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>
         </button>
@@ -808,7 +973,7 @@ function TemplatesSection({ blocks, onChange, isPro, onPaywall }: { blocks: Bloc
 
   return (
     <div className="space-y-2">
-    <div ref={scrollRef} onScroll={handleScroll} className="-mx-5 px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
+    <div ref={scrollRef} onScroll={handleScroll} className="-mx-5 pl-[15px] pr-5 overflow-x-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
       <div className="flex gap-2 pb-1" style={{ width: 'max-content' }}>
         {TEMPLATES.map(tpl => {
           const isLocked = tpl.locked && !isPro
@@ -896,16 +1061,17 @@ function WireSide() {
 }
 
 const TEXT_BLOCKS_DEF: { type: BlockType; label: string; thumb: React.ReactNode }[] = [
-  { type: 'quote',     label: 'Texte',       thumb: <WireText /> },
-  { type: 'quotefull', label: 'Citation',    thumb: <WireQuote /> },
-  { type: 'side',      label: 'Img + texte', thumb: <WireSide /> },
+  { type: 'quote',     label: 'Text',  thumb: <WireText /> },
+  { type: 'quotefull', label: 'Quote', thumb: <WireQuote /> },
 ]
 
-function LayoutSection({ images, blocks, onChange }: {
+function LayoutSection({ images, blocks, onChange, onBlockDragStart, onBlockDragEnd }: {
   images: ImageItem[]; blocks: Block[]; onChange: (b: Block[]) => void
+  onBlockDragStart?: (id: string) => void; onBlockDragEnd?: () => void
 }) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [imageDragging, setImageDragging] = useState(false)
+  const [textDragging, setTextDragging] = useState<string | null>(null)
   const [dropZoneOver, setDropZoneOver] = useState(false)
 
   const usedIds = new Set(blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => id !== null)))
@@ -926,7 +1092,14 @@ function LayoutSection({ images, blocks, onChange }: {
   }
 
   const handleDropOnNewZone = (e: React.DragEvent) => {
-    e.preventDefault(); setDropZoneOver(false)
+    e.preventDefault(); setDropZoneOver(false); setTextDragging(null)
+    const textType = e.dataTransfer.getData('application/x-text-type') as BlockType | ''
+    if (textType) {
+      const b = makeBlock(textType)
+      onChange([...blocks, b])
+      setExpandedId(b.id)
+      return
+    }
     const id = e.dataTransfer.getData('text/plain')
     if (!id) return
     const b = makeBlock('full')
@@ -940,7 +1113,10 @@ function LayoutSection({ images, blocks, onChange }: {
       {/* Artwork tray */}
       {images.length > 0 && (
         <div>
-          <p className={smlabel}>Artworks — drag to place</p>
+          <div className="flex items-center gap-1.5 mb-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Artworks — drag to place</span>
+          </div>
           <div className="grid grid-cols-5 gap-1.5">
             {images.map(img => (
               <ArtworkChip
@@ -962,14 +1138,20 @@ function LayoutSection({ images, blocks, onChange }: {
 
       {/* Text tray */}
       <div>
-        <p className={smlabel}>Text — click to add</p>
+        <div className="flex items-center gap-1.5 mb-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Text — click or drag</span>
+          </div>
         <div className="flex gap-1.5">
           {TEXT_BLOCKS_DEF.map(({ type, label, thumb }) => (
             <button
               key={type}
               type="button"
+              draggable
+              onDragStart={e => { e.dataTransfer.setData('application/x-text-type', type); e.dataTransfer.effectAllowed = 'copy'; setTextDragging(type) }}
+              onDragEnd={() => setTextDragging(null)}
               onClick={() => addTextBlock(type)}
-              className="flex-1 flex flex-col items-center gap-2 pt-2.5 pb-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900 transition-colors group"
+              className="flex-1 flex flex-col items-center gap-2 pt-2.5 pb-2 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-gray-900 dark:hover:border-gray-100 bg-white dark:bg-gray-900 transition-colors group cursor-grab active:cursor-grabbing"
             >
               <div className="w-full px-1">{thumb}</div>
               <span className="text-[10px] font-medium text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors">{label}</span>
@@ -988,8 +1170,14 @@ function LayoutSection({ images, blocks, onChange }: {
       {/* Block sequence */}
       {blocks.length > 0 && (
         <div>
-          <p className={smlabel}>Sequence</p>
-          <DragDropContext onDragEnd={onDragEnd}>
+          <div className="flex items-center gap-1.5 mb-2">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-gray-900 dark:text-gray-100"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+            <span className="text-[11px] text-gray-900 dark:text-gray-100 font-medium">Sequence</span>
+          </div>
+          <DragDropContext
+            onDragStart={(start: DragStart) => onBlockDragStart?.(start.draggableId)}
+            onDragEnd={result => { onBlockDragEnd?.(); onDragEnd(result) }}
+          >
             <Droppable droppableId="blocks">
               {provided => (
                 <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-1.5">
@@ -1004,8 +1192,16 @@ function LayoutSection({ images, blocks, onChange }: {
                               images={images}
                               dragHandleProps={provided.dragHandleProps}
                               imageDragging={imageDragging}
+                              textDragging={textDragging}
                               onDelete={() => onChange(blocks.filter(b => b.id !== block.id))}
                               onUpdate={updated => onChange(blocks.map(b => b.id === updated.id ? updated : b))}
+                              onAppendText={type => {
+                                const tb = makeBlock(type)
+                                const next = [...blocks]
+                                next.splice(index + 1, 0, tb)
+                                onChange(next)
+                                setExpandedId(tb.id)
+                              }}
                             />
                           ) : (
                             <TextBlockRow
@@ -1033,21 +1229,21 @@ function LayoutSection({ images, blocks, onChange }: {
 
       {/* New block drop zone */}
       <div
-        onDragOver={e => { if (!imageDragging) return; e.preventDefault(); setDropZoneOver(true) }}
+        onDragOver={e => { if (!imageDragging && !textDragging) return; e.preventDefault(); setDropZoneOver(true) }}
         onDragLeave={() => setDropZoneOver(false)}
         onDrop={handleDropOnNewZone}
         className={`rounded-xl border-2 border-dashed flex items-center justify-center py-4 transition-colors ${
           dropZoneOver ? 'border-blue-400 bg-blue-50 dark:bg-blue-950/20'
-          : imageDragging ? 'border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
+          : (imageDragging || textDragging) ? 'border-blue-200 dark:border-blue-800 bg-blue-50/20 dark:bg-blue-950/10'
           : 'border-gray-100 dark:border-gray-800'
         }`}
       >
         <p className={`text-[11px] transition-colors ${
           dropZoneOver ? 'text-blue-600 dark:text-blue-400'
-          : imageDragging ? 'text-blue-400 dark:text-blue-500'
+          : (imageDragging || textDragging) ? 'text-blue-400 dark:text-blue-500'
           : 'text-gray-300 dark:text-gray-700'
         }`}>
-          {dropZoneOver ? '+ New block' : imageDragging ? 'Drop to create a new block' : '+ New artwork block'}
+          {dropZoneOver ? '+ New block' : (imageDragging || textDragging) ? 'Drop to add to sequence' : '+ New artwork block'}
         </p>
       </div>
 
@@ -1099,6 +1295,20 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { image
 }
 
 function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) {
+  const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
+
+  useEffect(() => {
+    block.slots.forEach(slot => {
+      if (!slot.imageId) return
+      const id = slot.imageId
+      const img = images.find(i => i.id === id)
+      if (!img?.dataUrl) return
+      const el = new window.Image()
+      el.onload = () => setOrientations(p => p[id] ? p : { ...p, [id]: el.naturalHeight > el.naturalWidth ? 'portrait' : 'landscape' })
+      el.src = img.dataUrl
+    })
+  }, [block.slots, images])
+
   if (block.type === 'quote') {
     return (
       <div className="py-12 px-6 text-center max-w-lg mx-auto">
@@ -1165,19 +1375,21 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   }
 
   if (block.type === 'pair') {
-    return (
-      <div className="grid grid-cols-2 gap-6">
-        {block.slots.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover showInquire={block.showInquire} />)}
-      </div>
-    )
+    const filled = block.slots.filter(s => s.imageId !== null)
+    return filled.length === 1
+      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={block.showInquire} /></div>
+      : <div className="grid grid-cols-2 gap-6">{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover showInquire={block.showInquire} />)}</div>
   }
 
   if (block.type === 'trio') {
-    return (
-      <div className="grid grid-cols-3 gap-4">
-        {block.slots.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} />)}
-      </div>
-    )
+    const filled = block.slots.filter(s => s.imageId !== null)
+    const knownOrientations = filled.map(s => s.imageId ? orientations[s.imageId] : undefined).filter(Boolean)
+    const portraitCount = knownOrientations.filter(o => o === 'portrait').length
+    const isPortrait = portraitCount > knownOrientations.length / 2
+    const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
+    return cols
+      ? <div className={`grid ${cols} gap-4`}>{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover landscape={!isPortrait} />)}</div>
+      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover /></div>
   }
 
   if (block.type === 'side') {
@@ -1198,8 +1410,8 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   return null
 }
 
-function ViewingRoomPreview({ setup, images, blocks, isPro }: {
-  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean
+function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
+  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null
 }) {
   const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0
 
@@ -1223,7 +1435,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro }: {
     <div className="min-h-full bg-gray-50 dark:bg-[#111111] pl-[422px] pr-8 py-8">
       <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
         {/* Cover */}
-        <div className="py-16 px-10 text-left border-b border-gray-100 dark:border-gray-800">
+        <div className="py-16 px-10 text-left">
           {setup.galleryName && (
             <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 mb-6">{setup.galleryName}</p>
           )}
@@ -1238,19 +1450,27 @@ function ViewingRoomPreview({ setup, images, blocks, isPro }: {
             <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed mt-4 whitespace-pre-wrap">{setup.introText}</p>
           )}
         </div>
+        <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
 
         {/* Blocks */}
         {blocks.length > 0 && (
           <div className="px-10 py-10 space-y-12">
             {blocks.map(block => (
-              <PreviewBlock key={block.id} block={block} images={images} />
+              <div
+                key={block.id}
+                className={`transition-all duration-200 ${draggingBlockId === block.id ? '-translate-y-1 shadow-2xl rounded-xl ring-1 ring-gray-900/8' : ''}`}
+              >
+                <PreviewBlock block={block} images={images} />
+              </div>
             ))}
           </div>
         )}
 
         {/* Footer */}
         {(setup.galleryName || setup.galleryAddress || setup.galleryContact) && (
-          <div className="border-t border-gray-100 dark:border-gray-800 py-8 px-10 text-center space-y-0.5">
+          <div>
+          <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
+          <div className="py-8 px-10 text-center space-y-0.5">
             {setup.galleryName && (
               <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryName}</p>
             )}
@@ -1260,6 +1480,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro }: {
             {setup.galleryContact && (
               <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryContact}</p>
             )}
+          </div>
           </div>
         )}
 
@@ -1511,6 +1732,7 @@ export default function ViewingRoomApp() {
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP)
   const [images, setImages] = useState<ImageItem[]>([])
   const [blocks, setBlocks] = useState<Block[]>([])
+  const [draggingBlockId, setDraggingBlockId] = useState<string | null>(null)
   const [exportOpen, setExportOpen] = useState(false)
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit')
   const [paywallOpen, setPaywallOpen] = useState(false)
@@ -1563,7 +1785,7 @@ export default function ViewingRoomApp() {
         "max-lg:pb-16",
         mobileTab === 'preview' ? "max-lg:block" : "max-lg:hidden",
       ].join(" ")}>
-        <ViewingRoomPreview setup={setup} images={images} blocks={blocks} isPro={isPro} />
+        <ViewingRoomPreview setup={setup} images={images} blocks={blocks} isPro={isPro} draggingBlockId={draggingBlockId} />
       </main>
 
       {/* ── Side panel — floating overlay (desktop) / full screen (mobile) ── */}
@@ -1571,7 +1793,7 @@ export default function ViewingRoomApp() {
         "flex flex-col bg-white dark:bg-[#1c1c1c] overflow-hidden z-20",
         "max-lg:absolute max-lg:inset-0 max-lg:pb-16",
         mobileTab === 'edit' ? "max-lg:flex" : "max-lg:hidden",
-        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[390px] lg:rounded-[20px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
+        "lg:absolute lg:left-3 lg:top-3 lg:bottom-3 lg:w-[370px] lg:rounded-[20px] lg:border lg:border-gray-200/70 lg:dark:border-gray-800 lg:shadow-lg",
       ].join(" ")}>
 
         {/* Panel header */}
@@ -1592,20 +1814,20 @@ export default function ViewingRoomApp() {
         </div>
 
         {/* Scrollable accordion sections */}
-        <div className="flex-1 overflow-y-auto px-[2px] py-[2px] space-y-[2px] bg-gray-50 dark:bg-[#151515]">
-          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h10"/></svg>}>
+        <div className="flex-1 overflow-y-auto px-[5px] pt-3 pb-[2px] space-y-3 bg-white dark:bg-[#1c1c1c]">
+          <Accordion title="Content" subtitle={contentSubtitle} defaultOpen>
             <InfosSection setup={setup} onChange={saveSetup} />
           </Accordion>
 
-          <Accordion title="Media" badge={images.length} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/></svg>}>
+          <Accordion title="Media" badge={images.length} defaultOpen cardPaddingTop="pt-3">
             <ImagesSection images={images} onChange={saveImages} />
           </Accordion>
 
-          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>}>
-            <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} />
+          <Accordion title="Layout" badge={blocks.length} subtitle={layoutSubtitle} defaultOpen cardPaddingTop="pt-3">
+            <LayoutSection images={images} blocks={blocks} onChange={saveBlocks} onBlockDragStart={setDraggingBlockId} onBlockDragEnd={() => setDraggingBlockId(null)} />
           </Accordion>
 
-          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true} icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5zM4 15a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4z"/></svg>}>
+          <Accordion title="Templates" subtitle={templatesSubtitle} defaultOpen={true}>
             <TemplatesSection blocks={blocks} onChange={saveBlocks} isPro={isPro} onPaywall={() => openPaywall('template')} />
           </Accordion>
         </div>
