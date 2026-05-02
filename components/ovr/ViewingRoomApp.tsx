@@ -1410,14 +1410,15 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   return null
 }
 
-function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
-  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null
+export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, blockEnter }: {
+  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null; noOffset?: boolean; blockEnter?: boolean
 }) {
   const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0
+  const offsetCls = noOffset ? '' : 'pl-[422px]'
 
   if (!hasContent) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-[#111111] pl-[422px]">
+      <div className={`flex items-center justify-center min-h-screen bg-gray-50 dark:bg-[#111111] ${offsetCls}`}>
         <div className="text-center">
           <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mx-auto mb-3">
             <svg className="w-5 h-5 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -1432,7 +1433,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
   }
 
   return (
-    <div className="min-h-full bg-gray-50 dark:bg-[#111111] pl-[422px] pr-8 py-8">
+    <div className={`min-h-full bg-gray-50 dark:bg-[#111111] ${offsetCls} ${noOffset ? 'px-8' : 'pr-8'} py-8`}>
       <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
         {/* Cover */}
         <div className="py-16 px-10 text-left">
@@ -1455,9 +1456,10 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
         {/* Blocks */}
         {blocks.length > 0 && (
           <div className="px-10 py-10 space-y-12">
-            {blocks.map(block => (
+            {blocks.map((block, i) => (
               <div
                 key={block.id}
+                style={blockEnter ? { animation: `vrBlockEnter 600ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 120}ms both` } : undefined}
                 className={`transition-all duration-200 ${draggingBlockId === block.id ? '-translate-y-1 shadow-2xl rounded-xl ring-1 ring-gray-900/8' : ''}`}
               >
                 <PreviewBlock block={block} images={images} />
@@ -1499,7 +1501,7 @@ function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId }: {
 // EXPORT PANEL
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
+export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
   open: boolean; onClose: () => void
   blocks: Block[]; images: ImageItem[]; setup: VrSetup
   onPaywall: () => void
@@ -1622,7 +1624,7 @@ function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
 // SUBSCRIPTION MODAL
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function SubscriptionModal({ reason, onClose }: {
+export function SubscriptionModal({ reason, onClose }: {
   reason: 'template' | 'export_limit'
   onClose: () => void
 }) {
