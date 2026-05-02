@@ -14,10 +14,10 @@ export const translations = {
   fr: {
     nav: {
       links: [
-        { label: "Viewing Room Studio", href: "", badge: "Bientôt" },
+        { label: "Produits", href: "/products", children: "products" as const },
+        { label: "Solutions", href: "/solutions", children: "solutions" as const },
         { label: "Offres", href: "#offre" },
         { label: "Blog", href: "#blog" },
-        { label: "À propos", href: "#approche" },
       ],
       cta: "Réserver une démo",
       modal: {
@@ -371,10 +371,10 @@ export const translations = {
   en: {
     nav: {
       links: [
-        { label: "Viewing Room Studio", href: "", badge: "Soon" },
+        { label: "Products", href: "/products", children: "products" as const },
+        { label: "Solutions", href: "/solutions", children: "solutions" as const },
         { label: "Offers", href: "#offre" },
         { label: "Blog", href: "#blog" },
-        { label: "About", href: "#approche" },
       ],
       cta: "Book a demo",
       modal: {

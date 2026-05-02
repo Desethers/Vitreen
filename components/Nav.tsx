@@ -5,11 +5,13 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/lib/lang";
 import { Button } from "@/components/ui/Button";
+import { PRODUCTS, CATEGORIES, productsByCategory } from "@/lib/products";
+import { SOLUTIONS } from "@/lib/solutions";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Nav() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
@@ -242,14 +244,90 @@ export default function Nav() {
         >
           {navLinks.map((link) => {
             const badge = ('badge' in link) && (link as { badge: string }).badge
+            const childrenKind = ('children' in link) ? (link as { children?: string }).children : undefined
             const inner = <>
               {link.label}
+              {childrenKind && (
+                <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" /></svg>
+              )}
               {badge && (
                 <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full bg-[#111110] text-white leading-none">
                   {badge}
                 </span>
               )}
             </>
+            // ─── PRODUCTS mega-menu (grouped by category) ───
+            if (childrenKind === 'products' && link.href) {
+              return (
+                <div key={link.label} className="relative group">
+                  <a href={link.href} className="flex items-center gap-1.5 text-sm font-medium text-[#111110] group-hover:text-[#111110] transition-colors duration-200 py-2">{inner}</a>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="bg-white rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.18),0_0_0_1px_#E8E8E6] p-5 w-[860px] grid grid-cols-2 gap-x-6 gap-y-5">
+                      {CATEGORIES.map(cat => (
+                        <div key={cat.id}>
+                          <div className="px-2 mb-2 flex items-baseline justify-between">
+                            <span className="text-[10px] uppercase tracking-[0.2em] text-[#6B6A67] font-medium">{lang === 'fr' ? cat.labelFr : cat.labelEn}</span>
+                            <span className="text-[10px] text-[#ADADAA] tabular-nums">{productsByCategory(cat.id).length}</span>
+                          </div>
+                          <div className="space-y-0.5">
+                            {productsByCategory(cat.id).map(p => (
+                              <a key={p.slug} href={`/products/${p.slug}`}
+                                className="flex items-start gap-2.5 px-2 py-2 rounded-lg hover:bg-[#F5F5F3] transition-colors">
+                                <span className="block w-7 h-7 rounded-md shrink-0 mt-0.5 flex items-center justify-center text-[12px]" style={{ background: p.swatchBg, color: p.swatchFg, fontFamily: p.swatchSerif ? '"EB Garamond", Georgia, serif' : undefined, fontStyle: p.swatchSerif ? 'italic' : 'normal', fontWeight: p.swatchSerif ? 400 : 600 }}>{p.name[0]}</span>
+                                <span className="min-w-0 flex-1">
+                                  <span className="flex items-center gap-1.5">
+                                    <span className="font-display text-[14px] text-[#111110] tracking-tight">{p.name}</span>
+                                    {p.comingSoon && <span className="text-[8px] uppercase tracking-wider px-1 py-0.5 rounded bg-[#F5F5F3] text-[#6B6A67] leading-none">{lang === 'fr' ? 'Bientôt' : 'Soon'}</span>}
+                                  </span>
+                                  <span className="block text-[11px] text-[#6B6A67] leading-snug mt-0.5 line-clamp-2">{lang === 'fr' ? p.shortFr : p.shortEn}</span>
+                                </span>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                      <div className="col-span-2 border-t border-[#E8E8E6] pt-3 flex items-center justify-between">
+                        <span className="text-[11px] text-[#ADADAA]">{lang === 'fr' ? `${PRODUCTS.length} produits dans 4 catégories` : `${PRODUCTS.length} products across 4 categories`}</span>
+                        <a href="/products" className="text-[12px] text-[#111110] font-medium hover:underline">{lang === 'fr' ? 'Voir tous les produits' : 'See all products'} →</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
+            // ─── SOLUTIONS mega-menu (audience first, jobs nested) ───
+            if (childrenKind === 'solutions' && link.href) {
+              return (
+                <div key={link.label} className="relative group">
+                  <a href={link.href} className="flex items-center gap-1.5 text-sm font-medium text-[#111110] group-hover:text-[#111110] transition-colors duration-200 py-2">{inner}</a>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="bg-white rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.18),0_0_0_1px_#E8E8E6] p-5 w-[760px]">
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                        {SOLUTIONS.map(s => (
+                          <a key={s.slug} href={`/solutions/${s.slug}`}
+                            className="flex items-start gap-3 px-2 py-2.5 rounded-lg hover:bg-[#F5F5F3] transition-colors group/sol">
+                            <span className="block w-9 h-9 rounded-md shrink-0 mt-0.5 flex items-center justify-center text-[14px] font-display" style={{ background: s.swatchBg, color: s.swatchFg, fontStyle: s.swatchSerif ? 'italic' : 'normal' }}>{(lang === 'fr' ? s.nameFr : s.nameEn)[0]}</span>
+                            <span className="min-w-0 flex-1">
+                              <span className="block font-display text-[15px] text-[#111110] tracking-tight">{lang === 'fr' ? s.nameFr : s.nameEn}</span>
+                              <span className="block text-[11px] text-[#6B6A67] leading-snug mt-0.5">{lang === 'fr' ? s.shortFr : s.shortEn}</span>
+                              <span className="flex flex-wrap gap-1 mt-1.5">
+                                {(lang === 'fr' ? s.jobsFr : s.jobsEn).slice(0, 3).map(j => (
+                                  <span key={j.title} className="text-[10px] text-[#6B6A67] px-1.5 py-0.5 rounded border border-[#E8E8E6] bg-white">{j.title}</span>
+                                ))}
+                              </span>
+                            </span>
+                          </a>
+                        ))}
+                      </div>
+                      <div className="border-t border-[#E8E8E6] mt-3 pt-3 flex items-center justify-between">
+                        <span className="text-[11px] text-[#ADADAA]">{lang === 'fr' ? `${SOLUTIONS.length} audiences · jobs imbriqués` : `${SOLUTIONS.length} audiences · jobs nested`}</span>
+                        <a href="/solutions" className="text-[12px] text-[#111110] font-medium hover:underline">{lang === 'fr' ? 'Toutes les solutions' : 'All solutions'} →</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
             return link.href
               ? <a key={link.label} href={link.href} className="flex items-center gap-1.5 text-sm text-[#6B6A67] hover:text-[#111110] transition-colors duration-200">{inner}</a>
               : <span key={link.label} className="flex items-center gap-1.5 text-sm text-[#6B6A67] cursor-default">{inner}</span>
@@ -266,6 +344,7 @@ export default function Nav() {
         <div className="md:hidden mx-4 mt-2 rounded px-6 py-6 flex flex-col gap-5 absolute top-full left-0 right-0 bg-white border border-[#E8E8E6] shadow-sm z-40">
           {navLinks.map((link) => {
             const badge = ('badge' in link) && (link as { badge: string }).badge
+            const childrenKind = ('children' in link) ? (link as { children?: string }).children : undefined
             const inner = <>
               {link.label}
               {badge && (
@@ -274,6 +353,44 @@ export default function Nav() {
                 </span>
               )}
             </>
+            if (childrenKind === 'products' && link.href) {
+              return (
+                <div key={link.label} className="flex flex-col gap-2">
+                  <a href={link.href} onClick={() => setMenuOpen(false)} className="flex items-center gap-2 text-[#111110] text-base font-medium">{inner}</a>
+                  <div className="pl-4 flex flex-col gap-3 border-l border-[#E8E8E6] ml-1">
+                    {CATEGORIES.map(cat => (
+                      <div key={cat.id}>
+                        <div className="text-[10px] uppercase tracking-[0.2em] text-[#ADADAA] mb-1">{lang === 'fr' ? cat.labelFr : cat.labelEn}</div>
+                        <div className="space-y-1">
+                          {productsByCategory(cat.id).map(p => (
+                            <a key={p.slug} href={`/products/${p.slug}`} onClick={() => setMenuOpen(false)} className="block">
+                              <span className="font-display text-[14px] text-[#111110]">{p.name}</span>
+                              {p.comingSoon && <span className="ml-1 text-[9px] uppercase tracking-wider text-[#ADADAA]">{lang === 'fr' ? 'Bientôt' : 'Soon'}</span>}
+                              <span className="block text-[11px] text-[#6B6A67] leading-snug">{lang === 'fr' ? p.shortFr : p.shortEn}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
+            if (childrenKind === 'solutions' && link.href) {
+              return (
+                <div key={link.label} className="flex flex-col gap-2">
+                  <a href={link.href} onClick={() => setMenuOpen(false)} className="flex items-center gap-2 text-[#111110] text-base font-medium">{inner}</a>
+                  <div className="pl-4 flex flex-col gap-2 border-l border-[#E8E8E6] ml-1">
+                    {SOLUTIONS.map(s => (
+                      <a key={s.slug} href={`/solutions/${s.slug}`} onClick={() => setMenuOpen(false)} className="block">
+                        <span className="font-display text-[14px] text-[#111110]">{lang === 'fr' ? s.nameFr : s.nameEn}</span>
+                        <span className="block text-[11px] text-[#6B6A67] leading-snug">{lang === 'fr' ? s.shortFr : s.shortEn}</span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )
+            }
             return link.href
               ? <a key={link.label} href={link.href} onClick={() => setMenuOpen(false)} className="flex items-center gap-2 text-[#111110] text-base">{inner}</a>
               : <span key={link.label} className="flex items-center gap-2 text-[#6B6A67] text-base cursor-default">{inner}</span>
