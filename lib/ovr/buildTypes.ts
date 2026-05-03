@@ -29,6 +29,7 @@ export interface Block {
   quoteAuthor: string
   showInquire: boolean
   sideTextType?: 'quote' | 'quotefull'
+  textStyle?: 'quote' | 'text'
 }
 
 // ─── Text pool (canvas-first editor) ──────────────────────────────────────────
@@ -37,6 +38,7 @@ export interface QuoteItem {
   id: string
   text: string
   author: string
+  kind?: 'quote' | 'text'
 }
 
 export interface TextPool {

@@ -1255,34 +1255,110 @@ function LayoutSection({ images, blocks, onChange, onBlockDragStart, onBlockDrag
 // PREVIEW
 // ═══════════════════════════════════════════════════════════════════════════════
 
-function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean }) {
+function Editable({
+  value, onChange, placeholder, className, as: Tag = 'span', multiline,
+}: {
+  value: string
+  onChange: (v: string) => void
+  placeholder?: string
+  className?: string
+  as?: 'span' | 'div' | 'h1'
+  multiline?: boolean
+}) {
+  const ref = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (el && el.innerText !== value) el.innerText = value
+  }, [value])
+  return (
+    <Tag
+      ref={ref as never}
+      contentEditable
+      suppressContentEditableWarning
+      data-placeholder={placeholder}
+      onBlur={() => {
+        const v = ref.current?.innerText.replace(/ /g, ' ') ?? ''
+        if (v !== value) onChange(v)
+      }}
+      onKeyDown={e => {
+        if (e.key === 'Escape') (e.currentTarget as HTMLElement).blur()
+        if (!multiline && e.key === 'Enter') { e.preventDefault(); (e.currentTarget as HTMLElement).blur() }
+      }}
+      onPaste={e => {
+        e.preventDefault()
+        const text = e.clipboardData.getData('text/plain')
+        document.execCommand('insertText', false, text)
+      }}
+      className={`${className ?? ''} vr-editable outline-none rounded-sm transition-shadow`}
+    />
+  )
+}
+
+function PreviewSlot({ imageId, images, landscape, cover, showInquire, onUpdateImage, draggable, onDragStartImage, onDragEndImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
   const img = images.find(i => i.id === imageId)
   const aspect = landscape ? 'aspect-[4/3]' : 'aspect-[3/4]'
   if (!img?.dataUrl) return (
     <div className={`bg-gray-100 dark:bg-gray-800 ${aspect}`} />
   )
+  const editing = !!onUpdateImage
+  const set = (k: keyof ImageItem) => (v: string) => onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
+  const dragAttrs = draggable ? {
+    draggable: true,
+    onDragStart: (e: React.DragEvent) => {
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData('text/x-vr-image', img.id)
+      onDragStartImage?.(img.id)
+    },
+    onDragEnd: () => onDragEndImage?.(),
+  } : {}
+  const dragCls = draggable ? 'cursor-grab active:cursor-grabbing' : ''
   return (
     <div className="flex flex-col gap-0">
       {cover ? (
-        <div className={`${aspect} overflow-hidden`}>
+        <div className={`${aspect} overflow-hidden ${dragCls}`} {...dragAttrs}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={img.dataUrl} alt={img.title || ''} className="w-full h-full object-cover" />
+          <img src={img.dataUrl} alt={img.title || ''} className="w-full h-full object-cover pointer-events-none" />
         </div>
       ) : (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={img.dataUrl} alt={img.title || ''} className="w-full h-auto" />
+        <div className={dragCls} {...dragAttrs}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img.dataUrl} alt={img.title || ''} className="w-full h-auto pointer-events-none" />
+        </div>
       )}
       <div className="pt-[10px] flex items-start justify-between gap-4">
         <div className="space-y-0.5">
-          {img.artist && <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>}
-          {img.title && (
-            <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">
-              <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
-            </p>
+          {(img.artist || editing) && (
+            editing
+              ? <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100"><Editable value={img.artist} onChange={set('artist')} placeholder="Artist" /></p>
+              : <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>
           )}
-          {img.medium && <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>}
-          {img.dimensions && <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>}
-          {img.showPrice && img.price && <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>}
+          {(img.title || editing) && (
+            editing ? (
+              <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">
+                <em><Editable value={img.title} onChange={set('title')} placeholder="Title" /></em>
+                {(img.year || editing) && <>, <Editable value={img.year} onChange={set('year')} placeholder="Year" /></>}
+              </p>
+            ) : (
+              <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">
+                <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
+              </p>
+            )
+          )}
+          {(img.medium || editing) && (
+            editing
+              ? <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.medium} onChange={set('medium')} placeholder="Medium" /></p>
+              : <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>
+          )}
+          {(img.dimensions || editing) && (
+            editing
+              ? <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.dimensions} onChange={set('dimensions')} placeholder="Dimensions" /></p>
+              : <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>
+          )}
+          {img.showPrice && (img.price || editing) && (
+            editing
+              ? <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1"><Editable value={img.price} onChange={set('price')} placeholder="Price" /></p>
+              : <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
+          )}
         </div>
         {showInquire && (
           <button className="shrink-0 border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-[31px] py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors">
@@ -1294,7 +1370,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire }: { image
   )
 }
 
-function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) {
+function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableImages, onDragStartImage, onDragEndImage }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
   const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
 
   useEffect(() => {
@@ -1309,13 +1385,26 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
     })
   }, [block.slots, images])
 
+  const editing = !!onUpdateBlock
+  const setQT = (v: string) => onUpdateBlock?.(block.id, { quoteText: v })
+  const setQA = (v: string) => onUpdateBlock?.(block.id, { quoteAuthor: v })
+
   if (block.type === 'quote') {
+    const asText = block.textStyle === 'text'
     return (
-      <div className="py-12 px-6 text-center max-w-lg mx-auto">
-        <p className="font-sans text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
-          {block.quoteText || <span className="text-gray-300">Quote…</span>}
+      <div className={asText ? 'py-10 px-6 max-w-2xl mx-auto' : 'py-12 px-6 text-center max-w-lg mx-auto'}>
+        <p className={asText
+          ? 'font-sans text-base text-gray-800 dark:text-gray-200 leading-relaxed mb-3'
+          : 'font-sans text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3'}>
+          {editing
+            ? <Editable value={block.quoteText} onChange={setQT} placeholder={asText ? 'Text…' : 'Quote…'} multiline />
+            : (block.quoteText || <span className="text-gray-300">{asText ? 'Text…' : 'Quote…'}</span>)}
         </p>
-        {block.quoteAuthor && <p className="text-[10px] text-gray-400 tracking-widest uppercase">{block.quoteAuthor}</p>}
+        {!asText && (block.quoteAuthor || editing) && (
+          <p className="text-[10px] text-gray-400 tracking-widest uppercase">
+            {editing ? <Editable value={block.quoteAuthor} onChange={setQA} placeholder="Author" /> : block.quoteAuthor}
+          </p>
+        )}
       </div>
     )
   }
@@ -1323,13 +1412,14 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   if (block.type === 'full') {
     return (
       <div className="w-full">
-        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={block.showInquire} />
+        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={block.showInquire} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
       </div>
     )
   }
 
   if (block.type === 'imgbio') {
     const img = images.find(i => i.id === block.slots[0]?.imageId)
+    const setImg = (k: keyof ImageItem) => (v: string) => img && onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
     return (
       <div className="grid grid-cols-2 gap-12 items-start max-w-3xl mx-auto">
         {/* Portrait image */}
@@ -1341,18 +1431,26 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
         </div>
         {/* Bio text */}
         <div className="pt-4 space-y-4">
-          {img?.artist && (
-            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">{img.artist}</p>
+          {(img?.artist || (editing && img)) && (
+            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">
+              {editing && img ? <Editable value={img.artist} onChange={setImg('artist')} placeholder="Artist" /> : img?.artist}
+            </p>
           )}
-          {img?.title && (
-            <p className="font-sans text-sm text-gray-700 dark:text-gray-300 italic">{img.title}{img.year ? `, b. ${img.year}` : ''}</p>
+          {(img?.title || (editing && img)) && (
+            editing && img ? (
+              <p className="font-sans text-sm text-gray-700 dark:text-gray-300 italic">
+                <Editable value={img.title} onChange={setImg('title')} placeholder="Title" />
+                {(img.year || editing) && <>, b. <Editable value={img.year} onChange={setImg('year')} placeholder="Year" /></>}
+              </p>
+            ) : (
+              <p className="font-sans text-sm text-gray-700 dark:text-gray-300 italic">{img?.title}{img?.year ? `, b. ${img.year}` : ''}</p>
+            )
           )}
-          {block.quoteText && (
-            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{block.quoteText}</p>
-          )}
-          {!block.quoteText && (
-            <p className="text-sm text-gray-300 dark:text-gray-600 italic">Biography…</p>
-          )}
+          {editing
+            ? <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"><Editable value={block.quoteText} onChange={setQT} placeholder="Biography…" multiline /></p>
+            : (block.quoteText
+                ? <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{block.quoteText}</p>
+                : <p className="text-sm text-gray-300 dark:text-gray-600 italic">Biography…</p>)}
         </div>
       </div>
     )
@@ -1363,12 +1461,18 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
       <div className="space-y-8">
         <div className="text-center max-w-lg mx-auto px-4">
           <p className="font-sans text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
-            {block.quoteText || <span className="text-gray-300">Quote…</span>}
+            {editing
+              ? <Editable value={block.quoteText} onChange={setQT} placeholder="Quote…" multiline />
+              : (block.quoteText || <span className="text-gray-300">Quote…</span>)}
           </p>
-          {block.quoteAuthor && <p className="text-[10px] text-gray-400 tracking-widest uppercase">{block.quoteAuthor}</p>}
+          {(block.quoteAuthor || editing) && (
+            <p className="text-[10px] text-gray-400 tracking-widest uppercase">
+              {editing ? <Editable value={block.quoteAuthor} onChange={setQA} placeholder="Author" /> : block.quoteAuthor}
+            </p>
+          )}
         </div>
         <div className="w-full">
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape onUpdateImage={onUpdateImage} />
         </div>
       </div>
     )
@@ -1377,8 +1481,8 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   if (block.type === 'pair') {
     const filled = block.slots.filter(s => s.imageId !== null)
     return filled.length === 1
-      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={block.showInquire} /></div>
-      : <div className="grid grid-cols-2 gap-6">{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover showInquire={block.showInquire} />)}</div>
+      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={block.showInquire} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
+      : <div className="grid grid-cols-2 gap-6">{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover showInquire={block.showInquire} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
   }
 
   if (block.type === 'trio') {
@@ -1388,20 +1492,26 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
     const isPortrait = portraitCount > knownOrientations.length / 2
     const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
     return cols
-      ? <div className={`grid ${cols} gap-4`}>{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover landscape={!isPortrait} />)}</div>
-      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover /></div>
+      ? <div className={`grid ${cols} gap-4`}>{filled.map((s, i) => <PreviewSlot key={i} imageId={s.imageId} images={images} cover landscape={!isPortrait} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
   }
 
   if (block.type === 'side') {
+    const asText = block.textStyle === 'text'
+    const textCls = asText
+      ? 'font-sans text-base text-gray-800 dark:text-gray-200 leading-relaxed'
+      : 'font-sans text-base text-gray-700 dark:text-gray-300 italic leading-relaxed'
     return (
       <div className="grid grid-cols-2 gap-8 items-center">
         <div>
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={block.showInquire} />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={block.showInquire} onUpdateImage={onUpdateImage} />
         </div>
         <div>
-          {block.quoteText
-            ? <p className="font-sans text-base text-gray-700 dark:text-gray-300 italic leading-relaxed">{block.quoteText}</p>
-            : <p className="text-xs text-gray-300 italic">Accompanying text…</p>}
+          {editing
+            ? <p className={textCls}><Editable value={block.quoteText} onChange={setQT} placeholder={asText ? 'Accompanying text…' : 'Quote…'} multiline /></p>
+            : (block.quoteText
+                ? <p className={textCls}>{block.quoteText}</p>
+                : <p className={`text-xs text-gray-300 ${asText ? '' : 'italic'}`}>{asText ? 'Accompanying text…' : 'Quote…'}</p>)}
         </div>
       </div>
     )
@@ -1410,10 +1520,66 @@ function PreviewBlock({ block, images }: { block: Block; images: ImageItem[] }) 
   return null
 }
 
-export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, blockEnter }: {
-  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null; noOffset?: boolean; blockEnter?: boolean
+function BlockHost({ block, images, draggingId, onMergeImage, onUpdateBlock, onUpdateImage, onDragStartImage, onDragEndImage }: {
+  block: Block; images: ImageItem[]
+  draggingId: string | null
+  onMergeImage?: (srcImageId: string, dstBlockId: string) => void
+  onUpdateBlock?: (id: string, patch: Partial<Block>) => void
+  onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void
+  onDragStartImage: (id: string) => void
+  onDragEndImage: () => void
 }) {
-  const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0
+  const [over, setOver] = useState(false)
+  const isImageBlock = block.type === 'full' || block.type === 'pair' || block.type === 'trio'
+  const isSource = !!draggingId && block.slots.some(s => s.imageId === draggingId)
+  const filledCount = block.slots.filter(s => s.imageId).length
+  const canDrop = !!onMergeImage && isImageBlock && !!draggingId && !isSource && filledCount < 3
+  return (
+    <div
+      onDragOver={canDrop ? (e) => {
+        if (e.dataTransfer.types.includes('text/x-vr-image')) {
+          e.preventDefault()
+          e.dataTransfer.dropEffect = 'move'
+          if (!over) setOver(true)
+        }
+      } : undefined}
+      onDragLeave={canDrop ? () => setOver(false) : undefined}
+      onDrop={canDrop ? (e) => {
+        const id = e.dataTransfer.getData('text/x-vr-image')
+        setOver(false)
+        if (id) { e.preventDefault(); onMergeImage?.(id, block.id) }
+      } : undefined}
+      className={`relative rounded-md transition-shadow ${over ? 'ring-2 ring-emerald-400/80 ring-offset-8 ring-offset-white dark:ring-offset-[#0f0f0f]' : ''} ${isSource && draggingId ? 'opacity-50' : ''}`}
+    >
+      {over && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-medium tracking-wide shadow z-10 pointer-events-none">
+          {filledCount === 1 ? 'Make diptych' : 'Make triptych'}
+        </div>
+      )}
+      <PreviewBlock
+        block={block}
+        images={images}
+        onUpdateBlock={onUpdateBlock}
+        onUpdateImage={onUpdateImage}
+        draggableImages={!!onMergeImage && isImageBlock}
+        onDragStartImage={onDragStartImage}
+        onDragEndImage={onDragEndImage}
+      />
+    </div>
+  )
+}
+
+export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, blockEnter, onUpdateSetup, onUpdateBlock, onUpdateImage, onMergeImage }: {
+  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null; noOffset?: boolean; blockEnter?: boolean
+  onUpdateSetup?: (s: VrSetup) => void
+  onUpdateBlock?: (id: string, patch: Partial<Block>) => void
+  onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void
+  onMergeImage?: (srcImageId: string, dstBlockId: string) => void
+}) {
+  const editing = !!onUpdateSetup
+  const setS = (k: keyof VrSetup) => (v: string) => onUpdateSetup?.({ ...setup, [k]: v })
+  const [draggingId, setDraggingId] = useState<string | null>(null)
+  const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0 || editing
   const offsetCls = noOffset ? '' : 'pl-[422px]'
 
   if (!hasContent) {
@@ -1437,18 +1603,28 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
       <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
         {/* Cover */}
         <div className="py-16 px-10 text-left">
-          {setup.galleryName && (
-            <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 mb-6">{setup.galleryName}</p>
+          {(setup.galleryName || editing) && (
+            <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 mb-6">
+              {editing ? <Editable value={setup.galleryName} onChange={setS('galleryName')} placeholder="Gallery name" /> : setup.galleryName}
+            </p>
           )}
-          <h1 className="font-sans text-[24px] leading-tight text-gray-900 dark:text-gray-100 mb-1">{setup.headline || 'Viewing Room'}</h1>
-          {setup.title && (
-            <p className="text-[24px] leading-tight text-gray-400 dark:text-gray-500 mb-4">{setup.title}</p>
+          <h1 className="font-sans text-[24px] leading-tight text-gray-900 dark:text-gray-100 mb-1">
+            {editing ? <Editable value={setup.headline} onChange={setS('headline')} placeholder="Viewing Room" /> : (setup.headline || 'Viewing Room')}
+          </h1>
+          {(setup.title || editing) && (
+            <p className="text-[24px] leading-tight text-gray-400 dark:text-gray-500 mb-4">
+              {editing ? <Editable value={setup.title} onChange={setS('title')} placeholder="Subtitle" /> : setup.title}
+            </p>
           )}
-          {setup.recipientName && (
-            <p className="text-xs text-gray-500 mb-3">For {setup.recipientName}</p>
+          {(setup.recipientName || editing) && (
+            <p className="text-xs text-gray-500 mb-3">
+              For {editing ? <Editable value={setup.recipientName} onChange={setS('recipientName')} placeholder="Recipient" /> : setup.recipientName}
+            </p>
           )}
-          {setup.introText && (
-            <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed mt-4 whitespace-pre-wrap">{setup.introText}</p>
+          {(setup.introText || editing) && (
+            <p className="text-sm text-gray-900 dark:text-gray-100 leading-relaxed mt-4 whitespace-pre-wrap">
+              {editing ? <Editable value={setup.introText} onChange={setS('introText')} placeholder="Personal greeting…" multiline /> : setup.introText}
+            </p>
           )}
         </div>
         <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
@@ -1462,25 +1638,40 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
                 style={blockEnter ? { animation: `vrBlockEnter 600ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 120}ms both` } : undefined}
                 className={`transition-all duration-200 ${draggingBlockId === block.id ? '-translate-y-1 shadow-2xl rounded-xl ring-1 ring-gray-900/8' : ''}`}
               >
-                <PreviewBlock block={block} images={images} />
+                <BlockHost
+                  block={block}
+                  images={images}
+                  draggingId={draggingId}
+                  onMergeImage={onMergeImage}
+                  onUpdateBlock={onUpdateBlock}
+                  onUpdateImage={onUpdateImage}
+                  onDragStartImage={setDraggingId}
+                  onDragEndImage={() => setDraggingId(null)}
+                />
               </div>
             ))}
           </div>
         )}
 
         {/* Footer */}
-        {(setup.galleryName || setup.galleryAddress || setup.galleryContact) && (
+        {(setup.galleryName || setup.galleryAddress || setup.galleryContact || editing) && (
           <div>
           <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
           <div className="py-8 px-10 text-center space-y-0.5">
-            {setup.galleryName && (
-              <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryName}</p>
+            {(setup.galleryName || editing) && (
+              <p className="text-[12px] text-gray-400 dark:text-gray-500">
+                {editing ? <Editable value={setup.galleryName} onChange={setS('galleryName')} placeholder="Gallery name" /> : setup.galleryName}
+              </p>
             )}
-            {setup.galleryAddress && (
-              <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryAddress}</p>
+            {(setup.galleryAddress || editing) && (
+              <p className="text-[12px] text-gray-400 dark:text-gray-500">
+                {editing ? <Editable value={setup.galleryAddress} onChange={setS('galleryAddress')} placeholder="Address" /> : setup.galleryAddress}
+              </p>
             )}
-            {setup.galleryContact && (
-              <p className="text-[12px] text-gray-400 dark:text-gray-500">{setup.galleryContact}</p>
+            {(setup.galleryContact || editing) && (
+              <p className="text-[12px] text-gray-400 dark:text-gray-500">
+                {editing ? <Editable value={setup.galleryContact} onChange={setS('galleryContact')} placeholder="Contact" /> : setup.galleryContact}
+              </p>
             )}
           </div>
           </div>

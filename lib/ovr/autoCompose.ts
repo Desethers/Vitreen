@@ -99,13 +99,15 @@ export function autoCompose(
     // Quote between chapters (not after last chapter)
     if (c < quoteCount) {
       const q = textPool.quotes[c]
+      const isText = q.kind === 'text'
       // Alternate quote vs side: side gives variety when chapter has follow-up images
       const useSide = (seed + c) % 3 === 0 && imgCursor < images.length
       if (useSide) {
         const sideBlock = makeBlock('side')
         sideBlock.quoteText = q.text
-        sideBlock.quoteAuthor = q.author
+        sideBlock.quoteAuthor = isText ? '' : q.author
         sideBlock.sideTextType = 'quote'
+        sideBlock.textStyle = isText ? 'text' : 'quote'
         // pull next image into the side slot
         if (imgCursor < images.length) {
           sideBlock.slots = [{ imageId: images[imgCursor].id }]
@@ -115,7 +117,8 @@ export function autoCompose(
       } else {
         const quoteBlock = makeBlock('quote')
         quoteBlock.quoteText = q.text
-        quoteBlock.quoteAuthor = q.author
+        quoteBlock.quoteAuthor = isText ? '' : q.author
+        quoteBlock.textStyle = isText ? 'text' : 'quote'
         result.push(quoteBlock)
       }
     }

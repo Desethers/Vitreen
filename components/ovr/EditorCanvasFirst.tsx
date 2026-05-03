@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
-import type { Block, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
+import type { Block, BlockType, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
 import { EMPTY_TEXT_POOL, makeQuote } from '@/lib/ovr/buildTypes'
 import { autoCompose } from '@/lib/ovr/autoCompose'
 import ThemeToggle from '@/components/ovr/ThemeToggle'
@@ -318,44 +318,74 @@ function TextsSection({
         )}
       </div>
 
-      {/* Quotes */}
+      {/* Quotes / texts */}
       <div className="space-y-2 mb-3">
-        {textPool.quotes.map((q, i) => (
-          <div key={q.id} className="group/q rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30 p-2.5 space-y-1.5 hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600">Quote {i + 1}</span>
-              <button
-                type="button"
-                onClick={() => removeQuote(q.id)}
-                className="opacity-0 group-hover/q:opacity-100 transition-opacity w-5 h-5 flex items-center justify-center rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                aria-label="Remove quote"
-              >
-                <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
-              </button>
+        {textPool.quotes.map((q, i) => {
+          const isText = q.kind === 'text'
+          return (
+            <div key={q.id} className="group/q rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30 p-2.5 space-y-1.5 hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
+              <div className="flex items-center justify-between">
+                <div className="inline-flex rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-0.5 text-[10px] font-medium">
+                  <button
+                    type="button"
+                    onClick={() => updateQuote(q.id, { kind: 'quote' })}
+                    className={`px-2 py-0.5 rounded-full transition-colors ${!isText ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  >
+                    Quote
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateQuote(q.id, { kind: 'text' })}
+                    className={`px-2 py-0.5 rounded-full transition-colors ${isText ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  >
+                    Text
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => removeQuote(q.id)}
+                  className="opacity-0 group-hover/q:opacity-100 transition-opacity w-5 h-5 flex items-center justify-center rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  aria-label="Remove"
+                >
+                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
+                </button>
+              </div>
+              <textarea
+                className={inputCls}
+                placeholder={isText ? 'Narrative text' : 'Quote text'}
+                rows={2}
+                value={q.text}
+                onChange={e => updateQuote(q.id, { text: e.target.value })}
+              />
+              {!isText && (
+                <input
+                  className={inputCls}
+                  placeholder="Author"
+                  value={q.author}
+                  onChange={e => updateQuote(q.id, { author: e.target.value })}
+                />
+              )}
             </div>
-            <textarea
-              className={inputCls}
-              placeholder="Quote text"
-              rows={2}
-              value={q.text}
-              onChange={e => updateQuote(q.id, { text: e.target.value })}
-            />
-            <input
-              className={inputCls}
-              placeholder="Author"
-              value={q.author}
-              onChange={e => updateQuote(q.id, { author: e.target.value })}
-            />
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={addQuote}
-          className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
-        >
-          <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
-          Add a quote
-        </button>
+          )
+        })}
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={addQuote}
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+          >
+            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
+            Add a quote
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...textPool, quotes: [...textPool.quotes, { ...makeQuote(), kind: 'text' }] })}
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+          >
+            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
+            Add a text
+          </button>
+        </div>
       </div>
 
       {/* Closing */}
@@ -584,6 +614,48 @@ export default function EditorCanvasFirst() {
     }
   }
 
+  const updateBlock = useCallback((id: string, patch: Partial<Block>) => {
+    setBlocks(prev => {
+      const next = prev.map(b => b.id === id ? { ...b, ...patch } : b)
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+  const updateImage = useCallback((id: string, patch: Partial<ImageItem>) => {
+    setImages(prev => {
+      const next = prev.map(i => i.id === id ? { ...i, ...patch } : i)
+      try { sessionStorage.setItem('vr_images', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  const mergeImage = useCallback((srcImageId: string, dstBlockId: string) => {
+    setBlocks(prev => {
+      const isImg = (t: string) => t === 'full' || t === 'pair' || t === 'trio'
+      const dst = prev.find(b => b.id === dstBlockId)
+      const src = prev.find(b => b.slots.some(s => s.imageId === srcImageId))
+      if (!dst || !src || !isImg(dst.type) || !isImg(src.type)) return prev
+      const dstIds = dst.slots.map(s => s.imageId).filter(Boolean) as string[]
+      if (dstIds.includes(srcImageId)) return prev
+      if (dstIds.length >= 3) return prev
+      const newDstIds = [...dstIds, srcImageId]
+      const dstType: BlockType = newDstIds.length === 1 ? 'full' : newDstIds.length === 2 ? 'pair' : 'trio'
+      const newDst: Block = { ...dst, type: dstType, slots: newDstIds.map(id => ({ imageId: id })) }
+      const srcRest = (src.slots.map(s => s.imageId).filter(Boolean) as string[]).filter(id => id !== srcImageId)
+      const next = prev.flatMap(b => {
+        if (b.id === dst.id) return [newDst]
+        if (b.id === src.id) {
+          if (srcRest.length === 0) return []
+          const srcType: BlockType = srcRest.length === 1 ? 'full' : srcRest.length === 2 ? 'pair' : 'trio'
+          return [{ ...b, type: srcType, slots: srcRest.map(id => ({ imageId: id })) }]
+        }
+        return [b]
+      })
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
   const health = computeHealth(setup, images, blocks)
   const sendDisabled = blocks.length === 0
 
@@ -608,6 +680,10 @@ export default function EditorCanvasFirst() {
           isPro={isPro}
           noOffset
           blockEnter={shouldAnimate}
+          onUpdateSetup={saveSetup}
+          onUpdateBlock={updateBlock}
+          onUpdateImage={updateImage}
+          onMergeImage={mergeImage}
         />
       </main>
 
