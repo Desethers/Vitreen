@@ -28,7 +28,30 @@ export interface Block {
   quoteText: string
   quoteAuthor: string
   showInquire: boolean
+  inquireHidden?: boolean
   sideTextType?: 'quote' | 'quotefull'
+  textStyle?: 'quote' | 'text'
+}
+
+// ─── Text pool (canvas-first editor) ──────────────────────────────────────────
+
+export interface QuoteItem {
+  id: string
+  text: string
+  author: string
+  kind?: 'quote' | 'text'
+}
+
+export interface TextPool {
+  intro: string
+  quotes: QuoteItem[]
+  closing: string
+}
+
+export const EMPTY_TEXT_POOL: TextPool = { intro: '', quotes: [], closing: '' }
+
+export function makeQuote(text = '', author = ''): QuoteItem {
+  return { id: Math.random().toString(36).slice(2), text, author }
 }
 
 // ─── Setup (step 1) ───────────────────────────────────────────────────────────

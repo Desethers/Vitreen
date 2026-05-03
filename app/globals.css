@@ -78,6 +78,63 @@ body {
   animation-delay: 0.2s;
 }
 
+/* Editor canvas-first: blocks appear with stagger after auto-compose */
+@keyframes vrBlockEnter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.985);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes vrShellFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vr-shell-fade {
+  animation: vrShellFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Inline editing in the preview document */
+.vr-editable {
+  cursor: text;
+  min-width: 0.4em;
+  padding: 0 2px;
+  margin: 0 -2px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: box-shadow 120ms ease, background-color 120ms ease;
+}
+.vr-editable:hover {
+  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.08);
+}
+.dark .vr-editable:hover {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.vr-editable:focus {
+  background-color: rgba(250, 204, 21, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.18);
+}
+.dark .vr-editable:focus {
+  background-color: rgba(250, 204, 21, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.vr-editable:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(17, 17, 17, 0.25);
+  font-style: italic;
+  pointer-events: none;
+}
+.dark .vr-editable:empty::before {
+  color: rgba(255, 255, 255, 0.25);
+}
+
 /* Mock window scaling — slightly larger on 13" / md+ */
 .mock-scale {
   zoom: 0.62;

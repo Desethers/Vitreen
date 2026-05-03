@@ -1,7 +1,7 @@
-import ViewingRoomApp from '@/components/ovr/ViewingRoomApp'
+import EditorCanvasFirst from '@/components/ovr/EditorCanvasFirst'
 
 export const dynamic = 'force-dynamic'
 
 export default function EditorPage() {
-  return <ViewingRoomApp />
+  return <EditorCanvasFirst />
 }
