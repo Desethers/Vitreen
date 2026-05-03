@@ -28,6 +28,45 @@ function escapeHtml(value: string) {
     .replaceAll("'", '&#39;')
 }
 
+const OVR_FROM_FORMAT_HINT =
+  'Dans Vercel, la variable OVR_EMAIL_FROM doit être soit une seule adresse (ex. noreply@viewingroom.vitreen.art), soit « Nom <adresse@domaine> » avec des chevrons < > ASCII (pas « », pas &lt;…&gt;), sans retour à la ligne.'
+
+/** Valide / normalise l’expéditeur attendu par Resend (`email@x` ou `Name <email@x>`). */
+function normalizeResendFrom(raw: string): { ok: true; from: string } | { ok: false } {
+  let s = raw.trim()
+  if (!s) return { ok: false }
+
+  s = s.replace(/\u00a0/g, ' ')
+  s = s.replace(/[＜﹤‹«]/g, '<').replace(/[＞﹥›»]/g, '>')
+  s = s.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&amp;/gi, '&')
+  s = s.replace(/\r?\n/g, ' ').replace(/\s+/g, ' ')
+
+  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+    s = s.slice(1, -1).trim()
+  }
+
+  const simpleEmail = (e: string) => {
+    const t = e.trim()
+    if (!t || /\s/.test(t)) return false
+    const parts = t.split('@')
+    if (parts.length !== 2 || !parts[0] || !parts[1] || !parts[1].includes('.')) return false
+    return true
+  }
+
+  if (!s.includes('<')) {
+    if (simpleEmail(s)) return { ok: true, from: s }
+    return { ok: false }
+  }
+
+  const m = /^(.+?)\s*<\s*([^>]+)\s*>\s*$/.exec(s)
+  if (!m) return { ok: false }
+  const displayName = m[1].trim().replace(/^["'«»]+|["'«»]+$/g, '')
+  const email = m[2].trim()
+  if (!simpleEmail(email)) return { ok: false }
+  if (!displayName) return { ok: true, from: email }
+  return { ok: true, from: `${displayName} <${email}>` }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const key = process.env.RESEND_API_KEY
@@ -112,9 +151,9 @@ Designed with care by Vitreen`
     }
 
     const fromEnv = process.env.OVR_EMAIL_FROM?.trim()
-    const from = fromEnv || 'Vitreen <onboarding@resend.dev>'
+    const defaultFrom = 'Vitreen <onboarding@resend.dev>'
     const usesResendSandboxSender =
-      !fromEnv || /onboarding@resend\.dev/i.test(fromEnv) || /onboarding@resend\.dev/i.test(from)
+      !fromEnv || /onboarding@resend\.dev/i.test(fromEnv)
 
     if (usesResendSandboxSender && process.env.VERCEL_ENV === 'production') {
       return NextResponse.json(
@@ -124,6 +163,15 @@ Designed with care by Vitreen`
         },
         { status: 503 },
       )
+    }
+
+    let from = defaultFrom
+    if (fromEnv) {
+      const normalized = normalizeResendFrom(fromEnv)
+      if (!normalized.ok) {
+        return NextResponse.json({ error: OVR_FROM_FORMAT_HINT }, { status: 400 })
+      }
+      from = normalized.from
     }
 
     const resend = new Resend(key)
@@ -140,7 +188,9 @@ Designed with care by Vitreen`
     if (error) {
       console.error('Resend share-email error:', error)
       let message = error.message || 'Email sending failed.'
-      if (/testing emails|only send|verify a domain|resend\.com\/domains/i.test(message)) {
+      if (/invalid `from`|invalid from field/i.test(message)) {
+        message = OVR_FROM_FORMAT_HINT
+      } else if (/testing emails|only send|verify a domain|resend\.com\/domains/i.test(message)) {
         message =
           'Resend est en mode test : n’envoie qu’à l’email de ton compte Resend, ou vérifie un domaine sur resend.com puis définis OVR_EMAIL_FROM avec une adresse @tondomaine.com.'
       }

@@ -1434,7 +1434,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   )
 }
 
-function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableImages, onDragStartImage, onDragEndImage }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
+function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlock, draggableImages, onDragStartImage, onDragEndImage }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; onRemoveBlock?: (blockId: string) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
   const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
 
   useEffect(() => {
@@ -1454,9 +1454,25 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
   const setQA = (v: string) => onUpdateBlock?.(block.id, { quoteAuthor: v })
   const hideInquire = () => onUpdateBlock?.(block.id, { showInquire: false, inquireHidden: true })
   const clearImageFromBlock = (imageId: string | null) => {
-    if (!onUpdateBlock || !imageId) return
+    if (!imageId) return
+    const kept = block.slots.filter(s => s.imageId !== imageId)
+    const occupied = kept.filter((s): s is BlockSlot & { imageId: string } => s.imageId !== null)
+    const artOnlyBlock = block.type === 'full' || block.type === 'pair' || block.type === 'trio'
+
+    if (occupied.length === 0 && artOnlyBlock) {
+      onRemoveBlock?.(block.id)
+      return
+    }
+    if (occupied.length === 0 && onUpdateBlock) {
+      onUpdateBlock(block.id, {
+        slots: block.slots.map(slot => (slot.imageId === imageId ? { ...slot, imageId: null } : slot)),
+      })
+      return
+    }
+    if (!onUpdateBlock) return
     onUpdateBlock(block.id, {
-      slots: block.slots.map(slot => (slot.imageId === imageId ? { ...slot, imageId: null } : slot)),
+      slots: occupied.map(s => ({ imageId: s.imageId })),
+      type: artBlockType(occupied.length),
     })
   }
 
@@ -1732,6 +1748,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           images={images}
           onUpdateBlock={onUpdateBlock}
           onUpdateImage={onUpdateImage}
+          onRemoveBlock={onRemoveBlock}
           draggableImages={!!onMergeImage && isImageBlock}
           onDragStartImage={onDragStartImage}
           onDragEndImage={onDragEndImage}
@@ -1992,7 +2009,7 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
   const caption = (img?: ImageItem, showInquire = false) => img ? (
     <div className="mt-1 flex items-start justify-between gap-1.5 text-left text-[5.5px] leading-[1.15]">
       <div className="min-w-0">
-        {img.artist ? <p className="truncate font-medium text-gray-900">{img.artist}</p> : null}
+        {img.artist ? <p className="truncate font-normal text-gray-900">{img.artist}</p> : null}
         {(img.title || img.year) ? <p className="truncate text-gray-900"><em>{img.title}</em>{img.year ? `, ${img.year}` : ''}</p> : null}
         {img.medium ? <p className="truncate text-gray-400">{img.medium}</p> : null}
         {img.dimensions ? <p className="truncate text-gray-400">{img.dimensions}</p> : null}
@@ -2375,8 +2392,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
     <div className="fixed inset-0 z-50 flex items-end justify-center p-2 sm:items-center sm:p-4">
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative flex w-full max-w-[940px] items-stretch justify-center gap-4 lg:gap-5">
-      <div className="relative flex max-h-[calc(100dvh-1rem)] w-full max-w-md flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:max-h-[calc(100dvh-2rem)] sm:rounded-[40px] lg:h-[560px]">
+      <div className="relative flex max-h-[calc(100dvh-0.5rem)] w-full max-w-[940px] flex-col items-center gap-4 overflow-y-auto overscroll-contain lg:max-h-[calc(100dvh-2rem)] lg:flex-row lg:items-stretch lg:justify-center lg:overflow-visible lg:gap-5">
+      <div className="relative flex max-h-[calc(100dvh-1rem)] w-full max-w-md shrink-0 flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:max-h-[calc(100dvh-2rem)] sm:rounded-[40px] lg:h-[560px]">
         <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 dark:border-gray-800 sm:px-7 sm:py-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
@@ -2500,8 +2517,10 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       </div>
       </div>
 
-      <div className="hidden h-[560px] max-h-[calc(100dvh-2rem)] w-full max-w-md flex-1 lg:flex">
-        <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
+      <div className="relative flex h-[min(320px,42dvh)] w-full max-w-md shrink-0 items-start justify-center overflow-hidden pb-2 sm:h-[min(400px,48dvh)] lg:h-[560px] lg:max-h-[calc(100dvh-2rem)] lg:flex-1 lg:items-center lg:overflow-visible lg:pb-0">
+        <div className="absolute left-1/2 top-0 -translate-x-1/2 scale-[0.48] sm:scale-[0.58] lg:relative lg:left-auto lg:top-auto lg:translate-x-0 lg:scale-100">
+          <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
+        </div>
       </div>
       </div>
     </div>

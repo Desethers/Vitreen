@@ -149,7 +149,13 @@ function slotHasRenderableContent(slot: PublishedSlot): boolean {
   return !!slot.showPrice && !!slotField(slot.price)
 }
 
-function captionHtml(slot: PublishedSlot, showInquire?: boolean): string {
+/** Gmail / Apple Mail : éviter `<p>` (styles parfois ignorés ou « premier paragraphe » en gras) ; largeurs en attributs pour Outlook. */
+function captionHtml(
+  slot: PublishedSlot,
+  showInquire: boolean | undefined,
+  inquireHref: string,
+  inquirePlacement: 'split' | 'stacked' = 'split',
+): string {
   const artist = slotField(slot.artist)
   const title = slotField(slot.title)
   const year = slotField(slot.year)
@@ -157,46 +163,61 @@ function captionHtml(slot: PublishedSlot, showInquire?: boolean): string {
   const dimensions = slotField(slot.dimensions)
   const price = slotField(slot.price)
 
+  const textBase =
+    'margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;color:#171717;'
+  const metaMuted = 'margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;color:#737373;'
+  const dimMuted = 'margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;color:#a3a3a3;'
+
   const lines: string[] = []
   if (artist) {
     lines.push(
-      `<p style="margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;font-weight:600;color:#171717;">${escapeHtml(artist)}</p>`
+      `<div style="${textBase}font-weight:normal !important;"><span style="font-weight:normal !important;">${escapeHtml(artist)}</span></div>`,
     )
   }
   if (title || year) {
-    const titlePart = title ? `<em>${escapeHtml(title)}</em>` : ''
+    const titlePart = title ? `<em style="font-style:italic;font-weight:400;">${escapeHtml(title)}</em>` : ''
     const yearPart = year ? `${title ? ', ' : ''}${escapeHtml(year)}` : ''
-    lines.push(
-      `<p style="margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;font-weight:400;color:#171717;">${titlePart}${yearPart}</p>`
-    )
+    lines.push(`<div style="${textBase}font-weight:400;">${titlePart}${yearPart}</div>`)
   }
   if (medium) {
-    lines.push(
-      `<p style="margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;font-weight:400;color:#737373;">${escapeHtml(medium)}</p>`
-    )
+    lines.push(`<div style="${metaMuted}font-weight:400;">${escapeHtml(medium)}</div>`)
   }
   if (dimensions) {
-    lines.push(
-      `<p style="margin:0 0 2px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;font-weight:400;color:#a3a3a3;">${escapeHtml(dimensions)}</p>`
-    )
+    lines.push(`<div style="${dimMuted}font-weight:400;">${escapeHtml(dimensions)}</div>`)
   }
   if (slot.showPrice && price) {
     lines.push(
-      `<p style="margin:8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;font-weight:400;color:#171717;">${escapeHtml(price)}</p>`
+      `<div style="margin:8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;font-weight:400;color:#171717;">${escapeHtml(price)}</div>`,
     )
   }
 
-  const inquire = showInquire
-    ? `<td valign="top" style="padding-left:16px;"><span style="display:inline-block;border:1px solid #111111;color:#111111;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;padding:8px 28px;">INQUIRE</span></td>`
-    : ''
+  const inquireHrefSafe = inquireHref.trim() || '#'
+  const inquireBtn = `<a class="vr-inquire-hvr" href="${escapeHtml(inquireHrefSafe)}" style="display:inline-block;border:1px solid #111111;background-color:#ffffff;color:#111111;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 22px;text-decoration:none;line-height:1.2;mso-line-height-rule:exactly;">INQUIRE</a>`
 
   if (lines.length === 0 && !showInquire) return ''
 
+  if (showInquire && inquirePlacement === 'stacked') {
+    return `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;table-layout:fixed;">
+  <tr><td align="left" valign="top" style="padding:0;">${lines.join('')}</td></tr>
+  <tr><td align="center" valign="top" style="padding:10px 0 0;">${inquireBtn}</td></tr>
+</table>`
+  }
+
+  if (!showInquire) {
+    return `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;table-layout:fixed;">
+  <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${lines.join('')}</td></tr>
+</table>`
+  }
+
   return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;table-layout:fixed;">
   <tr>
-    <td valign="top" align="left">${lines.join('')}</td>
-    ${inquire}
+    <td width="70%" valign="top" align="left" style="width:70%;padding:0;word-wrap:break-word;overflow-wrap:break-word;">${lines.join('')}</td>
+    <td width="30%" valign="top" align="right" nowrap="nowrap" style="width:30%;vertical-align:top;padding:0 0 0 8px;mso-padding-alt:0 0 0 8px;">
+  ${inquireBtn}
+</td>
   </tr>
 </table>`
 }
@@ -235,30 +256,42 @@ function worksPlainTextAppendix(vr: PublishedVR): string {
 
 function imgNatural(slot: PublishedSlot): string {
   const src = slotImgUrl(slot)
-  if (!src) return `<div style="background:#f4f4f4;height:200px;"></div>`
-  return `<img src="${escapeHtml(src)}" alt="${escapeHtml(slot.title ?? '')}" width="1200" style="display:block;width:100%;max-width:100%;height:auto;border:0;" />`
+  if (!src) return `<div style="background:#f4f4f4;height:200px;max-width:100%;"></div>`
+  const alt = escapeHtml(slot.title ?? '')
+  return `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;width:100%;max-width:600px;">
+  <tr><td style="line-height:0;font-size:0;mso-line-height-rule:exactly;">
+    <img class="vr-email-fluid" src="${escapeHtml(src)}" alt="${alt}" width="560" style="display:block;width:100%;max-width:100%;height:auto;border:0;outline:none;vertical-align:top;" />
+  </td></tr>
+</table>`
 }
 
 /** Image pleine largeur type grille pair/trio (aperçu cover 4:3). */
 function imgCoverCell(slot: PublishedSlot): string {
   const src = slotImgUrl(slot)
-  if (!src) return `<div style="background:#f4f4f4;height:180px;"></div>`
-  return `<img src="${escapeHtml(src)}" alt="${escapeHtml(slot.title ?? '')}" width="600" style="display:block;width:100%;max-width:100%;height:auto;object-fit:cover;border:0;" />`
+  if (!src) return `<div style="background:#f4f4f4;height:180px;width:100%;max-width:280px;"></div>`
+  const alt = escapeHtml(slot.title ?? '')
+  return `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;width:100%;max-width:280px;">
+  <tr><td style="line-height:0;font-size:0;mso-line-height-rule:exactly;width:100%;max-width:280px;">
+    <img class="vr-email-fluid" src="${escapeHtml(src)}" alt="${alt}" width="280" style="display:block;width:100%;max-width:280px;height:auto;border:0;outline:none;vertical-align:top;-ms-interpolation-mode:bicubic;" />
+  </td></tr>
+</table>`
 }
 
-function pairCell(slot: PublishedSlot, showInquire: boolean, gutter: 'left' | 'right' | 'none'): string {
+function pairCell(slot: PublishedSlot, showInquire: boolean, gutter: 'left' | 'right' | 'none', inquireHref: string): string {
   const pad = gutter === 'left' ? 'padding-left:12px;' : gutter === 'right' ? 'padding-right:12px;' : ''
   return `
-<td width="50%" valign="top" style="${pad}">
+<td width="50%" valign="top" style="width:50%;max-width:50%;box-sizing:border-box;${pad}">
   ${imgCoverCell(slot)}
-  ${captionHtml(slot, showInquire)}
+  ${captionHtml(slot, showInquire, inquireHref, 'stacked')}
 </td>`
 }
 
-function slotPublishedNatural(slot: PublishedSlot, showInquire?: boolean): string {
+function slotPublishedNatural(slot: PublishedSlot, showInquire: boolean | undefined, inquireHref: string): string {
   return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:32px;">
-  <tr><td>${imgNatural(slot)}${captionHtml(slot, showInquire)}</td></tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:32px;table-layout:fixed;">
+  <tr><td style="max-width:100%;">${imgNatural(slot)}${captionHtml(slot, showInquire, inquireHref, 'split')}</td></tr>
 </table>`
 }
 
@@ -266,7 +299,7 @@ function slotsFilled(slots: PublishedSlot[] | undefined): PublishedSlot[] {
   return (slots ?? []).filter(slotHasRenderableContent)
 }
 
-function blockHtml(block: PublishedBlock): string {
+function blockHtml(block: PublishedBlock, inquireHref: string): string {
   const si = !!block.showInquire
 
   if (block.blockType === 'quote') {
@@ -294,20 +327,20 @@ function blockHtml(block: PublishedBlock): string {
 
   if (block.blockType === 'full') {
     const s = block.slots?.[0]
-    return s ? slotPublishedNatural(s, si) : ''
+    return s ? slotPublishedNatural(s, si, inquireHref) : ''
   }
 
   if (block.blockType === 'pair') {
     const filled = slotsFilled(block.slots)
     if (filled.length <= 1) {
-      return filled[0] ? slotPublishedNatural(filled[0], si) : ''
+      return filled[0] ? slotPublishedNatural(filled[0], si, inquireHref) : ''
     }
     const [a, b] = filled
     return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;table-layout:fixed;">
   <tr>
-    ${pairCell(a, si, 'right')}
-    ${pairCell(b, si, 'left')}
+    ${pairCell(a, si, 'right', inquireHref)}
+    ${pairCell(b, si, 'left', inquireHref)}
   </tr>
 </table>`
   }
@@ -315,15 +348,15 @@ function blockHtml(block: PublishedBlock): string {
   if (block.blockType === 'trio') {
     const filled = slotsFilled(block.slots)
     if (filled.length === 0) return ''
-    if (filled.length === 1) return slotPublishedNatural(filled[0], si)
+    if (filled.length === 1) return slotPublishedNatural(filled[0], si, inquireHref)
     const cols = filled.length >= 3 ? 3 : 2
     const cells = filled.slice(0, cols).map(s => `
-<td width="${Math.floor(100 / cols)}%" valign="top" style="padding:0 6px;">
+<td width="${Math.floor(100 / cols)}%" valign="top" style="width:${Math.floor(100 / cols)}%;max-width:${Math.floor(100 / cols)}%;box-sizing:border-box;padding:0 6px;">
   ${imgCoverCell(s)}
-  ${captionHtml(s, si)}
+  ${captionHtml(s, si, inquireHref, 'stacked')}
 </td>`).join('')
     return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:24px;table-layout:fixed;">
   <tr>${cells}</tr>
 </table>`
   }
@@ -335,7 +368,7 @@ function blockHtml(block: PublishedBlock): string {
       ? 'font-family:Arial,sans-serif;font-size:16px;line-height:1.55;color:#333333;margin:0;'
       : 'font-family:Arial,sans-serif;font-size:16px;line-height:1.55;font-style:italic;color:#444444;margin:0;'
     const imgSide = s
-      ? `${imgCoverCell(s)}${captionHtml(s, si)}`
+      ? `${imgCoverCell(s)}${captionHtml(s, si, inquireHref)}`
       : ''
     const txt = block.quoteText ? `<p style="${textCls}">${escapeHtml(block.quoteText)}</p>` : ''
     return `
@@ -359,7 +392,7 @@ function blockHtml(block: PublishedBlock): string {
   </td></tr>
 </table>`
         : ''
-    const imgPart = s ? slotPublishedNatural(s, si) : ''
+    const imgPart = s ? slotPublishedNatural(s, si, inquireHref) : ''
     return `${quoteTop}${imgPart}`
   }
 
@@ -373,8 +406,10 @@ function blockHtml(block: PublishedBlock): string {
     const dimensions = s ? slotField(s.dimensions) : ''
     const price = s ? slotField(s.price) : ''
     const imgBio = src
-      ? `<img src="${escapeHtml(src)}" alt="${escapeHtml(title)}" width="240" style="display:block;width:100%;max-width:240px;height:auto;border:0;" />`
-      : `<div style="background:#f4f4f4;width:240px;height:320px;"></div>`
+      ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;max-width:240px;"><tr><td style="line-height:0;font-size:0;">
+<img class="vr-email-fluid" src="${escapeHtml(src)}" alt="${escapeHtml(title)}" width="240" style="display:block;width:100%;max-width:240px;height:auto;border:0;vertical-align:top;" />
+</td></tr></table>`
+      : `<div style="background:#f4f4f4;max-width:240px;width:100%;height:320px;"></div>`
     const meta = [
       artist
         ? `<p style="margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#888888;">${escapeHtml(artist)}</p>`
@@ -441,7 +476,7 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
     ? `<p style="margin:16px 0 0;font-family:Arial,sans-serif;font-size:14px;line-height:1.55;color:#111111;white-space:pre-wrap;">${escapeHtml(intro)}</p>`
     : ''
 
-  const blocksInner = vr.blocks.map(blockHtml).join('\n')
+  const blocksInner = vr.blocks.map(b => blockHtml(b, shareUrl)).join('\n')
 
   const footer = galleryFooterEmailSection(galleryName, galleryAddress, galleryContact)
 
@@ -457,11 +492,17 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
 
   return `
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/></head>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style type="text/css">
+  img.vr-email-fluid { max-width:100% !important; height:auto !important; }
+  a.vr-inquire-hvr { transition: background-color .15s ease, color .15s ease; }
+  a.vr-inquire-hvr:hover { background-color:#111111 !important; color:#ffffff !important; border-color:#111111 !important; }
+</style>
+</head>
 <body style="margin:0;padding:0;background:#f6f6f6;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#f6f6f6;">
   <tr><td align="center" style="padding:0;margin:0;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:100%;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
       <tr><td style="padding:48px 24px 24px;text-align:left;">
         ${galleryLine}
         <h1 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:24px;line-height:1.2;font-weight:400;color:#111111;">${headline}</h1>
