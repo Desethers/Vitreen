@@ -2248,7 +2248,9 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       const raw = e instanceof Error ? e.message : 'Error saving the viewing room.'
       const message = /Unterminated string in JSON|Unexpected end of JSON input/i.test(raw)
         ? 'Payload too large while generating the share link. Try with fewer or lighter images.'
-        : raw
+        : /dataset not found|project id "placeholder"|sanity non configur/i.test(raw)
+          ? 'Le partage n’est pas configuré en production (Sanity). Ajoute les variables SANITY sur Vercel.'
+          : raw
       setError(message)
       return null
     } finally {
@@ -2392,8 +2394,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-7 sm:py-5">
-          <div className="flex min-h-full flex-col justify-between gap-5">
+        <div className="flex min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4 [scrollbar-width:none] [-ms-overflow-style:none] sm:px-7 sm:py-5 [&::-webkit-scrollbar]:hidden">
+          <div className="flex w-full flex-col gap-5">
           <div className="space-y-4 sm:space-y-5">
           {error ? <p className="text-xs text-red-600 dark:text-red-300 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/60 px-4 py-3 rounded-lg">{error}</p> : null}
           {success ? <p className="text-xs text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/60 px-4 py-3 rounded-lg">{success}</p> : null}
@@ -2417,7 +2419,11 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
             <div className="flex flex-col gap-3 rounded-[24px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Share by email or WhatsApp</p>
-                <p className="text-xs text-gray-400 mt-0.5">Generate a private viewing room link first</p>
+                <p className="text-xs text-gray-400 mt-0.5">
+                  {shareUrl
+                    ? 'Use the buttons below to email the link or open WhatsApp.'
+                    : 'Generate a private viewing room link first.'}
+                </p>
               </div>
               <button
                 type="button"

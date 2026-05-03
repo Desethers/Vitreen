@@ -1,8 +1,21 @@
 import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder'
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+const projectId = (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder').trim()
+const dataset = (process.env.NEXT_PUBLIC_SANITY_DATASET || 'production').trim()
+
+export function getSanityConfigError({ requireWriteToken = false }: { requireWriteToken?: boolean } = {}) {
+  if (!projectId || projectId === 'placeholder') {
+    return 'Sanity non configuré : NEXT_PUBLIC_SANITY_PROJECT_ID est manquant.'
+  }
+  if (!dataset || dataset === 'placeholder') {
+    return 'Sanity non configuré : NEXT_PUBLIC_SANITY_DATASET est manquant.'
+  }
+  if (requireWriteToken && !process.env.SANITY_API_TOKEN) {
+    return 'Sanity non configuré : SANITY_API_TOKEN est manquant pour la publication.'
+  }
+  return null
+}
 
 export const client = createClient({
   projectId,
