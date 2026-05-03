@@ -2081,20 +2081,20 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
   )
 
   return (
-    <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[48px] bg-[#070808] shadow-2xl">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
-      <div className="absolute inset-[1px] rounded-[47px] border border-white/10" />
-      <div className="absolute -right-16 top-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
-      <div className="absolute -bottom-24 left-8 h-52 w-52 rounded-full bg-black blur-3xl" />
+    <div className="relative flex h-full w-full items-end justify-center overflow-hidden rounded-[48px] bg-[#070808] px-6 pb-2 pt-2 shadow-2xl sm:px-8 sm:pb-3 sm:pt-2">
+      <div className="pointer-events-none absolute inset-0 rounded-[48px] bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
+      <div className="pointer-events-none absolute inset-[1px] rounded-[47px] border border-white/10" />
+      <div className="pointer-events-none absolute -right-16 top-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-24 left-8 h-52 w-52 rounded-full bg-black blur-3xl" />
 
-      <div className="relative h-[610px] w-[302px] translate-y-28 rounded-[52px] bg-gradient-to-br from-zinc-300 via-zinc-950 to-black p-[5px] shadow-[0_38px_90px_rgba(15,23,42,0.34),inset_0_1px_0_rgba(255,255,255,0.45)]">
+      <div className="relative z-10 h-[540px] w-[268px] shrink-0 translate-y-20 rounded-[52px] bg-gradient-to-br from-zinc-300 via-zinc-950 to-black p-[5px] shadow-[0_38px_90px_rgba(15,23,42,0.34),inset_0_1px_0_rgba(255,255,255,0.45)]">
         <div className="absolute -left-1 top-24 h-14 w-1 rounded-l-full bg-zinc-800/80" />
         <div className="absolute -right-1 top-32 h-20 w-1 rounded-r-full bg-zinc-800/80" />
         <div className="absolute inset-[2px] rounded-[50px] border border-white/25 pointer-events-none" />
         <div className="relative h-full w-full overflow-hidden rounded-[46px] bg-white ring-1 ring-black/80">
           <div className="absolute left-1/2 top-3 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_1px_8px_rgba(0,0,0,0.25)]" />
           <div className="h-full overflow-hidden bg-white">
-            <div className="h-full overflow-y-auto bg-white px-2 scale-[1.08] origin-top">
+            <div className="h-full overflow-y-auto bg-white px-2">
               {screen}
             </div>
           </div>
@@ -2392,8 +2392,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
     <div className="fixed inset-0 z-50 flex items-end justify-center p-2 sm:items-center sm:p-4">
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative flex max-h-[calc(100dvh-0.5rem)] w-full max-w-[940px] flex-col items-center gap-4 overflow-y-auto overscroll-contain lg:max-h-[calc(100dvh-2rem)] lg:flex-row lg:items-stretch lg:justify-center lg:overflow-visible lg:gap-5">
-      <div className="relative flex max-h-[calc(100dvh-1rem)] w-full max-w-md shrink-0 flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:max-h-[calc(100dvh-2rem)] sm:rounded-[40px] lg:h-[560px]">
+      <div className="relative flex w-full max-w-[940px] items-stretch justify-center gap-4 lg:gap-5">
+      <div className="relative flex max-h-[calc(100dvh-1rem)] w-full max-w-md flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:max-h-[calc(100dvh-2rem)] sm:rounded-[40px] lg:h-[560px]">
         <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 dark:border-gray-800 sm:px-7 sm:py-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
@@ -2517,10 +2517,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       </div>
       </div>
 
-      <div className="relative flex h-[min(320px,42dvh)] w-full max-w-md shrink-0 items-start justify-center overflow-hidden pb-2 sm:h-[min(400px,48dvh)] lg:h-[560px] lg:max-h-[calc(100dvh-2rem)] lg:flex-1 lg:items-center lg:overflow-visible lg:pb-0">
-        <div className="absolute left-1/2 top-0 -translate-x-1/2 scale-[0.48] sm:scale-[0.58] lg:relative lg:left-auto lg:top-auto lg:translate-x-0 lg:scale-100">
-          <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
-        </div>
+      <div className="hidden h-[560px] max-h-[calc(100dvh-2rem)] w-full max-w-md min-w-[280px] flex-1 items-center justify-center overflow-hidden lg:flex">
+        <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
       </div>
       </div>
     </div>
