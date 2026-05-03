@@ -1,9 +1,11 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
+import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
 import type { Block, BlockType, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
-import { EMPTY_TEXT_POOL, makeQuote } from '@/lib/ovr/buildTypes'
+import { EMPTY_TEXT_POOL, makeBlock, makeQuote } from '@/lib/ovr/buildTypes'
+import { vrCanvasNewQuoteContent } from '@/lib/ovr/vrCanvasPlaceholders'
 import { autoCompose } from '@/lib/ovr/autoCompose'
 import ThemeToggle from '@/components/ovr/ThemeToggle'
 import { ViewingRoomPreview, ExportPanel, SubscriptionModal } from '@/components/ovr/ViewingRoomApp'
@@ -126,11 +128,10 @@ function HeroEntry({ onUpload }: { onUpload: (files: File[]) => void }) {
 // ─── Floating action bar ─────────────────────────────────────────────────────
 
 function ActionBar({
-  onRegenerate, onAddImages, onOpenSettings, onSend, recipientName, sendDisabled,
+  onRegenerate, onAddImages, onSend, recipientName, sendDisabled,
 }: {
   onRegenerate: () => void
   onAddImages: (files: File[]) => void
-  onOpenSettings: () => void
   onSend: () => void
   recipientName: string
   sendDisabled: boolean
@@ -177,20 +178,6 @@ function ActionBar({
             <path d="M12 4v16m-8-8h16"/>
           </svg>
           Add images
-        </button>
-
-        <span className="w-px h-4 bg-gray-200 dark:bg-gray-700" />
-
-        <button
-          type="button"
-          onClick={onOpenSettings}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
-        >
-          <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-          </svg>
-          Settings
         </button>
 
         <button
@@ -267,148 +254,222 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
   )
 }
 
-// ─── Texts section (intro / quotes pool / closing) ───────────────────────────
+// ─── Texts — panel only (quotes / closing + reorder) ─────────────────────────
+
+function PanelAddTextMenu({ atIndex, onPick }: { atIndex: number; onPick: (index: number, kind: 'quote' | 'text') => void }) {
+  return (
+    <details className="group/add relative" name="panel-text-pool-add">
+      <summary
+        className="flex h-7 w-7 cursor-pointer list-none items-center justify-center rounded-md border border-transparent text-[15px] leading-none text-gray-400 transition-colors hover:border-gray-200 hover:bg-gray-100 hover:text-gray-700 dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200 [&::-webkit-details-marker]:hidden"
+        aria-label="Add quote or text block"
+      >
+        +
+      </summary>
+      <div
+        role="menu"
+        className="absolute left-full top-0 z-50 ml-1 min-w-[7.25rem] overflow-hidden rounded-lg border border-gray-200 bg-white py-0.5 text-[12px] shadow-lg dark:border-gray-700 dark:bg-gray-800"
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="block w-full px-3 py-2 text-left text-gray-800 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700/50"
+          onClick={e => {
+            onPick(atIndex, 'quote')
+            ;(e.currentTarget.closest('details') as HTMLDetailsElement | null)?.removeAttribute('open')
+          }}
+        >
+          Quote
+        </button>
+        <button
+          type="button"
+          className="block w-full px-3 py-2 text-left text-gray-800 hover:bg-gray-50 dark:text-gray-100 dark:hover:bg-gray-700/50"
+          onClick={e => {
+            onPick(atIndex, 'text')
+            ;(e.currentTarget.closest('details') as HTMLDetailsElement | null)?.removeAttribute('open')
+          }}
+        >
+          Text
+        </button>
+      </div>
+    </details>
+  )
+}
 
 function TextsSection({
   textPool, onChange, inputCls,
 }: { textPool: TextPool; onChange: (tp: TextPool) => void; inputCls: string }) {
-  const [introOpen, setIntroOpen] = useState(!!textPool.intro)
   const [closingOpen, setClosingOpen] = useState(!!textPool.closing)
 
   const updateQuote = (id: string, patch: Partial<QuoteItem>) => {
-    onChange({ ...textPool, quotes: textPool.quotes.map(q => q.id === id ? { ...q, ...patch } : q) })
+    onChange({ ...textPool, quotes: textPool.quotes.map(q => (q.id === id ? { ...q, ...patch } : q)) })
   }
   const removeQuote = (id: string) => {
     onChange({ ...textPool, quotes: textPool.quotes.filter(q => q.id !== id) })
   }
-  const addQuote = () => {
-    onChange({ ...textPool, quotes: [...textPool.quotes, makeQuote()] })
+  const insertAt = (index: number, kind: 'quote' | 'text') => {
+    const item: QuoteItem = kind === 'text' ? { ...makeQuote(), kind: 'text' } : makeQuote()
+    const quotes = [...textPool.quotes]
+    quotes.splice(index, 0, item)
+    onChange({ ...textPool, quotes })
+  }
+  const onQuotesDragEnd = (result: DropResult) => {
+    if (!result.destination) return
+    if (result.source.droppableId !== 'text-pool-quotes' || result.destination.droppableId !== 'text-pool-quotes') return
+    if (result.source.index === result.destination.index) return
+    const quotes = Array.from(textPool.quotes)
+    const [moved] = quotes.splice(result.source.index, 1)
+    quotes.splice(result.destination.index, 0, moved)
+    onChange({ ...textPool, quotes })
   }
 
   return (
     <section>
-      <div className="flex items-baseline justify-between mb-3">
+      <div className="mb-3 flex items-baseline justify-between">
         <h3 className="text-[11px] uppercase tracking-[0.15em] text-gray-400 dark:text-gray-600">Texts</h3>
-        <span className="text-[10px] text-gray-400 dark:text-gray-600">{textPool.quotes.length} quote{textPool.quotes.length === 1 ? '' : 's'}</span>
+        <span className="text-[10px] text-gray-400 dark:text-gray-600">
+          {textPool.quotes.length} block{textPool.quotes.length === 1 ? '' : 's'}
+        </span>
       </div>
-
-      {/* Intro */}
       <div className="mb-3">
-        {introOpen || textPool.intro ? (
-          <div className="space-y-1.5">
-            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600 px-1">Opening text</p>
-            <textarea
-              className={inputCls}
-              placeholder="Set the tone — a poetic line, a context"
-              rows={2}
-              value={textPool.intro}
-              onChange={e => onChange({ ...textPool, intro: e.target.value })}
-              onBlur={() => { if (!textPool.intro) setIntroOpen(false) }}
-            />
+        {textPool.quotes.length === 0 ? (
+          <div className="rounded-lg border border-dashed border-gray-200 py-7 text-center dark:border-gray-700">
+            <p className="mb-3 px-4 text-[12px] text-gray-500 dark:text-gray-400">Quotes & texts — drag to reorder.</p>
+            <div className="inline-flex gap-2 px-4">
+              <button
+                type="button"
+                onClick={() => insertAt(0, 'quote')}
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-gray-600 dark:hover:bg-gray-700/50"
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-[11px] dark:bg-gray-700">+</span>
+                Quote
+              </button>
+              <button
+                type="button"
+                onClick={() => insertAt(0, 'text')}
+                className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[12px] text-gray-700 transition-colors hover:border-gray-300 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-gray-600 dark:hover:bg-gray-700/50"
+              >
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-[11px] dark:bg-gray-700">+</span>
+                Text
+              </button>
+            </div>
           </div>
         ) : (
-          <button
-            type="button"
-            onClick={() => setIntroOpen(true)}
-            className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
-          >
-            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
-            Add an opening text
-          </button>
+          <DragDropContext onDragEnd={onQuotesDragEnd}>
+            <div className="mb-1 flex items-center pl-[34px]">
+              <PanelAddTextMenu atIndex={0} onPick={insertAt} />
+            </div>
+            <Droppable droppableId="text-pool-quotes">
+              {provided => (
+                <div ref={provided.innerRef} {...provided.droppableProps} className="space-y-2">
+                  {textPool.quotes.map((q, i) => {
+                    const isText = q.kind === 'text'
+                    return (
+                      <Draggable key={q.id} draggableId={q.id} index={i}>
+                        {(dragProvided, snapshot) => (
+                          <div
+                            ref={dragProvided.innerRef}
+                            {...dragProvided.draggableProps}
+                            className={`grid grid-cols-[28px_minmax(0,1fr)] gap-2 ${snapshot.isDragging ? 'opacity-90' : ''}`}
+                          >
+                            <div className="flex flex-col items-center gap-1.5 pt-1.5">
+                              <button
+                                type="button"
+                                {...dragProvided.dragHandleProps}
+                                aria-label="Drag to reorder"
+                                className="flex h-7 w-7 cursor-grab touch-manipulation items-center justify-center rounded-md border border-transparent text-gray-400 transition-colors hover:border-gray-200 hover:bg-gray-100 hover:text-gray-600 active:cursor-grabbing dark:hover:border-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                              >
+                                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden>
+                                  <line x1="9" y1="5" x2="20" y2="5" />
+                                  <line x1="9" y1="12" x2="20" y2="12" />
+                                  <line x1="9" y1="19" x2="20" y2="19" />
+                                  <circle cx="5" cy="5" r="1" fill="currentColor" stroke="none" />
+                                  <circle cx="5" cy="12" r="1" fill="currentColor" stroke="none" />
+                                  <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none" />
+                                </svg>
+                              </button>
+                              <PanelAddTextMenu atIndex={i + 1} onPick={insertAt} />
+                            </div>
+                            <div
+                              className={`group/q space-y-1.5 rounded-lg border border-gray-200 bg-gray-50/50 p-2.5 transition-colors dark:border-gray-800 dark:bg-gray-900/30 ${
+                                snapshot.isDragging ? 'border-gray-400 shadow-lg ring-1 ring-gray-900/10 dark:border-gray-600 dark:ring-white/10' : 'hover:border-gray-300 dark:hover:border-gray-700'
+                              }`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="inline-flex rounded-full border border-gray-200 bg-white p-0.5 text-[10px] font-medium dark:border-gray-700 dark:bg-gray-800">
+                                  <button
+                                    type="button"
+                                    onClick={() => updateQuote(q.id, { kind: 'quote' })}
+                                    className={`rounded-full px-2 py-0.5 transition-colors ${!isText ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                                  >
+                                    Quote
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => updateQuote(q.id, { kind: 'text' })}
+                                    className={`rounded-full px-2 py-0.5 transition-colors ${isText ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                                  >
+                                    Text
+                                  </button>
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => removeQuote(q.id)}
+                                  className="flex h-5 w-5 items-center justify-center rounded-full text-gray-400 opacity-0 transition-opacity hover:bg-red-50 hover:text-red-500 group-hover/q:opacity-100 dark:hover:bg-red-900/20"
+                                  aria-label="Remove"
+                                >
+                                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6" /></svg>
+                                </button>
+                              </div>
+                              <textarea
+                                className={inputCls}
+                                placeholder={isText ? 'Narrative text' : 'Quote text'}
+                                rows={2}
+                                value={q.text}
+                                onChange={e => updateQuote(q.id, { text: e.target.value })}
+                              />
+                              {!isText && (
+                                <input
+                                  className={inputCls}
+                                  placeholder="Author"
+                                  value={q.author}
+                                  onChange={e => updateQuote(q.id, { author: e.target.value })}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </Draggable>
+                    )
+                  })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         )}
       </div>
-
-      {/* Quotes / texts */}
-      <div className="space-y-2 mb-3">
-        {textPool.quotes.map((q, i) => {
-          const isText = q.kind === 'text'
-          return (
-            <div key={q.id} className="group/q rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30 p-2.5 space-y-1.5 hover:border-gray-300 dark:hover:border-gray-700 transition-colors">
-              <div className="flex items-center justify-between">
-                <div className="inline-flex rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-0.5 text-[10px] font-medium">
-                  <button
-                    type="button"
-                    onClick={() => updateQuote(q.id, { kind: 'quote' })}
-                    className={`px-2 py-0.5 rounded-full transition-colors ${!isText ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
-                  >
-                    Quote
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => updateQuote(q.id, { kind: 'text' })}
-                    className={`px-2 py-0.5 rounded-full transition-colors ${isText ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
-                  >
-                    Text
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => removeQuote(q.id)}
-                  className="opacity-0 group-hover/q:opacity-100 transition-opacity w-5 h-5 flex items-center justify-center rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                  aria-label="Remove"
-                >
-                  <svg width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M6 6l12 12M6 18L18 6"/></svg>
-                </button>
-              </div>
-              <textarea
-                className={inputCls}
-                placeholder={isText ? 'Narrative text' : 'Quote text'}
-                rows={2}
-                value={q.text}
-                onChange={e => updateQuote(q.id, { text: e.target.value })}
-              />
-              {!isText && (
-                <input
-                  className={inputCls}
-                  placeholder="Author"
-                  value={q.author}
-                  onChange={e => updateQuote(q.id, { author: e.target.value })}
-                />
-              )}
-            </div>
-          )
-        })}
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={addQuote}
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
-          >
-            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
-            Add a quote
-          </button>
-          <button
-            type="button"
-            onClick={() => onChange({ ...textPool, quotes: [...textPool.quotes, { ...makeQuote(), kind: 'text' }] })}
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
-          >
-            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
-            Add a text
-          </button>
-        </div>
-      </div>
-
-      {/* Closing */}
       <div>
         {closingOpen || textPool.closing ? (
           <div className="space-y-1.5">
-            <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600 px-1">Closing word</p>
+            <p className="px-1 text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-600">Closing word</p>
             <textarea
               className={inputCls}
               placeholder="Final note — invitation, signature, gratitude"
               rows={2}
               value={textPool.closing}
               onChange={e => onChange({ ...textPool, closing: e.target.value })}
-              onBlur={() => { if (!textPool.closing) setClosingOpen(false) }}
+              onBlur={() => {
+                if (!textPool.closing) setClosingOpen(false)
+              }}
             />
           </div>
         ) : (
           <button
             type="button"
             onClick={() => setClosingOpen(true)}
-            className="w-full flex items-center gap-2 px-3 py-2 text-[12px] text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 border border-dashed border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+            className="flex w-full items-center gap-2 rounded-lg border border-dashed border-gray-200 px-3 py-2 text-[12px] text-gray-500 transition-colors hover:border-gray-300 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-200"
           >
-            <span className="w-4 h-4 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[11px]">+</span>
+            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-100 text-[11px] dark:bg-gray-800">+</span>
             Add a closing word
           </button>
         )}
@@ -527,7 +588,6 @@ export default function EditorCanvasFirst() {
   const [textPool, setTextPool] = useState<TextPool>(EMPTY_TEXT_POOL)
   const [composeSeed, setComposeSeed] = useState(0)
   const [shouldAnimate, setShouldAnimate] = useState(false)
-  const [settingsOpen, setSettingsOpen] = useState(false)
   const [exportOpen, setExportOpen] = useState(false)
   const [paywallOpen, setPaywallOpen] = useState(false)
   const [paywallReason, setPaywallReason] = useState<'template' | 'export_limit'>('template')
@@ -592,6 +652,12 @@ export default function EditorCanvasFirst() {
   const handleAddImages = async (files: File[]) => {
     const newImages = await filesToImages(files)
     saveImages([...images, ...newImages])
+    const newBlocks = newImages.map(img => {
+      const block = makeBlock('full')
+      block.slots = [{ imageId: img.id }]
+      return block
+    })
+    saveBlocks([...blocks, ...newBlocks])
   }
 
   const regenerate = () => {
@@ -614,6 +680,45 @@ export default function EditorCanvasFirst() {
     }
   }
 
+  const insertTextBlock = useCallback((index: number, kind: 'quote' | 'text') => {
+    const block = makeBlock('quote')
+    block.textStyle = kind
+    const seeded = vrCanvasNewQuoteContent(kind)
+    block.quoteText = seeded.quoteText
+    block.quoteAuthor = seeded.quoteAuthor
+    setBlocks(prev => {
+      const next = [...prev]
+      next.splice(index, 0, block)
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  const insertImageBlock = useCallback((index: number, imageId: string) => {
+    setBlocks(prev => {
+      const srcIndex = prev.findIndex(b => b.slots.some(s => s.imageId === imageId))
+      if (srcIndex === -1) return prev
+
+      const src = prev[srcIndex]
+      const restIds = (src.slots.map(s => s.imageId).filter(Boolean) as string[]).filter(id => id !== imageId)
+      const withoutImage = prev.flatMap((block, blockIndex) => {
+        if (blockIndex !== srcIndex) return [block]
+        if (restIds.length === 0) return []
+        const type: BlockType = restIds.length === 1 ? 'full' : restIds.length === 2 ? 'pair' : 'trio'
+        return [{ ...block, type, slots: restIds.map(id => ({ imageId: id })) }]
+      })
+
+      const nextBlock = makeBlock('full')
+      nextBlock.slots = [{ imageId }]
+
+      const adjustedIndex = srcIndex < index && restIds.length === 0 ? index - 1 : index
+      const next = [...withoutImage]
+      next.splice(Math.max(0, Math.min(adjustedIndex, next.length)), 0, nextBlock)
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
   const updateBlock = useCallback((id: string, patch: Partial<Block>) => {
     setBlocks(prev => {
       const next = prev.map(b => b.id === id ? { ...b, ...patch } : b)
@@ -625,6 +730,51 @@ export default function EditorCanvasFirst() {
     setImages(prev => {
       const next = prev.map(i => i.id === id ? { ...i, ...patch } : i)
       try { sessionStorage.setItem('vr_images', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  const mergeImageIntoQuote = useCallback((srcImageId: string, quoteBlockId: string) => {
+    setBlocks(prev => {
+      const q = prev.find(b => b.id === quoteBlockId)
+      const src = prev.find(b => b.slots.some(s => s.imageId === srcImageId))
+      const isImg = (t: string) => t === 'full' || t === 'pair' || t === 'trio'
+      if (!q || !src || q.type !== 'quote' || !isImg(src.type)) return prev
+      const newQuote: Block = { ...q, type: 'side', slots: [{ imageId: srcImageId }], sideTextType: 'quote' }
+      const srcRest = (src.slots.map(s => s.imageId).filter(Boolean) as string[]).filter(id => id !== srcImageId)
+      const next = prev.flatMap(b => {
+        if (b.id === q.id) return [newQuote]
+        if (b.id === src.id) {
+          if (srcRest.length === 0) return []
+          const srcType: BlockType = srcRest.length === 1 ? 'full' : srcRest.length === 2 ? 'pair' : 'trio'
+          return [{ ...b, type: srcType, slots: srcRest.map(id => ({ imageId: id })) }]
+        }
+        return [b]
+      })
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  const mergeQuoteIntoFull = useCallback((quoteBlockId: string, fullBlockId: string) => {
+    setBlocks(prev => {
+      const q = prev.find(b => b.id === quoteBlockId)
+      const f = prev.find(b => b.id === fullBlockId)
+      if (!q || !f || q.type !== 'quote' || f.type !== 'full') return prev
+      const next = prev.flatMap(b => {
+        if (b.id === q.id) return []
+        if (b.id === f.id) return [{ ...f, type: 'side' as BlockType, quoteText: q.quoteText, quoteAuthor: q.quoteAuthor, textStyle: q.textStyle, sideTextType: 'quote' as const }]
+        return [b]
+      })
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
+  const removeBlock = useCallback((blockId: string) => {
+    setBlocks(prev => {
+      const next = prev.filter(b => b.id !== blockId)
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
       return next
     })
   }, [])
@@ -684,6 +834,11 @@ export default function EditorCanvasFirst() {
           onUpdateBlock={updateBlock}
           onUpdateImage={updateImage}
           onMergeImage={mergeImage}
+          onMergeImageIntoQuote={mergeImageIntoQuote}
+          onMergeQuoteIntoFull={mergeQuoteIntoFull}
+          onInsertTextBlock={insertTextBlock}
+          onInsertImageBlock={insertImageBlock}
+          onRemoveBlock={removeBlock}
         />
       </main>
 
@@ -692,7 +847,6 @@ export default function EditorCanvasFirst() {
       <ActionBar
         onRegenerate={regenerate}
         onAddImages={handleAddImages}
-        onOpenSettings={() => setSettingsOpen(true)}
         onSend={() => setExportOpen(true)}
         recipientName={setup.recipientName}
         sendDisabled={sendDisabled}
@@ -707,17 +861,6 @@ export default function EditorCanvasFirst() {
         )}
         <ThemeToggle />
       </div>
-
-      <SettingsDrawer
-        open={settingsOpen}
-        onClose={() => setSettingsOpen(false)}
-        setup={setup}
-        onChangeSetup={saveSetup}
-        images={images}
-        onChangeImages={saveImages}
-        textPool={textPool}
-        onChangeTextPool={handleTextPoolChange}
-      />
 
       <ExportPanel
         open={exportOpen}
