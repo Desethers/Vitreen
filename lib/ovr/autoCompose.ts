@@ -62,26 +62,29 @@ export function autoCompose(
     return []
   }
 
-  // Images-only path
+  // Images-only path — assign image IDs in recipe order (was () => null → empty preview slots)
   const hasAnyText = !!textPool.intro || textPool.quotes.length > 0 || !!textPool.closing
   if (!hasAnyText) {
-    return imageOnlyRecipe(images.length, seed).map(buildBlockOfType(images, () => null))
+    const nextId = makeImgIdResolver(images)
+    return imageOnlyRecipe(images.length, seed).map(buildBlockOfType(images, nextId))
   }
 
   // Text + images path: split images into chapters separated by quotes
   const quoteCount = textPool.quotes.length
   const chapterCount = Math.max(1, quoteCount + 1)
-  const chapterSizes = chunkImagesIntoChapters(images.length, chapterCount, seed)
+  const introUsesFirstImage = !!(textPool.intro && images.length > 0)
+  const imagesForChapters = introUsesFirstImage ? images.length - 1 : images.length
+  const chapterSizes = chunkImagesIntoChapters(imagesForChapters, chapterCount, seed)
 
   const result: Block[] = []
-  let imgCursor = 0
+  let imgCursor = introUsesFirstImage ? 1 : 0
 
-  // Intro block
+  // Intro block — show first artwork under the intro copy (was empty slot → gray hero)
   if (textPool.intro) {
     const intro = makeBlock('quotefull')
     intro.quoteText = textPool.intro
     intro.quoteAuthor = ''
-    // intro's image slot left empty — first image will appear in chapter 1
+    if (introUsesFirstImage) intro.slots = [{ imageId: images[0].id }]
     result.push(intro)
   }
 

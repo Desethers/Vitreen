@@ -666,8 +666,8 @@ function ArtBlockRow({ block, images, dragHandleProps, imageDragging, textDraggi
 
       {/* Inquire toggle */}
       <label className="flex items-center gap-1 text-[10px] text-gray-400 dark:text-gray-500 cursor-pointer select-none shrink-0" title="Show Inquire button">
-        <input type="checkbox" checked={block.showInquire}
-          onChange={e => onUpdate({ ...block, showInquire: e.target.checked })}
+        <input type="checkbox" checked={!block.inquireHidden}
+          onChange={e => onUpdate({ ...block, showInquire: e.target.checked, inquireHidden: !e.target.checked })}
           className="rounded border-gray-300 w-3 h-3 shrink-0" />
         Inquire
       </label>
@@ -1295,13 +1295,21 @@ function Editable({
   )
 }
 
-function PreviewSlot({ imageId, images, landscape, cover, showInquire, onUpdateImage, draggable, onDragStartImage, onDragEndImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
+function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCompact, inquireTiny, onHideInquire, onClearImage, onUpdateImage, draggable, onDragStartImage, onDragEndImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; inquireCompact?: boolean; inquireTiny?: boolean; onHideInquire?: () => void; onClearImage?: () => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
   const img = images.find(i => i.id === imageId)
   const aspect = landscape ? 'aspect-[4/3]' : 'aspect-[3/4]'
   if (!img?.dataUrl) return (
     <div className={`bg-gray-100 dark:bg-gray-800 ${aspect}`} />
   )
   const editing = !!onUpdateImage
+  const hasNameTitle = editing || !!img.artist || !!img.title || !!img.year
+  const hasMediumSize = editing || !!img.medium || !!img.dimensions
+  const shouldShowInquire = showInquire ?? true
+  const inquireCls = inquireTiny
+    ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[9px] tracking-[0.12em] uppercase px-[12px] py-0.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
+    : inquireCompact
+      ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[10px] tracking-[0.14em] uppercase px-[18px] py-1 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
+      : 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-[31px] py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
   const set = (k: keyof ImageItem) => (v: string) => onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
   const dragAttrs = draggable ? {
     draggable: true,
@@ -1316,44 +1324,84 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, onUpdateI
   return (
     <div className="flex flex-col gap-0">
       {cover ? (
-        <div className={`${aspect} overflow-hidden ${dragCls}`} {...dragAttrs}>
+        <div className={`group/slot relative ${aspect} overflow-hidden ${dragCls}`} {...dragAttrs}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={img.dataUrl} alt={img.title || ''} className="w-full h-full object-cover pointer-events-none" />
+          {onClearImage && (
+            <button
+              type="button"
+              onClick={onClearImage}
+              className="absolute bottom-2 right-2 z-[5] flex h-7 w-7 items-center justify-center rounded-full border border-gray-200/90 bg-white/95 text-gray-500 shadow-sm backdrop-blur-sm transition-all hover:border-red-200 hover:text-red-500 opacity-0 group-hover/slot:opacity-100 dark:border-gray-600/90 dark:bg-[#0f0f0f]/95 dark:text-gray-400 dark:hover:border-red-900/60 dark:hover:text-red-400"
+              aria-label="Retirer cette œuvre du bloc"
+              title="Retirer cette œuvre du bloc"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M4.5 6.5h15" />
+                <path d="M9.5 6.5V4.75h5v1.75" />
+                <path d="M7.25 9l.55 9.25c.04.7.62 1.25 1.32 1.25h5.76c.7 0 1.28-.55 1.32-1.25L16.75 9" />
+                <path d="M10.5 11.25v5.5M13.5 11.25v5.5" />
+              </svg>
+            </button>
+          )}
         </div>
       ) : (
-        <div className={dragCls} {...dragAttrs}>
+        <div className={`group/slot relative ${dragCls}`} {...dragAttrs}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={img.dataUrl} alt={img.title || ''} className="w-full h-auto pointer-events-none" />
+          {onClearImage && (
+            <button
+              type="button"
+              onClick={onClearImage}
+              className="absolute bottom-2 right-2 z-[5] flex h-7 w-7 items-center justify-center rounded-full border border-gray-200/90 bg-white/95 text-gray-500 shadow-sm backdrop-blur-sm transition-all hover:border-red-200 hover:text-red-500 opacity-0 group-hover/slot:opacity-100 dark:border-gray-600/90 dark:bg-[#0f0f0f]/95 dark:text-gray-400 dark:hover:border-red-900/60 dark:hover:text-red-400"
+              aria-label="Retirer cette œuvre du bloc"
+              title="Retirer cette œuvre du bloc"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M4.5 6.5h15" />
+                <path d="M9.5 6.5V4.75h5v1.75" />
+                <path d="M7.25 9l.55 9.25c.04.7.62 1.25 1.32 1.25h5.76c.7 0 1.28-.55 1.32-1.25L16.75 9" />
+                <path d="M10.5 11.25v5.5M13.5 11.25v5.5" />
+              </svg>
+            </button>
+          )}
         </div>
       )}
       <div className="pt-[10px] flex items-start justify-between gap-4">
-        <div className="space-y-0.5">
-          {(img.artist || editing) && (
-            editing
-              ? <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100"><Editable value={img.artist} onChange={set('artist')} placeholder="Artist" /></p>
-              : <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>
+        <div className="space-y-0">
+          {hasNameTitle && (
+            <div className="space-y-0">
+              {(img.artist || editing) && (
+                editing
+                  ? <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100"><Editable value={img.artist} onChange={set('artist')} placeholder="Artist" /></p>
+                  : <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>
+              )}
+              {(img.title || editing) && (
+                editing ? (
+                  <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
+                    <em><Editable value={img.title} onChange={set('title')} placeholder="Title" /></em>
+                    {(img.year || editing) && <>, <Editable value={img.year} onChange={set('year')} placeholder="Year" /></>}
+                  </p>
+                ) : (
+                  <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
+                    <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
+                  </p>
+                )
+              )}
+            </div>
           )}
-          {(img.title || editing) && (
-            editing ? (
-              <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">
-                <em><Editable value={img.title} onChange={set('title')} placeholder="Title" /></em>
-                {(img.year || editing) && <>, <Editable value={img.year} onChange={set('year')} placeholder="Year" /></>}
-              </p>
-            ) : (
-              <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100">
-                <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
-              </p>
-            )
-          )}
-          {(img.medium || editing) && (
-            editing
-              ? <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.medium} onChange={set('medium')} placeholder="Medium" /></p>
-              : <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>
-          )}
-          {(img.dimensions || editing) && (
-            editing
-              ? <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.dimensions} onChange={set('dimensions')} placeholder="Dimensions" /></p>
-              : <p className="text-[12px] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>
+          {hasMediumSize && (
+            <div className="space-y-0 mt-[1px]">
+              {(img.medium || editing) && (
+                editing
+                  ? <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.medium} onChange={set('medium')} placeholder="Medium" /></p>
+                  : <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>
+              )}
+              {(img.dimensions || editing) && (
+                editing
+                  ? <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.dimensions} onChange={set('dimensions')} placeholder="Dimensions" /></p>
+                  : <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>
+              )}
+            </div>
           )}
           {img.showPrice && (img.price || editing) && (
             editing
@@ -1361,11 +1409,26 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, onUpdateI
               : <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
           )}
         </div>
-        {showInquire && (
-          <button className="shrink-0 border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-[31px] py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors">
-            Inquire
-          </button>
-        )}
+        <div className="shrink-0 flex flex-col items-end gap-1">
+          {shouldShowInquire && (
+            <div className="group/inquire relative">
+              <button className={inquireCls}>
+                Inquire
+              </button>
+              {onHideInquire && (
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); onHideInquire() }}
+                  className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-gray-200 bg-white text-[9px] leading-none text-gray-400 opacity-0 shadow-sm transition-all hover:border-red-200 hover:text-red-500 group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
+                  aria-label="Masquer Inquire"
+                  title="Masquer Inquire"
+                >
+                  ×
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
@@ -1389,6 +1452,13 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
   const editing = !!onUpdateBlock
   const setQT = (v: string) => onUpdateBlock?.(block.id, { quoteText: v })
   const setQA = (v: string) => onUpdateBlock?.(block.id, { quoteAuthor: v })
+  const hideInquire = () => onUpdateBlock?.(block.id, { showInquire: false, inquireHidden: true })
+  const clearImageFromBlock = (imageId: string | null) => {
+    if (!onUpdateBlock || !imageId) return
+    onUpdateBlock(block.id, {
+      slots: block.slots.map(slot => (slot.imageId === imageId ? { ...slot, imageId: null } : slot)),
+    })
+  }
 
   if (block.type === 'quote') {
     const asText = block.textStyle === 'text'
@@ -1431,7 +1501,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
   if (block.type === 'full') {
     return (
       <div className="w-full">
-        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={block.showInquire} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
+        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={!block.inquireHidden} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
       </div>
     )
   }
@@ -1493,7 +1563,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
           )}
         </div>
         <div className="w-full">
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape onUpdateImage={onUpdateImage} />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={!block.inquireHidden} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} />
         </div>
       </div>
     )
@@ -1502,8 +1572,8 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
   if (block.type === 'pair') {
     const filled = block.slots.filter(s => s.imageId !== null)
     return filled.length === 1
-      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={block.showInquire} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
-      : <div className="grid grid-cols-2 gap-6">{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover showInquire={block.showInquire} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(filled[0].imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
+      : <div className="grid grid-cols-2 gap-6">{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
   }
 
   if (block.type === 'trio') {
@@ -1513,8 +1583,8 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
     const isPortrait = portraitCount > knownOrientations.length / 2
     const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
     return cols
-      ? <div className={`grid ${cols} gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
-      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
+      ? <div className={`grid ${cols} gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny={filled.length >= 3} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(filled[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
   }
 
   if (block.type === 'side') {
@@ -1525,7 +1595,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, draggableIm
     return (
       <div className="grid grid-cols-2 gap-8 items-center">
         <div>
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={block.showInquire} onUpdateImage={onUpdateImage} />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} />
         </div>
         <div>
           {editing
@@ -1558,6 +1628,11 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
   onRemoveBlock?: (blockId: string) => void
 }) {
   const [over, setOver] = useState(false)
+  useEffect(() => {
+    const end = () => setOver(false)
+    window.addEventListener('dragend', end)
+    return () => window.removeEventListener('dragend', end)
+  }, [])
   const isImageBlock = block.type === 'full' || block.type === 'pair' || block.type === 'trio'
   const isQuoteBlock = block.type === 'quote'
   const filledCount = block.slots.filter(s => s.imageId).length
@@ -1595,9 +1670,13 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
       e.preventDefault()
       if (acceptsImageAsSide) onMergeImageIntoQuote?.(imgId, block.id)
       else if (acceptsImage) onMergeImage?.(imgId, block.id)
+      // Réinitialiser tout de suite : après merge la destination contient la même imageId que draggingImageId,
+      // donc isImageSource resterait vrai jusqu'à dragend (souvent absent) → preview bloquée en opacity-50.
+      onDragEndImage()
     } else if (blkId) {
       e.preventDefault()
       if (acceptsQuote) onMergeQuoteIntoFull?.(blkId, block.id)
+      onDragEndBlock()
     }
   }
 
@@ -1608,7 +1687,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
       onDragOver={handleDragOver}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
-      className={`group/host relative rounded-md transition-shadow ${draggableBlock ? 'hover:ring-1 hover:ring-gray-200/80 dark:hover:ring-gray-800' : ''} ${over ? 'ring-2 ring-emerald-400/80 ring-offset-8 ring-offset-white dark:ring-offset-[#0f0f0f]' : ''} ${(isImageSource && draggingImageId) || isBlockSource ? 'opacity-50' : ''}`}
+      className={`group/host relative rounded-md transition-shadow ${onRemoveBlock ? 'hover:ring-1 hover:ring-gray-200/80 hover:ring-offset-8 hover:ring-offset-white dark:hover:ring-gray-800 dark:hover:ring-offset-[#0f0f0f]' : ''} ${over ? 'ring-2 ring-emerald-400/80 ring-offset-8 ring-offset-white dark:ring-offset-[#0f0f0f]' : ''}`}
     >
       {label && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-medium tracking-wide shadow z-10 pointer-events-none">
@@ -1638,9 +1717,9 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); onRemoveBlock(block.id) }}
-          aria-label="Supprimer le bloc"
-          title="Supprimer le bloc"
-          className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-gray-200/80 bg-white/90 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/90 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
+          aria-label="Supprimer tout le bloc"
+          title="Supprimer tout le bloc"
+          className="absolute -right-3 -top-3 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
         >
           <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
             <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -1671,6 +1750,11 @@ function PreviewInlineTextAddStrip({
   draggingImageId?: string | null
 }) {
   const [over, setOver] = useState(false)
+  useEffect(() => {
+    const end = () => setOver(false)
+    window.addEventListener('dragend', end)
+    return () => window.removeEventListener('dragend', end)
+  }, [])
   return (
     <div
       onDragOver={e => {
@@ -1743,6 +1827,18 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
   const [draggingImageId, setDraggingImageId] = useState<string | null>(null)
   const [draggingBlockIdLocal, setDraggingBlockIdLocal] = useState<string | null>(null)
   const [draggingTextKind, setDraggingTextKind] = useState<'quote' | 'text' | null>(null)
+
+  const clearPreviewDrag = useCallback(() => {
+    setDraggingImageId(null)
+    setDraggingBlockIdLocal(null)
+    setDraggingTextKind(null)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('dragend', clearPreviewDrag)
+    return () => window.removeEventListener('dragend', clearPreviewDrag)
+  }, [clearPreviewDrag])
+
   const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0 || editing
   const offsetCls = noOffset ? '' : 'pl-[422px]'
 
@@ -1797,7 +1893,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
           <div className="mx-10">
             <PreviewInlineTextAddStrip
               onPick={kind => onInsertTextBlock(0, kind)}
-              onDropImage={onInsertImageBlock ? imageId => onInsertImageBlock(0, imageId) : undefined}
+              onDropImage={onInsertImageBlock ? imageId => { onInsertImageBlock(0, imageId); clearPreviewDrag() } : undefined}
               draggingImageId={draggingImageId}
             />
           </div>
@@ -1814,13 +1910,13 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
                 {editing && onInsertTextBlock && (
                   <PreviewInlineTextAddStrip
                     onPick={kind => onInsertTextBlock(i, kind)}
-                    onDropImage={onInsertImageBlock ? imageId => onInsertImageBlock(i, imageId) : undefined}
+                    onDropImage={onInsertImageBlock ? imageId => { onInsertImageBlock(i, imageId); clearPreviewDrag() } : undefined}
                     draggingImageId={draggingImageId}
                   />
                 )}
                 <div
                   style={blockEnter ? { animation: `vrBlockEnter 600ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 120}ms both` } : undefined}
-                  className={`py-4 transition-all duration-200 ${draggingBlockId === block.id ? '-translate-y-1 shadow-2xl rounded-xl ring-1 ring-gray-900/8' : ''}`}
+                  className={`py-6 transition-all duration-200 ${draggingBlockId === block.id ? '-translate-y-1 shadow-2xl rounded-xl ring-1 ring-gray-900/8' : ''}`}
                 >
                   <BlockHost
                     block={block}
@@ -1834,9 +1930,9 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
                     onUpdateBlock={onUpdateBlock}
                     onUpdateImage={onUpdateImage}
                     onDragStartImage={setDraggingImageId}
-                    onDragEndImage={() => setDraggingImageId(null)}
+                    onDragEndImage={clearPreviewDrag}
                     onDragStartBlock={(id, kind) => { setDraggingBlockIdLocal(id); setDraggingTextKind(kind) }}
-                    onDragEndBlock={() => { setDraggingBlockIdLocal(null); setDraggingTextKind(null) }}
+                    onDragEndBlock={clearPreviewDrag}
                     onRemoveBlock={onRemoveBlock}
                   />
                 </div>
@@ -1845,7 +1941,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
             {editing && onInsertTextBlock && (
               <PreviewInlineTextAddStrip
                 onPick={kind => onInsertTextBlock(blocks.length, kind)}
-                onDropImage={onInsertImageBlock ? imageId => onInsertImageBlock(blocks.length, imageId) : undefined}
+                onDropImage={onInsertImageBlock ? imageId => { onInsertImageBlock(blocks.length, imageId); clearPreviewDrag() } : undefined}
                 draggingImageId={draggingImageId}
               />
             )}
@@ -1891,120 +1987,513 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
 // EXPORT PANEL
 // ═══════════════════════════════════════════════════════════════════════════════
 
-export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall }: {
+function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images: ImageItem[]; blocks: Block[] }) {
+  const imageById = new Map(images.map(img => [img.id, img]))
+  const caption = (img?: ImageItem, showInquire = false) => img ? (
+    <div className="mt-1 flex items-start justify-between gap-1.5 text-left text-[5.5px] leading-[1.15]">
+      <div className="min-w-0">
+        {img.artist ? <p className="truncate font-medium text-gray-900">{img.artist}</p> : null}
+        {(img.title || img.year) ? <p className="truncate text-gray-900"><em>{img.title}</em>{img.year ? `, ${img.year}` : ''}</p> : null}
+        {img.medium ? <p className="truncate text-gray-400">{img.medium}</p> : null}
+        {img.dimensions ? <p className="truncate text-gray-400">{img.dimensions}</p> : null}
+      </div>
+      {showInquire ? (
+        <span className="shrink-0 border-[0.5px] border-gray-900 px-1.5 py-[2px] text-[4.5px] uppercase tracking-[0.12em] text-gray-900">
+          Inquire
+        </span>
+      ) : null}
+    </div>
+  ) : null
+  const art = (imageId: string | null, className = '', fit: 'cover' | 'contain' = 'cover', showInquire = false) => {
+    const img = imageId ? imageById.get(imageId) : undefined
+    return (
+      <div className="min-w-0">
+        <div className={`${className} overflow-hidden bg-white`}>
+          {img?.dataUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={img.dataUrl}
+              alt={img.title || ''}
+              className={`h-full w-full object-center ${fit === 'cover' ? 'object-cover' : 'object-contain'}`}
+            />
+          ) : (
+            <div className="h-full w-full bg-gray-100" />
+          )}
+        </div>
+        {caption(img, showInquire)}
+      </div>
+    )
+  }
+
+  const screen = (
+    <div className="min-h-full bg-white">
+      <div className="px-5 pb-6 pt-14">
+        {setup.galleryName ? <p className="mb-3 text-[5px] uppercase tracking-[0.22em] text-gray-400">{setup.galleryName}</p> : null}
+        <p className="text-[11px] leading-tight text-gray-900">{setup.headline || 'Viewing Room'}</p>
+        {setup.title ? <p className="text-[11px] leading-tight text-gray-400">{setup.title}</p> : null}
+        {setup.recipientName ? <p className="mt-2 text-[6px] text-gray-500">For {setup.recipientName}</p> : null}
+        {setup.introText ? <p className="mt-2 line-clamp-3 text-[7px] leading-snug text-gray-700">{setup.introText}</p> : null}
+      </div>
+      <div className="mx-5 border-t border-gray-100" />
+      <div className="space-y-5 py-4">
+        {blocks.slice(0, 8).map(block => {
+          if (block.type === 'quote') {
+            return <p key={block.id} className="px-6 py-4 text-center text-[8px] italic leading-snug text-gray-500">{block.quoteText || 'Quote…'}</p>
+          }
+          if (block.type === 'pair' || block.type === 'trio') {
+            const filled = block.slots.filter(s => s.imageId)
+            return (
+              <div key={block.id} className={`grid ${filled.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'} gap-3 px-4`}>
+                {filled.slice(0, 3).map(slot => <div key={slot.imageId} className="min-w-0">{art(slot.imageId, 'aspect-[4/3]', 'cover', !block.inquireHidden)}</div>)}
+              </div>
+            )
+          }
+          if (block.type === 'side') {
+            return (
+              <div key={block.id} className="grid grid-cols-2 gap-3 items-center px-5">
+                {art(block.slots[0]?.imageId ?? null, 'aspect-[3/4]', 'cover', !block.inquireHidden)}
+                <p className="line-clamp-5 text-[7px] italic leading-snug text-gray-500">{block.quoteText || 'Text…'}</p>
+              </div>
+            )
+          }
+          return <div key={block.id} className="px-4">{art(block.slots[0]?.imageId ?? null, 'aspect-[4/3]', 'cover', !block.inquireHidden)}</div>
+        })}
+      </div>
+      <div className="h-20" />
+    </div>
+  )
+
+  return (
+    <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[48px] bg-[#070808] shadow-2xl">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
+      <div className="absolute inset-[1px] rounded-[47px] border border-white/10" />
+      <div className="absolute -right-16 top-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
+      <div className="absolute -bottom-24 left-8 h-52 w-52 rounded-full bg-black blur-3xl" />
+
+      <div className="relative h-[610px] w-[302px] translate-y-28 rounded-[52px] bg-gradient-to-br from-zinc-300 via-zinc-950 to-black p-[5px] shadow-[0_38px_90px_rgba(15,23,42,0.34),inset_0_1px_0_rgba(255,255,255,0.45)]">
+        <div className="absolute -left-1 top-24 h-14 w-1 rounded-l-full bg-zinc-800/80" />
+        <div className="absolute -right-1 top-32 h-20 w-1 rounded-r-full bg-zinc-800/80" />
+        <div className="absolute inset-[2px] rounded-[50px] border border-white/25 pointer-events-none" />
+        <div className="relative h-full w-full overflow-hidden rounded-[46px] bg-white ring-1 ring-black/80">
+          <div className="absolute left-1/2 top-3 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_1px_8px_rgba(0,0,0,0.25)]" />
+          <div className="h-full overflow-hidden bg-white">
+            <div className="h-full overflow-y-auto bg-white px-2 scale-[1.08] origin-top">
+              {screen}
+            </div>
+          </div>
+          <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(112deg,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.16)_17%,transparent_35%,transparent_62%,rgba(255,255,255,0.24)_78%,transparent_100%)] mix-blend-screen" />
+          <div className="pointer-events-none absolute -right-16 -top-12 z-20 h-[120%] w-28 rotate-[12deg] bg-white/30 blur-2xl" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-36 bg-gradient-to-b from-white/30 to-transparent" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, onChangeSetup }: {
   open: boolean; onClose: () => void
   blocks: Block[]; images: ImageItem[]; setup: VrSetup
   onPaywall: () => void
+  /** Si défini : édition email destinataire dans ce modal (persisté avec saveSetup). */
+  onChangeSetup?: (s: VrSetup) => void
 }) {
   const [generating, setGenerating] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [preparingPayload, setPreparingPayload] = useState(false)
+  const [sharingChannel, setSharingChannel] = useState<'email' | 'whatsapp' | null>(null)
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+  const lastExportRef = useRef<{ fingerprint: string; url: string } | null>(null)
+
+  const makeExportFingerprint = useCallback(() => {
+    const usedImageIds = new Set(
+      blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => Boolean(id)))
+    )
+    const imageSig = (value: string) => value ? `${value.length}:${value.slice(0, 64)}:${value.slice(-64)}` : ''
+    const usedImages = images
+      .filter(img => usedImageIds.has(img.id))
+      .map(img => ({
+        id: img.id,
+        dataUrl: imageSig(img.dataUrl),
+        title: img.title,
+        artist: img.artist,
+        year: img.year,
+        medium: img.medium,
+        dimensions: img.dimensions,
+        price: img.price,
+        showPrice: !!img.showPrice,
+      }))
+      .sort((a, b) => a.id.localeCompare(b.id))
+
+    const blockSnapshot = blocks.map(block => ({
+      id: block.id,
+      type: block.type,
+      quoteText: block.quoteText,
+      quoteAuthor: block.quoteAuthor,
+      showInquire: !block.inquireHidden,
+      inquireHidden: !!block.inquireHidden,
+      sideTextType: block.sideTextType ?? null,
+      textStyle: block.textStyle ?? null,
+      slots: block.slots.map(slot => slot.imageId ?? null),
+    }))
+
+    return JSON.stringify({
+      setup,
+      blocks: blockSnapshot,
+      images: usedImages,
+    })
+  }, [blocks, images, setup])
+
+  const optimizeImageDataUrl = async (dataUrl: string) => {
+    if (!dataUrl.startsWith('data:image/')) return dataUrl
+    // Avoid huge request bodies that can be truncated by platform limits.
+    if (dataUrl.length < 1_800_000) return dataUrl
+
+    return new Promise<string>((resolve) => {
+      const img = new window.Image()
+      img.onload = () => {
+        const maxDim = 2400
+        const largest = Math.max(img.naturalWidth, img.naturalHeight)
+        if (!largest || largest <= maxDim) {
+          resolve(dataUrl)
+          return
+        }
+        const scale = maxDim / largest
+        const width = Math.max(1, Math.round(img.naturalWidth * scale))
+        const height = Math.max(1, Math.round(img.naturalHeight * scale))
+
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        if (!ctx) {
+          resolve(dataUrl)
+          return
+        }
+        ctx.drawImage(img, 0, 0, width, height)
+        try {
+          const compressed = canvas.toDataURL('image/jpeg', 0.86)
+          resolve(compressed || dataUrl)
+        } catch {
+          resolve(dataUrl)
+        }
+      }
+      img.onerror = () => resolve(dataUrl)
+      img.src = dataUrl
+    })
+  }
+
+  const buildExportPayload = async () => {
+    setPreparingPayload(true)
+    try {
+      const usedImageIds = new Set(
+        blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => Boolean(id)))
+      )
+      const usedImages = images.filter(i => usedImageIds.has(i.id))
+      const optimizedImages = await Promise.all(
+        usedImages.map(async (img) => ({
+          ...img,
+          dataUrl: await optimizeImageDataUrl(img.dataUrl),
+        }))
+      )
+      return { blocks, images: optimizedImages, setup }
+    } finally {
+      setPreparingPayload(false)
+    }
+  }
+
+  const ensureShareUrl = async ({ force = false }: { force?: boolean } = {}) => {
+    const fingerprint = makeExportFingerprint()
+    if (
+      !force &&
+      shareUrl &&
+      lastExportRef.current?.url === shareUrl &&
+      lastExportRef.current.fingerprint === fingerprint
+    ) {
+      return shareUrl
+    }
+    setSaving(true)
+    setError(null)
+    setSuccess(null)
+    try {
+      const payload = await buildExportPayload()
+      const res = await fetch('/api/ovr/viewing-rooms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (res.status === 402) { onClose(); onPaywall(); return null }
+      if (res.status === 401) {
+        setError('Please sign in to generate a share link.')
+        return null
+      }
+      if (!res.ok) {
+        let message = 'Error saving the viewing room.'
+        try {
+          const payload = await res.json()
+          if (payload?.error) message = String(payload.error)
+        } catch { /* ignore */ }
+        throw new Error(message)
+      }
+      const data = await res.json()
+      const base =
+        process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || window.location.origin
+      const nextUrl = `${base}/vr/${data.token}`
+      setShareUrl(nextUrl)
+      lastExportRef.current = { fingerprint, url: nextUrl }
+      return nextUrl
+    } catch (e) {
+      const raw = e instanceof Error ? e.message : 'Error saving the viewing room.'
+      const message = /Unterminated string in JSON|Unexpected end of JSON input/i.test(raw)
+        ? 'Payload too large while generating the share link. Try with fewer or lighter images.'
+        : raw
+      setError(message)
+      return null
+    } finally {
+      setSaving(false)
+    }
+  }
 
   const handlePDF = async () => {
-    setGenerating(true); setError(null)
+    setGenerating(true)
+    setError(null)
+    setSuccess(null)
     try {
-      const res = await fetch('/api/ovr/generate-pdf', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ blocks, images, setup }) })
+      const payload = await buildExportPayload()
+      const res = await fetch('/api/ovr/generate-pdf', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
       if (res.status === 402) { onClose(); onPaywall(); return }
-      if (!res.ok) throw new Error()
+      if (res.status === 401) {
+        setError('Please sign in to export the PDF.')
+        return
+      }
+      if (!res.ok) {
+        let message = 'Error generating the PDF.'
+        try {
+          const payload = await res.json()
+          if (payload?.error) message = String(payload.error)
+        } catch { /* ignore */ }
+        throw new Error(message)
+      }
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)
-      const a = document.createElement('a'); a.href = url; a.download = `viewing-room.pdf`; a.click(); URL.revokeObjectURL(url)
-    } catch { setError('Error generating the PDF.') } finally { setGenerating(false) }
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'viewing-room.pdf'
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch (e) {
+      const raw = e instanceof Error ? e.message : 'Error generating the PDF.'
+      const message = /Unterminated string in JSON|Unexpected end of JSON input/i.test(raw)
+        ? 'Payload too large while generating the PDF. Try with fewer or lighter images.'
+        : raw
+      setError(message)
+    } finally {
+      setGenerating(false)
+    }
   }
 
   const handleShare = async () => {
-    setSaving(true); setError(null)
-    try {
-      const res = await fetch('/api/ovr/viewing-rooms', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ blocks, images, setup }) })
-      if (res.status === 402) { onClose(); onPaywall(); return }
-      if (!res.ok) throw new Error()
-      const data = await res.json()
-      setShareUrl(`${window.location.origin}/vr/${data.token}`)
-    } catch { setError('Error saving the viewing room.') } finally { setSaving(false) }
+    await ensureShareUrl({ force: !!shareUrl })
   }
 
-  const whatsappHref = shareUrl ? `https://wa.me/?text=${encodeURIComponent(`Here is your Viewing Room: ${shareUrl}`)}` : null
-  const emailHref = shareUrl ? `mailto:${setup.recipientEmail}?subject=${encodeURIComponent(`Viewing Room — ${setup.galleryName}`)}&body=${encodeURIComponent(`Hello${setup.recipientName ? ` ${setup.recipientName}` : ''},\n\n${setup.introText ? setup.introText + '\n\n' : ''}Here is your viewing room:\n${shareUrl}\n\nBest regards,\n${setup.galleryName}`)}` : null
+  const openShareChannel = async (channel: 'email' | 'whatsapp') => {
+    setSharingChannel(channel)
+    setError(null)
+    setSuccess(null)
+    try {
+      const url = await ensureShareUrl()
+      if (!url) return
+
+      if (channel === 'whatsapp') {
+        const whatsappHref = `https://wa.me/?text=${encodeURIComponent(`Here is your Viewing Room: ${url}`)}`
+        window.open(whatsappHref, '_blank', 'noopener,noreferrer')
+        return
+      }
+
+      const emailTo = setup.recipientEmail?.trim()
+      if (!emailTo || !emailTo.includes('@')) {
+        setError('Indique l’email du destinataire ci-dessous pour envoyer le lien.')
+        return
+      }
+
+      const res = await fetch('/api/ovr/share-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipientEmail: emailTo,
+          recipientName: setup.recipientName,
+          galleryName: setup.galleryName,
+          galleryAddress: setup.galleryAddress,
+          galleryContact: setup.galleryContact,
+          introText: setup.introText,
+          shareUrl: url,
+        }),
+      })
+      if (!res.ok) {
+        let message = 'Error sending email.'
+        try {
+          const payload = await res.json()
+          if (payload?.error) message = String(payload.error)
+        } catch { /* ignore */ }
+        throw new Error(message)
+      }
+      setSuccess('Email sent successfully.')
+    } catch (e) {
+      const message = e instanceof Error ? e.message : 'Error sending email.'
+      setError(message)
+    } finally {
+      setSharingChannel(null)
+    }
+  }
+
+  const copyShareUrl = async () => {
+    if (!shareUrl) return
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      setError('Impossible de copier le lien.')
+    }
+  }
+
+  const hasContent = blocks.length > 0
+  const isBusy = saving || generating || preparingPayload
+  const allActionsDisabled = isBusy || sharingChannel !== null || !hasContent
+  const usedImageCount = new Set(blocks.flatMap(b => b.slots.map(s => s.imageId).filter(Boolean))).size
 
   if (!open) return null
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-[20px] shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+
+      <div className="relative flex w-full max-w-[916px] items-stretch justify-center gap-5">
+      <div className="relative h-[560px] w-full max-w-md bg-white dark:bg-gray-900 rounded-[48px] shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col">
+        <div className="flex items-center justify-between px-7 py-5 border-b border-gray-100 dark:border-gray-800">
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
-          <button type="button" onClick={onClose}
-            className="w-7 h-7 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+          <button
+            type="button"
+            onClick={onClose}
+            className="w-9 h-9 rounded-full border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+          >
             <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
 
-        <div className="px-6 py-5 space-y-5">
-          {error && <p className="text-xs text-red-500 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-800 px-4 py-3 rounded-lg">{error}</p>}
+        <div className="flex-1 px-7 py-5">
+          <div className="flex min-h-full flex-col justify-between gap-5">
+          <div className="space-y-5">
+          {error ? <p className="text-xs text-red-600 dark:text-red-300 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/60 px-4 py-3 rounded-lg">{error}</p> : null}
+          {success ? <p className="text-xs text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/60 px-4 py-3 rounded-lg">{success}</p> : null}
 
-          {shareUrl && (
-            <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-[20px] px-4 py-3">
-              <svg className="w-3.5 h-3.5 text-gray-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-              </svg>
-              <span className="flex-1 text-xs text-gray-600 dark:text-gray-400 truncate">{shareUrl}</span>
-              <button onClick={async () => { await navigator.clipboard.writeText(shareUrl); setCopied(true); setTimeout(() => setCopied(false), 2000) }}
-                className="text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 shrink-0">{copied ? '✓ Copied' : 'Copy'}</button>
-              <a href={shareUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 shrink-0">↗</a>
-            </div>
-          )}
-
-          <div className="flex items-center justify-between gap-4 py-1">
+          <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Download as PDF</p>
               <p className="text-xs text-gray-400 mt-0.5">High-resolution A4 document</p>
             </div>
-            <button onClick={handlePDF} disabled={generating || blocks.length === 0}
-              className="shrink-0 px-4 py-2 rounded-full bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-40 transition-colors flex items-center gap-1.5">
-              {generating ? <><svg className="animate-spin w-3.5 h-3.5" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>…</> : '↓ PDF'}
+            <button
+              type="button"
+              onClick={handlePDF}
+              disabled={!hasContent || isBusy}
+              className="shrink-0 min-w-[92px] px-5 py-2.5 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 disabled:opacity-40 transition-colors bg-white dark:bg-gray-900"
+            >
+              {generating ? 'Exporting…' : 'PDF'}
             </button>
           </div>
 
           <div className="border-t border-gray-100 dark:border-gray-800" />
 
-          <div className="flex items-center justify-between gap-4 py-1">
-            <div>
-              <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Share link</p>
-              <p className="text-xs text-gray-400 mt-0.5">Web page accessible to the recipient</p>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Share by email or WhatsApp</p>
+                <p className="text-xs text-gray-400 mt-0.5">Generate a private viewing room link first</p>
+              </div>
+              <button
+                type="button"
+                onClick={handleShare}
+                disabled={!hasContent || isBusy}
+                className="shrink-0 min-w-[112px] px-5 py-2.5 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 disabled:opacity-40 transition-colors bg-white dark:bg-gray-900"
+              >
+                {preparingPayload ? 'Preparing…' : saving ? 'Generating…' : shareUrl ? 'Regenerate' : 'Generate'}
+              </button>
             </div>
-            <button onClick={handleShare} disabled={saving || blocks.length === 0}
-              className="shrink-0 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 disabled:opacity-40 transition-colors bg-white dark:bg-gray-900">
-              {saving ? 'Saving…' : shareUrl ? 'Regenerate' : 'Generate'}
-            </button>
-          </div>
 
-          {shareUrl && (
-            <div className="flex gap-2 pt-1">
-              {whatsappHref && (
-                <a href={whatsappHref} target="_blank" rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-1.5 rounded-full bg-[#25D366] text-white text-sm hover:bg-[#1ebe5d] transition-colors">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                  </svg>
-                  WhatsApp
-                </a>
-              )}
-              {emailHref && (
-                <a href={emailHref}
-                  className="flex-1 flex items-center justify-center gap-2 py-1.5 rounded-full border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 hover:border-gray-400 transition-colors">
-                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-                  </svg>
-                  Email
-                </a>
-              )}
-            </div>
-          )}
+            {shareUrl ? (
+              <div className="space-y-3">
+                <div className="space-y-2">
+                  <input
+                    type="email"
+                    className={`${input} h-10 text-sm`}
+                    placeholder="recipient@example.com"
+                    autoComplete="email"
+                    value={setup.recipientEmail}
+                    readOnly={!onChangeSetup}
+                    onChange={e => onChangeSetup?.({ ...setup, recipientEmail: e.target.value })}
+                  />
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => openShareChannel('email')}
+                      disabled={allActionsDisabled}
+                      className="py-2.5 rounded-full bg-gray-900 dark:bg-white dark:text-gray-900 text-white text-sm hover:bg-gray-700 dark:hover:bg-gray-100 disabled:opacity-40 transition-colors"
+                    >
+                      {sharingChannel === 'email' ? 'Sending…' : 'Email'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => openShareChannel('whatsapp')}
+                      disabled={allActionsDisabled}
+                      className="py-2.5 rounded-full bg-[#25D366] text-white text-sm hover:bg-[#1ebe5d] disabled:opacity-40 transition-colors"
+                    >
+                      {sharingChannel === 'whatsapp' ? 'Opening…' : 'WhatsApp'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 text-sm">
+                  <button type="button" onClick={copyShareUrl} className="font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                    {copied ? 'Copied' : 'Copy link'}
+                  </button>
+                  <a href={shareUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">↗</a>
+                </div>
+              </div>
+            ) : null}
+          </div>
         </div>
+          <div className="rounded-[22px] border border-gray-100 bg-gray-50/70 px-4 py-3 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-800/40 dark:text-gray-400">
+            {[
+              ['Layout preview ready', hasContent],
+              ['Artwork captions included', usedImageCount > 0],
+              ['Email renders the designed room', !!shareUrl],
+            ].map(([label, ok]) => (
+              <div key={String(label)} className="flex items-center gap-2 py-0.5">
+                <span className={`flex h-3.5 w-3.5 items-center justify-center rounded-full border ${ok ? 'border-emerald-200 bg-emerald-50 text-emerald-600' : 'border-gray-200 bg-white text-gray-300 dark:border-gray-700 dark:bg-gray-900'}`}>
+                  {ok ? (
+                    <svg width="8" height="8" fill="none" stroke="currentColor" strokeWidth="2.4" viewBox="0 0 24 24">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : null}
+                </span>
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+          </div>
+      </div>
+      </div>
+
+      <div className="hidden h-[560px] w-full max-w-md flex-1 md:flex">
+        <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
+      </div>
       </div>
     </div>
   )
@@ -2282,6 +2771,7 @@ export default function ViewingRoomApp() {
         images={images}
         setup={setup}
         onPaywall={() => openPaywall('export_limit')}
+        onChangeSetup={saveSetup}
       />
 
       {paywallOpen && (

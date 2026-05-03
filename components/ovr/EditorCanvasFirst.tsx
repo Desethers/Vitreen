@@ -869,6 +869,7 @@ export default function EditorCanvasFirst() {
         images={images}
         setup={setup}
         onPaywall={() => { setPaywallReason('export_limit'); setPaywallOpen(true) }}
+        onChangeSetup={saveSetup}
       />
 
       {paywallOpen && (

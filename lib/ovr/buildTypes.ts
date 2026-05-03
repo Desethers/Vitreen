@@ -28,6 +28,7 @@ export interface Block {
   quoteText: string
   quoteAuthor: string
   showInquire: boolean
+  inquireHidden?: boolean
   sideTextType?: 'quote' | 'quotefull'
   textStyle?: 'quote' | 'text'
 }

@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     const { blocks, images, setup } = await req.json() as {
       blocks: Block[]; images: ImageItem[]; setup: VrSetup | null
     }
+    const imageById = new Map(images.map(img => [img.id, img]))
 
     // Upload all images to Sanity and build an id → assetId map
     const assetMap: Record<string, string> = {}
@@ -39,13 +40,16 @@ export async function POST(req: NextRequest) {
       }
     }))
 
-    const processedBlocks = await Promise.all(blocks.map(async (block, i) => ({
+    const processedBlocks = blocks.map((block, i) => ({
       _key: `block${i}${Date.now()}`,
       blockType: block.type,
       quoteText: block.quoteText,
       quoteAuthor: block.quoteAuthor,
+      textStyle: block.textStyle ?? undefined,
+      showInquire: !block.inquireHidden,
+      sideTextType: block.sideTextType ?? undefined,
       slots: block.slots.map((slot: BlockSlot, j: number) => {
-        const img = images.find(im => im.id === slot.imageId)
+        const img = slot.imageId ? imageById.get(slot.imageId) : null
         const assetId = slot.imageId ? assetMap[slot.imageId] : null
         return {
           _key: `slot${j}`,
@@ -59,7 +63,7 @@ export async function POST(req: NextRequest) {
           ...(assetId ? { image: { _type: 'image', asset: { _type: 'reference', _ref: assetId } } } : {}),
         }
       }),
-    })))
+    }))
 
     const token = generateToken()
     const expiresAt = new Date()
@@ -70,6 +74,8 @@ export async function POST(req: NextRequest) {
       title: setup?.title ?? 'Viewing Room',
       headline: setup?.headline ?? 'Viewing Room',
       galleryName: setup?.galleryName ?? '',
+      galleryAddress: setup?.galleryAddress ?? '',
+      galleryContact: setup?.galleryContact ?? '',
       recipientName: setup?.recipientName ?? '',
       recipientEmail: setup?.recipientEmail ?? '',
       introText: setup?.introText ?? '',
