@@ -111,8 +111,22 @@ Designed with care by Vitreen`
 </body></html>`
     }
 
+    const fromEnv = process.env.OVR_EMAIL_FROM?.trim()
+    const from = fromEnv || 'Vitreen <onboarding@resend.dev>'
+    const usesResendSandboxSender =
+      !fromEnv || /onboarding@resend\.dev/i.test(fromEnv) || /onboarding@resend\.dev/i.test(from)
+
+    if (usesResendSandboxSender && process.env.VERCEL_ENV === 'production') {
+      return NextResponse.json(
+        {
+          error:
+            'Production : ajoute la variable Vercel OVR_EMAIL_FROM (ex. Vitreen <noreply@viewingroom.vitreen.art>) avec une adresse sur le domaine déjà vérifié dans Resend (resend.com/domains). Sans cela, Resend n’autorise pas l’envoi vers des destinataires externes.',
+        },
+        { status: 503 },
+      )
+    }
+
     const resend = new Resend(key)
-    const from = process.env.OVR_EMAIL_FROM || 'Vitreen <onboarding@resend.dev>'
     const subject = `Viewing Room — ${subjectBrand}`
 
     const { error } = await resend.emails.send({

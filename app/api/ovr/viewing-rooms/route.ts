@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeClient } from '@/lib/ovr/sanityClient'
+import { getSanityConfigError, writeClient } from '@/lib/ovr/sanityClient'
 import { checkExportQuota, consumeExport } from '@/lib/ovr/exportQuota'
 import type { Block, BlockSlot, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
 
@@ -23,6 +23,11 @@ async function uploadDataUrl(dataUrl: string): Promise<string | null> {
 
 export async function POST(req: NextRequest) {
   try {
+    const sanityConfigError = getSanityConfigError({ requireWriteToken: true })
+    if (sanityConfigError) {
+      return NextResponse.json({ error: sanityConfigError }, { status: 500 })
+    }
+
     const quota = await checkExportQuota()
     if (!quota.ok) return NextResponse.json({ error: quota.error }, { status: quota.status })
 
@@ -93,6 +98,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ _id: created._id, token }, { status: 201 })
   } catch (err) {
     console.error('Create viewing room error:', err)
-    return NextResponse.json({ error: String(err) }, { status: 500 })
+    const message = err instanceof Error ? err.message : 'Error saving the viewing room.'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
