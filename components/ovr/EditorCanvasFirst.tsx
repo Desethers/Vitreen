@@ -3,7 +3,7 @@ import { useState, useLayoutEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
-import type { Block, BlockType, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
+import type { Block, BlockType, BlockSlot, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
 import { EMPTY_TEXT_POOL, makeBlock, makeQuote } from '@/lib/ovr/buildTypes'
 import { vrCanvasNewQuoteContent } from '@/lib/ovr/vrCanvasPlaceholders'
 import { autoCompose } from '@/lib/ovr/autoCompose'
@@ -17,6 +17,49 @@ const UserButton = clerkEnabled
 const DEFAULT_SETUP: VrSetup = {
   galleryName: '', headline: '', title: '', recipientName: '', recipientEmail: '',
   introText: '', galleryAddress: '', galleryContact: '',
+}
+
+const BLOCK_TYPES: ReadonlySet<BlockType> = new Set(['full', 'pair', 'trio', 'side', 'quote', 'quotefull', 'imgbio'])
+
+function normalizeImage(raw: unknown): ImageItem | null {
+  if (!raw || typeof raw !== 'object') return null
+  const o = raw as Partial<ImageItem>
+  if (typeof o.id !== 'string' || typeof o.dataUrl !== 'string') return null
+  return {
+    id: o.id,
+    dataUrl: o.dataUrl,
+    title: typeof o.title === 'string' ? o.title : '',
+    artist: typeof o.artist === 'string' ? o.artist : '',
+    year: typeof o.year === 'string' ? o.year : '',
+    medium: typeof o.medium === 'string' ? o.medium : '',
+    dimensions: typeof o.dimensions === 'string' ? o.dimensions : '',
+    price: typeof o.price === 'string' ? o.price : '',
+    showPrice: !!o.showPrice,
+  }
+}
+
+function normalizeBlock(raw: unknown): Block | null {
+  if (!raw || typeof raw !== 'object') return null
+  const o = raw as Partial<Block>
+  if (typeof o.id !== 'string' || typeof o.type !== 'string' || !BLOCK_TYPES.has(o.type as BlockType)) return null
+  const slots: BlockSlot[] = Array.isArray(o.slots)
+    ? o.slots.map((s): BlockSlot => {
+        if (!s || typeof s !== 'object') return { imageId: null }
+        const si = s as { imageId?: unknown }
+        return { imageId: typeof si.imageId === 'string' ? si.imageId : null }
+      })
+    : []
+  return {
+    id: o.id,
+    type: o.type as BlockType,
+    slots,
+    quoteText: typeof o.quoteText === 'string' ? o.quoteText : '',
+    quoteAuthor: typeof o.quoteAuthor === 'string' ? o.quoteAuthor : '',
+    showInquire: !!o.showInquire,
+    inquireHidden: o.inquireHidden,
+    sideTextType: o.sideTextType,
+    textStyle: o.textStyle,
+  }
 }
 
 // ─── Health bar ──────────────────────────────────────────────────────────────
@@ -128,10 +171,10 @@ function HeroEntry({ onUpload }: { onUpload: (files: File[]) => void }) {
 // ─── Floating action bar ─────────────────────────────────────────────────────
 
 function ActionBar({
-  onRegenerate, onAddImages, onSend, recipientName, sendDisabled,
+  onAddImages, onAddText, onSend, recipientName, sendDisabled,
 }: {
-  onRegenerate: () => void
   onAddImages: (files: File[]) => void
+  onAddText: () => void
   onSend: () => void
   recipientName: string
   sendDisabled: boolean
@@ -157,27 +200,22 @@ function ActionBar({
       <div className="flex items-center gap-1 bg-white/90 dark:bg-[#1c1c1c]/90 backdrop-blur-xl border border-gray-200/70 dark:border-gray-800 rounded-full pl-2 pr-1 py-1 shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
         <button
           type="button"
-          onClick={onRegenerate}
-          className="group flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
-          title="Régénérer le layout avec les mêmes images"
+          onClick={() => fileRef.current?.click()}
+          className="flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          title="Ajouter des images au projet"
         >
-          <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="group-hover:rotate-180 transition-transform duration-500">
-            <path d="M3 12a9 9 0 0114.85-6.85L21 8m0-5v5h-5M21 12a9 9 0 01-14.85 6.85L3 16m0 5v-5h5"/>
-          </svg>
-          Regenerate
+          + Add images
         </button>
 
         <span className="w-px h-4 bg-gray-200 dark:bg-gray-700" />
 
         <button
           type="button"
-          onClick={() => fileRef.current?.click()}
+          onClick={onAddText}
           className="flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          title="Insérer un bloc texte dans la preview"
         >
-          <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-            <path d="M12 4v16m-8-8h16"/>
-          </svg>
-          Add images
+          + Add text
         </button>
 
         <button
@@ -596,10 +634,49 @@ export default function EditorCanvasFirst() {
   // Hydrate depuis sessionStorage avant le paint client (évite écran « vide » prolongé).
   useLayoutEffect(() => {
     try {
-      const s = sessionStorage.getItem('vr_setup'); if (s) setSetup(JSON.parse(s))
-      const i = sessionStorage.getItem('vr_images'); if (i) setImages(JSON.parse(i))
-      const b = sessionStorage.getItem('vr_blocks'); if (b) setBlocks(JSON.parse(b))
-      const t = sessionStorage.getItem('vr_text_pool'); if (t) setTextPool(JSON.parse(t))
+      const s = sessionStorage.getItem('vr_setup')
+      if (s) {
+        const p = JSON.parse(s) as unknown
+        if (p && typeof p === 'object') setSetup({ ...DEFAULT_SETUP, ...(p as VrSetup) })
+      }
+      const i = sessionStorage.getItem('vr_images')
+      if (i) {
+        const p = JSON.parse(i) as unknown
+        if (Array.isArray(p)) setImages(p.map(normalizeImage).filter((x): x is ImageItem => x !== null))
+      }
+      const b = sessionStorage.getItem('vr_blocks')
+      if (b) {
+        const p = JSON.parse(b) as unknown
+        if (Array.isArray(p)) setBlocks(p.map(normalizeBlock).filter((x): x is Block => x !== null))
+      }
+      const t = sessionStorage.getItem('vr_text_pool')
+      if (t) {
+        const p = JSON.parse(t) as unknown
+        if (p && typeof p === 'object') {
+          const po = p as Partial<TextPool>
+          setTextPool({
+            ...EMPTY_TEXT_POOL,
+            intro: typeof po.intro === 'string' ? po.intro : '',
+            closing: typeof po.closing === 'string' ? po.closing : '',
+            quotes: Array.isArray(po.quotes)
+              ? po.quotes
+                  .map((q: unknown): QuoteItem | null => {
+                    if (!q || typeof q !== 'object') return null
+                    const o = q as Partial<QuoteItem>
+                    if (typeof o.id !== 'string') return null
+                    const item: QuoteItem = {
+                      id: o.id,
+                      text: typeof o.text === 'string' ? o.text : '',
+                      author: typeof o.author === 'string' ? o.author : '',
+                    }
+                    if (o.kind === 'quote' || o.kind === 'text') item.kind = o.kind
+                    return item
+                  })
+                  .filter((x): x is QuoteItem => x != null)
+              : [],
+          })
+        }
+      }
     } catch { /* ignore */ }
     setHydrated(true)
   }, [])
@@ -658,15 +735,6 @@ export default function EditorCanvasFirst() {
       return block
     })
     saveBlocks([...blocks, ...newBlocks])
-  }
-
-  const regenerate = () => {
-    if (images.length === 0 && textPool.quotes.length === 0 && !textPool.intro && !textPool.closing) return
-    const next = composeSeed + 1
-    const composed = autoCompose(images, textPool, next)
-    setComposeSeed(next)
-    saveBlocks(composed)
-    triggerStagger()
   }
 
   // When the text pool changes from the drawer, recompose immediately so the
@@ -827,10 +895,10 @@ export default function EditorCanvasFirst() {
     return <HeroEntry onUpload={handleHeroUpload} />
   }
 
-  // Canvas state
+  // Canvas state — flex + min-h-0 : scroll fiable (évite zone vide type « écran blanc » avec absolute/inset-0).
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#111111] relative">
-      <main className="absolute inset-0 overflow-y-auto">
+    <div className="min-h-screen min-h-[100dvh] flex flex-col bg-gray-50 dark:bg-[#111111] relative">
+      <main className="flex-1 min-h-0 overflow-y-auto">
         <ViewingRoomPreview
           setup={setup}
           images={images}
@@ -853,8 +921,8 @@ export default function EditorCanvasFirst() {
       <HealthPill {...health} />
 
       <ActionBar
-        onRegenerate={regenerate}
         onAddImages={handleAddImages}
+        onAddText={() => insertTextBlock(blocks.length, 'text')}
         onSend={() => setExportOpen(true)}
         recipientName={setup.recipientName}
         sendDisabled={sendDisabled}

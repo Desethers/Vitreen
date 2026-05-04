@@ -1445,7 +1445,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
 
   useEffect(() => {
-    block.slots.forEach(slot => {
+    ;(block.slots ?? []).forEach(slot => {
       if (!slot.imageId) return
       const id = slot.imageId
       const img = images.find(i => i.id === id)
@@ -1658,8 +1658,8 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
   }, [])
   const isImageBlock = block.type === 'full' || block.type === 'pair' || block.type === 'trio'
   const isQuoteBlock = block.type === 'quote'
-  const filledCount = block.slots.filter(s => s.imageId).length
-  const isImageSource = !!draggingImageId && block.slots.some(s => s.imageId === draggingImageId)
+  const filledCount = (block.slots ?? []).filter(s => s.imageId).length
+  const isImageSource = !!draggingImageId && (block.slots ?? []).some(s => s.imageId === draggingImageId)
   const isBlockSource = draggingBlockId === block.id
 
   // What kind of drop does this block accept right now?

@@ -101,6 +101,22 @@ body {
   animation: vrShellFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-up,
+  .hero-fade-up-delay,
+  .vr-shell-fade {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  [style*='vrBlockEnter'] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
 /* Inline editing in the preview document */
 .vr-editable {
   cursor: text;
