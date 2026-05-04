@@ -1304,6 +1304,8 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   const editing = !!onUpdateImage
   const hasNameTitle = editing || !!img.artist || !!img.title || !!img.year
   const hasMediumSize = editing || !!img.medium || !!img.dimensions
+  /** Bloc secondaire (medium, dimensions, prix) : toujours visible en édition inline pour pouvoir remplir les champs vides. */
+  const showMetaBlock = hasMediumSize || editing
   const shouldShowInquire = showInquire ?? true
   const inquireCls = inquireTiny
     ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[9px] tracking-[0.12em] uppercase px-[12px] py-0.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
@@ -1389,8 +1391,8 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
               )}
             </div>
           )}
-          {hasMediumSize && (
-            <div className="space-y-0 mt-[1px]">
+          {showMetaBlock && (
+            <div className={`space-y-0 ${hasNameTitle ? 'mt-[8px]' : 'mt-[1px]'}`}>
               {(img.medium || editing) && (
                 editing
                   ? <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.medium} onChange={set('medium')} placeholder="Medium" /></p>
@@ -1401,12 +1403,16 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
                   ? <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.dimensions} onChange={set('dimensions')} placeholder="Dimensions" /></p>
                   : <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>
               )}
+              {editing ? (
+                <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">
+                  <Editable value={img.price} onChange={set('price')} placeholder="Price" />
+                </p>
+              ) : (
+                img.showPrice && !!img.price?.trim() ? (
+                  <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
+                ) : null
+              )}
             </div>
-          )}
-          {img.showPrice && (img.price || editing) && (
-            editing
-              ? <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1"><Editable value={img.price} onChange={set('price')} placeholder="Price" /></p>
-              : <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
           )}
         </div>
         <div className="shrink-0 flex flex-col items-end gap-1">
@@ -2013,6 +2019,7 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
         {(img.title || img.year) ? <p className="truncate text-gray-900"><em>{img.title}</em>{img.year ? `, ${img.year}` : ''}</p> : null}
         {img.medium ? <p className="truncate text-gray-400">{img.medium}</p> : null}
         {img.dimensions ? <p className="truncate text-gray-400">{img.dimensions}</p> : null}
+        {img.showPrice && img.price ? <p className="truncate font-normal text-gray-900">{img.price}</p> : null}
       </div>
       {showInquire ? (
         <span className="shrink-0 border-[0.5px] border-gray-900 px-1.5 py-[2px] text-[4.5px] uppercase tracking-[0.12em] text-gray-900">

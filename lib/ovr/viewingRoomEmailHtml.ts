@@ -125,6 +125,11 @@ function normalizeText(value: unknown): string {
   return String(value).trim()
 }
 
+/** Largeur max du mail (Gmail / Apple Mail : grilles stables en px sous ce plafond). */
+const EMAIL_CARD_MAX_PX = 600
+/** Zone utile pour pair / trio (carte 600 − padding horizontal 24+24 des blocs). */
+const EMAIL_GRID_PX = 552
+
 function slotImgUrl(
   slot: PublishedSlot,
   width = 900,
@@ -167,6 +172,8 @@ function captionHtml(
   showInquire: boolean | undefined,
   inquireHref: string,
   layout: 'split' | 'stackInquireRight' = 'split',
+  /** Largeur explicite des légendes en colonnes étroites (évite les débordements Gmail). */
+  columnInnerWidthPx?: number,
 ): string {
   const artist = slotField(slot.artist)
   const title = slotField(slot.title)
@@ -210,27 +217,36 @@ function captionHtml(
 
   if (lineRows.length === 0 && !showInquire) return ''
 
-  const linesTable = `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;table-layout:fixed;">${lineRows.join('')}</table>`
+  const linesTableHtml =
+    columnInnerWidthPx != null
+      ? `<table role="presentation" width="${columnInnerWidthPx}" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;table-layout:fixed;width:${columnInnerWidthPx}px;max-width:100%;">${lineRows.join('')}</table>`
+      : `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;padding:0;table-layout:fixed;">${lineRows.join('')}</table>`
+
+  const wrapWAttr = columnInnerWidthPx != null ? `width="${columnInnerWidthPx}"` : 'width="100%"'
+  const wrapStyleBase =
+    columnInnerWidthPx != null
+      ? `table-layout:fixed;width:${columnInnerWidthPx}px;max-width:100%;`
+      : 'table-layout:fixed;width:100%;'
 
   if (!showInquire) {
     return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;table-layout:fixed;">
-  <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${linesTable}</td></tr>
+<table role="presentation" ${wrapWAttr} cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;${wrapStyleBase}">
+  <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${linesTableHtml}</td></tr>
 </table>`
   }
 
   if (layout === 'stackInquireRight') {
     return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;table-layout:fixed;">
-  <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${lineRows.length ? linesTable : '&nbsp;'}</td></tr>
+<table role="presentation" ${wrapWAttr} cellpadding="0" cellspacing="0" border="0" style="margin:0;${wrapStyleBase}">
+  <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${lineRows.length ? linesTableHtml : '&nbsp;'}</td></tr>
   <tr><td valign="top" align="right" style="padding:12px 0 0;">${inquireBtn}</td></tr>
 </table>`
   }
 
   return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;table-layout:fixed;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;table-layout:fixed;width:100%;">
   <tr>
-    <td valign="top" align="left" style="padding:0;padding-right:12px;word-wrap:break-word;">${lineRows.length ? linesTable : '&nbsp;'}</td>
+    <td valign="top" align="left" style="padding:0;padding-right:12px;word-wrap:break-word;">${lineRows.length ? linesTableHtml : '&nbsp;'}</td>
     <td width="140" valign="top" align="right" nowrap="nowrap" style="width:140px;vertical-align:top;padding:0;mso-padding-alt:0;">
   ${inquireBtn}
 </td>
@@ -283,34 +299,69 @@ function imgNatural(slot: PublishedSlot): string {
 </table>`
 }
 
-/** Vignette 4:3 (crop Sanity) dans une colonne ; la colonne peut être fluide (`width:100%`). */
-function imgCoverCell(slot: PublishedSlot, width = 280, height = 210): string {
+/**
+ * Vignette 4:3 (crop Sanity).
+ * `fluid` : largeur 100 % (hero / side) ; `false` : px fixes (grilles Gmail).
+ */
+function imgCoverCell(slot: PublishedSlot, width = 280, height = 210, fluid = true): string {
   const src = slotImgUrl(slot, width, height, 'crop')
-  if (!src)
-    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;width:100%;"><tr><td style="background:#f4f4f4;height:${height}px;line-height:0;font-size:0;">&nbsp;</td></tr></table>`
+  if (!src) {
+    const wAttr = fluid ? 'width="100%" style="width:100%;table-layout:fixed;"' : `width="${width}" style="width:${width}px;table-layout:fixed;"`
+    return `<table role="presentation" ${wAttr} cellpadding="0" cellspacing="0" border="0"><tr><td style="background:#f4f4f4;height:${height}px;line-height:0;font-size:0;">&nbsp;</td></tr></table>`
+  }
   const alt = escapeHtml(slot.title ?? '')
-  return `
+  if (fluid) {
+    return `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;table-layout:fixed;width:100%;max-width:${width}px;">
   <tr><td align="center" style="line-height:0;font-size:0;mso-line-height-rule:exactly;text-align:center;padding:0;">
     <img src="${escapeHtml(src)}" alt="${alt}" width="${width}" height="${height}" style="display:block;width:100%;max-width:${width}px;height:${height}px;border:0;outline:none;vertical-align:top;-ms-interpolation-mode:bicubic;" />
   </td></tr>
 </table>`
+  }
+  return `
+<table role="presentation" width="${width}" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;width:${width}px;table-layout:fixed;">
+  <tr><td width="${width}" align="center" style="width:${width}px;line-height:0;font-size:0;mso-line-height-rule:exactly;text-align:center;padding:0;">
+    <img src="${escapeHtml(src)}" alt="${alt}" width="${width}" height="${height}" style="display:block;width:${width}px;height:${height}px;border:0;outline:none;vertical-align:top;-ms-interpolation-mode:bicubic;" />
+  </td></tr>
+</table>`
 }
 
-function pairCell(
-  slot: PublishedSlot,
-  showInquire: boolean,
-  inquireHref: string,
-  imageWidth = 268,
-  imageHeight = 201,
-  column: 'left' | 'right' = 'left',
-): string {
-  const pad = column === 'left' ? 'padding:0 8px 0 0;' : 'padding:0 0 0 8px;'
+function pairBlockHtml(a: PublishedSlot, b: PublishedSlot, showInquire: boolean, inquireHref: string): string {
+  const col = (slot: PublishedSlot) => `
+<td width="270" valign="top" style="width:270px;vertical-align:top;">
+  <table role="presentation" width="268" align="center" cellpadding="0" cellspacing="0" border="0" style="width:268px;table-layout:fixed;margin:0 auto;">
+    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, 268, 201, false)}</td></tr>
+    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight', 268)}</td></tr>
+  </table>
+</td>`
   return `
-<td width="50%" valign="top" style="width:50%;${pad}box-sizing:border-box;vertical-align:top;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;">
-    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, imageWidth, imageHeight)}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+<table role="presentation" width="${EMAIL_GRID_PX}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${EMAIL_GRID_PX}px;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
+  <tr>
+    ${col(a)}
+    <td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>
+    ${col(b)}
+  </tr>
+</table>`
+}
+
+function trioThreeColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: string): string {
+  const w = 176
+  const h = 132
+  return `
+<td width="184" valign="top" style="width:184px;vertical-align:top;">
+  <table role="presentation" width="${w}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${w}px;table-layout:fixed;margin:0 auto;">
+    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, w, h, false)}</td></tr>
+    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight', w)}</td></tr>
+  </table>
+</td>`
+}
+
+function trioTwoColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: string): string {
+  return `
+<td width="270" valign="top" style="width:270px;vertical-align:top;">
+  <table role="presentation" width="268" align="center" cellpadding="0" cellspacing="0" border="0" style="width:268px;table-layout:fixed;margin:0 auto;">
+    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, 268, 201, false)}</td></tr>
+    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight', 268)}</td></tr>
   </table>
 </td>`
 }
@@ -321,36 +372,6 @@ function slotPublishedNatural(slot: PublishedSlot, showInquire: boolean | undefi
   <tr><td style="padding:0;">${imgNatural(slot)}</td></tr>
   <tr><td style="padding:20px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'split')}</td></tr>
 </table>`
-}
-
-/** Colonne trio/duo : table imbriquée (meilleure prise en charge Proton / webmails que % seuls sur une rangée). */
-function trioColumnCell(
-  slot: PublishedSlot,
-  showInquire: boolean,
-  inquireHref: string,
-  imgW: number,
-  imgH: number,
-  colIndex: number,
-  colCount: 2 | 3,
-): string {
-  const wAttr = colCount === 2 ? '50%' : colIndex === 1 ? '34%' : '33%'
-  const pad =
-    colCount === 2
-      ? colIndex === 0
-        ? 'padding:0 8px 0 0;'
-        : 'padding:0 0 0 8px;'
-      : colIndex === 0
-        ? 'padding:0 6px 0 0;'
-        : colIndex === 1
-          ? 'padding:0 3px;'
-          : 'padding:0 0 0 6px;'
-  return `
-<td width="${wAttr}" valign="top" style="width:${wAttr};${pad}vertical-align:top;box-sizing:border-box;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;">
-    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, imgW, imgH)}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
-  </table>
-</td>`
 }
 
 function slotsFilled(slots: PublishedSlot[] | undefined): PublishedSlot[] {
@@ -394,13 +415,7 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
       return filled[0] ? slotPublishedNatural(filled[0], si, inquireHref) : ''
     }
     const [a, b] = filled
-    return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 48px auto;table-layout:fixed;width:100%;">
-  <tr>
-    ${pairCell(a, si, inquireHref, 268, 201, 'left')}
-    ${pairCell(b, si, inquireHref, 268, 201, 'right')}
-  </tr>
-</table>`
+    return pairBlockHtml(a, b, si, inquireHref)
   }
 
   if (block.blockType === 'trio') {
@@ -408,13 +423,14 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     if (filled.length === 0) return ''
     if (filled.length === 1) return slotPublishedNatural(filled[0], si, inquireHref)
     const cols: 2 | 3 = filled.length >= 3 ? 3 : 2
-    const imgW = cols === 3 ? 176 : 268
-    const imgH = cols === 3 ? 132 : 201
     const slots = filled.slice(0, cols)
-    const cells = slots.map((s, i) => trioColumnCell(s, si, inquireHref, imgW, imgH, i, cols)).join('')
+    const rowInner =
+      cols === 3
+        ? slots.map(s => trioThreeColCell(s, si, inquireHref)).join('')
+        : `${trioTwoColCell(slots[0]!, si, inquireHref)}<td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>${trioTwoColCell(slots[1]!, si, inquireHref)}`
     return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 48px auto;table-layout:fixed;width:100%;">
-  <tr>${cells}</tr>
+<table role="presentation" width="${EMAIL_GRID_PX}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${EMAIL_GRID_PX}px;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
+  <tr>${rowInner}</tr>
 </table>`
   }
 
@@ -424,13 +440,19 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     const textCls = asText
       ? 'font-family:Arial,sans-serif;font-size:16px;line-height:1.55;color:#333333;margin:0;'
       : 'font-family:Arial,sans-serif;font-size:16px;line-height:1.55;font-style:italic;color:#444444;margin:0;'
-    const imgSide = s ? `${imgCoverCell(s, 268, 201)}${captionHtml(s, si, inquireHref)}` : ''
+    const imgSide = s
+      ? `<table role="presentation" width="268" align="center" cellpadding="0" cellspacing="0" border="0" style="width:268px;table-layout:fixed;margin:0 auto;">
+  <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(s, 268, 201, false)}</td></tr>
+  <tr><td align="left" style="padding:18px 0 0;">${captionHtml(s, si, inquireHref, 'stackInquireRight', 268)}</td></tr>
+</table>`
+      : ''
     const txt = block.quoteText ? `<p style="${textCls}">${escapeHtml(block.quoteText)}</p>` : ''
     return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 48px auto;table-layout:fixed;width:100%;">
+<table role="presentation" width="${EMAIL_GRID_PX}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${EMAIL_GRID_PX}px;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
   <tr>
-    <td width="50%" valign="middle" style="width:50%;padding:0 16px 0 0;box-sizing:border-box;">${imgSide}</td>
-    <td width="50%" valign="middle" style="width:50%;padding:0;box-sizing:border-box;">${txt}</td>
+    <td width="268" valign="middle" style="width:268px;padding:0 16px 0 0;vertical-align:middle;">${imgSide}</td>
+    <td width="16" style="width:16px;font-size:0;line-height:0;">&nbsp;</td>
+    <td width="268" valign="middle" style="width:268px;vertical-align:middle;">${txt}</td>
   </tr>
 </table>`
   }
@@ -556,7 +578,7 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
 <body style="margin:0;padding:0;background:#ffffff;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#ffffff;">
   <tr><td align="center" style="padding:0;margin:0;background:#ffffff;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
+    <table role="presentation" width="${EMAIL_CARD_MAX_PX}" cellpadding="0" cellspacing="0" border="0" align="center" style="width:100%;max-width:${EMAIL_CARD_MAX_PX}px;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
       <tr><td style="padding:48px 24px 24px;text-align:left;">
         ${galleryLine}
         <h1 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:24px;line-height:1.2;font-weight:400;color:#111111;">${headline}</h1>
