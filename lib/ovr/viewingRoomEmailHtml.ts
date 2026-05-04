@@ -574,28 +574,49 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
 
   const footer = galleryFooterEmailSection(galleryName, galleryAddress, galleryContact)
 
-  const linkTopRight = `
+  const shareRoomCta = `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr><td align="right" style="padding:16px 24px 0;text-align:right;">
-    <a href="${escapeHtml(shareUrl)}" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#6b7280;text-decoration:none;word-break:break-all;">
-      ${escapeHtml(shareUrl)}&nbsp;<span style="font-size:11px;line-height:1;white-space:nowrap;">↗</span>
-    </a>
-  </td></tr>
+  <tr>
+    <td align="center" style="padding:28px 24px 8px;text-align:center;">
+      <p style="margin:0 0 14px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.45;color:#64748b;">
+        Ouvrez la viewing room en plein navigateur pour une expérience optimale.
+      </p>
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin:0 auto;">
+        <tr>
+          <td align="center" bgcolor="#111111" style="border-radius:2px;background-color:#111111;mso-padding-alt:0;">
+            <a class="vr-room-cta" href="${escapeHtml(shareUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:16px 36px;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#ffffff;text-decoration:none;line-height:1.25;mso-line-height-rule:exactly;border:1px solid #111111;">
+              Ouvrir en pleine page
+            </a>
+          </td>
+        </tr>
+      </table>
+      <p style="margin:16px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.4;color:#94a3b8;word-break:break-all;">
+        <a href="${escapeHtml(shareUrl)}" target="_blank" rel="noopener noreferrer" style="color:#64748b;text-decoration:underline;">${escapeHtml(shareUrl)}</a>
+      </p>
+    </td>
+  </tr>
 </table>`
 
   return `
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <style type="text/css">
-  img.vr-email-fluid { max-width:100% !important; height:auto !important; }
+  /* Gmail / WebView : le conteneur message a parfois une largeur implicite ; on force l’usage de toute la zone. */
+  html, body { width: 100% !important; min-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  #MessageViewBody, #MessageWebViewDiv { width: 100% !important; max-width: 100% !important; }
+  .ExternalClass { width: 100%; }
+  img.vr-email-fluid { max-width: 100% !important; height: auto !important; }
   a.vr-inquire-hvr { transition: background-color .15s ease, color .15s ease; }
-  a.vr-inquire-hvr:hover { background-color:#111111 !important; color:#ffffff !important; border-color:#111111 !important; }
+  a.vr-inquire-hvr:hover { background-color: #111111 !important; color: #ffffff !important; border-color: #111111 !important; }
+  a.vr-room-cta { transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+  a.vr-room-cta:hover { background-color: #000000 !important; border-color: #000000 !important; color: #ffffff !important; }
 </style>
 </head>
-<body style="margin:0;padding:0;background:#ffffff;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#ffffff;">
-  <tr><td align="center" style="padding:0;margin:0;background:#ffffff;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="width:100%;max-width:100%;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
+<body class="vr-mail-body" style="margin:0 !important;padding:0 !important;width:100% !important;min-width:100% !important;background:#ffffff;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100% !important;min-width:100% !important;background:#ffffff;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;">
+  <tr>
+    <td width="100%" align="left" valign="top" style="width:100% !important;min-width:100% !important;padding:0;margin:0;background:#ffffff;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100% !important;min-width:100% !important;background:#ffffff;border-collapse:collapse;mso-table-lspace:0;mso-table-rspace:0;">
       <tr><td style="padding:48px 24px 24px;text-align:left;">
         ${galleryLine}
         <h1 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:24px;line-height:1.2;font-weight:400;color:#111111;">${headline}</h1>
@@ -603,14 +624,15 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
         ${recipientLine}
         ${introLine}
       </td></tr>
-      ${linkTopRight}
+      ${shareRoomCta}
       <tr><td style="border-top:1px solid #eeeeee;"></td></tr>
       <tr><td style="padding:40px 24px 32px;">
         ${blocksInner}
       </td></tr>
       ${footer}
-    </table>
-  </td></tr>
+      </table>
+    </td>
+  </tr>
 </table>
 </body></html>`
 }

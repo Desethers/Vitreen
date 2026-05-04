@@ -132,11 +132,18 @@ Designed with care by Vitreen`
 
       htmlBody = `
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/></head>
-<body style="margin:0;padding:0;background:#f6f6f6;">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#f6f6f6;">
-  <tr><td align="center" style="padding:0;margin:0;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#ffffff;">
+<html lang="fr"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<style type="text/css">
+  html, body { width: 100% !important; min-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  #MessageViewBody, #MessageWebViewDiv { width: 100% !important; max-width: 100% !important; }
+  .ExternalClass { width: 100%; }
+</style>
+</head>
+<body style="margin:0 !important;padding:0 !important;width:100% !important;min-width:100% !important;background:#f6f6f6;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100% !important;min-width:100% !important;background:#f6f6f6;border-collapse:collapse;">
+  <tr>
+    <td width="100%" align="left" valign="top" style="width:100% !important;min-width:100% !important;padding:0;margin:0;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100% !important;min-width:100% !important;background:#ffffff;border-collapse:collapse;">
       <tr><td style="padding:40px 24px;">
         <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:14px;color:#111111;">${escapeHtml(greeting)}</p>
         ${introText ? `<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:14px;color:#333333;">${escapeHtml(introText).replaceAll('\n', '<br>')}</p>` : ''}
@@ -144,8 +151,9 @@ Designed with care by Vitreen`
         <p style="margin:0;"><a href="${escapeHtml(shareUrl)}" style="font-family:Arial,sans-serif;font-size:13px;color:#111111;text-decoration:underline;word-break:break-all;">${escapeHtml(shareUrl)}</a></p>
       </td></tr>
       ${galleryFooterEmailSection(body.galleryName, body.galleryAddress, body.galleryContact)}
-    </table>
-  </td></tr>
+      </table>
+    </td>
+  </tr>
 </table>
 </body></html>`
     }
