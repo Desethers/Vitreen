@@ -214,6 +214,11 @@ function captionHtml(
 
   const inquireHrefSafe = inquireHref.trim() || '#'
   const inquireBtn = `<a class="vr-inquire-hvr" href="${escapeHtml(inquireHrefSafe)}" style="display:inline-block;border:1px solid #111111;background-color:#ffffff;color:#111111;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 22px;text-decoration:none;line-height:1.2;mso-line-height-rule:exactly;">INQUIRE</a>`
+  /** Gmail : `align="right"` sur le td + lien inline-block est fragile ; table imbriquée `align="right"`. */
+  const inquireBtnRight = `
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="margin:0 0 0 auto;">
+  <tr><td style="padding:0;line-height:1;mso-line-height-rule:exactly;">${inquireBtn}</td></tr>
+</table>`
 
   if (lineRows.length === 0 && !showInquire) return ''
 
@@ -237,9 +242,17 @@ function captionHtml(
 
   if (layout === 'stackInquireRight') {
     return `
-<table role="presentation" ${wrapWAttr} cellpadding="0" cellspacing="0" border="0" style="margin:0;${wrapStyleBase}">
-  <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${lineRows.length ? linesTableHtml : '&nbsp;'}</td></tr>
-  <tr><td valign="top" align="right" style="padding:12px 0 0;">${inquireBtn}</td></tr>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;width:100%;table-layout:fixed;">
+  <tr>
+    <td valign="top" align="left" width="100%" style="padding:0;width:100%;word-wrap:break-word;">
+      ${lineRows.length ? linesTableHtml : '&nbsp;'}
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" align="right" width="100%" style="padding:12px 0 0;width:100%;text-align:right;">
+      ${inquireBtnRight}
+    </td>
+  </tr>
 </table>`
   }
 
@@ -247,9 +260,9 @@ function captionHtml(
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;table-layout:fixed;width:100%;">
   <tr>
     <td valign="top" align="left" style="padding:0;padding-right:12px;word-wrap:break-word;">${lineRows.length ? linesTableHtml : '&nbsp;'}</td>
-    <td width="140" valign="top" align="right" nowrap="nowrap" style="width:140px;vertical-align:top;padding:0;mso-padding-alt:0;">
-  ${inquireBtn}
-</td>
+    <td width="140" valign="top" align="right" nowrap="nowrap" style="width:140px;max-width:140px;vertical-align:top;padding:0;text-align:right;mso-padding-alt:0;">
+      ${inquireBtnRight}
+    </td>
   </tr>
 </table>`
 }
@@ -346,7 +359,7 @@ function pairBlockHtml(a: PublishedSlot, b: PublishedSlot, showInquire: boolean,
 <td width="50%" valign="top" style="width:50%;vertical-align:top;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
     <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, EMAIL_IMAGE_CROP_PAIR, Math.round((EMAIL_IMAGE_CROP_PAIR * 3) / 4))}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+    <tr><td align="left" width="100%" style="padding:18px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
   return `
@@ -368,7 +381,7 @@ function trioThreeColCell(slot: PublishedSlot, showInquire: boolean, inquireHref
 <td width="33%" valign="top" style="width:33%;vertical-align:top;${pad};">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
     <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, cropW, cropH)}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+    <tr><td align="left" width="100%" style="padding:18px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
 }
@@ -378,7 +391,7 @@ function trioTwoColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: 
 <td width="50%" valign="top" style="width:50%;vertical-align:top;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
     <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, EMAIL_IMAGE_CROP_PAIR, Math.round((EMAIL_IMAGE_CROP_PAIR * 3) / 4))}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+    <tr><td align="left" width="100%" style="padding:18px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
 }
@@ -387,7 +400,7 @@ function slotPublishedNatural(slot: PublishedSlot, showInquire: boolean | undefi
   return `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 56px auto;table-layout:fixed;width:100%;">
   <tr><td style="padding:0;">${imgNatural(slot)}</td></tr>
-  <tr><td style="padding:20px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'split')}</td></tr>
+  <tr><td width="100%" style="padding:20px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'split')}</td></tr>
 </table>`
 }
 
@@ -460,7 +473,7 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     const imgSide = s
       ? `<table role="presentation" width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
   <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(s, EMAIL_IMAGE_CROP_SIDE, Math.round((EMAIL_IMAGE_CROP_SIDE * 3) / 4))}</td></tr>
-  <tr><td align="left" style="padding:18px 0 0;">${captionHtml(s, si, inquireHref, 'stackInquireRight')}</td></tr>
+  <tr><td align="left" width="100%" style="padding:18px 0 0;width:100%;">${captionHtml(s, si, inquireHref, 'stackInquireRight')}</td></tr>
 </table>`
       : ''
     const txt = block.quoteText ? `<p style="${textCls}">${escapeHtml(block.quoteText)}</p>` : ''
