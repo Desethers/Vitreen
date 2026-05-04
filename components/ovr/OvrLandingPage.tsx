@@ -155,7 +155,7 @@ export default function OvrLandingPage() {
                 Des sélections d&rsquo;œuvres prêtes à envoyer en quelques minutes
               </h1>
               <p className="mx-auto mt-6 max-w-xl text-pretty text-[17px] leading-relaxed text-[#6B6A67] md:text-lg">
-                Composez une présentation digne d&rsquo;une galerie : mise en page fluide, PDF haute définition, email
+                Une présentation nette et cohérente pour vos œuvres : mise en page fluide, PDF haute définition, email
                 HTML et lien privé — sans refaire la mise en page à la main dans InDesign ou PowerPoint.
               </p>
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
