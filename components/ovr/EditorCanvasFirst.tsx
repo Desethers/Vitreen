@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useLayoutEffect, useRef, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd'
 import { useOptionalUser, clerkEnabled } from '@/lib/useOptionalUser'
@@ -593,8 +593,8 @@ export default function EditorCanvasFirst() {
   const [paywallReason, setPaywallReason] = useState<'template' | 'export_limit'>('template')
   const [hydrated, setHydrated] = useState(false)
 
-  // Hydrate from sessionStorage
-  useEffect(() => {
+  // Hydrate depuis sessionStorage avant le paint client (évite écran « vide » prolongé).
+  useLayoutEffect(() => {
     try {
       const s = sessionStorage.getItem('vr_setup'); if (s) setSetup(JSON.parse(s))
       const i = sessionStorage.getItem('vr_images'); if (i) setImages(JSON.parse(i))
@@ -809,9 +809,17 @@ export default function EditorCanvasFirst() {
   const health = computeHealth(setup, images, blocks)
   const sendDisabled = blocks.length === 0
 
-  // Don't render hero before hydration to avoid flash
+  // Avant hydratation : shell visible (écran vide = div sans contenu + attente effet).
   if (!hydrated) {
-    return <div className="min-h-screen bg-gray-50 dark:bg-[#111111]" />
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#111111] px-6">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600 mb-5">Vitreen Studio</p>
+        <div className="h-1 w-28 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden" aria-hidden>
+          <div className="h-full w-2/5 rounded-full bg-gray-400 dark:bg-gray-600 animate-pulse" />
+        </div>
+        <p className="mt-6 text-[13px] text-gray-500 dark:text-gray-400">Chargement…</p>
+      </div>
+    )
   }
 
   // Hero state

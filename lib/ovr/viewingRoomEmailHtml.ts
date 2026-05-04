@@ -164,14 +164,14 @@ function slotHasRenderableContent(slot: PublishedSlot): boolean {
 }
 
 /**
- * Légende : `split` = une ligne (texte | INQUIRE) pour blocs pleine largeur ;
- * `stackInquireRight` = texte puis INQUIRE aligné à droite (colonnes trio/paire étroites, ProtonMail).
+ * Légende avec INQUIRE : une seule ligne (texte | INQUIRE), table 2 colonnes — compatible Gmail
+ * et alignée sur la preview (`justify-between`). `split` et `stackInquireRight` produisent le même HTML.
  */
 function captionHtml(
   slot: PublishedSlot,
   showInquire: boolean | undefined,
   inquireHref: string,
-  layout: 'split' | 'stackInquireRight' = 'split',
+  _layout: 'split' | 'stackInquireRight' = 'split',
   /** Largeur explicite des légendes en colonnes étroites (évite les débordements Gmail). */
   columnInnerWidthPx?: number,
 ): string {
@@ -240,22 +240,7 @@ function captionHtml(
 </table>`
   }
 
-  if (layout === 'stackInquireRight') {
-    return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;width:100%;table-layout:fixed;">
-  <tr>
-    <td valign="top" align="left" width="100%" style="padding:0;width:100%;word-wrap:break-word;">
-      ${lineRows.length ? linesTableHtml : '&nbsp;'}
-    </td>
-  </tr>
-  <tr>
-    <td valign="top" align="right" width="100%" style="padding:12px 0 0;width:100%;text-align:right;">
-      ${inquireBtnRight}
-    </td>
-  </tr>
-</table>`
-  }
-
+  // Une seule rangée (même chose pour `split` et `stackInquireRight`) : évite le double INQUIRE / décalages Gmail.
   return `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;table-layout:fixed;width:100%;">
   <tr>

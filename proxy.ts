@@ -32,6 +32,7 @@ export const proxy = clerkEnabled
   ? clerkMiddleware(async (_auth, request) => {
       const rewrite = applyHostRewrite(request);
       if (rewrite) return rewrite;
+      return NextResponse.next();
     })
   : function proxy(request: NextRequest) {
       return applyHostRewrite(request) ?? NextResponse.next();
