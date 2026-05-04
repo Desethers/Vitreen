@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateBlocksPDF } from '@/lib/ovr/pdfTemplate'
 import { checkExportQuota, consumeExport } from '@/lib/ovr/exportQuota'
+import { launchPdfBrowser } from '@/lib/ovr/launchPdfBrowser'
 import type { Block, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
 
 export const runtime = 'nodejs'
+export const maxDuration = 60
 
 export async function POST(req: NextRequest) {
   const quota = await checkExportQuota()
@@ -18,19 +20,7 @@ export async function POST(req: NextRequest) {
   const html = generateBlocksPDF({ blocks, images, setup })
 
   try {
-    const puppeteer = await import('puppeteer')
-    const launchArgs = [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--no-zygote',
-      '--single-process',
-    ]
-    const browser = await puppeteer.default.launch({
-      headless: true,
-      args: launchArgs,
-      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
-    })
+    const browser = await launchPdfBrowser()
     const page = await browser.newPage()
     page.setDefaultNavigationTimeout(60_000)
     page.setDefaultTimeout(60_000)

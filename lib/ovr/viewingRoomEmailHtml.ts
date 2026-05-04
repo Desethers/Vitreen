@@ -125,10 +125,10 @@ function normalizeText(value: unknown): string {
   return String(value).trim()
 }
 
-/** Largeur max du mail (Gmail / Apple Mail : grilles stables en px sous ce plafond). */
-const EMAIL_CARD_MAX_PX = 600
-/** Zone utile pour pair / trio (carte 600 − padding horizontal 24+24 des blocs). */
-const EMAIL_GRID_PX = 552
+/** Largeur Sanity pour crops net sur écrans larges (l’affichage reste fluide en `width:100%`). */
+const EMAIL_IMAGE_CROP_PAIR = 900
+const EMAIL_IMAGE_CROP_TRIO = 600
+const EMAIL_IMAGE_CROP_SIDE = 900
 
 function slotImgUrl(
   slot: PublishedSlot,
@@ -326,42 +326,59 @@ function imgCoverCell(slot: PublishedSlot, width = 280, height = 210, fluid = tr
 </table>`
 }
 
+/** Image 4:3 crop qui remplit la colonne (largeur du conteneur Gmail / client). */
+function imgCoverCellColumnFluid(slot: PublishedSlot, cropW: number, cropH: number): string {
+  const src = slotImgUrl(slot, cropW, cropH, 'crop')
+  if (!src) {
+    return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;"><tr><td style="background:#f4f4f4;min-height:120px;line-height:0;font-size:0;">&nbsp;</td></tr></table>`
+  }
+  const alt = escapeHtml(slot.title ?? '')
+  return `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0;width:100%;table-layout:fixed;">
+  <tr><td align="center" style="line-height:0;font-size:0;mso-line-height-rule:exactly;text-align:center;padding:0;">
+    <img src="${escapeHtml(src)}" alt="${alt}" width="${cropW}" height="${cropH}" style="display:block;width:100%;max-width:100%;height:auto;border:0;outline:none;vertical-align:top;-ms-interpolation-mode:bicubic;" />
+  </td></tr>
+</table>`
+}
+
 function pairBlockHtml(a: PublishedSlot, b: PublishedSlot, showInquire: boolean, inquireHref: string): string {
   const col = (slot: PublishedSlot) => `
-<td width="270" valign="top" style="width:270px;vertical-align:top;">
-  <table role="presentation" width="268" align="center" cellpadding="0" cellspacing="0" border="0" style="width:268px;table-layout:fixed;margin:0 auto;">
-    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, 268, 201, false)}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight', 268)}</td></tr>
+<td width="50%" valign="top" style="width:50%;vertical-align:top;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
+    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, EMAIL_IMAGE_CROP_PAIR, Math.round((EMAIL_IMAGE_CROP_PAIR * 3) / 4))}</td></tr>
+    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
   return `
-<table role="presentation" width="${EMAIL_GRID_PX}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${EMAIL_GRID_PX}px;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
+<table role="presentation" width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
   <tr>
     ${col(a)}
-    <td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>
+    <td width="12" style="width:12px;min-width:12px;font-size:0;line-height:0;">&nbsp;</td>
     ${col(b)}
   </tr>
 </table>`
 }
 
-function trioThreeColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: string): string {
-  const w = 176
-  const h = 132
+function trioThreeColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: string, colIndex: number): string {
+  const cropW = EMAIL_IMAGE_CROP_TRIO
+  const cropH = Math.round((cropW * 3) / 4)
+  const pad =
+    colIndex === 0 ? 'padding:0 8px 0 0' : colIndex === 1 ? 'padding:0 4px' : 'padding:0 0 0 8px'
   return `
-<td width="184" valign="top" style="width:184px;vertical-align:top;">
-  <table role="presentation" width="${w}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${w}px;table-layout:fixed;margin:0 auto;">
-    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, w, h, false)}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight', w)}</td></tr>
+<td width="33%" valign="top" style="width:33%;vertical-align:top;${pad};">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
+    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, cropW, cropH)}</td></tr>
+    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
 }
 
 function trioTwoColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: string): string {
   return `
-<td width="270" valign="top" style="width:270px;vertical-align:top;">
-  <table role="presentation" width="268" align="center" cellpadding="0" cellspacing="0" border="0" style="width:268px;table-layout:fixed;margin:0 auto;">
-    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(slot, 268, 201, false)}</td></tr>
-    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight', 268)}</td></tr>
+<td width="50%" valign="top" style="width:50%;vertical-align:top;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
+    <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, EMAIL_IMAGE_CROP_PAIR, Math.round((EMAIL_IMAGE_CROP_PAIR * 3) / 4))}</td></tr>
+    <tr><td align="left" style="padding:18px 0 0;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
 }
@@ -385,7 +402,7 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     const asText = block.textStyle === 'text'
     const pad = asText ? '40px 24px' : '48px 24px'
     const align = asText ? 'left' : 'center'
-    const maxW = asText ? '560px' : '420px'
+    const maxW = '100%'
     const quoteCls = asText
       ? 'font-family:Arial,sans-serif;font-size:16px;line-height:1.6;color:#333333;margin:0 0 12px;'
       : 'font-family:Georgia,serif;font-size:20px;line-height:1.55;font-style:italic;color:#444444;margin:0 0 12px;'
@@ -426,10 +443,10 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     const slots = filled.slice(0, cols)
     const rowInner =
       cols === 3
-        ? slots.map(s => trioThreeColCell(s, si, inquireHref)).join('')
+        ? slots.map((s, i) => trioThreeColCell(s, si, inquireHref, i)).join('')
         : `${trioTwoColCell(slots[0]!, si, inquireHref)}<td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>${trioTwoColCell(slots[1]!, si, inquireHref)}`
     return `
-<table role="presentation" width="${EMAIL_GRID_PX}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${EMAIL_GRID_PX}px;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
+<table role="presentation" width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
   <tr>${rowInner}</tr>
 </table>`
   }
@@ -441,18 +458,18 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
       ? 'font-family:Arial,sans-serif;font-size:16px;line-height:1.55;color:#333333;margin:0;'
       : 'font-family:Arial,sans-serif;font-size:16px;line-height:1.55;font-style:italic;color:#444444;margin:0;'
     const imgSide = s
-      ? `<table role="presentation" width="268" align="center" cellpadding="0" cellspacing="0" border="0" style="width:268px;table-layout:fixed;margin:0 auto;">
-  <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCell(s, 268, 201, false)}</td></tr>
-  <tr><td align="left" style="padding:18px 0 0;">${captionHtml(s, si, inquireHref, 'stackInquireRight', 268)}</td></tr>
+      ? `<table role="presentation" width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
+  <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(s, EMAIL_IMAGE_CROP_SIDE, Math.round((EMAIL_IMAGE_CROP_SIDE * 3) / 4))}</td></tr>
+  <tr><td align="left" style="padding:18px 0 0;">${captionHtml(s, si, inquireHref, 'stackInquireRight')}</td></tr>
 </table>`
       : ''
     const txt = block.quoteText ? `<p style="${textCls}">${escapeHtml(block.quoteText)}</p>` : ''
     return `
-<table role="presentation" width="${EMAIL_GRID_PX}" align="center" cellpadding="0" cellspacing="0" border="0" style="width:${EMAIL_GRID_PX}px;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
+<table role="presentation" width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:100%;table-layout:fixed;margin:0 auto 48px auto;">
   <tr>
-    <td width="268" valign="middle" style="width:268px;padding:0 16px 0 0;vertical-align:middle;">${imgSide}</td>
-    <td width="16" style="width:16px;font-size:0;line-height:0;">&nbsp;</td>
-    <td width="268" valign="middle" style="width:268px;vertical-align:middle;">${txt}</td>
+    <td width="50%" valign="middle" style="width:50%;padding:0 16px 0 0;vertical-align:middle;">${imgSide}</td>
+    <td width="16" style="width:16px;min-width:16px;font-size:0;line-height:0;">&nbsp;</td>
+    <td width="50%" valign="middle" style="width:50%;vertical-align:middle;">${txt}</td>
   </tr>
 </table>`
   }
@@ -483,10 +500,10 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     const dimensions = s ? slotField(s.dimensions) : ''
     const price = s ? slotField(s.price) : ''
     const imgBio = src
-      ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;max-width:240px;"><tr><td style="line-height:0;font-size:0;">
-<img class="vr-email-fluid" src="${escapeHtml(src)}" alt="${escapeHtml(title)}" width="240" style="display:block;width:100%;max-width:240px;height:auto;border:0;vertical-align:top;" />
+      ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed;width:100%;"><tr><td style="line-height:0;font-size:0;">
+<img class="vr-email-fluid" src="${escapeHtml(src)}" alt="${escapeHtml(title)}" width="480" style="display:block;width:100%;max-width:100%;height:auto;border:0;vertical-align:top;" />
 </td></tr></table>`
-      : `<div style="background:#f4f4f4;max-width:240px;width:100%;height:320px;"></div>`
+      : `<div style="background:#f4f4f4;width:100%;min-height:200px;"></div>`
     const meta = [
       artist
         ? `<p style="margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#888888;">${escapeHtml(artist)}</p>`
@@ -578,7 +595,7 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
 <body style="margin:0;padding:0;background:#ffffff;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;background:#ffffff;">
   <tr><td align="center" style="padding:0;margin:0;background:#ffffff;">
-    <table role="presentation" width="${EMAIL_CARD_MAX_PX}" cellpadding="0" cellspacing="0" border="0" align="center" style="width:100%;max-width:${EMAIL_CARD_MAX_PX}px;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="width:100%;max-width:100%;background:#ffffff;border-radius:0;overflow:hidden;box-shadow:none;">
       <tr><td style="padding:48px 24px 24px;text-align:left;">
         ${galleryLine}
         <h1 style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:24px;line-height:1.2;font-weight:400;color:#111111;">${headline}</h1>

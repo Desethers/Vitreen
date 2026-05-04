@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: __dirname,
   },
+  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core'],
   images: {
     // Ajouté pour que les composants qui utilisent `quality={92}` puissent vraiment
     // produire du q=92 au lieu de retomber sur la valeur par défaut (75).
