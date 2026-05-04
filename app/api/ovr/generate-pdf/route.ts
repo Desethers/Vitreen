@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateBlocksPDF } from '@/lib/ovr/pdfTemplate'
+import { sanitizeInquireHrefForPdf } from '@/lib/ovr/pdfInquireHref'
 import { checkExportQuota, consumeExport } from '@/lib/ovr/exportQuota'
 import { launchPdfBrowser } from '@/lib/ovr/launchPdfBrowser'
 import type { Block, ImageItem, VrSetup } from '@/lib/ovr/buildTypes'
@@ -11,13 +12,15 @@ export async function POST(req: NextRequest) {
   const quota = await checkExportQuota()
   if (!quota.ok) return NextResponse.json({ error: quota.error }, { status: quota.status })
 
-  const { blocks, images, setup } = await req.json() as {
+  const { blocks, images, setup, inquireHref: rawInquire } = await req.json() as {
     blocks: Block[]
     images: ImageItem[]
     setup: VrSetup | null
+    inquireHref?: string
   }
 
-  const html = generateBlocksPDF({ blocks, images, setup })
+  const inquireHref = sanitizeInquireHrefForPdf(rawInquire)
+  const html = generateBlocksPDF({ blocks, images, setup, inquireHref })
 
   try {
     const browser = await launchPdfBrowser()

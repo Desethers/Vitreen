@@ -13,6 +13,7 @@ import ThemeToggle from '@/components/ovr/ThemeToggle'
 import type { Block, BlockType, BlockSlot, ImageItem, VrSetup, TextPool, QuoteItem } from '@/lib/ovr/buildTypes'
 import { isVrCanvasQuotePlaceholder } from '@/lib/ovr/vrCanvasPlaceholders'
 import { makeBlock, BLOCK_CONFIGS, makeQuote } from '@/lib/ovr/buildTypes'
+import { buildInquireHref } from '@/lib/ovr/pdfInquireHref'
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -2222,7 +2223,12 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
           dataUrl: await optimizeImageDataUrl(img.dataUrl),
         }))
       )
-      return { blocks, images: optimizedImages, setup }
+      return {
+        blocks,
+        images: optimizedImages,
+        setup,
+        inquireHref: buildInquireHref(setup, shareUrl),
+      }
     } finally {
       setPreparingPayload(false)
     }

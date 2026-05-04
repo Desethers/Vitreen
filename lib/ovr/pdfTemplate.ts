@@ -1,19 +1,43 @@
 import type { Block, ImageItem, VrSetup } from './buildTypes'
 
+function escapePdfHtml(s: string): string {
+  return s
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+}
+
 function resolveImage(slot: { imageId: string | null }, images: ImageItem[]): ImageItem | null {
   if (!slot.imageId) return null
   return images.find(i => i.id === slot.imageId) ?? null
 }
 
-function metaHtml(img: ImageItem | null) {
+/** Aligné sur la preview : INQUIRE visible si la case « masquer » n’est pas active. */
+function blockShowsInquire(block: Block): boolean {
+  return !block.inquireHidden
+}
+
+function inquireLinkHtml(href: string): string {
+  if (!href.trim()) return ''
+  return `<div class="meta-inquire"><a href="${escapePdfHtml(href)}">INQUIRE</a></div>`
+}
+
+function metaHtml(
+  img: ImageItem | null,
+  opts: { showInquire?: boolean; inquireHref?: string } = {},
+): string {
   if (!img) return ''
+  const { showInquire = false, inquireHref = '' } = opts
+  const inq = showInquire && inquireHref.trim() ? inquireLinkHtml(inquireHref) : ''
   return `
     <div class="slot-meta">
-      ${img.artist ? `<p class="meta-artist">${img.artist}</p>` : ''}
-      ${img.title ? `<p class="meta-title"><em>${img.title}</em>${img.year ? `, ${img.year}` : ''}</p>` : ''}
-      ${img.medium ? `<p class="meta-detail">${img.medium}</p>` : ''}
-      ${img.dimensions ? `<p class="meta-detail">${img.dimensions}</p>` : ''}
-      ${img.showPrice && img.price ? `<p class="meta-price">${img.price}</p>` : ''}
+      ${img.artist ? `<p class="meta-artist">${escapePdfHtml(img.artist)}</p>` : ''}
+      ${img.title ? `<p class="meta-title"><em>${escapePdfHtml(img.title)}</em>${img.year ? `, ${escapePdfHtml(img.year)}` : ''}</p>` : ''}
+      ${img.medium ? `<p class="meta-detail">${escapePdfHtml(img.medium)}</p>` : ''}
+      ${img.dimensions ? `<p class="meta-detail">${escapePdfHtml(img.dimensions)}</p>` : ''}
+      ${img.showPrice && img.price ? `<p class="meta-price">${escapePdfHtml(img.price)}</p>` : ''}
+      ${inq}
     </div>`
 }
 
@@ -23,13 +47,16 @@ function imgHtml(img: ImageItem | null, cls = 'slot-img') {
     : '<div class="slot-no-img"></div>'
 }
 
-function blockHtml(block: Block, images: ImageItem[]): string {
+function blockHtml(block: Block, images: ImageItem[], inquireHref: string): string {
+  const inq = blockShowsInquire(block)
+  const metaOpts = { showInquire: inq, inquireHref }
+
   if (block.type === 'quote') {
     return `
       <div class="page page-quote">
         <div class="quote-wrap">
-          <p class="quote-text">${block.quoteText}</p>
-          ${block.quoteAuthor ? `<p class="quote-author">${block.quoteAuthor}</p>` : ''}
+          <p class="quote-text">${escapePdfHtml(block.quoteText)}</p>
+          ${block.quoteAuthor ? `<p class="quote-author">${escapePdfHtml(block.quoteAuthor)}</p>` : ''}
         </div>
       </div>`
   }
@@ -39,7 +66,7 @@ function blockHtml(block: Block, images: ImageItem[]): string {
     return `
       <div class="page page-full">
         <div class="slot-image">${imgHtml(img)}</div>
-        ${metaHtml(img)}
+        ${metaHtml(img, metaOpts)}
       </div>`
   }
 
@@ -47,7 +74,7 @@ function blockHtml(block: Block, images: ImageItem[]): string {
     const imgs = block.slots.map(s => resolveImage(s, images))
     return `
       <div class="page page-grid page-pair">
-        ${imgs.map(img => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img)}</div>`).join('')}
+        ${imgs.map(img => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img, metaOpts)}</div>`).join('')}
       </div>`
   }
 
@@ -55,7 +82,7 @@ function blockHtml(block: Block, images: ImageItem[]): string {
     const imgs = block.slots.map(s => resolveImage(s, images))
     return `
       <div class="page page-grid page-trio">
-        ${imgs.map(img => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img)}</div>`).join('')}
+        ${imgs.map(img => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img, metaOpts)}</div>`).join('')}
       </div>`
   }
 
@@ -65,8 +92,8 @@ function blockHtml(block: Block, images: ImageItem[]): string {
       <div class="page page-side">
         <div class="side-image">${imgHtml(img)}</div>
         <div class="side-text">
-          ${metaHtml(img)}
-          ${block.quoteText ? `<p class="side-quote">${block.quoteText}</p>` : ''}
+          ${metaHtml(img, metaOpts)}
+          ${block.quoteText ? `<p class="side-quote">${escapePdfHtml(block.quoteText)}</p>` : ''}
         </div>
       </div>`
   }
@@ -74,22 +101,28 @@ function blockHtml(block: Block, images: ImageItem[]): string {
   return ''
 }
 
-export function generateBlocksPDF({ blocks, images, setup }: {
+export function generateBlocksPDF({
+  blocks,
+  images,
+  setup,
+  inquireHref = '',
+}: {
   blocks: Block[]
   images: ImageItem[]
   setup: VrSetup | null
+  inquireHref?: string
 }): string {
   const cover = `
     <div class="page page-cover">
       <div class="cover-inner">
-        <p class="cover-gallery">${setup?.galleryName ?? 'Viewing Room'}</p>
+        <p class="cover-gallery">${escapePdfHtml(setup?.galleryName ?? 'Viewing Room')}</p>
         <h1 class="cover-title">Viewing Room</h1>
-        ${setup?.recipientName ? `<p class="cover-recipient">Pour ${setup.recipientName}</p>` : ''}
-        ${setup?.introText ? `<p class="cover-intro">${setup.introText}</p>` : ''}
+        ${setup?.recipientName ? `<p class="cover-recipient">Pour ${escapePdfHtml(setup.recipientName)}</p>` : ''}
+        ${setup?.introText ? `<p class="cover-intro">${escapePdfHtml(setup.introText)}</p>` : ''}
       </div>
     </div>`
 
-  const pages = [cover, ...blocks.map(b => blockHtml(b, images))].join('\n')
+  const pages = [cover, ...blocks.map(b => blockHtml(b, images, inquireHref))].join('\n')
 
   return `<!DOCTYPE html>
 <html>
@@ -139,6 +172,19 @@ export function generateBlocksPDF({ blocks, images, setup }: {
   .meta-title { font-family: 'Georgia', serif; font-size: 11pt; color: #1a1a1a; margin-bottom: 1.5mm; }
   .meta-detail { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 8.5pt; color: #777; margin-bottom: 1mm; }
   .meta-price { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9pt; color: #1a1a1a; margin-top: 2mm; }
+  /* Lien cliquable dans le PDF (annotations), style bouton */
+  .meta-inquire { margin-top: 4mm; }
+  .meta-inquire a {
+    display: inline-block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 7.5pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #111111;
+    text-decoration: none;
+    border: 0.35pt solid #111111;
+    padding: 2.2mm 5mm;
+  }
 </style>
 </head>
 <body>${pages}</body>
