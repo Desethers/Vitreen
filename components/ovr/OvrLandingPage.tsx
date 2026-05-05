@@ -130,7 +130,7 @@ export default function OvrLandingPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#111110]">
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-[#E8E8E6] bg-white">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 md:px-6">
           <Link href="/" className="font-display text-[15px] tracking-tight text-[#111110]">
             Vitreen
@@ -143,7 +143,7 @@ export default function OvrLandingPage() {
       </header>
 
       {/* Hero */}
-      <section className="relative border-b border-[#E8E8E6] bg-white px-4 pb-20 pt-28 md:px-6 md:pb-28 md:pt-36">
+      <section className="relative bg-white px-4 pb-20 pt-28 md:px-6 md:pb-28 md:pt-36">
         <div className="relative mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <motion.div
@@ -162,7 +162,7 @@ export default function OvrLandingPage() {
                 <Button onClick={goToEditor} size="lg">
                   {isPro ? "Ouvrir l'éditeur" : "Essayer gratuitement"}
                 </Button>
-                <Button href="/" variant="inverse" size="lg" className="border border-[#E8E8E6] bg-white shadow-sm">
+                <Button href="/" variant="inverse" size="lg" className="bg-white shadow-sm">
                   Retour à Vitreen
                 </Button>
               </div>
@@ -179,7 +179,7 @@ export default function OvrLandingPage() {
             {["Mise en page libre", "PDF & email", "Lien privé", "Personnalisé"].map((label) => (
               <li
                 key={label}
-                className="rounded-full border border-[#E8E8E6] bg-white px-3.5 py-1.5 text-[12px] font-medium text-[#111110]"
+                className="rounded-full bg-[#F7F7F6] px-3.5 py-1.5 text-[12px] font-medium text-[#111110]"
               >
                 {label}
               </li>
@@ -189,7 +189,7 @@ export default function OvrLandingPage() {
       </section>
 
       {/* Product preview mock */}
-      <section className="border-b border-[#E8E8E6] bg-white px-4 py-16 md:px-6 md:py-24">
+      <section className="bg-white px-4 py-16 md:px-6 md:py-24">
         <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -212,16 +212,16 @@ export default function OvrLandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.65, ease }}
-            className="mx-auto max-w-5xl overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.07)]"
+            className="mx-auto max-w-5xl overflow-hidden rounded-[20px] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.08)]"
           >
-            <div className="flex h-9 items-center gap-3 border-b border-[#E8E8E6] bg-white px-4">
+            <div className="flex h-9 items-center gap-3 bg-[#FAFAFA] px-4">
               <div className="flex gap-1.5">
                 <div className="h-2.5 w-2.5 rounded-full bg-[#E0DFDC]" />
                 <div className="h-2.5 w-2.5 rounded-full bg-[#E0DFDC]" />
                 <div className="h-2.5 w-2.5 rounded-full bg-[#E0DFDC]" />
               </div>
               <div className="flex flex-1 justify-center">
-                <div className="rounded border border-[#E8E8E6] bg-white px-3 py-0.5 text-[10px] tracking-tight text-[#6B6A67]">
+                <div className="rounded bg-white px-3 py-0.5 text-[10px] tracking-tight text-[#6B6A67] shadow-sm">
                   room.vitreen.art/editor
                 </div>
               </div>
@@ -245,10 +245,10 @@ export default function OvrLandingPage() {
                   </div>
                 </div>
               </div>
-              <div className="absolute bottom-3 left-3 top-3 hidden w-[260px] flex-col overflow-hidden rounded-[18px] border border-[#E8E8E6] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06)] md:flex md:w-[280px]">
-                <div className="flex shrink-0 items-center justify-between border-b border-[#F0EFEC] px-4 py-3">
+              <div className="absolute bottom-3 left-3 top-3 hidden w-[260px] flex-col overflow-hidden rounded-[18px] bg-white shadow-[0_8px_40px_rgba(0,0,0,0.1)] md:flex md:w-[280px]">
+                <div className="flex shrink-0 items-center justify-between px-4 py-3">
                   <span className="text-[12px] font-medium text-[#111110]">Studio</span>
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full border border-[#E8E8E6]">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#F5F5F4]">
                     <svg className="h-3 w-3 text-[#6B6A67]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
                       <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                     </svg>
@@ -256,7 +256,7 @@ export default function OvrLandingPage() {
                 </div>
                 <div className="flex-1 space-y-0 overflow-hidden text-left">
                   {["Content", "Media", "Layout"].map((label, i) => (
-                    <div key={label} className="flex items-center justify-between border-b border-[#F0EFEC] px-4 py-2.5">
+                    <div key={label} className="flex items-center justify-between px-4 py-2.5">
                       <span className="text-[11px] font-medium text-[#111110]">{label}</span>
                       <span className="text-[9px] text-[#ADADAA]">{i === 0 ? "−" : "+"}</span>
                     </div>
@@ -272,7 +272,7 @@ export default function OvrLandingPage() {
       </section>
 
       {/* Features grid */}
-      <section className="border-b border-[#E8E8E6] bg-white px-4 py-16 md:px-6 md:py-24">
+      <section className="bg-white px-4 py-16 md:px-6 md:py-24">
         <div className="mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -298,12 +298,12 @@ export default function OvrLandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{ duration: 0.45, ease, delay: i * 0.04 }}
-                className="group flex flex-col rounded-2xl border border-[#E8E8E6] bg-white p-6 transition-shadow duration-300 hover:border-[#D4D3D0] hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
+                className="group flex flex-col rounded-2xl bg-white p-6 shadow-[0_4px_24px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)]"
               >
-                <span className="mb-4 inline-flex w-fit rounded-full border border-[#E8E8E6] bg-white px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#6B6A67]">
+                <span className="mb-4 inline-flex w-fit rounded-full bg-[#F5F5F4] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#6B6A67]">
                   {f.tag}
                 </span>
-                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-[#E8E8E6] bg-white text-[#111110] transition-colors group-hover:border-[#111110]/15">
+                <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-[#F5F5F4] text-[#111110] transition-colors group-hover:bg-[#EDEDEC]">
                   {f.icon}
                 </div>
                 <h3 className="font-display text-lg tracking-tight text-[#111110]">{f.title}</h3>
@@ -337,7 +337,7 @@ export default function OvrLandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, ease }}
-              className="flex flex-col rounded-2xl border border-[#E8E8E6] bg-white p-8 shadow-sm"
+              className="flex flex-col rounded-2xl bg-white p-8 shadow-[0_4px_28px_rgba(0,0,0,0.07)]"
             >
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#6B6A67]">Mensuel</p>
               <div className="mt-4 flex items-end gap-1">
@@ -362,7 +362,7 @@ export default function OvrLandingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, ease, delay: 0.06 }}
-              className="relative flex flex-col rounded-2xl border-2 border-[#111110] bg-[#111110] p-8 text-white shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
+              className="relative flex flex-col rounded-2xl bg-[#111110] p-8 text-white shadow-[0_20px_60px_rgba(0,0,0,0.22)]"
             >
               <span className="absolute right-5 top-5 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-white">
                 −52 % vs mensuel
@@ -402,7 +402,7 @@ export default function OvrLandingPage() {
         </div>
       </section>
 
-      <footer className="border-t border-[#E8E8E6] bg-white py-8 text-[12px] text-[#ADADAA]">
+      <footer className="bg-white py-8 text-[12px] text-[#ADADAA]">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 sm:flex-row md:px-6">
           <Link href="/" className="transition-colors hover:text-[#111110]">
             ← Vitreen
