@@ -1391,7 +1391,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   const inquireCls = inquireTiny
     ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[9px] tracking-[0.12em] uppercase px-[12px] py-0.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
     : inquireCompact
-      ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[10px] tracking-[0.14em] uppercase px-[18px] py-1 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
+      ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[9px] tracking-[0.1em] uppercase px-[9px] py-0.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors sm:px-[18px] sm:py-1 sm:text-[10px] sm:tracking-[0.14em]'
       : 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-[31px] py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
   const set = (k: keyof ImageItem) => (v: string) => onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
   const dragAttrs = draggable ? {
@@ -1493,13 +1493,18 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
                   <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
                 ) : null
               )}
+              {shouldShowInquire && inquireTiny && (
+                <button className="mt-1 text-[11px] font-normal text-gray-900 underline underline-offset-2 sm:hidden dark:text-gray-100">
+                  Inquire
+                </button>
+              )}
             </div>
           )}
         </div>
         <div className="shrink-0 flex flex-col items-end gap-1">
           {shouldShowInquire && (
             <div className="group/inquire relative">
-              <button className={inquireCls}>
+              <button className={`${inquireCls} ${inquireTiny ? 'hidden sm:inline-block' : ''}`}>
                 Inquire
               </button>
               {onHideInquire && (
@@ -1615,7 +1620,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     const img = images.find(i => i.id === block.slots[0]?.imageId)
     const setImg = (k: keyof ImageItem) => (v: string) => img && onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
     return (
-      <div className="grid grid-cols-2 gap-12 items-start max-w-3xl mx-auto">
+      <div className="mx-auto grid max-w-3xl grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-12">
         {/* Portrait image */}
         <div className="aspect-[3/4] overflow-hidden">
           {img?.dataUrl ? (
@@ -1678,7 +1683,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     const filled = block.slots.filter(s => s.imageId !== null)
     return filled.length === 1
       ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0].imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
-      : <div className="grid grid-cols-2 gap-6">{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+      : <div className="grid grid-cols-2 gap-3 sm:gap-6">{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
   }
 
   if (block.type === 'trio') {
@@ -1688,7 +1693,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     const isPortrait = portraitCount > knownOrientations.length / 2
     const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
     return cols
-      ? <div className={`grid ${cols} gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny={filled.length >= 3} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+      ? <div className={`grid ${cols} gap-2 sm:gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny={filled.length >= 3} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
       : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0]?.imageId ?? null) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
   }
 
@@ -1698,7 +1703,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
       ? 'font-sans text-base text-gray-800 dark:text-gray-200 leading-relaxed'
       : 'font-sans text-base text-gray-700 dark:text-gray-300 italic leading-relaxed'
     return (
-      <div className="grid grid-cols-2 gap-8 items-center">
+      <div className="grid grid-cols-1 items-center gap-5 sm:grid-cols-2 sm:gap-8">
         <div>
           <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} onHideInquire={hideInquire} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} />
         </div>
@@ -1816,7 +1821,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           onDragEnd={() => onDragEndMoveBlock?.()}
           aria-label="Déplacer ce bloc"
           title="Déplacer ce bloc"
-          className="absolute -left-4 top-1/2 z-20 flex h-8 w-8 -translate-y-1/2 cursor-grab items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color,transform] hover:border-gray-300 hover:bg-white hover:text-gray-800 active:cursor-grabbing active:scale-95 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-gray-600 dark:hover:bg-[#181818] dark:hover:text-gray-100"
+          className="absolute left-[-8px] top-1/2 z-20 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-grab items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color,transform] hover:border-gray-300 hover:bg-white hover:text-gray-800 active:cursor-grabbing active:scale-95 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-gray-600 dark:hover:bg-[#181818] dark:hover:text-gray-100"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
             <circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/>
@@ -1848,7 +1853,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           onClick={(e) => { e.stopPropagation(); onRemoveBlock(block.id) }}
           aria-label="Supprimer tout le bloc"
           title="Supprimer tout le bloc"
-          className="absolute -right-3 -top-3 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
+          className="absolute right-[-2px] top-[-2px] z-20 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
         >
           <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
             <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -2012,20 +2017,20 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
   }
 
   return (
-    <div ref={previewRootRef} className={`min-h-full bg-gray-50 dark:bg-[#111111] ${offsetCls} ${noOffset ? 'px-8' : 'pr-8'} py-8`}>
+    <div ref={previewRootRef} className={`min-h-full bg-gray-50 dark:bg-[#111111] ${offsetCls} ${noOffset ? 'px-3 sm:px-5 md:px-8' : 'pr-8'} py-4 md:py-8`}>
       <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
         {/* Cover */}
-        <div className="py-12 px-10 pb-6 text-left">
+        <div className="px-5 py-8 pb-5 text-left sm:px-7 md:px-10 md:py-12 md:pb-6">
           {(setup.galleryName || editing) && (
             <p className="text-[9px] uppercase tracking-[0.3em] text-gray-400 mb-6">
               {editing ? <Editable value={setup.galleryName} onChange={setS('galleryName')} placeholder="Gallery name" /> : setup.galleryName}
             </p>
           )}
-          <h1 className="font-sans text-[24px] leading-tight text-gray-900 dark:text-gray-100 mb-1">
+          <h1 className="font-sans text-[21px] leading-tight text-gray-900 dark:text-gray-100 mb-1 md:text-[24px]">
             {editing ? <Editable value={setup.headline} onChange={setS('headline')} placeholder="Viewing Room" /> : (setup.headline || 'Viewing Room')}
           </h1>
           {(setup.title || editing) && (
-            <p className="text-[24px] leading-tight text-gray-400 dark:text-gray-500 mb-4">
+            <p className="mb-4 text-[21px] leading-tight text-gray-400 dark:text-gray-500 md:text-[24px]">
               {editing ? <Editable value={setup.title} onChange={setS('title')} placeholder="Subtitle" /> : setup.title}
             </p>
           )}
@@ -2040,10 +2045,10 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
             </p>
           )}
         </div>
-        <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
+        <div className="mx-5 border-t border-gray-100 dark:border-gray-800 sm:mx-7 md:mx-10" />
 
         {editing && onInsertTextBlock && blocks.length === 0 && (
-          <div className="mx-10">
+          <div className="mx-5 sm:mx-7 md:mx-10">
             <PreviewInlineTextAddStrip
               onPick={kind => onInsertTextBlock(0, kind)}
               onDropImage={onInsertImageBlock ? imageId => { onInsertImageBlock(0, imageId); clearPreviewDrag() } : undefined}
@@ -2056,7 +2061,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
 
         {/* Blocks */}
         {blocks.length > 0 && (
-          <div className="px-10 pt-5 pb-6">
+          <div className="px-5 pt-4 pb-5 sm:px-7 md:px-10 md:pt-5 md:pb-6">
             {blocks.map((block, i) => (
               <div
                 key={block.id}
@@ -2113,8 +2118,8 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
         {/* Footer */}
         {(setup.galleryName || setup.galleryAddress || setup.galleryContact || editing) && (
           <div>
-          <div className="mx-10 border-t border-gray-100 dark:border-gray-800" />
-          <div className="py-8 px-10 text-center space-y-0.5">
+          <div className="mx-5 border-t border-gray-100 dark:border-gray-800 sm:mx-7 md:mx-10" />
+          <div className="space-y-0.5 px-5 py-7 text-center sm:px-7 md:px-10 md:py-8">
             {(setup.galleryName || editing) && (
               <p className="text-[12px] text-gray-400 dark:text-gray-500">
                 {editing ? <Editable value={setup.galleryName} onChange={setS('galleryName')} placeholder="Gallery name" /> : setup.galleryName}

@@ -124,7 +124,7 @@ function HeroEntry({ onUpload }: { onUpload: (files: File[]) => void }) {
           Vitreen Studio
         </p>
 
-        <h1 className="hero-fade-up text-[42px] md:text-[56px] leading-[1.05] tracking-[-0.02em] text-gray-900 dark:text-gray-100 font-normal mb-5">
+        <h1 className="hero-fade-up text-[36px] leading-[1.05] tracking-[-0.02em] text-gray-900 dark:text-gray-100 font-normal mb-5 md:text-[56px]">
           Drop your artworks.
           <br />
           <span className="text-gray-400 dark:text-gray-500">We compose the viewing room.</span>
@@ -184,7 +184,7 @@ function ActionBar({
   const sendLabel = recipientName ? `Send to ${recipientName}` : 'Send'
 
   return (
-    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-30 vr-shell-fade">
+    <div className="fixed bottom-4 left-3 right-3 z-30 vr-shell-fade md:bottom-auto md:left-1/2 md:right-auto md:top-4 md:-translate-x-1/2">
       <input
         ref={fileRef}
         type="file"
@@ -197,22 +197,22 @@ function ActionBar({
           e.target.value = ''
         }}
       />
-      <div className="flex items-center gap-1 bg-white/90 dark:bg-[#1c1c1c]/90 backdrop-blur-xl border border-gray-200/70 dark:border-gray-800 rounded-full pl-2 pr-1 py-1 shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+      <div className="grid w-full grid-cols-3 items-center gap-1 rounded-[20px] border border-gray-200/70 bg-white/95 p-1 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:w-auto md:rounded-full md:pl-2 md:pr-1 md:py-1">
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          className="flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
           title="Ajouter des images au projet"
         >
           + Add images
         </button>
 
-        <span className="w-px h-4 bg-gray-200 dark:bg-gray-700" />
+        <span className="hidden h-4 w-px bg-gray-200 dark:bg-gray-700 md:block" />
 
         <button
           type="button"
           onClick={onAddText}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors"
+          className="flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
           title="Insérer un bloc texte dans la preview"
         >
           + Add text
@@ -222,9 +222,9 @@ function ActionBar({
           type="button"
           onClick={onSend}
           disabled={sendDisabled}
-          className="ml-1 flex items-center gap-1.5 px-4 py-1.5 text-[12px] bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed rounded-full transition-colors font-medium"
+          className="flex min-w-0 items-center justify-center gap-1.5 rounded-full bg-gray-900 px-2.5 py-2 text-[12px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:ml-1 md:px-4 md:py-1.5"
         >
-          {sendLabel}
+          <span className="truncate">{sendLabel}</span>
           <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path d="M5 12h14m-6-6l6 6-6 6"/>
           </svg>
@@ -242,11 +242,11 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
   const ready = pct === 100
 
   return (
-    <div className="fixed top-4 left-4 z-30 vr-shell-fade">
+    <div className="fixed left-3 top-3 z-30 vr-shell-fade md:left-4 md:top-4">
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="group flex items-center gap-2 bg-white/90 dark:bg-[#1c1c1c]/90 backdrop-blur-xl border border-gray-200/70 dark:border-gray-800 rounded-full px-3 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] transition-shadow"
+        className="group flex items-center gap-2 rounded-full border border-gray-200/70 bg-white/90 px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-shadow hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] dark:border-gray-800 dark:bg-[#1c1c1c]/90 md:px-3"
       >
         <div className="relative w-7 h-7">
           <svg viewBox="0 0 28 28" className="w-7 h-7 -rotate-90">
@@ -264,17 +264,17 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
             {ready ? '✓' : `${pct}%`}
           </span>
         </div>
-        <div className="text-left pr-1">
+        <div className="hidden pr-1 text-left sm:block">
           <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-none">{ready ? 'Ready to send' : 'Room status'}</p>
           <p className="text-[12px] text-gray-900 dark:text-gray-100 leading-tight font-medium">{done}/{total} complete</p>
         </div>
-        <svg className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <svg className={`hidden h-3 w-3 text-gray-400 transition-transform duration-200 sm:block ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
 
       {open && (
-        <div className="mt-2 w-64 bg-white/95 dark:bg-[#1c1c1c]/95 backdrop-blur-xl border border-gray-200/70 dark:border-gray-800 rounded-2xl p-3 shadow-[0_10px_40px_rgba(0,0,0,0.12)] vr-shell-fade">
+        <div className="mt-2 w-[calc(100vw-1.5rem)] max-w-64 rounded-2xl border border-gray-200/70 bg-white/95 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl vr-shell-fade dark:border-gray-800 dark:bg-[#1c1c1c]/95">
           <p className="text-[11px] uppercase tracking-wider text-gray-400 dark:text-gray-600 mb-2 px-1">Checklist</p>
           <ul className="space-y-1">
             {checks.map(c => (
@@ -542,7 +542,7 @@ function SettingsDrawer({
         />
       )}
       <aside
-        className={`fixed top-0 right-0 bottom-0 w-[380px] z-50 bg-white dark:bg-[#1c1c1c] border-l border-gray-200 dark:border-gray-800 flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-[380px] flex-col border-l border-gray-200 bg-white transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] dark:border-gray-800 dark:bg-[#1c1c1c] ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -910,8 +910,8 @@ export default function EditorCanvasFirst() {
 
   // Canvas state — flex + min-h-0 : scroll fiable (évite zone vide type « écran blanc » avec absolute/inset-0).
   return (
-    <div className="min-h-screen min-h-[100dvh] flex flex-col bg-gray-50 dark:bg-[#111111] relative">
-      <main className="flex-1 min-h-0 overflow-y-auto">
+      <div className="min-h-screen min-h-[100dvh] flex flex-col bg-gray-50 dark:bg-[#111111] relative">
+      <main className="flex-1 min-h-0 overflow-y-auto pb-24 pt-14 md:pb-0 md:pt-0">
         <ViewingRoomPreview
           setup={setup}
           images={images}
@@ -943,7 +943,7 @@ export default function EditorCanvasFirst() {
       />
 
       {/* Top-right utilities — auth + theme */}
-      <div className="fixed top-4 right-4 z-30 flex items-center gap-2 vr-shell-fade">
+      <div className="fixed right-3 top-3 z-30 flex items-center gap-2 vr-shell-fade md:right-4 md:top-4">
         {clerkEnabled && (
           isSignedIn
             ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
