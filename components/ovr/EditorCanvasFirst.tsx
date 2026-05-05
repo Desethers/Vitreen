@@ -127,7 +127,7 @@ function HeroEntry({ onUpload }: { onUpload: (files: File[]) => void }) {
         <h1 className="hero-fade-up text-[42px] md:text-[56px] leading-[1.05] tracking-[-0.02em] text-gray-900 dark:text-gray-100 font-normal mb-5">
           Drop your artworks.
           <br />
-          <span className="text-gray-400 dark:text-gray-500">We compose the room.</span>
+          <span className="text-gray-400 dark:text-gray-500">We compose the viewing room.</span>
         </h1>
 
         <p className="hero-fade-up hero-fade-up-delay text-[15px] text-gray-500 dark:text-gray-400 leading-relaxed mb-10 max-w-md mx-auto">
@@ -847,6 +847,19 @@ export default function EditorCanvasFirst() {
     })
   }, [])
 
+  const moveBlock = useCallback((blockId: string, toIndex: number) => {
+    setBlocks(prev => {
+      const fromIndex = prev.findIndex(b => b.id === blockId)
+      if (fromIndex === -1) return prev
+      const next = [...prev]
+      const [moved] = next.splice(fromIndex, 1)
+      const adjustedIndex = fromIndex < toIndex ? toIndex - 1 : toIndex
+      next.splice(Math.max(0, Math.min(adjustedIndex, next.length)), 0, moved)
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
   const mergeImage = useCallback((srcImageId: string, dstBlockId: string) => {
     setBlocks(prev => {
       const isImg = (t: string) => t === 'full' || t === 'pair' || t === 'trio'
@@ -914,6 +927,7 @@ export default function EditorCanvasFirst() {
           onMergeQuoteIntoFull={mergeQuoteIntoFull}
           onInsertTextBlock={insertTextBlock}
           onInsertImageBlock={insertImageBlock}
+          onMoveBlock={moveBlock}
           onRemoveBlock={removeBlock}
         />
       </main>
