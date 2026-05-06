@@ -165,32 +165,15 @@ export function PreviewMockup() {
   }, []);
 
   return (
-    <section className="relative bg-white px-4 py-24 md:px-8 md:py-32">
+    <section className="relative bg-white px-4 pt-6 pb-20 md:px-8 md:pt-10 md:pb-28">
 
       <div className="relative mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <p className="text-[12px] uppercase tracking-[0.3em] text-[#6B6A67]">Le produit</p>
-          <h2 className="font-display mt-4 text-balance text-[1.65rem] font-normal leading-snug tracking-tight text-[#111110] md:text-[2rem]">
-            Une viewing room composée en quelques minutes
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-pretty text-[15px] leading-relaxed text-[#6B6A67]">
-            Glissez un bloc pour le réordonner, déposez-le sur un autre pour fusionner les œuvres en
-            diptyque ou triptyque. Le rendu reste cohérent à l&rsquo;écran, en PDF et dans l&rsquo;email.
-          </p>
-        </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="relative mx-auto mt-16"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+          className="relative mx-auto"
         >
           {/* Browser window frame */}
           <div className="relative mx-auto overflow-hidden rounded-xl border border-black/[0.08] bg-white">

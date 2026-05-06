@@ -143,7 +143,7 @@ export default function OvrLandingPage() {
         </div>
       </header>
 
-      <section className="px-5 pb-24 pt-28 md:px-8 md:pb-32 md:pt-32">
+      <section className="px-5 pb-16 pt-28 md:px-8 md:pb-24 md:pt-32">
         <div className="mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -152,7 +152,7 @@ export default function OvrLandingPage() {
             className="mx-auto max-w-2xl text-center"
           >
             <h1 className="font-display text-balance text-[2rem] font-normal leading-[1.12] tracking-tight text-[#111110] sm:text-[2.35rem] md:text-[2.65rem]">
-              Des sélections d&rsquo;œuvres prêtes à envoyer en quelques minutes
+              Une viewing room online composée en quelques minutes
             </h1>
             <p className="mx-auto mt-5 max-w-lg text-pretty text-[16px] leading-[1.65] text-[#6B6A67]">
               Une présentation nette et cohérente : mise en page fluide, PDF haute définition, email HTML et lien privé
