@@ -1385,14 +1385,9 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   const editing = !!onUpdateImage
   const hasNameTitle = editing || !!img.artist || !!img.title || !!img.year
   const hasMediumSize = editing || !!img.medium || !!img.dimensions
-  /** Bloc secondaire (medium, dimensions, prix) : toujours visible en édition inline pour pouvoir remplir les champs vides. */
-  const showMetaBlock = hasMediumSize || editing
   const shouldShowInquire = showInquire ?? true
-  const inquireCls = inquireTiny
-    ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[9px] tracking-[0.12em] uppercase px-[12px] py-0.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
-    : inquireCompact
-      ? 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[9px] tracking-[0.1em] uppercase px-[9px] py-0.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors sm:px-[18px] sm:py-1 sm:text-[10px] sm:tracking-[0.14em]'
-      : 'border border-gray-900 dark:border-gray-100 text-gray-900 dark:text-gray-100 text-[11px] tracking-widest uppercase px-[31px] py-1.5 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 transition-colors'
+  /** Bloc secondaire (medium, dimensions, prix) : toujours visible en édition inline pour pouvoir remplir les champs vides. */
+  const showMetaBlock = hasMediumSize || editing || shouldShowInquire || !!onRestoreInquire
   const set = (k: keyof ImageItem) => (v: string) => onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
   const dragAttrs = draggable ? {
     draggable: true,
@@ -1493,59 +1488,34 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
                   <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
                 ) : null
               )}
-              {shouldShowInquire && inquireTiny && (
-                <button type="button" className="mt-1 text-[11px] font-normal text-gray-900 underline underline-offset-2 sm:hidden dark:text-gray-100">
-                  Inquire
-                </button>
+              {shouldShowInquire && (
+                <span className="group/inquire relative mt-1 inline-flex items-center">
+                  <button type="button" className="text-[11px] font-normal text-gray-900 underline underline-offset-2 dark:text-gray-100">
+                    Inquire
+                  </button>
+                  {onHideInquire && (
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); onHideInquire() }}
+                      className="absolute -right-4 top-1/2 flex h-3.5 w-3.5 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-[8px] leading-none text-gray-400 opacity-0 shadow-sm transition-all hover:border-red-200 hover:text-red-500 group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
+                      aria-label="Masquer Inquire"
+                      title="Masquer Inquire"
+                    >
+                      ×
+                    </button>
+                  )}
+                </span>
               )}
-              {!shouldShowInquire && onRestoreInquire && inquireTiny && (
+              {!shouldShowInquire && onRestoreInquire && (
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
-                  className="mt-1 text-[11px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 sm:hidden dark:text-gray-500 dark:hover:text-gray-100"
+                  className="mt-1 text-[11px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100"
                 >
                   + Inquire
                 </button>
               )}
             </div>
-          )}
-        </div>
-        <div className="shrink-0 flex flex-col items-end gap-1">
-          {shouldShowInquire && (
-            <div className="group/inquire relative">
-              <button className={`${inquireCls} ${inquireTiny ? 'hidden sm:inline-block' : ''}`}>
-                Inquire
-              </button>
-              {onHideInquire && (
-                <button
-                  type="button"
-                  onClick={(e) => { e.stopPropagation(); onHideInquire() }}
-                  className="absolute -right-1.5 -top-1.5 flex h-4 w-4 items-center justify-center rounded-full border border-gray-200 bg-white text-[9px] leading-none text-gray-400 opacity-0 shadow-sm transition-all hover:border-red-200 hover:text-red-500 group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
-                  aria-label="Masquer Inquire"
-                  title="Masquer Inquire"
-                >
-                  ×
-                </button>
-              )}
-            </div>
-          )}
-          {!shouldShowInquire && onRestoreInquire && !inquireTiny && (
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
-              className="text-[11px] font-normal text-gray-300 underline underline-offset-2 opacity-100 transition-colors hover:text-gray-900 sm:opacity-0 sm:group-hover/slot:opacity-100 dark:text-gray-600 dark:hover:text-gray-100"
-            >
-              + Inquire
-            </button>
-          )}
-          {!shouldShowInquire && onRestoreInquire && inquireTiny && (
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
-              className="hidden text-[11px] font-normal text-gray-300 underline underline-offset-2 transition-colors hover:text-gray-900 sm:block sm:opacity-0 sm:group-hover/slot:opacity-100 dark:text-gray-600 dark:hover:text-gray-100"
-            >
-              + Inquire
-            </button>
           )}
         </div>
       </div>
