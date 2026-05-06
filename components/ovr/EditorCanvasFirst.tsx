@@ -887,6 +887,28 @@ export default function EditorCanvasFirst() {
     })
   }, [])
 
+  const mergeMoveBlock = useCallback((srcBlockId: string, dstBlockId: string) => {
+    setBlocks(prev => {
+      const isImg = (t: string) => t === 'full' || t === 'pair' || t === 'trio'
+      const src = prev.find(b => b.id === srcBlockId)
+      const dst = prev.find(b => b.id === dstBlockId)
+      if (!src || !dst || !isImg(src.type) || !isImg(dst.type)) return prev
+      const srcIds = src.slots.map(s => s.imageId).filter(Boolean) as string[]
+      const dstIds = dst.slots.map(s => s.imageId).filter(Boolean) as string[]
+      if (dstIds.length + srcIds.length > 3) return prev
+      const newIds = [...dstIds, ...srcIds]
+      const newType: BlockType = newIds.length === 1 ? 'full' : newIds.length === 2 ? 'pair' : 'trio'
+      const newDst: Block = { ...dst, type: newType, slots: newIds.map(id => ({ imageId: id })) }
+      const next = prev.flatMap(b => {
+        if (b.id === dstBlockId) return [newDst]
+        if (b.id === srcBlockId) return []
+        return [b]
+      })
+      try { sessionStorage.setItem('vr_blocks', JSON.stringify(next)) } catch { /* ignore */ }
+      return next
+    })
+  }, [])
+
   const health = computeHealth(setup, images, blocks)
   const sendDisabled = blocks.length === 0
 
@@ -925,6 +947,7 @@ export default function EditorCanvasFirst() {
           onMergeImage={mergeImage}
           onMergeImageIntoQuote={mergeImageIntoQuote}
           onMergeQuoteIntoFull={mergeQuoteIntoFull}
+          onMergeMoveBlock={mergeMoveBlock}
           onInsertTextBlock={insertTextBlock}
           onInsertImageBlock={insertImageBlock}
           onMoveBlock={moveBlock}

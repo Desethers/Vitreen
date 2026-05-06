@@ -1376,18 +1376,31 @@ function useDragAutoScroll(active: boolean, rootRef: React.RefObject<HTMLElement
   }, [active, rootRef])
 }
 
-function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCompact, inquireTiny, onHideInquire, onRestoreInquire, onClearImage, onUpdateImage, draggable, onDragStartImage, onDragEndImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; inquireCompact?: boolean; inquireTiny?: boolean; onHideInquire?: () => void; onRestoreInquire?: () => void; onClearImage?: () => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
+function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCompact, inquireTiny, onHideInquire, onRestoreInquire, onClearImage, onUpdateImage, draggable, onDragStartImage, onDragEndImage, onDropImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; inquireCompact?: boolean; inquireTiny?: boolean; onHideInquire?: () => void; onRestoreInquire?: () => void; onClearImage?: () => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void; onDropImage?: (imageId: string) => void }) {
+  const [dropOver, setDropOver] = useState(false)
   const img = images.find(i => i.id === imageId)
   const aspect = landscape ? 'aspect-[4/3]' : 'aspect-[3/4]'
   if (!img?.dataUrl) return (
-    <div className={`bg-gray-100 dark:bg-gray-800 ${aspect}`} />
+    <div
+      className={`${aspect} transition-colors ${onDropImage ? 'cursor-copy' : ''} ${dropOver ? 'bg-blue-100 dark:bg-blue-900/30 ring-2 ring-blue-400 ring-inset' : 'bg-gray-100 dark:bg-gray-800'}`}
+      onDragOver={onDropImage ? e => { if (e.dataTransfer.types.includes('text/x-vr-image')) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; setDropOver(true) } } : undefined}
+      onDragLeave={onDropImage ? () => setDropOver(false) : undefined}
+      onDrop={onDropImage ? e => { const id = e.dataTransfer.getData('text/x-vr-image'); if (id) { e.preventDefault(); setDropOver(false); onDropImage(id) } } : undefined}
+    >
+      {onDropImage && (
+        <div className={`flex h-full items-center justify-center transition-opacity ${dropOver ? 'opacity-100' : 'opacity-0'}`}>
+          <span className="text-[11px] text-blue-500">Drop image here</span>
+        </div>
+      )}
+    </div>
   )
   const editing = !!onUpdateImage
   const hasNameTitle = editing || !!img.artist || !!img.title || !!img.year
   const hasMediumSize = editing || !!img.medium || !!img.dimensions
   const shouldShowInquire = showInquire ?? true
+  const showInquireTopRight = !inquireTiny
   /** Bloc secondaire (medium, dimensions, prix) : toujours visible en édition inline pour pouvoir remplir les champs vides. */
-  const showMetaBlock = hasMediumSize || editing || shouldShowInquire || !!onRestoreInquire
+  const showMetaBlock = hasMediumSize || editing || (!showInquireTopRight && (shouldShowInquire || !!onRestoreInquire))
   const set = (k: keyof ImageItem) => (v: string) => onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
   const dragAttrs = draggable ? {
     draggable: true,
@@ -1445,7 +1458,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
         </div>
       )}
       <div className="pt-1.5 flex items-start justify-between gap-4">
-        <div className="space-y-0">
+        <div className="space-y-0 flex-1 min-w-0">
           {hasNameTitle && (
             <div className="space-y-0">
               {(img.artist || editing) && (
@@ -1488,7 +1501,8 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
                   <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
                 ) : null
               )}
-              {shouldShowInquire && (
+              {/* Triptych: inquire inline */}
+              {!showInquireTopRight && shouldShowInquire && (
                 <span className="group/inquire relative mt-1 inline-flex items-center">
                   <button type="button" className="text-[11px] font-normal text-gray-900 underline underline-offset-2 dark:text-gray-100">
                     Inquire
@@ -1506,7 +1520,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
                   )}
                 </span>
               )}
-              {!shouldShowInquire && onRestoreInquire && (
+              {!showInquireTopRight && !shouldShowInquire && onRestoreInquire && (
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
@@ -1518,6 +1532,34 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
             </div>
           )}
         </div>
+        {/* Single/diptych: inquire top-right aligned with artist */}
+        {showInquireTopRight && shouldShowInquire && (
+          <span className="group/inquire relative shrink-0 inline-flex items-center">
+            <button type="button" className="rounded-[2px] border border-rose-300 px-6 py-1.5 text-[11px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900">
+              Inquire
+            </button>
+            {onHideInquire && (
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onHideInquire() }}
+                className="absolute -right-4 top-1/2 flex h-3.5 w-3.5 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-[8px] leading-none text-gray-400 opacity-0 shadow-sm transition-all hover:border-red-200 hover:text-red-500 group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
+                aria-label="Masquer Inquire"
+                title="Masquer Inquire"
+              >
+                ×
+              </button>
+            )}
+          </span>
+        )}
+        {showInquireTopRight && !shouldShowInquire && onRestoreInquire && (
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
+            className="shrink-0 text-[11px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100"
+          >
+            + Inquire
+          </button>
+        )}
       </div>
     </div>
   )
@@ -1679,17 +1721,35 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   }
 
   if (block.type === 'pair') {
-    const filled = block.slots.filter(s => s.imageId !== null)
-    return filled.length === 1
-      ? <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0].imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
-      : <div className="grid grid-cols-2 gap-3 sm:gap-6">{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+    const allSlots = block.slots.length >= 2 ? block.slots.slice(0, 2) : [...block.slots, { imageId: null as null }]
+    const filled = allSlots.filter(s => s.imageId !== null)
+    const hasEmpty = allSlots.some(s => s.imageId === null)
+    const makeDropPair = onUpdateBlock ? (i: number) => (imgId: string) => {
+      const newSlots = allSlots.map((s, idx) => idx === i ? { imageId: imgId } : s)
+      const newFilled = newSlots.filter(s => s.imageId !== null).length
+      onUpdateBlock(block.id, { slots: newSlots, type: artBlockType(newFilled) })
+    } : undefined
+    if (filled.length === 1 && !hasEmpty) {
+      return <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0].imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
+    }
+    return <div className="grid grid-cols-2 gap-3 sm:gap-6">{allSlots.map((s, i) => <PreviewSlot key={s.imageId ?? `empty-${i}`} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={s.imageId ? () => clearImageFromBlock(s.imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages && !!s.imageId} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} onDropImage={!s.imageId && makeDropPair ? makeDropPair(i) : undefined} />)}</div>
   }
 
   if (block.type === 'trio') {
-    const filled = block.slots.filter(s => s.imageId !== null)
+    const allSlots = block.slots.length >= 3 ? block.slots.slice(0, 3) : [...block.slots, ...Array(3 - block.slots.length).fill(null).map(() => ({ imageId: null as null }))]
+    const filled = allSlots.filter(s => s.imageId !== null)
     const knownOrientations = filled.map(s => s.imageId ? orientations[s.imageId] : undefined).filter(Boolean)
     const portraitCount = knownOrientations.filter(o => o === 'portrait').length
     const isPortrait = portraitCount > knownOrientations.length / 2
+    const hasEmpty = allSlots.some(s => s.imageId === null)
+    const makeDropTrio = onUpdateBlock ? (i: number) => (imgId: string) => {
+      const newSlots = allSlots.map((s, idx) => idx === i ? { imageId: imgId } : s)
+      const newFilled = newSlots.filter(s => s.imageId !== null).length
+      onUpdateBlock(block.id, { slots: newSlots, type: artBlockType(newFilled) })
+    } : undefined
+    if (hasEmpty) {
+      return <div className="grid grid-cols-3 gap-2 sm:gap-4">{allSlots.map((s, i) => <PreviewSlot key={s.imageId ?? `empty-${i}`} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={s.imageId ? () => clearImageFromBlock(s.imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages && !!s.imageId} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} onDropImage={!s.imageId && makeDropTrio ? makeDropTrio(i) : undefined} />)}</div>
+    }
     const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
     return cols
       ? <div className={`grid ${cols} gap-2 sm:gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny={filled.length >= 3} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
@@ -1701,10 +1761,13 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     const textCls = asText
       ? 'font-sans text-base text-gray-800 dark:text-gray-200 leading-relaxed'
       : 'font-sans text-base text-gray-700 dark:text-gray-300 italic leading-relaxed'
+    const handleDropSideImage = onUpdateBlock
+      ? (imgId: string) => onUpdateBlock(block.id, { slots: [{ imageId: imgId }] })
+      : undefined
     return (
       <div className="grid grid-cols-1 items-center gap-5 sm:grid-cols-2 sm:gap-8">
         <div>
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} onDropImage={handleDropSideImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
         </div>
         <div>
           {editing
@@ -1712,6 +1775,11 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
             : (block.quoteText
                 ? <p className={textCls}>{block.quoteText}</p>
                 : <p className={`text-xs text-gray-300 ${asText ? '' : 'italic'}`}>{asText ? 'Accompanying text…' : 'Quote…'}</p>)}
+          {!asText && (block.quoteAuthor || editing) && (
+            <p className="mt-3 text-[10px] tracking-widest uppercase text-gray-400">
+              {editing ? <Editable value={block.quoteAuthor} onChange={setQA} placeholder="Author" /> : block.quoteAuthor}
+            </p>
+          )}
         </div>
       </div>
     )
@@ -1720,15 +1788,17 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   return null
 }
 
-function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTextKind, draggingMoveBlockId, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onUpdateBlock, onUpdateImage, onDragStartImage, onDragEndImage, onDragStartBlock, onDragEndBlock, onDragStartMoveBlock, onDragEndMoveBlock, onRemoveBlock }: {
+function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTextKind, draggingMoveBlockId, draggingMoveBlockFilledCount, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onMergeMoveBlock, onUpdateBlock, onUpdateImage, onDragStartImage, onDragEndImage, onDragStartBlock, onDragEndBlock, onDragStartMoveBlock, onDragEndMoveBlock, onRemoveBlock }: {
   block: Block; images: ImageItem[]
   draggingImageId: string | null
   draggingBlockId: string | null
   draggingTextKind: 'quote' | 'text' | null
   draggingMoveBlockId: string | null
+  draggingMoveBlockFilledCount?: number
   onMergeImage?: (srcImageId: string, dstBlockId: string) => void
   onMergeImageIntoQuote?: (srcImageId: string, quoteBlockId: string) => void
   onMergeQuoteIntoFull?: (quoteBlockId: string, fullBlockId: string) => void
+  onMergeMoveBlock?: (srcBlockId: string, dstBlockId: string) => void
   onUpdateBlock?: (id: string, patch: Partial<Block>) => void
   onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void
   onDragStartImage: (id: string) => void
@@ -1756,12 +1826,15 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
   const acceptsImage = isImageBlock && !isImageSource && filledCount < 3 && !!onMergeImage
   const acceptsImageAsSide = isQuoteBlock && !!onMergeImageIntoQuote
   const acceptsQuote = isImageBlock && block.type === 'full' && !isBlockSource && !!onMergeQuoteIntoFull
+  const acceptsMoveBlock = !!onMergeMoveBlock && !!draggingMoveBlockId && !isMoveBlockSource &&
+    isImageBlock && (filledCount + (draggingMoveBlockFilledCount ?? 0)) <= 3
 
   const label = (() => {
     if (!over) return null
     if (draggingImageId && isQuoteBlock) return block.textStyle === 'text' ? 'Pair image + text' : 'Pair image + quote'
     if (draggingImageId && isImageBlock) return filledCount === 1 ? 'Make diptych' : 'Make triptych'
     if (draggingBlockId && isImageBlock) return draggingTextKind === 'text' ? 'Pair image + text' : 'Pair image + quote'
+    if (draggingMoveBlockId && acceptsMoveBlock) return filledCount === 1 ? 'Make diptych' : 'Make triptych'
     return null
   })()
 
@@ -1769,7 +1842,8 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
     const types = e.dataTransfer.types
     const hasImage = types.includes('text/x-vr-image')
     const hasBlock = types.includes('text/x-vr-block')
-    const valid = (hasImage && (acceptsImage || acceptsImageAsSide)) || (hasBlock && acceptsQuote)
+    const hasMoveBlock = types.includes('text/x-vr-block-move')
+    const valid = (hasImage && (acceptsImage || acceptsImageAsSide)) || (hasBlock && acceptsQuote) || (hasMoveBlock && acceptsMoveBlock)
     if (!valid) return
     e.preventDefault()
     e.dataTransfer.dropEffect = 'move'
@@ -1778,6 +1852,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
   const handleDrop = (e: React.DragEvent) => {
     const imgId = e.dataTransfer.getData('text/x-vr-image')
     const blkId = e.dataTransfer.getData('text/x-vr-block')
+    const moveId = e.dataTransfer.getData('text/x-vr-block-move')
     setOver(false)
     if (imgId) {
       e.preventDefault()
@@ -1790,6 +1865,10 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
       e.preventDefault()
       if (acceptsQuote) onMergeQuoteIntoFull?.(blkId, block.id)
       onDragEndBlock()
+    } else if (moveId && acceptsMoveBlock) {
+      e.preventDefault()
+      onMergeMoveBlock?.(moveId, block.id)
+      onDragEndMoveBlock?.()
     }
   }
 
@@ -1961,7 +2040,7 @@ function PreviewInlineTextAddStrip({
   )
 }
 
-export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, blockEnter, onUpdateSetup, onUpdateBlock, onUpdateImage, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onInsertTextBlock, onInsertImageBlock, onMoveBlock, onRemoveBlock }: {
+export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, blockEnter, onUpdateSetup, onUpdateBlock, onUpdateImage, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onMergeMoveBlock, onInsertTextBlock, onInsertImageBlock, onMoveBlock, onRemoveBlock }: {
   setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null; noOffset?: boolean; blockEnter?: boolean
   onUpdateSetup?: (s: VrSetup) => void
   onUpdateBlock?: (id: string, patch: Partial<Block>) => void
@@ -1969,6 +2048,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
   onMergeImage?: (srcImageId: string, dstBlockId: string) => void
   onMergeImageIntoQuote?: (srcImageId: string, quoteBlockId: string) => void
   onMergeQuoteIntoFull?: (quoteBlockId: string, fullBlockId: string) => void
+  onMergeMoveBlock?: (srcBlockId: string, dstBlockId: string) => void
   onInsertTextBlock?: (index: number, kind: 'quote' | 'text') => void
   onInsertImageBlock?: (index: number, imageId: string) => void
   onMoveBlock?: (blockId: string, toIndex: number) => void
@@ -1995,6 +2075,10 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
   }, [clearPreviewDrag])
 
   useDragAutoScroll(!!draggingImageId || !!draggingBlockIdLocal || !!draggingMoveBlockId, previewRootRef)
+
+  const draggingMoveBlockFilledCount = draggingMoveBlockId
+    ? (blocks.find(b => b.id === draggingMoveBlockId)?.slots.filter(s => s.imageId !== null).length ?? 0)
+    : 0
 
   const hasContent = setup.galleryName || setup.title || setup.recipientName || setup.introText || blocks.length > 0 || editing
   const offsetCls = noOffset ? '' : 'pl-[422px]'
@@ -2086,9 +2170,11 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
                     draggingBlockId={draggingBlockIdLocal}
                     draggingTextKind={draggingTextKind}
                     draggingMoveBlockId={draggingMoveBlockId}
+                    draggingMoveBlockFilledCount={draggingMoveBlockFilledCount}
                     onMergeImage={onMergeImage}
                     onMergeImageIntoQuote={onMergeImageIntoQuote}
                     onMergeQuoteIntoFull={onMergeQuoteIntoFull}
+                    onMergeMoveBlock={onMergeMoveBlock ? (srcId, dstId) => { onMergeMoveBlock(srcId, dstId); clearPreviewDrag() } : undefined}
                     onUpdateBlock={onUpdateBlock}
                     onUpdateImage={onUpdateImage}
                     onDragStartImage={setDraggingImageId}
