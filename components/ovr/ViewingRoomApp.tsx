@@ -2347,21 +2347,20 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
     })
   }, [blocks, images, setup])
 
-  const optimizeImageDataUrl = async (dataUrl: string) => {
+  const optimizeImageDataUrl = async (dataUrl: string, maxDim = 2400, quality = 0.86, compressAbove = 1_800_000) => {
     if (!dataUrl.startsWith('data:image/')) return dataUrl
     // Avoid huge request bodies that can be truncated by platform limits.
-    if (dataUrl.length < 1_800_000) return dataUrl
+    if (dataUrl.length < compressAbove) return dataUrl
 
     return new Promise<string>((resolve) => {
       const img = new window.Image()
       img.onload = () => {
-        const maxDim = 2400
         const largest = Math.max(img.naturalWidth, img.naturalHeight)
-        if (!largest || largest <= maxDim) {
+        if (!largest) {
           resolve(dataUrl)
           return
         }
-        const scale = maxDim / largest
+        const scale = Math.min(1, maxDim / largest)
         const width = Math.max(1, Math.round(img.naturalWidth * scale))
         const height = Math.max(1, Math.round(img.naturalHeight * scale))
 
@@ -2375,7 +2374,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
         }
         ctx.drawImage(img, 0, 0, width, height)
         try {
-          const compressed = canvas.toDataURL('image/jpeg', 0.86)
+          const compressed = canvas.toDataURL('image/jpeg', quality)
           resolve(compressed || dataUrl)
         } catch {
           resolve(dataUrl)
@@ -2386,17 +2385,20 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
     })
   }
 
-  const buildExportPayload = async () => {
+  const buildExportPayload = async ({ kind = 'pdf' }: { kind?: 'pdf' | 'share' } = {}) => {
     setPreparingPayload(true)
     try {
       const usedImageIds = new Set(
         blocks.flatMap(b => b.slots.map(s => s.imageId).filter((id): id is string => Boolean(id)))
       )
       const usedImages = images.filter(i => usedImageIds.has(i.id))
+      const imageOpts = kind === 'share'
+        ? { maxDim: 1500, quality: 0.8, compressAbove: 260_000 }
+        : { maxDim: 2400, quality: 0.86, compressAbove: 1_800_000 }
       const optimizedImages = await Promise.all(
         usedImages.map(async (img) => ({
           ...img,
-          dataUrl: await optimizeImageDataUrl(img.dataUrl),
+          dataUrl: await optimizeImageDataUrl(img.dataUrl, imageOpts.maxDim, imageOpts.quality, imageOpts.compressAbove),
         }))
       )
       return {
@@ -2412,6 +2414,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
 
   const ensureShareUrl = async ({ force = false }: { force?: boolean } = {}) => {
     const fingerprint = makeExportFingerprint()
+    setError(null)
+    setSuccess(null)
     if (
       !force &&
       shareUrl &&
@@ -2421,10 +2425,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       return shareUrl
     }
     setSaving(true)
-    setError(null)
-    setSuccess(null)
     try {
-      const payload = await buildExportPayload()
+      const payload = await buildExportPayload({ kind: 'share' })
       const res = await fetch('/api/ovr/viewing-rooms', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2454,6 +2456,8 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       const raw = e instanceof Error ? e.message : 'Error saving the viewing room.'
       const message = /Unterminated string in JSON|Unexpected end of JSON input/i.test(raw)
         ? 'Payload too large while generating the share link. Try with fewer or lighter images.'
+        : /request body too large|body exceeded|payload too large|entity too large|413/i.test(raw)
+          ? 'Payload too large while generating the share link. Try with fewer or lighter images.'
         : /dataset not found|project id "placeholder"|sanity non configur/i.test(raw)
           ? 'Le partage n’est pas configuré en production (Sanity). Ajoute les variables SANITY sur Vercel.'
           : raw
@@ -2469,7 +2473,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
     setError(null)
     setSuccess(null)
     try {
-      const payload = await buildExportPayload()
+      const payload = await buildExportPayload({ kind: 'pdf' })
       const res = await fetch('/api/ovr/generate-pdf', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
