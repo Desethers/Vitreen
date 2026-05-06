@@ -279,10 +279,22 @@ function parseDimCm(s: string): [string, string] {
   return m ? [m[1], m[2]] : ['', '']
 }
 
+function formatDimensionsWithInches(value: string): string {
+  if (!value.trim()) return value
+  if (/\bin\b/i.test(value)) return value
+
+  const [w, h] = parseDimCm(value)
+  if (!w || !h) return value
+
+  const toIn = (cm: string) => (parseFloat(cm.replace(',', '.')) / 2.54).toFixed(1)
+  return `${w} × ${h} cm (${toIn(w)} × ${toIn(h)} in)`
+}
+
 function DimensionsInput({ value, onChange, inline }: { value: string; onChange: (v: string) => void; inline?: boolean }) {
   const [w, h] = parseDimCm(value)
   const toIn = (cm: string) => cm ? (parseFloat(cm.replace(',', '.')) / 2.54).toFixed(1) : ''
   const [raw, setRaw] = useState(w && h ? `${w} × ${h}` : w || h ? `${w || h}` : '')
+  const dimensionsHint = 'Ex: 180 × 190 cm (70.9 × 74.8 in)'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const txt = e.target.value
@@ -302,7 +314,7 @@ function DimensionsInput({ value, onChange, inline }: { value: string; onChange:
     <div className="flex items-center gap-3 px-3.5 py-[7px]">
       <span className="w-[68px] shrink-0 text-[10px] text-gray-400 dark:text-gray-500">Dimensions</span>
       <div className="flex-1 flex items-center gap-1 min-w-0">
-        <input type="text" value={raw} placeholder="H × W" onChange={handleChange}
+        <input type="text" value={raw} placeholder="180 × 190" title={dimensionsHint} onChange={handleChange}
           className="flex-1 bg-transparent border-none outline-none text-[12px] text-gray-700 dark:text-gray-300 placeholder:text-gray-200 dark:placeholder:text-gray-700 focus:outline-none min-w-0" />
         <span className="text-[10px] text-gray-400 shrink-0">cm</span>
         {(rw || rh) && <span className="text-[10px] text-gray-400 shrink-0">{toIn(rw) || '–'}×{toIn(rh) || '–'} in</span>}
@@ -315,7 +327,7 @@ function DimensionsInput({ value, onChange, inline }: { value: string; onChange:
       <p className={smlabel}>Dimensions</p>
       <div className="flex items-center gap-1.5">
         <input
-          type="text" value={raw} placeholder="H × W"
+          type="text" value={raw} placeholder="180 × 190" title={dimensionsHint}
           onChange={handleChange}
           className={`${input} min-w-0`}
         />
@@ -1258,11 +1270,13 @@ function LayoutSection({ images, blocks, onChange, onBlockDragStart, onBlockDrag
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function Editable({
-  value, onChange, placeholder, className, as: Tag = 'span', multiline,
+  value, onChange, placeholder, hoverPlaceholder, focusPlaceholder, className, as: Tag = 'span', multiline,
 }: {
   value: string
   onChange: (v: string) => void
   placeholder?: string
+  hoverPlaceholder?: string
+  focusPlaceholder?: string
   className?: string
   as?: 'span' | 'div' | 'h1'
   multiline?: boolean
@@ -1278,6 +1292,8 @@ function Editable({
       contentEditable
       suppressContentEditableWarning
       data-placeholder={placeholder}
+      data-hover-placeholder={hoverPlaceholder ?? placeholder}
+      data-focus-placeholder={focusPlaceholder ?? hoverPlaceholder ?? placeholder}
       onBlur={() => {
         const v = ref.current?.innerText.replace(/ /g, ' ') ?? ''
         if (v !== value) onChange(v)
@@ -1402,6 +1418,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   /** Bloc secondaire (medium, dimensions, prix) : toujours visible en édition inline pour pouvoir remplir les champs vides. */
   const showMetaBlock = hasMediumSize || editing || (!showInquireTopRight && (shouldShowInquire || !!onRestoreInquire))
   const set = (k: keyof ImageItem) => (v: string) => onUpdateImage?.(img.id, { [k]: v } as Partial<ImageItem>)
+  const setDimensions = (v: string) => onUpdateImage?.(img.id, { dimensions: formatDimensionsWithInches(v) })
   const dragAttrs = draggable ? {
     draggable: true,
     onDragStart: (e: React.DragEvent) => {
@@ -1463,17 +1480,17 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
             <div className="space-y-0">
               {(img.artist || editing) && (
                 editing
-                  ? <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100"><Editable value={img.artist} onChange={set('artist')} placeholder="Artist" /></p>
-                  : <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>
+                  ? <p className="text-[14px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100"><Editable value={img.artist} onChange={set('artist')} placeholder="Artist" /></p>
+                  : <p className="text-[14px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">{img.artist}</p>
               )}
               {(img.title || editing) && (
                 editing ? (
-                  <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
+                  <p className="text-[14px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
                     <em><Editable value={img.title} onChange={set('title')} placeholder="Title" /></em>
                     {(img.year || editing) && <>, <Editable value={img.year} onChange={set('year')} placeholder="Year" /></>}
                   </p>
                 ) : (
-                  <p className="text-[12px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
+                  <p className="text-[14px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
                     <em>{img.title}</em>{img.year ? `, ${img.year}` : ''}
                   </p>
                 )
@@ -1481,30 +1498,30 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
             </div>
           )}
           {showMetaBlock && (
-            <div className={`space-y-0 ${hasNameTitle ? 'mt-[8px]' : 'mt-[1px]'}`}>
+            <div className={`space-y-0 ${hasNameTitle ? 'mt-[6px]' : 'mt-[1px]'}`}>
               {(img.medium || editing) && (
                 editing
-                  ? <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.medium} onChange={set('medium')} placeholder="Medium" /></p>
-                  : <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>
+                  ? <p className="text-[14px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.medium} onChange={set('medium')} placeholder="Medium" /></p>
+                  : <p className="text-[14px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{img.medium}</p>
               )}
               {(img.dimensions || editing) && (
                 editing
-                  ? <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.dimensions} onChange={set('dimensions')} placeholder="Dimensions" /></p>
-                  : <p className="text-[12px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{img.dimensions}</p>
+                  ? <p className="text-[14px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500"><Editable value={img.dimensions} onChange={setDimensions} placeholder="Dimensions" hoverPlaceholder="180 × 180 cm" focusPlaceholder="180 × 180 cm" /></p>
+                  : <p className="text-[14px] leading-[1.35] font-normal text-gray-400 dark:text-gray-500">{formatDimensionsWithInches(img.dimensions)}</p>
               )}
               {editing ? (
-                <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">
+                <p className="text-[14px] font-normal text-gray-900 dark:text-gray-100 mt-1">
                   <Editable value={img.price} onChange={set('price')} placeholder="Price" />
                 </p>
               ) : (
                 img.showPrice && !!img.price?.trim() ? (
-                  <p className="text-[12px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
+                  <p className="text-[14px] font-normal text-gray-900 dark:text-gray-100 mt-1">{img.price}</p>
                 ) : null
               )}
               {/* Triptych: inquire inline */}
               {!showInquireTopRight && shouldShowInquire && (
                 <span className="group/inquire relative mt-1 inline-flex items-center">
-                  <button type="button" className="text-[11px] font-normal text-gray-900 underline underline-offset-2 dark:text-gray-100">
+                  <button type="button" className="text-[12px] font-normal text-gray-900 underline underline-offset-2 dark:text-gray-100">
                     Inquire
                   </button>
                   {onHideInquire && (
@@ -1524,7 +1541,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
-                  className="mt-1 text-[11px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100"
+                  className="mt-1 text-[12px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100"
                 >
                   + Inquire
                 </button>
@@ -1535,7 +1552,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
         {/* Single/diptych: inquire top-right aligned with artist */}
         {showInquireTopRight && shouldShowInquire && (
           <span className="group/inquire relative shrink-0 inline-flex items-center">
-            <button type="button" className="rounded-[2px] border border-rose-300 px-6 py-1.5 text-[11px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900">
+            <button type="button" className="rounded-[2px] border border-rose-300 px-6 py-1.5 text-[12px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900">
               Inquire
             </button>
             {onHideInquire && (
@@ -1555,7 +1572,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); onRestoreInquire() }}
-            className="shrink-0 text-[11px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100"
+            className="shrink-0 text-[12px] font-normal text-gray-400 underline underline-offset-2 transition-colors hover:text-gray-900 dark:text-gray-500 dark:hover:text-gray-100"
           >
             + Inquire
           </button>
@@ -1700,7 +1717,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
 
   if (block.type === 'quotefull') {
     return (
-      <div className="space-y-8">
+      <div className="space-y-10">
         <div className="text-center max-w-lg mx-auto px-4">
           <p className="font-sans text-xl text-gray-700 dark:text-gray-300 italic leading-relaxed mb-3">
             {editing
@@ -1765,7 +1782,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
       ? (imgId: string) => onUpdateBlock(block.id, { slots: [{ imageId: imgId }] })
       : undefined
     return (
-      <div className="grid grid-cols-1 items-center gap-5 sm:grid-cols-2 sm:gap-8">
+      <div className="grid grid-cols-1 items-center gap-7 sm:grid-cols-2 sm:gap-10">
         <div>
           <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} onDropImage={handleDropSideImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
         </div>
@@ -2247,7 +2264,7 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
         {img.artist ? <p className="truncate font-normal text-gray-900">{img.artist}</p> : null}
         {(img.title || img.year) ? <p className="truncate text-gray-900"><em>{img.title}</em>{img.year ? `, ${img.year}` : ''}</p> : null}
         {img.medium ? <p className="truncate text-gray-400">{img.medium}</p> : null}
-        {img.dimensions ? <p className="truncate text-gray-400">{img.dimensions}</p> : null}
+        {img.dimensions ? <p className="truncate text-gray-400">{formatDimensionsWithInches(img.dimensions)}</p> : null}
         {img.showPrice && img.price ? <p className="truncate font-normal text-gray-900">{img.price}</p> : null}
         {showInquire && inquireTiny ? (
           <p className="mt-[2px] font-normal text-gray-900 underline underline-offset-1">Inquire</p>

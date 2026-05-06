@@ -147,6 +147,12 @@ body {
   font-style: italic;
   pointer-events: none;
 }
+.vr-editable:hover:empty::before {
+  content: attr(data-hover-placeholder);
+}
+.vr-editable:focus:empty::before {
+  content: attr(data-focus-placeholder);
+}
 .dark .vr-editable:empty::before {
   color: rgba(255, 255, 255, 0.25);
 }

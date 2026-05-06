@@ -197,11 +197,11 @@ function ActionBar({
           e.target.value = ''
         }}
       />
-      <div className="grid w-full grid-cols-3 items-center gap-1 rounded-[2px] border border-gray-200/70 bg-white/95 px-1 py-[1.5px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:w-auto md:rounded-[2px] md:pl-2 md:pr-1 md:py-[1.5px]">
+      <div className="grid h-[37px] w-full grid-cols-3 items-center gap-1 rounded-[5px] border border-gray-200/70 bg-white/95 px-1 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:h-[37px] md:w-auto md:rounded-[5px] md:pl-2 md:pr-1">
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="flex min-w-0 items-center justify-center gap-1.5 rounded-[2px] px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
+          className="mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1.5 self-stretch rounded-[5px] px-2.5 py-0 text-[12px] text-gray-700 transition-colors hover:bg-gray-100/90 dark:text-gray-200 dark:hover:bg-gray-800 md:mx-px md:my-[2px] md:px-3"
           title="Ajouter des images au projet"
         >
           + Add images
@@ -212,7 +212,7 @@ function ActionBar({
         <button
           type="button"
           onClick={onAddText}
-          className="flex min-w-0 items-center justify-center gap-1.5 rounded-[2px] px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
+          className="mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1.5 self-stretch rounded-[5px] px-2.5 py-0 text-[12px] text-gray-700 transition-colors hover:bg-gray-100/90 dark:text-gray-200 dark:hover:bg-gray-800 md:mx-px md:my-[2px] md:px-3"
           title="Insérer un bloc texte dans la preview"
         >
           + Add text
@@ -222,12 +222,17 @@ function ActionBar({
           type="button"
           onClick={onSend}
           disabled={sendDisabled}
-          className="flex min-w-0 items-center justify-center gap-1.5 rounded-[2px] bg-gray-900 px-2.5 py-2 text-[12px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:ml-1 md:px-4 md:py-1.5"
+          className="group flex min-w-0 items-center justify-center gap-1.5 rounded-[5px] bg-gray-900 px-2.5 py-2 text-[12px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:ml-1 md:px-4 md:py-1.5"
         >
           <span className="truncate">{sendLabel}</span>
-          <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path d="M5 12h14m-6-6l6 6-6 6"/>
-          </svg>
+          <span className="relative h-3 w-3 shrink-0 overflow-hidden" aria-hidden>
+            <svg className="absolute inset-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-0" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="m9 6 6 6-6 6"/>
+            </svg>
+            <svg className="absolute inset-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M5 12h14m-6-6 6 6-6 6"/>
+            </svg>
+          </span>
         </button>
       </div>
     </div>
@@ -246,7 +251,7 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="group flex items-center gap-2 rounded-full border border-gray-200/70 bg-white/90 px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-shadow hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] dark:border-gray-800 dark:bg-[#1c1c1c]/90 md:px-3"
+        className="group flex items-center gap-2 rounded-full border border-gray-200/70 bg-white/90 px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-shadow hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] dark:border-gray-800 dark:bg-[#1c1c1c]/90"
       >
         <div className="relative w-7 h-7">
           <svg viewBox="0 0 28 28" className="w-7 h-7 -rotate-90">
@@ -264,19 +269,19 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
             {ready ? '✓' : `${pct}%`}
           </span>
         </div>
-        <div className="hidden pr-1 text-left sm:block">
-          <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-none">{ready ? 'Ready to send' : 'Room status'}</p>
-          <p className="text-[12px] text-gray-900 dark:text-gray-100 leading-tight font-medium">{done}/{total} complete</p>
+        <div className="pr-0.5 text-left">
+          <p className="text-[12px] font-medium leading-none text-gray-900 dark:text-gray-100">
+            {ready ? 'Ready' : `${done}/${total}`}
+          </p>
         </div>
-        <svg className={`hidden h-3 w-3 text-gray-400 transition-transform duration-200 sm:block ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <svg className={`h-3 w-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
           <path d="M19 9l-7 7-7-7"/>
         </svg>
       </button>
 
       {open && (
-        <div className="mt-2 w-[calc(100vw-1.5rem)] max-w-64 rounded-2xl border border-gray-200/70 bg-white/95 p-3 shadow-[0_10px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl vr-shell-fade dark:border-gray-800 dark:bg-[#1c1c1c]/95">
-          <p className="text-[11px] uppercase tracking-wider text-gray-400 dark:text-gray-600 mb-2 px-1">Checklist</p>
-          <ul className="space-y-1">
+        <div className="mt-2 w-[calc(100vw-1.5rem)] max-w-56 rounded-2xl border border-gray-200/70 bg-white/95 p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl vr-shell-fade dark:border-gray-800 dark:bg-[#1c1c1c]/95">
+          <ul className="space-y-0.5">
             {checks.map(c => (
               <li key={c.label} className="flex items-center gap-2 px-1 py-1 text-[12px]">
                 <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center ${c.ok ? 'bg-emerald-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-400'}`}>
@@ -970,7 +975,7 @@ export default function EditorCanvasFirst() {
         {clerkEnabled && (
           isSignedIn
             ? <UserButton appearance={{ elements: { avatarBox: 'w-7 h-7' } }} />
-            : <a href="https://vitreen.art/sign-in" className="text-[12px] text-white bg-gray-900 hover:bg-gray-700 transition-colors px-4 py-2 rounded-full">Sign in</a>
+            : <a href="https://vitreen.art/sign-in" className="inline-flex h-8 items-center rounded-[5px] bg-gray-900 px-4 text-[12px] text-white transition-colors hover:bg-gray-700">Sign in</a>
         )}
         <ThemeToggle />
       </div>
