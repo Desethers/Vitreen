@@ -2185,7 +2185,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
 
 function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images: ImageItem[]; blocks: Block[] }) {
   const imageById = new Map(images.map(img => [img.id, img]))
-  const caption = (img?: ImageItem, showInquire = false) => img ? (
+  const caption = (img?: ImageItem, showInquire = false, inquireTiny = false) => img ? (
     <div className="mt-1 flex items-start justify-between gap-1.5 text-left text-[5.5px] leading-[1.15]">
       <div className="min-w-0">
         {img.artist ? <p className="truncate font-normal text-gray-900">{img.artist}</p> : null}
@@ -2193,15 +2193,18 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
         {img.medium ? <p className="truncate text-gray-400">{img.medium}</p> : null}
         {img.dimensions ? <p className="truncate text-gray-400">{img.dimensions}</p> : null}
         {img.showPrice && img.price ? <p className="truncate font-normal text-gray-900">{img.price}</p> : null}
+        {showInquire && inquireTiny ? (
+          <p className="mt-[2px] font-normal text-gray-900 underline underline-offset-1">Inquire</p>
+        ) : null}
       </div>
-      {showInquire ? (
+      {showInquire && !inquireTiny ? (
         <span className="shrink-0 border-[0.5px] border-gray-900 px-1.5 py-[2px] text-[4.5px] uppercase tracking-[0.12em] text-gray-900">
           Inquire
         </span>
       ) : null}
     </div>
   ) : null
-  const art = (imageId: string | null, className = '', fit: 'cover' | 'contain' = 'cover', showInquire = false) => {
+  const art = (imageId: string | null, className = '', fit: 'cover' | 'contain' = 'cover', showInquire = false, inquireTiny = false) => {
     const img = imageId ? imageById.get(imageId) : undefined
     return (
       <div className="min-w-0">
@@ -2217,7 +2220,7 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
             <div className="h-full w-full bg-gray-100" />
           )}
         </div>
-        {caption(img, showInquire)}
+        {caption(img, showInquire, inquireTiny)}
       </div>
     )
   }
@@ -2239,9 +2242,10 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
           }
           if (block.type === 'pair' || block.type === 'trio') {
             const filled = block.slots.filter(s => s.imageId)
+            const isTinyTriptych = filled.length >= 3
             return (
               <div key={block.id} className={`grid ${filled.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'} gap-3 px-4`}>
-                {filled.slice(0, 3).map(slot => <div key={slot.imageId} className="min-w-0">{art(slot.imageId, 'aspect-[4/3]', 'cover', !block.inquireHidden)}</div>)}
+                {filled.slice(0, 3).map(slot => <div key={slot.imageId} className="min-w-0">{art(slot.imageId, 'aspect-[4/3]', 'cover', !block.inquireHidden, isTinyTriptych)}</div>)}
               </div>
             )
           }
