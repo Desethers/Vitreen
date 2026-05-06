@@ -1392,7 +1392,7 @@ function useDragAutoScroll(active: boolean, rootRef: React.RefObject<HTMLElement
   }, [active, rootRef])
 }
 
-function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCompact, inquireTiny, onHideInquire, onRestoreInquire, onClearImage, onUpdateImage, draggable, onDragStartImage, onDragEndImage, onDropImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; inquireCompact?: boolean; inquireTiny?: boolean; onHideInquire?: () => void; onRestoreInquire?: () => void; onClearImage?: () => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void; onDropImage?: (imageId: string) => void }) {
+function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCompact, inquireTiny, wide, onHideInquire, onRestoreInquire, onClearImage, onUpdateImage, draggable, onDragStartImage, onDragEndImage, onDropImage }: { imageId: string | null; images: ImageItem[]; landscape?: boolean; cover?: boolean; showInquire?: boolean; inquireCompact?: boolean; inquireTiny?: boolean; wide?: boolean; onHideInquire?: () => void; onRestoreInquire?: () => void; onClearImage?: () => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; draggable?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void; onDropImage?: (imageId: string) => void }) {
   const [dropOver, setDropOver] = useState(false)
   const img = images.find(i => i.id === imageId)
   const aspect = landscape ? 'aspect-[4/3]' : 'aspect-[3/4]'
@@ -1552,7 +1552,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
         {/* Single/diptych: inquire top-right aligned with artist */}
         {showInquireTopRight && shouldShowInquire && (
           <span className="group/inquire relative shrink-0 inline-flex items-center">
-            <button type="button" className="rounded-[2px] border border-rose-300 px-6 py-1.5 text-[12px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900">
+            <button type="button" className={`rounded-[2px] border border-rose-300 py-1.5 text-[12px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900 ${wide ? 'px-8' : 'px-6'}`}>
               Inquire
             </button>
             {onHideInquire && (
@@ -1669,7 +1669,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   if (block.type === 'full') {
     return (
       <div className="w-full">
-        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={!block.inquireHidden} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(block.slots[0]?.imageId ?? null) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
+        <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={!block.inquireHidden} wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(block.slots[0]?.imageId ?? null) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
       </div>
     )
   }
@@ -1731,7 +1731,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
           )}
         </div>
         <div className="w-full">
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={!block.inquireHidden} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} landscape showInquire={!block.inquireHidden} wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} />
         </div>
       </div>
     )
@@ -1747,9 +1747,9 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
       onUpdateBlock(block.id, { slots: newSlots, type: artBlockType(newFilled) })
     } : undefined
     if (filled.length === 1 && !hasEmpty) {
-      return <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0].imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
+      return <div className="w-full"><PreviewSlot imageId={filled[0].imageId} images={images} landscape showInquire={!block.inquireHidden} inquireCompact wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0].imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
     }
-    return <div className="grid grid-cols-2 gap-3 sm:gap-6">{allSlots.map((s, i) => <PreviewSlot key={s.imageId ?? `empty-${i}`} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={s.imageId ? () => clearImageFromBlock(s.imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages && !!s.imageId} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} onDropImage={!s.imageId && makeDropPair ? makeDropPair(i) : undefined} />)}</div>
+    return <div className="grid grid-cols-2 gap-3 sm:gap-6">{allSlots.map((s, i) => <PreviewSlot key={s.imageId ?? `empty-${i}`} imageId={s.imageId} images={images} cover showInquire={!block.inquireHidden} inquireCompact wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={s.imageId ? () => clearImageFromBlock(s.imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages && !!s.imageId} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} onDropImage={!s.imageId && makeDropPair ? makeDropPair(i) : undefined} />)}</div>
   }
 
   if (block.type === 'trio') {
@@ -1765,12 +1765,12 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
       onUpdateBlock(block.id, { slots: newSlots, type: artBlockType(newFilled) })
     } : undefined
     if (hasEmpty) {
-      return <div className="grid grid-cols-3 gap-2 sm:gap-4">{allSlots.map((s, i) => <PreviewSlot key={s.imageId ?? `empty-${i}`} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={s.imageId ? () => clearImageFromBlock(s.imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages && !!s.imageId} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} onDropImage={!s.imageId && makeDropTrio ? makeDropTrio(i) : undefined} />)}</div>
+      return <div className="grid grid-cols-3 gap-2 sm:gap-4">{allSlots.map((s, i) => <PreviewSlot key={s.imageId ?? `empty-${i}`} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={s.imageId ? () => clearImageFromBlock(s.imageId) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages && !!s.imageId} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} onDropImage={!s.imageId && makeDropTrio ? makeDropTrio(i) : undefined} />)}</div>
     }
     const cols = filled.length >= 3 ? 'grid-cols-3' : filled.length === 2 ? 'grid-cols-2' : ''
     return cols
-      ? <div className={`grid ${cols} gap-2 sm:gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny={filled.length >= 3} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
-      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover showInquire={!block.inquireHidden} inquireCompact onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0]?.imageId ?? null) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
+      ? <div className={`grid ${cols} gap-2 sm:gap-4`}>{filled.map((s) => <PreviewSlot key={s.imageId ?? ''} imageId={s.imageId} images={images} cover landscape={!isPortrait} showInquire={!block.inquireHidden} inquireCompact inquireTiny={filled.length >= 3} wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(s.imageId)} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />)}</div>
+      : <div className="w-full"><PreviewSlot imageId={filled[0]?.imageId ?? null} images={images} landscape={!isPortrait} cover showInquire={!block.inquireHidden} inquireCompact wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={canClearSingleImage ? () => clearImageFromBlock(filled[0]?.imageId ?? null) : undefined} onUpdateImage={onUpdateImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} /></div>
   }
 
   if (block.type === 'side') {
@@ -1784,7 +1784,7 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     return (
       <div className="grid grid-cols-1 items-center gap-7 sm:grid-cols-2 sm:gap-10">
         <div>
-          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} onDropImage={handleDropSideImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
+          <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} onDropImage={handleDropSideImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
         </div>
         <div>
           {editing

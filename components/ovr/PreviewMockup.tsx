@@ -21,12 +21,12 @@ const initialImages: ImageItem[] = [
   {
     id: "img-1",
     dataUrl: "/artworks/painting-01.png",
-    title: "Painting 10",
-    artist: "Sacha Elron",
-    year: "2024",
-    medium: "Acrylic on canvas",
+    title: "",
+    artist: "",
+    year: "",
+    medium: "",
     dimensions: "180× 180 cm",
-    price: "8000 €",
+    price: "",
     showPrice: true,
   },
   {
@@ -75,6 +75,15 @@ const initialImages: ImageItem[] = [
   },
 ];
 
+const captionDemoFields: Partial<ImageItem> = {
+  artist: "Sacha Elron",
+  title: "Painting 10",
+  year: "2024",
+  medium: "Acrylic on canvas",
+  dimensions: "180 × 180 cm",
+  price: "8 000 €",
+};
+
 const initialBlocks: Block[] = [
   {
     id: "b1",
@@ -111,17 +120,15 @@ export function PreviewMockup() {
   const [vrSetup, setVrSetup] = useState<VrSetup>(setup);
   const [vrImages, setVrImages] = useState<ImageItem[]>(initialImages);
   const [exportOpen, setExportOpen] = useState(false);
-  const [sendPressed, setSendPressed] = useState(false);
-  const [cursorVisible, setCursorVisible] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const scroller = scrollRef.current;
     if (!scroller) return;
 
-    let animationFrame = 0;
     const timers: ReturnType<typeof setTimeout>[] = [];
-    const animateScroll = (to: number, duration = 3600) => {
+    let animationFrame = 0;
+    const animateScroll = (to: number, duration = 5200) => {
       const from = scroller.scrollTop;
       const start = performance.now();
       const step = (now: number) => {
@@ -135,24 +142,30 @@ export function PreviewMockup() {
       animationFrame = requestAnimationFrame(step);
     };
 
-    scroller.scrollTo({ top: 0 });
     let started = false;
     const startSequence = () => {
       if (started) return;
       started = true;
+      scroller.scrollTo({ top: 0 });
+      const typeField = (key: keyof ImageItem, value: string, startDelay: number) => {
+        Array.from(value).forEach((_, charIndex) => {
+          timers.push(setTimeout(() => {
+            setVrImages(prev => prev.map(img => (
+              img.id === "img-1" ? { ...img, [key]: value.slice(0, charIndex + 1) } : img
+            )));
+          }, startDelay + charIndex * 64));
+        });
+      };
+
       timers.push(setTimeout(() => {
-        animateScroll(scroller.scrollHeight - scroller.clientHeight, 11200);
-      }, 650));
-      timers.push(setTimeout(() => {
-        setCursorVisible(true);
-      }, 12250));
-      timers.push(setTimeout(() => {
-        setSendPressed(true);
-      }, 13400));
-      timers.push(setTimeout(() => {
-        setSendPressed(false);
-        setExportOpen(true);
-      }, 13800));
+        animateScroll(Math.min(scroller.scrollHeight - scroller.clientHeight, 600), 4200);
+      }, 450));
+      typeField("artist", captionDemoFields.artist ?? "", 5050);
+      typeField("title", captionDemoFields.title ?? "", 6200);
+      typeField("year", captionDemoFields.year ?? "", 7300);
+      typeField("medium", captionDemoFields.medium ?? "", 7900);
+      typeField("dimensions", captionDemoFields.dimensions ?? "", 9500);
+      typeField("price", captionDemoFields.price ?? "", 10800);
     };
 
     window.addEventListener("wheel", startSequence, { passive: true });
@@ -267,7 +280,7 @@ export function PreviewMockup() {
                 <button
                   type="button"
                   onClick={() => setExportOpen(true)}
-                  className={`ml-1 inline-flex items-center gap-1.5 rounded-[2px] bg-gray-900 px-4 py-1.5 text-[12px] font-medium text-white transition-all hover:bg-gray-700 ${sendPressed ? "scale-[0.96] bg-gray-700 ring-2 ring-gray-900/10" : ""}`}
+                  className="ml-1 inline-flex items-center gap-1.5 rounded-[2px] bg-gray-900 px-4 py-1.5 text-[12px] font-medium text-white transition-all hover:bg-gray-700"
                 >
                   Send to {vrSetup.recipientName || 'recipient'}
                   <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -292,23 +305,6 @@ export function PreviewMockup() {
                 />
               </div>
             </div>
-
-            <motion.div
-              aria-hidden
-              className="pointer-events-none absolute z-40 text-gray-950 drop-shadow-[0_10px_16px_rgba(0,0,0,0.2)]"
-              initial={{ left: "72%", top: "78%", opacity: 0, scale: 1 }}
-              animate={{
-                left: cursorVisible ? "calc(50% + 142px)" : "72%",
-                top: cursorVisible ? "78px" : "78%",
-                opacity: cursorVisible && !exportOpen ? 1 : 0,
-                scale: sendPressed ? 0.88 : 1,
-              }}
-              transition={{ duration: sendPressed ? 0.16 : 0.95, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
-                <path d="M3.2 2.4 20.8 16l-8.2 1.1 4.4 7.7-3.2 1.8-4.3-7.7-5.1 6.2L3.2 2.4Z" fill="currentColor" stroke="white" strokeWidth="1.8" />
-              </svg>
-            </motion.div>
 
             <ExportPanel
               open={exportOpen}
