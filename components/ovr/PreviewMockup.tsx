@@ -282,6 +282,7 @@ export function PreviewMockup() {
                   blocks={blocks}
                   isPro
                   noOffset
+                  wide
                   onUpdateSetup={setVrSetup}
                   onUpdateImage={(id, patch) => setVrImages(prev => prev.map(i => i.id === id ? { ...i, ...patch } as ImageItem : i))}
                   onUpdateBlock={(id, patch) => setBlocks(prev => prev.map(b => b.id === id ? { ...b, ...patch } as Block : b))}

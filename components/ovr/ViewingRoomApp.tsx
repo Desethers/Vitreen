@@ -1582,7 +1582,7 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   )
 }
 
-function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlock, draggableImages, onDragStartImage, onDragEndImage }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; onRemoveBlock?: (blockId: string) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void }) {
+function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlock, draggableImages, onDragStartImage, onDragEndImage, wide }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; onRemoveBlock?: (blockId: string) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void; wide?: boolean }) {
   const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
 
   useEffect(() => {
@@ -1776,8 +1776,8 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   if (block.type === 'side') {
     const asText = block.textStyle === 'text'
     const textCls = asText
-      ? 'font-sans text-base text-gray-800 dark:text-gray-200 leading-relaxed'
-      : 'font-sans text-base text-gray-700 dark:text-gray-300 italic leading-relaxed'
+      ? `font-sans ${wide ? 'text-xl' : 'text-base'} text-gray-800 dark:text-gray-200 leading-relaxed`
+      : `font-sans ${wide ? 'text-xl' : 'text-base'} text-gray-700 dark:text-gray-300 italic leading-relaxed`
     const handleDropSideImage = onUpdateBlock
       ? (imgId: string) => onUpdateBlock(block.id, { slots: [{ imageId: imgId }] })
       : undefined
@@ -1805,13 +1805,14 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   return null
 }
 
-function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTextKind, draggingMoveBlockId, draggingMoveBlockFilledCount, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onMergeMoveBlock, onUpdateBlock, onUpdateImage, onDragStartImage, onDragEndImage, onDragStartBlock, onDragEndBlock, onDragStartMoveBlock, onDragEndMoveBlock, onRemoveBlock }: {
+function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTextKind, draggingMoveBlockId, draggingMoveBlockFilledCount, wide, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onMergeMoveBlock, onUpdateBlock, onUpdateImage, onDragStartImage, onDragEndImage, onDragStartBlock, onDragEndBlock, onDragStartMoveBlock, onDragEndMoveBlock, onRemoveBlock }: {
   block: Block; images: ImageItem[]
   draggingImageId: string | null
   draggingBlockId: string | null
   draggingTextKind: 'quote' | 'text' | null
   draggingMoveBlockId: string | null
   draggingMoveBlockFilledCount?: number
+  wide?: boolean
   onMergeImage?: (srcImageId: string, dstBlockId: string) => void
   onMergeImageIntoQuote?: (srcImageId: string, quoteBlockId: string) => void
   onMergeQuoteIntoFull?: (quoteBlockId: string, fullBlockId: string) => void
@@ -1965,6 +1966,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           draggableImages={!!onMergeImage && isImageBlock}
           onDragStartImage={onDragStartImage}
           onDragEndImage={onDragEndImage}
+          wide={wide}
         />
       </div>
     </div>
@@ -2057,8 +2059,8 @@ function PreviewInlineTextAddStrip({
   )
 }
 
-export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, blockEnter, onUpdateSetup, onUpdateBlock, onUpdateImage, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onMergeMoveBlock, onInsertTextBlock, onInsertImageBlock, onMoveBlock, onRemoveBlock }: {
-  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null; noOffset?: boolean; blockEnter?: boolean
+export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlockId, noOffset, wide, blockEnter, onUpdateSetup, onUpdateBlock, onUpdateImage, onMergeImage, onMergeImageIntoQuote, onMergeQuoteIntoFull, onMergeMoveBlock, onInsertTextBlock, onInsertImageBlock, onMoveBlock, onRemoveBlock }: {
+  setup: VrSetup; images: ImageItem[]; blocks: Block[]; isPro: boolean; draggingBlockId?: string | null; noOffset?: boolean; wide?: boolean; blockEnter?: boolean
   onUpdateSetup?: (s: VrSetup) => void
   onUpdateBlock?: (id: string, patch: Partial<Block>) => void
   onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void
@@ -2118,7 +2120,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
 
   return (
     <div ref={previewRootRef} className={`min-h-full bg-gray-50 dark:bg-[#111111] ${offsetCls} ${noOffset ? 'px-3 sm:px-5 md:px-8' : 'pr-8'} py-4 md:py-8`}>
-      <div className="max-w-3xl mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden">
+      <div className={`${wide ? 'max-w-5xl' : 'max-w-3xl'} mx-auto bg-white dark:bg-[#0f0f0f] shadow-[0_2px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_2px_40px_rgba(0,0,0,0.4)] rounded-sm overflow-hidden`}>
         {/* Cover */}
         <div className="px-5 py-8 pb-5 text-left sm:px-7 md:px-10 md:py-12 md:pb-6">
           {(setup.galleryName || editing) && (
@@ -2188,6 +2190,7 @@ export function ViewingRoomPreview({ setup, images, blocks, isPro, draggingBlock
                     draggingTextKind={draggingTextKind}
                     draggingMoveBlockId={draggingMoveBlockId}
                     draggingMoveBlockFilledCount={draggingMoveBlockFilledCount}
+                    wide={wide}
                     onMergeImage={onMergeImage}
                     onMergeImageIntoQuote={onMergeImageIntoQuote}
                     onMergeQuoteIntoFull={onMergeQuoteIntoFull}
