@@ -6,7 +6,7 @@ import { ViewingRoomPreview } from "@/components/ovr/ViewingRoomApp";
 import type { Block, BlockType, ImageItem, VrSetup } from "@/lib/ovr/buildTypes";
 
 const setup: VrSetup = {
-  galleryName: "Maison Vitreen",
+  galleryName: "Galerie du Jour",
   headline: "Recent Acquisitions",
   title: "Spring Selection",
   recipientName: "M. Dupont",
@@ -108,6 +108,8 @@ function artBlockType(count: number): BlockType {
 
 export function PreviewMockup() {
   const [blocks, setBlocks] = useState<Block[]>(initialBlocks);
+  const [vrSetup, setVrSetup] = useState<VrSetup>(setup);
+  const [vrImages, setVrImages] = useState<ImageItem[]>(initialImages);
 
   const moveBlock = useCallback((blockId: string, toIndex: number) => {
     setBlocks(prev => {
@@ -211,32 +213,49 @@ export function PreviewMockup() {
 
             {/* Preview content — scrollable area, ~3 blocks visible */}
             <div className="relative h-[520px] overflow-y-auto bg-gray-50 md:h-[600px]">
-              <ViewingRoomPreview
-                setup={setup}
-                images={initialImages}
-                blocks={blocks}
-                isPro
-                noOffset
-                onUpdateBlock={(id, patch) => setBlocks(prev => prev.map(b => b.id === id ? { ...b, ...patch } as Block : b))}
-                onMergeImage={mergeImage}
-                onMergeMoveBlock={mergeMoveBlock}
-                onMoveBlock={moveBlock}
-              />
+              {/* Mock action bar */}
+              <div className="sticky top-4 z-30 mx-auto flex w-fit items-center gap-1 rounded-[2px] border border-gray-200/70 bg-white/95 px-1 py-[1.5px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+                <button
+                  type="button"
+                  className="rounded-[2px] px-3 py-1.5 text-[12px] text-gray-700 transition-colors hover:bg-gray-100"
+                >
+                  + Add images
+                </button>
+                <span className="h-4 w-px bg-gray-200" />
+                <button
+                  type="button"
+                  className="rounded-[2px] px-3 py-1.5 text-[12px] text-gray-700 transition-colors hover:bg-gray-100"
+                >
+                  + Add text
+                </button>
+                <button
+                  type="button"
+                  className="ml-1 inline-flex items-center gap-1.5 rounded-[2px] bg-gray-900 px-4 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-gray-700"
+                >
+                  Send to {vrSetup.recipientName || 'recipient'}
+                  <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M5 12h14m-6-6l6 6-6 6"/>
+                  </svg>
+                </button>
+              </div>
+              <div className="-mt-9">
+                <ViewingRoomPreview
+                  setup={vrSetup}
+                  images={vrImages}
+                  blocks={blocks}
+                  isPro
+                  noOffset
+                  onUpdateSetup={setVrSetup}
+                  onUpdateImage={(id, patch) => setVrImages(prev => prev.map(i => i.id === id ? { ...i, ...patch } as ImageItem : i))}
+                  onUpdateBlock={(id, patch) => setBlocks(prev => prev.map(b => b.id === id ? { ...b, ...patch } as Block : b))}
+                  onMergeImage={mergeImage}
+                  onMergeMoveBlock={mergeMoveBlock}
+                  onMoveBlock={moveBlock}
+                />
+              </div>
             </div>
           </div>
 
-          {/* Floating side cards */}
-          <div className="pointer-events-none absolute -left-6 top-32 hidden items-center gap-2.5 rounded-md border border-black/[0.06] bg-white px-3 py-2 md:flex">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            <span className="text-[11px] tracking-tight text-[#6B6A67]">PDF généré</span>
-          </div>
-
-          <div className="pointer-events-none absolute -right-6 top-56 hidden items-center gap-2.5 rounded-md border border-black/[0.06] bg-white px-3 py-2 md:flex">
-            <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-[#8A8986]">
-              <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-            </svg>
-            <span className="text-[11px] tracking-tight text-[#6B6A67]">Lien privé prêt</span>
-          </div>
         </motion.div>
       </div>
     </section>

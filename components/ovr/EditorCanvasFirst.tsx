@@ -197,11 +197,11 @@ function ActionBar({
           e.target.value = ''
         }}
       />
-      <div className="grid w-full grid-cols-3 items-center gap-1 rounded-[20px] border border-gray-200/70 bg-white/95 p-1 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:w-auto md:rounded-full md:pl-2 md:pr-1 md:py-1">
+      <div className="grid w-full grid-cols-3 items-center gap-1 rounded-[2px] border border-gray-200/70 bg-white/95 px-1 py-[1.5px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:w-auto md:rounded-[2px] md:pl-2 md:pr-1 md:py-[1.5px]">
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
+          className="flex min-w-0 items-center justify-center gap-1.5 rounded-[2px] px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
           title="Ajouter des images au projet"
         >
           + Add images
@@ -212,7 +212,7 @@ function ActionBar({
         <button
           type="button"
           onClick={onAddText}
-          className="flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
+          className="flex min-w-0 items-center justify-center gap-1.5 rounded-[2px] px-2.5 py-2 text-[12px] text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 md:px-3 md:py-1.5"
           title="Insérer un bloc texte dans la preview"
         >
           + Add text
@@ -222,7 +222,7 @@ function ActionBar({
           type="button"
           onClick={onSend}
           disabled={sendDisabled}
-          className="flex min-w-0 items-center justify-center gap-1.5 rounded-full bg-gray-900 px-2.5 py-2 text-[12px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:ml-1 md:px-4 md:py-1.5"
+          className="flex min-w-0 items-center justify-center gap-1.5 rounded-[2px] bg-gray-900 px-2.5 py-2 text-[12px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:ml-1 md:px-4 md:py-1.5"
         >
           <span className="truncate">{sendLabel}</span>
           <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
