@@ -79,6 +79,29 @@ const planIncludes = [
   "Personnalisation par destinataire (accroche, intro, légendes, INQUIRE)",
 ] as const;
 
+const mockupStories = [
+  {
+    title: "Images",
+    desc: "Importez vos oeuvres et composez une sequence claire, prete a etre reorganisee dans la room.",
+    visual: "image",
+  },
+  {
+    title: "Quotes",
+    desc: "Ajoutez une citation seule, puis associez-la a une oeuvre pour creer un bloc image + texte.",
+    visual: "quote",
+  },
+  {
+    title: "Layouts",
+    desc: "Transformez une selection en pleine page, diptyque, triptyque ou composition editoriale.",
+    visual: "layout",
+  },
+  {
+    title: "Exports",
+    desc: "La room finalisee devient un lien prive, un email HTML ou un PDF haute definition.",
+    visual: "export",
+  },
+] as const;
+
 export default function OvrLandingPage() {
   const { isSignedIn, isPro } = useOptionalUser();
   const router = useRouter();
@@ -171,6 +194,79 @@ export default function OvrLandingPage() {
       </section>
 
       <PreviewMockup />
+
+      <section className="px-5 pb-16 pt-4 md:px-8 md:pb-24 md:pt-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {mockupStories.map((card, index) => (
+              <motion.article
+                key={card.title}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.55, ease, delay: index * 0.08 }}
+                className="group"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-[#F0F0ED]">
+                  {card.visual === "image" && (
+                    <div className="absolute inset-8 rounded-sm bg-white p-5 shadow-[0_22px_70px_rgba(0,0,0,0.08)] transition-transform duration-500 group-hover:-translate-y-2">
+                      <div className="h-3 w-28 rounded-full bg-[#E2E1DD]" />
+                      <div className="mt-8 space-y-2">
+                        <span className="block h-1.5 w-full rounded-full bg-[#D2D0CB]" />
+                        <span className="block h-1.5 w-5/6 rounded-full bg-[#DAD8D3]" />
+                        <span className="block h-1.5 w-4/6 rounded-full bg-[#E3E1DC]" />
+                      </div>
+                      <div className="absolute bottom-5 left-5 h-12 w-12 rounded-sm bg-[#D8D9D4]" />
+                    </div>
+                  )}
+                  {card.visual === "quote" && (
+                    <div className="absolute inset-0 bg-[#DCE2DE]">
+                      <div className="absolute left-8 right-8 top-16 rounded-sm bg-white/70 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-transform duration-500 group-hover:translate-y-3">
+                        <div className="h-2 w-20 rounded-full bg-[#AEB8B2]" />
+                        <div className="mt-5 space-y-2">
+                          <span className="block h-2 w-full rounded-full bg-[#C2CBC5]" />
+                          <span className="block h-2 w-4/5 rounded-full bg-[#C8D0CB]" />
+                          <span className="block h-2 w-3/5 rounded-full bg-[#D1D8D4]" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {card.visual === "layout" && (
+                    <div className="absolute inset-0 bg-[#E9E6DF]">
+                      <img
+                        src="/artworks/painting-03.jpg"
+                        alt=""
+                        className="h-full w-full object-cover opacity-75"
+                      />
+                      <div className="absolute bottom-12 left-8 right-8 rounded-sm bg-white/65 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-2">
+                        <p className="text-[11px] text-[#111110]">Image + citation</p>
+                        <div className="mt-3 h-8 w-28 rounded-sm bg-white" />
+                      </div>
+                    </div>
+                  )}
+                  {card.visual === "export" && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-[#DF9659]">
+                      <div className="text-center">
+                        <p className="text-[13px] text-[#111110]">Destinations</p>
+                        <div className="mt-5 space-y-2">
+                          <span className="mx-auto block w-fit rounded-sm bg-white px-5 py-2 text-[13px] text-[#111110] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">Private link</span>
+                          <span className="mx-auto block w-fit rounded-sm bg-white/25 px-5 py-2 text-[13px] text-[#9B653B]">PDF</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="pt-4">
+                  <h3 className="font-display text-[1.05rem] font-normal tracking-tight text-[#111110]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-[#6B6A67]">{card.desc}</p>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-5xl">

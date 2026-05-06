@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ViewingRoomPreview } from "@/components/ovr/ViewingRoomApp";
+import { ExportPanel, ViewingRoomPreview } from "@/components/ovr/ViewingRoomApp";
 import type { Block, BlockType, ImageItem, VrSetup } from "@/lib/ovr/buildTypes";
 
 const setup: VrSetup = {
@@ -110,6 +110,59 @@ export function PreviewMockup() {
   const [blocks, setBlocks] = useState<Block[]>(initialBlocks);
   const [vrSetup, setVrSetup] = useState<VrSetup>(setup);
   const [vrImages, setVrImages] = useState<ImageItem[]>(initialImages);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [sendPressed, setSendPressed] = useState(false);
+  const [cursorVisible, setCursorVisible] = useState(false);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const scroller = scrollRef.current;
+    if (!scroller) return;
+
+    let animationFrame = 0;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const animateScroll = (to: number, duration = 3600) => {
+      const from = scroller.scrollTop;
+      const start = performance.now();
+      const step = (now: number) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        scroller.scrollTop = from + (to - from) * eased;
+        if (progress < 1) animationFrame = requestAnimationFrame(step);
+      };
+      animationFrame = requestAnimationFrame(step);
+    };
+
+    scroller.scrollTo({ top: 0 });
+    let started = false;
+    const startSequence = () => {
+      if (started) return;
+      started = true;
+      timers.push(setTimeout(() => {
+        animateScroll(scroller.scrollHeight - scroller.clientHeight, 11200);
+      }, 650));
+      timers.push(setTimeout(() => {
+        setCursorVisible(true);
+      }, 12250));
+      timers.push(setTimeout(() => {
+        setSendPressed(true);
+      }, 13400));
+      timers.push(setTimeout(() => {
+        setSendPressed(false);
+        setExportOpen(true);
+      }, 13800));
+    };
+
+    window.addEventListener("wheel", startSequence, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", startSequence);
+      timers.forEach(clearTimeout);
+      cancelAnimationFrame(animationFrame);
+    };
+  }, []);
 
   const moveBlock = useCallback((blockId: string, toIndex: number) => {
     setBlocks(prev => {
@@ -195,7 +248,7 @@ export function PreviewMockup() {
             </div>
 
             {/* Preview content — scrollable area, ~3 blocks visible */}
-            <div className="relative h-[520px] overflow-y-auto bg-gray-50 md:h-[600px]">
+            <div ref={scrollRef} className="relative h-[520px] overflow-y-auto bg-gray-50 md:h-[600px]">
               {/* Mock action bar */}
               <div className="sticky top-4 z-30 mx-auto flex w-fit items-center gap-1 rounded-[2px] border border-gray-200/70 bg-white/95 px-1 py-[1.5px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl">
                 <button
@@ -213,7 +266,8 @@ export function PreviewMockup() {
                 </button>
                 <button
                   type="button"
-                  className="ml-1 inline-flex items-center gap-1.5 rounded-[2px] bg-gray-900 px-4 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-gray-700"
+                  onClick={() => setExportOpen(true)}
+                  className={`ml-1 inline-flex items-center gap-1.5 rounded-[2px] bg-gray-900 px-4 py-1.5 text-[12px] font-medium text-white transition-all hover:bg-gray-700 ${sendPressed ? "scale-[0.96] bg-gray-700 ring-2 ring-gray-900/10" : ""}`}
                 >
                   Send to {vrSetup.recipientName || 'recipient'}
                   <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -237,6 +291,34 @@ export function PreviewMockup() {
                 />
               </div>
             </div>
+
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute z-40 text-gray-950 drop-shadow-[0_10px_16px_rgba(0,0,0,0.2)]"
+              initial={{ left: "72%", top: "78%", opacity: 0, scale: 1 }}
+              animate={{
+                left: cursorVisible ? "calc(50% + 142px)" : "72%",
+                top: cursorVisible ? "78px" : "78%",
+                opacity: cursorVisible && !exportOpen ? 1 : 0,
+                scale: sendPressed ? 0.88 : 1,
+              }}
+              transition={{ duration: sendPressed ? 0.16 : 0.95, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
+                <path d="M3.2 2.4 20.8 16l-8.2 1.1 4.4 7.7-3.2 1.8-4.3-7.7-5.1 6.2L3.2 2.4Z" fill="currentColor" stroke="white" strokeWidth="1.8" />
+              </svg>
+            </motion.div>
+
+            <ExportPanel
+              open={exportOpen}
+              onClose={() => setExportOpen(false)}
+              blocks={blocks}
+              images={vrImages}
+              setup={vrSetup}
+              onPaywall={() => setExportOpen(false)}
+              onChangeSetup={setVrSetup}
+              embedded
+            />
           </div>
 
         </motion.div>

@@ -2364,12 +2364,13 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
   )
 }
 
-export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, onChangeSetup }: {
+export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, onChangeSetup, embedded = false }: {
   open: boolean; onClose: () => void
   blocks: Block[]; images: ImageItem[]; setup: VrSetup
   onPaywall: () => void
   /** Si défini : édition email destinataire dans ce modal (persisté avec saveSetup). */
   onChangeSetup?: (s: VrSetup) => void
+  embedded?: boolean
 }) {
   const [generating, setGenerating] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -2655,11 +2656,11 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
 
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center p-2 sm:items-center sm:p-4">
+    <div className={`${embedded ? 'absolute' : 'fixed'} inset-0 z-50 flex items-end justify-center p-2 sm:items-center sm:p-4`}>
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       <div className="relative flex w-full max-w-[940px] items-stretch justify-center gap-4 lg:gap-5">
-      <div className="relative flex max-h-[calc(100dvh-1rem)] w-full max-w-md flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:max-h-[calc(100dvh-2rem)] sm:rounded-[40px] lg:h-[560px]">
+      <div className={`relative flex w-full max-w-md flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:rounded-[40px] ${embedded ? 'max-h-[calc(100%-1rem)] lg:h-[520px]' : 'max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] lg:h-[560px]'}`}>
         <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 dark:border-gray-800 sm:px-7 sm:py-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
@@ -2783,7 +2784,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       </div>
       </div>
 
-      <div className="hidden h-[560px] max-h-[calc(100dvh-2rem)] w-full max-w-md min-w-[280px] flex-1 items-center justify-center overflow-hidden lg:flex">
+      <div className={`${embedded ? 'hidden md:flex' : 'hidden lg:flex'} ${embedded ? 'h-[520px] max-h-[calc(100%-1rem)]' : 'h-[560px] max-h-[calc(100dvh-2rem)]'} w-full max-w-md min-w-[280px] flex-1 items-center justify-center overflow-hidden`}>
         <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
       </div>
       </div>
