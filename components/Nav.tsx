@@ -12,6 +12,7 @@ export default function Nav() {
   const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [productOpen, setProductOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   const [form, setForm] = useState({ nom: "", galerie: "", email: "", projet: "" });
@@ -81,6 +82,7 @@ export default function Nav() {
   };
 
   const navLinks = t.nav.links;
+  const productMenu = t.nav.productMenu;
 
   const inputClass =
     "w-full bg-transparent border-b border-[#E8E8E6] py-3 text-[#111110] text-sm placeholder-[#ADADAA] focus:outline-none focus:border-[#111110] transition-colors duration-200";
@@ -121,6 +123,7 @@ export default function Nav() {
           <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex">
             {navLinks.map((link) => {
               const badge = "badge" in link && (link as { badge: string }).badge;
+              const hasMenu = "menu" in link && (link as { menu?: string }).menu === "product";
               const inner = (
                 <>
                   {link.label}
@@ -131,6 +134,25 @@ export default function Nav() {
                   )}
                 </>
               );
+              if (hasMenu) {
+                return (
+                  <div
+                    key={link.label}
+                    onMouseEnter={() => setProductOpen(true)}
+                    onMouseLeave={() => setProductOpen(false)}
+                    className="flex items-center"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setProductOpen((v) => !v)}
+                      aria-expanded={productOpen}
+                      className="flex items-center gap-1.5 text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
+                    >
+                      {inner}
+                    </button>
+                  </div>
+                );
+              }
               return link.href ? (
                 <a
                   key={link.label}
@@ -146,6 +168,78 @@ export default function Nav() {
               );
             })}
           </nav>
+
+          <AnimatePresence>
+            {productOpen && (
+              <motion.div
+                key="product-menu"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.18, ease }}
+                onMouseEnter={() => setProductOpen(true)}
+                onMouseLeave={() => setProductOpen(false)}
+                className="absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-3 md:block"
+              >
+                <div className="w-[min(76rem,calc(100vw-2rem))] rounded-lg border border-[#E8E8E6] bg-white p-7 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                  <div className="grid grid-cols-[1fr_1fr_1fr_minmax(0,15rem)] gap-x-8">
+                    {productMenu.pillars.map((pillar) => (
+                      <div key={pillar.title} className="flex flex-col">
+                        <p className="text-[10px] text-[#ADADAA]">
+                          {pillar.eyebrow}
+                        </p>
+                        <h4 className="mt-1.5 font-display text-[14px] leading-snug text-[#111110]">
+                          {pillar.title}
+                        </h4>
+                        <p className="mt-1 text-[11px] leading-snug text-[#6B6A67]">{pillar.tagline}</p>
+                        <div className="mt-4 flex flex-col gap-3">
+                          {pillar.items.map((item) => (
+                            <a
+                              key={item.title}
+                              href={item.href}
+                              onClick={() => setProductOpen(false)}
+                              className="group"
+                            >
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[12px] font-medium text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                                  {item.title}
+                                </span>
+                                {"badge" in item && item.badge && (
+                                  <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="mt-0.5 text-[11px] leading-snug text-[#6B6A67]">{item.desc}</p>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    <a
+                      href={productMenu.featured.href}
+                      onClick={() => setProductOpen(false)}
+                      className="flex flex-col"
+                    >
+                      <div
+                        className="aspect-[4/3] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
+                        style={{ backgroundImage: `url(${productMenu.featured.image})` }}
+                      />
+                      <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.12em] text-[#ADADAA]">
+                        {productMenu.featured.eyebrow}
+                      </p>
+                      <h4 className="mt-1 font-display text-[13px] text-[#111110]">
+                        {productMenu.featured.title}
+                      </h4>
+                      <p className="mt-1 text-[12px] text-[#111110] underline-offset-4 hover:underline">
+                        {productMenu.featured.cta}
+                      </p>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <Button size="sm" onClick={() => setContactModalOpen(true)} className="z-20 shrink-0 !py-[7px] !px-3 !text-[12px]">
             {t.nav.cta}

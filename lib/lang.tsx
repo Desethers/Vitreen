@@ -14,11 +14,51 @@ export const translations = {
   fr: {
     nav: {
       links: [
+        { label: "Product", href: "#product", menu: "product" as const },
+        { label: "Solutions", href: "#solutions" },
         { label: "Viewing Room Studio", href: "", badge: "Bientôt" },
         { label: "Offres", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
       ],
+      productMenu: {
+        pillars: [
+          {
+            eyebrow: "Overview",
+            title: "L’Inventaire Intelligent",
+            tagline: "Chaque œuvre, entrée une seule fois.",
+            items: [
+              { title: "Inventaire visuel", desc: "Fiches œuvres et statuts", href: "#inventaire" },
+              { title: "Demandes centralisées", desc: "Une boîte reliée à l’œuvre", href: "#demandes" },
+            ],
+          },
+          {
+            eyebrow: "Website",
+            title: "L’Expérience de Vente",
+            tagline: "Une Viewing Room permanente.",
+            items: [
+              { title: "Vitrine Galerie", desc: "Site, pages artistes, expositions", href: "#vitrine" },
+              { title: "Viewing Room Studio", desc: "Salons privés en ligne", href: "#viewing", badge: "Bientôt" },
+            ],
+          },
+          {
+            eyebrow: "Social",
+            title: "L’Ampli Marketing",
+            tagline: "Une exposition devient une campagne.",
+            items: [
+              { title: "Distribute", desc: "Story, newsletter, PDF en un clic", href: "#distribute" },
+              { title: "Direct Inquiry", desc: "Relance et partage automatiques", href: "#inquiry" },
+            ],
+          },
+        ],
+        featured: {
+          eyebrow: "Nouveautés",
+          title: "Viewing Room Studio",
+          cta: "Découvrir",
+          image: "/paula-cooper-background.jpg",
+          href: "#viewing",
+        },
+      },
       cta: "Réserver une démo",
       modal: {
         title: "Nous contacter",
@@ -371,11 +411,51 @@ export const translations = {
   en: {
     nav: {
       links: [
+        { label: "Product", href: "#product", menu: "product" as const },
+        { label: "Solutions", href: "#solutions" },
         { label: "Viewing Room Studio", href: "", badge: "Soon" },
         { label: "Offers", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
       ],
+      productMenu: {
+        pillars: [
+          {
+            eyebrow: "Overview",
+            title: "Smart Inventory",
+            tagline: "Each artwork, entered once.",
+            items: [
+              { title: "Visual inventory", desc: "Artwork sheets and statuses", href: "#inventaire" },
+              { title: "Centralized inquiries", desc: "One inbox tied to each artwork", href: "#demandes" },
+            ],
+          },
+          {
+            eyebrow: "Website",
+            title: "The Sales Experience",
+            tagline: "A permanent Viewing Room.",
+            items: [
+              { title: "Gallery Storefront", desc: "Site, artist pages, exhibitions", href: "#vitrine" },
+              { title: "Viewing Room Studio", desc: "Private online showrooms", href: "#viewing", badge: "Soon" },
+            ],
+          },
+          {
+            eyebrow: "Social",
+            title: "The Marketing Amplifier",
+            tagline: "An exhibition becomes a campaign.",
+            items: [
+              { title: "Distribute", desc: "Story, newsletter, PDF in one click", href: "#distribute" },
+              { title: "Direct Inquiry", desc: "Auto follow-up and sharing", href: "#inquiry" },
+            ],
+          },
+        ],
+        featured: {
+          eyebrow: "What's new",
+          title: "Viewing Room Studio",
+          cta: "Discover",
+          image: "/paula-cooper-background.jpg",
+          href: "#viewing",
+        },
+      },
       cta: "Book a demo",
       modal: {
         title: "Get in touch",
