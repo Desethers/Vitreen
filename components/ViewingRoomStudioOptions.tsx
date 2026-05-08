@@ -34,7 +34,7 @@ function StepperVisual({ steps }: { steps: readonly StepperStep[] }) {
           exit={{ opacity: 0, scale: 1.01 }}
           transition={{ duration: 0.7, ease }}
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${step.image})` }}
+          style={{ backgroundImage: `url("${step.image}")` }}
         />
       </AnimatePresence>
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
@@ -90,10 +90,10 @@ export default function ViewingRoomStudioOptions() {
           className="mb-8 md:mb-[48px]"
         >
           <p className="mb-4 text-[12px] text-[#ADADAA]">{content.kicker}</p>
-          <h2 className="max-w-3xl font-display text-[24px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110] md:text-[32px]">
+          <h2 className="max-w-3xl font-display text-[26px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110]">
             {content.title}
           </h2>
-          <p className="mt-1 max-w-2xl text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
+          <p className="mt-1 max-w-2xl text-[26px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67]">
             {content.subtitle}
           </p>
         </motion.div>
@@ -104,7 +104,7 @@ export default function ViewingRoomStudioOptions() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, ease, delay: 0.08 }}
-            className="grid overflow-hidden border border-[#E8E8E6] bg-white lg:grid-cols-[0.82fr_1.18fr]"
+            className="grid overflow-hidden rounded-sm bg-white lg:grid-cols-[0.82fr_1.18fr]"
           >
             <div className="flex flex-col justify-between px-5 py-6 md:px-8 md:py-8 lg:min-h-[520px]">
               <div>

@@ -194,10 +194,10 @@ export const translations = {
       ],
     },
     viewingRoomStudioOptions: {
-      kicker: "Viewing Room Studio",
+      kicker: "Start here · 19€/mois",
       title: "Viewing Room Studio by Vitreen.",
       subtitle:
-        "Un mini-produit autonome pour composer et envoyer des sélections privées.",
+        "Composez, partagez, convertissez. Votre premier pas avec Vitreen.",
       option: {
         label: "Produit d’entrée",
         title: "Commencer par une room.",
@@ -212,22 +212,22 @@ export const translations = {
           {
             eyebrow: "Composer",
             title: "Curated selection",
-            image: "/gallery hero mock/frieze-newyork-booth.png",
+            image: "",
           },
           {
             eyebrow: "Contextualiser",
             title: "Artwork details",
-            image: "/gallery hero mock/shoes-exhibition.png",
+            image: "",
           },
           {
             eyebrow: "Partager",
             title: "Private link",
-            image: "/gallery hero mock/judd-wall-stack.png",
+            image: "/viewing-room-share.png",
           },
           {
             eyebrow: "Convertir",
             title: "Collector inquiry",
-            image: "/gallery hero mock/artwork-02.png",
+            image: "",
           },
         ],
       },
@@ -640,10 +640,10 @@ export const translations = {
       ],
     },
     viewingRoomStudioOptions: {
-      kicker: "Viewing Room Studio",
+      kicker: "Start here · €19/month",
       title: "Viewing Room Studio by Vitreen.",
       subtitle:
-        "A standalone mini-product for building and sending private selections.",
+        "Compose, share, convert. Your first step with Vitreen.",
       option: {
         label: "Entry product",
         title: "Start with one room.",
@@ -658,22 +658,22 @@ export const translations = {
           {
             eyebrow: "Compose",
             title: "Curated selection",
-            image: "/gallery hero mock/frieze-newyork-booth.png",
+            image: "",
           },
           {
             eyebrow: "Context",
             title: "Artwork details",
-            image: "/gallery hero mock/shoes-exhibition.png",
+            image: "",
           },
           {
             eyebrow: "Share",
             title: "Private link",
-            image: "/gallery hero mock/judd-wall-stack.png",
+            image: "/viewing-room-share.png",
           },
           {
             eyebrow: "Convert",
             title: "Collector inquiry",
-            image: "/gallery hero mock/artwork-02.png",
+            image: "",
           },
         ],
       },
