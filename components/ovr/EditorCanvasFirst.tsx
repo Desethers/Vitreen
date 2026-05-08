@@ -239,25 +239,44 @@ function ActionBar({
   )
 }
 
-// ─── Health pill (top-left) ──────────────────────────────────────────────────
+// ─── Health pill (top-left) — rond avec % au centre ; dépliage done/total + chevron au survol ; liste au clic ─
 
 function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHealth>) {
   const [open, setOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
   const pct = Math.round(ratio * 100)
   const ready = pct === 100
 
+  useLayoutEffect(() => {
+    if (!open) return
+    const onDocDown = (e: MouseEvent) => {
+      const el = rootRef.current
+      if (el && !el.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDocDown)
+    return () => document.removeEventListener('mousedown', onDocDown)
+  }, [open])
+
   return (
-    <div className="fixed left-3 top-3 z-30 vr-shell-fade md:left-4 md:top-4">
+    <div
+      ref={rootRef}
+      className="group/pill fixed left-3 top-3 z-30 flex flex-col items-start vr-shell-fade md:left-4 md:top-4"
+    >
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
-        className="group flex items-center gap-2 rounded-full border border-gray-200/70 bg-white/90 px-2 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-shadow hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] dark:border-gray-800 dark:bg-[#1c1c1c]/90"
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        className="flex items-center overflow-hidden rounded-full border border-gray-200/70 bg-white/90 py-0.5 pl-0.5 pr-0.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-xl transition-shadow hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] dark:border-gray-800 dark:bg-[#1c1c1c]/90"
       >
-        <div className="relative w-7 h-7">
-          <svg viewBox="0 0 28 28" className="w-7 h-7 -rotate-90">
+        <div className="relative h-9 w-9 shrink-0">
+          <svg viewBox="0 0 28 28" className="h-9 w-9 -rotate-90" aria-hidden>
             <circle cx="14" cy="14" r="11" fill="none" className="stroke-gray-200 dark:stroke-gray-700" strokeWidth="2.5" />
             <circle
-              cx="14" cy="14" r="11" fill="none"
+              cx="14"
+              cy="14"
+              r="11"
+              fill="none"
               className={ready ? 'stroke-emerald-500' : 'stroke-gray-900 dark:stroke-white'}
               strokeWidth="2.5"
               strokeDasharray={`${(ratio * 2 * Math.PI * 11).toFixed(2)} 999`}
@@ -265,27 +284,56 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
               style={{ transition: 'stroke-dasharray 600ms cubic-bezier(0.16, 1, 0.3, 1)' }}
             />
           </svg>
-          <span className={`absolute inset-0 flex items-center justify-center text-[9px] font-medium ${ready ? 'text-emerald-600' : 'text-gray-700 dark:text-gray-300'}`}>
-            {ready ? '✓' : `${pct}%`}
+          <span
+            className={`pointer-events-none absolute inset-0 flex items-center justify-center text-[9px] font-semibold tabular-nums leading-none ${
+              ready ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-800 dark:text-gray-100'
+            }`}
+          >
+            {pct}%
           </span>
         </div>
-        <div className="pr-0.5 text-left">
-          <p className="text-[12px] font-medium leading-none text-gray-900 dark:text-gray-100">
-            {ready ? 'Ready' : `${done}/${total}`}
-          </p>
+
+        <div
+          className={`flex shrink-0 items-center gap-1 overflow-hidden transition-[max-width,opacity,padding] duration-200 ease-out ${
+            open
+              ? 'max-w-[6.5rem] pl-[5px] pr-2 opacity-100'
+              : 'max-w-0 pl-0 opacity-0 group-hover/pill:max-w-[6.5rem] group-hover/pill:pl-[5px] group-hover/pill:pr-2 group-hover/pill:opacity-100'
+          }`}
+        >
+          <span className="whitespace-nowrap text-[12px] font-medium tabular-nums text-gray-900 dark:text-gray-100">
+            {done}/{total}
+          </span>
+          <svg
+            className={`h-3 w-3 shrink-0 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            aria-hidden
+          >
+            <path d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
-        <svg className={`h-3 w-3 text-gray-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-          <path d="M19 9l-7 7-7-7"/>
-        </svg>
       </button>
 
       {open && (
-        <div className="mt-2 w-[calc(100vw-1.5rem)] max-w-56 rounded-2xl border border-gray-200/70 bg-white/95 p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl vr-shell-fade dark:border-gray-800 dark:bg-[#1c1c1c]/95">
+        <div
+          role="listbox"
+          className="mt-1.5 w-[calc(100vw-1.5rem)] max-w-56 rounded-2xl border border-gray-200/70 bg-white/95 p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.12)] backdrop-blur-xl vr-shell-fade dark:border-gray-800 dark:bg-[#1c1c1c]/95"
+        >
           <ul className="space-y-0.5">
             {checks.map(c => (
               <li key={c.label} className="flex items-center gap-2 px-1 py-1 text-[12px]">
-                <span className={`w-3.5 h-3.5 rounded-full flex items-center justify-center ${c.ok ? 'bg-emerald-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-400'}`}>
-                  {c.ok ? <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M2 6l3 3 5-6"/></svg> : null}
+                <span
+                  className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full ${
+                    c.ok ? 'bg-emerald-500 text-white' : 'bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
+                  }`}
+                >
+                  {c.ok ? (
+                    <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M2 6l3 3 5-6" />
+                    </svg>
+                  ) : null}
                 </span>
                 <span className={c.ok ? 'text-gray-700 dark:text-gray-300' : 'text-gray-400 dark:text-gray-500'}>{c.label}</span>
               </li>

@@ -2341,9 +2341,9 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
   )
 
   return (
-    <div className="relative flex h-full w-full items-end justify-center overflow-hidden rounded-[48px] bg-[#070808] px-6 pb-2 pt-2 shadow-2xl sm:px-8 sm:pb-3 sm:pt-2">
-      <div className="pointer-events-none absolute inset-0 rounded-[48px] bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
-      <div className="pointer-events-none absolute inset-[1px] rounded-[47px] border border-white/10" />
+    <div className="relative flex h-full w-full items-end justify-center overflow-hidden rounded-[10px] bg-[#070808] px-6 pb-2 pt-2 shadow-2xl sm:px-8 sm:pb-3 sm:pt-2">
+      <div className="pointer-events-none absolute inset-0 rounded-[10px] bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
+      <div className="pointer-events-none absolute inset-[1px] rounded-[9px] border border-white/10" />
       <div className="pointer-events-none absolute -right-16 top-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 left-8 h-52 w-52 rounded-full bg-black blur-3xl" />
 
@@ -2663,7 +2663,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       <div className="relative flex w-full max-w-[940px] items-stretch justify-center gap-4 lg:gap-5">
-      <div className={`relative flex w-full max-w-md flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:rounded-[40px] ${embedded ? 'max-h-[calc(100%-1rem)] lg:h-[520px]' : 'max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] lg:h-[560px]'}`}>
+      <div className={`relative flex w-full max-w-md flex-col overflow-hidden rounded-[10px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 ${embedded ? 'max-h-[calc(100%-1rem)] lg:h-[520px]' : 'max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] lg:h-[560px]'}`}>
         <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 dark:border-gray-800 sm:px-7 sm:py-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
@@ -2687,7 +2687,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
           {error ? <p className="text-xs text-red-600 dark:text-red-300 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/60 px-4 py-3 rounded-lg">{error}</p> : null}
           {success ? <p className="text-xs text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/60 px-4 py-3 rounded-lg">{success}</p> : null}
 
-          <div className="flex flex-col gap-3 rounded-[24px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 rounded-[8px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Download as PDF</p>
               <p className="text-xs text-gray-400 mt-0.5">High-resolution A4 document</p>
@@ -2703,7 +2703,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
           </div>
 
           <div className="space-y-3">
-            <div className="flex flex-col gap-3 rounded-[24px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 rounded-[8px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Share by email or WhatsApp</p>
                 <p className="text-xs text-gray-400 mt-0.5">
@@ -2723,7 +2723,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
             </div>
 
             {shareUrl ? (
-              <div className="space-y-3 rounded-[24px] bg-gray-50/80 p-3 dark:bg-gray-800/35 sm:p-4">
+              <div className="space-y-3 rounded-[8px] bg-gray-50/80 p-3 dark:bg-gray-800/35 sm:p-4">
                 <div className="space-y-2">
                   <input
                     type="email"
@@ -2765,7 +2765,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
             ) : null}
           </div>
         </div>
-          <div className="rounded-[22px] border border-gray-100 bg-gray-50/70 px-4 py-3 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-800/40 dark:text-gray-400">
+          <div className="rounded-[8px] border border-gray-100 bg-gray-50/70 px-4 py-3 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-800/40 dark:text-gray-400">
             {[
               ['Layout preview ready', hasContent],
               ['Artwork captions included', usedImageCount > 0],
@@ -2787,7 +2787,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       </div>
       </div>
 
-      <div className={`${embedded ? 'hidden md:flex' : 'hidden lg:flex'} ${embedded ? 'h-[520px] max-h-[calc(100%-1rem)]' : 'h-[560px] max-h-[calc(100dvh-2rem)]'} w-full max-w-md min-w-[280px] flex-1 items-center justify-center overflow-hidden`}>
+      <div className={`${embedded ? 'hidden md:flex' : 'hidden lg:flex'} ${embedded ? 'h-[520px] max-h-[calc(100%-1rem)]' : 'h-[560px] max-h-[calc(100dvh-2rem)]'} w-full max-w-md min-w-[280px] flex-1 items-center justify-center overflow-hidden rounded-[10px]`}>
         <ExportPhonePreview setup={setup} images={images} blocks={blocks} />
       </div>
       </div>
