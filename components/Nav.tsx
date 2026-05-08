@@ -13,6 +13,7 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   const [form, setForm] = useState({ nom: "", galerie: "", email: "", projet: "" });
@@ -83,6 +84,7 @@ export default function Nav() {
 
   const navLinks = t.nav.links;
   const productMenu = t.nav.productMenu;
+  const solutionsMenu = t.nav.solutionsMenu;
 
   const inputClass =
     "w-full bg-transparent border-b border-[#E8E8E6] py-3 text-[#111110] text-sm placeholder-[#ADADAA] focus:outline-none focus:border-[#111110] transition-colors duration-200";
@@ -123,7 +125,8 @@ export default function Nav() {
           <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex">
             {navLinks.map((link) => {
               const badge = "badge" in link && (link as { badge: string }).badge;
-              const hasMenu = "menu" in link && (link as { menu?: string }).menu === "product";
+              const linkMenu = "menu" in link ? (link as { menu?: string }).menu : undefined;
+              const hasMenu = linkMenu === "product" || linkMenu === "solutions";
               const inner = (
                 <>
                   {link.label}
@@ -135,17 +138,27 @@ export default function Nav() {
                 </>
               );
               if (hasMenu) {
+                const isProduct = linkMenu === "product";
+                const open = isProduct ? productOpen : solutionsOpen;
+                const setOpen = isProduct ? setProductOpen : setSolutionsOpen;
+                const closeOther = isProduct ? () => setSolutionsOpen(false) : () => setProductOpen(false);
                 return (
                   <div
                     key={link.label}
-                    onMouseEnter={() => setProductOpen(true)}
-                    onMouseLeave={() => setProductOpen(false)}
+                    onMouseEnter={() => {
+                      setOpen(true);
+                      closeOther();
+                    }}
+                    onMouseLeave={() => setOpen(false)}
                     className="flex items-center"
                   >
                     <button
                       type="button"
-                      onClick={() => setProductOpen((v) => !v)}
-                      aria-expanded={productOpen}
+                      onClick={() => {
+                        setOpen(!open);
+                        closeOther();
+                      }}
+                      aria-expanded={open}
                       className="flex items-center gap-1.5 text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
                     >
                       {inner}
@@ -181,41 +194,33 @@ export default function Nav() {
                 onMouseLeave={() => setProductOpen(false)}
                 className="absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-3 md:block"
               >
-                <div className="w-[min(76rem,calc(100vw-2rem))] rounded-lg border border-[#E8E8E6] bg-white p-7 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
-                  <div className="grid grid-cols-[1fr_1fr_1fr_minmax(0,15rem)] gap-x-8">
-                    {productMenu.pillars.map((pillar) => (
-                      <div key={pillar.title} className="flex flex-col">
-                        <p className="text-[10px] text-[#ADADAA]">
-                          {pillar.eyebrow}
-                        </p>
-                        <h4 className="mt-1.5 font-display text-[14px] leading-snug text-[#111110]">
-                          {pillar.title}
-                        </h4>
-                        <p className="mt-1 text-[11px] leading-snug text-[#6B6A67]">{pillar.tagline}</p>
-                        <div className="mt-4 flex flex-col gap-3">
-                          {pillar.items.map((item) => (
-                            <a
-                              key={item.title}
-                              href={item.href}
-                              onClick={() => setProductOpen(false)}
-                              className="group"
-                            >
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[12px] font-medium text-[#111110] transition-colors group-hover:text-[#6B6A67]">
-                                  {item.title}
+                <div className="w-[min(64rem,calc(100vw-2rem))] rounded-lg border border-[#E8E8E6] bg-white p-8 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                  <div className="grid grid-cols-[1fr_minmax(0,16rem)] gap-x-10">
+                    <div>
+                      <p className="text-[10px] text-[#ADADAA]">{productMenu.sectionLabel}</p>
+                      <div className="mt-5 grid grid-cols-2 gap-x-8 gap-y-5">
+                        {productMenu.items.map((item) => (
+                          <a
+                            key={item.title}
+                            href={item.href}
+                            onClick={() => setProductOpen(false)}
+                            className="group"
+                          >
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-display text-[14px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                                {item.title}
+                              </span>
+                              {"badge" in item && item.badge && (
+                                <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
+                                  {item.badge}
                                 </span>
-                                {"badge" in item && item.badge && (
-                                  <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
-                                    {item.badge}
-                                  </span>
-                                )}
-                              </div>
-                              <p className="mt-0.5 text-[11px] leading-snug text-[#6B6A67]">{item.desc}</p>
-                            </a>
-                          ))}
-                        </div>
+                              )}
+                            </div>
+                            <p className="mt-0.5 text-[11px] leading-snug text-[#6B6A67]">{item.desc}</p>
+                          </a>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                     <a
                       href={productMenu.featured.href}
                       onClick={() => setProductOpen(false)}
@@ -225,15 +230,62 @@ export default function Nav() {
                         className="aspect-[4/3] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
                         style={{ backgroundImage: `url(${productMenu.featured.image})` }}
                       />
-                      <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.12em] text-[#ADADAA]">
+                      <p className="mt-3 text-[10px] text-[#ADADAA]">
                         {productMenu.featured.eyebrow}
                       </p>
-                      <h4 className="mt-1 font-display text-[13px] text-[#111110]">
+                      <h4 className="mt-1 font-display text-[14px] text-[#111110]">
                         {productMenu.featured.title}
                       </h4>
                       <p className="mt-1 text-[12px] text-[#111110] underline-offset-4 hover:underline">
                         {productMenu.featured.cta}
                       </p>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {solutionsOpen && (
+              <motion.div
+                key="solutions-menu"
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.18, ease }}
+                onMouseEnter={() => setSolutionsOpen(true)}
+                onMouseLeave={() => setSolutionsOpen(false)}
+                className="absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-3 md:block"
+              >
+                <div className="w-[min(36rem,calc(100vw-2rem))] overflow-hidden rounded-lg border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                  <div className="grid grid-cols-2 gap-x-10 p-8">
+                    {solutionsMenu.columns.map((col) => (
+                      <div key={col.label}>
+                        <p className="text-[10px] text-[#ADADAA]">{col.label}</p>
+                        <ul className="mt-4 flex flex-col gap-2.5">
+                          {col.items.map((item) => (
+                            <li key={item.title}>
+                              <a
+                                href={item.href}
+                                onClick={() => setSolutionsOpen(false)}
+                                className="font-display text-[14px] text-[#111110] hover:text-[#6B6A67]"
+                              >
+                                {item.title}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-end border-t border-[#E8E8E6] px-8 py-4">
+                    <a
+                      href={solutionsMenu.ctaAllHref}
+                      onClick={() => setSolutionsOpen(false)}
+                      className="text-[12px] font-medium text-[#111110] hover:underline underline-offset-4"
+                    >
+                      {solutionsMenu.ctaAll}
                     </a>
                   </div>
                 </div>

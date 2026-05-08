@@ -15,41 +15,23 @@ export const translations = {
     nav: {
       links: [
         { label: "Product", href: "#product", menu: "product" as const },
-        { label: "Solutions", href: "#solutions" },
+        { label: "Solutions", href: "#solutions", menu: "solutions" as const },
         { label: "Viewing Room Studio", href: "", badge: "Bientôt" },
         { label: "Offres", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
       ],
       productMenu: {
-        pillars: [
-          {
-            eyebrow: "Overview",
-            title: "L’Inventaire Intelligent",
-            tagline: "Chaque œuvre, entrée une seule fois.",
-            items: [
-              { title: "Inventaire visuel", desc: "Fiches œuvres et statuts", href: "#inventaire" },
-              { title: "Demandes centralisées", desc: "Une boîte reliée à l’œuvre", href: "#demandes" },
-            ],
-          },
-          {
-            eyebrow: "Website",
-            title: "L’Expérience de Vente",
-            tagline: "Une Viewing Room permanente.",
-            items: [
-              { title: "Vitrine Galerie", desc: "Site, pages artistes, expositions", href: "#vitrine" },
-              { title: "Viewing Room Studio", desc: "Salons privés en ligne", href: "#viewing", badge: "Bientôt" },
-            ],
-          },
-          {
-            eyebrow: "Social",
-            title: "L’Ampli Marketing",
-            tagline: "Une exposition devient une campagne.",
-            items: [
-              { title: "Distribute", desc: "Story, newsletter, PDF en un clic", href: "#distribute" },
-              { title: "Direct Inquiry", desc: "Relance et partage automatiques", href: "#inquiry" },
-            ],
-          },
+        sectionLabel: "Core Functionality",
+        items: [
+          { title: "Overview", desc: "La plateforme galerie, en un seul outil", href: "#overview" },
+          { title: "Inventaire", desc: "Fiches œuvres, statuts, provenance", href: "#inventaire" },
+          { title: "Vitrine Galerie", desc: "Site, pages artistes, expositions", href: "#vitrine" },
+          { title: "Viewing Room Studio", desc: "Salons privés en ligne", href: "#viewing", badge: "Bientôt" },
+          { title: "Demandes", desc: "Une boîte unique reliée à l’œuvre", href: "#demandes" },
+          { title: "Distribute", desc: "Story, newsletter, PDF en un clic", href: "#distribute" },
+          { title: "Direct Inquiry", desc: "Relances et partage automatiques", href: "#inquiry" },
+          { title: "Mobile", desc: "Votre galerie en déplacement", href: "#mobile" },
         ],
         featured: {
           eyebrow: "Nouveautés",
@@ -58,6 +40,31 @@ export const translations = {
           image: "/paula-cooper-background.jpg",
           href: "#viewing",
         },
+      },
+      solutionsMenu: {
+        ctaAll: "Toutes les solutions →",
+        ctaAllHref: "#solutions",
+        columns: [
+          {
+            label: "By role",
+            items: [
+              { title: "Galeries", href: "#galeries" },
+              { title: "Conseillers & Marchands", href: "#conseil" },
+              { title: "Artistes", href: "#artistes" },
+              { title: "Collectionneurs", href: "#collectionneurs" },
+              { title: "Successions d’artistes", href: "#estates" },
+            ],
+          },
+          {
+            label: "By area",
+            items: [
+              { title: "Gestion de galerie", href: "#gallery-management" },
+              { title: "Sites web", href: "#websites" },
+              { title: "Contenu social", href: "#social-content" },
+              { title: "Marketing", href: "#marketing" },
+            ],
+          },
+        ],
       },
       cta: "Réserver une démo",
       modal: {
@@ -412,41 +419,23 @@ export const translations = {
     nav: {
       links: [
         { label: "Product", href: "#product", menu: "product" as const },
-        { label: "Solutions", href: "#solutions" },
+        { label: "Solutions", href: "#solutions", menu: "solutions" as const },
         { label: "Viewing Room Studio", href: "", badge: "Soon" },
         { label: "Offers", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
       ],
       productMenu: {
-        pillars: [
-          {
-            eyebrow: "Overview",
-            title: "Smart Inventory",
-            tagline: "Each artwork, entered once.",
-            items: [
-              { title: "Visual inventory", desc: "Artwork sheets and statuses", href: "#inventaire" },
-              { title: "Centralized inquiries", desc: "One inbox tied to each artwork", href: "#demandes" },
-            ],
-          },
-          {
-            eyebrow: "Website",
-            title: "The Sales Experience",
-            tagline: "A permanent Viewing Room.",
-            items: [
-              { title: "Gallery Storefront", desc: "Site, artist pages, exhibitions", href: "#vitrine" },
-              { title: "Viewing Room Studio", desc: "Private online showrooms", href: "#viewing", badge: "Soon" },
-            ],
-          },
-          {
-            eyebrow: "Social",
-            title: "The Marketing Amplifier",
-            tagline: "An exhibition becomes a campaign.",
-            items: [
-              { title: "Distribute", desc: "Story, newsletter, PDF in one click", href: "#distribute" },
-              { title: "Direct Inquiry", desc: "Auto follow-up and sharing", href: "#inquiry" },
-            ],
-          },
+        sectionLabel: "Core Functionality",
+        items: [
+          { title: "Overview", desc: "The complete gallery platform", href: "#overview" },
+          { title: "Inventory", desc: "Artwork sheets, status, provenance", href: "#inventaire" },
+          { title: "Gallery Storefront", desc: "Site, artist pages, exhibitions", href: "#vitrine" },
+          { title: "Viewing Room Studio", desc: "Private online showrooms", href: "#viewing", badge: "Soon" },
+          { title: "Inquiries", desc: "One inbox tied to each artwork", href: "#demandes" },
+          { title: "Distribute", desc: "Story, newsletter, PDF in one click", href: "#distribute" },
+          { title: "Direct Inquiry", desc: "Auto follow-up and sharing", href: "#inquiry" },
+          { title: "Mobile", desc: "Your gallery on the go", href: "#mobile" },
         ],
         featured: {
           eyebrow: "What's new",
@@ -455,6 +444,31 @@ export const translations = {
           image: "/paula-cooper-background.jpg",
           href: "#viewing",
         },
+      },
+      solutionsMenu: {
+        ctaAll: "All solutions →",
+        ctaAllHref: "#solutions",
+        columns: [
+          {
+            label: "By role",
+            items: [
+              { title: "Galleries", href: "#galleries" },
+              { title: "Advisors and dealers", href: "#conseil" },
+              { title: "Artists", href: "#artistes" },
+              { title: "Collectors", href: "#collectionneurs" },
+              { title: "Artist Estates", href: "#estates" },
+            ],
+          },
+          {
+            label: "By area",
+            items: [
+              { title: "Gallery management", href: "#gallery-management" },
+              { title: "Websites", href: "#websites" },
+              { title: "Social content", href: "#social-content" },
+              { title: "Marketing", href: "#marketing" },
+            ],
+          },
+        ],
       },
       cta: "Book a demo",
       modal: {
