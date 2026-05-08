@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3000",
+    "dev": "next dev --webpack -p 3000",
     "dev:webpack": "next dev --webpack -p 3000",
-    "dev:clean": "(lsof -ti tcp:3000 2>/dev/null; lsof -ti tcp:3001 2>/dev/null; lsof -ti tcp:3002 2>/dev/null) | sort -u | xargs kill -9 2>/dev/null || true && rm -f .next/dev/lock && next dev -p 3000",
+    "dev:clean": "(lsof -ti tcp:3000 2>/dev/null; lsof -ti tcp:3001 2>/dev/null; lsof -ti tcp:3002 2>/dev/null) | sort -u | xargs kill -9 2>/dev/null || true && rm -f .next/dev/lock && next dev --webpack -p 3000",
     "build": "next build",
     "start": "next start",
     "generate:variations": "tsx scripts/generate-variations.ts"

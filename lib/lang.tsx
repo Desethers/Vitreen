@@ -24,14 +24,14 @@ export const translations = {
       productMenu: {
         sectionLabel: "Core Functionality",
         items: [
-          { title: "Overview", desc: "La plateforme galerie, en un seul outil", href: "#overview" },
-          { title: "Inventaire", desc: "Fiches œuvres, statuts, provenance", href: "#inventaire" },
-          { title: "Vitrine Galerie", desc: "Site, pages artistes, expositions", href: "#vitrine" },
+          { title: "Overview", desc: "Tout piloter en un outil", href: "#overview" },
+          { title: "Inventaire", desc: "Œuvres, statuts, provenance", href: "#inventaire" },
+          { title: "Vitrine Galerie", desc: "Site, artistes, expositions", href: "#vitrine" },
           { title: "Viewing Room Studio", desc: "Salons privés en ligne", href: "#viewing", badge: "Bientôt" },
-          { title: "Demandes", desc: "Une boîte unique reliée à l’œuvre", href: "#demandes" },
-          { title: "Distribute", desc: "Story, newsletter, PDF en un clic", href: "#distribute" },
-          { title: "Direct Inquiry", desc: "Relances et partage automatiques", href: "#inquiry" },
-          { title: "Mobile", desc: "Votre galerie en déplacement", href: "#mobile" },
+          { title: "Demandes", desc: "Inbox reliée aux œuvres", href: "#demandes" },
+          { title: "Distribute", desc: "Story, newsletter, PDF", href: "#distribute" },
+          { title: "Direct Inquiry", desc: "Relances automatiques", href: "#inquiry" },
+          { title: "Mobile", desc: "La galerie en déplacement", href: "#mobile" },
         ],
         featured: {
           eyebrow: "Nouveautés",
@@ -44,24 +44,31 @@ export const translations = {
       solutionsMenu: {
         ctaAll: "Toutes les solutions →",
         ctaAllHref: "#solutions",
+        featured: {
+          eyebrow: "À la une",
+          title: "Composer une sélection privée",
+          cta: "Découvrir les viewing rooms",
+          image: "/krea/frieze-newyork-booth.png",
+          href: "#viewing",
+        },
         columns: [
           {
             label: "By role",
             items: [
-              { title: "Galeries", href: "#galeries" },
-              { title: "Conseillers & Marchands", href: "#conseil" },
-              { title: "Artistes", href: "#artistes" },
-              { title: "Collectionneurs", href: "#collectionneurs" },
-              { title: "Successions d’artistes", href: "#estates" },
+              { title: "Galeries", desc: "Inventaire, expositions, demandes", href: "#galeries" },
+              { title: "Conseillers & Marchands", desc: "Sélections privées et suivi client", href: "#conseil" },
+              { title: "Artistes", desc: "Archive, séries, présentation", href: "#artistes" },
+              { title: "Collectionneurs", desc: "Acquisitions et documents", href: "#collectionneurs" },
+              { title: "Successions d’artistes", desc: "Corpus, provenance, transmission", href: "#estates" },
             ],
           },
           {
             label: "By area",
             items: [
-              { title: "Gestion de galerie", href: "#gallery-management" },
-              { title: "Sites web", href: "#websites" },
-              { title: "Contenu social", href: "#social-content" },
-              { title: "Marketing", href: "#marketing" },
+              { title: "Gestion de galerie", desc: "Œuvres, contacts, statuts", href: "#gallery-management" },
+              { title: "Sites web", desc: "Artistes et expositions", href: "#websites" },
+              { title: "Contenu social", desc: "Formats prêts à publier", href: "#social-content" },
+              { title: "Marketing", desc: "Invitations et newsletters", href: "#marketing" },
             ],
           },
         ],
@@ -186,6 +193,45 @@ export const translations = {
           desc: "Story, lien partageable, relance — en un clic.",
         },
       ],
+    },
+    viewingRoomStudioOptions: {
+      kicker: "Viewing Room Studio",
+      title: "Viewing Room Studio by Vitreen.",
+      subtitle:
+        "Un mini-produit autonome pour composer et envoyer des sélections privées.",
+      option: {
+        label: "Produit d’entrée",
+        title: "Commencer par une room.",
+        body:
+          "Composez une sélection privée, ajoutez le contexte juste, envoyez un lien soigné et transformez l’échange en demande concrète.",
+        cta: "Créer une room",
+        price: "19€/mois · 110€/an",
+      },
+      stepper: {
+        stats: ["4 étapes", "Lien privé", "Inquiry intégré"],
+        steps: [
+          {
+            eyebrow: "Composer",
+            title: "Curated selection",
+            image: "/gallery hero mock/frieze-newyork-booth.png",
+          },
+          {
+            eyebrow: "Contextualiser",
+            title: "Artwork details",
+            image: "/gallery hero mock/shoes-exhibition.png",
+          },
+          {
+            eyebrow: "Partager",
+            title: "Private link",
+            image: "/gallery hero mock/judd-wall-stack.png",
+          },
+          {
+            eyebrow: "Convertir",
+            title: "Collector inquiry",
+            image: "/gallery hero mock/artwork-02.png",
+          },
+        ],
+      },
     },
     processFlow: {
       title: "Passez à une nouvelle génération de site galerie",
@@ -428,13 +474,13 @@ export const translations = {
       productMenu: {
         sectionLabel: "Core Functionality",
         items: [
-          { title: "Overview", desc: "The complete gallery platform", href: "#overview" },
-          { title: "Inventory", desc: "Artwork sheets, status, provenance", href: "#inventaire" },
-          { title: "Gallery Storefront", desc: "Site, artist pages, exhibitions", href: "#vitrine" },
+          { title: "Overview", desc: "Run it all in one tool", href: "#overview" },
+          { title: "Inventory", desc: "Works, status, provenance", href: "#inventaire" },
+          { title: "Gallery Storefront", desc: "Site, artists, exhibitions", href: "#vitrine" },
           { title: "Viewing Room Studio", desc: "Private online showrooms", href: "#viewing", badge: "Soon" },
-          { title: "Inquiries", desc: "One inbox tied to each artwork", href: "#demandes" },
-          { title: "Distribute", desc: "Story, newsletter, PDF in one click", href: "#distribute" },
-          { title: "Direct Inquiry", desc: "Auto follow-up and sharing", href: "#inquiry" },
+          { title: "Inquiries", desc: "Inbox tied to works", href: "#demandes" },
+          { title: "Distribute", desc: "Story, newsletter, PDF", href: "#distribute" },
+          { title: "Direct Inquiry", desc: "Automated follow-up", href: "#inquiry" },
           { title: "Mobile", desc: "Your gallery on the go", href: "#mobile" },
         ],
         featured: {
@@ -448,24 +494,31 @@ export const translations = {
       solutionsMenu: {
         ctaAll: "All solutions →",
         ctaAllHref: "#solutions",
+        featured: {
+          eyebrow: "Featured",
+          title: "Build a private selection",
+          cta: "Explore viewing rooms",
+          image: "/krea/frieze-newyork-booth.png",
+          href: "#viewing",
+        },
         columns: [
           {
             label: "By role",
             items: [
-              { title: "Galleries", href: "#galleries" },
-              { title: "Advisors and dealers", href: "#conseil" },
-              { title: "Artists", href: "#artistes" },
-              { title: "Collectors", href: "#collectionneurs" },
-              { title: "Artist Estates", href: "#estates" },
+              { title: "Galleries", desc: "Inventory, shows, inquiries", href: "#galleries" },
+              { title: "Advisors and dealers", desc: "Private selections and client follow-up", href: "#conseil" },
+              { title: "Artists", desc: "Archive, series, presentation", href: "#artistes" },
+              { title: "Collectors", desc: "Acquisitions and documents", href: "#collectionneurs" },
+              { title: "Artist Estates", desc: "Corpus, provenance, stewardship", href: "#estates" },
             ],
           },
           {
             label: "By area",
             items: [
-              { title: "Gallery management", href: "#gallery-management" },
-              { title: "Websites", href: "#websites" },
-              { title: "Social content", href: "#social-content" },
-              { title: "Marketing", href: "#marketing" },
+              { title: "Gallery management", desc: "Works, contacts, statuses", href: "#gallery-management" },
+              { title: "Websites", desc: "Artists and exhibitions", href: "#websites" },
+              { title: "Social content", desc: "Ready-to-publish formats", href: "#social-content" },
+              { title: "Marketing", desc: "Invites and newsletters", href: "#marketing" },
             ],
           },
         ],
@@ -587,6 +640,45 @@ export const translations = {
           desc: "Post to stories, send a link, spark a reply.",
         },
       ],
+    },
+    viewingRoomStudioOptions: {
+      kicker: "Viewing Room Studio",
+      title: "Viewing Room Studio by Vitreen.",
+      subtitle:
+        "A standalone mini-product for building and sending private selections.",
+      option: {
+        label: "Entry product",
+        title: "Start with one room.",
+        body:
+          "Build a private selection, add the right context, send a polished link, and turn the exchange into a concrete inquiry.",
+        cta: "Create a room",
+        price: "€19/month · €110/year",
+      },
+      stepper: {
+        stats: ["4 steps", "Private link", "Built-in inquiry"],
+        steps: [
+          {
+            eyebrow: "Compose",
+            title: "Curated selection",
+            image: "/gallery hero mock/frieze-newyork-booth.png",
+          },
+          {
+            eyebrow: "Context",
+            title: "Artwork details",
+            image: "/gallery hero mock/shoes-exhibition.png",
+          },
+          {
+            eyebrow: "Share",
+            title: "Private link",
+            image: "/gallery hero mock/judd-wall-stack.png",
+          },
+          {
+            eyebrow: "Convert",
+            title: "Collector inquiry",
+            image: "/gallery hero mock/artwork-02.png",
+          },
+        ],
+      },
     },
     processFlow: {
       title: "Move to a new generation of gallery website",

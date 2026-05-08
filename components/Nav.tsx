@@ -88,12 +88,15 @@ export default function Nav() {
 
   const inputClass =
     "w-full bg-transparent border-b border-[#E8E8E6] py-3 text-[#111110] text-sm placeholder-[#ADADAA] focus:outline-none focus:border-[#111110] transition-colors duration-200";
+  const megaMenuOpen = productOpen || solutionsOpen;
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 border-b-[0.5px] bg-white py-2 px-4 transition-[border-color] duration-200 md:px-6 ${
-          scrolled ? "border-[#E8E8E6]" : "border-transparent"
+          scrolled || megaMenuOpen
+            ? "border-[#E8E8E6]"
+            : "border-transparent"
         }`}
       >
         <div className="relative mx-auto flex h-9 w-full max-w-7xl items-center justify-between">
@@ -186,18 +189,18 @@ export default function Nav() {
             {productOpen && (
               <motion.div
                 key="product-menu"
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.18, ease }}
+                initial={{ height: 0 }}
+                animate={{ height: "auto" }}
+                exit={{ height: 0 }}
+                transition={{ duration: 0.32, ease }}
                 onMouseEnter={() => setProductOpen(true)}
                 onMouseLeave={() => setProductOpen(false)}
-                className="absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-3 md:block"
+                className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
-                <div className="w-[min(64rem,calc(100vw-2rem))] rounded-lg border border-[#E8E8E6] bg-white p-8 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
-                  <div className="grid grid-cols-[1fr_minmax(0,16rem)] gap-x-10">
+                <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,18rem)] gap-x-12">
                     <div>
-                      <p className="text-[10px] text-[#ADADAA]">{productMenu.sectionLabel}</p>
+                      <p className="text-[12px] text-[#ADADAA]">{productMenu.sectionLabel}</p>
                       <div className="mt-5 grid grid-cols-2 gap-x-8 gap-y-5">
                         {productMenu.items.map((item) => (
                           <a
@@ -207,7 +210,7 @@ export default function Nav() {
                             className="group"
                           >
                             <div className="flex items-center gap-1.5">
-                              <span className="font-display text-[14px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                              <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
                                 {item.title}
                               </span>
                               {"badge" in item && item.badge && (
@@ -216,7 +219,7 @@ export default function Nav() {
                                 </span>
                               )}
                             </div>
-                            <p className="mt-0.5 text-[11px] leading-snug text-[#6B6A67]">{item.desc}</p>
+                            <p className="text-[12px] leading-snug text-[#6B6A67]">{item.desc}</p>
                           </a>
                         ))}
                       </div>
@@ -233,7 +236,7 @@ export default function Nav() {
                       <p className="mt-3 text-[10px] text-[#ADADAA]">
                         {productMenu.featured.eyebrow}
                       </p>
-                      <h4 className="mt-1 font-display text-[14px] text-[#111110]">
+                      <h4 className="mt-1 font-display text-[15px] text-[#111110]">
                         {productMenu.featured.title}
                       </h4>
                       <p className="mt-1 text-[12px] text-[#111110] underline-offset-4 hover:underline">
@@ -250,36 +253,64 @@ export default function Nav() {
             {solutionsOpen && (
               <motion.div
                 key="solutions-menu"
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.18, ease }}
+                initial={{ height: 0 }}
+                animate={{ height: "auto" }}
+                exit={{ height: 0 }}
+                transition={{ duration: 0.32, ease }}
                 onMouseEnter={() => setSolutionsOpen(true)}
                 onMouseLeave={() => setSolutionsOpen(false)}
-                className="absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-3 md:block"
+                className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
-                <div className="w-[min(36rem,calc(100vw-2rem))] overflow-hidden rounded-lg border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
-                  <div className="grid grid-cols-2 gap-x-10 p-8">
-                    {solutionsMenu.columns.map((col) => (
-                      <div key={col.label}>
-                        <p className="text-[10px] text-[#ADADAA]">{col.label}</p>
-                        <ul className="mt-4 flex flex-col gap-2.5">
-                          {col.items.map((item) => (
-                            <li key={item.title}>
-                              <a
-                                href={item.href}
-                                onClick={() => setSolutionsOpen(false)}
-                                className="font-display text-[14px] text-[#111110] hover:text-[#6B6A67]"
-                              >
-                                {item.title}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_minmax(0,18rem)] gap-x-12 px-8 py-8">
+                    <div className="grid grid-cols-2 gap-x-12">
+                      {solutionsMenu.columns.map((col) => (
+                        <div key={col.label}>
+                          <p className="text-[12px] text-[#ADADAA]">{col.label}</p>
+                          <ul className="mt-5 grid gap-y-5">
+                            {col.items.map((item) => (
+                              <li key={item.title}>
+                                <a
+                                  href={item.href}
+                                  onClick={() => setSolutionsOpen(false)}
+                                  className="group block"
+                                >
+                                  <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                                    {item.title}
+                                  </span>
+                                  {"desc" in item && item.desc && (
+                                    <span className="block text-[12px] leading-snug text-[#6B6A67]">
+                                      {item.desc}
+                                    </span>
+                                  )}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                    <a
+                      href={solutionsMenu.featured.href}
+                      onClick={() => setSolutionsOpen(false)}
+                      className="flex flex-col"
+                    >
+                      <div
+                        className="aspect-[4/3] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
+                        style={{ backgroundImage: `url(${solutionsMenu.featured.image})` }}
+                      />
+                      <p className="mt-3 text-[10px] text-[#ADADAA]">
+                        {solutionsMenu.featured.eyebrow}
+                      </p>
+                      <h4 className="mt-1 font-display text-[15px] leading-tight text-[#111110]">
+                        {solutionsMenu.featured.title}
+                      </h4>
+                      <p className="mt-1 text-[12px] text-[#111110] underline-offset-4 hover:underline">
+                        {solutionsMenu.featured.cta}
+                      </p>
+                    </a>
                   </div>
-                  <div className="flex items-center justify-end border-t border-[#E8E8E6] px-8 py-4">
+                  <div className="mx-auto flex max-w-7xl items-center justify-end border-t border-[#E8E8E6] px-8 py-4">
                     <a
                       href={solutionsMenu.ctaAllHref}
                       onClick={() => setSolutionsOpen(false)}
