@@ -169,7 +169,7 @@ export default function Nav() {
                   </div>
                 );
               }
-              return link.href ? (
+              return (
                 <a
                   key={link.label}
                   href={link.href}
@@ -177,10 +177,6 @@ export default function Nav() {
                 >
                   {inner}
                 </a>
-              ) : (
-                <span key={link.label} className="flex cursor-default items-center gap-1.5 text-sm text-[#6B6A67]">
-                  {inner}
-                </span>
               );
             })}
           </nav>
@@ -310,7 +306,7 @@ export default function Nav() {
                       </p>
                     </a>
                   </div>
-                  <div className="mx-auto flex max-w-7xl items-center justify-end border-t border-[#E8E8E6] px-8 py-4">
+                  <div className="mx-auto flex max-w-7xl items-center justify-end px-8 py-4">
                     <a
                       href={solutionsMenu.ctaAllHref}
                       onClick={() => setSolutionsOpen(false)}
@@ -343,7 +339,7 @@ export default function Nav() {
                   )}
                 </>
               );
-              return link.href ? (
+              return (
                 <a
                   key={link.label}
                   href={link.href}
@@ -352,10 +348,6 @@ export default function Nav() {
                 >
                   {inner}
                 </a>
-              ) : (
-                <span key={link.label} className="flex cursor-default items-center gap-2 text-base text-[#6B6A67]">
-                  {inner}
-                </span>
               );
             })}
             <button

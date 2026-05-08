@@ -16,7 +16,6 @@ export const translations = {
       links: [
         { label: "Product", href: "#product", menu: "product" as const },
         { label: "Solutions", href: "#solutions", menu: "solutions" as const },
-        { label: "Viewing Room Studio", href: "", badge: "Bientôt" },
         { label: "Offres", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
@@ -466,7 +465,6 @@ export const translations = {
       links: [
         { label: "Product", href: "#product", menu: "product" as const },
         { label: "Solutions", href: "#solutions", menu: "solutions" as const },
-        { label: "Viewing Room Studio", href: "", badge: "Soon" },
         { label: "Offers", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
