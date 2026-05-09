@@ -2341,20 +2341,20 @@ function ExportPhonePreview({ setup, images, blocks }: { setup: VrSetup; images:
   )
 
   return (
-    <div className="relative flex h-full w-full items-end justify-center overflow-hidden rounded-[48px] bg-[#070808] px-6 pb-2 pt-2 shadow-2xl sm:px-8 sm:pb-3 sm:pt-2">
-      <div className="pointer-events-none absolute inset-0 rounded-[48px] bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
-      <div className="pointer-events-none absolute inset-[1px] rounded-[47px] border border-white/10" />
+    <div className="relative flex h-full w-full items-end justify-center overflow-hidden rounded-[8px] bg-[#070808] px-6 pb-2 pt-2 shadow-2xl sm:px-8 sm:pb-3 sm:pt-2">
+      <div className="pointer-events-none absolute inset-0 rounded-[8px] bg-[radial-gradient(circle_at_22%_12%,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_80%_78%,rgba(255,255,255,0.08),transparent_34%)]" />
+      <div className="pointer-events-none absolute inset-[1px] rounded-[8px] border border-white/10" />
       <div className="pointer-events-none absolute -right-16 top-10 h-56 w-56 rounded-full bg-white/10 blur-3xl" />
       <div className="pointer-events-none absolute -bottom-24 left-8 h-52 w-52 rounded-full bg-black blur-3xl" />
 
-      <div className="relative z-10 h-[540px] w-[268px] shrink-0 translate-y-20 rounded-[52px] bg-gradient-to-br from-zinc-300 via-zinc-950 to-black p-[5px] shadow-[0_38px_90px_rgba(15,23,42,0.34),inset_0_1px_0_rgba(255,255,255,0.45)]">
+      <div className="relative z-10 h-[540px] w-[278px] shrink-0 translate-y-20 rounded-[52px] bg-gradient-to-br from-zinc-300 via-zinc-950 to-black p-[5px] shadow-[0_38px_90px_rgba(15,23,42,0.34),inset_0_1px_0_rgba(255,255,255,0.45)]">
         <div className="absolute -left-1 top-24 h-14 w-1 rounded-l-full bg-zinc-800/80" />
         <div className="absolute -right-1 top-32 h-20 w-1 rounded-r-full bg-zinc-800/80" />
         <div className="absolute inset-[2px] rounded-[50px] border border-white/25 pointer-events-none" />
         <div className="relative h-full w-full overflow-hidden rounded-[46px] bg-white ring-1 ring-black/80">
           <div className="absolute left-1/2 top-3 z-30 h-6 w-24 -translate-x-1/2 rounded-full bg-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_1px_8px_rgba(0,0,0,0.25)]" />
           <div className="h-full overflow-hidden bg-white">
-            <div className="h-full overflow-y-auto bg-white px-2">
+            <div className="h-full overflow-y-auto bg-white px-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               {screen}
             </div>
           </div>
@@ -2663,7 +2663,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       <div className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       <div className="relative flex w-full max-w-[940px] items-stretch justify-center gap-4 lg:gap-5">
-      <div className={`relative flex w-full max-w-md flex-col overflow-hidden rounded-t-[32px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:rounded-[40px] ${embedded ? 'max-h-[calc(100%-1rem)] lg:h-[520px]' : 'max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] lg:h-[560px]'}`}>
+      <div className={`relative flex w-full max-w-md flex-col overflow-hidden rounded-[8px] border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 ${embedded ? 'max-h-[calc(100%-1rem)] lg:h-[520px]' : 'max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] lg:h-[560px]'}`}>
         <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 dark:border-gray-800 sm:px-7 sm:py-5">
           <div>
             <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100">Export your viewing room</h2>
@@ -2687,7 +2687,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
           {error ? <p className="text-xs text-red-600 dark:text-red-300 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900/60 px-4 py-3 rounded-lg">{error}</p> : null}
           {success ? <p className="text-xs text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/60 px-4 py-3 rounded-lg">{success}</p> : null}
 
-          <div className="flex flex-col gap-3 rounded-[24px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 rounded-[8px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Download as PDF</p>
               <p className="text-xs text-gray-400 mt-0.5">High-resolution A4 document</p>
@@ -2696,14 +2696,14 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
               type="button"
               onClick={handlePDF}
               disabled={!hasContent || isBusy}
-              className="h-11 w-full rounded-full border border-gray-200 bg-white px-5 text-sm text-gray-700 transition-colors hover:border-gray-400 disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:h-10 sm:w-auto sm:min-w-[92px]"
+              className="h-10 w-full rounded-full border border-gray-200 bg-white px-4 text-[13px] text-gray-700 transition-colors hover:border-gray-400 disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:h-9 sm:w-auto sm:min-w-[82px]"
             >
               {generating ? 'Exporting…' : 'PDF'}
             </button>
           </div>
 
           <div className="space-y-3">
-            <div className="flex flex-col gap-3 rounded-[24px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-3 rounded-[8px] border border-gray-100 p-4 dark:border-gray-800 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-100">Share by email or WhatsApp</p>
                 <p className="text-xs text-gray-400 mt-0.5">
@@ -2716,7 +2716,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
                 type="button"
                 onClick={handleShare}
                 disabled={!hasContent || isBusy}
-                className="h-11 w-full rounded-full border border-gray-200 bg-white px-5 text-sm text-gray-700 transition-colors hover:border-gray-400 disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:h-10 sm:w-auto sm:min-w-[112px]"
+                className="h-10 w-full rounded-full border border-gray-200 bg-white px-4 text-[13px] text-gray-700 transition-colors hover:border-gray-400 disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:h-9 sm:w-auto sm:min-w-[100px]"
               >
                 {preparingPayload ? 'Preparing…' : saving ? 'Generating…' : shareUrl ? 'Regenerate' : 'Generate'}
               </button>
@@ -2739,7 +2739,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
                       type="button"
                       onClick={() => openShareChannel('email')}
                       disabled={allActionsDisabled}
-                      className="h-11 rounded-full bg-gray-900 text-sm text-white transition-colors hover:bg-gray-700 disabled:opacity-40 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+                      className="h-10 rounded-full bg-gray-900 text-[13px] text-white transition-colors hover:bg-gray-700 disabled:opacity-40 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100 sm:h-9"
                     >
                       {sharingChannel === 'email' ? 'Sending…' : 'Email'}
                     </button>
@@ -2747,25 +2747,31 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
                       type="button"
                       onClick={() => openShareChannel('whatsapp')}
                       disabled={allActionsDisabled}
-                      className="h-11 rounded-full bg-[#25D366] text-sm text-white transition-colors hover:bg-[#1ebe5d] disabled:opacity-40"
+                      className="h-10 rounded-full bg-[#25D366] text-[13px] text-white transition-colors hover:bg-[#1ebe5d] disabled:opacity-40 sm:h-9"
                     >
                       {sharingChannel === 'whatsapp' ? 'Opening…' : 'WhatsApp'}
                     </button>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between gap-3 px-1 text-sm">
-                  <span className="truncate text-xs text-gray-400">Private link ready</span>
-                  <button type="button" onClick={copyShareUrl} className="font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                    {copied ? 'Copied' : 'Copy link'}
-                  </button>
-                  <a href={shareUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">↗</a>
+                <div className="flex items-center justify-between gap-3 px-1 text-xs">
+                  <span className="truncate text-[11px] text-gray-400">Private link ready</span>
+                  <div className="flex shrink-0 items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={copyShareUrl}
+                      className="text-[11px] font-medium text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+                    >
+                      {copied ? 'Copied' : 'Copy link'}
+                    </button>
+                    <a href={shareUrl} target="_blank" rel="noopener noreferrer" className="inline-flex text-[11px] font-medium text-gray-500 transition-transform duration-150 ease-out hover:-translate-y-0.5 hover:translate-x-0.5 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100">↗</a>
+                  </div>
                 </div>
               </div>
             ) : null}
           </div>
         </div>
-          <div className="rounded-[22px] border border-gray-100 bg-gray-50/70 px-4 py-3 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-800/40 dark:text-gray-400">
+          <div className="rounded-[8px] border border-gray-100 bg-gray-50/70 px-4 py-3 text-[11px] text-gray-500 dark:border-gray-800 dark:bg-gray-800/40 dark:text-gray-400">
             {[
               ['Layout preview ready', hasContent],
               ['Artwork captions included', usedImageCount > 0],
