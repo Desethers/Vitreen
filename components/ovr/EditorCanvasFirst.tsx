@@ -881,9 +881,23 @@ export default function EditorCanvasFirst() {
     setBlocks(prev => {
       const q = prev.find(b => b.id === quoteBlockId)
       const f = prev.find(b => b.id === fullBlockId)
-      if (!q || !f || q.type !== 'quote' || f.type !== 'full') return prev
+      if (!q || !f || (q.type !== 'quote' && q.type !== 'side') || f.type !== 'full') return prev
+      const quoteImageId = q.type === 'side' ? q.slots[0]?.imageId ?? null : null
       const next = prev.flatMap(b => {
-        if (b.id === q.id) return []
+        if (b.id === q.id) {
+          if (quoteImageId) {
+            return [{
+              ...q,
+              type: 'full' as BlockType,
+              slots: [{ imageId: quoteImageId }],
+              quoteText: '',
+              quoteAuthor: '',
+              textStyle: undefined,
+              sideTextType: undefined,
+            }]
+          }
+          return []
+        }
         if (b.id === f.id) return [{ ...f, type: 'side' as BlockType, quoteText: q.quoteText, quoteAuthor: q.quoteAuthor, textStyle: q.textStyle, sideTextType: 'quote' as const }]
         return [b]
       })
