@@ -989,7 +989,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
 export default function Solution() {
   const { t } = useLang();
   return (
-    <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
+    <section id="tools" className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

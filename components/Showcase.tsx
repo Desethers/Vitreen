@@ -976,9 +976,9 @@ function AdminMock() {
       <div className="hidden md:flex w-[130px] shrink-0 bg-white border-r border-[#EBEBEA] flex-col py-4 px-3">
         <div className="flex items-center gap-2 mb-5 px-1">
           <div className="w-5 h-5 rounded bg-[#111110] flex items-center justify-center shrink-0">
-            <span className="text-white text-[7px] font-bold">GOS</span>
+            <span className="text-white text-[7px] font-bold">AS</span>
           </div>
-          <span className="text-[10px] font-semibold text-[#111110] tracking-[-0.01em]">Gallery OS</span>
+          <span className="text-[10px] font-semibold text-[#111110] tracking-[-0.01em]">Archive</span>
         </div>
         <div className="flex flex-col gap-0.5 flex-1">
           {sidebarItems.map(({ label, active }) => (
@@ -993,9 +993,9 @@ function AdminMock() {
       {/* ── Mobile header ── */}
       <div className="md:hidden absolute top-0 left-0 right-0 h-9 bg-white border-b border-[#EBEBEA] flex items-center px-3 gap-2 z-10">
         <div className="w-5 h-5 rounded bg-[#111110] flex items-center justify-center shrink-0">
-          <span className="text-white text-[7px] font-bold">GOS</span>
+          <span className="text-white text-[7px] font-bold">AS</span>
         </div>
-        <span className="text-[11px] font-semibold text-[#111110] tracking-[-0.01em] flex-1">Gallery OS</span>
+        <span className="text-[11px] font-semibold text-[#111110] tracking-[-0.01em] flex-1">Archive</span>
         <div className="w-5 h-5 rounded-full bg-[#F0F0EE]" />
       </div>
 

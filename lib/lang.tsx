@@ -14,18 +14,18 @@ export const translations = {
   fr: {
     nav: {
       links: [
-        { label: "Product", href: "#product", menu: "product" as const },
-        { label: "Solutions", href: "#solutions", menu: "solutions" as const },
-        { label: "Offres", href: "#offre" },
+        { label: "Outils", href: "#tools", menu: "product" as const },
+        { label: "Workflows", href: "#solutions", menu: "solutions" as const },
+        { label: "Déploiement", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
       ],
       productMenu: {
-        sectionLabel: "Core Functionality",
+        sectionLabel: "Outils",
         items: [
-          { title: "Overview", desc: "Tout piloter en un outil", href: "#overview" },
-          { title: "Inventaire", desc: "Œuvres, statuts, provenance", href: "#inventaire" },
-          { title: "Vitrine Galerie", desc: "Site, artistes, expositions", href: "#vitrine" },
+          { title: "Overview", desc: "Publier, partager, suivre", href: "#overview" },
+          { title: "Artwork Source", desc: "Source connectée ou native", href: "#inventory-source" },
+          { title: "Publishing", desc: "Site, artistes, expositions", href: "#vitrine" },
           { title: "Viewing Room Studio", desc: "Salons privés en ligne", href: "#viewing", badge: "Bientôt" },
           { title: "Demandes", desc: "Inbox reliée aux œuvres", href: "#demandes" },
           { title: "Distribute", desc: "Story, newsletter, PDF", href: "#distribute" },
@@ -41,7 +41,7 @@ export const translations = {
         },
       },
       solutionsMenu: {
-        ctaAll: "Toutes les solutions →",
+        ctaAll: "Tous les workflows →",
         ctaAllHref: "#solutions",
         featured: {
           eyebrow: "À la une",
@@ -54,7 +54,7 @@ export const translations = {
           {
             label: "By role",
             items: [
-              { title: "Galeries", desc: "Inventaire, expositions, demandes", href: "#galeries" },
+              { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "#galeries" },
               { title: "Conseillers & Marchands", desc: "Sélections privées et suivi client", href: "#conseil" },
               { title: "Artistes", desc: "Archive, séries, présentation", href: "#artistes" },
               { title: "Collectionneurs", desc: "Acquisitions et documents", href: "#collectionneurs" },
@@ -64,7 +64,7 @@ export const translations = {
           {
             label: "By area",
             items: [
-              { title: "Gestion de galerie", desc: "Œuvres, contacts, statuts", href: "#gallery-management" },
+              { title: "Workflow galerie", desc: "Œuvres, contacts, statuts", href: "#gallery-management" },
               { title: "Sites web", desc: "Artistes et expositions", href: "#websites" },
               { title: "Contenu social", desc: "Formats prêts à publier", href: "#social-content" },
               { title: "Marketing", desc: "Invitations et newsletters", href: "#marketing" },
@@ -72,7 +72,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Réserver une démo",
+      cta: "Discuter de votre setup",
       modal: {
         title: "Nous contacter",
         subtitle: "Décrivez votre projet. Réponse sous 48 h.",
@@ -93,9 +93,28 @@ export const translations = {
     },
     hero: {
       title:
-        "Conçu pour piloter toute votre galerie, Vitreen réunit expositions, viewing rooms, ventes et relation collectionneurs.",
-      ctaPrimary: "Réserver une démo",
-      ctaSecondary: "Voir les tarifs",
+        "Des outils qui s’intègrent à la manière dont les galeries travaillent déjà.",
+      subtitle:
+        "Connect existing systems or build a custom operating structure for artworks, exhibitions, private selections and collector communication.",
+      ctaPrimary: "Discuter de votre setup",
+      ctaSecondary: "Voir les outils",
+    },
+    artworkSource: {
+      kicker: "Artwork source",
+      title: "Connectez votre inventaire. Ou construisez-le dans Vitreen.",
+      body:
+        "Vitreen part du setup que votre galerie utilise déjà, ou fournit une base propre lorsque les œuvres doivent être structurées directement dans l’outil.",
+      connectedLabel: "Connected source",
+      connectedTitle: "Existing inventory",
+      connectedBody:
+        "Connect Artlogic, CSV, spreadsheets, Airtable or other gallery records.",
+      orLabel: "ou",
+      nativeLabel: "Native source",
+      nativeTitle: "Artwork Library",
+      nativeBody:
+        "Use Vitreen as a clean artwork source for selected works, exhibitions and private sales material.",
+      note:
+        "In both cases, artworks flow into the same publishing, viewing room, PDF and collector communication tools.",
     },
     audiences: {
       tabs: ["Galeries", "Artistes", "Art Advisors", "Collection Privée"],
@@ -148,21 +167,21 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "Et en coulisses, un back office pensé pour les galeries.",
+      title: "Et en coulisses, un espace de travail connecté aux galeries.",
       subtitle:
-        "Demandes, expositions, inventaire. Tout ce qu'il faut pour la faire tourner.",
+        "Demandes, expositions, œuvres. Le nécessaire pour publier, partager et suivre.",
       cards: [
         {
-          title: "Les demandes, classées.",
-          desc: "Chaque demande d\u2019œuvre arrive dans une seule boîte — reliée à l\u2019artiste, à l\u2019œuvre et au collectionneur.",
+          title: "Les demandes, reliées aux œuvres.",
+          desc: "Chaque demande arrive avec le contexte utile : artiste, œuvre, sélection privée ou viewing room.",
         },
         {
-          title: "Planifiez l\u2019année sur une seule vue.",
-          desc: "Glissez pour programmer les expositions. Les œuvres liées et les pages se publient toutes seules.",
+          title: "Préparez les expositions une seule fois.",
+          desc: "Les œuvres sélectionnées alimentent les pages, les viewing rooms et les présentations collectionneurs.",
         },
         {
-          title: "Un inventaire toujours à jour.",
-          desc: "Prix, statut, provenance et fiches artistes — une seule source de vérité.",
+          title: "Des données prêtes à circuler.",
+          desc: "Prix, statut, médium et informations artistes restent disponibles pour les surfaces collector-facing.",
         },
       ],
       bio: [
@@ -175,21 +194,21 @@ export const translations = {
       readBio: "Lire la biographie complète",
     },
     solution: {
-      title: "Transformez les visiteurs en collectionneurs.",
+      title: "Transformez les œuvres en outils collector-facing.",
       subtitle:
-        "Chaque page d'œuvre invite à une demande, un viewing privé ou un partage.",
+        "Un même artwork source alimente les pages, les sélections privées et les demandes.",
       cards: [
         {
-          title: "Direct Inquiry",
-          desc: "Achat ou demande depuis la page œuvre.",
+          title: "Publishing Workspace",
+          desc: "Transformez les données d’œuvres en pages, expositions, viewing rooms, PDFs et emails collectionneurs.",
         },
         {
-          title: "Private Viewing",
-          desc: "Envoyez une sélection à vos collectionneurs.",
+          title: "Private Selections",
+          desc: "Préparez des sélections adaptées pour collectionneurs, advisors ou previews de foires.",
         },
         {
-          title: "One-tap Share",
-          desc: "Story, lien partageable, relance — en un clic.",
+          title: "Inquiry Layer",
+          desc: "Rattachez l’intérêt collectionneur aux œuvres, viewing rooms et sélections privées sans changer vos outils clients.",
         },
       ],
     },
@@ -200,7 +219,7 @@ export const translations = {
         "Composez, partagez, convertissez. Votre premier pas avec Vitreen.",
       option: {
         label: "Produit d’entrée",
-        title: "Commencer par une room.",
+        title: "Commencer par une viewing room.",
         body:
           "Composez une sélection privée, ajoutez le contexte juste, envoyez un lien soigné et transformez l’échange en demande concrète.",
         cta: "Créer une room",
@@ -233,26 +252,27 @@ export const translations = {
       },
     },
     processFlow: {
-      title: "Passez à une nouvelle génération de site galerie",
-      subtitle: "Site livré en 3 semaines.",
+      title: "Conçu autour de votre workflow existant.",
+      subtitle:
+        "Vitreen se connecte à vos opérations puis ajoute les outils pour publier, partager et suivre.",
       steps: [
         {
           number: "01",
-          title: "Discovery",
-          desc: "Nous commençons par comprendre vos contenus et votre fonctionnement. Artistes, œuvres, expositions : tout est structuré avant de concevoir.",
-          week: "SEMAINE 1",
+          title: "Commencez depuis votre setup existant",
+          desc: "Connectez Artlogic, CSV, tableurs ou gérez les œuvres directement dans la Vitreen Artwork Library.",
+          week: "CONNECT",
         },
         {
           number: "02",
-          title: "Design & intégration.",
-          desc: "Un design précis, adapté à votre identité et propulsé par un CMS intuitif, conçu pour engager durablement collectionneurs et professionnels.",
-          week: "SEMAINE 2",
+          title: "Préparez les œuvres pour la publication",
+          desc: "Les données d’œuvres sont structurées pour les expositions, viewing rooms, sélections privées, PDFs et publications web.",
+          week: "STRUCTURE",
         },
         {
           number: "03",
-          title: "Mise en ligne.",
-          desc: "Site livré, formation à l\u2019outil incluse. Vous êtes autonome dès le premier jour. Un système simple et durable pour faire évoluer vos contenus en toute indépendance.",
-          week: "SEMAINE 3",
+          title: "Partagez et suivez en continu",
+          desc: "Publiez, envoyez et suivez les sorties collector-facing depuis la même source d’œuvres.",
+          week: "OPERATE",
         },
       ],
     },
@@ -313,65 +333,71 @@ export const translations = {
       },
     },
     services: {
-      title: "Choisissez votre formule",
-      subtitle: "Recrutez votre partenaire de croissance digitale.",
+      title: "Tarification par déploiement",
+      subtitle:
+        "Vitreen est configuré autour du workflow, des outils et des besoins collector-facing de chaque galerie.",
       items: [
         {
-          tier: "PORTFOLIO",
-          name: "Artist Studio",
+          tier: "EXISTING SETUP",
+          name: "Connected Deployment",
           description:
-            "Un studio digital pour artistes indépendants — présentez votre travail, gérez votre archive, connectez vos collectionneurs.",
+            "Connect Vitreen to your existing gallery workflow.",
           featuresHeading: "Inclus :",
           features: [
-            "Site rapide & responsive",
-            "Pages essentielles",
-            "Contact sur chaque œuvre",
-            "SEO de base",
-            "Dashboard privé archive & demandes",
-          ],
-          delivery: "Livraison : 5 jours ouvrés",
-          price: "À partir de 1 500 €",
-          priceNote: "Paiement unique (one-time)",
-          cta: "Commencer",
-          highlight: false as const,
-        },
-        {
-          tier: "SITE GALERIE",
-          name: "Gallery Growth",
-          description:
-            "Un site galerie clair, structuré et prêt à être utilisé.",
-          featuresHeading: "Inclus :",
-          features: [
-            "Catalogue illimité",
-            "Site web galerie complet",
-            "Parcours orienté collectionneur",
-            "Inquiry system optimisé",
-            "SEO marché de l\u2019art",
-            "Gallery OS privé : base de données & ventes",
-          ],
-          delivery: "Livraison : 3 semaines",
-          price: "À partir de 2000€ mise en place\n+ 200 € / mois",
-          priceNote: "Frais de mise en place puis abonnement mensuel.",
-          cta: "Commencer",
-          highlight: false as const,
-        },
-        {
-          tier: "PARTNER",
-          name: "Partner",
-          description: "Un responsable digital externalisé pour votre galerie.",
-          featuresHeading: "Inclus :",
-          features: [
-            "Gestion continue du site",
-            "Publication & mise à jour",
-            "Newsletter stratégique",
-            "Structuration des contacts",
-            "Diffusion sur plateformes",
-            "Tracking & analyse",
+            "Inventory connector",
+            "Viewing rooms",
+            "Private selections",
+            "PDF generation",
+            "Inquiry layer",
+            "Connected website publishing",
+            "Gallery onboarding",
           ],
           delivery: undefined as string | undefined,
-          price: "À partir de 2000€ mise en place\n+ 450 € / mois",
-          priceNote: "Sans engagement. Résiliable à tout moment.",
-          cta: "Discuter du projet",
+          price: "Custom",
+          priceNote: "Configured around your current setup.",
+          cta: "Discuss your setup",
+          highlight: false as const,
+        },
+        {
+          tier: "STRUCTURED SETUP",
+          name: "Structured Deployment",
+          description:
+            "For galleries that need a cleaner structure for artworks, exhibitions and collector communication.",
+          featuresHeading: "Inclus :",
+          features: [
+            "Custom artwork structure",
+            "Structured exhibitions",
+            "Viewing rooms",
+            "Private selections",
+            "PDF generation",
+            "Inquiry layer",
+            "Connected website publishing",
+            "Gallery onboarding",
+          ],
+          delivery: undefined as string | undefined,
+          price: "Custom",
+          priceNote: "Structured around your publishing workflow.",
+          cta: "Plan a deployment",
+          highlight: false as const,
+        },
+        {
+          tier: "CUSTOM OPERATIONS",
+          name: "Custom Deployment",
+          description:
+            "Build a tailored structure for artworks, exhibitions, collector communication and publishing workflows.",
+          featuresHeading: "Inclus :",
+          features: [
+            "Workflow mapping",
+            "Artlogic / CSV / spreadsheet connector",
+            "Private sales workflows",
+            "Advanced publishing structure",
+            "Custom outputs",
+            "Ongoing operational support",
+          ],
+          delivery: undefined as string | undefined,
+          price: "Custom",
+          priceNote: "Adapted to your gallery.",
+          cta: "Request a custom setup",
           highlight: true as const,
         },
       ],
@@ -410,7 +436,7 @@ export const translations = {
           body1:
             "Données, échanges et historique avec chaque collectionneur se retrouvent au même endroit — fini les informations éparpillées entre mails et outils.",
           body2:
-            "Vitreen centralise et structure votre écosystème, transformant votre audience en actif stratégique plutôt qu\u2019en dépendance externe.",
+            "Vitreen relie vos œuvres, sélections et demandes pour rendre chaque échange plus lisible et plus facile à suivre.",
         },
       ],
     },
@@ -433,7 +459,7 @@ export const translations = {
         },
         {
           q: "Dois-je utiliser un logiciel spécifique ?",
-          a: "Non. Tout se gère depuis votre navigateur, sans installation.",
+          a: "Non. Vitreen peut se connecter à un inventaire existant ou utiliser la Vitreen Artwork Library comme source d’œuvres.",
         },
         {
           q: "Que se passe-t-il si je veux arrêter ?",
@@ -450,12 +476,12 @@ export const translations = {
       ],
     },
     ctaBand: {
-      title: "Donnez une nouvelle dimension à votre galerie",
-      subtitle: "Discutons de votre projet, sans engagement",
-      cta: "Réserver une démo",
+      title: "Commencez avec votre workflow actuel",
+      subtitle: "Ajoutez les outils dont votre galerie a besoin",
+      cta: "Discuter de votre setup",
     },
     footer: {
-      copy: "© 2025 — Sites web pour galeries d\u2019art contemporain",
+      copy: "© 2025 — Outils collector-facing pour galeries d’art contemporain",
       switchTo: "EN",
       currentLang: "FR",
     },
@@ -463,18 +489,18 @@ export const translations = {
   en: {
     nav: {
       links: [
-        { label: "Product", href: "#product", menu: "product" as const },
-        { label: "Solutions", href: "#solutions", menu: "solutions" as const },
-        { label: "Offers", href: "#offre" },
+        { label: "Tools", href: "#tools", menu: "product" as const },
+        { label: "Workflows", href: "#solutions", menu: "solutions" as const },
+        { label: "Deployment", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
       ],
       productMenu: {
-        sectionLabel: "Core Functionality",
+        sectionLabel: "Tools",
         items: [
-          { title: "Overview", desc: "Run it all in one tool", href: "#overview" },
-          { title: "Inventory", desc: "Works, status, provenance", href: "#inventaire" },
-          { title: "Gallery Storefront", desc: "Site, artists, exhibitions", href: "#vitrine" },
+          { title: "Overview", desc: "Publish, share, follow up", href: "#overview" },
+          { title: "Artwork Source", desc: "Connected or native source", href: "#inventory-source" },
+          { title: "Publishing", desc: "Website, artists, exhibitions", href: "#vitrine" },
           { title: "Viewing Room Studio", desc: "Private online showrooms", href: "#viewing", badge: "Soon" },
           { title: "Inquiries", desc: "Inbox tied to works", href: "#demandes" },
           { title: "Distribute", desc: "Story, newsletter, PDF", href: "#distribute" },
@@ -490,7 +516,7 @@ export const translations = {
         },
       },
       solutionsMenu: {
-        ctaAll: "All solutions →",
+        ctaAll: "All workflows →",
         ctaAllHref: "#solutions",
         featured: {
           eyebrow: "Featured",
@@ -503,7 +529,7 @@ export const translations = {
           {
             label: "By role",
             items: [
-              { title: "Galleries", desc: "Inventory, shows, inquiries", href: "#galleries" },
+              { title: "Galleries", desc: "Artworks, shows, inquiries", href: "#galleries" },
               { title: "Advisors and dealers", desc: "Private selections and client follow-up", href: "#conseil" },
               { title: "Artists", desc: "Archive, series, presentation", href: "#artistes" },
               { title: "Collectors", desc: "Acquisitions and documents", href: "#collectionneurs" },
@@ -513,7 +539,7 @@ export const translations = {
           {
             label: "By area",
             items: [
-              { title: "Gallery management", desc: "Works, contacts, statuses", href: "#gallery-management" },
+              { title: "Gallery workflow", desc: "Works, contacts, statuses", href: "#gallery-management" },
               { title: "Websites", desc: "Artists and exhibitions", href: "#websites" },
               { title: "Social content", desc: "Ready-to-publish formats", href: "#social-content" },
               { title: "Marketing", desc: "Invites and newsletters", href: "#marketing" },
@@ -521,7 +547,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Book a demo",
+      cta: "Discuss your setup",
       modal: {
         title: "Get in touch",
         subtitle:
@@ -542,9 +568,28 @@ export const translations = {
     },
     hero: {
       title:
-        "Built to run every part of your gallery, Vitreen unifies exhibitions, viewing rooms, sales, and collector outreach.",
-      ctaPrimary: "Book a demo",
-      ctaSecondary: "See pricing",
+        "Tools that plug into the way galleries already work.",
+      subtitle:
+        "Connect existing systems or build a custom operating structure for artworks, exhibitions, private selections and collector communication.",
+      ctaPrimary: "Discuss your setup",
+      ctaSecondary: "View tools",
+    },
+    artworkSource: {
+      kicker: "Artwork source",
+      title: "Connect your inventory. Or build it in Vitreen.",
+      body:
+        "Vitreen starts from the setup your gallery already uses, or provides a clean base when artworks need to be structured directly inside the tool.",
+      connectedLabel: "Connected source",
+      connectedTitle: "Existing inventory",
+      connectedBody:
+        "Connect Artlogic, CSV, spreadsheets, Airtable or other gallery records.",
+      orLabel: "or",
+      nativeLabel: "Native source",
+      nativeTitle: "Artwork Library",
+      nativeBody:
+        "Use Vitreen as a clean artwork source for selected works, exhibitions and private sales material.",
+      note:
+        "In both cases, artworks flow into the same publishing, viewing room, PDF and collector communication tools.",
     },
     audiences: {
       tabs: ["Galleries", "Artists", "Art Advisors", "Private Collection"],
@@ -597,21 +642,21 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "And behind the scenes, a back office built for galleries.",
+      title: "And behind the scenes, a workspace connected to galleries.",
       subtitle:
-        "Inquiries, exhibitions, inventory. Everything you need to run it.",
+        "Inquiries, exhibitions, artworks. The tools needed to publish, share and follow up.",
       cards: [
         {
-          title: "Collector inquiries, organised.",
-          desc: "Every artwork inquiry lands in one inbox — tied to the artist, the work, and the collector.",
+          title: "Inquiries linked to artworks.",
+          desc: "Every inquiry arrives with useful context: artist, artwork, private selection or viewing room.",
         },
         {
-          title: "Plan your year on one canvas.",
-          desc: "Drag to schedule exhibitions. Linked artworks and pages publish themselves.",
+          title: "Prepare exhibitions once.",
+          desc: "Selected artworks feed pages, viewing rooms and collector presentations.",
         },
         {
-          title: "Inventory, always up to date.",
-          desc: "Price, status, provenance and artist records — a single source of truth.",
+          title: "Artwork data ready to move.",
+          desc: "Price, status, medium and artist information stay available for collector-facing surfaces.",
         },
       ],
       bio: [
@@ -624,18 +669,21 @@ export const translations = {
       readBio: "Read full biography",
     },
     solution: {
-      title: "Turn viewers into collectors.",
+      title: "Turn artwork data into collector-facing tools.",
       subtitle:
-        "Every artwork page invites collectors to inquire, view privately, or share.",
+        "One artwork source feeds pages, private selections and inquiries.",
       cards: [
-        { title: "Direct Inquiry", desc: "Buy or ask from the artwork page." },
         {
-          title: "Private Viewing",
-          desc: "Send a curated selection to your collectors.",
+          title: "Publishing Workspace",
+          desc: "Turn artwork data into website pages, exhibitions, viewing rooms, PDFs and collector emails.",
         },
         {
-          title: "One-tap Share",
-          desc: "Post to stories, send a link, spark a reply.",
+          title: "Private Selections",
+          desc: "Prepare tailored selections for collectors, advisors or fair previews.",
+        },
+        {
+          title: "Inquiry Layer",
+          desc: "Attach collector interest to artworks, viewing rooms and private selections without changing your client tools.",
         },
       ],
     },
@@ -646,7 +694,7 @@ export const translations = {
         "Compose, share, convert. Your first step with Vitreen.",
       option: {
         label: "Entry product",
-        title: "Start with one room.",
+        title: "Start with a viewing room.",
         body:
           "Build a private selection, add the right context, send a polished link, and turn the exchange into a concrete inquiry.",
         cta: "Create a room",
@@ -679,26 +727,27 @@ export const translations = {
       },
     },
     processFlow: {
-      title: "Move to a new generation of gallery website",
-      subtitle: "Website delivered in 3 weeks.",
+      title: "Built around your existing workflow.",
+      subtitle:
+        "Vitreen connects to the way your gallery already operates, then adds the tools needed to publish, share and follow up with collectors.",
       steps: [
         {
           number: "01",
-          title: "Discovery",
-          desc: "We start by understanding your content and workflow. Artists, works, exhibitions — everything is structured before we begin designing.",
-          week: "WEEK 1",
+          title: "Start from your existing setup",
+          desc: "Connect Artlogic, CSV, spreadsheets or manage artworks directly inside the Vitreen Artwork Library.",
+          week: "CONNECT",
         },
         {
           number: "02",
-          title: "Design & build.",
-          desc: "Precise design tailored to your identity, powered by an intuitive CMS, built to engage collectors and professionals over the long term.",
-          week: "WEEK 2",
+          title: "Prepare artworks for publishing",
+          desc: "Artwork data is structured for exhibitions, viewing rooms, private selections, PDFs and website publishing.",
+          week: "STRUCTURE",
         },
         {
           number: "03",
-          title: "Launch.",
-          desc: "Site delivered, training included. You are self-sufficient from day one. A simple, lasting system to evolve your content independently.",
-          week: "WEEK 3",
+          title: "Share and follow up continuously",
+          desc: "Publish, send and track collector-facing outputs from the same artwork source.",
+          week: "OPERATE",
         },
       ],
     },
@@ -759,65 +808,71 @@ export const translations = {
       },
     },
     services: {
-      title: "Choose your plan",
-      subtitle: "Hire your digital growth partner.",
+      title: "Deployment-based pricing",
+      subtitle:
+        "Vitreen is configured around each gallery’s existing workflow, tools and collector-facing needs.",
       items: [
         {
-          tier: "PORTFOLIO",
-          name: "Artist Studio",
+          tier: "EXISTING SETUP",
+          name: "Connected Deployment",
           description:
-            "A refined studio for artists — present your work, manage your archive, connect with collectors.",
+            "Connect Vitreen to your existing gallery workflow.",
           featuresHeading: "Included:",
           features: [
-            "Fast & responsive website",
-            "Core pages (artist, exhibitions, texts)",
-            "Contact on each artwork",
-            "Basic SEO",
-            "Private dashboard for archive & enquiries",
-          ],
-          delivery: "Delivery: 5 business days",
-          price: "From €1,500",
-          priceNote: "One-time payment",
-          cta: "Get started",
-          highlight: false as const,
-        },
-        {
-          tier: "GALLERY SITE",
-          name: "Gallery Growth",
-          description:
-            "A clear, structured gallery website ready to use from day one.",
-          featuresHeading: "Included:",
-          features: [
-            "Unlimited catalogue",
-            "Complete gallery website",
-            "Collector-oriented journey",
-            "Optimised inquiry system",
-            "Art market SEO",
-            "Private gallery OS for database & enquiries",
-          ],
-          delivery: "Delivery: 3 weeks",
-          price: "From €2,000 setup + €200 / month",
-          priceNote: "One-time setup, then a monthly subscription.",
-          cta: "Get started",
-          highlight: false as const,
-        },
-        {
-          tier: "PARTNER",
-          name: "Partner",
-          description: "An outsourced digital manager for your gallery.",
-          featuresHeading: "Included:",
-          features: [
-            "Ongoing site management",
-            "Publishing & updates",
-            "Strategic newsletter",
-            "Contact structuring",
-            "Platform distribution",
-            "Tracking & analytics",
+            "Inventory connector",
+            "Viewing rooms",
+            "Private selections",
+            "PDF generation",
+            "Inquiry layer",
+            "Connected website publishing",
+            "Gallery onboarding",
           ],
           delivery: undefined as string | undefined,
-          price: "From €2,000 setup + €450 / month",
-          priceNote: "No commitment. Cancel anytime.",
-          cta: "Discuss the project",
+          price: "Custom",
+          priceNote: "Configured around your current setup.",
+          cta: "Discuss your setup",
+          highlight: false as const,
+        },
+        {
+          tier: "STRUCTURED SETUP",
+          name: "Structured Deployment",
+          description:
+            "For galleries that need a cleaner structure for artworks, exhibitions and collector communication.",
+          featuresHeading: "Included:",
+          features: [
+            "Custom artwork structure",
+            "Structured exhibitions",
+            "Viewing rooms",
+            "Private selections",
+            "PDF generation",
+            "Inquiry layer",
+            "Connected website publishing",
+            "Gallery onboarding",
+          ],
+          delivery: undefined as string | undefined,
+          price: "Custom",
+          priceNote: "Structured around your publishing workflow.",
+          cta: "Plan a deployment",
+          highlight: false as const,
+        },
+        {
+          tier: "CUSTOM OPERATIONS",
+          name: "Custom Deployment",
+          description:
+            "Build a tailored structure for artworks, exhibitions, collector communication and publishing workflows.",
+          featuresHeading: "Included:",
+          features: [
+            "Workflow mapping",
+            "Artlogic / CSV / spreadsheet connector",
+            "Private sales workflows",
+            "Advanced publishing structure",
+            "Custom outputs",
+            "Ongoing operational support",
+          ],
+          delivery: undefined as string | undefined,
+          price: "Custom",
+          priceNote: "Adapted to your gallery.",
+          cta: "Request a custom setup",
           highlight: true as const,
         },
       ],
@@ -859,7 +914,7 @@ export const translations = {
           body1:
             "Data, exchanges and history with each collector brought together in one place \u2014 no more information scattered across emails and tools.",
           body2:
-            "Vitreen centralises and structures your ecosystem, turning your audience into a strategic asset rather than an external dependency.",
+            "Vitreen connects artworks, selections and inquiries so every exchange is clearer and easier to follow.",
         },
       ],
     },
@@ -882,7 +937,7 @@ export const translations = {
         },
         {
           q: "Do I need to use specific software?",
-          a: "No. Everything is managed from your browser, with no installation required.",
+          a: "No. Vitreen can connect to an existing inventory or use the Vitreen Artwork Library as your artwork source.",
         },
         {
           q: "What happens if I want to stop?",
@@ -899,12 +954,12 @@ export const translations = {
       ],
     },
     ctaBand: {
-      title: "Give your gallery a new dimension",
-      subtitle: "Let\u2019s talk about your project \u2014 no commitment",
-      cta: "Book a demo",
+      title: "Start with your current workflow",
+      subtitle: "Add the tools your gallery needs",
+      cta: "Discuss your setup",
     },
     footer: {
-      copy: "\u00a9 2025 \u2014 Websites for contemporary art galleries",
+      copy: "\u00a9 2025 \u2014 Collector-facing tools for contemporary art galleries",
       switchTo: "FR",
       currentLang: "EN",
     },

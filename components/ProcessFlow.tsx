@@ -63,7 +63,7 @@ export default function ProcessFlow() {
   }, [isInView, loopKey]);
 
   return (
-    <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
+    <section id="solutions" className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
