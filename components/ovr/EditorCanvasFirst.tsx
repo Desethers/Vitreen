@@ -285,7 +285,7 @@ function HealthPill({ ratio, done, total, checks }: ReturnType<typeof computeHea
             />
           </svg>
           <span
-            className={`pointer-events-none absolute inset-0 flex items-center justify-center text-[9px] font-semibold tabular-nums leading-none ${
+            className={`pointer-events-none absolute inset-0 flex items-center justify-center text-[8px] font-semibold tabular-nums leading-[1] ${
               ready ? 'text-emerald-600 dark:text-emerald-400' : 'text-gray-800 dark:text-gray-100'
             }`}
           >

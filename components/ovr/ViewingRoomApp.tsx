@@ -1844,7 +1844,8 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
   const acceptsImage = isImageBlock && !isImageSource && filledCount < 3 && !!onMergeImage
   const acceptsImageAsSide = isQuoteBlock && !!onMergeImageIntoQuote
   const acceptsQuote = isImageBlock && block.type === 'full' && !isBlockSource && !!onMergeQuoteIntoFull
-  const acceptsMoveBlock = !!onMergeMoveBlock && !!draggingMoveBlockId && !isMoveBlockSource &&
+  const movingImageBlockCount = draggingMoveBlockFilledCount ?? 0
+  const acceptsMoveBlock = !!onMergeMoveBlock && !!draggingMoveBlockId && movingImageBlockCount > 0 && !isMoveBlockSource &&
     isImageBlock && (filledCount + (draggingMoveBlockFilledCount ?? 0)) <= 3
 
   const label = (() => {
@@ -1879,9 +1880,9 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
       // Réinitialiser tout de suite : après merge la destination contient la même imageId que draggingImageId,
       // donc isImageSource resterait vrai jusqu'à dragend (souvent absent) → preview bloquée en opacity-50.
       onDragEndImage()
-    } else if (blkId) {
+    } else if (blkId && acceptsQuote) {
       e.preventDefault()
-      if (acceptsQuote) onMergeQuoteIntoFull?.(blkId, block.id)
+      onMergeQuoteIntoFull?.(blkId, block.id)
       onDragEndBlock()
     } else if (moveId && acceptsMoveBlock) {
       e.preventDefault()
@@ -1892,6 +1893,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
 
   const draggableBlock = isQuoteBlock && !!onMergeQuoteIntoFull
   const draggableMoveBlock = !!onDragStartMoveBlock
+  const showDragHandle = draggableMoveBlock || draggableBlock
 
   return (
     <div
@@ -1905,16 +1907,27 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           {label}
         </div>
       )}
-      {draggableMoveBlock && (
+      {showDragHandle && (
         <button
           type="button"
           draggable
           onDragStart={(e) => {
             e.dataTransfer.effectAllowed = 'move'
-            e.dataTransfer.setData('text/x-vr-block-move', block.id)
-            onDragStartMoveBlock?.(block.id)
+            if (draggableMoveBlock) {
+              e.dataTransfer.setData('text/x-vr-block-move', block.id)
+              onDragStartMoveBlock?.(block.id)
+            }
+            if (draggableBlock) {
+              const kind = block.textStyle === 'text' ? 'text' : 'quote'
+              e.dataTransfer.setData('text/x-vr-block', block.id)
+              e.dataTransfer.setData('text/x-vr-text-kind', kind)
+              onDragStartBlock(block.id, kind)
+            }
           }}
-          onDragEnd={() => onDragEndMoveBlock?.()}
+          onDragEnd={() => {
+            onDragEndMoveBlock?.()
+            if (draggableBlock) onDragEndBlock()
+          }}
           aria-label="Déplacer ce bloc"
           title="Déplacer ce bloc"
           className="absolute left-[-8px] top-1/2 z-20 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-grab items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color,transform] hover:border-gray-300 hover:bg-white hover:text-gray-800 active:cursor-grabbing active:scale-95 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-gray-600 dark:hover:bg-[#181818] dark:hover:text-gray-100"
@@ -1922,25 +1935,6 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
             <circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/>
           </svg>
-        </button>
-      )}
-      {draggableBlock && (
-        <button
-          type="button"
-          draggable
-          onDragStart={(e) => {
-            const kind = block.textStyle === 'text' ? 'text' : 'quote'
-            e.dataTransfer.effectAllowed = 'move'
-            e.dataTransfer.setData('text/x-vr-block', block.id)
-            e.dataTransfer.setData('text/x-vr-text-kind', kind)
-            onDragStartBlock(block.id, kind)
-          }}
-          onDragEnd={() => onDragEndBlock()}
-          aria-label="Drag to pair with image"
-          title="Drag to pair with image"
-          className="absolute left-0 top-1/2 z-10 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/90 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-gray-300 hover:bg-white hover:text-gray-700 active:cursor-grabbing group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/90 dark:hover:border-gray-600 dark:hover:bg-[#181818] dark:hover:text-gray-200"
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>
         </button>
       )}
       {onRemoveBlock && (
