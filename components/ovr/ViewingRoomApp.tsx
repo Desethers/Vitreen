@@ -1582,8 +1582,9 @@ function PreviewSlot({ imageId, images, landscape, cover, showInquire, inquireCo
   )
 }
 
-function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlock, draggableImages, onDragStartImage, onDragEndImage, wide }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; onRemoveBlock?: (blockId: string) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void; wide?: boolean }) {
+function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlock, draggableImages, onDragStartImage, onDragEndImage, onDragStartBlock, onDragEndBlock, wide }: { block: Block; images: ImageItem[]; onUpdateBlock?: (id: string, patch: Partial<Block>) => void; onUpdateImage?: (id: string, patch: Partial<ImageItem>) => void; onRemoveBlock?: (blockId: string) => void; draggableImages?: boolean; onDragStartImage?: (id: string) => void; onDragEndImage?: () => void; onDragStartBlock?: (id: string, kind: 'quote' | 'text') => void; onDragEndBlock?: () => void; wide?: boolean }) {
   const [orientations, setOrientations] = useState<Record<string, 'portrait' | 'landscape'>>({})
+  const [draggingTextSelf, setDraggingTextSelf] = useState(false)
 
   useEffect(() => {
     ;(block.slots ?? []).forEach(slot => {
@@ -1603,6 +1604,23 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
   const hideInquire = () => onUpdateBlock?.(block.id, { showInquire: false, inquireHidden: true })
   const restoreInquire = () => onUpdateBlock?.(block.id, { showInquire: true, inquireHidden: false })
   const restoreInquireAction = editing ? restoreInquire : undefined
+  const removeQuoteContent = () => {
+    if (block.type === 'side') {
+      const imageId = block.slots[0]?.imageId ?? null
+      if (imageId) {
+        onUpdateBlock?.(block.id, {
+          type: 'full',
+          slots: [{ imageId }],
+          quoteText: '',
+          quoteAuthor: '',
+          textStyle: undefined,
+          sideTextType: undefined,
+        })
+        return
+      }
+    }
+    onRemoveBlock?.(block.id)
+  }
   const imageCount = block.slots.filter(s => s.imageId !== null).length
   const canClearSingleImage = imageCount > 1
   const clearImageFromBlock = (imageId: string | null) => {
@@ -1633,10 +1651,39 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     const seedGray = isVrCanvasQuotePlaceholder(block)
     const bodyCls = asText
       ? `font-sans text-base leading-relaxed mb-3 ${seedGray ? 'text-gray-400 dark:text-gray-500' : 'text-gray-800 dark:text-gray-200'}`
-      : `font-sans text-xl italic leading-relaxed mb-3 ${seedGray ? 'text-gray-400 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}`
+      : `font-sans text-3xl italic leading-relaxed mb-3 ${seedGray ? 'text-gray-400 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}`
     const authorCls = `text-[10px] tracking-widest uppercase ${seedGray ? 'text-gray-400 dark:text-gray-500' : 'text-gray-400'}`
+    const canDragQuote = editing && !!onDragStartBlock
     return (
-      <div className={asText ? 'py-10 px-6 max-w-2xl mx-auto' : 'py-12 px-6 text-center max-w-lg mx-auto'}>
+      <div
+        draggable={canDragQuote}
+        onDragStart={canDragQuote ? (e) => {
+          const kind = asText ? 'text' : 'quote'
+          e.dataTransfer.effectAllowed = 'move'
+          e.dataTransfer.setData('text/x-vr-block', block.id)
+          e.dataTransfer.setData('text/x-vr-text-kind', kind)
+          setDraggingTextSelf(true)
+          onDragStartBlock?.(block.id, kind)
+        } : undefined}
+        onDragEnd={canDragQuote ? () => {
+          setDraggingTextSelf(false)
+          onDragEndBlock?.()
+        } : undefined}
+        className={`group/quote relative rounded-[5px] border transition-[border-color,box-shadow,transform,opacity] ${asText ? 'py-10 px-6 max-w-2xl mx-auto' : 'py-12 px-6 text-center max-w-lg mx-auto'} ${canDragQuote ? 'cursor-grab border-transparent hover:border-gray-200/80 hover:shadow-sm active:cursor-grabbing dark:hover:border-gray-800' : 'border-transparent'} ${draggingTextSelf ? '-translate-y-1 border-gray-200/90 bg-white/80 opacity-70 shadow-xl dark:border-gray-800 dark:bg-[#0f0f0f]/80' : ''}`}
+      >
+        {editing && onRemoveBlock && (
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); removeQuoteContent() }}
+            aria-label="Supprimer la citation"
+            title="Supprimer la citation"
+            className="absolute right-0 top-0 z-20 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/quote:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
+          >
+            <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        )}
         <p className={bodyCls}>
           {editing
             ? (
@@ -1777,16 +1824,47 @@ function PreviewBlock({ block, images, onUpdateBlock, onUpdateImage, onRemoveBlo
     const asText = block.textStyle === 'text'
     const textCls = asText
       ? `font-sans ${wide ? 'text-xl' : 'text-base'} text-gray-800 dark:text-gray-200 leading-relaxed`
-      : `font-sans ${wide ? 'text-xl' : 'text-base'} text-gray-700 dark:text-gray-300 italic leading-relaxed`
+      : `font-sans ${wide ? 'text-3xl' : 'text-xl'} text-gray-700 dark:text-gray-300 italic leading-relaxed`
     const handleDropSideImage = onUpdateBlock
       ? (imgId: string) => onUpdateBlock(block.id, { slots: [{ imageId: imgId }] })
       : undefined
+    const canDragText = editing && !!onDragStartBlock
+    const startTextDrag = canDragText ? (e: React.DragEvent<HTMLDivElement>) => {
+      const kind = asText ? 'text' : 'quote'
+      e.dataTransfer.effectAllowed = 'move'
+      e.dataTransfer.setData('text/x-vr-block', block.id)
+      e.dataTransfer.setData('text/x-vr-text-kind', kind)
+      setDraggingTextSelf(true)
+      onDragStartBlock?.(block.id, kind)
+    } : undefined
+    const endTextDrag = canDragText ? () => {
+      setDraggingTextSelf(false)
+      onDragEndBlock?.()
+    } : undefined
     return (
       <div className="grid grid-cols-1 items-center gap-7 sm:grid-cols-2 sm:gap-10">
         <div>
           <PreviewSlot imageId={block.slots[0]?.imageId ?? null} images={images} cover showInquire={!block.inquireHidden} wide={wide} onHideInquire={hideInquire} onRestoreInquire={restoreInquireAction} onClearImage={() => clearImageFromBlock(block.slots[0]?.imageId ?? null)} onUpdateImage={onUpdateImage} onDropImage={handleDropSideImage} draggable={draggableImages} onDragStartImage={onDragStartImage} onDragEndImage={onDragEndImage} />
         </div>
-        <div>
+        <div
+          draggable={canDragText}
+          onDragStart={startTextDrag}
+          onDragEnd={endTextDrag}
+          className={`group/quote relative max-w-full rounded-[5px] border p-4 transition-[border-color,box-shadow,transform,opacity] ${canDragText ? 'cursor-grab border-transparent hover:border-gray-200/80 hover:shadow-sm active:cursor-grabbing dark:hover:border-gray-800' : 'border-transparent'} ${draggingTextSelf ? '-translate-y-1 border-gray-200/90 bg-white/80 opacity-70 shadow-xl dark:border-gray-800 dark:bg-[#0f0f0f]/80' : ''}`}
+        >
+          {editing && onRemoveBlock && (
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); removeQuoteContent() }}
+              aria-label={asText ? 'Supprimer le texte' : 'Supprimer la citation'}
+              title={asText ? 'Supprimer le texte' : 'Supprimer la citation'}
+              className="absolute right-0 top-0 z-20 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/quote:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
+            >
+              <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
           {editing
             ? <p className={textCls}><Editable value={block.quoteText} onChange={setQT} placeholder={asText ? 'Accompanying text…' : 'Quote…'} multiline /></p>
             : (block.quoteText
@@ -1894,6 +1972,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
   const draggableBlock = isQuoteBlock && !!onMergeQuoteIntoFull
   const draggableMoveBlock = !!onDragStartMoveBlock
   const showDragHandle = draggableMoveBlock || draggableBlock
+  const showRemoveBlock = !!onRemoveBlock && block.type !== 'side' && block.type !== 'quote'
 
   return (
     <div
@@ -1937,7 +2016,7 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           </svg>
         </button>
       )}
-      {onRemoveBlock && (
+      {showRemoveBlock && (
         <button
           type="button"
           onClick={(e) => { e.stopPropagation(); onRemoveBlock(block.id) }}
@@ -1960,6 +2039,8 @@ function BlockHost({ block, images, draggingImageId, draggingBlockId, draggingTe
           draggableImages={!!onMergeImage && isImageBlock}
           onDragStartImage={onDragStartImage}
           onDragEndImage={onDragEndImage}
+          onDragStartBlock={onDragStartBlock}
+          onDragEndBlock={onDragEndBlock}
           wide={wide}
         />
       </div>
