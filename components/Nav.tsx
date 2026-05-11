@@ -131,7 +131,7 @@ export default function Nav() {
                   )}
                 </>
               );
-              return link.href ? (
+              return (
                 <a
                   key={link.label}
                   href={link.href}
@@ -139,10 +139,6 @@ export default function Nav() {
                 >
                   {inner}
                 </a>
-              ) : (
-                <span key={link.label} className="flex cursor-default items-center gap-1.5 text-sm text-[#6B6A67]">
-                  {inner}
-                </span>
               );
             })}
           </nav>
@@ -166,7 +162,7 @@ export default function Nav() {
                   )}
                 </>
               );
-              return link.href ? (
+              return (
                 <a
                   key={link.label}
                   href={link.href}
@@ -175,10 +171,6 @@ export default function Nav() {
                 >
                   {inner}
                 </a>
-              ) : (
-                <span key={link.label} className="flex cursor-default items-center gap-2 text-base text-[#6B6A67]">
-                  {inner}
-                </span>
               );
             })}
             <button
