@@ -6,7 +6,6 @@ import Showcase from "@/components/Showcase";
 
 const Audiences = dynamic(() => import("@/components/Audiences"));
 import Solution from "@/components/Solution";
-import ViewingRoomStudioOptions from "@/components/ViewingRoomStudioOptions";
 import ProcessFlow from "@/components/ProcessFlow";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
@@ -25,7 +24,6 @@ export default function Home() {
       <Showcase />
       <ArtworkSourceSection />
       <Solution />
-      <ViewingRoomStudioOptions />
       <QuoteSection />
       <Services />
       <Faq />
