@@ -20,7 +20,7 @@ export default function ArtworkSourceSection() {
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...fadeUp(0)}
-          className="grid gap-8 md:grid-cols-[0.78fr_1.22fr] md:gap-14"
+          className="grid gap-8 md:grid-cols-[0.78fr_1.22fr] md:items-start md:gap-14"
         >
           <div>
             <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
@@ -34,42 +34,17 @@ export default function ArtworkSourceSection() {
             </p>
           </div>
 
-          <div className="rounded bg-[#FAFAF8] p-5 md:p-6">
-            <div className="grid gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-                  {t.artworkSource.connectedLabel}
-                </p>
-                <h3 className="mt-3 font-display text-[18px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[22px]">
-                  {t.artworkSource.connectedTitle}
-                </h3>
-                <p className="mt-3 text-[13px] leading-[1.55] tracking-[-0.01em] text-[#6B6A67] md:text-[14px]">
-                  {t.artworkSource.connectedBody}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-center md:px-2">
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-[11px] text-[#ADADAA]">
-                  {t.artworkSource.orLabel}
-                </span>
-              </div>
-
-              <div>
-                <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-                  {t.artworkSource.nativeLabel}
-                </p>
-                <h3 className="mt-3 font-display text-[18px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[22px]">
-                  {t.artworkSource.nativeTitle}
-                </h3>
-                <p className="mt-3 text-[13px] leading-[1.55] tracking-[-0.01em] text-[#6B6A67] md:text-[14px]">
-                  {t.artworkSource.nativeBody}
-                </p>
-              </div>
-            </div>
-
-            <p className="mt-5 max-w-2xl text-[13px] leading-[1.55] tracking-[-0.01em] text-[#6B6A67] md:text-[14px]">
-              {t.artworkSource.note}
-            </p>
+          <div className="h-[580px] w-[580px] overflow-hidden rounded bg-[#FAFAF8] md:self-start md:justify-self-end">
+            <video
+              className="h-full w-full object-cover"
+              src="/icons-wheel2.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={t.artworkSource.kicker}
+            />
           </div>
         </motion.div>
       </div>

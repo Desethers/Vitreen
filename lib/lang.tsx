@@ -23,14 +23,14 @@ export const translations = {
       productMenu: {
         sectionLabel: "Outils",
         items: [
-          { title: "Overview", desc: "Publier, partager, suivre", href: "#overview" },
-          { title: "Artwork Source", desc: "Source connectée ou native", href: "#inventory-source" },
-          { title: "Publishing", desc: "Site, artistes, expositions", href: "#vitrine" },
-          { title: "Viewing Room Studio", desc: "Salons privés en ligne", href: "#viewing", badge: "Bientôt" },
-          { title: "Demandes", desc: "Inbox reliée aux œuvres", href: "#demandes" },
-          { title: "Distribute", desc: "Story, newsletter, PDF", href: "#distribute" },
-          { title: "Direct Inquiry", desc: "Relances automatiques", href: "#inquiry" },
-          { title: "Mobile", desc: "La galerie en déplacement", href: "#mobile" },
+          { title: "Overview", desc: "Outils connectés pour expositions, publication et communication collectionneurs.", href: "#overview" },
+          { title: "Archive", desc: "Œuvres, artistes et expositions organisés autour de votre workflow.", href: "#inventory-source" },
+          { title: "Viewing Rooms", desc: "Présentations privées pour collectionneurs et expositions.", href: "#viewing", badge: "Bientôt" },
+          { title: "Previews", desc: "Présentations privées d’œuvres pour collectionneurs.", href: "#distribute" },
+          { title: "Publishing", desc: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.", href: "#vitrine" },
+          { title: "Inquiries", desc: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.", href: "#demandes" },
+          { title: "Mobile", desc: "Publication galerie, même en déplacement.", href: "#mobile" },
+          { title: "Custom Operations", desc: "Workflows sur mesure adaptés à votre galerie.", href: "#inquiry" },
         ],
         featured: {
           eyebrow: "Nouveautés",
@@ -99,22 +99,39 @@ export const translations = {
       ctaPrimary: "Discuter de votre setup",
       ctaSecondary: "Voir les outils",
     },
-    artworkSource: {
-      kicker: "Artwork source",
-      title: "Connectez votre inventaire. Ou construisez-le dans Vitreen.",
+    viewingRoomStudio: {
+      eyebrow: "Produit d’entrée · Conçu par Vitreen",
+      title: "Viewing Room Studio",
+      subtitle: "Présentations privées d’œuvres pour les galeries.",
       body:
-        "Vitreen part du setup que votre galerie utilise déjà, ou fournit une base propre lorsque les œuvres doivent être structurées directement dans l’outil.",
-      connectedLabel: "Connected source",
-      connectedTitle: "Existing inventory",
+        "Composez des sélections collector-ready, générez des liens privés, exportez en PDF et diffusez vos présentations par email ou WhatsApp.",
+      cta: "Essayer Viewing Room Studio",
+      mock: {
+        label: "Private selection",
+        artist: "Sacha Elron",
+        title: "Untitled (Horizon)",
+        year: "2024",
+        medium: "Oil on canvas",
+        dimensions: "152 × 122 cm",
+        inquire: "Inquire",
+      },
+    },
+    artworkSource: {
+      kicker: "Couche opérationnelle",
+      title: "Une couche légère au-dessus des outils que votre galerie utilise déjà",
+      body:
+        "Vitreen se connecte aux systèmes que les galeries utilisent déjà — Artlogic, fichiers CSV, archives internes, dossiers partagés, Gmail et WhatsApp. Pas de migration. Pas de nouveau back-office. Pas d’onboarding complexe.",
+      connectedLabel: "Côté archive",
+      connectedTitle: "Gardez vos sources existantes",
       connectedBody:
-        "Connect Artlogic, CSV, spreadsheets, Airtable or other gallery records.",
-      orLabel: "ou",
-      nativeLabel: "Native source",
-      nativeTitle: "Artwork Library",
+        "Fonctionne avec Artlogic, les fichiers CSV, les archives internes et les dossiers partagés.",
+      orLabel: "→",
+      nativeLabel: "Côté collectionneurs",
+      nativeTitle: "Activez chaque œuvre",
       nativeBody:
-        "Use Vitreen as a clean artwork source for selected works, exhibitions and private sales material.",
+        "Diffusez via Gmail, WhatsApp, liens privés et PDFs, sans ajouter une nouvelle plateforme à apprendre pour l’équipe.",
       note:
-        "In both cases, artworks flow into the same publishing, viewing room, PDF and collector communication tools.",
+        "Vitreen est conçu pour se placer entre l’archive et les conversations collectionneurs. La galerie garde son workflow actuel ; Vitreen rend les œuvres, les échanges et les demandes plus faciles à activer.",
     },
     audiences: {
       tabs: ["Galeries", "Artistes", "Art Advisors", "Collection Privée"],
@@ -498,14 +515,14 @@ export const translations = {
       productMenu: {
         sectionLabel: "Tools",
         items: [
-          { title: "Overview", desc: "Publish, share, follow up", href: "#overview" },
-          { title: "Artwork Source", desc: "Connected or native source", href: "#inventory-source" },
-          { title: "Publishing", desc: "Website, artists, exhibitions", href: "#vitrine" },
-          { title: "Viewing Room Studio", desc: "Private online showrooms", href: "#viewing", badge: "Soon" },
-          { title: "Inquiries", desc: "Inbox tied to works", href: "#demandes" },
-          { title: "Distribute", desc: "Story, newsletter, PDF", href: "#distribute" },
-          { title: "Direct Inquiry", desc: "Automated follow-up", href: "#inquiry" },
-          { title: "Mobile", desc: "Your gallery on the go", href: "#mobile" },
+          { title: "Overview", desc: "Connected tools for exhibitions, publishing and collector communication.", href: "#overview" },
+          { title: "Archive", desc: "Artworks, artists and exhibitions organized around your workflow.", href: "#inventory-source" },
+          { title: "Viewing Rooms", desc: "Private presentations for collectors and exhibitions.", href: "#viewing", badge: "Soon" },
+          { title: "Previews", desc: "Private artwork presentations for collectors.", href: "#distribute" },
+          { title: "Publishing", desc: "Website pages, PDFs and collector communication from the same artwork structure.", href: "#vitrine" },
+          { title: "Inquiries", desc: "Track collector interest across artworks and private sharing.", href: "#demandes" },
+          { title: "Mobile", desc: "Gallery publishing, on the go.", href: "#mobile" },
+          { title: "Custom Operations", desc: "Tailored workflows adapted to your gallery.", href: "#inquiry" },
         ],
         featured: {
           eyebrow: "What's new",
@@ -574,22 +591,39 @@ export const translations = {
       ctaPrimary: "Discuss your setup",
       ctaSecondary: "View tools",
     },
-    artworkSource: {
-      kicker: "Artwork source",
-      title: "Connect your inventory. Or build it in Vitreen.",
+    viewingRoomStudio: {
+      eyebrow: "Entry product · Built by Vitreen",
+      title: "Viewing Room Studio",
+      subtitle: "Private artwork presentations for galleries.",
       body:
-        "Vitreen starts from the setup your gallery already uses, or provides a clean base when artworks need to be structured directly inside the tool.",
-      connectedLabel: "Connected source",
-      connectedTitle: "Existing inventory",
+        "Create collector-ready artwork selections, generate private links, export PDFs and distribute presentations instantly by email or WhatsApp.",
+      cta: "Try Viewing Room Studio",
+      mock: {
+        label: "Private selection",
+        artist: "Sacha Elron",
+        title: "Untitled (Horizon)",
+        year: "2024",
+        medium: "Oil on canvas",
+        dimensions: "152 × 122 cm",
+        inquire: "Inquire",
+      },
+    },
+    artworkSource: {
+      kicker: "Operational layer",
+      title: "A lightweight layer on top of your existing gallery tools",
+      body:
+        "Vitreen connects to the systems galleries already use — Artlogic, CSV files, internal archives, shared folders, Gmail and WhatsApp. No migration. No new back-office. No complex onboarding.",
+      connectedLabel: "Archive side",
+      connectedTitle: "Keep your existing sources",
       connectedBody:
-        "Connect Artlogic, CSV, spreadsheets, Airtable or other gallery records.",
-      orLabel: "or",
-      nativeLabel: "Native source",
-      nativeTitle: "Artwork Library",
+        "Works with Artlogic, CSV files, internal archives and shared folders.",
+      orLabel: "→",
+      nativeLabel: "Collector side",
+      nativeTitle: "Activate every artwork",
       nativeBody:
-        "Use Vitreen as a clean artwork source for selected works, exhibitions and private sales material.",
+        "Distribute through Gmail, WhatsApp, private links and PDFs, without adding a new platform for the team to learn.",
       note:
-        "In both cases, artworks flow into the same publishing, viewing room, PDF and collector communication tools.",
+        "Designed to sit between the archive and collector conversations. The gallery keeps its current workflow; Vitreen makes it easier to activate artworks, conversations and inquiries.",
     },
     audiences: {
       tabs: ["Galleries", "Artists", "Art Advisors", "Private Collection"],
