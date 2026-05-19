@@ -17,7 +17,6 @@ const fadeUp = (delay = 0) => ({
 export default function ViewingRoomStudio() {
   const { t } = useLang();
   const content = t.viewingRoomStudio;
-  const mock = content.mock;
 
   return (
     <section
@@ -54,44 +53,15 @@ export default function ViewingRoomStudio() {
             </div>
           </div>
 
-          <div className="rounded bg-[#FAFAF8] p-5 md:p-6">
-            <div className="grid gap-5 md:grid-cols-[1.05fr_1fr] md:items-center">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-md bg-[#F5F5F3]">
-                <Image
-                  src="/artworks/painting-02.png"
-                  alt=""
-                  fill
-                  quality={92}
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 360px"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-                  {mock.label}
-                </p>
-                <h3 className="mt-3 font-display text-[18px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[22px]">
-                  {mock.artist}
-                </h3>
-                <p className="mt-1 text-[14px] italic leading-[1.4] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
-                  {mock.title},{" "}
-                  <span className="not-italic">{mock.year}</span>
-                </p>
-                <div className="mt-3 h-px w-full bg-[#E8E8E6]" />
-                <p className="mt-3 text-[12px] leading-[1.5] text-[#6B6A67] md:text-[13px]">
-                  {mock.medium}
-                </p>
-                <p className="text-[12px] leading-[1.5] text-[#6B6A67] md:text-[13px]">
-                  {mock.dimensions}
-                </p>
-                <div className="mt-5">
-                  <Button size="sm" variant="primary">
-                    {mock.inquire}
-                  </Button>
-                </div>
-              </div>
-            </div>
+          <div className="relative aspect-[4/5] overflow-hidden rounded bg-[#FAFAF8]">
+            <Image
+              src="/screenshot-viewingroom.png"
+              alt=""
+              fill
+              quality={92}
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 720px"
+            />
           </div>
         </motion.div>
       </div>

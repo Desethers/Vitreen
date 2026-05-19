@@ -23,14 +23,14 @@ export const translations = {
       productMenu: {
         sectionLabel: "Outils",
         items: [
-          { title: "Overview", desc: "Outils connectés pour expositions, publication et communication collectionneurs.", href: "#overview" },
-          { title: "Archive", desc: "Œuvres, artistes et expositions organisés autour de votre workflow.", href: "#inventory-source" },
-          { title: "Viewing Rooms", desc: "Présentations privées pour collectionneurs et expositions.", href: "#viewing", badge: "Bientôt" },
-          { title: "Previews", desc: "Présentations privées d’œuvres pour collectionneurs.", href: "#distribute" },
-          { title: "Publishing", desc: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.", href: "#vitrine" },
-          { title: "Inquiries", desc: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.", href: "#demandes" },
-          { title: "Mobile", desc: "Publication galerie, même en déplacement.", href: "#mobile" },
-          { title: "Custom Operations", desc: "Workflows sur mesure adaptés à votre galerie.", href: "#inquiry" },
+          { title: "Overview", desc: "Outils connectés pour expositions, publication et communication collectionneurs.", href: "/tools/overview" },
+          { title: "Archive", desc: "Œuvres, artistes et expositions organisés autour de votre workflow.", href: "/tools/archive" },
+          { title: "Viewing Rooms", desc: "Présentations privées pour collectionneurs et expositions.", href: "/tools/viewing-rooms", badge: "Bientôt" },
+          { title: "Previews", desc: "Présentations privées d’œuvres pour collectionneurs.", href: "/tools/previews" },
+          { title: "Publishing", desc: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.", href: "/tools/publishing" },
+          { title: "Inquiries", desc: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.", href: "/tools/inquiries" },
+          { title: "Mobile", desc: "Publication galerie, même en déplacement.", href: "/tools/mobile" },
+          { title: "Custom Operations", desc: "Workflows sur mesure adaptés à votre galerie.", href: "/tools/custom-operations" },
         ],
         featured: {
           eyebrow: "Nouveautés",
@@ -118,9 +118,9 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Couche opérationnelle",
-      title: "Une couche légère au-dessus des outils que votre galerie utilise déjà",
+      title: "Connecter ce que la galerie utilise déjà.",
       body:
-        "Vitreen se connecte aux systèmes que les galeries utilisent déjà — Artlogic, fichiers CSV, archives internes, dossiers partagés, Gmail et WhatsApp. Pas de migration. Pas de nouveau back-office. Pas d’onboarding complexe.",
+        "Une couche légère entre les sources d’œuvres, les partages privés et les demandes collectionneurs.",
       connectedLabel: "Côté archive",
       connectedTitle: "Gardez vos sources existantes",
       connectedBody:
@@ -132,6 +132,38 @@ export const translations = {
         "Diffusez via Gmail, WhatsApp, liens privés et PDFs, sans ajouter une nouvelle plateforme à apprendre pour l’équipe.",
       note:
         "Vitreen est conçu pour se placer entre l’archive et les conversations collectionneurs. La galerie garde son workflow actuel ; Vitreen rend les œuvres, les échanges et les demandes plus faciles à activer.",
+      features: [
+        {
+          label: "01",
+          title: "Artwork Sync",
+          copy: "Importez les œuvres sélectionnées depuis la base existante de la galerie, un CSV ou un ajout manuel.",
+          image: "/gallery hero mock/artwork-02.png",
+        },
+        {
+          label: "02",
+          title: "Private Materials",
+          copy: "Générez des PDFs soignés, liens privés ou viewing rooms à partir des œuvres sélectionnées.",
+          image: "/viewing-room-share.png",
+        },
+        {
+          label: "03",
+          title: "Collector Sharing",
+          copy: "Envoyez les œuvres par email, WhatsApp ou lien privé sans changer le workflow de la galerie.",
+          image: "/gallery hero mock/shoes-exhibition.png",
+        },
+        {
+          label: "04",
+          title: "Inquiry Capture",
+          copy: "Permettez aux collectionneurs de répondre, demander des détails ou faire une demande depuis le support partagé.",
+          image: "/artworks/painting-06.png",
+        },
+        {
+          label: "05",
+          title: "Sales Routing",
+          copy: "Redirigez les signaux collectionneurs vers la bonne personne dans l’équipe galerie.",
+          image: "/gallery hero mock/frieze-newyork-booth.png",
+        },
+      ],
     },
     audiences: {
       tabs: ["Galeries", "Artistes", "Art Advisors", "Collection Privée"],
@@ -492,6 +524,124 @@ export const translations = {
         },
       ],
     },
+    tools: {
+      sectionLabel: "Outils",
+      backToHome: "Retour à l’accueil",
+      featuresLabel: "Inclus",
+      overview: {
+        eyebrow: "Outils · Overview",
+        title: "Une vue connectée des outils Vitreen.",
+        subtitle: "Outils connectés pour expositions, publication et communication collectionneurs.",
+        body:
+          "Vitreen rassemble les outils dont une galerie a besoin pour publier des œuvres, préparer des présentations privées, partager des sélections et suivre les demandes — sans changer les habitudes de l’équipe.",
+        features: [
+          "Une seule source d’œuvres",
+          "Publication web, PDFs et viewing rooms",
+          "Partage privé pour collectionneurs",
+          "Suivi des demandes par œuvre",
+        ],
+        cta: "Discuter de votre setup",
+      },
+      archive: {
+        eyebrow: "Outils · Archive",
+        title: "Œuvres, artistes et expositions, organisés.",
+        subtitle: "Œuvres, artistes et expositions organisés autour de votre workflow.",
+        body:
+          "Archive sert de base structurée pour les œuvres de la galerie : artistes, expositions, médiums, dimensions, statuts. Les données restent disponibles pour les pages publiques, les viewing rooms et les supports envoyés aux collectionneurs.",
+        features: [
+          "Fiches œuvres, artistes et expositions",
+          "Statuts, prix et disponibilités",
+          "Médiums, dimensions et provenance",
+          "Connexion possible à un inventaire existant",
+        ],
+        cta: "Structurer l’archive",
+      },
+      "viewing-rooms": {
+        eyebrow: "Outils · Viewing Rooms",
+        title: "Présentations privées pour collectionneurs.",
+        subtitle: "Présentations privées pour collectionneurs et expositions.",
+        body:
+          "Préparez une sélection d’œuvres dans un espace privé : contexte d’exposition, fiches détaillées et lien partageable. Les viewing rooms s’ouvrent sur invitation, dans une interface lisible et confidentielle.",
+        features: [
+          "Sélection privée par collectionneur",
+          "Contexte d’exposition et fiches œuvres",
+          "Lien à durée et accès limités",
+          "Demande directe depuis chaque œuvre",
+        ],
+        cta: "Découvrir les viewing rooms",
+        badge: "Bientôt",
+      },
+      previews: {
+        eyebrow: "Outils · Previews",
+        title: "Présentations privées d’œuvres.",
+        subtitle: "Présentations privées d’œuvres pour collectionneurs.",
+        body:
+          "Composez rapidement un aperçu d’œuvres à envoyer avant une foire, une exposition ou une rencontre. Une mise en page sobre, partagée par lien privé, email ou WhatsApp.",
+        features: [
+          "Sélection rapide d’œuvres",
+          "Fiches d’œuvre soignées",
+          "Partage par lien, email ou WhatsApp",
+          "Export PDF prêt à envoyer",
+        ],
+        cta: "Préparer une preview",
+      },
+      publishing: {
+        eyebrow: "Outils · Publishing",
+        title: "Publier depuis une seule source.",
+        subtitle: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
+        body:
+          "Publishing transforme les données d’œuvres en pages publiques, archives d’expositions, PDFs et emails envoyés aux collectionneurs — sans saisir les informations deux fois.",
+        features: [
+          "Pages œuvres, artistes et expositions",
+          "Archives d’expositions",
+          "Exports PDF et présentations imprimables",
+          "Emails collectionneurs construits depuis les œuvres",
+        ],
+        cta: "Voir le publishing",
+      },
+      inquiries: {
+        eyebrow: "Outils · Inquiries",
+        title: "Suivre l’intérêt collectionneur.",
+        subtitle: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.",
+        body:
+          "Inquiries rattache chaque demande à une œuvre, une viewing room ou une sélection privée. La galerie garde le contexte utile pour répondre : qui, sur quoi, depuis quel partage.",
+        features: [
+          "Demandes liées aux œuvres",
+          "Contexte de viewing room ou sélection",
+          "Statut, suivi et notes internes",
+          "Compatible avec les outils clients existants",
+        ],
+        cta: "Activer les demandes",
+      },
+      mobile: {
+        eyebrow: "Outils · Mobile",
+        title: "La galerie publie depuis son téléphone.",
+        subtitle: "Publication galerie, même en déplacement.",
+        body:
+          "Mobile permet à la galerie de publier une œuvre, mettre à jour une fiche ou préparer un partage privé depuis son téléphone — sur un stand, en transit ou pendant un accrochage.",
+        features: [
+          "Ajout d’une œuvre depuis le téléphone",
+          "Mise à jour rapide d’une fiche",
+          "Partage privé en quelques pressions",
+          "Suivi des demandes en mobilité",
+        ],
+        cta: "Essayer Mobile",
+      },
+      "custom-operations": {
+        eyebrow: "Outils · Custom Operations",
+        title: "Adapter Vitreen au workflow de la galerie.",
+        subtitle: "Workflows sur mesure adaptés à votre galerie.",
+        body:
+          "Custom Operations permet d’ajuster Vitreen aux opérations propres à la galerie : champs spécifiques, intégrations à des outils existants, automatisations internes ou modèles de partage propres au programme.",
+        features: [
+          "Champs et statuts personnalisés",
+          "Intégrations avec outils existants",
+          "Automatisations internes",
+          "Modèles de partage propres à la galerie",
+        ],
+        cta: "Discuter du workflow",
+      },
+    },
     ctaBand: {
       title: "Commencez avec votre workflow actuel",
       subtitle: "Ajoutez les outils dont votre galerie a besoin",
@@ -515,14 +665,14 @@ export const translations = {
       productMenu: {
         sectionLabel: "Tools",
         items: [
-          { title: "Overview", desc: "Connected tools for exhibitions, publishing and collector communication.", href: "#overview" },
-          { title: "Archive", desc: "Artworks, artists and exhibitions organized around your workflow.", href: "#inventory-source" },
-          { title: "Viewing Rooms", desc: "Private presentations for collectors and exhibitions.", href: "#viewing", badge: "Soon" },
-          { title: "Previews", desc: "Private artwork presentations for collectors.", href: "#distribute" },
-          { title: "Publishing", desc: "Website pages, PDFs and collector communication from the same artwork structure.", href: "#vitrine" },
-          { title: "Inquiries", desc: "Track collector interest across artworks and private sharing.", href: "#demandes" },
-          { title: "Mobile", desc: "Gallery publishing, on the go.", href: "#mobile" },
-          { title: "Custom Operations", desc: "Tailored workflows adapted to your gallery.", href: "#inquiry" },
+          { title: "Overview", desc: "Connected tools for exhibitions, publishing and collector communication.", href: "/tools/overview" },
+          { title: "Archive", desc: "Artworks, artists and exhibitions organized around your workflow.", href: "/tools/archive" },
+          { title: "Viewing Rooms", desc: "Private presentations for collectors and exhibitions.", href: "/tools/viewing-rooms", badge: "Soon" },
+          { title: "Previews", desc: "Private artwork presentations for collectors.", href: "/tools/previews" },
+          { title: "Publishing", desc: "Website pages, PDFs and collector communication from the same artwork structure.", href: "/tools/publishing" },
+          { title: "Inquiries", desc: "Track collector interest across artworks and private sharing.", href: "/tools/inquiries" },
+          { title: "Mobile", desc: "Gallery publishing, on the go.", href: "/tools/mobile" },
+          { title: "Custom Operations", desc: "Tailored workflows adapted to your gallery.", href: "/tools/custom-operations" },
         ],
         featured: {
           eyebrow: "What's new",
@@ -610,9 +760,9 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Operational layer",
-      title: "A lightweight layer on top of your existing gallery tools",
+      title: "Connect what the gallery already uses.",
       body:
-        "Vitreen connects to the systems galleries already use — Artlogic, CSV files, internal archives, shared folders, Gmail and WhatsApp. No migration. No new back-office. No complex onboarding.",
+        "A lightweight layer between artwork sources, private sharing and collector inquiries.",
       connectedLabel: "Archive side",
       connectedTitle: "Keep your existing sources",
       connectedBody:
@@ -624,6 +774,38 @@ export const translations = {
         "Distribute through Gmail, WhatsApp, private links and PDFs, without adding a new platform for the team to learn.",
       note:
         "Designed to sit between the archive and collector conversations. The gallery keeps its current workflow; Vitreen makes it easier to activate artworks, conversations and inquiries.",
+      features: [
+        {
+          label: "01",
+          title: "Artwork Sync",
+          copy: "Pull selected works from the gallery’s existing database, CSV, or manual upload.",
+          image: "/gallery hero mock/artwork-02.png",
+        },
+        {
+          label: "02",
+          title: "Private Materials",
+          copy: "Generate polished PDFs, private links, or viewing rooms from the selected works.",
+          image: "/viewing-room-share.png",
+        },
+        {
+          label: "03",
+          title: "Collector Sharing",
+          copy: "Send works through email, WhatsApp, or a private link without changing the gallery’s workflow.",
+          image: "/gallery hero mock/shoes-exhibition.png",
+        },
+        {
+          label: "04",
+          title: "Inquiry Capture",
+          copy: "Let collectors reply, ask for details, or inquire directly from the shared material.",
+          image: "/artworks/painting-06.png",
+        },
+        {
+          label: "05",
+          title: "Sales Routing",
+          copy: "Route collector signals back to the right person in the gallery team.",
+          image: "/gallery hero mock/frieze-newyork-booth.png",
+        },
+      ],
     },
     audiences: {
       tabs: ["Galleries", "Artists", "Art Advisors", "Private Collection"],
@@ -986,6 +1168,124 @@ export const translations = {
           a: "Yes. Every website is SEO-optimised from the start: semantic structure, meta tags, optimised images and indexing tailored to the art market.",
         },
       ],
+    },
+    tools: {
+      sectionLabel: "Tools",
+      backToHome: "Back to home",
+      featuresLabel: "Included",
+      overview: {
+        eyebrow: "Tools · Overview",
+        title: "A connected view of Vitreen tools.",
+        subtitle: "Connected tools for exhibitions, publishing and collector communication.",
+        body:
+          "Vitreen brings together the tools a gallery needs to publish artworks, prepare private presentations, share selections and follow inquiries — without changing how the team already works.",
+        features: [
+          "A single artwork source",
+          "Web pages, PDFs and viewing rooms",
+          "Private sharing for collectors",
+          "Inquiry tracking per artwork",
+        ],
+        cta: "Discuss your setup",
+      },
+      archive: {
+        eyebrow: "Tools · Archive",
+        title: "Artworks, artists and exhibitions, organized.",
+        subtitle: "Artworks, artists and exhibitions organized around your workflow.",
+        body:
+          "Archive provides a structured base for the gallery's artworks: artists, exhibitions, mediums, dimensions, status. The data stays available for public pages, viewing rooms and collector materials.",
+        features: [
+          "Artwork, artist and exhibition records",
+          "Status, prices and availability",
+          "Mediums, dimensions and provenance",
+          "Connects to an existing inventory",
+        ],
+        cta: "Structure the archive",
+      },
+      "viewing-rooms": {
+        eyebrow: "Tools · Viewing Rooms",
+        title: "Private presentations for collectors.",
+        subtitle: "Private presentations for collectors and exhibitions.",
+        body:
+          "Prepare a selection of artworks in a private space: exhibition context, detailed records and a shareable link. Viewing rooms open by invitation, in a readable and confidential interface.",
+        features: [
+          "Private selection per collector",
+          "Exhibition context and artwork records",
+          "Time-limited and access-limited links",
+          "Direct inquiry from each artwork",
+        ],
+        cta: "Explore viewing rooms",
+        badge: "Soon",
+      },
+      previews: {
+        eyebrow: "Tools · Previews",
+        title: "Private artwork presentations.",
+        subtitle: "Private artwork presentations for collectors.",
+        body:
+          "Quickly assemble a preview of artworks to send ahead of a fair, an exhibition or a meeting. A calm layout, shared by private link, email or WhatsApp.",
+        features: [
+          "Fast artwork selection",
+          "Refined artwork records",
+          "Sharing by link, email or WhatsApp",
+          "PDF export ready to send",
+        ],
+        cta: "Prepare a preview",
+      },
+      publishing: {
+        eyebrow: "Tools · Publishing",
+        title: "Publish from a single source.",
+        subtitle: "Website pages, PDFs and collector communication from the same artwork structure.",
+        body:
+          "Publishing turns artwork data into public pages, exhibition archives, PDFs and emails sent to collectors — without entering the information twice.",
+        features: [
+          "Artwork, artist and exhibition pages",
+          "Exhibition archives",
+          "PDF exports and printable presentations",
+          "Collector emails built from artworks",
+        ],
+        cta: "See publishing",
+      },
+      inquiries: {
+        eyebrow: "Tools · Inquiries",
+        title: "Track collector interest.",
+        subtitle: "Track collector interest across artworks and private sharing.",
+        body:
+          "Inquiries attaches each request to an artwork, a viewing room or a private selection. The gallery keeps the context needed to respond: who, on what, from which share.",
+        features: [
+          "Inquiries linked to artworks",
+          "Viewing room or selection context",
+          "Status, follow-up and internal notes",
+          "Works with existing client tools",
+        ],
+        cta: "Activate inquiries",
+      },
+      mobile: {
+        eyebrow: "Tools · Mobile",
+        title: "The gallery publishes from its phone.",
+        subtitle: "Gallery publishing, on the go.",
+        body:
+          "Mobile lets the gallery publish an artwork, update a record or prepare a private share from a phone — on a booth, in transit or during a hang.",
+        features: [
+          "Add an artwork from the phone",
+          "Quick record updates",
+          "Private sharing in a few taps",
+          "Inquiry follow-up on the move",
+        ],
+        cta: "Try Mobile",
+      },
+      "custom-operations": {
+        eyebrow: "Tools · Custom Operations",
+        title: "Adapt Vitreen to the gallery's workflow.",
+        subtitle: "Tailored workflows adapted to your gallery.",
+        body:
+          "Custom Operations adjusts Vitreen to a gallery's specific operations: dedicated fields, integrations with existing tools, internal automations or sharing templates tied to the programme.",
+        features: [
+          "Custom fields and statuses",
+          "Integrations with existing tools",
+          "Internal automations",
+          "Sharing templates tied to the gallery",
+        ],
+        cta: "Discuss the workflow",
+      },
     },
     ctaBand: {
       title: "Start with your current workflow",
