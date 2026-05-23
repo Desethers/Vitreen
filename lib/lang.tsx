@@ -93,9 +93,8 @@ export const translations = {
     },
     hero: {
       title:
-        "Des outils qui s’intègrent à la manière dont les galeries travaillent déjà.",
-      subtitle:
-        "Connect existing systems or build a custom operating structure for artworks, exhibitions, private selections and collector communication.",
+        "Conçu pour la réalité opérationnelle des galeries. Des workflows connectés pour les expositions, la relation collectionneur et la diffusion des œuvres.",
+      subtitle: "",
       ctaPrimary: "Discuter de votre setup",
       ctaSecondary: "Voir les outils",
     },
@@ -301,27 +300,30 @@ export const translations = {
       },
     },
     processFlow: {
-      title: "De l’archive à la conversation collectionneur.",
+      title: "De l’archive d’œuvres au workflow collectionneur.",
       subtitle:
-        "Vitreen prépare les œuvres, compose les supports et garde la trace du suivi.",
+        "Vitreen transforme les matériaux fragmentés de la galerie en système opérationnel vivant.",
       steps: [
         {
           number: "01",
-          title: "Les sources existantes sont connectées",
-          desc: "La galerie part de son inventaire, de fichiers CSV, de dossiers partagés ou de l’Artwork Library.",
-          week: "Source",
+          title: "Audit",
+          desc: "Nous clarifions comment votre galerie fonctionne déjà.",
+          tags: ["Œuvres", "Artistes", "Collectionneurs", "Expositions", "CRM", "Email"],
+          week: "Avant de reconstruire quoi que ce soit, nous identifions comment l’information, les documents et les conversations circulent déjà dans la galerie.",
         },
         {
           number: "02",
-          title: "Les supports sont composés",
-          desc: "Les informations utiles, la charte galerie, les légendes et les formats de partage sont préparés depuis la même source.",
-          week: "Composition",
+          title: "Connecter et construire",
+          desc: "Vitreen transforme des sources fragmentées en workflows galerie connectés.",
+          tags: ["Sélections privées", "Viewing rooms", "PDF collectionneur", "Routage des demandes", "Suivi"],
+          week: "Une œuvre peut circuler entre publication, partage et relation collectionneur sans travail manuel dupliqué.",
         },
         {
           number: "03",
-          title: "La sélection circule et reste suivie",
-          desc: "Email, lien privé, PDF ou WhatsApp : les demandes et réponses restent attachées aux œuvres concernées.",
-          week: "Partage",
+          title: "Déployer",
+          desc: "Votre galerie reçoit une couche opérationnelle active, intégrée à son environnement de vente réel.",
+          tags: ["Distribution", "Conversations collectionneurs", "Coordination commerciale", "Workflows de publication"],
+          week: "Pas de remplacement de plateforme. Pas de migration lourde. Juste une infrastructure plus nette pour faire circuler les œuvres et gérer les relations collectionneurs.",
         },
       ],
     },
@@ -735,9 +737,8 @@ export const translations = {
     },
     hero: {
       title:
-        "Tools that plug into the way galleries already work.",
-      subtitle:
-        "Connect existing systems or build a custom operating structure for artworks, exhibitions, private selections and collector communication.",
+        "Built for the operational reality of galleries. Connected workflows for exhibitions, collector outreach and artwork distribution",
+      subtitle: "",
       ctaPrimary: "Discuss your setup",
       ctaSecondary: "View tools",
     },
@@ -943,27 +944,30 @@ export const translations = {
       },
     },
     processFlow: {
-      title: "From archive to collector conversation.",
+      title: "From artwork archive to collector workflow",
       subtitle:
-        "Vitreen prepares artworks, assembles materials and keeps follow-up connected.",
+        "Vitreen turns fragmented gallery material into a live operational system.",
       steps: [
         {
           number: "01",
-          title: "Existing sources are connected",
-          desc: "Start from your inventory, CSV files, shared folders or the Vitreen Artwork Library.",
-          week: "Source",
+          title: "Audit",
+          desc: "We clarify how your gallery already works.",
+          tags: ["Artworks", "Artists", "Collectors", "Exhibitions", "CRM", "Email"],
+          week: "Before rebuilding anything, we identify how information, documents and conversations already circulate inside the gallery.",
         },
         {
           number: "02",
-          title: "Materials are assembled",
-          desc: "Useful details, gallery identity, captions and sharing formats are prepared from the same source.",
-          week: "Composition",
+          title: "Connect & build",
+          desc: "Vitreen turns fragmented sources into connected gallery workflows.",
+          tags: ["Private selections", "Viewing rooms", "Collector PDFs", "Inquiry routing", "Follow-up systems"],
+          week: "One artwork can move seamlessly across publishing, sharing and collector outreach without duplicated manual work.",
         },
         {
           number: "03",
-          title: "The selection circulates and stays tracked",
-          desc: "Email, private link, PDF or WhatsApp: inquiries and replies stay attached to the relevant artworks.",
-          week: "Sharing",
+          title: "Deploy",
+          desc: "Your gallery receives a live operational layer embedded into its real sales environment.",
+          tags: ["Distribution", "Collector conversations", "Sales coordination", "Publishing workflows"],
+          week: "No platform replacement. No heavy migration process. Just a sharper infrastructure for circulating artworks and managing collector relationships.",
         },
       ],
     },

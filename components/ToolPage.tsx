@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
+import ArtworkSourceSection from "@/components/ArtworkSourceSection";
 import { Button } from "@/components/ui/Button";
 import { useLang } from "@/lib/lang";
 
@@ -126,6 +127,8 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
           </motion.div>
         </div>
       </section>
+
+      {slug === "overview" ? <ArtworkSourceSection /> : null}
 
       <CtaBand />
       <Footer />

@@ -2,7 +2,6 @@ import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import ViewingRoomStudio from "@/components/ViewingRoomStudio";
-import ArtworkSourceSection from "@/components/ArtworkSourceSection";
 import Showcase from "@/components/Showcase";
 
 const Audiences = dynamic(() => import("@/components/Audiences"));
@@ -22,7 +21,6 @@ export default function Home() {
       <Hero />
       <Audiences />
       <ProcessFlow />
-      <ArtworkSourceSection />
       <Showcase />
       <Solution />
       <QuoteSection />
