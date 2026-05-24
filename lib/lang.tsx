@@ -951,16 +951,16 @@ export const translations = {
         {
           number: "01",
           title: "Audit",
-          desc: "We clarify how your gallery already works.",
+          desc: "We review how artworks and information already move across the gallery.",
           tags: ["Artworks", "Artists", "Collectors", "Exhibitions", "CRM", "Email"],
-          week: "Before rebuilding anything, we identify how information, documents and conversations already circulate inside the gallery.",
+          week: "",
         },
         {
           number: "02",
           title: "Connect & build",
-          desc: "Vitreen turns fragmented sources into connected gallery workflows.",
+          desc: "Vitreen connects artwork files, selections and collector communication into one flow.",
           tags: ["Private selections", "Viewing rooms", "Collector PDFs", "Inquiry routing", "Follow-up systems"],
-          week: "One artwork can move seamlessly across publishing, sharing and collector outreach without duplicated manual work.",
+          week: "",
         },
         {
           number: "03",

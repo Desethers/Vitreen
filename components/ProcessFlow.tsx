@@ -35,29 +35,65 @@ const ARRIVE_AT  = 0.82;  // fraction de LINE_DUR où le bord droit touche le ce
 const LOOP_MS    = 4400;
 
 const stepTwoLogos = [
-  { src: "/logos/google-gmail-svgrepo-com.svg", alt: "Gmail", className: "h-7 w-7" },
-  { src: "/logos/Microsoft_Office_Outlook_Logo.svg", alt: "Outlook", className: "h-7 w-7" },
-  { src: "/logos/pdf-svgrepo-com.svg", alt: "PDF", className: "h-7 w-7" },
-  { src: "/logos/Microsoft_Office_Excel_Logo.svg", alt: "Excel", className: "h-7 w-7" },
-  { src: "/logos/Android_App_Icon_2026.png", alt: "WhatsApp", className: "h-7 w-7" },
+  { src: "/logos/google-gmail-svgrepo-com.svg", alt: "Gmail" },
+  { src: "/logos/Microsoft_Office_Outlook_Logo.svg", alt: "Outlook" },
+  { src: "/logos/pdf-svgrepo-com.svg", alt: "PDF" },
+  { src: "/logos/Microsoft_Office_Excel_Logo.svg", alt: "Excel" },
+  { src: "/logos/Android_App_Icon_2026.png", alt: "WhatsApp" },
 ];
 
-function StepTwoLogoStrip() {
+function StepTwoSharingFlow() {
+  const [gmail, outlook, pdf, excel, whatsApp] = stepTwoLogos;
+
   return (
-    <div className="mt-4 flex items-center gap-5">
-      {stepTwoLogos.map((logo) => (
-        <span
-          key={logo.src}
-          className="flex h-7 w-7 shrink-0 items-center justify-center"
-        >
-          <img
-            src={logo.src}
-            alt={logo.alt}
-            className={`object-contain ${logo.className}`}
-            loading="lazy"
-          />
-        </span>
-      ))}
+    <div className="relative mt-3 h-[78px] max-w-[280px]">
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 280 78"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M23 18 C57 19 78 32 103 37 C130 42 150 38 176 34 C203 30 225 23 256 19"
+          stroke="rgba(17,17,16,0.16)"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+        />
+        <path
+          d="M34 59 C67 56 82 49 104 43 C132 36 151 40 176 46 C205 53 225 56 250 53"
+          stroke="rgba(17,17,16,0.1)"
+          strokeWidth="0.75"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      <div className="absolute left-0 top-2 flex h-4 w-4 items-center justify-center">
+        <img src={gmail.src} alt={gmail.alt} className="h-4 w-4 object-contain" loading="lazy" />
+      </div>
+      <div className="absolute left-5 top-[33px] flex h-4 w-4 items-center justify-center">
+        <img src={outlook.src} alt={outlook.alt} className="h-4 w-4 object-contain" loading="lazy" />
+      </div>
+      <div className="absolute left-1 top-[56px] flex h-4 w-4 items-center justify-center">
+        <img src={excel.src} alt={excel.alt} className="h-4 w-4 object-contain" loading="lazy" />
+      </div>
+
+      <div className="absolute left-[92px] top-1 z-10 w-[92px] rounded-[3px] border border-[#E3E3DF] bg-white p-1.5 shadow-[0_10px_20px_rgba(17,17,16,0.045)]">
+        <div className="relative h-[38px] overflow-hidden rounded-[2px] bg-[#D8C66F]">
+          <div className="absolute inset-x-2 top-2 h-px bg-white/22" />
+          <div className="absolute bottom-2 left-2 h-px w-10 bg-[#111110]/10" />
+          <div className="absolute right-2 top-2 h-[24px] w-px bg-[#111110]/8" />
+          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(115deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0)_38%,rgba(17,17,16,0.06)_100%)]" />
+        </div>
+        <div className="mt-1.5 h-px w-12 bg-[#111110]/24" />
+        <div className="mt-1 h-px w-6 bg-[#111110]/12" />
+      </div>
+
+      <div className="absolute right-9 top-6 flex h-5 w-5 items-center justify-center">
+        <img src={pdf.src} alt={pdf.alt} className="h-5 w-5 object-contain" loading="lazy" />
+      </div>
+      <div className="absolute right-2 top-[47px] flex h-5 w-5 items-center justify-center">
+        <img src={whatsApp.src} alt={whatsApp.alt} className="h-5 w-5 object-contain" loading="lazy" />
+      </div>
     </div>
   );
 }
@@ -137,20 +173,20 @@ function DeployCardStack({ lang }: { lang: "fr" | "en" }) {
   const labels =
     lang === "fr"
       ? {
-          shared: "Lien privé partagé",
-          viewed: "Vue collector",
-          followUp: "Relance prête",
-          metaShared: "Viewing room",
-          metaViewed: "Untitled, 2024",
-          metaFollowUp: "Sales desk",
+          shared: "Private PDF shared",
+          viewed: "Interested in Untitled, 2024",
+          followUp: "Collector follow-up",
+          metaShared: "VIP collectors · Opening preview",
+          metaViewed: "Availability requested",
+          metaFollowUp: "Assigned internally",
         }
       : {
-          shared: "Private link shared",
-          viewed: "Collector viewed",
-          followUp: "Follow-up queued",
-          metaShared: "Viewing room",
-          metaViewed: "Untitled, 2024",
-          metaFollowUp: "Sales desk",
+          shared: "Private PDF shared",
+          viewed: "Interested in Untitled, 2024",
+          followUp: "Collector follow-up",
+          metaShared: "VIP collectors · Opening preview",
+          metaViewed: "Availability requested",
+          metaFollowUp: "Assigned internally",
         };
   const events = [
     { label: labels.shared, meta: labels.metaShared, time: "09:18", zIndex: 3 },
@@ -310,18 +346,20 @@ export default function ProcessFlow() {
                   ) : (
                     <>
                       {i === 1 ? (
-                        <StepTwoLogoStrip />
+                        <StepTwoSharingFlow />
                       ) : null}
                       <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
-                      <p
-                        className={
-                          "tags" in step && step.tags
-                            ? "mt-3 text-[14px] leading-[1.55] text-[#6B6A67]"
-                            : "mt-3 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]"
-                        }
-                      >
-                        {step.week}
-                      </p>
+                      {step.week ? (
+                        <p
+                          className={
+                            "tags" in step && step.tags
+                              ? "mt-3 text-[14px] leading-[1.55] text-[#6B6A67]"
+                              : "mt-3 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]"
+                          }
+                        >
+                          {step.week}
+                        </p>
+                      ) : null}
                     </>
                   )}
                 </motion.div>
@@ -470,18 +508,20 @@ export default function ProcessFlow() {
                 ) : (
                   <>
                     {i === 1 ? (
-                      <StepTwoLogoStrip />
+                      <StepTwoSharingFlow />
                     ) : null}
                     <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
-                    <p
-                      className={
-                        "tags" in step && step.tags
-                          ? "mt-3 text-[14px] leading-[1.55] text-[#6B6A67]"
-                          : "mt-4 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]"
-                      }
-                    >
-                      {step.week}
-                    </p>
+                    {step.week ? (
+                      <p
+                        className={
+                          "tags" in step && step.tags
+                            ? "mt-3 text-[14px] leading-[1.55] text-[#6B6A67]"
+                            : "mt-4 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]"
+                        }
+                      >
+                        {step.week}
+                      </p>
+                    ) : null}
                   </>
                 )}
               </motion.li>
