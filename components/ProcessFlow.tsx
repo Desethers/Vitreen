@@ -309,10 +309,10 @@ export default function ProcessFlow() {
                     <DeployCardStack lang={lang} />
                   ) : (
                     <>
-                      <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
                       {i === 1 ? (
                         <StepTwoLogoStrip />
                       ) : null}
+                      <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
                       <p
                         className={
                           "tags" in step && step.tags
@@ -469,10 +469,10 @@ export default function ProcessFlow() {
                   <DeployCardStack lang={lang} />
                 ) : (
                   <>
-                    <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
                     {i === 1 ? (
                       <StepTwoLogoStrip />
                     ) : null}
+                    <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
                     <p
                       className={
                         "tags" in step && step.tags

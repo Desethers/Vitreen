@@ -946,7 +946,7 @@ export const translations = {
     processFlow: {
       title: "From artwork archive to collector workflow",
       subtitle:
-        "Vitreen turns fragmented gallery material into a live operational system.",
+        "Vitreen connects what galleries already use",
       steps: [
         {
           number: "01",
