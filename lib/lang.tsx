@@ -640,6 +640,67 @@ export const translations = {
         cta: "Discuter du workflow",
       },
     },
+    products: {
+      sectionLabel: "Produits",
+      backToHome: "Retour à l’accueil",
+      featuresLabel: "Ce que ça couvre",
+      "artworks-archives": {
+        eyebrow: "Produits · Artworks & Archives",
+        title: "Œuvres, artistes et archives, organisés.",
+        subtitle: "Structurez l’inventaire sans remplacer vos outils existants.",
+        body:
+          "Vitreen s’adapte à la façon dont votre galerie gère déjà ses œuvres — qu’elles soient dans un tableur, un logiciel existant ou une boîte mail. L’archive devient une source unique exploitable pour tous les canaux de publication.",
+        features: [
+          "Fiches œuvres, artistes et expositions",
+          "Statuts, prix et disponibilités",
+          "Connexion aux systèmes existants",
+          "Médiums, dimensions et provenance",
+        ],
+        cta: "Structurer l’archive",
+      },
+      publishing: {
+        eyebrow: "Produits · Publication",
+        title: "Publiez partout, depuis une seule source.",
+        subtitle: "Sites web, viewing rooms, PDFs collectionneurs et partages privés.",
+        body:
+          "Depuis les données de vos œuvres, Vitreen génère pages publiques, archives d’expositions, PDFs imprimables et espaces privés partagés par lien — sans ressaisir une seule information.",
+        features: [
+          "Pages publiques œuvres, artistes et expositions",
+          "Viewing rooms privées par collectionneur",
+          "Exports PDF prêts à envoyer",
+          "Partages privés par lien ou email",
+        ],
+        cta: "Voir la publication",
+      },
+      "collector-relationships": {
+        eyebrow: "Produits · Relations Collectionneurs",
+        title: "Gardez le fil de chaque relation.",
+        subtitle: "Conversations, demandes et suivis connectés aux bonnes œuvres.",
+        body:
+          "Chaque échange avec un collectionneur est rattaché à une œuvre, une sélection ou une viewing room. Rien ne se perd entre les canaux — WhatsApp, email ou appel — et le contexte reste accessible au moment de répondre.",
+        features: [
+          "Demandes liées aux œuvres",
+          "Historique par collectionneur",
+          "Contexte de viewing room ou sélection",
+          "Suivi, statuts et notes internes",
+        ],
+        cta: "Activer les relations",
+      },
+      assistants: {
+        eyebrow: "Produits · Assistants Galerie",
+        title: "Moins de temps sur les tâches répétitives.",
+        subtitle: "Soutenez la publication, les ventes et les opérations quotidiennes.",
+        body:
+          "Les assistants Vitreen prennent en charge les tâches récurrentes : rédiger des textes d’œuvres, préparer des présentations, générer des emails collectionneurs ou mettre à jour l’inventaire — pour que l’équipe se concentre sur ce qui compte.",
+        features: [
+          "Rédaction de textes d’œuvres",
+          "Préparation de présentations de vente",
+          "Génération d’emails collectionneurs",
+          "Mise à jour automatisée de l’inventaire",
+        ],
+        cta: "Découvrir les assistants",
+      },
+    },
     ctaBand: {
       title: "Commencez avec votre workflow actuel",
       subtitle: "Ajoutez les outils dont votre galerie a besoin",
@@ -1281,6 +1342,67 @@ export const translations = {
           "Sharing templates tied to the gallery",
         ],
         cta: "Discuss the workflow",
+      },
+    },
+    products: {
+      sectionLabel: "Products",
+      backToHome: "Back to home",
+      featuresLabel: "What's covered",
+      "artworks-archives": {
+        eyebrow: "Products · Artworks & Archives",
+        title: "Artworks, artists and archives, organized.",
+        subtitle: "Structure your inventory without replacing existing tools.",
+        body:
+          "Vitreen adapts to how your gallery already manages artworks — whether they live in a spreadsheet, an existing system or an email thread. The archive becomes a single source available across every publishing channel.",
+        features: [
+          "Artwork, artist and exhibition records",
+          "Status, prices and availability",
+          "Connects to existing systems",
+          "Mediums, dimensions and provenance",
+        ],
+        cta: "Structure the archive",
+      },
+      publishing: {
+        eyebrow: "Products · Publishing",
+        title: "Publish everywhere, from a single source.",
+        subtitle: "Websites, viewing rooms, collector PDFs and private sharing.",
+        body:
+          "From your artwork data, Vitreen generates public pages, exhibition archives, printable PDFs and private spaces shared by link — without re-entering a single piece of information.",
+        features: [
+          "Public artwork, artist and exhibition pages",
+          "Private viewing rooms per collector",
+          "PDF exports ready to send",
+          "Private sharing by link or email",
+        ],
+        cta: "See publishing",
+      },
+      "collector-relationships": {
+        eyebrow: "Products · Collector Relationships",
+        title: "Keep the thread of every relationship.",
+        subtitle: "Conversations, inquiries and follow-ups connected to the right artworks.",
+        body:
+          "Every exchange with a collector is tied to an artwork, a selection or a viewing room. Nothing gets lost across channels — WhatsApp, email or call — and context stays accessible when it's time to respond.",
+        features: [
+          "Inquiries linked to artworks",
+          "History per collector",
+          "Viewing room or selection context",
+          "Follow-up, statuses and internal notes",
+        ],
+        cta: "Activate relationships",
+      },
+      assistants: {
+        eyebrow: "Products · Gallery Assistants",
+        title: "Less time on repetitive tasks.",
+        subtitle: "Support publishing, sales preparation and day-to-day gallery operations.",
+        body:
+          "Vitreen assistants handle recurring tasks: writing artwork texts, preparing presentations, generating collector emails or updating inventory — so the team can focus on what matters.",
+        features: [
+          "Artwork text writing",
+          "Sales presentation preparation",
+          "Collector email generation",
+          "Automated inventory updates",
+        ],
+        cta: "Explore assistants",
       },
     },
     ctaBand: {
