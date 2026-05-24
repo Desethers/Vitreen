@@ -117,9 +117,9 @@ function StepTwoSharingFlow() {
         </div>
       ))}
 
-      {/* Gallery OS dashboard mockup */}
+      {/* Artwork card — monochrome painting mockup */}
       <div
-        className="absolute z-10 overflow-hidden rounded-[3px] border border-[#E3E3DF] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
+        className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] border border-[#E3E3DF] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
         style={{
           left: `${(cardLeft / 280) * 100}%`,
           right: `${((280 - cardRight) / 280) * 100}%`,
@@ -127,46 +127,14 @@ function StepTwoSharingFlow() {
           bottom: `${((96 - cardBottom) / 96) * 100}%`,
         }}
       >
-        <div className="flex h-full w-full">
-          {/* Sidebar */}
-          <div className="flex w-[18px] shrink-0 flex-col border-r border-[#EFEFEB] bg-[#FAFAF9] px-[3px] py-[4px]">
-            {/* Logo */}
-            <div className="mb-[3px] h-[5px] w-[5px] rounded-[1px] bg-[#111110]" />
-            {/* Nav items */}
-            {[14, 10, 10, 10, 12, 10, 10].map((w, i) => (
-              <div
-                key={i}
-                className={`mb-[2px] h-[2.5px] rounded-[1px] ${i === 0 ? "bg-[#111110]" : "bg-[#DDDDD9]"}`}
-                style={{ width: w }}
-              />
-            ))}
-          </div>
-
-          {/* Main */}
-          <div className="flex min-w-0 flex-1 flex-col px-[5px] py-[4px]">
-            {/* Header */}
-            <p className="mb-[3px] text-[4.5px] font-semibold leading-none text-[#111110]">Overview</p>
-
-            {/* Stats */}
-            <div className="mb-[3px] grid grid-cols-4 gap-[2px]">
-              {[["ŒUVRES","6"],["VENDUES","0"],["INQUIRIES","2"],["COLL.","1"]].map(([label, val]) => (
-                <div key={label} className="rounded-[1.5px] border border-[#EFEFEB] bg-[#F8F8F7] px-[2px] py-[1.5px]">
-                  <p className="text-[3px] uppercase leading-none tracking-wide text-[#ADADAA]">{label}</p>
-                  <p className="mt-[1px] text-[5px] font-semibold leading-none text-[#111110]">{val}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Artwork grid */}
-            <div className="grid grid-cols-6 gap-[2px]">
-              {[
-                "bg-[#1A3BBF]","bg-[#1A3BBF]","bg-[#1A3BBF]",
-                "bg-[#1A2A4A]","bg-[#B8D0EC]","bg-[#F0C830]",
-              ].map((color, i) => (
-                <div key={i} className={`aspect-square rounded-[1.5px] ${color}`} />
-              ))}
-            </div>
-          </div>
+        <div className="relative flex-1 overflow-hidden bg-[#7A1F18]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_55%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_70%,rgba(0,0,0,0.18)_0%,rgba(0,0,0,0)_60%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_45%,rgba(0,0,0,0.08)_100%)]" />
+        </div>
+        <div className="flex flex-col gap-0.5 px-1.5 py-1">
+          <span className="truncate text-[7px] leading-tight text-[#111110]">Untitled, 2024</span>
+          <span className="truncate text-[6px] leading-tight text-[#6B6A67]">Oil on canvas · 120 × 90 cm</span>
         </div>
       </div>
 
