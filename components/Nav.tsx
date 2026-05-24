@@ -194,10 +194,10 @@ export default function Nav() {
                 className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
                 <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
-                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,26rem)] gap-x-12">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                     <div>
                       <p className="text-[12px] text-[#ADADAA]">{productMenu.sectionLabel}</p>
-                      <div className="mt-5 grid grid-cols-2 gap-x-8 gap-y-5">
+                      <div className="mt-5 grid grid-cols-1 gap-y-5">
                         {productMenu.items.map((item) => (
                           <a
                             key={item.title}
@@ -258,7 +258,7 @@ export default function Nav() {
                 className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
                 <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white px-8 py-8">
-                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,26rem)] gap-x-12">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                     <div>
                       {solutionsMenu.columns[0] && (
                         <>
