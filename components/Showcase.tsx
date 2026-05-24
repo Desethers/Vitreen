@@ -924,7 +924,7 @@ const INTERVAL = 4500;
 const bgImage = "/colin deland.jpeg";
 
 /* Step 1 — Branded admin interface */
-function AdminMock() {
+export function AdminMock() {
   const { t } = useLang();
   const m = t.stepper.mock.admin;
   const isFr = m.workspace === "Mon espace galerie";
@@ -1112,7 +1112,7 @@ function AdminMock() {
 }
 
 /* Step 2 — Live site preview showing the artwork */
-function LiveSiteMock() {
+export function LiveSiteMock() {
   const { t } = useLang();
   const m = t.stepper.mock.livesite;
   return (
@@ -1221,7 +1221,7 @@ function LiveSiteMock() {
 }
 
 /* Step 3 — Share viewing room via email */
-function ShareMock() {
+export function ShareMock() {
   const { t } = useLang();
   const m = t.stepper.mock.share;
   const [sent, setSent] = useState(false);

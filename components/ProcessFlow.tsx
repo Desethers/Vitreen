@@ -4,6 +4,112 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLang } from "@/lib/lang";
 
+/* ─── Visual sub-components (used in ProcessFlow + ArtworkSourceSection) ─── */
+
+const stepTwoLogos = [
+  { src: "/logos/google-gmail-svgrepo-com.svg", alt: "Gmail" },
+  { src: "/logos/Microsoft_Office_Outlook_Logo.svg", alt: "Outlook" },
+  { src: "/logos/pdf-svgrepo-com.svg", alt: "PDF" },
+  { src: "/logos/Microsoft_Office_Excel_Logo.svg", alt: "Excel" },
+  { src: "/logos/Android_App_Icon_2026.png", alt: "WhatsApp" },
+];
+
+export function StepOnePillIcon({ tag }: { tag: string }) {
+  const normalized = tag.toLowerCase();
+  const commonProps = {
+    className: "h-3 w-3 shrink-0",
+    fill: "none",
+    stroke: "currentColor",
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+    strokeWidth: 1.7,
+    viewBox: "0 0 16 16",
+    "aria-hidden": true,
+  };
+  if (normalized.includes("artwork") || normalized.includes("oeuvre")) return <svg {...commonProps}><rect x="3" y="3" width="10" height="10" rx="1.5" /><path d="M5.5 10.5 7.1 8.9l1.2 1.2 1.9-2.4 1.3 2.8" /></svg>;
+  if (normalized.includes("artist")) return <svg {...commonProps}><path d="M8 8.2a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6Z" /><path d="M3.8 13c.7-1.9 2.1-3 4.2-3s3.5 1.1 4.2 3" /></svg>;
+  if (normalized.includes("collector")) return <svg {...commonProps}><path d="M5.2 7.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /><path d="M10.8 7.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /><path d="M2.5 12.8c.5-1.8 1.4-2.7 2.7-2.7s2.2.9 2.7 2.7" /><path d="M8.1 12.8c.5-1.8 1.4-2.7 2.7-2.7s2.2.9 2.7 2.7" /></svg>;
+  if (normalized.includes("exhibition")) return <svg {...commonProps}><path d="M3 4h10" /><path d="M4 4v7.5h8V4" /><path d="M6.2 11.5 8 8.8l1.8 2.7" /></svg>;
+  if (normalized.includes("crm")) return <svg {...commonProps}><rect x="3" y="3.5" width="10" height="9" rx="1.5" /><path d="M5.5 6.2h5" /><path d="M5.5 8h5" /><path d="M5.5 9.8h3" /></svg>;
+  return <svg {...commonProps}><rect x="2.8" y="4.2" width="10.4" height="7.6" rx="1.4" /><path d="m3.2 5 4.8 3.6L12.8 5" /></svg>;
+}
+
+export function StepTwoSharingFlow() {
+  const [gmail, outlook, , excel, whatsApp] = stepTwoLogos;
+  const pdf = stepTwoLogos[2];
+  const cardLeft = 104, cardRight = 176, cardTop = 14, cardBottom = 82;
+  const cardMidY = (cardTop + cardBottom) / 2;
+  const leftIcons = [
+    { src: gmail.src, alt: gmail.alt, y: 18 },
+    { src: outlook.src, alt: outlook.alt, y: cardMidY },
+    { src: excel.src, alt: excel.alt, y: 78 },
+  ];
+  const rightIcons = [
+    { src: pdf.src, alt: pdf.alt, y: 28 },
+    { src: whatsApp.src, alt: whatsApp.alt, y: 68 },
+  ];
+  return (
+    <div className="relative h-[96px] w-full max-w-[340px]">
+      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 280 96" fill="none" aria-hidden="true">
+        {leftIcons.map((icon, i) => {
+          const endY = cardMidY + (icon.y - cardMidY) * 0.35;
+          const cx = (22 + cardLeft) / 2;
+          return <path key={`l-${i}`} d={`M22 ${icon.y} C${cx} ${icon.y} ${cx} ${endY} ${cardLeft} ${endY}`} stroke="rgba(17,17,16,0.16)" strokeWidth="0.75" strokeLinecap="round" />;
+        })}
+        {rightIcons.map((icon, i) => {
+          const startY = cardMidY + (icon.y - cardMidY) * 0.35;
+          const cx = (cardRight + 258) / 2;
+          return <path key={`r-${i}`} d={`M${cardRight} ${startY} C${cx} ${startY} ${cx} ${icon.y} 258 ${icon.y}`} stroke="rgba(17,17,16,0.16)" strokeWidth="0.75" strokeLinecap="round" />;
+        })}
+      </svg>
+      {leftIcons.map((icon) => (
+        <div key={`li-${icon.alt}`} className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center" style={{ left: `${(22/280)*100}%`, top: `${(icon.y/96)*100}%` }}>
+          <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
+        </div>
+      ))}
+      <div className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] border border-[#E3E3DF] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
+        style={{ left:`${(cardLeft/280)*100}%`, right:`${((280-cardRight)/280)*100}%`, top:`${(cardTop/96)*100}%`, bottom:`${((96-cardBottom)/96)*100}%` }}>
+        <div className="relative flex-1 overflow-hidden bg-[#7A1F18]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_55%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_70%,rgba(0,0,0,0.18)_0%,rgba(0,0,0,0)_60%)]" />
+        </div>
+        <div className="flex flex-col gap-0.5 px-1.5 py-1">
+          <span className="truncate text-[7px] leading-tight text-[#111110]">Untitled, 2024</span>
+          <span className="truncate text-[6px] leading-tight text-[#6B6A67]">Oil on canvas · 120 × 90 cm</span>
+        </div>
+      </div>
+      {rightIcons.map((icon) => (
+        <div key={`ri-${icon.alt}`} className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center" style={{ left:`${(258/280)*100}%`, top:`${(icon.y/96)*100}%` }}>
+          <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function DeployCardStack({ lang }: { lang: "fr" | "en" }) {
+  const events = [
+    { label: "Private PDF shared", meta: "VIP collectors · Opening preview", time: "09:18" },
+    { label: "Interested in Untitled, 2024", meta: "Availability requested", time: "09:24" },
+    { label: "Collector follow-up", meta: "Assigned internally", time: "09:30" },
+  ];
+  return (
+    <div className="relative h-[80px]">
+      {events.map((event, index) => (
+        <div key={event.label} className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-2.5 rounded-[6px] border border-[#EFEFEB] bg-white px-2.5 py-2 shadow-[0_4px_14px_rgba(17,17,16,0.06)]"
+          style={{ zIndex: events.length - index, top: index * 14, left: index * 10, right: index * 10, opacity: 1 - index * 0.2, transform: `scale(${1 - index * 0.04})`, transformOrigin: "top center" }}>
+          <span className="h-2 w-2 rounded-full bg-[#111110]" aria-hidden="true" />
+          <div className="min-w-0">
+            <p className="truncate text-[12px] leading-none text-[#111110]">{event.label}</p>
+            <p className="mt-1 truncate text-[10px] leading-none text-[#8A8A86]">{event.meta}</p>
+          </div>
+          <span className="text-[10px] leading-none text-[#ADADAA] tabular-nums">{event.time}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const fadeUp = (delay = 0) => ({

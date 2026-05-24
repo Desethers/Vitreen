@@ -6,22 +6,23 @@ Ce fichier est lu à chaque session. Il sert de mémoire stable du projet : posi
 
 ## 1. Positionnement (la vision)
 
-Vitreen n'est pas un studio web. C'est le **Digital Sales Partner** des galeries d'art — une plateforme qui centralise l'inventaire pour automatiser le rayonnement et générer des ventes.
+Every gallery develops its own way of working — across artworks, publishing, collector relationships and internal coordination. Vitreen helps connect these fragmented activities into a more coherent working environment without forcing galleries into rigid software workflows.
 
-Architecture en 3 briques indissociables :
-- **CRM** — *L'Inventaire Intelligent.* Chaque œuvre entrée une seule fois.
-- **Website** — *L'Expérience de Vente.* Une Viewing Room permanente.
-- **Content Engine** — *L'Ampli Marketing.* Une expo devient une campagne en un clic.
+### 4 piliers
 
-Pitch : `Inventaire (Input) → UNE PLATEFORME UNIQUE → (Outputs) Site / Social / Mail`.
+**1. Artworks & Archives**
+Organise artworks, exhibitions and archives across existing gallery systems. Vitreen structures artwork information, exhibition history, inventory and archival material from spreadsheets, legacy CMSs, PDFs or gallery databases — without replacing existing tools.
+
+**2. Public & Private Publishing**
+Publish artworks across websites, viewing rooms, collector PDFs and private sharing channels. Vitreen helps galleries move seamlessly between public presentation and private distribution while maintaining consistency around artworks and exhibitions.
+
+**3. Collector Relationships**
+Keep collector inquiries, follow-ups and sales conversations connected to the right artworks. Vitreen helps galleries preserve continuity across collector interactions and sales preparation without introducing unnecessary CRM complexity.
+
+**4. Gallery Assistants**
+Assist galleries across publishing, collector communication and operational preparation using gallery-specific context. The goal is not to automate relationships, but to give galleries more time to focus on artists, exhibitions and collectors.
 
 Source détaillée (idées, pricing, killer features) : page Notion *Idées à developper* (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
-
-### Personas (menu Solutions — "By role")
-Galeries · Conseillers & Marchands · Artistes · Collectionneurs · Successions d'artistes
-
-### Domaines (menu Solutions — "By area")
-Gestion de galerie · Sites web · Contenu social · Marketing
 
 ---
 

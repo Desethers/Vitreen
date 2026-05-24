@@ -118,9 +118,9 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Couche opérationnelle",
-      title: "Connecter ce que la galerie utilise déjà.",
+      title: "Conçu autour de la façon dont les galeries fonctionnent vraiment.",
       body:
-        "Une couche légère entre les sources d’œuvres, les partages privés et les demandes collectionneurs.",
+        "Chaque galerie gère ses œuvres, collectionneurs et ventes différemment. Vitreen s’adapte à vos sources existantes, vos habitudes de communication et vos workflows relationnels — et les transforme en une couche opérationnelle plus claire.",
       connectedLabel: "Côté archive",
       connectedTitle: "Gardez vos sources existantes",
       connectedBody:
@@ -760,9 +760,9 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Operational layer",
-      title: "Connect what the gallery already uses.",
+      title: "Built around the way galleries actually work.",
       body:
-        "A lightweight layer between artwork sources, private sharing and collector inquiries.",
+        "Every gallery handles artworks, collectors and sales differently. Vitreen adapts to your existing sources, communication habits and relationship-driven workflows — then turns them into a clearer operating layer.",
       connectedLabel: "Archive side",
       connectedTitle: "Keep your existing sources",
       connectedBody:
