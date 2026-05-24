@@ -45,55 +45,109 @@ const stepTwoLogos = [
 function StepTwoSharingFlow() {
   const [gmail, outlook, pdf, excel, whatsApp] = stepTwoLogos;
 
+  // Layout (viewBox 280 x 96):
+  // Left column icons centered at x=12 — top/middle/bottom
+  // Right column icons centered at x=268 — top/bottom
+  // Card centered horizontally, from x=104 → x=176 (width 72), y=14 → y=82
+  const cardLeft = 104;
+  const cardRight = 176;
+  const cardTop = 14;
+  const cardBottom = 82;
+  const cardMidY = (cardTop + cardBottom) / 2;
+
+  const leftIcons = [
+    { src: gmail.src, alt: gmail.alt, y: 18 },
+    { src: outlook.src, alt: outlook.alt, y: cardMidY },
+    { src: excel.src, alt: excel.alt, y: 78 },
+  ];
+  const rightIcons = [
+    { src: pdf.src, alt: pdf.alt, y: 28 },
+    { src: whatsApp.src, alt: whatsApp.alt, y: 68 },
+  ];
+
   return (
-    <div className="relative mt-3 h-[78px] max-w-[280px]">
+    <div className="relative mt-3 h-[96px] w-full max-w-[340px]">
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 280 78"
+        viewBox="0 0 280 96"
         fill="none"
         aria-hidden="true"
       >
-        <path
-          d="M23 18 C57 19 78 32 103 37 C130 42 150 38 176 34 C203 30 225 23 256 19"
-          stroke="rgba(17,17,16,0.16)"
-          strokeWidth="0.75"
-          strokeLinecap="round"
-        />
-        <path
-          d="M34 59 C67 56 82 49 104 43 C132 36 151 40 176 46 C205 53 225 56 250 53"
-          stroke="rgba(17,17,16,0.1)"
-          strokeWidth="0.75"
-          strokeLinecap="round"
-        />
+        {leftIcons.map((icon, i) => {
+          const startX = 22;
+          const startY = icon.y;
+          const endX = cardLeft;
+          const endY = cardMidY + (icon.y - cardMidY) * 0.35;
+          const cx = (startX + endX) / 2;
+          return (
+            <path
+              key={`l-${i}`}
+              d={`M${startX} ${startY} C${cx} ${startY} ${cx} ${endY} ${endX} ${endY}`}
+              stroke="rgba(17,17,16,0.16)"
+              strokeWidth="0.75"
+              strokeLinecap="round"
+            />
+          );
+        })}
+        {rightIcons.map((icon, i) => {
+          const startX = cardRight;
+          const startY = cardMidY + (icon.y - cardMidY) * 0.35;
+          const endX = 258;
+          const endY = icon.y;
+          const cx = (startX + endX) / 2;
+          return (
+            <path
+              key={`r-${i}`}
+              d={`M${startX} ${startY} C${cx} ${startY} ${cx} ${endY} ${endX} ${endY}`}
+              stroke="rgba(17,17,16,0.16)"
+              strokeWidth="0.75"
+              strokeLinecap="round"
+            />
+          );
+        })}
       </svg>
 
-      <div className="absolute left-0 top-2 flex h-4 w-4 items-center justify-center">
-        <img src={gmail.src} alt={gmail.alt} className="h-4 w-4 object-contain" loading="lazy" />
-      </div>
-      <div className="absolute left-5 top-[33px] flex h-4 w-4 items-center justify-center">
-        <img src={outlook.src} alt={outlook.alt} className="h-4 w-4 object-contain" loading="lazy" />
-      </div>
-      <div className="absolute left-1 top-[56px] flex h-4 w-4 items-center justify-center">
-        <img src={excel.src} alt={excel.alt} className="h-4 w-4 object-contain" loading="lazy" />
-      </div>
-
-      <div className="absolute left-[92px] top-1 z-10 w-[92px] rounded-[3px] border border-[#E3E3DF] bg-white p-1.5 shadow-[0_10px_20px_rgba(17,17,16,0.045)]">
-        <div className="relative h-[38px] overflow-hidden rounded-[2px] bg-[#D8C66F]">
-          <div className="absolute inset-x-2 top-2 h-px bg-white/22" />
-          <div className="absolute bottom-2 left-2 h-px w-10 bg-[#111110]/10" />
-          <div className="absolute right-2 top-2 h-[24px] w-px bg-[#111110]/8" />
-          <div className="absolute left-0 top-0 h-full w-full bg-[linear-gradient(115deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0)_38%,rgba(17,17,16,0.06)_100%)]" />
+      {leftIcons.map((icon) => (
+        <div
+          key={`li-${icon.alt}`}
+          className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+          style={{ left: `${(22 / 280) * 100}%`, top: `${(icon.y / 96) * 100}%` }}
+        >
+          <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
         </div>
-        <div className="mt-1.5 h-px w-12 bg-[#111110]/24" />
-        <div className="mt-1 h-px w-6 bg-[#111110]/12" />
+      ))}
+
+      {/* Artwork card — monochrome painting mockup */}
+      <div
+        className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] border border-[#E3E3DF] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
+        style={{
+          left: `${(cardLeft / 280) * 100}%`,
+          right: `${((280 - cardRight) / 280) * 100}%`,
+          top: `${(cardTop / 96) * 100}%`,
+          bottom: `${((96 - cardBottom) / 96) * 100}%`,
+        }}
+      >
+        <div className="relative flex-1 overflow-hidden bg-[#7A1F18]">
+          {/* Monochrome painting — subtle brushwork variations */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_55%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_70%,rgba(0,0,0,0.18)_0%,rgba(0,0,0,0)_60%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_45%,rgba(0,0,0,0.08)_100%)]" />
+        </div>
+        <div className="flex flex-col gap-0.5 px-1.5 py-1">
+          <span className="truncate text-[7px] leading-tight text-[#111110]">Untitled, 2024</span>
+          <span className="truncate text-[6px] leading-tight text-[#6B6A67]">Oil on canvas · 120 × 90 cm</span>
+        </div>
       </div>
 
-      <div className="absolute right-9 top-6 flex h-5 w-5 items-center justify-center">
-        <img src={pdf.src} alt={pdf.alt} className="h-5 w-5 object-contain" loading="lazy" />
-      </div>
-      <div className="absolute right-2 top-[47px] flex h-5 w-5 items-center justify-center">
-        <img src={whatsApp.src} alt={whatsApp.alt} className="h-5 w-5 object-contain" loading="lazy" />
-      </div>
+      {rightIcons.map((icon) => (
+        <div
+          key={`ri-${icon.alt}`}
+          className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+          style={{ left: `${(258 / 280) * 100}%`, top: `${(icon.y / 96) * 100}%` }}
+        >
+          <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -196,25 +250,36 @@ function DeployCardStack({ lang }: { lang: "fr" | "en" }) {
 
   return (
     <div className="mt-4 max-w-[420px]">
-      <div className="relative h-[112px] overflow-hidden">
-        {events.map((event, index) => (
-          <div
-            key={event.label}
-            className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-2 rounded-[6px] border border-[#EFEFEB] bg-[#F8F8F6] px-2.5 py-2 shadow-[0_10px_24px_rgba(17,17,16,0.05)]"
-            style={{
-              zIndex: event.zIndex,
-              opacity: 1 - index * 0.12,
-              transform: `translate(${index * 8}px, ${6 + index * 24}px) scale(${1 - index * 0.035})`,
-            }}
-          >
-            <span className="h-2 w-2 rounded-full bg-[#111110]" aria-hidden="true" />
-            <div className="min-w-0">
-              <p className="truncate text-[12px] leading-none text-[#111110]">{event.label}</p>
-              <p className="mt-1 truncate text-[10px] leading-none text-[#8A8A86]">{event.meta}</p>
+      <div className="relative h-[80px]">
+        {events.map((event, index) => {
+          // index 0 = top card (fully visible), 1 & 2 peek behind
+          const reverseIndex = events.length - 1 - index; // 2, 1, 0 for stacking
+          return (
+            <div
+              key={event.label}
+              className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-2.5 rounded-[6px] border border-[#EFEFEB] bg-white px-2.5 py-2 shadow-[0_4px_14px_rgba(17,17,16,0.06)]"
+              style={{
+                zIndex: events.length - index,
+                top: index * 14,
+                left: index * 10,
+                right: index * 10,
+                opacity: 1 - index * 0.2,
+                transform: `scale(${1 - index * 0.04})`,
+                transformOrigin: "top center",
+              }}
+            >
+              <span
+                className="h-2 w-2 rounded-full bg-[#111110]"
+                aria-hidden="true"
+              />
+              <div className="min-w-0">
+                <p className="truncate text-[12px] leading-none text-[#111110]">{event.label}</p>
+                <p className="mt-1 truncate text-[10px] leading-none text-[#8A8A86]">{event.meta}</p>
+              </div>
+              <span className="text-[10px] leading-none text-[#ADADAA] tabular-nums">{event.time}</span>
             </div>
-            <span className="text-[10px] leading-none text-[#ADADAA]">{event.time}</span>
-          </div>
-        ))}
+          );
+        })}
       </div>
       <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">
         Operational infrastructure installed around your existing gallery environment.
