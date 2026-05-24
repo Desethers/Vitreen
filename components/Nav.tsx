@@ -257,8 +257,8 @@ export default function Nav() {
                 onMouseLeave={() => setSolutionsOpen(false)}
                 className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
-                <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white">
-                  <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_minmax(0,18rem)] gap-x-12 px-8 py-8">
+                <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white px-8 py-8">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_minmax(0,18rem)] gap-x-12">
                     <div className="grid grid-cols-2 gap-x-12">
                       {solutionsMenu.columns.map((col) => (
                         <div key={col.label}>
@@ -306,7 +306,7 @@ export default function Nav() {
                       </p>
                     </a>
                   </div>
-                  <div className="mx-auto flex max-w-7xl items-center justify-end px-8 py-4">
+                  <div className="mx-auto flex max-w-7xl items-center justify-end py-0 pt-4">
                     <a
                       href={solutionsMenu.ctaAllHref}
                       onClick={() => setSolutionsOpen(false)}
