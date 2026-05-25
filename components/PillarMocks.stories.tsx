@@ -12,10 +12,7 @@ export default {
 function MockFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-white p-8">
-      <div
-        className="relative rounded-lg bg-white"
-        style={{ width: 640, height: 480 }}
-      >
+      <div className="relative rounded-lg bg-white" style={{ width: 640, height: 480 }}>
         {children}
       </div>
     </div>
@@ -60,15 +57,10 @@ export const AllPillars: Story = () => (
         <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
           {p.number} — {p.title}
         </p>
-        <div
-          className="relative rounded-lg bg-white"
-          style={{ width: 640, height: 480 }}
-        >
+        <div className="relative rounded-lg bg-white" style={{ width: 640, height: 480 }}>
           <p.Mock />
         </div>
-        <p className="max-w-md text-center text-[12px] leading-relaxed text-[#6B6A67]">
-          {p.desc}
-        </p>
+        <p className="max-w-md text-center text-[12px] leading-relaxed text-[#6B6A67]">{p.desc}</p>
       </div>
     ))}
   </div>

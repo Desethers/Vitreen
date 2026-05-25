@@ -17,8 +17,7 @@ export default function Reframe() {
         >
           "Un site de galerie n'est pas une brochure.{" "}
           <span className="text-[#CECCC8]">
-            C'est une archive vivante — de vos artistes, de vos expositions, de
-            votre programme."
+            C'est une archive vivante — de vos artistes, de vos expositions, de votre programme."
           </span>
         </motion.blockquote>
       </div>

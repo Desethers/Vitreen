@@ -26,7 +26,9 @@ export default function QuoteSection() {
               className="w-11 h-11 rounded-full object-cover flex-shrink-0 grayscale"
             />
             <div>
-              <p className="text-sm md:text-base font-normal text-[#111110] leading-tight">{q.name}</p>
+              <p className="text-sm md:text-base font-normal text-[#111110] leading-tight">
+                {q.name}
+              </p>
               <p className="text-xs md:text-sm text-[#6B6A67] mt-0.5">{q.role}</p>
             </div>
           </footer>

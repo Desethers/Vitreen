@@ -1,6 +1,6 @@
 # Instagram — Vitreen
 
-> Pré-rempli depuis la page Notion *Idées à developper* et le positionnement Vitreen. À enrichir avec les retours utilisateurs et les premiers posts validés.
+> Pré-rempli depuis la page Notion _Idées à developper_ et le positionnement Vitreen. À enrichir avec les retours utilisateurs et les premiers posts validés.
 
 ## 1. Voix & ton
 
@@ -11,12 +11,14 @@
 - "Nous" / "Vitreen" pour la marque ; on peut aussi laisser parler une œuvre, un accrochage, un workflow
 
 ### Hooks qui marchent (à tester)
-- *"Aujourd'hui, dans la plupart des galeries…"*
-- *"Une œuvre. Quatre canaux. Un seul clic."*
-- *"Ce que les collectionneurs voient. Ce qu'ils ne voient pas."*
-- *"Avant Vitreen / Après Vitreen"* (visuel split)
+
+- _"Aujourd'hui, dans la plupart des galeries…"_
+- _"Une œuvre. Quatre canaux. Un seul clic."_
+- _"Ce que les collectionneurs voient. Ce qu'ils ne voient pas."_
+- _"Avant Vitreen / Après Vitreen"_ (visuel split)
 
 ### Hooks à éviter
+
 - "Saviez-vous que… ?"
 - "Voici 5 raisons de…"
 - "Game-changer pour les galeries"
@@ -31,35 +33,43 @@
 
 ## 3. Piliers de contenu
 
-### Pilier 1 — *Workflow réel (Inside the gallery)* — 35%
+### Pilier 1 — _Workflow réel (Inside the gallery)_ — 35%
+
 Montrer le métier brut : accrochage en cours, demande collectionneur, viewing room qui se compose. Esthétique documentaire, pas léchée à mort.
 
 Idées :
+
 - Capture d'un viewing room privé en train d'être assemblé
 - Le moment de l'envoi d'une newsletter à 200 collectionneurs
 - Une fiche d'œuvre à plusieurs étapes (brut → publié)
 
-### Pilier 2 — *Product moments* — 25%
+### Pilier 2 — _Product moments_ — 25%
+
 Vitreen en action, mais raconté côté usage galeriste, pas côté UI.
 
 Idées :
+
 - **"Le bouton Distribute"** — vidéo 15s, une œuvre choisie → 4 sorties (site, story, newsletter, PDF)
 - **Generate Private Room** — générer un lien privé pour un seul collectionneur
 - **Export to Story** — fiche œuvre transformée en 9:16 prête à publier
 - **AI Copywriter** — notes brutes du curator → texte de présentation
 
-### Pilier 3 — *Industry takes* — 20%
+### Pilier 3 — _Industry takes_ — 20%
+
 Opinions sur le marché. À garder rare et tranchant. Pas un compte d'opinion permanente.
 
 Idées :
-- Pourquoi Artlogic est un *inventaire* mais pas un *partenaire commercial*
+
+- Pourquoi Artlogic est un _inventaire_ mais pas un _partenaire commercial_
 - L'écart entre l'esthétique du site galerie et celle d'Instagram
 - Le coût caché des 4 outils (Artlogic + Mailchimp + Canva + site)
 
-### Pilier 4 — *Curation & culture* — 20%
+### Pilier 4 — _Curation & culture_ — 20%
+
 Citations, vidéos YouTube art & digital, références. Alimente la voix sans pousser le produit.
 
 Idées issues du Notion :
+
 - Quotes de vidéos YouTube sur art & digital (Hans Ulrich Obrist, Larry Gagosian, David Zwirner podcast)
 - Citations de marchands historiques sur la relation collectionneur
 - Mises en regard d'expos passées et de leur traitement digital
@@ -67,19 +77,23 @@ Idées issues du Notion :
 ## 4. Formats validés
 
 ### Carrousel (3-7 slides)
+
 - **Slide 1** : hook fort + visuel pleine page
 - **Slides 2-5** : l'idée déroulée, un point par slide, beaucoup d'air
 - **Dernière slide** : signature `Vitreen — le partenaire digital des galeries qui vendent` + CTA discret en bio
 
 ### Post unique (1 image)
+
 - Visuel fort + caption en 2-3 paragraphes courts
 - Première ligne = hook (les 80 premiers caractères apparaissent)
 
 ### Reel (10-30s)
+
 - Démo produit silencieuse, légendée
 - Workflow timelapse (accrochage, mise en ligne)
 
 ### Story
+
 - Backstage instantané (peu travaillé)
 - Sondage / question pour déclencher des DMs
 - Repartage d'un post avec un commentaire personnel
@@ -98,16 +112,18 @@ Idées issues du Notion :
 ## 7. Exemples
 
 ### ✅ Validés
-*(à remplir au fil des publications gardées)*
+
+_(à remplir au fil des publications gardées)_
 
 ### ❌ Ratés / à éviter
-*(à remplir avec les brouillons rejetés et la raison)*
+
+_(à remplir avec les brouillons rejetés et la raison)_
 
 ## 8. Queue / idées à publier
 
-- [ ] **Carrousel** — *"Le bouton Distribute"* — 5 slides, démo du flux
+- [ ] **Carrousel** — _"Le bouton Distribute"_ — 5 slides, démo du flux
 - [ ] **Reel 15s** — Une œuvre → 4 canaux en split-screen
 - [ ] **Post** — Quote de Larry Gagosian sur la relation collectionneur (à vérifier)
-- [ ] **Carrousel industry take** — *"Pourquoi votre site galerie n'est pas une Viewing Room"*
-- [ ] **Story série** — *"24h dans une galerie qui utilise Vitreen"*
+- [ ] **Carrousel industry take** — _"Pourquoi votre site galerie n'est pas une Viewing Room"_
+- [ ] **Story série** — _"24h dans une galerie qui utilise Vitreen"_
 - [ ] **Post** — Avant/Après — workflow expo en 4 outils vs workflow Vitreen

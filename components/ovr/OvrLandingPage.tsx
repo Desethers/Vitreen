@@ -17,7 +17,15 @@ const features: Feature[] = [
     title: "Mise en page libre",
     desc: "Pleine page, diptyque, triptyque, image avec texte ou citation. Réordonnez par glisser-déposer.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M21 7.5H3" />
       </svg>
     ),
@@ -26,7 +34,15 @@ const features: Feature[] = [
     title: "Export PDF",
     desc: "Document haute résolution, aligné sur la preview — prêt à imprimer ou à archiver.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
       </svg>
     ),
@@ -35,7 +51,15 @@ const features: Feature[] = [
     title: "Email HTML",
     desc: "Rendu soigné dans les messageries (dont Gmail), lien « voir en ligne », légendes et appels à l’action.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.815a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
       </svg>
     ),
@@ -44,7 +68,15 @@ const features: Feature[] = [
     title: "Lien privé",
     desc: "Une URL par envoi : ouverture sur mobile ou bureau, sans pièces jointes lourdes.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
       </svg>
     ),
@@ -53,7 +85,15 @@ const features: Feature[] = [
     title: "Personnalisation",
     desc: "Destinataire, accroche, introduction, pied de page : chaque room est pensée pour un contact.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
       </svg>
     ),
@@ -62,7 +102,15 @@ const features: Feature[] = [
     title: "Parcours unique",
     desc: "Import, composition, retouches — le tout dans le navigateur, sans changer d’outil.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
         <path d="M8.25 9.75h7.5M8.25 12.75h4.5" strokeLinecap="round" />
       </svg>
@@ -150,7 +198,8 @@ export default function OvrLandingPage() {
   };
 
   const sectionKicker = "text-[13px] text-[#6B6A67] tracking-wide";
-  const sectionTitle = "font-display mt-2 text-[1.65rem] font-normal leading-snug tracking-tight text-[#111110] md:text-[1.85rem]";
+  const sectionTitle =
+    "font-display mt-2 text-[1.65rem] font-normal leading-snug tracking-tight text-[#111110] md:text-[1.85rem]";
 
   return (
     <div className="min-h-screen bg-white text-[#111110]">
@@ -159,7 +208,9 @@ export default function OvrLandingPage() {
           <Link href="/" className="font-display text-[15px] tracking-tight text-[#111110]">
             Vitreen
           </Link>
-          <span className="hidden flex-1 text-center text-[13px] text-[#6B6A67] sm:block">Viewing Room Studio</span>
+          <span className="hidden flex-1 text-center text-[13px] text-[#6B6A67] sm:block">
+            Viewing Room Studio
+          </span>
           <Button onClick={goToEditor} size="sm">
             {isPro ? "Éditeur" : "Essayer gratuitement"}
           </Button>
@@ -178,8 +229,9 @@ export default function OvrLandingPage() {
               Une viewing room online composée en quelques minutes
             </h1>
             <p className="mx-auto mt-5 max-w-lg text-pretty text-[16px] leading-[1.65] text-[#6B6A67]">
-              Une présentation nette et cohérente : mise en page fluide, PDF haute définition, email HTML et lien privé
-              — sans refaire la mise en page à la main dans InDesign ou PowerPoint.
+              Une présentation nette et cohérente : mise en page fluide, PDF haute définition, email
+              HTML et lien privé — sans refaire la mise en page à la main dans InDesign ou
+              PowerPoint.
             </p>
             <div className="mt-9 flex flex-col items-stretch justify-center gap-2.5 sm:flex-row sm:items-center sm:justify-center">
               <Button onClick={goToEditor} size="lg">
@@ -249,8 +301,12 @@ export default function OvrLandingPage() {
                       <div className="text-center">
                         <p className="text-[13px] text-[#111110]">Destinations</p>
                         <div className="mt-5 space-y-2">
-                          <span className="mx-auto block w-fit rounded-sm bg-white px-5 py-2 text-[13px] text-[#111110] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">Private link</span>
-                          <span className="mx-auto block w-fit rounded-sm bg-white/25 px-5 py-2 text-[13px] text-[#9B653B]">PDF</span>
+                          <span className="mx-auto block w-fit rounded-sm bg-white px-5 py-2 text-[13px] text-[#111110] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+                            Private link
+                          </span>
+                          <span className="mx-auto block w-fit rounded-sm bg-white/25 px-5 py-2 text-[13px] text-[#9B653B]">
+                            PDF
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -338,7 +394,11 @@ export default function OvrLandingPage() {
                 className="mt-8 w-full justify-center"
                 disabled={!!loadingCheckout}
               >
-                {loadingCheckout === "monthly" ? "Redirection…" : isPro ? "Ouvrir l'éditeur" : "S'abonner — 19 €/mois"}
+                {loadingCheckout === "monthly"
+                  ? "Redirection…"
+                  : isPro
+                    ? "Ouvrir l'éditeur"
+                    : "S'abonner — 19 €/mois"}
               </Button>
             </div>
 
@@ -348,7 +408,9 @@ export default function OvrLandingPage() {
                 <span className="font-display text-4xl">110</span>
                 <span className="text-[15px] text-white/70">€ / an</span>
               </div>
-              <p className="mt-1 text-[13px] text-white/55">Environ 9,17 € / mois · ~52 % moins cher que 12 mois au tarif mensuel</p>
+              <p className="mt-1 text-[13px] text-white/55">
+                Environ 9,17 € / mois · ~52 % moins cher que 12 mois au tarif mensuel
+              </p>
               <p className="mt-4 text-[14px] leading-relaxed text-white/70">
                 Même accès, engagement annuel.
               </p>
@@ -384,7 +446,9 @@ export default function OvrLandingPage() {
                     ? "Ouvrir l'éditeur"
                     : "S'abonner — 110 €/an"}
               </Button>
-              {yearlyError && <p className="mt-3 text-center text-[12px] text-amber-200/90">{yearlyError}</p>}
+              {yearlyError && (
+                <p className="mt-3 text-center text-[12px] text-amber-200/90">{yearlyError}</p>
+              )}
             </div>
           </div>
 

@@ -30,9 +30,8 @@ export default function Approach() {
             transition={{ duration: 0.5, ease, delay: 0.1 }}
             className="text-[#6B6A67] text-base leading-relaxed"
           >
-            Je suis artiste et je connais le fonctionnement d'une galerie de
-            l'intérieur — la relation avec les artistes, la documentation des
-            œuvres, le rythme des expositions.
+            Je suis artiste et je connais le fonctionnement d'une galerie de l'intérieur — la
+            relation avec les artistes, la documentation des œuvres, le rythme des expositions.
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -41,9 +40,8 @@ export default function Approach() {
             transition={{ duration: 0.5, ease, delay: 0.2 }}
             className="text-[#6B6A67] text-base leading-relaxed"
           >
-            Je construis votre site sur des outils simples et éprouvés. Vous
-            gardez le contrôle. Formation complète et accompagnement inclus
-            après la livraison.
+            Je construis votre site sur des outils simples et éprouvés. Vous gardez le contrôle.
+            Formation complète et accompagnement inclus après la livraison.
           </motion.p>
         </div>
       </div>

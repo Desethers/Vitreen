@@ -1,7 +1,7 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
+const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === "true";
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
   const host = request.nextUrl.hostname;

@@ -22,11 +22,7 @@ export interface SanityImageWithUrl {
 }
 
 /** Any image payload accepted by image-url builder. */
-export type SanityImageSource =
-  | SanityImageRef
-  | SanityImageWithUrl
-  | { _id: string }
-  | string;
+export type SanityImageSource = SanityImageRef | SanityImageWithUrl | { _id: string } | string;
 
 /* ─── Artist / Artwork ─────────────────────────────────────────────── */
 

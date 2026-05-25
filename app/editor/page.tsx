@@ -1,7 +1,7 @@
-import EditorCanvasFirst from '@/components/ovr/EditorCanvasFirst'
+import EditorCanvasFirst from "@/components/ovr/EditorCanvasFirst";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export default function EditorPage() {
-  return <EditorCanvasFirst />
+  return <EditorCanvasFirst />;
 }

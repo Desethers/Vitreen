@@ -1,0 +1,10 @@
+node_modules
+.next
+.vercel
+.ladle/build
+build
+out
+public
+*.lock
+*.log
+lib/lang/strings.ts

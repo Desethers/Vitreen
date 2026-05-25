@@ -8,10 +8,7 @@ export async function POST(request: Request) {
     const { nom, galerie, email, projet } = body;
 
     if (!nom || !galerie || !email || !projet) {
-      return NextResponse.json(
-        { error: "Champs manquants" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Champs manquants" }, { status: 400 });
     }
 
     const { error } = await resend.emails.send({
@@ -36,9 +33,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("Contact route error:", err);
-    return NextResponse.json(
-      { error: "Erreur serveur" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }
 }

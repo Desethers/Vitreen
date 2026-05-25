@@ -94,9 +94,7 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 border-b-[0.5px] bg-white py-2 px-4 transition-[border-color] duration-200 md:px-6 ${
-          scrolled || megaMenuOpen
-            ? "border-[#E8E8E6]"
-            : "border-transparent"
+          scrolled || megaMenuOpen ? "border-[#E8E8E6]" : "border-transparent"
         }`}
       >
         <div className="relative mx-auto flex h-9 w-full max-w-7xl items-center justify-between">
@@ -120,7 +118,10 @@ export default function Nav() {
                 }`}
               />
             </button>
-            <a href="#" className="w-32 shrink-0 font-display text-[15px] tracking-tight text-[#111110] md:text-base">
+            <a
+              href="#"
+              className="w-32 shrink-0 font-display text-[15px] tracking-tight text-[#111110] md:text-base"
+            >
               Vitreen
             </a>
           </div>
@@ -144,7 +145,9 @@ export default function Nav() {
                 const isProduct = linkMenu === "product";
                 const open = isProduct ? productOpen : solutionsOpen;
                 const setOpen = isProduct ? setProductOpen : setSolutionsOpen;
-                const closeOther = isProduct ? () => setSolutionsOpen(false) : () => setProductOpen(false);
+                const closeOther = isProduct
+                  ? () => setSolutionsOpen(false)
+                  : () => setProductOpen(false);
                 return (
                   <div
                     key={link.label}
@@ -320,7 +323,11 @@ export default function Nav() {
             )}
           </AnimatePresence>
 
-          <Button size="sm" onClick={() => setContactModalOpen(true)} className="z-20 shrink-0 !py-[7px] !px-3 !text-[12px]">
+          <Button
+            size="sm"
+            onClick={() => setContactModalOpen(true)}
+            className="z-20 shrink-0 !py-[7px] !px-3 !text-[12px]"
+          >
             {t.nav.cta}
           </Button>
         </div>
@@ -398,13 +405,18 @@ export default function Nav() {
                     <span className="text-lg leading-none">×</span>
                   </button>
 
-                  <h2 id="contact-modal-title" className="mb-2 pr-10 font-display text-xl text-[#111110]">
+                  <h2
+                    id="contact-modal-title"
+                    className="mb-2 pr-10 font-display text-xl text-[#111110]"
+                  >
                     {t.nav.modal.title}
                   </h2>
                   <p className="mb-6 text-sm text-[#6B6A67]">{t.nav.modal.subtitle}</p>
 
                   {submitted ? (
-                    <p className="py-4 font-display text-lg leading-relaxed text-[#111110]">{t.nav.modal.success}</p>
+                    <p className="py-4 font-display text-lg leading-relaxed text-[#111110]">
+                      {t.nav.modal.success}
+                    </p>
                   ) : (
                     <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
                       <input

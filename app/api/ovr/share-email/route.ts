@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 import {
   buildPlainTextFallback,
   buildViewingRoomEmailHtml,
@@ -7,128 +7,132 @@ import {
   fetchPublishedViewingRoom,
   galleryFooterEmailSection,
   mergePublishedVrFooterFromPayload,
-} from '@/lib/ovr/viewingRoomEmailHtml'
+} from "@/lib/ovr/viewingRoomEmailHtml";
 
 type ShareEmailPayload = {
-  recipientEmail?: string
-  recipientName?: string
-  galleryName?: string
-  galleryAddress?: string
-  galleryContact?: string
-  introText?: string
-  shareUrl?: string
-}
+  recipientEmail?: string;
+  recipientName?: string;
+  galleryName?: string;
+  galleryAddress?: string;
+  galleryContact?: string;
+  introText?: string;
+  shareUrl?: string;
+};
 
 function escapeHtml(value: string) {
   return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;')
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 const OVR_FROM_FORMAT_HINT =
-  'Dans Vercel, la variable OVR_EMAIL_FROM doit être soit une seule adresse (ex. noreply@viewingroom.vitreen.art), soit « Nom <adresse@domaine> » avec des chevrons < > ASCII (pas « », pas &lt;…&gt;), sans retour à la ligne.'
+  "Dans Vercel, la variable OVR_EMAIL_FROM doit être soit une seule adresse (ex. noreply@viewingroom.vitreen.art), soit « Nom <adresse@domaine> » avec des chevrons < > ASCII (pas « », pas &lt;…&gt;), sans retour à la ligne.";
 
 /** Valide / normalise l’expéditeur attendu par Resend (`email@x` ou `Name <email@x>`). */
 function normalizeResendFrom(raw: string): { ok: true; from: string } | { ok: false } {
-  let s = raw.trim()
-  if (!s) return { ok: false }
+  let s = raw.trim();
+  if (!s) return { ok: false };
 
-  s = s.replace(/\u00a0/g, ' ')
-  s = s.replace(/[＜﹤‹«]/g, '<').replace(/[＞﹥›»]/g, '>')
-  s = s.replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&amp;/gi, '&')
-  s = s.replace(/\r?\n/g, ' ').replace(/\s+/g, ' ')
+  s = s.replace(/\u00a0/g, " ");
+  s = s.replace(/[＜﹤‹«]/g, "<").replace(/[＞﹥›»]/g, ">");
+  s = s.replace(/&lt;/gi, "<").replace(/&gt;/gi, ">").replace(/&amp;/gi, "&");
+  s = s.replace(/\r?\n/g, " ").replace(/\s+/g, " ");
 
   if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
-    s = s.slice(1, -1).trim()
+    s = s.slice(1, -1).trim();
   }
 
   const simpleEmail = (e: string) => {
-    const t = e.trim()
-    if (!t || /\s/.test(t)) return false
-    const parts = t.split('@')
-    if (parts.length !== 2 || !parts[0] || !parts[1] || !parts[1].includes('.')) return false
-    return true
+    const t = e.trim();
+    if (!t || /\s/.test(t)) return false;
+    const parts = t.split("@");
+    if (parts.length !== 2 || !parts[0] || !parts[1] || !parts[1].includes(".")) return false;
+    return true;
+  };
+
+  if (!s.includes("<")) {
+    if (simpleEmail(s)) return { ok: true, from: s };
+    return { ok: false };
   }
 
-  if (!s.includes('<')) {
-    if (simpleEmail(s)) return { ok: true, from: s }
-    return { ok: false }
-  }
-
-  const m = /^(.+?)\s*<\s*([^>]+)\s*>\s*$/.exec(s)
-  if (!m) return { ok: false }
-  const displayName = m[1].trim().replace(/^["'«»]+|["'«»]+$/g, '')
-  const email = m[2].trim()
-  if (!simpleEmail(email)) return { ok: false }
-  if (!displayName) return { ok: true, from: email }
-  return { ok: true, from: `${displayName} <${email}>` }
+  const m = /^(.+?)\s*<\s*([^>]+)\s*>\s*$/.exec(s);
+  if (!m) return { ok: false };
+  const displayName = m[1].trim().replace(/^["'«»]+|["'«»]+$/g, "");
+  const email = m[2].trim();
+  if (!simpleEmail(email)) return { ok: false };
+  if (!displayName) return { ok: true, from: email };
+  return { ok: true, from: `${displayName} <${email}>` };
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const key = process.env.RESEND_API_KEY
+    const key = process.env.RESEND_API_KEY;
     if (!key) {
-      return NextResponse.json({ error: 'Email service not configured.' }, { status: 500 })
+      return NextResponse.json({ error: "Email service not configured." }, { status: 500 });
     }
 
-    const body = (await req.json()) as ShareEmailPayload
-    const recipientEmail = body.recipientEmail?.trim()
-    const shareUrl = body.shareUrl?.trim()
-    const recipientName = body.recipientName?.trim() || ''
-    const galleryName = body.galleryName?.trim() || 'Vitreen'
-    const introText = body.introText?.trim() || ''
+    const body = (await req.json()) as ShareEmailPayload;
+    const recipientEmail = body.recipientEmail?.trim();
+    const shareUrl = body.shareUrl?.trim();
+    const recipientName = body.recipientName?.trim() || "";
+    const galleryName = body.galleryName?.trim() || "Vitreen";
+    const introText = body.introText?.trim() || "";
 
-    if (!recipientEmail || !recipientEmail.includes('@')) {
-      return NextResponse.json({ error: 'A valid recipient email is required.' }, { status: 400 })
+    if (!recipientEmail || !recipientEmail.includes("@")) {
+      return NextResponse.json({ error: "A valid recipient email is required." }, { status: 400 });
     }
     if (!shareUrl) {
-      return NextResponse.json({ error: 'Share link is required.' }, { status: 400 })
+      return NextResponse.json({ error: "Share link is required." }, { status: 400 });
     }
 
-    const token = extractTokenFromShareUrl(shareUrl)
-    let vrPublished = null as Awaited<ReturnType<typeof fetchPublishedViewingRoom>>
+    const token = extractTokenFromShareUrl(shareUrl);
+    let vrPublished = null as Awaited<ReturnType<typeof fetchPublishedViewingRoom>>;
     if (token) {
       try {
-        vrPublished = await fetchPublishedViewingRoom(token)
+        vrPublished = await fetchPublishedViewingRoom(token);
       } catch (fetchErr) {
         // Ne bloque pas l'envoi mail si Sanity est indisponible ponctuellement.
-        console.error('Share email fetchPublishedViewingRoom error:', fetchErr)
+        console.error("Share email fetchPublishedViewingRoom error:", fetchErr);
       }
     }
 
-    const greeting = `Hello${recipientName ? ` ${recipientName}` : ''},`
+    const greeting = `Hello${recipientName ? ` ${recipientName}` : ""},`;
 
-    let htmlBody: string
-    let textBody: string
-    let subjectBrand = galleryName
+    let htmlBody: string;
+    let textBody: string;
+    let subjectBrand = galleryName;
 
     const footerPayload = {
       galleryName: body.galleryName,
       galleryAddress: body.galleryAddress,
       galleryContact: body.galleryContact,
-    }
+    };
 
     if (vrPublished) {
-      const vrMerged = mergePublishedVrFooterFromPayload(vrPublished, footerPayload)
-      subjectBrand = vrMerged.galleryName?.trim() || galleryName
-      htmlBody = buildViewingRoomEmailHtml(vrMerged, shareUrl)
-      textBody = buildPlainTextFallback(vrMerged, shareUrl, recipientName)
+      const vrMerged = mergePublishedVrFooterFromPayload(vrPublished, footerPayload);
+      subjectBrand = vrMerged.galleryName?.trim() || galleryName;
+      htmlBody = buildViewingRoomEmailHtml(vrMerged, shareUrl);
+      textBody = buildPlainTextFallback(vrMerged, shareUrl, recipientName);
     } else {
       const footLines = [body.galleryName, body.galleryAddress, body.galleryContact]
-        .map(s => s?.trim())
+        .map((s) => s?.trim())
         .filter(Boolean)
-        .join('\n')
+        .join("\n");
       textBody = `${greeting}
 
-${introText ? `${introText}
+${
+  introText
+    ? `${introText}
 
-` : ''}Voir la viewing room :
-${shareUrl}${footLines ? `\n\n${footLines}` : ''}
+`
+    : ""
+}Voir la viewing room :
+${shareUrl}${footLines ? `\n\n${footLines}` : ""}
 
-Designed with care by Vitreen`
+Designed with care by Vitreen`;
 
       htmlBody = `
 <!DOCTYPE html>
@@ -146,7 +150,7 @@ Designed with care by Vitreen`
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100% !important;min-width:100% !important;background:#ffffff;border-collapse:collapse;">
       <tr><td style="padding:40px 24px;">
         <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:14px;color:#111111;">${escapeHtml(greeting)}</p>
-        ${introText ? `<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:14px;color:#333333;">${escapeHtml(introText).replaceAll('\n', '<br>')}</p>` : ''}
+        ${introText ? `<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:14px;color:#333333;">${escapeHtml(introText).replaceAll("\n", "<br>")}</p>` : ""}
         <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:13px;color:#555555;">Lien vers la viewing room :</p>
         <p style="margin:0;"><a href="${escapeHtml(shareUrl)}" style="font-family:Arial,sans-serif;font-size:13px;color:#111111;text-decoration:underline;word-break:break-all;">${escapeHtml(shareUrl)}</a></p>
       </td></tr>
@@ -155,35 +159,34 @@ Designed with care by Vitreen`
     </td>
   </tr>
 </table>
-</body></html>`
+</body></html>`;
     }
 
-    const fromEnv = process.env.OVR_EMAIL_FROM?.trim()
-    const defaultFrom = 'Vitreen <onboarding@resend.dev>'
-    const usesResendSandboxSender =
-      !fromEnv || /onboarding@resend\.dev/i.test(fromEnv)
+    const fromEnv = process.env.OVR_EMAIL_FROM?.trim();
+    const defaultFrom = "Vitreen <onboarding@resend.dev>";
+    const usesResendSandboxSender = !fromEnv || /onboarding@resend\.dev/i.test(fromEnv);
 
-    if (usesResendSandboxSender && process.env.VERCEL_ENV === 'production') {
+    if (usesResendSandboxSender && process.env.VERCEL_ENV === "production") {
       return NextResponse.json(
         {
           error:
-            'Production : ajoute la variable Vercel OVR_EMAIL_FROM (ex. Vitreen <noreply@viewingroom.vitreen.art>) avec une adresse sur le domaine déjà vérifié dans Resend (resend.com/domains). Sans cela, Resend n’autorise pas l’envoi vers des destinataires externes.',
+            "Production : ajoute la variable Vercel OVR_EMAIL_FROM (ex. Vitreen <noreply@viewingroom.vitreen.art>) avec une adresse sur le domaine déjà vérifié dans Resend (resend.com/domains). Sans cela, Resend n’autorise pas l’envoi vers des destinataires externes.",
         },
-        { status: 503 },
-      )
+        { status: 503 }
+      );
     }
 
-    let from = defaultFrom
+    let from = defaultFrom;
     if (fromEnv) {
-      const normalized = normalizeResendFrom(fromEnv)
+      const normalized = normalizeResendFrom(fromEnv);
       if (!normalized.ok) {
-        return NextResponse.json({ error: OVR_FROM_FORMAT_HINT }, { status: 400 })
+        return NextResponse.json({ error: OVR_FROM_FORMAT_HINT }, { status: 400 });
       }
-      from = normalized.from
+      from = normalized.from;
     }
 
-    const resend = new Resend(key)
-    const subject = `Viewing Room — ${subjectBrand}`
+    const resend = new Resend(key);
+    const subject = `Viewing Room — ${subjectBrand}`;
 
     const { error } = await resend.emails.send({
       from,
@@ -191,23 +194,23 @@ Designed with care by Vitreen`
       subject,
       text: textBody,
       html: htmlBody,
-    })
+    });
 
     if (error) {
-      console.error('Resend share-email error:', error)
-      let message = error.message || 'Email sending failed.'
+      console.error("Resend share-email error:", error);
+      let message = error.message || "Email sending failed.";
       if (/invalid `from`|invalid from field/i.test(message)) {
-        message = OVR_FROM_FORMAT_HINT
+        message = OVR_FROM_FORMAT_HINT;
       } else if (/testing emails|only send|verify a domain|resend\.com\/domains/i.test(message)) {
         message =
-          'Resend est en mode test : n’envoie qu’à l’email de ton compte Resend, ou vérifie un domaine sur resend.com puis définis OVR_EMAIL_FROM avec une adresse @tondomaine.com.'
+          "Resend est en mode test : n’envoie qu’à l’email de ton compte Resend, ou vérifie un domaine sur resend.com puis définis OVR_EMAIL_FROM avec une adresse @tondomaine.com.";
       }
-      return NextResponse.json({ error: message }, { status: 500 })
+      return NextResponse.json({ error: message }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true });
   } catch (err) {
-    console.error('Share email route error:', err)
-    return NextResponse.json({ error: 'Server error while sending email.' }, { status: 500 })
+    console.error("Share email route error:", err);
+    return NextResponse.json({ error: "Server error while sending email." }, { status: 500 });
   }
 }

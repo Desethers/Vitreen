@@ -1,128 +1,128 @@
-import type { Block, ImageItem, VrSetup } from './buildTypes'
+import type { Block, ImageItem, VrSetup } from "./buildTypes";
 
 function escapePdfHtml(s: string): string {
   return s
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
 
 function resolveImage(slot: { imageId: string | null }, images: ImageItem[]): ImageItem | null {
-  if (!slot.imageId) return null
-  return images.find(i => i.id === slot.imageId) ?? null
+  if (!slot.imageId) return null;
+  return images.find((i) => i.id === slot.imageId) ?? null;
 }
 
 /** Aligné sur la preview : INQUIRE visible si la case « masquer » n’est pas active. */
 function blockShowsInquire(block: Block): boolean {
-  return !block.inquireHidden
+  return !block.inquireHidden;
 }
 
 function inquireLinkHtml(href: string): string {
-  if (!href.trim()) return ''
-  return `<div class="meta-inquire"><a href="${escapePdfHtml(href)}">INQUIRE</a></div>`
+  if (!href.trim()) return "";
+  return `<div class="meta-inquire"><a href="${escapePdfHtml(href)}">INQUIRE</a></div>`;
 }
 
 function metaHtml(
   img: ImageItem | null,
-  opts: { showInquire?: boolean; inquireHref?: string } = {},
+  opts: { showInquire?: boolean; inquireHref?: string } = {}
 ): string {
-  if (!img) return ''
-  const { showInquire = false, inquireHref = '' } = opts
-  const inq = showInquire && inquireHref.trim() ? inquireLinkHtml(inquireHref) : ''
+  if (!img) return "";
+  const { showInquire = false, inquireHref = "" } = opts;
+  const inq = showInquire && inquireHref.trim() ? inquireLinkHtml(inquireHref) : "";
   return `
     <div class="slot-meta">
-      ${img.artist ? `<p class="meta-artist">${escapePdfHtml(img.artist)}</p>` : ''}
-      ${img.title ? `<p class="meta-title"><em>${escapePdfHtml(img.title)}</em>${img.year ? `, ${escapePdfHtml(img.year)}` : ''}</p>` : ''}
-      ${img.medium ? `<p class="meta-detail">${escapePdfHtml(img.medium)}</p>` : ''}
-      ${img.dimensions ? `<p class="meta-detail">${escapePdfHtml(img.dimensions)}</p>` : ''}
-      ${img.showPrice && img.price ? `<p class="meta-price">${escapePdfHtml(img.price)}</p>` : ''}
+      ${img.artist ? `<p class="meta-artist">${escapePdfHtml(img.artist)}</p>` : ""}
+      ${img.title ? `<p class="meta-title"><em>${escapePdfHtml(img.title)}</em>${img.year ? `, ${escapePdfHtml(img.year)}` : ""}</p>` : ""}
+      ${img.medium ? `<p class="meta-detail">${escapePdfHtml(img.medium)}</p>` : ""}
+      ${img.dimensions ? `<p class="meta-detail">${escapePdfHtml(img.dimensions)}</p>` : ""}
+      ${img.showPrice && img.price ? `<p class="meta-price">${escapePdfHtml(img.price)}</p>` : ""}
       ${inq}
-    </div>`
+    </div>`;
 }
 
-function imgHtml(img: ImageItem | null, cls = 'slot-img') {
+function imgHtml(img: ImageItem | null, cls = "slot-img") {
   return img?.dataUrl
     ? `<img src="${img.dataUrl}" class="${cls}" />`
-    : '<div class="slot-no-img"></div>'
+    : '<div class="slot-no-img"></div>';
 }
 
 function blockHtml(block: Block, images: ImageItem[], inquireHref: string): string {
-  const inq = blockShowsInquire(block)
-  const metaOpts = { showInquire: inq, inquireHref }
+  const inq = blockShowsInquire(block);
+  const metaOpts = { showInquire: inq, inquireHref };
 
-  if (block.type === 'quote') {
+  if (block.type === "quote") {
     return `
       <div class="page page-quote">
         <div class="quote-wrap">
           <p class="quote-text">${escapePdfHtml(block.quoteText)}</p>
-          ${block.quoteAuthor ? `<p class="quote-author">${escapePdfHtml(block.quoteAuthor)}</p>` : ''}
+          ${block.quoteAuthor ? `<p class="quote-author">${escapePdfHtml(block.quoteAuthor)}</p>` : ""}
         </div>
-      </div>`
+      </div>`;
   }
 
-  if (block.type === 'full') {
-    const img = resolveImage(block.slots[0] ?? { imageId: null }, images)
+  if (block.type === "full") {
+    const img = resolveImage(block.slots[0] ?? { imageId: null }, images);
     return `
       <div class="page page-full">
         <div class="slot-image">${imgHtml(img)}</div>
         ${metaHtml(img, metaOpts)}
-      </div>`
+      </div>`;
   }
 
-  if (block.type === 'pair') {
-    const imgs = block.slots.map(s => resolveImage(s, images))
+  if (block.type === "pair") {
+    const imgs = block.slots.map((s) => resolveImage(s, images));
     return `
       <div class="page page-grid page-pair">
-        ${imgs.map(img => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img, metaOpts)}</div>`).join('')}
-      </div>`
+        ${imgs.map((img) => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img, metaOpts)}</div>`).join("")}
+      </div>`;
   }
 
-  if (block.type === 'trio') {
-    const imgs = block.slots.map(s => resolveImage(s, images))
+  if (block.type === "trio") {
+    const imgs = block.slots.map((s) => resolveImage(s, images));
     return `
       <div class="page page-grid page-trio">
-        ${imgs.map(img => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img, metaOpts)}</div>`).join('')}
-      </div>`
+        ${imgs.map((img) => `<div class="grid-slot"><div class="slot-image">${imgHtml(img)}</div>${metaHtml(img, metaOpts)}</div>`).join("")}
+      </div>`;
   }
 
-  if (block.type === 'side') {
-    const img = resolveImage(block.slots[0] ?? { imageId: null }, images)
+  if (block.type === "side") {
+    const img = resolveImage(block.slots[0] ?? { imageId: null }, images);
     return `
       <div class="page page-side">
         <div class="side-image">${imgHtml(img)}</div>
         <div class="side-text">
           ${metaHtml(img, metaOpts)}
-          ${block.quoteText ? `<p class="side-quote">${escapePdfHtml(block.quoteText)}</p>` : ''}
+          ${block.quoteText ? `<p class="side-quote">${escapePdfHtml(block.quoteText)}</p>` : ""}
         </div>
-      </div>`
+      </div>`;
   }
 
-  return ''
+  return "";
 }
 
 export function generateBlocksPDF({
   blocks,
   images,
   setup,
-  inquireHref = '',
+  inquireHref = "",
 }: {
-  blocks: Block[]
-  images: ImageItem[]
-  setup: VrSetup | null
-  inquireHref?: string
+  blocks: Block[];
+  images: ImageItem[];
+  setup: VrSetup | null;
+  inquireHref?: string;
 }): string {
   const cover = `
     <div class="page page-cover">
       <div class="cover-inner">
-        <p class="cover-gallery">${escapePdfHtml(setup?.galleryName ?? 'Viewing Room')}</p>
+        <p class="cover-gallery">${escapePdfHtml(setup?.galleryName ?? "Viewing Room")}</p>
         <h1 class="cover-title">Viewing Room</h1>
-        ${setup?.recipientName ? `<p class="cover-recipient">Pour ${escapePdfHtml(setup.recipientName)}</p>` : ''}
-        ${setup?.introText ? `<p class="cover-intro">${escapePdfHtml(setup.introText)}</p>` : ''}
+        ${setup?.recipientName ? `<p class="cover-recipient">Pour ${escapePdfHtml(setup.recipientName)}</p>` : ""}
+        ${setup?.introText ? `<p class="cover-intro">${escapePdfHtml(setup.introText)}</p>` : ""}
       </div>
-    </div>`
+    </div>`;
 
-  const pages = [cover, ...blocks.map(b => blockHtml(b, images, inquireHref))].join('\n')
+  const pages = [cover, ...blocks.map((b) => blockHtml(b, images, inquireHref))].join("\n");
 
   return `<!DOCTYPE html>
 <html>
@@ -188,5 +188,5 @@ export function generateBlocksPDF({
 </style>
 </head>
 <body>${pages}</body>
-</html>`
+</html>`;
 }

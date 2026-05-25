@@ -10,10 +10,16 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "check": "next lint && tsc --noEmit",
+    "check": "next lint && tsc --noEmit && prettier --check .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "ladle": "ladle serve",
     "ladle:build": "ladle build",
+    "prepare": "simple-git-hooks",
     "generate:variations": "tsx scripts/generate-variations.ts"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx prettier --check --ignore-unknown $(git diff --cached --name-only --diff-filter=ACM)"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.2.7",
@@ -41,6 +47,9 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "ai": "^6.0.141",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"

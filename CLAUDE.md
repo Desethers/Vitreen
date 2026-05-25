@@ -30,19 +30,21 @@ Keep collector inquiries, follow-ups and sales conversations connected to the ri
 **4. Gallery Assistants**
 Assist galleries across publishing, collector communication and operational preparation using gallery-specific context. The goal is not to automate relationships, but to give galleries more time to focus on artists, exhibitions and collectors.
 
-Source détaillée (idées, pricing, killer features) : page Notion *Idées à developper* (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
+Source détaillée (idées, pricing, killer features) : page Notion _Idées à developper_ (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
 
 ---
 
 ## 2. Vocabulaire
 
 **Préférer**
+
 - "Sales Journey", "Collector Engagement"
 - "Distribute" (le bouton magique)
 - "Viewing Room", "Private Viewing"
 - "Partner", "Digital Sales Partner"
 
 **Éviter**
+
 - "CMS", "Responsive", "Sites web pour galeries"
 - "Studio de création de sites"
 - Jargon technique côté client
@@ -58,6 +60,7 @@ Source détaillée (idées, pricing, killer features) : page Notion *Idées à d
 - **i18n :** `lib/lang.tsx` (FR/EN, contexte React custom)
 
 Dev server (port 3001 par défaut) :
+
 ```bash
 npm run dev          # webpack
 ```
@@ -97,15 +100,18 @@ Couleurs :
 | Fond | `#FFFFFF` |
 
 Typographie :
+
 - `font-display` pour les titres (cf. `app/layout.tsx`)
 - Sans-serif système pour le reste
 
 Tailles courantes dans la nav et menus :
+
 - Eyebrows / labels gris : `text-[10px]` ou `text-[11px]` (pas d'uppercase par défaut)
 - Items menu : `text-[14px]` (`font-display`)
 - Descriptions : `text-[11px]` à `text-[12px]`
 
 Radius :
+
 - Cartes / dropdowns : `rounded-lg`
 - Pills / badges : `rounded-full`
 - Images dans dropdowns : `rounded-md`
@@ -141,18 +147,18 @@ Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
 
 ## 9. Roadmap produit (état actuel)
 
-| Brique | Statut |
-| --- | --- |
-| CRM / Inventaire | ✅ Existant |
-| Site galerie / Vitrine | ✅ Existant |
-| Pages artistes / expositions | ✅ Existant |
-| Viewing Room Studio | 🟡 *Bientôt* (badge sur la nav) |
-| Distribute (bouton magique) | 🔴 À développer — *killer feature* |
-| Generate Private Room | 🔴 À développer |
-| Export to Story (9:16 IG) | 🔴 À développer |
-| AI Copywriter | 🔴 À développer |
-| Viewing Room "Active" (analytics) | 🔴 À développer |
-| Dashboard / Slack Partner | 🔴 À développer |
+| Brique                            | Statut                             |
+| --------------------------------- | ---------------------------------- |
+| CRM / Inventaire                  | ✅ Existant                        |
+| Site galerie / Vitrine            | ✅ Existant                        |
+| Pages artistes / expositions      | ✅ Existant                        |
+| Viewing Room Studio               | 🟡 _Bientôt_ (badge sur la nav)    |
+| Distribute (bouton magique)       | 🔴 À développer — _killer feature_ |
+| Generate Private Room             | 🔴 À développer                    |
+| Export to Story (9:16 IG)         | 🔴 À développer                    |
+| AI Copywriter                     | 🔴 À développer                    |
+| Viewing Room "Active" (analytics) | 🔴 À développer                    |
+| Dashboard / Slack Partner         | 🔴 À développer                    |
 
 ---
 
@@ -161,7 +167,7 @@ Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
 - Pivot vers du **récurrent (SaaS + Service)** plutôt que one-shot
 - Setup : ~2 000€
 - Monthly Partnership : 300-800€/mois
-- Argument : *"Artlogic = 200€/mois pour stocker. Vitreen = 500€/mois pour vendre."*
+- Argument : _"Artlogic = 200€/mois pour stocker. Vitreen = 500€/mois pour vendre."_
 
 Détails dans la page Notion.
 
@@ -170,6 +176,7 @@ Détails dans la page Notion.
 ## 11. Social content
 
 Guides de rédaction par réseau dans `.claude/social/` :
+
 - `README.md` — voix globale + matrice IG vs X
 - `instagram.md` — ton "luxe calme", carrousels, stories
 - `twitter.md` — voix founder, threads, building in public

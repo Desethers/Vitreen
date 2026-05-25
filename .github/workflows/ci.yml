@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, V2, V2.1]
+  push:
+    branches: [main, V2, V2.1]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint · Typecheck · Format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: Prettier
+        run: npm run format:check
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: check
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Next build
+        env:
+          # Public placeholders so the build resolves NEXT_PUBLIC_* at compile time.
+          NEXT_PUBLIC_CLERK_ENABLED: "false"
+          NEXT_PUBLIC_SITE_URL: "https://vitreen.art"
+          NEXT_PUBLIC_SANITY_PROJECT_ID: "placeholder"
+          NEXT_PUBLIC_SANITY_DATASET: "production"
+          NEXT_PUBLIC_STRIPE_CONFIGURED: "false"
+        run: npm run build

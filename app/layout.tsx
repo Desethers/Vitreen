@@ -120,9 +120,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-white font-sans">
         <ClerkClientProvider>
-          <LangProvider>
-            {children}
-          </LangProvider>
+          <LangProvider>{children}</LangProvider>
         </ClerkClientProvider>
         <Analytics />
       </body>

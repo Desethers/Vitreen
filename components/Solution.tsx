@@ -51,7 +51,16 @@ const shareableMomentArtwork: Artwork = {
 
 function ShareIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M12 19V5" />
       <path d="M7 10l5-5 5 5" />
       <path d="M5 21h14" />
@@ -155,7 +164,13 @@ function ShareableMomentMock() {
   const panelShareBtnRef = useRef<HTMLButtonElement>(null);
 
   const [storyState, setStoryState] = useState<"sending" | "shared" | null>(null);
-  const [token, setToken] = useState<null | { id: number; left: number; top: number; dx: number; dy: number }>(null);
+  const [token, setToken] = useState<null | {
+    id: number;
+    left: number;
+    top: number;
+    dx: number;
+    dy: number;
+  }>(null);
   const [storyModalOpen, setStoryModalOpen] = useState(false);
   const [storyModalKey, setStoryModalKey] = useState(0);
 
@@ -184,16 +199,31 @@ function ShareableMomentMock() {
     function play() {
       if (cancelled) return;
       setStoryState("sending");
-      timers.push(setTimeout(() => { if (!cancelled) setStoryState("shared"); }, 650));
-      timers.push(setTimeout(() => { if (!cancelled) setStoryState(null); }, 2300));
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) setStoryState("shared");
+        }, 650)
+      );
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) setStoryState(null);
+        }, 2300)
+      );
       setStoryModalKey((k) => k + 1);
-      timers.push(setTimeout(() => { if (!cancelled) setStoryModalOpen(true); }, 120));
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) setStoryModalOpen(true);
+        }, 120)
+      );
       // Replay after story closes + pause
       timers.push(setTimeout(() => play(), 6200 + 2500));
     }
 
     timers.push(setTimeout(play, 1200));
-    return () => { cancelled = true; timers.forEach(clearTimeout); };
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+    };
   }, []);
 
   const bubbleSize = 48;
@@ -304,11 +334,17 @@ function ShareableMomentMock() {
             }}
           >
             {shareableMomentArtwork.title},{" "}
-            <span style={{ fontStyle: "normal", fontWeight: 400 }}>{shareableMomentArtwork.year}</span>
+            <span style={{ fontStyle: "normal", fontWeight: 400 }}>
+              {shareableMomentArtwork.year}
+            </span>
           </p>
 
-          <p style={{ fontSize: 10, color: "#ADADAA", marginBottom: 2, textAlign: "left" }}>{shareableMomentArtwork.medium}</p>
-          <p style={{ fontSize: 10, color: "#ADADAA", marginBottom: 22, textAlign: "left" }}>{shareableMomentArtwork.dimensions}</p>
+          <p style={{ fontSize: 10, color: "#ADADAA", marginBottom: 2, textAlign: "left" }}>
+            {shareableMomentArtwork.medium}
+          </p>
+          <p style={{ fontSize: 10, color: "#ADADAA", marginBottom: 22, textAlign: "left" }}>
+            {shareableMomentArtwork.dimensions}
+          </p>
 
           {/* Primary CTA */}
           <button
@@ -357,7 +393,17 @@ function ShareableMomentMock() {
                 <path d="M1.5 12s4.5-7.5 10.5-7.5S22.5 12 22.5 12s-4.5 7.5-10.5 7.5S1.5 12 1.5 12Z" />
                 <circle cx="12" cy="12" r="3" />
               </svg>
-              <span style={{ fontSize: 10, color: "#111110", fontWeight: 300, whiteSpace: "nowrap", lineHeight: 1 }}>View in room</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  color: "#111110",
+                  fontWeight: 300,
+                  whiteSpace: "nowrap",
+                  lineHeight: 1,
+                }}
+              >
+                View in room
+              </span>
             </div>
 
             <button
@@ -381,7 +427,15 @@ function ShareableMomentMock() {
               }}
             >
               <ShareIcon size={10} />
-              <span style={{ fontSize: 9, color: "#111110", fontWeight: 400, whiteSpace: "nowrap", lineHeight: 1 }}>
+              <span
+                style={{
+                  fontSize: 9,
+                  color: "#111110",
+                  fontWeight: 400,
+                  whiteSpace: "nowrap",
+                  lineHeight: 1,
+                }}
+              >
                 Share
               </span>
             </button>
@@ -412,9 +466,26 @@ function ShareableMomentMock() {
           }}
         >
           {storyState === "sending" ? (
-            <div style={{ width: 30, height: 30, borderRadius: 9999, background: "#111110", opacity: 0.08 }} />
+            <div
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 9999,
+                background: "#111110",
+                opacity: 0.08,
+              }}
+            />
           ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111110" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#111110"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M20 6 9 17l-5-5" />
             </svg>
           )}
@@ -478,7 +549,10 @@ function ShareableMomentMock() {
             {/* Dégradés */}
             <div
               className="pointer-events-none absolute inset-0"
-              style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%)" }}
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%)",
+              }}
             />
 
             {/* ── Barres de progression ── */}
@@ -514,18 +588,29 @@ function ShareableMomentMock() {
                   className="shrink-0 rounded-full p-[1.5px]"
                   style={{
                     background: "linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7)",
-                    width: 26, height: 26,
+                    width: 26,
+                    height: 26,
                   }}
                 >
                   <div
                     className="flex h-full w-full items-center justify-center rounded-full"
                     style={{ background: "#111", border: "1.5px solid #000" }}
                   >
-                    <span style={{ fontSize: 8, fontWeight: 800, color: "#fff", letterSpacing: 0 }}>V</span>
+                    <span style={{ fontSize: 8, fontWeight: 800, color: "#fff", letterSpacing: 0 }}>
+                      V
+                    </span>
                   </div>
                 </div>
                 <div className="min-w-0">
-                  <p style={{ fontSize: 9, fontWeight: 600, color: "#fff", lineHeight: 1.2, textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}>
+                  <p
+                    style={{
+                      fontSize: 9,
+                      fontWeight: 600,
+                      color: "#fff",
+                      lineHeight: 1.2,
+                      textShadow: "0 1px 3px rgba(0,0,0,0.5)",
+                    }}
+                  >
                     vitreen_studio
                   </p>
                   <p style={{ fontSize: 7.5, color: "rgba(255,255,255,0.65)", lineHeight: 1.2 }}>
@@ -538,28 +623,49 @@ function ShareableMomentMock() {
                 <button
                   type="button"
                   style={{
-                    width: 22, height: 22, borderRadius: 9999,
-                    background: "rgba(0,0,0,0.3)", border: "none",
-                    color: "#fff", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
+                    width: 22,
+                    height: 22,
+                    borderRadius: 9999,
+                    background: "rgba(0,0,0,0.3)",
+                    border: "none",
+                    color: "#fff",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
                   {/* More (⋯) */}
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                    <circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/>
+                    <circle cx="5" cy="12" r="2" />
+                    <circle cx="12" cy="12" r="2" />
+                    <circle cx="19" cy="12" r="2" />
                   </svg>
                 </button>
                 <button
                   type="button"
                   onClick={closeStoryModal}
                   style={{
-                    width: 22, height: 22, borderRadius: 9999,
-                    background: "rgba(0,0,0,0.3)", border: "none",
-                    color: "#fff", cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center",
+                    width: 22,
+                    height: 22,
+                    borderRadius: 9999,
+                    background: "rgba(0,0,0,0.3)",
+                    border: "none",
+                    color: "#fff",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
                     <path d="M18 6 6 18M6 6l12 12" />
                   </svg>
                 </button>
@@ -575,25 +681,66 @@ function ShareableMomentMock() {
               transition={{ delay: 0.4, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div style={{
-                display: "flex", alignItems: "center", gap: 0,
-                background: "rgba(255,255,255,0.95)", borderRadius: 4,
-                overflow: "hidden",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
-              }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 0,
+                  background: "rgba(255,255,255,0.95)",
+                  borderRadius: 4,
+                  overflow: "hidden",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+                }}
+              >
                 <div style={{ position: "relative", width: 30, height: 30, flexShrink: 0 }}>
-                  <Image src={shareableMomentArtwork.image} alt="" fill className="object-cover" sizes="30px" />
+                  <Image
+                    src={shareableMomentArtwork.image}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="30px"
+                  />
                 </div>
                 <div style={{ flex: 1, padding: "3px 6px", overflow: "hidden" }}>
-                  <p style={{ fontSize: 5, color: "#ADADAA", letterSpacing: "0.04em", textTransform: "uppercase", lineHeight: 1.2, marginBottom: 1 }}>galerie-fontaine.com</p>
-                  <p style={{ fontSize: 6.5, fontWeight: 600, color: "#111110", lineHeight: 1.2, overflow: "hidden", whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                  <p
+                    style={{
+                      fontSize: 5,
+                      color: "#ADADAA",
+                      letterSpacing: "0.04em",
+                      textTransform: "uppercase",
+                      lineHeight: 1.2,
+                      marginBottom: 1,
+                    }}
+                  >
+                    galerie-fontaine.com
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 6.5,
+                      fontWeight: 600,
+                      color: "#111110",
+                      lineHeight: 1.2,
+                      overflow: "hidden",
+                      whiteSpace: "nowrap",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {shareableMomentArtwork.title}
                   </p>
                 </div>
                 <div style={{ padding: "0 6px", flexShrink: 0 }}>
-                  <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+                  <svg
+                    width="7"
+                    height="7"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#ADADAA"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
                   </svg>
                 </div>
               </div>
@@ -614,7 +761,10 @@ function ShareableMomentMock() {
               >
                 <div className="flex gap-2.5 p-2.5">
                   {/* Thumbnail */}
-                  <div className="relative shrink-0 overflow-hidden rounded-lg" style={{ width: 48, height: 56 }}>
+                  <div
+                    className="relative shrink-0 overflow-hidden rounded-lg"
+                    style={{ width: 48, height: 56 }}
+                  >
                     <Image
                       src={shareableMomentArtwork.image}
                       alt=""
@@ -628,24 +778,51 @@ function ShareableMomentMock() {
                   {/* Infos */}
                   <div className="flex min-w-0 flex-1 flex-col justify-between py-0.5">
                     <div>
-                      <p style={{ fontSize: 7.5, letterSpacing: "0.14em", textTransform: "uppercase", color: "#ADADAA", lineHeight: 1.2, marginBottom: 2 }}>
+                      <p
+                        style={{
+                          fontSize: 7.5,
+                          letterSpacing: "0.14em",
+                          textTransform: "uppercase",
+                          color: "#ADADAA",
+                          lineHeight: 1.2,
+                          marginBottom: 2,
+                        }}
+                      >
                         {shareableMomentArtwork.artist}
                       </p>
-                      <p style={{ fontSize: 10, fontWeight: 500, fontStyle: "italic", color: "#111110", lineHeight: 1.2 }}>
+                      <p
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 500,
+                          fontStyle: "italic",
+                          color: "#111110",
+                          lineHeight: 1.2,
+                        }}
+                      >
                         {shareableMomentArtwork.title},&nbsp;
-                        <span style={{ fontStyle: "normal", fontWeight: 400 }}>{shareableMomentArtwork.year}</span>
+                        <span style={{ fontStyle: "normal", fontWeight: 400 }}>
+                          {shareableMomentArtwork.year}
+                        </span>
                       </p>
                       <p style={{ fontSize: 7.5, color: "#6B6A67", lineHeight: 1.3, marginTop: 1 }}>
                         {shareableMomentArtwork.medium} · {shareableMomentArtwork.dimensions}
                       </p>
                     </div>
                     <div className="mt-1.5 flex items-center justify-between">
-                      <span style={{ fontSize: 9.5, fontWeight: 600, color: "#111110" }}>Sur demande</span>
+                      <span style={{ fontSize: 9.5, fontWeight: 600, color: "#111110" }}>
+                        Sur demande
+                      </span>
                       <span
                         style={{
-                          borderRadius: 9999, background: "#111110", color: "#fff",
-                          fontSize: 7, fontWeight: 700, letterSpacing: "0.1em",
-                          textTransform: "uppercase", padding: "3px 9px", whiteSpace: "nowrap",
+                          borderRadius: 9999,
+                          background: "#111110",
+                          color: "#fff",
+                          fontSize: 7,
+                          fontWeight: 700,
+                          letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          padding: "3px 9px",
+                          whiteSpace: "nowrap",
                         }}
                       >
                         Inquire
@@ -653,13 +830,15 @@ function ShareableMomentMock() {
                     </div>
                   </div>
                 </div>
-
               </div>
 
               {/* Reply bar façon Instagram */}
               <div
                 className="mt-1.5 flex items-center gap-2 rounded-full px-3 py-1.5"
-                style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.22)" }}
+                style={{
+                  background: "rgba(255,255,255,0.14)",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                }}
               >
                 <div
                   className="shrink-0 rounded-full"
@@ -670,11 +849,30 @@ function ShareableMomentMock() {
                 </p>
                 {/* Like + Share */}
                 <div className="flex items-center gap-2">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.8)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
                   </svg>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.8)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
                   </svg>
                 </div>
               </div>
@@ -702,13 +900,32 @@ function ArtworkMock() {
       setAddHover(false);
 
       // t=800ms : hover sur le bouton
-      timers.push(setTimeout(() => { if (!cancelled) setAddHover(true); }, 800));
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) setAddHover(true);
+        }, 800)
+      );
       // t=1700ms : click → ouvre le volet
-      timers.push(setTimeout(() => { if (!cancelled) { setCartOpen(true); setAddHover(false); } }, 1700));
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) {
+            setCartOpen(true);
+            setAddHover(false);
+          }
+        }, 1700)
+      );
       // t=4200ms : fermeture du volet
-      timers.push(setTimeout(() => { if (!cancelled) setCartOpen(false); }, 4200));
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) setCartOpen(false);
+        }, 4200)
+      );
       // t=5400ms : rejoue
-      timers.push(setTimeout(() => { if (!cancelled) play(); }, 5400));
+      timers.push(
+        setTimeout(() => {
+          if (!cancelled) play();
+        }, 5400)
+      );
     }
 
     // Délai initial avant le premier play
@@ -722,24 +939,48 @@ function ArtworkMock() {
 
   return (
     <div className="relative flex h-full overflow-hidden" style={{ gap: 10 }}>
-
       {/* LEFT — white wall + painting */}
-      <div className="relative shrink-0 flex items-center justify-center transition-all duration-400"
-        style={{ width: "48%", background: "#fff" }}>
-        {cartOpen && <div className="absolute inset-0 bg-black/10 z-10 transition-opacity duration-400" />}
-        <div style={{ width: "68%", height: "90%", background: "#1C1D2E", boxShadow: "2px 2px 16px rgba(0,0,0,0.18)" }} />
-        <span className="absolute text-[#ADADAA] select-none" style={{ right: 5, fontSize: 11 }}>›</span>
+      <div
+        className="relative shrink-0 flex items-center justify-center transition-all duration-400"
+        style={{ width: "48%", background: "#fff" }}
+      >
+        {cartOpen && (
+          <div className="absolute inset-0 bg-black/10 z-10 transition-opacity duration-400" />
+        )}
+        <div
+          style={{
+            width: "68%",
+            height: "90%",
+            background: "#1C1D2E",
+            boxShadow: "2px 2px 16px rgba(0,0,0,0.18)",
+          }}
+        />
+        <span className="absolute text-[#ADADAA] select-none" style={{ right: 5, fontSize: 11 }}>
+          ›
+        </span>
       </div>
 
       {/* RIGHT — 3 stacked bordered cards */}
       <div className="flex-1 flex flex-col" style={{ gap: 5 }}>
-
         {/* Card 1 — main info */}
-        <div style={{ border: "1px solid #E4E4E0", borderRadius: 4, padding: "10px 10px 8px", flex: "1 1 auto", display: "flex", flexDirection: "column" }}>
-          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 1 }}>Untitled, 2018</p>
+        <div
+          style={{
+            border: "1px solid #E4E4E0",
+            borderRadius: 4,
+            padding: "10px 10px 8px",
+            flex: "1 1 auto",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 1 }}>
+            Untitled, 2018
+          </p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
           <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
-          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 7 }}>$16,500</p>
+          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 7 }}>
+            $16,500
+          </p>
 
           {/* Add to cart — cliquable */}
           <button
@@ -754,20 +995,38 @@ function ArtworkMock() {
               cursor: "pointer",
               background: addHover ? "#111110" : "transparent",
               transition: "background 0.2s",
-              display: "flex", alignItems: "center", justifyContent: "center", width: "100%"
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
             }}
           >
-            <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.12em", color: addHover ? "#fff" : "#111110", transition: "color 0.2s" }}>
+            <span
+              style={{
+                fontSize: 6.5,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: addHover ? "#fff" : "#111110",
+                transition: "color 0.2s",
+              }}
+            >
               Add to cart
             </span>
           </button>
 
           <div style={{ height: 1, background: "#EEEEED", marginBottom: 7 }} />
-          <p style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: 5 }} className="line-clamp-3">
+          <p
+            style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: 5 }}
+            className="line-clamp-3"
+          >
             This monochromatic, large-scale painting explores color, surface, and minimalism.
           </p>
-          <p style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: "auto" }} className="line-clamp-2">
-            The paintings are not the centre of the discussion; rather, it is the relationship in which they are entwined.
+          <p
+            style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: "auto" }}
+            className="line-clamp-2"
+          >
+            The paintings are not the centre of the discussion; rather, it is the relationship in
+            which they are entwined.
           </p>
           <p style={{ fontSize: 6, color: "#ADADAA", lineHeight: 1.4, marginTop: 6 }}>
             Request details about shipping and availability through the contact form.
@@ -775,15 +1034,67 @@ function ArtworkMock() {
         </div>
 
         {/* Card 2 — Shipping */}
-        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 4, padding: "7px 10px", flexShrink: 0 }}>
-          <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>Shipping and taxes</span>
-          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
+        <div
+          className="flex items-center justify-between"
+          style={{
+            border: "1px solid #E4E4E0",
+            borderRadius: 4,
+            padding: "7px 10px",
+            flexShrink: 0,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 6.5,
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "#111110",
+            }}
+          >
+            Shipping and taxes
+          </span>
+          <svg
+            width="8"
+            height="8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ADADAA"
+            strokeWidth="2"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
         </div>
 
         {/* Card 3 — FAQ */}
-        <div className="flex items-center justify-between" style={{ border: "1px solid #E4E4E0", borderRadius: 4, padding: "7px 10px", flexShrink: 0 }}>
-          <span style={{ fontSize: 6.5, textTransform: "uppercase", letterSpacing: "0.1em", color: "#111110" }}>FAQ</span>
-          <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" strokeWidth="2"><path d="m6 9 6 6 6-6" /></svg>
+        <div
+          className="flex items-center justify-between"
+          style={{
+            border: "1px solid #E4E4E0",
+            borderRadius: 4,
+            padding: "7px 10px",
+            flexShrink: 0,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 6.5,
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "#111110",
+            }}
+          >
+            FAQ
+          </span>
+          <svg
+            width="8"
+            height="8"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ADADAA"
+            strokeWidth="2"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
         </div>
       </div>
 
@@ -802,15 +1113,42 @@ function ArtworkMock() {
         {/* Header */}
         <div className="flex items-start justify-between" style={{ marginBottom: 6 }}>
           <div>
-            <p style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.1em", color: "#888", marginBottom: 1 }}>Your selection</p>
+            <p
+              style={{
+                fontSize: 6,
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "#888",
+                marginBottom: 1,
+              }}
+            >
+              Your selection
+            </p>
             <p style={{ fontSize: 11, fontWeight: 500, color: "#111110" }}>1 piece</p>
           </div>
           <button
             onClick={() => setCartOpen(false)}
             className="flex items-center justify-center"
-            style={{ width: 16, height: 16, borderRadius: "50%", border: "1px solid #E4E4E0", background: "white", cursor: "pointer", flexShrink: 0 }}
+            style={{
+              width: 16,
+              height: 16,
+              borderRadius: "50%",
+              border: "1px solid #E4E4E0",
+              background: "white",
+              cursor: "pointer",
+              flexShrink: 0,
+            }}
           >
-            <svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2.5"><path d="M18 6 6 18M6 6l12 12" /></svg>
+            <svg
+              width="7"
+              height="7"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#666"
+              strokeWidth="2.5"
+            >
+              <path d="M18 6 6 18M6 6l12 12" />
+            </svg>
           </button>
         </div>
 
@@ -820,7 +1158,9 @@ function ArtworkMock() {
         {/* Item row */}
         <div className="flex items-start" style={{ gap: 7, marginBottom: "auto" }}>
           {/* Thumbnail */}
-          <div style={{ width: 26, height: 32, background: "#1C1D2E", borderRadius: 4, flexShrink: 0 }} />
+          <div
+            style={{ width: 26, height: 32, background: "#1C1D2E", borderRadius: 4, flexShrink: 0 }}
+          />
           {/* Info */}
           <div className="flex-1">
             <div className="flex items-start justify-between">
@@ -845,7 +1185,14 @@ function ArtworkMock() {
             className="flex items-center justify-center transition-colors duration-200 hover:bg-[#2F4FE0]"
             style={{ background: "#111110", borderRadius: 4, height: 22, marginBottom: 5 }}
           >
-            <span style={{ fontSize: 6, textTransform: "uppercase", letterSpacing: "0.12em", color: "#fff" }}>
+            <span
+              style={{
+                fontSize: 6,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: "#fff",
+              }}
+            >
               Proceed to checkout
             </span>
           </div>
@@ -857,16 +1204,43 @@ function ArtworkMock() {
           </p>
         </div>
       </div>
-
     </div>
   );
 }
 
 const viewingArtworks = [
-  { img: "/artworks/painting-10.jpg", artist: "Sacha Elron", title: "Sacha Elron 02", year: "2025", medium: "Acrylic on canvas", dims: "80 × 80 cm" },
-  { img: "/artworks/painting-05.jpg", artist: "Sacha Elron", title: "Night Garden IV", year: "2024", medium: "Oil on linen", dims: "120 × 90 cm" },
-  { img: "/artworks/painting-06.png", artist: "Sacha Elron", title: "Untitled (Bloom)", year: "2023", medium: "Watercolour", dims: "60 × 45 cm" },
-  { img: "/artworks/painting-09.png", artist: "Sacha Elron", title: "Soft Power I", year: "2025", medium: "Mixed media", dims: "100 × 100 cm" },
+  {
+    img: "/artworks/painting-10.jpg",
+    artist: "Sacha Elron",
+    title: "Sacha Elron 02",
+    year: "2025",
+    medium: "Acrylic on canvas",
+    dims: "80 × 80 cm",
+  },
+  {
+    img: "/artworks/painting-05.jpg",
+    artist: "Sacha Elron",
+    title: "Night Garden IV",
+    year: "2024",
+    medium: "Oil on linen",
+    dims: "120 × 90 cm",
+  },
+  {
+    img: "/artworks/painting-06.png",
+    artist: "Sacha Elron",
+    title: "Untitled (Bloom)",
+    year: "2023",
+    medium: "Watercolour",
+    dims: "60 × 45 cm",
+  },
+  {
+    img: "/artworks/painting-09.png",
+    artist: "Sacha Elron",
+    title: "Soft Power I",
+    year: "2025",
+    medium: "Mixed media",
+    dims: "100 × 100 cm",
+  },
 ];
 
 function ViewingMock() {
@@ -877,21 +1251,44 @@ function ViewingMock() {
       {/* Header */}
       <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#E8E8E6] shrink-0">
         <div className="flex items-center gap-1.5">
-          <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          <svg
+            width="9"
+            height="9"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="11" width="18" height="11" rx="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
-          <span className="font-medium" style={{ fontSize: "0.55rem", letterSpacing: "-0.01em" }}>Private Viewing</span>
+          <span className="font-medium" style={{ fontSize: "0.55rem", letterSpacing: "-0.01em" }}>
+            Private Viewing
+          </span>
         </div>
         <div className="flex items-center gap-2">
           <span style={{ fontSize: "0.38rem", color: "#ADADAA" }}>Expires Apr 10</span>
-          <span className="uppercase tracking-[0.12em] font-medium" style={{ fontSize: "0.38rem" }}>Galerie</span>
+          <span className="uppercase tracking-[0.12em] font-medium" style={{ fontSize: "0.38rem" }}>
+            Galerie
+          </span>
         </div>
       </div>
 
       {/* Intro */}
       <div className="shrink-0 mb-3">
-        <p className="uppercase tracking-[0.15em] text-[#ADADAA] mb-0.5" style={{ fontSize: "0.35rem" }}>Selection — Spring 2026</p>
-        <p className="font-medium leading-snug" style={{ fontSize: "0.7rem" }}>A curated selection<br/>prepared for you.</p>
+        <p
+          className="uppercase tracking-[0.15em] text-[#ADADAA] mb-0.5"
+          style={{ fontSize: "0.35rem" }}
+        >
+          Selection — Spring 2026
+        </p>
+        <p className="font-medium leading-snug" style={{ fontSize: "0.7rem" }}>
+          A curated selection
+          <br />
+          prepared for you.
+        </p>
         <p className="mt-0.5 text-[#6B6A67] leading-relaxed" style={{ fontSize: "0.38rem" }}>
           4 works — available on request. Accessible only via your personal link.
         </p>
@@ -905,7 +1302,10 @@ function ViewingMock() {
             className="flex flex-col gap-1 cursor-pointer group/item"
             onClick={() => setSelected(selected === i ? null : i)}
           >
-            <div className="relative overflow-hidden rounded-sm bg-[#f5f3f0]" style={{ aspectRatio: "4/5" }}>
+            <div
+              className="relative overflow-hidden rounded-sm bg-[#f5f3f0]"
+              style={{ aspectRatio: "4/5" }}
+            >
               <Image
                 src={aw.img}
                 alt=""
@@ -915,19 +1315,46 @@ function ViewingMock() {
                 sizes="(max-width: 768px) 45vw, 320px"
               />
               <div className="absolute inset-0 flex items-end p-1.5 opacity-0 group-hover/item:opacity-100 transition-opacity duration-200">
-                <span className="inline-flex items-center gap-0.5 rounded-full bg-white/90 text-[#111110] font-medium" style={{ fontSize: "0.32rem", padding: "2px 6px" }}>
+                <span
+                  className="inline-flex items-center gap-0.5 rounded-full bg-white/90 text-[#111110] font-medium"
+                  style={{ fontSize: "0.32rem", padding: "2px 6px" }}
+                >
                   Inquire
-                  <svg width="4" height="4" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M2 10 10 2M4 2h6v6" /></svg>
+                  <svg
+                    width="4"
+                    height="4"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                  >
+                    <path d="M2 10 10 2M4 2h6v6" />
+                  </svg>
                 </span>
               </div>
             </div>
-            <p className="font-normal leading-tight" style={{ fontSize: "0.48rem" }}>{aw.artist}</p>
-            <p className="italic text-[#6B6A67] leading-tight" style={{ fontSize: "0.43rem" }}>{aw.title}, {aw.year}</p>
-            <p className="text-[#ADADAA]" style={{ fontSize: "0.35rem" }}>{aw.medium}, {aw.dims}</p>
+            <p className="font-normal leading-tight" style={{ fontSize: "0.48rem" }}>
+              {aw.artist}
+            </p>
+            <p className="italic text-[#6B6A67] leading-tight" style={{ fontSize: "0.43rem" }}>
+              {aw.title}, {aw.year}
+            </p>
+            <p className="text-[#ADADAA]" style={{ fontSize: "0.35rem" }}>
+              {aw.medium}, {aw.dims}
+            </p>
             {selected === i && (
-              <div className="rounded p-1.5 flex flex-col gap-1" style={{ background: "#F9FAFD", border: "1px solid #E8E8E6" }}>
-                <p className="text-[#6B6A67]" style={{ fontSize: "0.35rem" }}>Price on request</p>
-                <button className="self-start rounded-full bg-[#111110] text-white font-medium" style={{ fontSize: "0.33rem", padding: "2px 7px" }}>
+              <div
+                className="rounded p-1.5 flex flex-col gap-1"
+                style={{ background: "#F9FAFD", border: "1px solid #E8E8E6" }}
+              >
+                <p className="text-[#6B6A67]" style={{ fontSize: "0.35rem" }}>
+                  Price on request
+                </p>
+                <button
+                  className="self-start rounded-full bg-[#111110] text-white font-medium"
+                  style={{ fontSize: "0.33rem", padding: "2px 7px" }}
+                >
                   Send enquiry
                 </button>
               </div>
@@ -938,8 +1365,12 @@ function ViewingMock() {
 
       {/* Footer */}
       <div className="shrink-0 pt-2 mt-2 border-t border-[#E8E8E6] flex items-center justify-between">
-        <p className="text-[#ADADAA]" style={{ fontSize: "0.33rem" }}>Confidential — do not share.</p>
-        <span className="uppercase tracking-[0.12em] font-medium" style={{ fontSize: "0.33rem" }}>Vitreen</span>
+        <p className="text-[#ADADAA]" style={{ fontSize: "0.33rem" }}>
+          Confidential — do not share.
+        </p>
+        <span className="uppercase tracking-[0.12em] font-medium" style={{ fontSize: "0.33rem" }}>
+          Vitreen
+        </span>
       </div>
     </div>
   );
@@ -973,9 +1404,7 @@ function CardRow({ cards }: { cards: { title: string; desc: string; mock: string
             <h3 className="font-normal text-white text-sm md:text-base tracking-[-0.01em] mb-0">
               {card.title}
             </h3>
-            <p className="mt-0 text-[#ADADAA] text-sm leading-[1.55] mb-4">
-              {card.desc}
-            </p>
+            <p className="mt-0 text-[#ADADAA] text-sm leading-[1.55] mb-4">{card.desc}</p>
             <div className="w-full max-w-[400px] h-[430px] mx-auto bg-white rounded p-4 overflow-hidden">
               <MockComponent />
             </div>
@@ -1007,7 +1436,13 @@ export default function Solution() {
           </p>
         </motion.div>
 
-        <CardRow cards={row2.map((card, i) => ({ ...card, title: t.solution.cards[i].title, desc: t.solution.cards[i].desc }))} />
+        <CardRow
+          cards={row2.map((card, i) => ({
+            ...card,
+            title: t.solution.cards[i].title,
+            desc: t.solution.cards[i].desc,
+          }))}
+        />
       </div>
     </section>
   );

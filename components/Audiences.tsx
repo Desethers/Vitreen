@@ -15,7 +15,14 @@ const NAV_ITEMS = ["Exhibitions", "Artists", "Fairs", "News", "About"];
 
 function SearchIcon({ stroke, size = 7 }: { stroke: string; size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="2.5">
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={stroke}
+      strokeWidth="2.5"
+    >
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.35-4.35" />
     </svg>
@@ -102,7 +109,13 @@ function GalleryNavbar({
     >
       <button
         className="shrink-0 flex items-center justify-center cursor-pointer"
-        style={{ width: searchBtnSize, height: searchBtnSize, background: "none", border: "none", padding: 0 }}
+        style={{
+          width: searchBtnSize,
+          height: searchBtnSize,
+          background: "none",
+          border: "none",
+          padding: 0,
+        }}
         onClick={searchOpen ? closeSearch : openSearch}
       >
         <SearchIcon stroke={iconStroke} size={iconSize} />
@@ -142,7 +155,15 @@ function GalleryNavbar({
             className="rounded-full flex items-center justify-center shrink-0 cursor-pointer"
             style={{ width: burgerSize, height: burgerSize, border: `1px solid ${iconBorder}` }}
           >
-            <svg width={burgerIcon} height={burgerIcon} viewBox="0 0 20 20" fill="none" stroke={burgerColor} strokeWidth="2.2" strokeLinecap="round">
+            <svg
+              width={burgerIcon}
+              height={burgerIcon}
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke={burgerColor}
+              strokeWidth="2.2"
+              strokeLinecap="round"
+            >
               <line x1="3" y1="6" x2="17" y2="6" />
               <line x1="3" y1="10" x2="17" y2="10" />
               <line x1="3" y1="14" x2="17" y2="14" />
@@ -194,36 +215,93 @@ function GalleryNavbar({
   );
 }
 
-function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPage) => void; isMobile?: boolean }) {
+function HomeView({
+  onNavigate,
+  isMobile = false,
+}: {
+  onNavigate: (p: GalleryPage) => void;
+  isMobile?: boolean;
+}) {
   const pastExhibitions = [
-    { img: "/gallery hero mock/artwork-02.png", title: "Clémence Rivière", subtitle: "Other Rooms, Works from 1959–2017", dates: "Jan 10 — Mar 14, 2026" },
-    { img: "/gallery hero mock/judd-wall-stack.png", title: "Jonas Mehler", subtitle: "Vetiver (Shanghai)", dates: "Jan 15 — Mar 7, 2026" },
-    { img: "/gallery hero mock/sofia castellanos.png", title: "Sofia Castellanos", subtitle: "The Pulse of Ink, Paper, and Fire", dates: "Jan 21 — Mar 7, 2026" },
+    {
+      img: "/gallery hero mock/artwork-02.png",
+      title: "Clémence Rivière",
+      subtitle: "Other Rooms, Works from 1959–2017",
+      dates: "Jan 10 — Mar 14, 2026",
+    },
+    {
+      img: "/gallery hero mock/judd-wall-stack.png",
+      title: "Jonas Mehler",
+      subtitle: "Vetiver (Shanghai)",
+      dates: "Jan 15 — Mar 7, 2026",
+    },
+    {
+      img: "/gallery hero mock/sofia castellanos.png",
+      title: "Sofia Castellanos",
+      subtitle: "The Pulse of Ink, Paper, and Fire",
+      dates: "Jan 21 — Mar 7, 2026",
+    },
   ];
 
   const newsItems = [
-    { img: "/gallery hero mock/shoes-exhibition.png", venue: "Museum Voorlinden, Wassenaar, Netherlands", title: "Amélie Corbin", subtitle: "Weaving Waters, Weaving Gestures", dates: "Jan 31 — May 25, 2026" },
-    { img: "/gallery hero mock/judd-floor-boxes.png", venue: "Mambo – Museo d'Arte Moderna di Bologna, Italy", title: "Jonas Mehler", subtitle: "The Performative Word", dates: "Feb 5 — May 3, 2026" },
-    { img: "/gallery hero mock/frieze-newyork-booth.png", venue: "New York", title: "Frieze New York", subtitle: "", dates: "Feb 27 — Mar 1, 2026" },
+    {
+      img: "/gallery hero mock/shoes-exhibition.png",
+      venue: "Museum Voorlinden, Wassenaar, Netherlands",
+      title: "Amélie Corbin",
+      subtitle: "Weaving Waters, Weaving Gestures",
+      dates: "Jan 31 — May 25, 2026",
+    },
+    {
+      img: "/gallery hero mock/judd-floor-boxes.png",
+      venue: "Mambo – Museo d'Arte Moderna di Bologna, Italy",
+      title: "Jonas Mehler",
+      subtitle: "The Performative Word",
+      dates: "Feb 5 — May 3, 2026",
+    },
+    {
+      img: "/gallery hero mock/frieze-newyork-booth.png",
+      venue: "New York",
+      title: "Frieze New York",
+      subtitle: "",
+      dates: "Feb 27 — Mar 1, 2026",
+    },
   ];
 
   if (isMobile) {
     return (
-      <div className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white" style={{ scrollbarWidth: "none" }}>
+      <div
+        className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white"
+        style={{ scrollbarWidth: "none" }}
+      >
         <GalleryNavbar page="home" onNavigate={onNavigate} isMobile dark={false} />
 
         {/* Hero image — ratio naturel (px mobile pour respirer sur les bords) */}
         <div className="overflow-hidden px-[10px] rounded" style={{ marginTop: "2.2rem" }}>
-          <Image src="/exhibition page/Exhibition1.png" alt="" width={900} height={560} className="w-full h-auto" sizes="500px" priority />
+          <Image
+            src="/exhibition page/Exhibition1.png"
+            alt=""
+            width={900}
+            height={560}
+            className="w-full h-auto"
+            sizes="500px"
+            priority
+          />
         </div>
 
         {/* Exhibition intro */}
         <div className="px-5 pt-4 pb-5 border-b border-[#F0EFED]">
-          <p className="uppercase tracking-[0.18em] text-[#ADADAA] mb-1" style={{ fontSize: "0.38rem" }}>
+          <p
+            className="uppercase tracking-[0.18em] text-[#ADADAA] mb-1"
+            style={{ fontSize: "0.38rem" }}
+          >
             Paris · Feb 12 — Mar 22, 2026
           </p>
-          <h1 className="font-normal text-[#111110] leading-[1.05]" style={{ fontSize: "1rem" }}>Sacha Elron</h1>
-          <p className="italic text-[#555] leading-[1.2] mt-0.5" style={{ fontSize: "0.72rem" }}>Your friends</p>
+          <h1 className="font-normal text-[#111110] leading-[1.05]" style={{ fontSize: "1rem" }}>
+            Sacha Elron
+          </h1>
+          <p className="italic text-[#555] leading-[1.2] mt-0.5" style={{ fontSize: "0.72rem" }}>
+            Your friends
+          </p>
           <button
             className="mt-2 bg-[#111110] rounded-full px-4 py-1 text-white"
             style={{ fontSize: "0.45rem" }}
@@ -236,14 +314,30 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         {/* Past Exhibitions — 1 col */}
         <div className="px-5 pt-5 pb-4">
           <div className="flex items-center justify-between mb-3">
-            <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.5rem" }}>Past Exhibitions</span>
-            <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>view all</span>
+            <span
+              className="uppercase tracking-[0.18em] text-[#111110]"
+              style={{ fontSize: "0.5rem" }}
+            >
+              Past Exhibitions
+            </span>
+            <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>
+              view all
+            </span>
           </div>
           <div className="flex flex-col gap-4">
             {pastExhibitions.map((ex, i) => (
               <div key={i} className="flex gap-3 cursor-pointer group">
-                <div className="relative overflow-hidden rounded-sm shrink-0" style={{ width: 88, aspectRatio: "4/3" }}>
-                  <Image src={ex.img} alt="" fill className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" sizes="128px" />
+                <div
+                  className="relative overflow-hidden rounded-sm shrink-0"
+                  style={{ width: 88, aspectRatio: "4/3" }}
+                >
+                  <Image
+                    src={ex.img}
+                    alt=""
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="128px"
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
                   <span
@@ -252,9 +346,24 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
                   >
                     Paris
                   </span>
-                  <p className="font-normal mt-1 leading-tight" style={{ fontSize: "0.62rem", color: "#111110" }}>{ex.title}</p>
-                  <p className="italic leading-tight" style={{ fontSize: "0.52rem", color: "#555" }}>{ex.subtitle}</p>
-                  <p className="uppercase tracking-[0.1em] mt-1" style={{ fontSize: "0.37rem", color: "#ADADAA" }}>{ex.dates}</p>
+                  <p
+                    className="font-normal mt-1 leading-tight"
+                    style={{ fontSize: "0.62rem", color: "#111110" }}
+                  >
+                    {ex.title}
+                  </p>
+                  <p
+                    className="italic leading-tight"
+                    style={{ fontSize: "0.52rem", color: "#555" }}
+                  >
+                    {ex.subtitle}
+                  </p>
+                  <p
+                    className="uppercase tracking-[0.1em] mt-1"
+                    style={{ fontSize: "0.37rem", color: "#ADADAA" }}
+                  >
+                    {ex.dates}
+                  </p>
                 </div>
               </div>
             ))}
@@ -264,21 +373,61 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         {/* News — 1 col */}
         <div className="mx-4 mb-4 rounded p-4" style={{ background: "#F8F7F5" }}>
           <div className="flex items-center justify-between mb-3">
-            <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.5rem" }}>News</span>
-            <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>view all</span>
+            <span
+              className="uppercase tracking-[0.18em] text-[#111110]"
+              style={{ fontSize: "0.5rem" }}
+            >
+              News
+            </span>
+            <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>
+              view all
+            </span>
           </div>
           <div className="flex flex-col gap-4">
             {newsItems.map((item, i) => (
               <div key={i} className="flex gap-3 cursor-pointer group">
-                <div className="relative overflow-hidden rounded-sm shrink-0" style={{ width: 88, aspectRatio: "4/3" }}>
-                  <Image src={item.img} alt="" fill className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" sizes="128px" />
+                <div
+                  className="relative overflow-hidden rounded-sm shrink-0"
+                  style={{ width: 88, aspectRatio: "4/3" }}
+                >
+                  <Image
+                    src={item.img}
+                    alt=""
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                    sizes="128px"
+                  />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="uppercase tracking-[0.08em] text-[#ADADAA] mb-0.5 leading-snug" style={{ fontSize: "0.33rem" }}>{item.venue}</p>
-                  <p className="font-normal leading-tight" style={{ fontSize: "0.6rem", color: "#111110" }}>{item.title}</p>
-                  {item.subtitle && <p className="italic leading-tight" style={{ fontSize: "0.5rem", color: "#555" }}>{item.subtitle}</p>}
-                  <p className="text-[#ADADAA] mt-0.5" style={{ fontSize: "0.37rem" }}>{item.dates}</p>
-                  <span className="text-[#111110] mt-1 inline-block" style={{ fontSize: "0.42rem" }}>Learn more →</span>
+                  <p
+                    className="uppercase tracking-[0.08em] text-[#ADADAA] mb-0.5 leading-snug"
+                    style={{ fontSize: "0.33rem" }}
+                  >
+                    {item.venue}
+                  </p>
+                  <p
+                    className="font-normal leading-tight"
+                    style={{ fontSize: "0.6rem", color: "#111110" }}
+                  >
+                    {item.title}
+                  </p>
+                  {item.subtitle && (
+                    <p
+                      className="italic leading-tight"
+                      style={{ fontSize: "0.5rem", color: "#555" }}
+                    >
+                      {item.subtitle}
+                    </p>
+                  )}
+                  <p className="text-[#ADADAA] mt-0.5" style={{ fontSize: "0.37rem" }}>
+                    {item.dates}
+                  </p>
+                  <span
+                    className="text-[#111110] mt-1 inline-block"
+                    style={{ fontSize: "0.42rem" }}
+                  >
+                    Learn more →
+                  </span>
                 </div>
               </div>
             ))}
@@ -286,39 +435,82 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         </div>
 
         {/* Newsletter */}
-        <div className="mx-4 mb-4 rounded px-5 py-6 flex flex-col gap-2" style={{ background: "#111110" }}>
-          <p className="text-white font-medium" style={{ fontSize: "0.65rem" }}>Be the first to know</p>
-          <p className="text-white/50 leading-snug" style={{ fontSize: "0.45rem" }}>
-            Join our mailing list to never miss upcoming exhibitions, art fairs, news, events, films & more.
+        <div
+          className="mx-4 mb-4 rounded px-5 py-6 flex flex-col gap-2"
+          style={{ background: "#111110" }}
+        >
+          <p className="text-white font-medium" style={{ fontSize: "0.65rem" }}>
+            Be the first to know
           </p>
-          <button className="self-start mt-1 border border-white/30 rounded-full px-4 py-1.5 text-white" style={{ fontSize: "0.5rem" }}>
+          <p className="text-white/50 leading-snug" style={{ fontSize: "0.45rem" }}>
+            Join our mailing list to never miss upcoming exhibitions, art fairs, news, events, films
+            & more.
+          </p>
+          <button
+            className="self-start mt-1 border border-white/30 rounded-full px-4 py-1.5 text-white"
+            style={{ fontSize: "0.5rem" }}
+          >
             Subscribe
           </button>
         </div>
 
         {/* Footer */}
-        <div className="px-5 py-4 flex items-center justify-between border-t" style={{ borderColor: "#F0EFED" }}>
-          <span className="uppercase tracking-[0.15em] font-medium text-[#111110]" style={{ fontSize: "0.45rem" }}>Galerie</span>
-          <span className="text-[#ADADAA]" style={{ fontSize: "0.38rem" }}>© 2026</span>
+        <div
+          className="px-5 py-4 flex items-center justify-between border-t"
+          style={{ borderColor: "#F0EFED" }}
+        >
+          <span
+            className="uppercase tracking-[0.15em] font-medium text-[#111110]"
+            style={{ fontSize: "0.45rem" }}
+          >
+            Galerie
+          </span>
+          <span className="text-[#ADADAA]" style={{ fontSize: "0.38rem" }}>
+            © 2026
+          </span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white" style={{ scrollbarWidth: "none" }}>
+    <div
+      className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white"
+      style={{ scrollbarWidth: "none" }}
+    >
       {/* Hero — légèrement moins haut que 200/123 (~−8px) */}
       <div className="relative w-full" style={{ aspectRatio: "400/243" }}>
-        <Image src="/exhibition page/Exhibition1.png" alt="" fill className="object-cover" sizes="800px" priority />
+        <Image
+          src="/exhibition page/Exhibition1.png"
+          alt=""
+          fill
+          className="object-cover"
+          sizes="800px"
+          priority
+        />
         <GalleryNavbar page="home" onNavigate={onNavigate} isMobile={false} />
         <div
           className="absolute bottom-0 left-0 right-0 px-10 pb-[29px] pt-20"
-          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)" }}
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)",
+          }}
         >
-          <p className="uppercase tracking-[0.18em] text-white/70 mb-1" style={{ fontSize: "0.62rem" }}>Paris</p>
-          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "1.5rem" }}>Sacha Elron</h1>
-          <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "1.1rem" }}>Your friends</p>
-          <p className="text-white/55 mt-1.5" style={{ fontSize: "0.68rem" }}>Feb 12 — Mar 22, 2026</p>
+          <p
+            className="uppercase tracking-[0.18em] text-white/70 mb-1"
+            style={{ fontSize: "0.62rem" }}
+          >
+            Paris
+          </p>
+          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "1.5rem" }}>
+            Sacha Elron
+          </h1>
+          <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "1.1rem" }}>
+            Your friends
+          </p>
+          <p className="text-white/55 mt-1.5" style={{ fontSize: "0.68rem" }}>
+            Feb 12 — Mar 22, 2026
+          </p>
           <button
             className="mt-3 border border-white/40 rounded-full px-4 py-1 text-white"
             style={{ fontSize: "0.82rem" }}
@@ -332,14 +524,27 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
       {/* Past Exhibitions */}
       <div className="px-8 pt-7 pb-6">
         <div className="flex items-center justify-between mb-4">
-          <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.62rem" }}>Past Exhibitions</span>
-          <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.62rem" }}>view all</span>
+          <span
+            className="uppercase tracking-[0.18em] text-[#111110]"
+            style={{ fontSize: "0.62rem" }}
+          >
+            Past Exhibitions
+          </span>
+          <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.62rem" }}>
+            view all
+          </span>
         </div>
         <div className="grid grid-cols-3 gap-4">
           {pastExhibitions.map((ex, i) => (
             <div key={i} className="flex flex-col gap-2 cursor-pointer group">
               <div className="relative overflow-hidden rounded-sm" style={{ aspectRatio: "4/3" }}>
-                <Image src={ex.img} alt="" fill className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" sizes="200px" />
+                <Image
+                  src={ex.img}
+                  alt=""
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="200px"
+                />
               </div>
               <div>
                 <span
@@ -348,9 +553,21 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
                 >
                   Paris
                 </span>
-                <p className="font-normal mt-1 leading-tight" style={{ fontSize: "0.72rem", color: "#111110" }}>{ex.title}</p>
-                <p className="italic leading-tight" style={{ fontSize: "0.62rem", color: "#333" }}>{ex.subtitle}</p>
-                <p className="uppercase tracking-[0.1em] mt-1" style={{ fontSize: "0.48rem", color: "#ADADAA" }}>{ex.dates}</p>
+                <p
+                  className="font-normal mt-1 leading-tight"
+                  style={{ fontSize: "0.72rem", color: "#111110" }}
+                >
+                  {ex.title}
+                </p>
+                <p className="italic leading-tight" style={{ fontSize: "0.62rem", color: "#333" }}>
+                  {ex.subtitle}
+                </p>
+                <p
+                  className="uppercase tracking-[0.1em] mt-1"
+                  style={{ fontSize: "0.48rem", color: "#ADADAA" }}
+                >
+                  {ex.dates}
+                </p>
               </div>
             </div>
           ))}
@@ -360,23 +577,52 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
       {/* News */}
       <div className="mx-6 mb-6 rounded p-5" style={{ background: "#F8F7F5" }}>
         <div className="flex items-center justify-between mb-4">
-          <span className="uppercase tracking-[0.18em] text-[#111110]" style={{ fontSize: "0.5rem" }}>News</span>
-          <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>view all</span>
+          <span
+            className="uppercase tracking-[0.18em] text-[#111110]"
+            style={{ fontSize: "0.5rem" }}
+          >
+            News
+          </span>
+          <span className="text-[#ADADAA] cursor-pointer" style={{ fontSize: "0.5rem" }}>
+            view all
+          </span>
         </div>
         <div className="grid grid-cols-3 gap-4">
           {newsItems.map((item, i) => (
             <div key={i} className="flex flex-col gap-2 cursor-pointer group">
               <div className="relative overflow-hidden rounded-sm" style={{ aspectRatio: "4/3" }}>
-                <Image src={item.img} alt="" fill className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" sizes="200px" />
+                <Image
+                  src={item.img}
+                  alt=""
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  sizes="200px"
+                />
               </div>
               <div>
-                <p className="uppercase tracking-[0.08em] text-[#ADADAA] mb-0.5 leading-snug" style={{ fontSize: "0.47rem" }}>{item.venue}</p>
-                <p className="font-normal leading-tight" style={{ fontSize: "0.7rem", color: "#111110" }}>{item.title}</p>
+                <p
+                  className="uppercase tracking-[0.08em] text-[#ADADAA] mb-0.5 leading-snug"
+                  style={{ fontSize: "0.47rem" }}
+                >
+                  {item.venue}
+                </p>
+                <p
+                  className="font-normal leading-tight"
+                  style={{ fontSize: "0.7rem", color: "#111110" }}
+                >
+                  {item.title}
+                </p>
                 {item.subtitle && (
-                  <p className="italic leading-tight" style={{ fontSize: "0.6rem", color: "#555" }}>{item.subtitle}</p>
+                  <p className="italic leading-tight" style={{ fontSize: "0.6rem", color: "#555" }}>
+                    {item.subtitle}
+                  </p>
                 )}
-                <p className="text-[#ADADAA] mt-0.5" style={{ fontSize: "0.49rem" }}>{item.dates}</p>
-                <span className="text-[#111110] mt-1 inline-block" style={{ fontSize: "0.54rem" }}>Learn more →</span>
+                <p className="text-[#ADADAA] mt-0.5" style={{ fontSize: "0.49rem" }}>
+                  {item.dates}
+                </p>
+                <span className="text-[#111110] mt-1 inline-block" style={{ fontSize: "0.54rem" }}>
+                  Learn more →
+                </span>
               </div>
             </div>
           ))}
@@ -389,23 +635,39 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
         style={{ background: "#111110" }}
       >
         <div className="min-w-0">
-          <p className="text-white font-medium mb-1" style={{ fontSize: "0.78rem" }}>Be the first to know</p>
+          <p className="text-white font-medium mb-1" style={{ fontSize: "0.78rem" }}>
+            Be the first to know
+          </p>
           <p className="text-white/50 leading-snug" style={{ fontSize: "0.58rem", maxWidth: 420 }}>
-            Join our mailing list to never miss upcoming exhibitions, art fairs, news, events, films & more.
+            Join our mailing list to never miss upcoming exhibitions, art fairs, news, events, films
+            & more.
           </p>
         </div>
-        <button className="shrink-0 border border-white/30 rounded-full px-4 py-1.5 text-white" style={{ fontSize: "0.63rem" }}>
+        <button
+          className="shrink-0 border border-white/30 rounded-full px-4 py-1.5 text-white"
+          style={{ fontSize: "0.63rem" }}
+        >
           Subscribe
         </button>
       </div>
 
       {/* Footer */}
-      <div className="px-8 py-4 flex items-center justify-between border-t" style={{ borderColor: "#F0EFED" }}>
-        <span className="uppercase tracking-[0.15em] font-medium text-[#111110]" style={{ fontSize: "0.48rem" }}>Galerie</span>
+      <div
+        className="px-8 py-4 flex items-center justify-between border-t"
+        style={{ borderColor: "#F0EFED" }}
+      >
+        <span
+          className="uppercase tracking-[0.15em] font-medium text-[#111110]"
+          style={{ fontSize: "0.48rem" }}
+        >
+          Galerie
+        </span>
         <GallerySocialFooterIcons />
         <div className="flex items-center gap-2 text-[#ADADAA]" style={{ fontSize: "0.38rem" }}>
           {["The Gallery", "Jobs", "Terms", "Privacy", "Accessibility"].map((l) => (
-            <span key={l} className="cursor-pointer">{l}</span>
+            <span key={l} className="cursor-pointer">
+              {l}
+            </span>
           ))}
           <span>| © 2026</span>
         </div>
@@ -414,19 +676,45 @@ function HomeView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPag
   );
 }
 
-function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPage) => void; isMobile?: boolean }) {
+function ExhibitionsView({
+  onNavigate,
+  isMobile = false,
+}: {
+  onNavigate: (p: GalleryPage) => void;
+  isMobile?: boolean;
+}) {
   const [tab, setTab] = useState<"current" | "upcoming" | "past">("current");
 
   const exhibitions = {
     current: [
-      { img: "/exhibition page/Exhibition1.png", title: "Sacha Elron", subtitle: "Your friends", dates: "Feb 12 — Mar 22, 2026" },
+      {
+        img: "/exhibition page/Exhibition1.png",
+        title: "Sacha Elron",
+        subtitle: "Your friends",
+        dates: "Feb 12 — Mar 22, 2026",
+      },
     ],
     upcoming: [
-      { img: "/exhibition page/painting-01.png", title: "Marcus Vael", subtitle: "Anxious Men", dates: "Apr 3 — May 17, 2026" },
+      {
+        img: "/exhibition page/painting-01.png",
+        title: "Marcus Vael",
+        subtitle: "Anxious Men",
+        dates: "Apr 3 — May 17, 2026",
+      },
     ],
     past: [
-      { img: "/exhibition page/Exhibition6.png", title: "Kehinde Wiley", subtitle: "New Republic", dates: "Oct 2 — Nov 30, 2025" },
-      { img: "/exhibition page/Exhibition8.png", title: "Loie Hollowell", subtitle: "Point of Entry", dates: "Aug 14 — Sep 20, 2025" },
+      {
+        img: "/exhibition page/Exhibition6.png",
+        title: "Kehinde Wiley",
+        subtitle: "New Republic",
+        dates: "Oct 2 — Nov 30, 2025",
+      },
+      {
+        img: "/exhibition page/Exhibition8.png",
+        title: "Loie Hollowell",
+        subtitle: "Point of Entry",
+        dates: "Aug 14 — Sep 20, 2025",
+      },
     ],
   };
 
@@ -458,7 +746,9 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
           ))}
         </div>
 
-        <p className={`${px} uppercase tracking-[0.18em] text-[#ADADAA] mb-3 text-[0.45rem] md:text-[0.52rem]`}>
+        <p
+          className={`${px} uppercase tracking-[0.18em] text-[#ADADAA] mb-3 text-[0.45rem] md:text-[0.52rem]`}
+        >
           {tab} exhibitions
         </p>
 
@@ -467,7 +757,10 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
           <div className={`${px} flex flex-col gap-4`}>
             {shown.map((ex, i) => (
               <div key={i} className="flex flex-col gap-1.5 group" style={{ cursor: "default" }}>
-                <div className="overflow-hidden rounded-sm relative" style={{ aspectRatio: "16/7" }}>
+                <div
+                  className="overflow-hidden rounded-sm relative"
+                  style={{ aspectRatio: "16/7" }}
+                >
                   <Image
                     src={ex.img}
                     alt=""
@@ -484,8 +777,12 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
                   >
                     {ex.title}
                   </p>
-                  <p className="leading-tight text-[#ADADAA] text-[0.95rem] md:text-[1.05rem]">{ex.subtitle}</p>
-                  <p className="uppercase tracking-[0.1em] pt-1 text-[#ADADAA] text-[0.6rem] md:text-[0.7rem]">{ex.dates}</p>
+                  <p className="leading-tight text-[#ADADAA] text-[0.95rem] md:text-[1.05rem]">
+                    {ex.subtitle}
+                  </p>
+                  <p className="uppercase tracking-[0.1em] pt-1 text-[#ADADAA] text-[0.6rem] md:text-[0.7rem]">
+                    {ex.dates}
+                  </p>
                   <a
                     href="#"
                     className="pt-1 inline-block text-[#111110] no-underline hover:underline underline-offset-[3px] decoration-[#111110] text-[0.6rem] md:text-[0.7rem]"
@@ -498,12 +795,22 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
             ))}
           </div>
           {/* Footer */}
-          <div className="px-8 py-4 flex items-center justify-between border-t mt-6" style={{ borderColor: "#F0EFED" }}>
-            <span className="uppercase tracking-[0.15em] font-medium text-[#111110]" style={{ fontSize: "0.48rem" }}>Galerie</span>
+          <div
+            className="px-8 py-4 flex items-center justify-between border-t mt-6"
+            style={{ borderColor: "#F0EFED" }}
+          >
+            <span
+              className="uppercase tracking-[0.15em] font-medium text-[#111110]"
+              style={{ fontSize: "0.48rem" }}
+            >
+              Galerie
+            </span>
             <GallerySocialFooterIcons />
             <div className="flex items-center gap-2 text-[#ADADAA]" style={{ fontSize: "0.38rem" }}>
               {["The Gallery", "Jobs", "Terms", "Privacy", "Accessibility"].map((l) => (
-                <span key={l} className="cursor-pointer">{l}</span>
+                <span key={l} className="cursor-pointer">
+                  {l}
+                </span>
               ))}
               <span>| © 2026</span>
             </div>
@@ -514,7 +821,13 @@ function ExhibitionsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gal
   );
 }
 
-function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: GalleryPage) => void; isMobile?: boolean }) {
+function ArtistsView({
+  onNavigate,
+  isMobile = false,
+}: {
+  onNavigate: (p: GalleryPage) => void;
+  isMobile?: boolean;
+}) {
   const artists = [
     { img: "/artist page/sundog.png", name: "Sacha Elron", origin: "Oklahoma, USA" },
     { img: "/artworks/painting-03.jpg", name: "Jonas Krell", origin: "Berlin, Allemagne" },
@@ -538,7 +851,10 @@ function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gallery
           </p>
           <div className="flex gap-3" style={{ fontSize: "0.5rem", color: "#6B6A67" }}>
             <span className="cursor-pointer">A–Z</span>
-            <span className="cursor-pointer text-[#111110] font-medium border-b border-[#111110]" style={{ paddingBottom: "1px" }}>
+            <span
+              className="cursor-pointer text-[#111110] font-medium border-b border-[#111110]"
+              style={{ paddingBottom: "1px" }}
+            >
               Recent
             </span>
           </div>
@@ -548,7 +864,10 @@ function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gallery
         <div className={`flex-1 overflow-hidden ${px} grid ${cols} gap-x-4 gap-y-5 content-start`}>
           {artists.map((a, i) => (
             <div key={i} className="flex flex-col gap-1.5 cursor-pointer group">
-              <div className="overflow-hidden rounded-sm bg-[#f5f3f0] relative" style={{ aspectRatio: "3/4" }}>
+              <div
+                className="overflow-hidden rounded-sm bg-[#f5f3f0] relative"
+                style={{ aspectRatio: "3/4" }}
+              >
                 <Image
                   src={a.img}
                   alt=""
@@ -558,7 +877,10 @@ function ArtistsView({ onNavigate, isMobile = false }: { onNavigate: (p: Gallery
                 />
               </div>
               <div>
-                <p className="font-normal leading-tight" style={{ fontSize: "0.6rem", color: "#111110" }}>
+                <p
+                  className="font-normal leading-tight"
+                  style={{ fontSize: "0.6rem", color: "#111110" }}
+                >
                   {a.name}
                 </p>
                 <p style={{ fontSize: "0.45rem", color: "#ADADAA" }}>{a.origin}</p>
@@ -587,28 +909,71 @@ function PrivateViewingMock() {
   const isMobile = mockWidth < 440;
 
   const artworks = [
-    { img: "/artworks/painting-10.jpg", artist: "Sacha Elron", title: "Sacha Elron 02", year: "2025", medium: "Acrylic on canvas", dims: "80 × 80 cm" },
-    { img: "/artworks/painting-02.png", artist: "Sacha Elron", title: "Night Garden IV", year: "2024", medium: "Oil on linen", dims: "120 × 90 cm" },
-    { img: "/artworks/painting-06.png", artist: "Sacha Elron", title: "Untitled (Bloom)", year: "2023", medium: "Watercolour", dims: "60 × 45 cm" },
-    { img: "/artworks/painting-09.png", artist: "Sacha Elron", title: "Soft Power I", year: "2025", medium: "Mixed media", dims: "100 × 100 cm" },
+    {
+      img: "/artworks/painting-10.jpg",
+      artist: "Sacha Elron",
+      title: "Sacha Elron 02",
+      year: "2025",
+      medium: "Acrylic on canvas",
+      dims: "80 × 80 cm",
+    },
+    {
+      img: "/artworks/painting-02.png",
+      artist: "Sacha Elron",
+      title: "Night Garden IV",
+      year: "2024",
+      medium: "Oil on linen",
+      dims: "120 × 90 cm",
+    },
+    {
+      img: "/artworks/painting-06.png",
+      artist: "Sacha Elron",
+      title: "Untitled (Bloom)",
+      year: "2023",
+      medium: "Watercolour",
+      dims: "60 × 45 cm",
+    },
+    {
+      img: "/artworks/painting-09.png",
+      artist: "Sacha Elron",
+      title: "Soft Power I",
+      year: "2025",
+      medium: "Mixed media",
+      dims: "100 × 100 cm",
+    },
   ];
 
   const gridCols = isMobile ? "grid-cols-2" : "grid-cols-2";
   const px = isMobile ? "px-4" : "px-8";
 
   return (
-    <div ref={containerRef} className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white">
+    <div
+      ref={containerRef}
+      className="w-full h-full font-sans overflow-y-auto overflow-x-hidden bg-white"
+    >
       {/* Header */}
       <div
         className={`sticky top-0 z-10 flex items-center justify-between border-b ${px} py-2`}
         style={{ background: "#fff", borderColor: "#E8E8E6" }}
       >
         <div className="flex items-center gap-2">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#111110" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#111110"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <rect x="3" y="11" width="18" height="11" rx="2" />
             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
-          <span className="font-medium tracking-tight" style={{ fontSize: isMobile ? "0.5rem" : "0.55rem", color: "#111110" }}>
+          <span
+            className="font-medium tracking-tight"
+            style={{ fontSize: isMobile ? "0.5rem" : "0.55rem", color: "#111110" }}
+          >
             Private Viewing
           </span>
         </div>
@@ -625,14 +990,24 @@ function PrivateViewingMock() {
 
       {/* Intro */}
       <div className={`${px} pt-5 pb-4`}>
-        <p className="uppercase tracking-[0.18em] text-[#ADADAA] mb-1" style={{ fontSize: "0.38rem" }}>
+        <p
+          className="uppercase tracking-[0.18em] text-[#ADADAA] mb-1"
+          style={{ fontSize: "0.38rem" }}
+        >
           Selection — Spring 2026
         </p>
-        <p className="font-medium leading-snug" style={{ fontSize: isMobile ? "0.65rem" : "0.8rem", color: "#111110", maxWidth: 320 }}>
+        <p
+          className="font-medium leading-snug"
+          style={{ fontSize: isMobile ? "0.65rem" : "0.8rem", color: "#111110", maxWidth: 320 }}
+        >
           A curated selection prepared for you.
         </p>
-        <p className="mt-1 leading-relaxed text-[#6B6A67]" style={{ fontSize: "0.45rem", maxWidth: 280 }}>
-          4 works — available on request. This page is private and accessible only via your personal link.
+        <p
+          className="mt-1 leading-relaxed text-[#6B6A67]"
+          style={{ fontSize: "0.45rem", maxWidth: 280 }}
+        >
+          4 works — available on request. This page is private and accessible only via your personal
+          link.
         </p>
       </div>
 
@@ -663,14 +1038,25 @@ function PrivateViewingMock() {
                   style={{ fontSize: "0.38rem", padding: "3px 8px" }}
                 >
                   Inquire
-                  <svg width="5" height="5" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <svg
+                    width="5"
+                    height="5"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  >
                     <path d="M2 10 10 2M4 2h6v6" />
                   </svg>
                 </span>
               </div>
             </div>
             <div>
-              <p className="font-normal leading-tight" style={{ fontSize: "0.55rem", color: "#111110" }}>
+              <p
+                className="font-normal leading-tight"
+                style={{ fontSize: "0.55rem", color: "#111110" }}
+              >
                 {aw.artist}
               </p>
               <p className="italic leading-tight text-[#6B6A67]" style={{ fontSize: "0.5rem" }}>
@@ -721,32 +1107,140 @@ function PrivateViewingMock() {
 }
 
 const artistWorks = [
-  { src: "/artworks/painting-01.png", title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "160 × 160 cm" },
-  { src: "/artworks/painting-02.png", title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm"  },
-  { src: "/artworks/painting-03.jpg", title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "124 × 124 cm" },
-  { src: "/artworks/painting-10.jpg", title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm" },
-  { src: "/artworks/painting-06.png", title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm" },
-  { src: "/artworks/painting-05.jpg", title: "Celadon Mass II, 2025",       medium: "Acrylic on canvas", dims: "100 × 100 cm" },
+  {
+    src: "/artworks/painting-01.png",
+    title: "Vermillion Study III, 2025",
+    medium: "Acrylic on canvas",
+    dims: "160 × 160 cm",
+  },
+  {
+    src: "/artworks/painting-02.png",
+    title: "Ochre Field 07, 2025",
+    medium: "Acrylic on canvas",
+    dims: "80 × 80 cm",
+  },
+  {
+    src: "/artworks/painting-03.jpg",
+    title: "Deep Green (Silence), 2024",
+    medium: "Acrylic on canvas",
+    dims: "124 × 124 cm",
+  },
+  {
+    src: "/artworks/painting-10.jpg",
+    title: "Sienna Plane IV, 2024",
+    medium: "Acrylic on canvas",
+    dims: "104 × 104 cm",
+  },
+  {
+    src: "/artworks/painting-06.png",
+    title: "Rose Ground I, 2025",
+    medium: "Acrylic on canvas",
+    dims: "123 × 92,5 cm",
+  },
+  {
+    src: "/artworks/painting-05.jpg",
+    title: "Celadon Mass II, 2025",
+    medium: "Acrylic on canvas",
+    dims: "100 × 100 cm",
+  },
 ];
 
 const pastExhibitions = [
-  { src: "/artworks/painting-01.png", title: "Soft Geometry",          venue: "Galerie Veld, Oslo",          date: "3 sept. – 12 oct. 2024" },
-  { src: "/artworks/painting-03.jpg", title: "Neither Here Nor There", venue: "Halle Sievert, Munich",       date: "6 oct. – 18 nov. 2023" },
-  { src: "/artworks/painting-05.jpg", title: "The Weight of Light",    venue: "Espace Aurore, Paris",        date: "14 jan. – 3 mars 2024" },
-  { src: "/artworks/painting-07.jpg", title: "Quiet Figures",          venue: "Galerie Fenn, New York",      date: "2 fév. – 14 avr. 2023" },
-  { src: "/artworks/painting-08.jpg", title: "Interior Distance",      venue: "Kunsthaus Morgen, Zurich",    date: "9 mai – 28 juil. 2023" },
-  { src: "/artworks/painting-09.png", title: "Held Still",             venue: "Galerie Solin, Vienne",       date: "18 oct. – 20 déc. 2022" },
+  {
+    src: "/artworks/painting-01.png",
+    title: "Soft Geometry",
+    venue: "Galerie Veld, Oslo",
+    date: "3 sept. – 12 oct. 2024",
+  },
+  {
+    src: "/artworks/painting-03.jpg",
+    title: "Neither Here Nor There",
+    venue: "Halle Sievert, Munich",
+    date: "6 oct. – 18 nov. 2023",
+  },
+  {
+    src: "/artworks/painting-05.jpg",
+    title: "The Weight of Light",
+    venue: "Espace Aurore, Paris",
+    date: "14 jan. – 3 mars 2024",
+  },
+  {
+    src: "/artworks/painting-07.jpg",
+    title: "Quiet Figures",
+    venue: "Galerie Fenn, New York",
+    date: "2 fév. – 14 avr. 2023",
+  },
+  {
+    src: "/artworks/painting-08.jpg",
+    title: "Interior Distance",
+    venue: "Kunsthaus Morgen, Zurich",
+    date: "9 mai – 28 juil. 2023",
+  },
+  {
+    src: "/artworks/painting-09.png",
+    title: "Held Still",
+    venue: "Galerie Solin, Vienne",
+    date: "18 oct. – 20 déc. 2022",
+  },
 ];
 
 const galleryWorks = [
-  { srcs: ["/artworks/painting-01.png"], title: "Vermillion Study III, 2025", medium: "Acrylic on canvas", dims: "180 × 180 cm", price: "€2 600" },
-  { srcs: ["/artworks/painting-06.png"],                               title: "Rose Ground I, 2025",        medium: "Acrylic on canvas", dims: "123 × 92,5 cm",   price: "€1 800" },
-  { srcs: ["/artworks/painting-10.jpg"],                               title: "Sienna Plane IV, 2024",      medium: "Acrylic on canvas", dims: "104 × 104 cm",    price: "€1 900" },
-  { srcs: ["/artworks/painting-03.jpg"],                               title: "Deep Green (Silence), 2024", medium: "Acrylic on canvas", dims: "123 × 123 cm",    price: "€2 200" },
-  { srcs: ["/artworks/painting-02.png"],                               title: "Ochre Field 07, 2025",       medium: "Acrylic on canvas", dims: "80 × 80 cm",      price: "€1 300" },
-  { srcs: ["/artworks/painting-05.jpg"],                               title: "Celadon Mass II, 2025",      medium: "Acrylic on canvas", dims: "100 × 100 cm",    price: "Sur demande" },
-  { srcs: ["/artworks/painting-07.jpg"],                               title: "Cobalt Threshold, 2023",     medium: "Acrylic on canvas", dims: "60 × 45 cm",      price: "€850" },
-  { srcs: ["/artworks/painting-09.png"],                               title: "Pale Form V, 2024",          medium: "Mixed media",        dims: "90 × 90 cm",     price: "€1 100" },
+  {
+    srcs: ["/artworks/painting-01.png"],
+    title: "Vermillion Study III, 2025",
+    medium: "Acrylic on canvas",
+    dims: "180 × 180 cm",
+    price: "€2 600",
+  },
+  {
+    srcs: ["/artworks/painting-06.png"],
+    title: "Rose Ground I, 2025",
+    medium: "Acrylic on canvas",
+    dims: "123 × 92,5 cm",
+    price: "€1 800",
+  },
+  {
+    srcs: ["/artworks/painting-10.jpg"],
+    title: "Sienna Plane IV, 2024",
+    medium: "Acrylic on canvas",
+    dims: "104 × 104 cm",
+    price: "€1 900",
+  },
+  {
+    srcs: ["/artworks/painting-03.jpg"],
+    title: "Deep Green (Silence), 2024",
+    medium: "Acrylic on canvas",
+    dims: "123 × 123 cm",
+    price: "€2 200",
+  },
+  {
+    srcs: ["/artworks/painting-02.png"],
+    title: "Ochre Field 07, 2025",
+    medium: "Acrylic on canvas",
+    dims: "80 × 80 cm",
+    price: "€1 300",
+  },
+  {
+    srcs: ["/artworks/painting-05.jpg"],
+    title: "Celadon Mass II, 2025",
+    medium: "Acrylic on canvas",
+    dims: "100 × 100 cm",
+    price: "Sur demande",
+  },
+  {
+    srcs: ["/artworks/painting-07.jpg"],
+    title: "Cobalt Threshold, 2023",
+    medium: "Acrylic on canvas",
+    dims: "60 × 45 cm",
+    price: "€850",
+  },
+  {
+    srcs: ["/artworks/painting-09.png"],
+    title: "Pale Form V, 2024",
+    medium: "Mixed media",
+    dims: "90 × 90 cm",
+    price: "€1 100",
+  },
 ];
 type ArtistPage = "home" | "past-exhibitions" | "gallery" | "artwork-detail";
 
@@ -804,7 +1298,8 @@ function ArtistPortfolioMock() {
 
   const isMobile = mockWidth < ARTIST_MOCK_MOBILE_MAX_W;
   const padX = isMobile ? ARTIST_MOCK_PAD_X_MOBILE : ARTIST_MOCK_PAD_X;
-  const pastExhibitionsSingleColumn = mockWidth === 0 || mockWidth < ARTIST_MOCK_EXHIBITIONS_GRID_MAX_W;
+  const pastExhibitionsSingleColumn =
+    mockWidth === 0 || mockWidth < ARTIST_MOCK_EXHIBITIONS_GRID_MAX_W;
 
   useEffect(() => {
     if (!isMobile) setNavOpen(false);
@@ -820,7 +1315,9 @@ function ArtistPortfolioMock() {
     setSelectedWork(idx);
     setSelectedImage(0);
     goTo("artwork-detail");
-    setTimeout(() => { if (detailScrollRef.current) detailScrollRef.current.scrollTop = 0; }, 0);
+    setTimeout(() => {
+      if (detailScrollRef.current) detailScrollRef.current.scrollTop = 0;
+    }, 0);
   };
 
   const navItems: { label: string; page: ArtistPage | null }[] = [
@@ -830,7 +1327,10 @@ function ArtistPortfolioMock() {
   ];
 
   return (
-    <div ref={containerRef} className="w-full h-full font-sans bg-white flex flex-col overflow-hidden min-w-0">
+    <div
+      ref={containerRef}
+      className="w-full h-full font-sans bg-white flex flex-col overflow-hidden min-w-0"
+    >
       <style>{`.mock-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}.buy-btn{background:transparent;color:#111110;border:0.5px solid #111110}.buy-btn:hover{background:#111110!important;color:#fff!important;border-color:#111110!important}`}</style>
       {/* Navbar */}
       <div
@@ -841,7 +1341,13 @@ function ArtistPortfolioMock() {
         <span
           onClick={() => goTo("home")}
           className="min-w-0 shrink truncate whitespace-nowrap"
-          style={{ fontSize: isMobile ? "0.58rem" : "0.62rem", fontWeight: 400, color: "#111110", letterSpacing: "-0.01em", cursor: "pointer" }}
+          style={{
+            fontSize: isMobile ? "0.58rem" : "0.62rem",
+            fontWeight: 400,
+            color: "#111110",
+            letterSpacing: "-0.01em",
+            cursor: "pointer",
+          }}
         >
           Sacha Elron
         </span>
@@ -856,11 +1362,27 @@ function ArtistPortfolioMock() {
               onClick={() => setNavOpen((o) => !o)}
             >
               {navOpen ? (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden
+                >
                   <path d="M18 6 6 18M6 6l12 12" />
                 </svg>
               ) : (
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden
+                >
                   <path d="M4 7h16M4 12h16M4 17h16" />
                 </svg>
               )}
@@ -876,7 +1398,12 @@ function ArtistPortfolioMock() {
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.15 }}
                   className="absolute left-0 right-0 top-full border-b border-[#E8E8E6] bg-white shadow-sm"
-                  style={{ paddingLeft: padX, paddingRight: padX, paddingTop: 6, paddingBottom: 10 }}
+                  style={{
+                    paddingLeft: padX,
+                    paddingRight: padX,
+                    paddingTop: 6,
+                    paddingBottom: 10,
+                  }}
                 >
                   <div className="flex flex-col gap-0.5">
                     {navItems.map((item) =>
@@ -899,7 +1426,7 @@ function ArtistPortfolioMock() {
                         >
                           {item.label}
                         </div>
-                      ),
+                      )
                     )}
                   </div>
                 </motion.div>
@@ -923,7 +1450,9 @@ function ArtistPortfolioMock() {
                 className={[
                   "inline-flex shrink-0 items-center rounded-full text-[#111110] tracking-[-0.01em] transition-colors hover:bg-[#F5F5F5]",
                   "text-[0.62rem] px-4 py-1.5",
-                  page === item.page ? "font-semibold underline underline-offset-[2px] decoration-[#111110]" : "font-normal",
+                  page === item.page
+                    ? "font-semibold underline underline-offset-[2px] decoration-[#111110]"
+                    : "font-normal",
                   item.page ? "cursor-pointer" : "cursor-default",
                 ].join(" ")}
               >
@@ -936,13 +1465,21 @@ function ArtistPortfolioMock() {
 
       {/* Scrollable body */}
       <div ref={bodyRef} className="flex-1 overflow-y-auto" style={{ scrollbarWidth: "none" }}>
-
         {/* ── HOME PAGE ── */}
         {page === "home" && (
           <>
             <div className="w-full" style={{ padding: `10px ${padX}px 0` }}>
-              <div className="relative w-full overflow-hidden" style={{ borderRadius: 4, aspectRatio: "16/7.5" }}>
-                <Image src="/artworks/v2-warm.png" alt="" fill className="object-cover" sizes="800px" />
+              <div
+                className="relative w-full overflow-hidden"
+                style={{ borderRadius: 4, aspectRatio: "16/7.5" }}
+              >
+                <Image
+                  src="/artworks/v2-warm.png"
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="800px"
+                />
               </div>
             </div>
             <div className="flex flex-col" style={{ padding: `14px ${padX}px 10px`, gap: 4 }}>
@@ -950,7 +1487,9 @@ function ArtistPortfolioMock() {
                 Your friends
               </p>
               <p className="text-[#6B6A67] text-[0.66rem] xl:text-[0.75rem]">Galerie</p>
-              <p className="text-[#6B6A67] text-[0.66rem] xl:text-[0.75rem] -mt-1">13 juin - 4 juillet 2025</p>
+              <p className="text-[#6B6A67] text-[0.66rem] xl:text-[0.75rem] -mt-1">
+                13 juin - 4 juillet 2025
+              </p>
               <button
                 type="button"
                 className="mock-btn inline-flex self-start cursor-pointer mt-2.5 rounded border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
@@ -995,10 +1534,22 @@ function ArtistPortfolioMock() {
                           }
                         }}
                       >
-                        <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 4, aspectRatio: "4/5" }}>
+                        <div
+                          className="relative overflow-hidden bg-[#EDEDE9]"
+                          style={{ borderRadius: 4, aspectRatio: "4/5" }}
+                        >
                           <Image src={aw.src} alt="" fill className="object-cover" sizes="400px" />
                         </div>
-                        <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
+                        <p
+                          style={{
+                            fontSize: "0.7rem",
+                            fontWeight: 500,
+                            color: "#111110",
+                            lineHeight: 1.3,
+                          }}
+                        >
+                          {aw.title}
+                        </p>
                         <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
                         <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
                       </div>
@@ -1048,7 +1599,9 @@ function ArtistPortfolioMock() {
               <p className="font-medium text-[#111110] leading-[1.1] tracking-[-0.025em] mb-1 text-[1rem] xl:text-[1.125rem]">
                 Last artworks
               </p>
-              <p className="text-[#6B6A67] mb-1 text-[0.66rem] xl:text-[0.75rem]">New pieces from the studio</p>
+              <p className="text-[#6B6A67] mb-1 text-[0.66rem] xl:text-[0.75rem]">
+                New pieces from the studio
+              </p>
               <button
                 type="button"
                 className="mock-btn inline-flex cursor-pointer mt-2.5 rounded border-[0.5px] border-[#111110] bg-transparent text-[#111110] text-[0.61rem] xl:text-[0.7rem] px-4 py-[7px] xl:px-[18px] xl:py-2"
@@ -1063,24 +1616,48 @@ function ArtistPortfolioMock() {
         {/* ── PAST EXHIBITIONS PAGE ── */}
         {page === "past-exhibitions" && (
           <div style={{ padding: `${isMobile ? 8 : 18}px ${padX}px 24px` }}>
-            <p style={{ fontSize: "1.3rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", marginBottom: 18 }}>
+            <p
+              style={{
+                fontSize: "1.3rem",
+                fontWeight: 500,
+                color: "#111110",
+                letterSpacing: "-0.025em",
+                marginBottom: 18,
+              }}
+            >
               Past exhibitions
             </p>
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: pastExhibitionsSingleColumn ? "minmax(0, 1fr)" : "repeat(3, 1fr)",
+                gridTemplateColumns: pastExhibitionsSingleColumn
+                  ? "minmax(0, 1fr)"
+                  : "repeat(3, 1fr)",
                 gap: pastExhibitionsSingleColumn ? 16 : 20,
               }}
             >
               {pastExhibitions.map((ex) => (
                 <div key={ex.title} className="flex flex-col" style={{ gap: 6 }}>
-                  <div className="relative overflow-hidden bg-[#F5F3F0]" style={{ borderRadius: 4, aspectRatio: "4/3" }}>
+                  <div
+                    className="relative overflow-hidden bg-[#F5F3F0]"
+                    style={{ borderRadius: 4, aspectRatio: "4/3" }}
+                  >
                     <Image src={ex.src} alt="" fill className="object-cover" sizes="200px" />
                   </div>
                   <div className="flex flex-col">
-                    <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{ex.title}</p>
-                    <p style={{ fontSize: "0.55rem", color: "#6B6A67", marginTop: 6 }}>{ex.venue}</p>
+                    <p
+                      style={{
+                        fontSize: "0.7rem",
+                        fontWeight: 500,
+                        color: "#111110",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {ex.title}
+                    </p>
+                    <p style={{ fontSize: "0.55rem", color: "#6B6A67", marginTop: 6 }}>
+                      {ex.venue}
+                    </p>
                     <p style={{ fontSize: "0.55rem", color: "#6B6A67", marginTop: 2 }}>{ex.date}</p>
                   </div>
                 </div>
@@ -1102,7 +1679,18 @@ function ArtistPortfolioMock() {
               }}
             >
               <div style={isMobile ? { width: "100%" } : { flex: "0 0 38%" }}>
-                <p style={{ fontSize: "1.5rem", fontWeight: 500, color: "#111110", letterSpacing: "-0.025em", lineHeight: 1.1, marginBottom: 6 }}>Gallery</p>
+                <p
+                  style={{
+                    fontSize: "1.5rem",
+                    fontWeight: 500,
+                    color: "#111110",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.1,
+                    marginBottom: 6,
+                  }}
+                >
+                  Gallery
+                </p>
                 <p style={{ fontSize: "0.71rem", color: "#6B6A67" }}>New pieces from the studio</p>
               </div>
               <div
@@ -1112,8 +1700,17 @@ function ArtistPortfolioMock() {
                     : { flex: "0 0 42%", paddingTop: 29, marginLeft: "auto" }
                 }
               >
-                <p style={{ fontSize: "0.68rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6 }}>
-                  The Gallery is the straight line from my studio to you—no intermediates. You're plugged straight into my production. Each piece—painting, collage, collectible—comes out of my hands.
+                <p
+                  style={{
+                    fontSize: "0.68rem",
+                    color: "#6B6A67",
+                    lineHeight: 1.65,
+                    marginBottom: 6,
+                  }}
+                >
+                  The Gallery is the straight line from my studio to you—no intermediates. You're
+                  plugged straight into my production. Each piece—painting, collage,
+                  collectible—comes out of my hands.
                 </p>
                 <p style={{ fontSize: "0.68rem", color: "#6B6A67", lineHeight: 1.65 }}>
                   Questions, commissions, or thoughts on a piece? Hit me up directly.
@@ -1121,7 +1718,9 @@ function ArtistPortfolioMock() {
               </div>
             </div>
             {/* Paintings section */}
-            <p style={{ fontSize: "0.68rem", fontWeight: 400, color: "#111110", marginBottom: 12 }}>Paintings</p>
+            <p style={{ fontSize: "0.68rem", fontWeight: 400, color: "#111110", marginBottom: 12 }}>
+              Paintings
+            </p>
             <div
               style={{
                 display: "grid",
@@ -1136,12 +1735,30 @@ function ArtistPortfolioMock() {
                     key={aw.title}
                     onClick={() => isDemo && openWork(idx)}
                     className="flex flex-col"
-                    style={{ gap: 5, background: "#F9F9F8", borderRadius: 4, padding: 6, cursor: isDemo ? "pointer" : "default" }}
+                    style={{
+                      gap: 5,
+                      background: "#F9F9F8",
+                      borderRadius: 4,
+                      padding: 6,
+                      cursor: isDemo ? "pointer" : "default",
+                    }}
                   >
-                    <div className="relative overflow-hidden bg-[#EDEDE9]" style={{ borderRadius: 4, aspectRatio: "1/1" }}>
+                    <div
+                      className="relative overflow-hidden bg-[#EDEDE9]"
+                      style={{ borderRadius: 4, aspectRatio: "1/1" }}
+                    >
                       <Image src={aw.srcs[0]} alt="" fill className="object-cover" sizes="400px" />
                     </div>
-                    <p style={{ fontSize: "0.7rem", fontWeight: 500, color: "#111110", lineHeight: 1.3 }}>{aw.title}</p>
+                    <p
+                      style={{
+                        fontSize: "0.7rem",
+                        fontWeight: 500,
+                        color: "#111110",
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {aw.title}
+                    </p>
                     <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.medium}</p>
                     <p style={{ fontSize: "0.55rem", color: "#6B6A67" }}>{aw.dims}</p>
                   </div>
@@ -1152,74 +1769,215 @@ function ArtistPortfolioMock() {
         )}
 
         {/* ── ARTWORK DETAIL PAGE ── */}
-        {page === "artwork-detail" && (() => {
-          const aw = galleryWorks[selectedWork];
-          const srcs = aw?.srcs;
-          if (!aw || !srcs?.length) {
+        {page === "artwork-detail" &&
+          (() => {
+            const aw = galleryWorks[selectedWork];
+            const srcs = aw?.srcs;
+            if (!aw || !srcs?.length) {
+              return (
+                <div style={{ padding: `24px ${padX}px` }}>
+                  <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 12 }}>
+                    Œuvre introuvable.
+                  </p>
+                  <span
+                    onClick={() => goTo("gallery")}
+                    style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}
+                  >
+                    ← Back to Gallery
+                  </span>
+                </div>
+              );
+            }
             return (
-              <div style={{ padding: `24px ${padX}px` }}>
-                <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 12 }}>Œuvre introuvable.</p>
-                <span onClick={() => goTo("gallery")} style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
+              <div
+                style={{
+                  display: "flex",
+                  height: "100%",
+                  overflow: "hidden",
+                  gap: 36,
+                  padding: `16px ${padX}px`,
+                }}
+              >
+                {/* Left: image */}
+                <div
+                  className="relative flex-shrink-0"
+                  style={{
+                    width: "66%",
+                    position: "relative",
+                    overflow: "hidden",
+                    borderRadius: 4,
+                  }}
+                >
+                  <Image
+                    src={srcs[selectedImage % srcs.length]}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="1200px"
+                    style={{ padding: "12px 12px 12px 0" }}
+                  />
+                  {srcs.length > 1 && (
+                    <>
+                      <button
+                        onClick={() =>
+                          setSelectedImage((selectedImage - 1 + srcs.length) % srcs.length)
+                        }
+                        className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+                        style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}
+                      >
+                        ‹
+                      </button>
+                      <button
+                        onClick={() => setSelectedImage((selectedImage + 1) % srcs.length)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
+                        style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}
+                      >
+                        ›
+                      </button>
+                    </>
+                  )}
+                </div>
+                {/* Right: details */}
+                <div
+                  ref={detailScrollRef}
+                  className="flex-1 overflow-y-auto"
+                  style={{ padding: "16px 0", scrollbarWidth: "none" }}
+                >
+                  <p
+                    style={{
+                      fontSize: "1.15rem",
+                      fontWeight: 500,
+                      color: "#111110",
+                      lineHeight: 1.2,
+                      letterSpacing: "-0.02em",
+                      marginBottom: 5,
+                    }}
+                  >
+                    {aw.title}
+                  </p>
+                  <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 2 }}>
+                    {aw.medium}
+                  </p>
+                  <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 10 }}>
+                    {aw.dims}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "1.03rem",
+                      fontWeight: 500,
+                      color: "#111110",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {aw.price}
+                  </p>
+                  <button
+                    className="buy-btn"
+                    style={{
+                      width: "100%",
+                      borderRadius: 4,
+                      padding: "9px 0",
+                      fontSize: "0.82rem",
+                      fontWeight: 500,
+                      cursor: "pointer",
+                      marginBottom: 12,
+                    }}
+                  >
+                    Buy this painting
+                  </button>
+                  <p
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "#6B6A67",
+                      lineHeight: 1.65,
+                      marginBottom: 6,
+                      marginTop: 16,
+                    }}
+                  >
+                    A single field of vermillion, dense and warm. The surface holds variations in
+                    pressure and direction — a record of repeated gestures across several weeks. The
+                    red is not chosen for drama but for its weight.
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "#6B6A67",
+                      lineHeight: 1.65,
+                      marginBottom: 20,
+                    }}
+                  >
+                    This work belongs to a series of monochromes in which colour is treated as
+                    subject rather than support. Each painting begins with a single pigment and ends
+                    when the surface has nothing left to give.
+                  </p>
+                  {/* Request more information */}
+                  <div
+                    style={{ borderTop: "0.5px solid #F0F0EE", paddingTop: 12, marginBottom: 8 }}
+                  >
+                    <p
+                      style={{
+                        fontSize: "0.85rem",
+                        fontWeight: 500,
+                        color: "#111110",
+                        marginBottom: 4,
+                      }}
+                    >
+                      Request more information
+                    </p>
+                    <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 10 }}>
+                      To learn more about this artwork or shipping method, please provide your
+                      contact information.
+                    </p>
+                    {["First name", "Last name", "Email address"].map((ph) => (
+                      <div
+                        key={ph}
+                        style={{
+                          border: "0.5px solid #D8D8D5",
+                          borderRadius: 4,
+                          padding: "6px 10px",
+                          marginBottom: 6,
+                        }}
+                      >
+                        <p style={{ fontSize: "0.72rem", color: "#ADADAA" }}>{ph}</p>
+                      </div>
+                    ))}
+                    <button
+                      style={{
+                        background: "#111110",
+                        color: "white",
+                        border: "none",
+                        borderRadius: 4,
+                        padding: "6px 14px",
+                        fontSize: "0.75rem",
+                        fontWeight: 600,
+                        cursor: "pointer",
+                        marginTop: 2,
+                        marginBottom: 12,
+                      }}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                  <span
+                    onClick={() => goTo("gallery")}
+                    style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}
+                  >
+                    ← Back to Gallery
+                  </span>
+                </div>
               </div>
             );
-          }
-          return (
-            <div style={{ display: "flex", height: "100%", overflow: "hidden", gap: 36, padding: `16px ${padX}px` }}>
-              {/* Left: image */}
-              <div className="relative flex-shrink-0" style={{ width: "66%", position: "relative", overflow: "hidden", borderRadius: 4 }}>
-                <Image src={srcs[selectedImage % srcs.length]} alt="" fill className="object-cover" sizes="1200px" style={{ padding: "12px 12px 12px 0" }} />
-                {srcs.length > 1 && (
-                  <>
-                    <button onClick={() => setSelectedImage((selectedImage - 1 + srcs.length) % srcs.length)}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
-                      style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>‹</button>
-                    <button onClick={() => setSelectedImage((selectedImage + 1) % srcs.length)}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white border border-[#E8E8E6]"
-                      style={{ width: 16, height: 16, fontSize: "0.55rem", color: "#111110" }}>›</button>
-                  </>
-                )}
-              </div>
-              {/* Right: details */}
-              <div ref={detailScrollRef} className="flex-1 overflow-y-auto" style={{ padding: "16px 0", scrollbarWidth: "none" }}>
-                <p style={{ fontSize: "1.15rem", fontWeight: 500, color: "#111110", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 5 }}>{aw.title}</p>
-                <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 2 }}>{aw.medium}</p>
-                <p style={{ fontSize: "0.78rem", color: "#6B6A67", marginBottom: 10 }}>{aw.dims}</p>
-                <p style={{ fontSize: "1.03rem", fontWeight: 500, color: "#111110", marginBottom: 10 }}>{aw.price}</p>
-                <button className="buy-btn" style={{ width: "100%", borderRadius: 4, padding: "9px 0", fontSize: "0.82rem", fontWeight: 500, cursor: "pointer", marginBottom: 12 }}>
-                  Buy this painting
-                </button>
-                <p style={{ fontSize: "0.75rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 6, marginTop: 16 }}>
-                  A single field of vermillion, dense and warm. The surface holds variations in pressure and direction — a record of repeated gestures across several weeks. The red is not chosen for drama but for its weight.
-                </p>
-                <p style={{ fontSize: "0.75rem", color: "#6B6A67", lineHeight: 1.65, marginBottom: 20 }}>
-                  This work belongs to a series of monochromes in which colour is treated as subject rather than support. Each painting begins with a single pigment and ends when the surface has nothing left to give.
-                </p>
-                {/* Request more information */}
-                <div style={{ borderTop: "0.5px solid #F0F0EE", paddingTop: 12, marginBottom: 8 }}>
-                  <p style={{ fontSize: "0.85rem", fontWeight: 500, color: "#111110", marginBottom: 4 }}>Request more information</p>
-                  <p style={{ fontSize: "0.72rem", color: "#6B6A67", marginBottom: 10 }}>To learn more about this artwork or shipping method, please provide your contact information.</p>
-                  {["First name", "Last name", "Email address"].map(ph => (
-                    <div key={ph} style={{ border: "0.5px solid #D8D8D5", borderRadius: 4, padding: "6px 10px", marginBottom: 6 }}>
-                      <p style={{ fontSize: "0.72rem", color: "#ADADAA" }}>{ph}</p>
-                    </div>
-                  ))}
-                  <button style={{ background: "#111110", color: "white", border: "none", borderRadius: 4, padding: "6px 14px", fontSize: "0.75rem", fontWeight: 600, cursor: "pointer", marginTop: 2, marginBottom: 12 }}>
-                    Submit
-                  </button>
-                </div>
-                <span onClick={() => goTo("gallery")} style={{ fontSize: "0.75rem", color: "#6B6A67", cursor: "pointer" }}>← Back to Gallery</span>
-              </div>
-            </div>
-          );
-        })()}
+          })()}
 
         {/* Footer */}
         <div className="border-t border-[#F0F0EE]" style={{ padding: `16px ${padX}px` }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontSize: "0.44rem", color: "#ADADAA" }}>© 2025 Sacha Elron</span>
             <div style={{ display: "flex", gap: 12 }}>
-              {["Instagram", "LinkedIn"].map(s => (
-                <span key={s} style={{ fontSize: "0.44rem", color: "#ADADAA" }}>{s}</span>
+              {["Instagram", "LinkedIn"].map((s) => (
+                <span key={s} style={{ fontSize: "0.44rem", color: "#ADADAA" }}>
+                  {s}
+                </span>
               ))}
             </div>
           </div>
@@ -1260,7 +2018,9 @@ function GalleryHeroMock() {
           {page === "home" && <HomeView onNavigate={setPage} isMobile={isMobile} />}
           {page === "exhibitions" && <ExhibitionsView onNavigate={setPage} isMobile={isMobile} />}
           {page === "artists" && <ArtistsView onNavigate={setPage} isMobile={isMobile} />}
-          {page === "exhibition-detail" && <ExhibitionPageMock isMobile={isMobile} onBack={() => setPage("exhibitions")} />}
+          {page === "exhibition-detail" && (
+            <ExhibitionPageMock isMobile={isMobile} onBack={() => setPage("exhibitions")} />
+          )}
         </motion.div>
       </AnimatePresence>
     </div>
@@ -1383,8 +2143,7 @@ function PageWindow({
       <div
         className="w-full h-full rounded overflow-hidden bg-white flex flex-col"
         style={{
-          boxShadow:
-            "0 18px 50px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)",
+          boxShadow: "0 18px 50px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06)",
         }}
       >
         <div className="flex items-center gap-2 px-3 h-7 md:h-8 border-b border-[#E8E8E6] bg-[#FAFAF8] shrink-0">
@@ -1457,10 +2216,7 @@ export default function Audiences() {
           transition={{ duration: 0.7, ease, delay: 0.08 }}
           className="rounded overflow-hidden px-4 py-3 md:px-16 md:py-5 bg-[#1C1C1A]"
         >
-          <div
-            ref={canvasRef}
-            className="relative w-full aspect-[2922/3000] md:aspect-[2922/1750]"
-          >
+          <div ref={canvasRef} className="relative w-full aspect-[2922/3000] md:aspect-[2922/1750]">
             {PAGES.map((page, i) => (
               <PageWindow
                 key={i}

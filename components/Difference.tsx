@@ -17,8 +17,8 @@ export default function Difference() {
         >
           "The digital space is a natural extension of the gallery's storefront.{" "}
           <span>
-            In the current era, a robust online program and dedicated strategy is
-            essential in the art world."
+            In the current era, a robust online program and dedicated strategy is essential in the
+            art world."
           </span>
           <footer className="mt-8 flex items-center gap-4 not-italic">
             <img
@@ -28,7 +28,9 @@ export default function Difference() {
             />
             <div className="font-sans">
               <p className="text-sm font-medium text-[#111110] leading-tight">Elena Soboleva</p>
-              <p className="text-xs text-[#ADADAA] mt-0.5">Global Head of Audience Growth & Intelligence, Art Basel</p>
+              <p className="text-xs text-[#ADADAA] mt-0.5">
+                Global Head of Audience Growth & Intelligence, Art Basel
+              </p>
             </div>
           </footer>
         </motion.blockquote>

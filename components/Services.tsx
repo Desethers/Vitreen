@@ -34,9 +34,7 @@ export default function Services() {
               key={service.tier}
               {...fadeUp(i * 0.1)}
               className={`relative rounded p-7 flex flex-col justify-between min-h-[420px] transition-[border-color] duration-200 ${
-                service.highlight
-                  ? ""
-                  : "border border-[#E8E8E6] bg-white hover:border-[#111110]"
+                service.highlight ? "" : "border border-[#E8E8E6] bg-white hover:border-[#111110]"
               }`}
               style={
                 service.highlight
@@ -71,9 +69,7 @@ export default function Services() {
                 <div
                   className="h-px w-full"
                   style={{
-                    background: service.highlight
-                      ? "rgba(255,255,255,0.1)"
-                      : "#E8E8E6",
+                    background: service.highlight ? "rgba(255,255,255,0.1)" : "#E8E8E6",
                   }}
                 />
 
@@ -102,9 +98,7 @@ export default function Services() {
                         fill="none"
                         className="mt-0.5 shrink-0"
                         style={{
-                          color: service.highlight
-                            ? "rgba(255,255,255,0.4)"
-                            : "#ADADAA",
+                          color: service.highlight ? "rgba(255,255,255,0.4)" : "#ADADAA",
                         }}
                       >
                         <path

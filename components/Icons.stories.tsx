@@ -62,9 +62,38 @@ function AppCalendar() {
       <g clipPath="url(#cal-clip-story)">
         <rect width="32" height="32" fill="white" />
         <rect width="32" height="9" fill="#FF3B30" />
-        <text x="16" y="6.5" fontSize="4" fontWeight="700" fill="white" textAnchor="middle" fontFamily="-apple-system, system-ui, sans-serif">TUE</text>
-        <text x="16" y="25" fontSize="14" fontWeight="700" fill="#111110" textAnchor="middle" fontFamily="-apple-system, system-ui, sans-serif">25</text>
-        <rect x="0.25" y="0.25" width="31.5" height="31.5" rx="5.75" fill="none" stroke="#E0E0DD" strokeWidth="0.5" />
+        <text
+          x="16"
+          y="6.5"
+          fontSize="4"
+          fontWeight="700"
+          fill="white"
+          textAnchor="middle"
+          fontFamily="-apple-system, system-ui, sans-serif"
+        >
+          TUE
+        </text>
+        <text
+          x="16"
+          y="25"
+          fontSize="14"
+          fontWeight="700"
+          fill="#111110"
+          textAnchor="middle"
+          fontFamily="-apple-system, system-ui, sans-serif"
+        >
+          25
+        </text>
+        <rect
+          x="0.25"
+          y="0.25"
+          width="31.5"
+          height="31.5"
+          rx="5.75"
+          fill="none"
+          stroke="#E0E0DD"
+          strokeWidth="0.5"
+        />
       </g>
     </svg>
   );
@@ -85,18 +114,30 @@ function Cell({ label, children }: { label: string; children: React.ReactNode })
 
 export const FileBadges: Story = () => (
   <div className="grid min-h-screen grid-cols-3 gap-6 bg-white p-10" style={{ maxWidth: 720 }}>
-    <Cell label="PDF"><FilePdf /></Cell>
-    <Cell label="XLSX"><FileXlsx /></Cell>
-    <Cell label="DOC"><FileDoc /></Cell>
+    <Cell label="PDF">
+      <FilePdf />
+    </Cell>
+    <Cell label="XLSX">
+      <FileXlsx />
+    </Cell>
+    <Cell label="DOC">
+      <FileDoc />
+    </Cell>
   </div>
 );
 FileBadges.storyName = "File badges";
 
 export const AppIcons: Story = () => (
   <div className="grid min-h-screen grid-cols-3 gap-6 bg-white p-10" style={{ maxWidth: 720 }}>
-    <Cell label="Outlook"><AppOutlook /></Cell>
-    <Cell label="WhatsApp"><AppWhatsapp /></Cell>
-    <Cell label="Calendar"><AppCalendar /></Cell>
+    <Cell label="Outlook">
+      <AppOutlook />
+    </Cell>
+    <Cell label="WhatsApp">
+      <AppWhatsapp />
+    </Cell>
+    <Cell label="Calendar">
+      <AppCalendar />
+    </Cell>
   </div>
 );
 AppIcons.storyName = "App icons";

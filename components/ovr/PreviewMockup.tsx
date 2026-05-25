@@ -97,7 +97,8 @@ const initialBlocks: Block[] = [
     id: "b4",
     type: "side",
     slots: [{ imageId: "img-5" }],
-    quoteText: "Shared light is the simplest form of friendship—what falls on the wall falls on us both.",
+    quoteText:
+      "Shared light is the simplest form of friendship—what falls on the wall falls on us both.",
     quoteAuthor: "Sacha Elron",
     showInquire: true,
   },
@@ -133,9 +134,10 @@ export function PreviewMockup() {
       const start = performance.now();
       const step = (now: number) => {
         const progress = Math.min(1, (now - start) / duration);
-        const eased = progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        const eased =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
         scroller.scrollTop = from + (to - from) * eased;
         if (progress < 1) animationFrame = requestAnimationFrame(step);
       };
@@ -149,17 +151,26 @@ export function PreviewMockup() {
       scroller.scrollTo({ top: 0 });
       const typeField = (key: keyof ImageItem, value: string, startDelay: number) => {
         Array.from(value).forEach((_, charIndex) => {
-          timers.push(setTimeout(() => {
-            setVrImages(prev => prev.map(img => (
-              img.id === "img-1" ? { ...img, [key]: value.slice(0, charIndex + 1) } : img
-            )));
-          }, startDelay + charIndex * 64));
+          timers.push(
+            setTimeout(
+              () => {
+                setVrImages((prev) =>
+                  prev.map((img) =>
+                    img.id === "img-1" ? { ...img, [key]: value.slice(0, charIndex + 1) } : img
+                  )
+                );
+              },
+              startDelay + charIndex * 64
+            )
+          );
         });
       };
 
-      timers.push(setTimeout(() => {
-        animateScroll(Math.min(scroller.scrollHeight - scroller.clientHeight, 600), 4200);
-      }, 450));
+      timers.push(
+        setTimeout(() => {
+          animateScroll(Math.min(scroller.scrollHeight - scroller.clientHeight, 600), 4200);
+        }, 450)
+      );
       typeField("artist", captionDemoFields.artist ?? "", 5050);
       typeField("title", captionDemoFields.title ?? "", 6200);
       typeField("year", captionDemoFields.year ?? "", 7300);
@@ -178,8 +189,8 @@ export function PreviewMockup() {
   }, []);
 
   const moveBlock = useCallback((blockId: string, toIndex: number) => {
-    setBlocks(prev => {
-      const fromIndex = prev.findIndex(b => b.id === blockId);
+    setBlocks((prev) => {
+      const fromIndex = prev.findIndex((b) => b.id === blockId);
       if (fromIndex === -1) return prev;
       const next = [...prev];
       const [moved] = next.splice(fromIndex, 1);
@@ -190,21 +201,33 @@ export function PreviewMockup() {
   }, []);
 
   const mergeImage = useCallback((srcImageId: string, dstBlockId: string) => {
-    setBlocks(prev => {
+    setBlocks((prev) => {
       const isImg = (t: string) => t === "full" || t === "pair" || t === "trio";
-      const dst = prev.find(b => b.id === dstBlockId);
-      const src = prev.find(b => b.slots.some(s => s.imageId === srcImageId));
+      const dst = prev.find((b) => b.id === dstBlockId);
+      const src = prev.find((b) => b.slots.some((s) => s.imageId === srcImageId));
       if (!dst || !src || !isImg(dst.type) || !isImg(src.type)) return prev;
-      const dstIds = dst.slots.map(s => s.imageId).filter(Boolean) as string[];
+      const dstIds = dst.slots.map((s) => s.imageId).filter(Boolean) as string[];
       if (dstIds.includes(srcImageId) || dstIds.length >= 3) return prev;
       const newDstIds = [...dstIds, srcImageId];
-      const newDst: Block = { ...dst, type: artBlockType(newDstIds.length), slots: newDstIds.map(id => ({ imageId: id })) };
-      const srcRest = (src.slots.map(s => s.imageId).filter(Boolean) as string[]).filter(id => id !== srcImageId);
-      return prev.flatMap(b => {
+      const newDst: Block = {
+        ...dst,
+        type: artBlockType(newDstIds.length),
+        slots: newDstIds.map((id) => ({ imageId: id })),
+      };
+      const srcRest = (src.slots.map((s) => s.imageId).filter(Boolean) as string[]).filter(
+        (id) => id !== srcImageId
+      );
+      return prev.flatMap((b) => {
         if (b.id === dst.id) return [newDst];
         if (b.id === src.id) {
           if (srcRest.length === 0) return [];
-          return [{ ...b, type: artBlockType(srcRest.length), slots: srcRest.map(id => ({ imageId: id })) }];
+          return [
+            {
+              ...b,
+              type: artBlockType(srcRest.length),
+              slots: srcRest.map((id) => ({ imageId: id })),
+            },
+          ];
         }
         return [b];
       });
@@ -212,17 +235,21 @@ export function PreviewMockup() {
   }, []);
 
   const mergeMoveBlock = useCallback((srcBlockId: string, dstBlockId: string) => {
-    setBlocks(prev => {
+    setBlocks((prev) => {
       const isImg = (t: string) => t === "full" || t === "pair" || t === "trio";
-      const src = prev.find(b => b.id === srcBlockId);
-      const dst = prev.find(b => b.id === dstBlockId);
+      const src = prev.find((b) => b.id === srcBlockId);
+      const dst = prev.find((b) => b.id === dstBlockId);
       if (!src || !dst || !isImg(src.type) || !isImg(dst.type)) return prev;
-      const srcIds = src.slots.map(s => s.imageId).filter(Boolean) as string[];
-      const dstIds = dst.slots.map(s => s.imageId).filter(Boolean) as string[];
+      const srcIds = src.slots.map((s) => s.imageId).filter(Boolean) as string[];
+      const dstIds = dst.slots.map((s) => s.imageId).filter(Boolean) as string[];
       if (dstIds.length + srcIds.length > 3) return prev;
       const newIds = [...dstIds, ...srcIds];
-      const newDst: Block = { ...dst, type: artBlockType(newIds.length), slots: newIds.map(id => ({ imageId: id })) };
-      return prev.flatMap(b => {
+      const newDst: Block = {
+        ...dst,
+        type: artBlockType(newIds.length),
+        slots: newIds.map((id) => ({ imageId: id })),
+      };
+      return prev.flatMap((b) => {
         if (b.id === dstBlockId) return [newDst];
         if (b.id === srcBlockId) return [];
         return [b];
@@ -232,7 +259,6 @@ export function PreviewMockup() {
 
   return (
     <section className="relative bg-white px-4 pt-6 pb-20 md:px-8 md:pt-10 md:pb-28">
-
       <div className="relative mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -251,17 +277,30 @@ export function PreviewMockup() {
                 <span className="h-3 w-3 rounded-full bg-[#28c840]" />
               </div>
               <div className="mx-auto flex max-w-md flex-1 items-center gap-2 rounded-md border border-black/[0.06] bg-white px-3 py-1">
-                <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" className="text-black/30">
+                <svg
+                  width="11"
+                  height="11"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  viewBox="0 0 24 24"
+                  className="text-black/30"
+                >
                   <rect x="3" y="11" width="18" height="11" rx="2" />
                   <path d="M7 11V7a5 5 0 0110 0v4" />
                 </svg>
-                <span className="text-[11px] tracking-tight text-black/40">room.vitreen.art / private</span>
+                <span className="text-[11px] tracking-tight text-black/40">
+                  room.vitreen.art / private
+                </span>
               </div>
               <div className="w-[58px]" />
             </div>
 
             {/* Preview content — scrollable area, ~3 blocks visible */}
-            <div ref={scrollRef} className="relative h-[520px] overflow-y-auto bg-gray-50 md:h-[600px]">
+            <div
+              ref={scrollRef}
+              className="relative h-[520px] overflow-y-auto bg-gray-50 md:h-[600px]"
+            >
               {/* Mock action bar */}
               <div className="sticky top-4 z-30 mx-auto flex w-fit items-center gap-1 rounded-[2px] border border-gray-200/70 bg-white/95 px-1 py-[1.5px] shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl">
                 <button
@@ -282,9 +321,16 @@ export function PreviewMockup() {
                   onClick={() => setExportOpen(true)}
                   className="ml-1 inline-flex items-center gap-1.5 rounded-[2px] bg-gray-900 px-4 py-1.5 text-[12px] font-medium text-white transition-all hover:bg-gray-700"
                 >
-                  Send to {vrSetup.recipientName || 'recipient'}
-                  <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M5 12h14m-6-6l6 6-6 6"/>
+                  Send to {vrSetup.recipientName || "recipient"}
+                  <svg
+                    width="12"
+                    height="12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M5 12h14m-6-6l6 6-6 6" />
                   </svg>
                 </button>
               </div>
@@ -297,8 +343,16 @@ export function PreviewMockup() {
                   noOffset
                   wide
                   onUpdateSetup={setVrSetup}
-                  onUpdateImage={(id, patch) => setVrImages(prev => prev.map(i => i.id === id ? { ...i, ...patch } as ImageItem : i))}
-                  onUpdateBlock={(id, patch) => setBlocks(prev => prev.map(b => b.id === id ? { ...b, ...patch } as Block : b))}
+                  onUpdateImage={(id, patch) =>
+                    setVrImages((prev) =>
+                      prev.map((i) => (i.id === id ? ({ ...i, ...patch } as ImageItem) : i))
+                    )
+                  }
+                  onUpdateBlock={(id, patch) =>
+                    setBlocks((prev) =>
+                      prev.map((b) => (b.id === id ? ({ ...b, ...patch } as Block) : b))
+                    )
+                  }
                   onMergeImage={mergeImage}
                   onMergeMoveBlock={mergeMoveBlock}
                   onMoveBlock={moveBlock}
@@ -317,7 +371,6 @@ export function PreviewMockup() {
               embedded
             />
           </div>
-
         </motion.div>
       </div>
     </section>

@@ -15,14 +15,12 @@ const steps = [
   {
     number: "01",
     action: "Publier une œuvre",
-    result:
-      "Ajoutez une œuvre ou une exposition → elle apparaît instantanément sur votre site.",
+    result: "Ajoutez une œuvre ou une exposition → elle apparaît instantanément sur votre site.",
   },
   {
     number: "02",
     action: "Partager",
-    result:
-      "Partagez instantanément : liens publics, Viewing Rooms privés ou emails ciblés.",
+    result: "Partagez instantanément : liens publics, Viewing Rooms privés ou emails ciblés.",
   },
   {
     number: "03",
@@ -58,10 +56,7 @@ export default function StepperFlow() {
         </motion.div>
 
         {/* Mobile */}
-        <motion.ol
-          {...fadeUp(0.1)}
-          className="flex list-none flex-col gap-10 p-0 m-0 md:hidden"
-        >
+        <motion.ol {...fadeUp(0.1)} className="flex list-none flex-col gap-10 p-0 m-0 md:hidden">
           {steps.map((step, i) => (
             <li key={step.number} className="flex gap-4">
               <StepCircle n={step.number} compact />

@@ -21,7 +21,8 @@ export const Colors: Story = () => (
   <div className="min-h-screen bg-white p-10">
     <h1 className="font-display mb-2 text-[26px] tracking-[-0.02em]">Design tokens — colors</h1>
     <p className="mb-8 text-[13px] text-[#6B6A67]">
-      Exposed in <code>app/globals.css</code> via <code>@theme inline</code>. Use as Tailwind utilities (<code>text-ink</code>, <code>border-line</code>, …).
+      Exposed in <code>app/globals.css</code> via <code>@theme inline</code>. Use as Tailwind
+      utilities (<code>text-ink</code>, <code>border-line</code>, …).
     </p>
     <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
       {colors.map((c) => (
