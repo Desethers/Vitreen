@@ -313,7 +313,7 @@ function DeployPill({
 }) {
   return (
     <div
-      className="flex items-center justify-between rounded-[3px] pl-1.5 pr-1 py-[2px]"
+      className="flex items-center justify-between rounded-[3px] pl-1.5 pr-1 py-[5px]"
       style={darkSurface}
     >
       <span className="text-[5px] leading-none text-white">{label}</span>
@@ -388,7 +388,7 @@ function DeployJourney() {
         />
 
         {/* Stacked pills */}
-        <div className="relative" style={{ height: 13 + 2 * 10 }}>
+        <div className="relative" style={{ height: 19 + 2 * 13 }}>
           {[
             { label: "Selection requested", time: "14:32", app: "outlook" as const },
             { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const },
@@ -398,7 +398,7 @@ function DeployJourney() {
               key={p.label}
               className="absolute"
               style={{
-                top: i * 10,
+                top: i * 13,
                 left: i * 4,
                 right: i * 4,
                 zIndex: arr.length - i,
