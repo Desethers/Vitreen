@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import { SAMPLE_ARTWORK } from "@/lib/mocks/sampleData";
 
 /* ─── Visual sub-components (used in ProcessFlow + ArtworkSourceSection) ─── */
 
@@ -201,13 +202,13 @@ export function StepTwoSharingFlow() {
         </div>
         <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
           <span className="truncate text-[5.5px] font-medium leading-tight text-[#111110]">
-            Sacha Elron
+            {SAMPLE_ARTWORK.artist}
           </span>
           <span className="truncate text-[5px] italic leading-tight text-[#6B6A67]">
-            Dawn Study No. 7, 2023
+            {SAMPLE_ARTWORK.title}, {SAMPLE_ARTWORK.year}
           </span>
           <span className="truncate text-[4.5px] leading-tight text-[#ADADAA]">
-            Oil on canvas · 120 × 90 cm
+            {SAMPLE_ARTWORK.medium} · {SAMPLE_ARTWORK.dimensions}
           </span>
         </div>
       </div>

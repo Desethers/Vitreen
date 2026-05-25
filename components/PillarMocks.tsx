@@ -4,6 +4,11 @@ import { motion } from "framer-motion";
 import { StepTwoSharingFlow } from "@/components/ProcessFlow";
 import { FileIcon } from "@/components/icons/FileIcon";
 import { AppIcon } from "@/components/icons/AppIcon";
+import {
+  SAMPLE_COLLECTOR,
+  SAMPLE_INVENTORY,
+  SAMPLE_REFERENCE_ARTWORK,
+} from "@/lib/mocks/sampleData";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -122,7 +127,9 @@ function AuditMock() {
             >
               <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
             </svg>
-            <span className="text-[13px] font-medium text-[#111110]">01 — Inventory 2026</span>
+            <span className="text-[13px] font-medium text-[#111110]">
+              {SAMPLE_INVENTORY.rootFolder}
+            </span>
             <span className="text-[13px] text-[#ADADAA]">· 42 files</span>
           </div>
           {/* Subfolder */}
@@ -149,25 +156,35 @@ function AuditMock() {
             >
               <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
             </svg>
-            <span className="text-[13px] font-medium text-[#111110]">01.1 Warhol</span>
+            <span className="text-[13px] font-medium text-[#111110]">
+              {SAMPLE_INVENTORY.artistFolder}
+            </span>
             <span className="text-[13px] text-[#ADADAA]">· 6 files</span>
           </div>
           {/* Files inside */}
           <div className="flex items-center gap-2.5 pl-16">
             <FilePdf />
-            <span className="text-[12.5px] text-[#111110]">Marilyn 1967 — provenance.pdf</span>
+            <span className="text-[12.5px] text-[#111110]">
+              {SAMPLE_INVENTORY.filenames.provenance}
+            </span>
           </div>
           <div className="flex items-center gap-2.5 pl-16">
             <FileXlsx />
-            <span className="text-[12.5px] text-[#111110]">Inventory Q1 2026.xlsx</span>
+            <span className="text-[12.5px] text-[#111110]">
+              {SAMPLE_INVENTORY.filenames.inventory}
+            </span>
           </div>
           <div className="flex items-center gap-2.5 pl-16">
             <FileDoc />
-            <span className="text-[12.5px] text-[#111110]">M. Tanaka — collector notes.docx</span>
+            <span className="text-[12.5px] text-[#111110]">
+              {SAMPLE_INVENTORY.filenames.collectorNotes}
+            </span>
           </div>
           <div className="flex items-center gap-2.5 pl-16">
             <FilePdf />
-            <span className="text-[12.5px] text-[#111110]">EXH-005 — Basel ’26 brief.pdf</span>
+            <span className="text-[12.5px] text-[#111110]">
+              {SAMPLE_INVENTORY.filenames.exhibition}
+            </span>
           </div>
         </div>
       </div>
@@ -187,10 +204,16 @@ function AuditMock() {
             </div>
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-[13px] font-semibold text-[#111110]">M. Tanaka</span>
-                <span className="flex-shrink-0 text-[10.5px] text-[#ADADAA]">Tue 14:32</span>
+                <span className="truncate text-[13px] font-semibold text-[#111110]">
+                  {SAMPLE_COLLECTOR.name}
+                </span>
+                <span className="flex-shrink-0 text-[10.5px] text-[#ADADAA]">
+                  {SAMPLE_COLLECTOR.contactDay} {SAMPLE_COLLECTOR.contactTime}
+                </span>
               </div>
-              <span className="truncate text-[10.5px] text-[#ADADAA]">to me</span>
+              <span className="truncate text-[10.5px] text-[#ADADAA]">
+                {SAMPLE_COLLECTOR.recipient}
+              </span>
             </div>
           </div>
 
@@ -215,9 +238,11 @@ function AuditMock() {
               <FilePdf />
               <div className="flex min-w-0 flex-1 flex-col leading-tight">
                 <span className="truncate text-[11.5px] font-medium text-[#111110]">
-                  Warhol_Selection_May_2026.pdf
+                  {SAMPLE_REFERENCE_ARTWORK.filename}
                 </span>
-                <span className="text-[10px] text-[#ADADAA]">4.2 MB · 6 works</span>
+                <span className="text-[10px] text-[#ADADAA]">
+                  {SAMPLE_REFERENCE_ARTWORK.fileSize} · {SAMPLE_REFERENCE_ARTWORK.fileCount} works
+                </span>
               </div>
             </div>
           </div>
@@ -320,10 +345,14 @@ function DeployJourney() {
           </div>
           <div className="flex flex-1 flex-col leading-tight">
             <div className="flex items-baseline justify-between">
-              <span className="text-[5.5px] font-semibold text-[#111110]">M. Tanaka</span>
-              <span className="text-[4px] text-[#ADADAA]">Tue 14:32</span>
+              <span className="text-[5.5px] font-semibold text-[#111110]">
+                {SAMPLE_COLLECTOR.name}
+              </span>
+              <span className="text-[4px] text-[#ADADAA]">
+                {SAMPLE_COLLECTOR.contactDay} {SAMPLE_COLLECTOR.contactTime}
+              </span>
             </div>
-            <span className="text-[4.5px] text-[#ADADAA]">to maria</span>
+            <span className="text-[4.5px] text-[#ADADAA]">{SAMPLE_COLLECTOR.recipient}</span>
           </div>
         </div>
 
@@ -332,8 +361,9 @@ function DeployJourney() {
 
         {/* Body */}
         <p className="text-[5px] leading-[1.5] text-[#111110]">
-          Could we have the Warhol <em className="italic">Marilyn, 1967</em> selection ahead of
-          Tuesday’s preview? Please include:
+          Could we have the {SAMPLE_REFERENCE_ARTWORK.artist}{" "}
+          <em className="italic">{SAMPLE_REFERENCE_ARTWORK.title}</em> selection ahead of Tuesday’s
+          preview? Please include:
         </p>
         <ul className="mt-[3px] flex flex-col gap-[1px]">
           <li className="text-[5px] leading-[1.4] text-[#111110]">— 6 high-res images</li>
