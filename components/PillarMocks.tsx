@@ -183,60 +183,6 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* ── Foreground: timeline card ── */}
-      <div className="absolute" style={{ right: 24, bottom: 24, width: 296 }}>
-        <div className="rounded-[6px] border border-[#E8E8E6] bg-white px-4 py-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
-          {/* Step 1 */}
-          <div className="flex items-start gap-2.5">
-            <div className="flex flex-col items-center">
-              <CheckDot />
-              <span className="mt-1 block h-3 w-px bg-[#E8E8E6]" />
-            </div>
-            <div className="flex items-center gap-1.5 pt-[1px]">
-              <span className="text-[11px] font-semibold leading-none text-[#111110]">
-                Scanned inventory
-              </span>
-              <svg width="10" height="9" viewBox="0 0 16 14" fill="none" stroke="#ADADAA" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-                <ellipse cx="8" cy="3" rx="6" ry="1.5" />
-                <path d="M2 3 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V3" />
-                <path d="M2 7 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V7" />
-              </svg>
-              <span className="text-[10.5px] leading-none text-[#ADADAA]">Vitreen Gallery</span>
-            </div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="mt-1.5 flex items-start gap-2.5">
-            <div className="flex flex-col items-center self-stretch">
-              <CheckDot />
-              <span className="mt-1 block w-px flex-1 bg-[#E8E8E6]" />
-            </div>
-            <div className="flex flex-col gap-[7px] pb-2.5">
-              <span className="text-[11px] font-semibold leading-none text-[#111110]">
-                Read 3 records
-              </span>
-              <div className="flex items-center gap-2">
-                <FilePdf />
-                <span className="text-[10px] text-[#111110]">Andy Warhol — Marilyn, 1967</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FileXlsx />
-                <span className="text-[10px] text-[#111110]">Inventory Q1 2026</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <FileDoc />
-                <span className="text-[10px] text-[#111110]">M. Tanaka — collector notes</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="flex items-center gap-2.5">
-            <PendingDot />
-            <span className="text-[11px] leading-none text-[#ADADAA]">Generating audit</span>
-          </div>
-        </div>
-      </div>
     </motion.div>
   );
 }
