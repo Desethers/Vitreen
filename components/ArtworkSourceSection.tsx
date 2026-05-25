@@ -60,7 +60,7 @@ export default function ArtworkSourceSection() {
           {/* Right — pillar mockup slideshow */}
           <div className="md:ml-auto md:self-start" style={{ maxWidth: 520, width: "100%" }}>
             {/* Mock panel */}
-            <div className="relative overflow-hidden rounded-lg bg-white" style={{ height: 400 }}>
+            <div className="relative rounded-lg bg-white" style={{ height: 400 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>

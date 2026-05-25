@@ -19,13 +19,13 @@ function AuditMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
+      className="flex h-full w-full flex-col items-start justify-center overflow-hidden rounded-lg bg-white px-10 py-10"
     >
-      <div className="flex w-full flex-wrap gap-2.5">
+      <div className="flex w-full flex-wrap gap-3">
         {auditTags.map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-3 py-1.5 text-[13px] font-medium leading-none text-[#111110]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-4 py-2 text-[15px] font-medium leading-none text-[#111110]"
           >
             <StepOnePillIcon tag={tag} />
             {tag}
@@ -37,6 +37,7 @@ function AuditMock() {
 }
 
 /* ─── Step 02 — Connect & build ─── */
+// Scale 2× : pre-scale width = 50%, post-scale fills 100% of container
 function ConnectMock() {
   return (
     <motion.div
@@ -44,9 +45,15 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
+      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-white"
     >
-      <div className="w-full">
+      <div
+        style={{
+          width: "50%",
+          transform: "scale(2)",
+          transformOrigin: "center center",
+        }}
+      >
         <StepTwoSharingFlow />
       </div>
     </motion.div>
@@ -54,6 +61,7 @@ function ConnectMock() {
 }
 
 /* ─── Step 03 — Deploy ─── */
+// Scale 2.2× : pre-scale width = 45%, post-scale fills ~100% of container
 function DeployMock() {
   return (
     <motion.div
@@ -61,9 +69,15 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
+      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-white"
     >
-      <div className="w-full">
+      <div
+        style={{
+          width: "45%",
+          transform: "scale(2.2)",
+          transformOrigin: "center center",
+        }}
+      >
         <DeployCardStack lang="en" />
       </div>
     </motion.div>
