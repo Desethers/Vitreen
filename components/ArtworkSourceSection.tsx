@@ -58,9 +58,9 @@ export default function ArtworkSourceSection() {
           </div>
 
           {/* Right — pillar mockup slideshow */}
-          <div className="md:ml-auto md:self-start" style={{ maxWidth: 440, width: "100%" }}>
+          <div className="md:ml-auto md:self-start" style={{ maxWidth: 520, width: "100%" }}>
             {/* Mock panel */}
-            <div className="relative overflow-hidden rounded-lg bg-white" style={{ height: 260 }}>
+            <div className="relative overflow-hidden rounded-lg bg-white" style={{ height: 320 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>
@@ -76,11 +76,10 @@ export default function ArtworkSourceSection() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="text-[13px] font-medium tracking-[-0.01em] text-[#111110]">
-                    <span className="mr-2 text-[11px] text-[#ADADAA]">{pillar.number}</span>
+                  <p className="text-[15px] font-medium tracking-[-0.02em] text-[#111110]">
                     {pillar.title}
                   </p>
-                  <p className="mt-0.5 text-[12px] leading-[1.55] text-[#6B6A67]">{pillar.desc}</p>
+                  <p className="mt-1 text-[14px] leading-[1.6] text-[#6B6A67]">{pillar.desc}</p>
                 </motion.div>
               </AnimatePresence>
 
