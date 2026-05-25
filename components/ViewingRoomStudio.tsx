@@ -53,14 +53,14 @@ export default function ViewingRoomStudio() {
             </div>
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden rounded bg-[#FAFAF8]">
+          <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded bg-[#FAFAF8] md:ml-auto md:mr-0" style={{ maxWidth: 520 }}>
             <Image
               src="/screenshot-viewingroom.png"
               alt=""
               fill
               quality={92}
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 720px"
+              sizes="(max-width: 768px) 100vw, 520px"
             />
           </div>
         </motion.div>
