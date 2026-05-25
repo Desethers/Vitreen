@@ -78,7 +78,7 @@ function AuditMock() {
               style={{
                 width: 72,
                 height: 84,
-                marginTop: i % 2 === 0 ? 0 : 48,
+                marginTop: i % 2 === 0 ? 0 : 60,
                 transform: `rotate(${i % 2 === 0 ? -4 : 4}deg)`,
               }}
             >
