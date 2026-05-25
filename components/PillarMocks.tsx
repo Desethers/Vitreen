@@ -55,6 +55,21 @@ function PendingDot() {
   );
 }
 
+function ChevronDown({ muted = false }: { muted?: boolean }) {
+  return (
+    <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke={muted ? "#ADADAA" : "#6B6A67"} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 5 L6 8 L9 5" />
+    </svg>
+  );
+}
+function FolderClosed() {
+  return (
+    <svg width="11" height="8" viewBox="0 0 16 12" fill="#C8C7C2" stroke="#A8A7A2" strokeWidth="0.4">
+      <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
+    </svg>
+  );
+}
+
 function AuditMock() {
   return (
     <motion.div
@@ -64,57 +79,103 @@ function AuditMock() {
       transition={{ duration: 0.5, ease }}
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      <div className="absolute inset-0 flex flex-col justify-center px-10">
-        {/* Step 1 — Scanned inventory */}
-        <div className="flex items-start gap-3">
-          <div className="flex flex-col items-center">
-            <CheckDot />
-            <span className="mt-1 block h-3 w-px bg-[#E8E8E6]" />
-          </div>
-          <div className="flex items-center gap-2 pt-[1px]">
-            <span className="text-[11px] font-semibold leading-none text-[#111110]">
-              Scanned inventory
-            </span>
-            <svg width="11" height="10" viewBox="0 0 16 14" fill="none" stroke="#ADADAA" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
-              <ellipse cx="8" cy="3" rx="6" ry="1.5" />
-              <path d="M2 3 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V3" />
-              <path d="M2 7 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V7" />
+      {/* ── Background: folder tree (gallery's real file system) ── */}
+      <div className="absolute inset-0 px-6 py-5 opacity-[0.55]">
+        <div className="flex flex-col gap-[7px]">
+          {/* Document header */}
+          <div className="flex items-center gap-2 border-b border-[#E8E8E6] pb-2">
+            <span className="block h-[10px] w-[10px] rounded-[2px] border border-[#ADADAA]" />
+            <span className="text-[10px] font-medium text-[#111110]">Document</span>
+            <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 3 v6 m-3 -3 3 3 3 -3" />
             </svg>
-            <span className="text-[11px] leading-none text-[#ADADAA]">Vitreen Gallery</span>
+          </div>
+          {/* Folder 1 */}
+          <div className="flex items-center gap-2">
+            <ChevronDown />
+            <FolderClosed />
+            <span className="text-[10px] font-medium text-[#111110]">01 — Inventory 2026</span>
+            <span className="text-[10px] text-[#ADADAA]">· 42 files</span>
+          </div>
+          {/* Subfolder */}
+          <div className="flex items-center gap-2 pl-5">
+            <ChevronDown />
+            <FolderClosed />
+            <span className="text-[10px] font-medium text-[#111110]">01.1 Warhol</span>
+            <span className="text-[10px] text-[#ADADAA]">· 6 files</span>
+          </div>
+          {/* Files inside */}
+          <div className="flex items-center gap-2 pl-12">
+            <FilePdf />
+            <span className="text-[10px] text-[#111110]">Marilyn 1967 — provenance.pdf</span>
+          </div>
+          <div className="flex items-center gap-2 pl-12">
+            <FileXlsx />
+            <span className="text-[10px] text-[#111110]">Inventory Q1 2026.xlsx</span>
+          </div>
+          <div className="flex items-center gap-2 pl-12">
+            <FileDoc />
+            <span className="text-[10px] text-[#111110]">M. Tanaka — collector notes.docx</span>
+          </div>
+          <div className="flex items-center gap-2 pl-12">
+            <FilePdf />
+            <span className="text-[10px] text-[#111110]">EXH-005 — Basel ’26 brief.pdf</span>
           </div>
         </div>
+      </div>
 
-        {/* Step 2 — Read records */}
-        <div className="mt-2 flex items-start gap-3">
-          <div className="flex flex-col items-center self-stretch">
-            <CheckDot />
-            <span className="mt-1 block w-px flex-1 bg-[#E8E8E6]" />
-          </div>
-          <div className="flex flex-col gap-2 pb-3">
-            <span className="text-[11px] font-semibold leading-none text-[#111110]">
-              Read 3 records
-            </span>
-            <div className="flex items-center gap-2">
-              <FilePdf />
-              <span className="text-[10px] text-[#111110]">Andy Warhol — Marilyn, 1967</span>
+      {/* ── Foreground: timeline card ── */}
+      <div className="absolute" style={{ right: 24, bottom: 24, width: 296 }}>
+        <div className="rounded-[6px] border border-[#E8E8E6] bg-white px-4 py-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
+          {/* Step 1 */}
+          <div className="flex items-start gap-2.5">
+            <div className="flex flex-col items-center">
+              <CheckDot />
+              <span className="mt-1 block h-3 w-px bg-[#E8E8E6]" />
             </div>
-            <div className="flex items-center gap-2">
-              <FileXlsx />
-              <span className="text-[10px] text-[#111110]">Inventory Q1 2026</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <FileDoc />
-              <span className="text-[10px] text-[#111110]">M. Tanaka — collector notes</span>
+            <div className="flex items-center gap-1.5 pt-[1px]">
+              <span className="text-[11px] font-semibold leading-none text-[#111110]">
+                Scanned inventory
+              </span>
+              <svg width="10" height="9" viewBox="0 0 16 14" fill="none" stroke="#ADADAA" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+                <ellipse cx="8" cy="3" rx="6" ry="1.5" />
+                <path d="M2 3 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V3" />
+                <path d="M2 7 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V7" />
+              </svg>
+              <span className="text-[10.5px] leading-none text-[#ADADAA]">Vitreen Gallery</span>
             </div>
           </div>
-        </div>
 
-        {/* Step 3 — Generating */}
-        <div className="flex items-start gap-3">
-          <PendingDot />
-          <span className="pt-[1px] text-[11px] leading-none text-[#ADADAA]">
-            Generating audit
-          </span>
+          {/* Step 2 */}
+          <div className="mt-1.5 flex items-start gap-2.5">
+            <div className="flex flex-col items-center self-stretch">
+              <CheckDot />
+              <span className="mt-1 block w-px flex-1 bg-[#E8E8E6]" />
+            </div>
+            <div className="flex flex-col gap-[7px] pb-2.5">
+              <span className="text-[11px] font-semibold leading-none text-[#111110]">
+                Read 3 records
+              </span>
+              <div className="flex items-center gap-2">
+                <FilePdf />
+                <span className="text-[10px] text-[#111110]">Andy Warhol — Marilyn, 1967</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FileXlsx />
+                <span className="text-[10px] text-[#111110]">Inventory Q1 2026</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <FileDoc />
+                <span className="text-[10px] text-[#111110]">M. Tanaka — collector notes</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div className="flex items-center gap-2.5">
+            <PendingDot />
+            <span className="text-[11px] leading-none text-[#ADADAA]">Generating audit</span>
+          </div>
         </div>
       </div>
     </motion.div>
