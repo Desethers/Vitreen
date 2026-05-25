@@ -46,7 +46,7 @@ function ConnectMock() {
       transition={{ duration: 0.38, ease }}
       className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-4 py-8"
     >
-      <div className="w-full scale-[1.4] origin-center">
+      <div className="w-full max-w-[420px]">
         <StepTwoSharingFlow />
       </div>
     </motion.div>

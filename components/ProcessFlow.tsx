@@ -49,7 +49,7 @@ export function StepTwoSharingFlow() {
     { src: whatsApp.src, alt: whatsApp.alt, y: 68 },
   ];
   return (
-    <div className="relative h-[96px] w-full max-w-[340px]">
+    <div className="relative h-[96px] w-full">
       <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 280 96" fill="none" aria-hidden="true">
         {leftIcons.map((icon, i) => {
           const endY = cardMidY + (icon.y - cardMidY) * 0.35;
