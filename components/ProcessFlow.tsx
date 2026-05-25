@@ -76,38 +76,90 @@ export function StepTwoSharingFlow() {
           border: "0.5px solid #E3E3DF",
         }}>
         <div
-          className="relative flex-shrink-0 overflow-hidden"
-          style={{
-            flexBasis: "62%",
-            background:
-              "linear-gradient(135deg, #6E1A15 0%, #4A1410 35%, #2A0F0C 65%, #1A0A08 100%)",
-          }}
+          className="relative flex-shrink-0 overflow-hidden bg-[#F5F5F3]"
+          style={{ flexBasis: "62%" }}
         >
-          {/* Warm ochre highlight (top-left) */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_22%_18%,rgba(232,166,90,0.32)_0%,rgba(232,166,90,0)_42%)]" />
-          {/* Deep red glow off-center */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_45%,rgba(165,38,28,0.55)_0%,rgba(165,38,28,0)_55%)]" />
-          {/* Cool shadow pocket (bottom-right) */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_82%_85%,rgba(10,8,14,0.6)_0%,rgba(10,8,14,0)_60%)]" />
-          {/* Painterly streak — diagonal brush */}
-          <div className="absolute -left-[10%] top-[40%] h-[18%] w-[120%] -rotate-[6deg] bg-gradient-to-r from-transparent via-[#C8956B]/18 to-transparent blur-[1.2px]" />
-          {/* Vertical drip suggestion */}
-          <div className="absolute left-[58%] top-[10%] h-[55%] w-[3.5%] rounded-full bg-gradient-to-b from-[#2E0E0A]/55 via-[#1A0A08]/35 to-transparent blur-[0.8px]" />
-          {/* Subtle figure form (off-center) */}
-          <div className="absolute left-[34%] top-[42%] h-[42%] w-[24%] rounded-[42%] bg-[#1F0B0A]/40 blur-[1.5px]" />
-          {/* Micro highlight detail */}
-          <div className="absolute left-[28%] top-[30%] h-[6%] w-[10%] rounded-full bg-[#F4D8A8]/35 blur-[0.6px]" />
-          {/* Grain / canvas texture hint */}
+          {/* Layered artwork card fragments — cropped at edges */}
+          {/* Card 3 (back, top-right peek) */}
           <div
-            className="absolute inset-0 mix-blend-overlay opacity-30"
+            className="absolute overflow-hidden rounded-[1.5px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
             style={{
-              backgroundImage:
-                "radial-gradient(rgba(255,255,255,0.18) 0.3px, transparent 0.4px)",
-              backgroundSize: "3px 3px",
+              top: "8%",
+              right: "-12%",
+              width: "55%",
+              height: "78%",
+              border: "0.4px solid #E8E8E6",
+              transform: "rotate(3deg)",
             }}
-          />
-          {/* Top vignette to anchor crop */}
-          <div className="absolute inset-x-0 top-0 h-[16%] bg-gradient-to-b from-[#0A0606]/35 to-transparent" />
+          >
+            <div className="h-[72%] w-full bg-gradient-to-br from-[#D4C5B0] via-[#B8A48A] to-[#7E6850]" />
+            <div className="flex flex-col gap-[0.5px] px-[3px] pt-[1.5px]">
+              <span className="block h-[1.5px] w-[60%] bg-[#111110]/70 rounded-[0.5px]" />
+              <span className="block h-[1px] w-[40%] bg-[#6B6A67]/50 rounded-[0.5px]" />
+            </div>
+          </div>
+
+          {/* Card 1 (front, dominant) */}
+          <div
+            className="absolute overflow-hidden rounded-[1.5px] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.1)]"
+            style={{
+              top: "12%",
+              left: "8%",
+              width: "60%",
+              height: "82%",
+              border: "0.4px solid #E0E0DC",
+              transform: "rotate(-2deg)",
+            }}
+          >
+            <div
+              className="relative h-[74%] w-full overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, #6E1A15 0%, #4A1410 50%, #2A0F0C 100%)",
+              }}
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_28%_22%,rgba(232,166,90,0.35)_0%,rgba(232,166,90,0)_45%)]" />
+              <div className="absolute left-[36%] top-[40%] h-[40%] w-[26%] rounded-[42%] bg-[#1F0B0A]/50 blur-[0.6px]" />
+            </div>
+            <div className="flex flex-col gap-[1px] px-[3px] pt-[2px]">
+              <span className="block h-[1.8px] w-[68%] bg-[#111110]/80 rounded-[0.5px]" />
+              <span className="block h-[1.2px] w-[44%] bg-[#6B6A67]/60 rounded-[0.5px]" />
+              <span className="block h-[1px] w-[52%] bg-[#ADADAA]/50 rounded-[0.5px]" />
+            </div>
+          </div>
+
+          {/* Card 4 (bottom-left fragment, cropped) */}
+          <div
+            className="absolute overflow-hidden rounded-[1.5px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)]"
+            style={{
+              bottom: "-18%",
+              left: "-10%",
+              width: "42%",
+              height: "55%",
+              border: "0.4px solid #E8E8E6",
+              transform: "rotate(-6deg)",
+            }}
+          >
+            <div className="h-[70%] w-full bg-gradient-to-br from-[#B8C3D6] via-[#7E8FA6] to-[#3E4A60]" />
+            <div className="flex flex-col gap-[0.5px] px-[3px] pt-[1.5px]">
+              <span className="block h-[1.4px] w-[55%] bg-[#111110]/70 rounded-[0.5px]" />
+            </div>
+          </div>
+
+          {/* Card 2 (small, top-right corner peek) */}
+          <div
+            className="absolute overflow-hidden rounded-[1.5px] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+            style={{
+              top: "-12%",
+              right: "12%",
+              width: "32%",
+              height: "42%",
+              border: "0.4px solid #E0E0DC",
+              transform: "rotate(8deg)",
+            }}
+          >
+            <div className="h-[100%] w-full bg-gradient-to-br from-[#EAD9BF] via-[#C9B287] to-[#8E7550]" />
+          </div>
         </div>
         <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
           <span className="truncate text-[5.5px] font-medium leading-tight text-[#111110]">Jean Doig</span>
