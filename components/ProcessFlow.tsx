@@ -75,9 +75,39 @@ export function StepTwoSharingFlow() {
           bottom:`${((124-cardBottom)/124)*100}%`,
           border: "0.5px solid #E3E3DF",
         }}>
-        <div className="relative flex-shrink-0 overflow-hidden bg-[#7A1F18]" style={{ flexBasis: "62%" }}>
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_55%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_70%,rgba(0,0,0,0.18)_0%,rgba(0,0,0,0)_60%)]" />
+        <div
+          className="relative flex-shrink-0 overflow-hidden"
+          style={{
+            flexBasis: "62%",
+            background:
+              "linear-gradient(135deg, #6E1A15 0%, #4A1410 35%, #2A0F0C 65%, #1A0A08 100%)",
+          }}
+        >
+          {/* Warm ochre highlight (top-left) */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_22%_18%,rgba(232,166,90,0.32)_0%,rgba(232,166,90,0)_42%)]" />
+          {/* Deep red glow off-center */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_45%,rgba(165,38,28,0.55)_0%,rgba(165,38,28,0)_55%)]" />
+          {/* Cool shadow pocket (bottom-right) */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_82%_85%,rgba(10,8,14,0.6)_0%,rgba(10,8,14,0)_60%)]" />
+          {/* Painterly streak — diagonal brush */}
+          <div className="absolute -left-[10%] top-[40%] h-[18%] w-[120%] -rotate-[6deg] bg-gradient-to-r from-transparent via-[#C8956B]/18 to-transparent blur-[1.2px]" />
+          {/* Vertical drip suggestion */}
+          <div className="absolute left-[58%] top-[10%] h-[55%] w-[3.5%] rounded-full bg-gradient-to-b from-[#2E0E0A]/55 via-[#1A0A08]/35 to-transparent blur-[0.8px]" />
+          {/* Subtle figure form (off-center) */}
+          <div className="absolute left-[34%] top-[42%] h-[42%] w-[24%] rounded-[42%] bg-[#1F0B0A]/40 blur-[1.5px]" />
+          {/* Micro highlight detail */}
+          <div className="absolute left-[28%] top-[30%] h-[6%] w-[10%] rounded-full bg-[#F4D8A8]/35 blur-[0.6px]" />
+          {/* Grain / canvas texture hint */}
+          <div
+            className="absolute inset-0 mix-blend-overlay opacity-30"
+            style={{
+              backgroundImage:
+                "radial-gradient(rgba(255,255,255,0.18) 0.3px, transparent 0.4px)",
+              backgroundSize: "3px 3px",
+            }}
+          />
+          {/* Top vignette to anchor crop */}
+          <div className="absolute inset-x-0 top-0 h-[16%] bg-gradient-to-b from-[#0A0606]/35 to-transparent" />
         </div>
         <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
           <span className="truncate text-[5.5px] font-medium leading-tight text-[#111110]">Jean Doig</span>
