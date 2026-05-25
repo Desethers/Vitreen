@@ -42,7 +42,7 @@ export default function ArtworkSourceSection() {
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...fadeUp(0)}
-          className="grid gap-8 md:grid-cols-[0.78fr_1.22fr] md:items-start md:gap-14"
+          className="grid gap-8 md:grid-cols-[0.62fr_1.38fr] md:items-start md:gap-14"
         >
           {/* Left — text */}
           <div>
@@ -55,9 +55,9 @@ export default function ArtworkSourceSection() {
           </div>
 
           {/* Right — pillar mockup slideshow */}
-          <div className="md:ml-auto md:self-start" style={{ maxWidth: 520, width: "100%" }}>
+          <div className="md:ml-auto md:self-start" style={{ maxWidth: 640, width: "100%" }}>
             {/* Mock panel */}
-            <div className="relative rounded-lg bg-white" style={{ height: 400 }}>
+            <div className="relative rounded-lg bg-white" style={{ height: 480 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>
