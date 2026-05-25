@@ -21,7 +21,7 @@ function AuditMock() {
       transition={{ duration: 0.38, ease }}
       className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
     >
-      <div className="flex flex-wrap justify-center gap-2.5">
+      <div className="flex w-full flex-wrap gap-2.5">
         {auditTags.map((tag) => (
           <span
             key={tag}
@@ -44,9 +44,9 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-4 py-8"
+      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
     >
-      <div className="w-full max-w-[420px]">
+      <div className="w-full">
         <StepTwoSharingFlow />
       </div>
     </motion.div>
@@ -63,7 +63,7 @@ function DeployMock() {
       transition={{ duration: 0.38, ease }}
       className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
     >
-      <div className="w-full scale-[1.25] origin-center">
+      <div className="w-full">
         <DeployCardStack lang="en" />
       </div>
     </motion.div>
