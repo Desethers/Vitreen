@@ -221,42 +221,91 @@ function ConnectMock() {
 }
 
 /* ─── Step 03 — Deploy ─── */
-/* Local pixel-perfect stack: smaller cards, 0.5px hairline borders. */
-function DeployPile() {
-  const events = [
-    { label: "Private PDF shared", meta: "VIP collectors · Opening preview", time: "09:18" },
-    { label: "Interested in Untitled, 2024", meta: "Availability requested", time: "09:24" },
-    { label: "Collector follow-up", meta: "Assigned internally", time: "09:30" },
-  ];
+/* One continuous collector interaction across email + WhatsApp + calendar:
+   request → PDF selection generated → follow-up scheduled. */
+
+const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
+
+function AppOutlook() {
   return (
-    <div className="relative h-[78px]">
-      {events.map((event, index) => (
-        <div
-          key={event.label}
-          className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-1.5 rounded-[4px] bg-white px-1.5 py-[6px] shadow-[0_2px_6px_rgba(17,17,16,0.04)]"
-          style={{
-            zIndex: events.length - index,
-            top: index * 15,
-            left: index * 6,
-            right: index * 6,
-            transform: `scale(${1 - index * 0.04})`,
-            transformOrigin: "top center",
-            border: "0.5px solid #EFEFEB",
-          }}
-        >
-          <span className="h-[5px] w-[5px] rounded-full bg-[#111110]" aria-hidden="true" />
-          <div className="min-w-0">
-            <p className="truncate text-[8.5px] leading-none text-[#111110]">{event.label}</p>
-            <p className="mt-[2px] truncate text-[7px] leading-none text-[#8A8A86]">{event.meta}</p>
-          </div>
-          <span className="text-[7px] leading-none text-[#ADADAA] tabular-nums">{event.time}</span>
-        </div>
-      ))}
+    <div className="flex h-[11px] w-[11px] flex-shrink-0 items-center justify-center rounded-[2px] bg-[#0078D4]">
+      <span className="text-[6px] font-bold leading-none text-white">O</span>
+    </div>
+  );
+}
+function AppWhatsapp() {
+  return (
+    <div className="flex h-[11px] w-[11px] flex-shrink-0 items-center justify-center rounded-[2px] bg-[#25D366]">
+      <svg width="7" height="7" viewBox="0 0 16 16" fill="white">
+        <path d="M8 1.3 a6.7 6.7 0 0 0 -5.7 10.2 L1.5 14.5 l3 -.8 A6.7 6.7 0 1 0 8 1.3 Z m-2.3 3.5 c.2 -.3 .5 -.3 .8 -.2 l.6 1.1 c.1 .2 0 .4 -.1 .5 l-.4 .4 c-.1 .1 -.1 .3 0 .4 c.4 .7 1 1.2 1.7 1.6 c.1 .1 .3 .1 .4 0 l.4 -.4 c.1 -.2 .3 -.2 .5 -.1 l1 .6 c.2 .1 .3 .4 .2 .6 c-.3 .8 -1.1 1.1 -1.8 .9 c-1.9 -.5 -3.4 -2 -4 -3.9 c-.2 -.7 0 -1.5 .7 -1.5 Z" />
+      </svg>
+    </div>
+  );
+}
+function AppCalendar() {
+  return (
+    <div className="flex h-[11px] w-[11px] flex-shrink-0 items-center justify-center rounded-[2px] bg-white" style={hairline}>
+      <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="#111110" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1.5" y="2.5" width="9" height="7.5" rx="1" />
+        <path d="M1.5 5 h9" />
+        <path d="M4 1.2 v2 M8 1.2 v2" />
+      </svg>
     </div>
   );
 }
 
-// Scale 2.4× a 40% width container — keeps borders visually crisp at 0.5px source.
+function DeployPill({
+  label,
+  time,
+  app,
+}: {
+  label: string;
+  time: string;
+  app: "outlook" | "whatsapp" | "calendar";
+}) {
+  return (
+    <div
+      className="flex items-center justify-between rounded-full bg-white pl-2.5 pr-[5px] py-[3px]"
+      style={hairline}
+    >
+      <span className="text-[7.5px] leading-none text-[#111110]">{label}</span>
+      <div className="flex items-center gap-1.5">
+        <span className="text-[6.5px] leading-none text-[#ADADAA] tabular-nums">{time}</span>
+        {app === "outlook" && <AppOutlook />}
+        {app === "whatsapp" && <AppWhatsapp />}
+        {app === "calendar" && <AppCalendar />}
+      </div>
+    </div>
+  );
+}
+
+function DeployJourney() {
+  return (
+    <div className="flex flex-col gap-[6px]">
+      {/* Main request card */}
+      <div className="rounded-[5px] bg-white px-2.5 py-2" style={hairline}>
+        <div className="flex items-baseline justify-between">
+          <span className="text-[8.5px] font-semibold leading-none text-[#111110]">
+            M. Tanaka — Tokyo
+          </span>
+          <span className="text-[6.5px] leading-none text-[#ADADAA]">Tue · 14:32</span>
+        </div>
+        <p className="mt-1.5 text-[7.5px] leading-[1.45] text-[#6B6A67]">
+          Re: Available Warhol works — could you share the Marilyn 1967 selection
+          for our preview?
+        </p>
+      </div>
+
+      {/* Three sequential pills */}
+      <div className="flex flex-col gap-[4px]">
+        <DeployPill label="Selection requested" time="14:32" app="outlook" />
+        <DeployPill label="PDF selection generated" time="14:38" app="whatsapp" />
+        <DeployPill label="Follow-up scheduled" time="Mon · 09:00" app="calendar" />
+      </div>
+    </div>
+  );
+}
+
 function DeployMock() {
   return (
     <motion.div
@@ -268,12 +317,12 @@ function DeployMock() {
     >
       <div
         style={{
-          width: "40%",
-          transform: "scale(2.4)",
+          width: "42%",
+          transform: "scale(2.2)",
           transformOrigin: "center center",
         }}
       >
-        <DeployPile />
+        <DeployJourney />
       </div>
     </motion.div>
   );
