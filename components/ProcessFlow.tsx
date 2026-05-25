@@ -37,20 +37,20 @@ export function StepOnePillIcon({ tag }: { tag: string }) {
 export function StepTwoSharingFlow() {
   const [gmail, outlook, , excel, whatsApp] = stepTwoLogos;
   const pdf = stepTwoLogos[2];
-  const cardLeft = 104, cardRight = 176, cardTop = 14, cardBottom = 82;
+  const cardLeft = 104, cardRight = 176, cardTop = 10, cardBottom = 98;
   const cardMidY = (cardTop + cardBottom) / 2;
   const leftIcons = [
-    { src: gmail.src, alt: gmail.alt, y: 18 },
+    { src: gmail.src, alt: gmail.alt, y: 12 },
     { src: outlook.src, alt: outlook.alt, y: cardMidY },
-    { src: excel.src, alt: excel.alt, y: 78 },
+    { src: excel.src, alt: excel.alt, y: 96 },
   ];
   const rightIcons = [
-    { src: pdf.src, alt: pdf.alt, y: 28 },
-    { src: whatsApp.src, alt: whatsApp.alt, y: 68 },
+    { src: pdf.src, alt: pdf.alt, y: 22 },
+    { src: whatsApp.src, alt: whatsApp.alt, y: 86 },
   ];
   return (
-    <div className="relative h-[96px] w-full">
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 280 96" fill="none" aria-hidden="true">
+    <div className="relative h-[108px] w-full">
+      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 280 108" fill="none" aria-hidden="true">
         {leftIcons.map((icon, i) => {
           const endY = cardMidY + (icon.y - cardMidY) * 0.35;
           const cx = (22 + cardLeft) / 2;
@@ -63,7 +63,7 @@ export function StepTwoSharingFlow() {
         })}
       </svg>
       {leftIcons.map((icon) => (
-        <div key={`li-${icon.alt}`} className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center" style={{ left: `${(22/280)*100}%`, top: `${(icon.y/96)*100}%` }}>
+        <div key={`li-${icon.alt}`} className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center" style={{ left: `${(22/280)*100}%`, top: `${(icon.y/108)*100}%` }}>
           <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
         </div>
       ))}
@@ -71,8 +71,8 @@ export function StepTwoSharingFlow() {
         style={{
           left:`${(cardLeft/280)*100}%`,
           right:`${((280-cardRight)/280)*100}%`,
-          top:`${(cardTop/96)*100}%`,
-          bottom:`${((96-cardBottom)/96)*100}%`,
+          top:`${(cardTop/108)*100}%`,
+          bottom:`${((108-cardBottom)/108)*100}%`,
           border: "0.5px solid #E3E3DF",
         }}>
         <div className="relative flex-1 overflow-hidden bg-[#7A1F18]">
@@ -85,7 +85,7 @@ export function StepTwoSharingFlow() {
         </div>
       </div>
       {rightIcons.map((icon) => (
-        <div key={`ri-${icon.alt}`} className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center" style={{ left:`${(258/280)*100}%`, top:`${(icon.y/96)*100}%` }}>
+        <div key={`ri-${icon.alt}`} className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center" style={{ left:`${(258/280)*100}%`, top:`${(icon.y/108)*100}%` }}>
           <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
         </div>
       ))}
