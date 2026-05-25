@@ -9,27 +9,130 @@ import {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ─── Step 01 — Audit ─── */
-/* Desktop clutter: hyperreal fragments of a working environment.
-   Never fully visible — pieces of context bleed past the frame. */
+/* Captured traces of a real gallery environment quietly analyzed.
+   Fragments float without containers. Formats deliberately inconsistent
+   (date styles, casing, separators) to suggest multiple coexisting habits
+   and systems already in use. */
 
-const cardSurface =
-  "rounded-[3px] border border-[#E8E8E6] bg-white shadow-[0_4px_14px_rgba(0,0,0,0.05)]";
+type Frag = {
+  el: React.ReactNode;
+  style: React.CSSProperties;
+};
 
-function MetaLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="block text-[6px] uppercase tracking-[0.16em] text-[#ADADAA]">
-      {children}
-    </span>
-  );
-}
+const FRAGMENTS: Frag[] = [
+  // ── Top band ───────────────────────────────────────
+  {
+    el: <span className="font-mono text-[9px] text-[#111110]">INV-2410-A</span>,
+    style: { top: 32, left: 56, transform: "rotate(-2deg)" },
+  },
+  {
+    el: <span className="font-mono text-[8px] text-[#6B6A67]">PICASSO_1972_FINAL.tiff</span>,
+    style: { top: 52, left: 48, transform: "rotate(-1.5deg)" },
+  },
+  {
+    el: (
+      <span className="font-mono text-[7.5px] text-[#ADADAA] line-through decoration-[#ADADAA]/60">
+        picasso_v3_final.tif
+      </span>
+    ),
+    style: { top: 70, left: 66, transform: "rotate(-2deg)" },
+  },
+  {
+    el: <span className="font-mono text-[8px] text-[#6B6A67]">25.05.26 — 14:32</span>,
+    style: { top: 34, right: 60, transform: "rotate(1deg)" },
+  },
+  {
+    el: (
+      <span className="text-[7.5px] uppercase tracking-[0.16em] text-[#ADADAA]">
+        last touched · Maria
+      </span>
+    ),
+    style: { top: 52, right: 56, transform: "rotate(1deg)" },
+  },
 
-function MetaValue({ children, mono = false }: { children: React.ReactNode; mono?: boolean }) {
-  return (
-    <span className={`block text-[8px] leading-[1.3] text-[#111110] ${mono ? "font-mono" : ""}`}>
-      {children}
-    </span>
-  );
-}
+  // ── Middle band ────────────────────────────────────
+  {
+    el: (
+      <div className="leading-tight">
+        <span className="block text-[9.5px] text-[#111110]">Pablo Picasso</span>
+        <span className="block text-[8px] italic text-[#6B6A67]">Mousquetaire, 1972</span>
+      </div>
+    ),
+    style: { top: 138, left: 180, transform: "rotate(-0.5deg)" },
+  },
+  {
+    el: (
+      <span className="text-[8px] text-[#111110]">
+        162 × 130 cm <span className="text-[#ADADAA]">— oil/canvas</span>
+      </span>
+    ),
+    style: { top: 178, left: 184, transform: "rotate(-0.5deg)" },
+  },
+  {
+    el: (
+      <span
+        className="text-[8.5px] text-[#111110]"
+        style={{
+          background: "linear-gradient(transparent 58%, #FFE08A 58%)",
+          padding: "0 2px",
+        }}
+      >
+        Reserved until 06/06
+      </span>
+    ),
+    style: { top: 116, right: 64, transform: "rotate(2deg)" },
+  },
+  {
+    el: <span className="text-[7.5px] text-[#6B6A67]">Updated after Basel</span>,
+    style: { top: 144, right: 70, transform: "rotate(1.5deg)" },
+  },
+  {
+    el: (
+      <span className="text-[8px] italic text-[#111110] underline decoration-[#6B6A67] decoration-dotted underline-offset-[2px]">
+        need dimensions
+      </span>
+    ),
+    style: { top: 200, right: 88, transform: "rotate(-1.5deg)" },
+  },
+
+  // ── Bottom band ────────────────────────────────────
+  {
+    el: <span className="text-[8.5px] text-[#111110]">M. Tanaka — Tokyo</span>,
+    style: { bottom: 132, left: 90, transform: "rotate(-1deg)" },
+  },
+  {
+    el: (
+      <span className="text-[7px] uppercase tracking-[0.16em] text-[#ADADAA]">
+        Tier 1 · since 2018
+      </span>
+    ),
+    style: { bottom: 116, left: 96, transform: "rotate(-1deg)" },
+  },
+  {
+    el: <span className="text-[8px] text-[#111110]">→ cc Maria</span>,
+    style: { bottom: 86, left: 280, transform: "rotate(1deg)" },
+  },
+  {
+    el: <span className="text-[7.5px] text-[#6B6A67]">via WhatsApp · 14:32</span>,
+    style: { bottom: 70, left: 286, transform: "rotate(1deg)" },
+  },
+  {
+    el: (
+      <span className="font-mono text-[7px] text-[#ADADAA]">
+        /Vol/Gallery_2024/Picasso/
+      </span>
+    ),
+    style: { bottom: 46, left: 60, transform: "rotate(-0.5deg)" },
+  },
+  {
+    el: (
+      <span className="font-mono text-[7.5px] text-[#6B6A67]">
+        EXH-005 · BASEL ’26
+      </span>
+    ),
+    style: { bottom: 42, right: 70, transform: "rotate(1.5deg)" },
+  },
+];
 
 function AuditMock() {
   return (
@@ -40,10 +143,18 @@ function AuditMock() {
       transition={{ duration: 0.5, ease }}
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      {/* Artwork thumb */}
+      {/* Artwork thumb — the lone visual anchor, deliberately off-center */}
       <div
-        className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ top: 90, left: 90, width: 84, height: 104, transform: "rotate(-3deg)", padding: 4 }}
+        className="absolute overflow-hidden bg-white"
+        style={{
+          top: 122,
+          left: 78,
+          width: 78,
+          height: 96,
+          padding: 3,
+          transform: "rotate(-3deg)",
+          boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
+        }}
       >
         <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#D4C5B0] via-[#B8A48A] to-[#8A7560]">
           <div className="absolute left-[18%] top-[14%] h-[55%] w-[42%] rounded-[40%] bg-[#3A2F25]/70 blur-[1px]" />
@@ -52,91 +163,12 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* Artwork metadata record */}
-      <div
-        className={`absolute ${cardSurface} px-3 py-2`}
-        style={{ top: 80, left: 190, width: 200, transform: "rotate(-0.5deg)" }}
-      >
-        <div className="flex items-baseline justify-between">
-          <MetaValue>Pablo Picasso</MetaValue>
-          <span className="text-[7px] tabular-nums text-[#6B6A67]">INV-2410</span>
+      {/* Floating text fragments */}
+      {FRAGMENTS.map((f, i) => (
+        <div key={i} className="absolute" style={f.style}>
+          {f.el}
         </div>
-        <span className="block text-[7px] italic text-[#6B6A67]">Mousquetaire, 1972</span>
-        <div className="mt-1 grid grid-cols-2 gap-x-2 gap-y-[3px]">
-          <MetaLabel>Medium</MetaLabel>
-          <MetaLabel>Dimensions</MetaLabel>
-          <span className="text-[7px] text-[#111110]">Oil on canvas</span>
-          <span className="text-[7px] tabular-nums text-[#111110]">162 × 130 cm</span>
-          <MetaLabel>Provenance</MetaLabel>
-          <MetaLabel>Price</MetaLabel>
-          <span className="text-[7px] text-[#111110]">Pace, NY · 2014</span>
-          <span className="text-[7px] tabular-nums text-[#111110]">€ 120,000</span>
-        </div>
-      </div>
-
-      {/* Status pill */}
-      <div
-        className="absolute flex items-center gap-1.5 rounded-full border border-[#111110] bg-[#111110] px-2 py-[3px]"
-        style={{ top: 200, left: 290, transform: "rotate(2deg)" }}
-      >
-        <span className="block h-[5px] w-[5px] rounded-full bg-[#FEBC2E]" />
-        <span className="text-[7px] font-medium uppercase tracking-[0.14em] text-white">
-          Reserved · Hold 06.06.26
-        </span>
-      </div>
-
-      {/* Collector chip */}
-      <div
-        className={`absolute ${cardSurface} flex items-center gap-2 px-2 py-1.5`}
-        style={{ bottom: 70, left: 90, transform: "rotate(-1.5deg)" }}
-      >
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#111110]">
-          <span className="text-[9px] font-semibold tracking-wide text-white">MT</span>
-        </div>
-        <div className="flex flex-col leading-tight">
-          <MetaValue>M. Tanaka</MetaValue>
-          <span className="text-[6.5px] uppercase tracking-[0.14em] text-[#ADADAA]">
-            Tokyo · Tier 1 · Since 2018
-          </span>
-        </div>
-      </div>
-
-      {/* File path strip */}
-      <div
-        className="absolute flex items-center gap-1 rounded-[3px] border border-[#E8E8E6] bg-[#F5F5F3] px-1.5 py-[3px]"
-        style={{ top: 46, left: 110, transform: "rotate(1deg)" }}
-      >
-        <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="#6B6A67" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 4 V12 a1 1 0 0 0 1 1 h10 a1 1 0 0 0 1-1 V6 a1 1 0 0 0-1-1 H8 L6 3 H4 a1 1 0 0 0-1 1 Z" />
-        </svg>
-        <span className="font-mono text-[7px] text-[#6B6A67]">
-          /Gallery/Artworks/Picasso_1972.tiff
-        </span>
-        <span className="ml-1 text-[6.5px] text-[#ADADAA]">· 4.2 MB</span>
-      </div>
-
-      {/* Tags row */}
-      <div
-        className="absolute flex items-center gap-1"
-        style={{ bottom: 56, right: 60, transform: "rotate(1.5deg)" }}
-      >
-        {["#picasso", "#blue-period", "#sold-2024"].map((t) => (
-          <span
-            key={t}
-            className="rounded-full border border-[#E8E8E6] bg-white px-1.5 py-[2px] text-[6.5px] text-[#6B6A67]"
-          >
-            {t}
-          </span>
-        ))}
-      </div>
-
-      {/* Timestamp — floating */}
-      <div
-        className="absolute"
-        style={{ top: 30, right: 60, transform: "rotate(1.5deg)" }}
-      >
-        <MetaLabel>2026-05-25 · 14:32:08 UTC</MetaLabel>
-      </div>
+      ))}
     </motion.div>
   );
 }
