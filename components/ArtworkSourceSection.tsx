@@ -46,9 +46,6 @@ export default function ArtworkSourceSection() {
         >
           {/* Left — text */}
           <div>
-            <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-              {t.artworkSource.kicker}
-            </p>
             <h2 className="font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
               {t.artworkSource.title}
             </h2>
