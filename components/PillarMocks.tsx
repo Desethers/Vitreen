@@ -13,8 +13,8 @@ const AUDIT_CARDS = [
   {
     label: "CRM",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="14" height="14" rx="2" />
         <path d="M3 15l5-5 4 4 3-3 6 6" />
       </svg>
     ),
@@ -22,7 +22,7 @@ const AUDIT_CARDS = [
   {
     label: "Email",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="4" width="20" height="16" rx="2" />
         <path d="m2 7 10 7 10-7" />
       </svg>
@@ -31,7 +31,7 @@ const AUDIT_CARDS = [
   {
     label: "Collector",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="4" />
         <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
       </svg>
@@ -40,8 +40,8 @@ const AUDIT_CARDS = [
   {
     label: "Spreadsheet",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" />
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="14" height="14" rx="2" />
         <path d="M3 9h18M3 15h18M9 3v18" />
       </svg>
     ),
@@ -49,7 +49,7 @@ const AUDIT_CARDS = [
   {
     label: "PDF",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
         <polyline points="14 2 14 8 20 8" />
         <line x1="8" y1="13" x2="16" y2="13" />
@@ -75,7 +75,7 @@ function AuditMock() {
             <div
               key={card.label}
               className="flex flex-col items-center justify-center gap-3 rounded-[4px] border border-[#E8E8E6] bg-white"
-              style={{ width: 72, height: 84, marginTop: i % 2 === 0 ? 0 : 24 }}
+              style={{ width: 72, height: 84, marginTop: i % 2 === 0 ? 0 : 36 }}
             >
               <span className="text-[#111110]">{card.icon}</span>
               <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110]">
