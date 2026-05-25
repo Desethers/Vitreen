@@ -227,73 +227,144 @@ function ConnectMock() {
 const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
 
 /* ── Real app icons ── */
-/* Modern Outlook (Fluent 2022+): layered blue envelope + purple folder accent
-   + stylized white "O" on the left face. */
+
+/* Outlook (Microsoft Fluent, 2022 redesign):
+   Folded-paper geometry — light-blue back plane, purple top accent,
+   dark-blue front envelope, stylized white "O" on the left face. */
 function AppOutlook() {
   return (
-    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0">
+    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0 overflow-visible">
       <defs>
-        <linearGradient id="ot-blue-back" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#50B0F0" />
-          <stop offset="100%" stopColor="#1E78D5" />
+        <linearGradient id="ot-back" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#5BB1F0" />
+          <stop offset="100%" stopColor="#1F78D5" />
         </linearGradient>
-        <linearGradient id="ot-blue-front" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1F78D6" />
-          <stop offset="100%" stopColor="#0F4E96" />
+        <linearGradient id="ot-front" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#2580D8" />
+          <stop offset="100%" stopColor="#0E4B95" />
         </linearGradient>
         <linearGradient id="ot-purple" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#B0A3E0" />
-          <stop offset="100%" stopColor="#6D5BB5" />
+          <stop offset="0%" stopColor="#B5A8E2" />
+          <stop offset="100%" stopColor="#6B58B0" />
         </linearGradient>
+        <clipPath id="ot-clip">
+          <rect width="32" height="32" rx="6" />
+        </clipPath>
       </defs>
-      {/* Back face — light blue */}
-      <path d="M5 7 L19 4 L27 7 L27 25 L5 25 Z" fill="url(#ot-blue-back)" />
-      {/* Purple folder/flap accent (top-right) */}
-      <path d="M19 4 L27 7 L23 17 L15 14 Z" fill="url(#ot-purple)" />
-      {/* Front envelope face — darker blue */}
-      <path d="M3 11 L29 11 L29 28 L3 28 Z" fill="url(#ot-blue-front)" />
-      {/* White "O" — outer disc + inner cutout */}
-      <ellipse cx="11" cy="20" rx="5.2" ry="6" fill="white" />
-      <ellipse cx="11" cy="20" rx="2.4" ry="3.4" fill="url(#ot-blue-front)" />
+      <g clipPath="url(#ot-clip)">
+        {/* Background — light blue back plane */}
+        <rect width="32" height="32" fill="url(#ot-back)" />
+        {/* Purple folder/flap accent diagonal in upper-right */}
+        <path d="M18 0 L32 0 L32 14 L24 18 Z" fill="url(#ot-purple)" />
+        {/* Subtle highlight on the back plane */}
+        <path d="M0 0 L18 0 L14 12 L0 16 Z" fill="white" opacity="0.08" />
+        {/* Front envelope face */}
+        <path d="M0 11 L32 11 L32 32 L0 32 Z" fill="url(#ot-front)" />
+        {/* V crease of the envelope */}
+        <path d="M0 11 L16 22 L32 11" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" fill="none" />
+        {/* White "O" — outer ellipse + inner cutout */}
+        <ellipse cx="10.5" cy="20.5" rx="5" ry="5.8" fill="white" />
+        <ellipse cx="10.5" cy="20.5" rx="2.4" ry="3.3" fill="url(#ot-front)" />
+      </g>
     </svg>
   );
 }
 
+/* WhatsApp (iOS/macOS Big Sur+):
+   Green rounded square + white speech bubble with tail + phone handset cutout. */
 function AppWhatsapp() {
   return (
-    <div className="flex h-[9px] w-[9px] flex-shrink-0 items-center justify-center rounded-[3px] bg-[#25D366]">
-      <svg width="9" height="9" viewBox="0 0 32 32" fill="none">
-        {/* Speech bubble shape */}
+    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0">
+      <defs>
+        <linearGradient id="wa-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#5FE079" />
+          <stop offset="100%" stopColor="#1FA854" />
+        </linearGradient>
+        <clipPath id="wa-clip">
+          <rect width="32" height="32" rx="7" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#wa-clip)">
+        <rect width="32" height="32" fill="url(#wa-bg)" />
+        {/* Speech bubble + bottom-left tail */}
         <path
-          d="M16 3 C8.8 3 3 8.8 3 16 c0 2.3 .6 4.5 1.7 6.4 L3 29 l6.8 -1.6 A13 13 0 1 0 16 3 Z"
+          d="M16 6
+             a10 10 0 1 0 -9.4 13.6
+             L5 26 l6.5 -1.6
+             A10 10 0 1 0 16 6 Z"
           fill="white"
         />
         {/* Phone handset cutout */}
         <path
-          d="M11 10 c.4 -.7 1 -.7 1.5 -.6 l.6 0 c.4 0 .7 .2 .9 .6 l1 2.2 c.2 .4 .1 .9 -.2 1.3 l-.5 .6 c-.2 .2 -.3 .5 -.2 .8 c.9 1.7 2.3 3.1 4 4 c.3 .1 .6 .1 .8 -.2 l.6 -.5 c.4 -.3 .9 -.4 1.3 -.2 l2.2 1 c.4 .2 .6 .5 .6 .9 c0 1.1 -.6 2.1 -1.7 2.5 c-.9 .3 -2 .3 -2.9 -.1 c-3.7 -1.5 -6.6 -4.4 -8.1 -8.1 c-.4 -.9 -.4 -2 -.1 -2.9 c.3 -1 1 -1.3 1 -1.3 Z"
-          fill="#25D366"
+          d="M12 11.5
+             c.3 -.5 1 -.6 1.5 -.5
+             l.4 0
+             c.5 0 .9 .3 1.1 .7
+             l.9 2.1
+             c.2 .5 .1 1 -.3 1.4
+             l-.4 .4
+             c-.2 .2 -.3 .5 -.2 .8
+             c.7 1.4 1.9 2.5 3.3 3.3
+             c.2 .1 .5 0 .7 -.2
+             l.4 -.4
+             c.4 -.4 .9 -.5 1.4 -.3
+             l2.1 .9
+             c.4 .2 .7 .6 .7 1.1
+             l0 .4
+             c.1 .5 -.1 1.1 -.5 1.5
+             c-.7 .7 -1.7 .9 -2.6 .7
+             c-3.6 -.9 -6.4 -3.7 -7.3 -7.3
+             c-.2 -.9 0 -1.9 .7 -2.6 Z"
+          fill="url(#wa-bg)"
         />
-      </svg>
-    </div>
+      </g>
+    </svg>
   );
 }
 
+/* Apple Calendar (macOS): white card, red top bar with day, bold black date. */
 function AppCalendar() {
   return (
-    <div
-      className="flex h-[9px] w-[9px] flex-shrink-0 flex-col overflow-hidden rounded-[2.5px] bg-white"
-      style={hairline}
-    >
-      <div className="h-[3px] w-full bg-[#FF3B30]" />
-      <div className="flex flex-1 items-center justify-center pt-[1px]">
-        <span
-          className="text-[6.5px] font-bold leading-none text-[#111110]"
-          style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0">
+      <defs>
+        <clipPath id="cal-clip">
+          <rect width="32" height="32" rx="6" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#cal-clip)">
+        {/* White body */}
+        <rect width="32" height="32" fill="white" />
+        {/* Red top bar */}
+        <rect width="32" height="9" fill="#FF3B30" />
+        {/* Day label */}
+        <text
+          x="16"
+          y="6.5"
+          fontSize="4"
+          fontWeight="700"
+          fill="white"
+          textAnchor="middle"
+          fontFamily="-apple-system, system-ui, sans-serif"
+          letterSpacing="0.3"
+        >
+          TUE
+        </text>
+        {/* Date number */}
+        <text
+          x="16"
+          y="25"
+          fontSize="14"
+          fontWeight="700"
+          fill="#111110"
+          textAnchor="middle"
+          fontFamily="-apple-system, system-ui, sans-serif"
         >
           25
-        </span>
-      </div>
-    </div>
+        </text>
+        {/* Outline */}
+        <rect x="0.25" y="0.25" width="31.5" height="31.5" rx="5.75" fill="none" stroke="#E0E0DD" strokeWidth="0.5" />
+      </g>
+    </svg>
   );
 }
 
