@@ -277,55 +277,15 @@ function _AppOutlookFallback() {
   );
 }
 
-/* WhatsApp (iOS/macOS Big Sur+):
-   Green rounded square + white speech bubble with tail + phone handset cutout. */
+/* WhatsApp: official app icon from /public/logos/. */
 function AppWhatsapp() {
   return (
-    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0">
-      <defs>
-        <linearGradient id="wa-bg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#5FE079" />
-          <stop offset="100%" stopColor="#1FA854" />
-        </linearGradient>
-        <clipPath id="wa-clip">
-          <rect width="32" height="32" rx="7" />
-        </clipPath>
-      </defs>
-      <g clipPath="url(#wa-clip)">
-        <rect width="32" height="32" fill="url(#wa-bg)" />
-        {/* Speech bubble + bottom-left tail */}
-        <path
-          d="M16 6
-             a10 10 0 1 0 -9.4 13.6
-             L5 26 l6.5 -1.6
-             A10 10 0 1 0 16 6 Z"
-          fill="white"
-        />
-        {/* Phone handset cutout */}
-        <path
-          d="M12 11.5
-             c.3 -.5 1 -.6 1.5 -.5
-             l.4 0
-             c.5 0 .9 .3 1.1 .7
-             l.9 2.1
-             c.2 .5 .1 1 -.3 1.4
-             l-.4 .4
-             c-.2 .2 -.3 .5 -.2 .8
-             c.7 1.4 1.9 2.5 3.3 3.3
-             c.2 .1 .5 0 .7 -.2
-             l.4 -.4
-             c.4 -.4 .9 -.5 1.4 -.3
-             l2.1 .9
-             c.4 .2 .7 .6 .7 1.1
-             l0 .4
-             c.1 .5 -.1 1.1 -.5 1.5
-             c-.7 .7 -1.7 .9 -2.6 .7
-             c-3.6 -.9 -6.4 -3.7 -7.3 -7.3
-             c-.2 -.9 0 -1.9 .7 -2.6 Z"
-          fill="url(#wa-bg)"
-        />
-      </g>
-    </svg>
+    <img
+      src="/logos/Android_App_Icon_2026.png"
+      alt=""
+      aria-hidden="true"
+      className="h-[11px] w-[11px] flex-shrink-0 rounded-[2px] object-contain"
+    />
   );
 }
 
