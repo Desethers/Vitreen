@@ -19,22 +19,19 @@ function AuditMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
+      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
     >
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap justify-center gap-2.5">
         {auditTags.map((tag) => (
           <span
             key={tag}
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-medium leading-none text-[#111110]"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-3 py-1.5 text-[13px] font-medium leading-none text-[#111110]"
           >
             <StepOnePillIcon tag={tag} />
             {tag}
           </span>
         ))}
       </div>
-      <p className="mt-5 text-[13px] leading-[1.6] text-[#425466]">
-        We review how artworks and information already move across the gallery.
-      </p>
     </motion.div>
   );
 }
@@ -47,12 +44,11 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
+      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-4 py-8"
     >
-      <StepTwoSharingFlow />
-      <p className="mt-4 text-[13px] leading-[1.6] text-[#425466]">
-        Vitreen connects artwork files, selections and collector communication into one flow.
-      </p>
+      <div className="w-full scale-[1.4] origin-center">
+        <StepTwoSharingFlow />
+      </div>
     </motion.div>
   );
 }
@@ -65,9 +61,11 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
+      className="flex h-full w-full flex-col items-center justify-center rounded-lg bg-white px-8 py-8"
     >
-      <DeployCardStack lang="en" />
+      <div className="w-full scale-[1.25] origin-center">
+        <DeployCardStack lang="en" />
+      </div>
     </motion.div>
   );
 }
