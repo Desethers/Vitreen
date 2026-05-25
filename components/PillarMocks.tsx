@@ -226,30 +226,60 @@ function ConnectMock() {
 
 const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
 
+/* ── Real app icons ── */
 function AppOutlook() {
   return (
-    <div className="flex h-[11px] w-[11px] flex-shrink-0 items-center justify-center rounded-[2px] bg-[#0078D4]">
-      <span className="text-[6px] font-bold leading-none text-white">O</span>
+    <div
+      className="relative h-[13px] w-[13px] flex-shrink-0 overflow-hidden rounded-[2.5px]"
+      style={{ background: "linear-gradient(135deg, #1B9DE2 0%, #0364B8 100%)" }}
+    >
+      {/* Stylized O */}
+      <svg className="absolute inset-0" viewBox="0 0 24 24" fill="none">
+        <ellipse cx="9" cy="12" rx="3.8" ry="5" stroke="white" strokeWidth="2.2" />
+      </svg>
+      {/* Envelope flap accent on right */}
+      <div
+        className="absolute right-0 top-0 h-full w-[5px]"
+        style={{ background: "linear-gradient(180deg, #E8F4FB 0%, #BFDFF2 100%)" }}
+      />
     </div>
   );
 }
+
 function AppWhatsapp() {
   return (
-    <div className="flex h-[11px] w-[11px] flex-shrink-0 items-center justify-center rounded-[2px] bg-[#25D366]">
-      <svg width="7" height="7" viewBox="0 0 16 16" fill="white">
-        <path d="M8 1.3 a6.7 6.7 0 0 0 -5.7 10.2 L1.5 14.5 l3 -.8 A6.7 6.7 0 1 0 8 1.3 Z m-2.3 3.5 c.2 -.3 .5 -.3 .8 -.2 l.6 1.1 c.1 .2 0 .4 -.1 .5 l-.4 .4 c-.1 .1 -.1 .3 0 .4 c.4 .7 1 1.2 1.7 1.6 c.1 .1 .3 .1 .4 0 l.4 -.4 c.1 -.2 .3 -.2 .5 -.1 l1 .6 c.2 .1 .3 .4 .2 .6 c-.3 .8 -1.1 1.1 -1.8 .9 c-1.9 -.5 -3.4 -2 -4 -3.9 c-.2 -.7 0 -1.5 .7 -1.5 Z" />
+    <div className="flex h-[13px] w-[13px] flex-shrink-0 items-center justify-center rounded-[3px] bg-[#25D366]">
+      <svg width="9" height="9" viewBox="0 0 32 32" fill="none">
+        {/* Speech bubble shape */}
+        <path
+          d="M16 3 C8.8 3 3 8.8 3 16 c0 2.3 .6 4.5 1.7 6.4 L3 29 l6.8 -1.6 A13 13 0 1 0 16 3 Z"
+          fill="white"
+        />
+        {/* Phone handset cutout */}
+        <path
+          d="M11 10 c.4 -.7 1 -.7 1.5 -.6 l.6 0 c.4 0 .7 .2 .9 .6 l1 2.2 c.2 .4 .1 .9 -.2 1.3 l-.5 .6 c-.2 .2 -.3 .5 -.2 .8 c.9 1.7 2.3 3.1 4 4 c.3 .1 .6 .1 .8 -.2 l.6 -.5 c.4 -.3 .9 -.4 1.3 -.2 l2.2 1 c.4 .2 .6 .5 .6 .9 c0 1.1 -.6 2.1 -1.7 2.5 c-.9 .3 -2 .3 -2.9 -.1 c-3.7 -1.5 -6.6 -4.4 -8.1 -8.1 c-.4 -.9 -.4 -2 -.1 -2.9 c.3 -1 1 -1.3 1 -1.3 Z"
+          fill="#25D366"
+        />
       </svg>
     </div>
   );
 }
+
 function AppCalendar() {
   return (
-    <div className="flex h-[11px] w-[11px] flex-shrink-0 items-center justify-center rounded-[2px] bg-white" style={hairline}>
-      <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="#111110" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="1.5" y="2.5" width="9" height="7.5" rx="1" />
-        <path d="M1.5 5 h9" />
-        <path d="M4 1.2 v2 M8 1.2 v2" />
-      </svg>
+    <div
+      className="flex h-[13px] w-[13px] flex-shrink-0 flex-col overflow-hidden rounded-[2.5px] bg-white"
+      style={hairline}
+    >
+      <div className="h-[3px] w-full bg-[#FF3B30]" />
+      <div className="flex flex-1 items-center justify-center pt-[1px]">
+        <span
+          className="text-[6.5px] font-bold leading-none text-[#111110]"
+          style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+        >
+          25
+        </span>
+      </div>
     </div>
   );
 }
@@ -296,11 +326,28 @@ function DeployJourney() {
         </p>
       </div>
 
-      {/* Three sequential pills */}
-      <div className="flex flex-col gap-[4px]">
-        <DeployPill label="Selection requested" time="14:32" app="outlook" />
-        <DeployPill label="PDF selection generated" time="14:38" app="whatsapp" />
-        <DeployPill label="Follow-up scheduled" time="Mon · 09:00" app="calendar" />
+      {/* Three pills stacked as a pile */}
+      <div className="relative" style={{ height: 17 + 2 * 13 }}>
+        {[
+          { label: "Selection requested", time: "14:32", app: "outlook" as const },
+          { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const },
+          { label: "Follow-up scheduled", time: "Mon · 09:00", app: "calendar" as const },
+        ].map((p, i, arr) => (
+          <div
+            key={p.label}
+            className="absolute"
+            style={{
+              top: i * 13,
+              left: i * 5,
+              right: i * 5,
+              zIndex: arr.length - i,
+              transform: `scale(${1 - i * 0.025})`,
+              transformOrigin: "top center",
+            }}
+          >
+            <DeployPill label={p.label} time={p.time} app={p.app} />
+          </div>
+        ))}
       </div>
     </div>
   );
