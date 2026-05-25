@@ -2591,7 +2591,15 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
-      if (res.status === 402) { onClose(); onPaywall(); return null }
+      if (res.status === 402) {
+        let errKey = ''
+        try { errKey = String(((await res.clone().json()) as { error?: string }).error || '') } catch { /* ignore */ }
+        if (errKey === 'anonymous_limit_reached') {
+          setError('Free limit reached (5). Sign in to keep generating share links.')
+          return null
+        }
+        onClose(); onPaywall(); return null
+      }
       if (res.status === 401) {
         setError('Please sign in to generate a share link.')
         return null
@@ -2607,7 +2615,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
       const data = await res.json()
       const base =
         process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || window.location.origin
-      const nextUrl = `${base}/vr/${data.token}`
+      const nextUrl = `${base}/viewing-room-studio/vr/${data.token}`
       setShareUrl(nextUrl)
       lastExportRef.current = { fingerprint, url: nextUrl }
       return nextUrl

@@ -127,8 +127,8 @@ export async function POST(req: NextRequest) {
 
     if (key && notifyTo) {
       const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || req.nextUrl.origin
-      const roomUrl = `${base}/vr/${encodeURIComponent(token)}`
-      const dashboardUrl = `${base}/dashboard`
+      const roomUrl = `${base}/viewing-room-studio/vr/${encodeURIComponent(token)}`
+      const dashboardUrl = `${base}/viewing-room-studio/dashboard`
       const work = slotLabel(slot)
       const from = process.env.OVR_EMAIL_FROM?.trim() || 'Viewing Room <onboarding@resend.dev>'
       const resend = new Resend(key)
