@@ -124,6 +124,32 @@ function AuditMock() {
         </div>
       </div>
 
+      {/* ── Foreground: Image exports card (macOS dark) ── */}
+      <div className="absolute" style={{ top: 22, left: 22, width: 252 }}>
+        <div className="rounded-[10px] bg-[#111110] p-3 shadow-[0_14px_36px_rgba(0,0,0,0.22)]">
+          <div className="px-1 pb-2.5">
+            <h4 className="text-[11.5px] font-semibold leading-tight text-white">
+              1 — Image exports
+            </h4>
+            <p className="mt-[2px] text-[9.5px] text-white/55">For Basel ’26 — print + web</p>
+          </div>
+          <div className="flex flex-col gap-[6px]">
+            {["WARHOL_1967_300dpi.tiff", "install-view-03.tiff", "web-crop-final.png"].map((f) => (
+              <div
+                key={f}
+                className="flex items-center justify-between rounded-full bg-white/[0.06] py-[5px] pl-3 pr-2.5"
+              >
+                <span className="font-mono text-[9px] text-white">{f}</span>
+                <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="5" y="5" width="9" height="9" rx="1" />
+                  <path d="M3 11 V4 a1 1 0 0 1 1 -1 H11" />
+                </svg>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── Foreground: timeline card ── */}
       <div className="absolute" style={{ right: 24, bottom: 24, width: 296 }}>
         <div className="rounded-[6px] border border-[#E8E8E6] bg-white px-4 py-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
