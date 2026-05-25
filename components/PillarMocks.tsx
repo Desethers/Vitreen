@@ -80,72 +80,54 @@ function AuditMock() {
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
       {/* ── Background: folder tree (gallery's real file system) ── */}
-      <div className="absolute inset-0 px-6 py-5 opacity-[0.55]">
-        <div className="flex flex-col gap-[7px]">
+      <div className="absolute inset-0 px-6 py-6">
+        <div className="flex flex-col gap-[11px]">
           {/* Document header */}
-          <div className="flex items-center gap-2 border-b border-[#E8E8E6] pb-2">
-            <span className="block h-[10px] w-[10px] rounded-[2px] border border-[#ADADAA]" />
-            <span className="text-[10px] font-medium text-[#111110]">Document</span>
-            <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+          <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
+            <span className="block h-[13px] w-[13px] rounded-[3px] border border-[#ADADAA]" />
+            <span className="text-[13px] font-medium text-[#111110]">Document</span>
+            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 3 v6 m-3 -3 3 3 3 -3" />
             </svg>
           </div>
           {/* Folder 1 */}
-          <div className="flex items-center gap-2">
-            <ChevronDown />
-            <FolderClosed />
-            <span className="text-[10px] font-medium text-[#111110]">01 — Inventory 2026</span>
-            <span className="text-[10px] text-[#ADADAA]">· 42 files</span>
+          <div className="flex items-center gap-2.5">
+            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 5 L6 8 L9 5" />
+            </svg>
+            <svg width="15" height="11" viewBox="0 0 16 12" fill="#C8C7C2" stroke="#A8A7A2" strokeWidth="0.4">
+              <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
+            </svg>
+            <span className="text-[13px] font-medium text-[#111110]">01 — Inventory 2026</span>
+            <span className="text-[13px] text-[#ADADAA]">· 42 files</span>
           </div>
           {/* Subfolder */}
-          <div className="flex items-center gap-2 pl-5">
-            <ChevronDown />
-            <FolderClosed />
-            <span className="text-[10px] font-medium text-[#111110]">01.1 Warhol</span>
-            <span className="text-[10px] text-[#ADADAA]">· 6 files</span>
+          <div className="flex items-center gap-2.5 pl-7">
+            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 5 L6 8 L9 5" />
+            </svg>
+            <svg width="15" height="11" viewBox="0 0 16 12" fill="#C8C7C2" stroke="#A8A7A2" strokeWidth="0.4">
+              <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
+            </svg>
+            <span className="text-[13px] font-medium text-[#111110]">01.1 Warhol</span>
+            <span className="text-[13px] text-[#ADADAA]">· 6 files</span>
           </div>
           {/* Files inside */}
-          <div className="flex items-center gap-2 pl-12">
+          <div className="flex items-center gap-2.5 pl-16">
             <FilePdf />
-            <span className="text-[10px] text-[#111110]">Marilyn 1967 — provenance.pdf</span>
+            <span className="text-[12.5px] text-[#111110]">Marilyn 1967 — provenance.pdf</span>
           </div>
-          <div className="flex items-center gap-2 pl-12">
+          <div className="flex items-center gap-2.5 pl-16">
             <FileXlsx />
-            <span className="text-[10px] text-[#111110]">Inventory Q1 2026.xlsx</span>
+            <span className="text-[12.5px] text-[#111110]">Inventory Q1 2026.xlsx</span>
           </div>
-          <div className="flex items-center gap-2 pl-12">
+          <div className="flex items-center gap-2.5 pl-16">
             <FileDoc />
-            <span className="text-[10px] text-[#111110]">M. Tanaka — collector notes.docx</span>
+            <span className="text-[12.5px] text-[#111110]">M. Tanaka — collector notes.docx</span>
           </div>
-          <div className="flex items-center gap-2 pl-12">
+          <div className="flex items-center gap-2.5 pl-16">
             <FilePdf />
-            <span className="text-[10px] text-[#111110]">EXH-005 — Basel ’26 brief.pdf</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Foreground: Image exports card (macOS dark) ── */}
-      <div className="absolute" style={{ top: 22, left: 22, width: 252 }}>
-        <div className="rounded-[10px] bg-[#111110] p-3 shadow-[0_14px_36px_rgba(0,0,0,0.22)]">
-          <div className="px-1 pb-2.5">
-            <h4 className="text-[11.5px] font-semibold leading-tight text-white">
-              1 — Image exports
-            </h4>
-            <p className="mt-[2px] text-[9.5px] text-white/55">For Basel ’26 — print + web</p>
-          </div>
-          <div className="flex flex-col gap-[6px]">
-            {["WARHOL_1967_300dpi.tiff", "install-view-03.tiff", "web-crop-final.png"].map((f) => (
-              <div
-                key={f}
-                className="flex items-center justify-between rounded-full bg-white/[0.06] py-[5px] pl-3 pr-2.5"
-              >
-                <span className="font-mono text-[9px] text-white">{f}</span>
-                <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="white" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="5" y="5" width="9" height="9" rx="1" />
-                  <path d="M3 11 V4 a1 1 0 0 1 1 -1 H11" />
-                </svg>
-              </div>
-            ))}
+            <span className="text-[12.5px] text-[#111110]">EXH-005 — Basel ’26 brief.pdf</span>
           </div>
         </div>
       </div>
