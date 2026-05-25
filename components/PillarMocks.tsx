@@ -71,11 +71,11 @@ function AuditMock() {
       {/* Cards row */}
       <div className="absolute inset-0 flex items-center justify-center px-8">
         <div className="relative flex gap-3">
-          {AUDIT_CARDS.map((card) => (
+          {AUDIT_CARDS.map((card, i) => (
             <div
               key={card.label}
               className="flex flex-col items-center justify-center gap-3 rounded-[4px] border border-[#E8E8E6] bg-white"
-              style={{ width: 72, height: 84 }}
+              style={{ width: 72, height: 84, marginTop: i % 2 === 0 ? 0 : 24 }}
             >
               <span className="text-[#111110]">{card.icon}</span>
               <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110]">
