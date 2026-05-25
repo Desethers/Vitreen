@@ -132,6 +132,61 @@ function AuditMock() {
         </div>
       </div>
 
+      {/* ── Foreground: Artsy partner dashboard micro card ── */}
+      <div className="absolute" style={{ top: 22, right: 22, width: 196 }}>
+        <div className="rounded-[6px] border border-[#E8E8E6] bg-white p-3 shadow-[0_10px_28px_rgba(0,0,0,0.06)]">
+          <div className="flex items-center justify-between border-b border-[#E8E8E6] pb-2">
+            <span className="font-display text-[13px] italic leading-none tracking-tight text-[#111110]">
+              Artsy
+            </span>
+            <span className="text-[8.5px] uppercase tracking-[0.14em] text-[#ADADAA]">
+              This week
+            </span>
+          </div>
+          <div className="mt-2.5 flex flex-col gap-[7px]">
+            <div className="flex items-baseline justify-between">
+              <span className="text-[10px] text-[#6B6A67]">Inquiries</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-[11.5px] font-semibold tabular-nums text-[#111110]">12</span>
+                <span className="text-[8px] text-[#107C41]">↑ 33%</span>
+              </div>
+            </div>
+            <div className="flex items-baseline justify-between">
+              <span className="text-[10px] text-[#6B6A67]">Profile views</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-[11.5px] font-semibold tabular-nums text-[#111110]">1,247</span>
+                <span className="text-[8px] text-[#107C41]">↑ 8%</span>
+              </div>
+            </div>
+            <div className="flex items-baseline justify-between">
+              <span className="text-[10px] text-[#6B6A67]">Followers</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-[11.5px] font-semibold tabular-nums text-[#111110]">+24</span>
+                <span className="text-[8px] text-[#ADADAA]">—</span>
+              </div>
+            </div>
+          </div>
+          {/* Mini sparkline */}
+          <div className="mt-2.5 border-t border-[#E8E8E6] pt-2">
+            <svg width="100%" height="22" viewBox="0 0 170 22" fill="none" preserveAspectRatio="none">
+              <polyline
+                points="0,16 14,14 28,15 42,11 56,12 70,8 84,9 98,6 112,7 126,4 140,5 154,3 170,5"
+                stroke="#111110"
+                strokeWidth="1.2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <polyline
+                points="0,16 14,14 28,15 42,11 56,12 70,8 84,9 98,6 112,7 126,4 140,5 154,3 170,5 170,22 0,22"
+                fill="#111110"
+                opacity="0.04"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
       {/* ── Foreground: timeline card ── */}
       <div className="absolute" style={{ right: 24, bottom: 24, width: 296 }}>
         <div className="rounded-[6px] border border-[#E8E8E6] bg-white px-4 py-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
