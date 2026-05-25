@@ -67,15 +67,21 @@ export function StepTwoSharingFlow() {
           <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
         </div>
       ))}
-      <div className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] border border-[#E3E3DF] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
-        style={{ left:`${(cardLeft/280)*100}%`, right:`${((280-cardRight)/280)*100}%`, top:`${(cardTop/96)*100}%`, bottom:`${((96-cardBottom)/96)*100}%` }}>
+      <div className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
+        style={{
+          left:`${(cardLeft/280)*100}%`,
+          right:`${((280-cardRight)/280)*100}%`,
+          top:`${(cardTop/96)*100}%`,
+          bottom:`${((96-cardBottom)/96)*100}%`,
+          border: "0.5px solid #E3E3DF",
+        }}>
         <div className="relative flex-1 overflow-hidden bg-[#7A1F18]">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_55%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_70%,rgba(0,0,0,0.18)_0%,rgba(0,0,0,0)_60%)]" />
         </div>
-        <div className="flex flex-col gap-0.5 px-1.5 py-1">
-          <span className="truncate text-[7px] leading-tight text-[#111110]">Untitled, 2024</span>
-          <span className="truncate text-[6px] leading-tight text-[#6B6A67]">Oil on canvas · 120 × 90 cm</span>
+        <div className="flex flex-col gap-[1px] px-1.5 py-[3px]">
+          <span className="truncate text-[5.5px] leading-tight text-[#111110]">Untitled, 2024</span>
+          <span className="truncate text-[4.5px] leading-tight text-[#6B6A67]">Oil on canvas · 120 × 90 cm</span>
         </div>
       </div>
       {rightIcons.map((icon) => (
