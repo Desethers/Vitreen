@@ -132,57 +132,53 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* ── Foreground: Artsy partner dashboard micro card ── */}
-      <div className="absolute" style={{ top: 22, right: 22, width: 196 }}>
-        <div className="rounded-[6px] border border-[#E8E8E6] bg-white p-3 shadow-[0_10px_28px_rgba(0,0,0,0.06)]">
-          <div className="flex items-center justify-between border-b border-[#E8E8E6] pb-2">
-            <span className="font-display text-[13px] italic leading-none tracking-tight text-[#111110]">
-              Artsy
-            </span>
-            <span className="text-[8.5px] uppercase tracking-[0.14em] text-[#ADADAA]">
-              This week
-            </span>
+      {/* ── Foreground: outgoing email with selection PDF ── */}
+      <div className="absolute" style={{ top: 22, right: 22, width: 230 }}>
+        <div className="rounded-[6px] border border-[#E8E8E6] bg-white shadow-[0_10px_28px_rgba(0,0,0,0.06)]">
+          {/* Mail toolbar */}
+          <div className="flex items-center justify-between border-b border-[#E8E8E6] px-2.5 py-1.5">
+            <div className="flex items-center gap-1.5">
+              <span className="block h-[6px] w-[6px] rounded-full bg-[#FF5F57]" />
+              <span className="block h-[6px] w-[6px] rounded-full bg-[#FEBC2E]" />
+              <span className="block h-[6px] w-[6px] rounded-full bg-[#28C840]" />
+            </div>
+            <span className="text-[8.5px] text-[#ADADAA]">14:32</span>
           </div>
-          <div className="mt-2.5 flex flex-col gap-[7px]">
-            <div className="flex items-baseline justify-between">
-              <span className="text-[10px] text-[#6B6A67]">Inquiries</span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-[11.5px] font-semibold tabular-nums text-[#111110]">12</span>
-                <span className="text-[8px] text-[#107C41]">↑ 33%</span>
-              </div>
+
+          {/* Header */}
+          <div className="flex flex-col gap-[3px] px-3 py-2.5">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">From</span>
+              <span className="text-[10px] text-[#111110]">M. Tanaka</span>
+              <span className="text-[9.5px] text-[#ADADAA]">&lt;m.tanaka@…&gt;</span>
             </div>
-            <div className="flex items-baseline justify-between">
-              <span className="text-[10px] text-[#6B6A67]">Profile views</span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-[11.5px] font-semibold tabular-nums text-[#111110]">1,247</span>
-                <span className="text-[8px] text-[#107C41]">↑ 8%</span>
-              </div>
-            </div>
-            <div className="flex items-baseline justify-between">
-              <span className="text-[10px] text-[#6B6A67]">Followers</span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-[11.5px] font-semibold tabular-nums text-[#111110]">+24</span>
-                <span className="text-[8px] text-[#ADADAA]">—</span>
-              </div>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">Subject</span>
+              <span className="text-[10px] font-medium text-[#111110]">
+                Re: Available Warhol works
+              </span>
             </div>
           </div>
-          {/* Mini sparkline */}
-          <div className="mt-2.5 border-t border-[#E8E8E6] pt-2">
-            <svg width="100%" height="22" viewBox="0 0 170 22" fill="none" preserveAspectRatio="none">
-              <polyline
-                points="0,16 14,14 28,15 42,11 56,12 70,8 84,9 98,6 112,7 126,4 140,5 154,3 170,5"
-                stroke="#111110"
-                strokeWidth="1.2"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <polyline
-                points="0,16 14,14 28,15 42,11 56,12 70,8 84,9 98,6 112,7 126,4 140,5 154,3 170,5 170,22 0,22"
-                fill="#111110"
-                opacity="0.04"
-              />
-            </svg>
+
+          {/* Body excerpt */}
+          <div className="border-t border-[#E8E8E6] px-3 py-2.5">
+            <p className="text-[10px] leading-[1.5] text-[#6B6A67]">
+              Dear Maria, thank you — please find attached the curated selection for
+              our conversation last week.
+            </p>
+          </div>
+
+          {/* Attachment */}
+          <div className="border-t border-[#E8E8E6] px-3 py-2.5">
+            <div className="flex items-center gap-2 rounded-[4px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5">
+              <FilePdf />
+              <div className="flex min-w-0 flex-col leading-tight">
+                <span className="truncate text-[10px] font-medium text-[#111110]">
+                  Warhol_Selection_May_2026.pdf
+                </span>
+                <span className="text-[8.5px] text-[#ADADAA]">4.2 MB · 6 works</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
