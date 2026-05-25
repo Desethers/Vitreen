@@ -9,14 +9,55 @@ import {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ─── Step 01 — Audit ─── */
-const LANES = [
-  { label: "Email",       dots: [12, 28, 48, 71] },
-  { label: "Files",       dots: [8,  22, 55, 82] },
-  { label: "CRM",         dots: [18, 44, 62, 78] },
-  { label: "Spreadsheet", dots: [6,  34, 58, 88] },
-  { label: "Calendar",    dots: [15, 38, 52, 74] },
+const AUDIT_CARDS = [
+  {
+    label: "Artworks",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 15l5-5 4 4 3-3 6 6" />
+      </svg>
+    ),
+  },
+  {
+    label: "Email",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="20" height="16" rx="2" />
+        <path d="m2 7 10 7 10-7" />
+      </svg>
+    ),
+  },
+  {
+    label: "Collector",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+      </svg>
+    ),
+  },
+  {
+    label: "Spreadsheet",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" />
+        <path d="M3 9h18M3 15h18M9 3v18" />
+      </svg>
+    ),
+  },
+  {
+    label: "PDF",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="8" y1="13" x2="16" y2="13" />
+        <line x1="8" y1="17" x2="13" y2="17" />
+      </svg>
+    ),
+  },
 ];
-const SCAN_PCT = 52; // scan line position in %
 
 function AuditMock() {
   return (
@@ -27,50 +68,36 @@ function AuditMock() {
       transition={{ duration: 0.5, ease }}
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      <div className="absolute inset-0 flex flex-col justify-center px-10 gap-0">
-
-        {LANES.map((lane, li) => (
-          <div key={lane.label} className="flex items-center" style={{ height: 56 }}>
-            {/* Label */}
-            <span className="w-20 shrink-0 text-[8px] uppercase tracking-[0.12em] text-[#6B6A67]">
-              {lane.label}
-            </span>
-
-            {/* Timeline track */}
-            <div className="relative flex-1">
-              {/* Base line */}
-              <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 bg-[#E8E8E6]" />
-
-              {/* Dots */}
-              {lane.dots.map((pct, di) => {
-                const isScanned = pct < SCAN_PCT;
-                return (
-                  <motion.div
-                    key={di}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: li * 0.06 + di * 0.04, duration: 0.3 }}
-                    className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                    style={{
-                      left: `${pct}%`,
-                      width: isScanned ? 5 : 4,
-                      height: isScanned ? 5 : 4,
-                      backgroundColor: isScanned ? "#111110" : "#BFBFBC",
-                    }}
-                  />
-                );
-              })}
+      {/* Cards row */}
+      <div className="absolute inset-0 flex items-center justify-center px-8">
+        <div className="relative flex gap-3">
+          {AUDIT_CARDS.map((card) => (
+            <div
+              key={card.label}
+              className="flex flex-col items-center justify-center gap-3 rounded-[4px] border border-[#E8E8E6] bg-[#FAFAF8]"
+              style={{ width: 72, height: 84 }}
+            >
+              <span className="text-[#6B6A67]">{card.icon}</span>
+              <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#ADADAA]">
+                {card.label}
+              </span>
             </div>
-          </div>
-        ))}
+          ))}
 
-        {/* Vertical scan line */}
-        <div
-          className="pointer-events-none absolute top-[12%] bottom-[12%] w-px bg-[#111110] opacity-25"
-          style={{ left: `calc(2.5rem + 5rem + (100% - 5rem - 5rem) * ${SCAN_PCT / 100})` }}
-          aria-hidden="true"
-        />
-
+          {/* Scanner */}
+          <motion.div
+            className="pointer-events-none absolute inset-y-0 flex items-stretch"
+            style={{ width: 32, x: -32 }}
+            animate={{ x: [-(32), (72 + 12) * AUDIT_CARDS.length] }}
+            transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 0.6, ease: "linear" }}
+            aria-hidden="true"
+          >
+            {/* Glow */}
+            <div className="flex-1 bg-gradient-to-r from-transparent via-[#111110]/8 to-transparent" />
+            {/* Sharp line */}
+            <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-[#111110] opacity-30" />
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   );
