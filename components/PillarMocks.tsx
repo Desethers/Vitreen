@@ -208,21 +208,15 @@ function AuditMock() {
             return (
               <div
                 key={frag.label}
-                className="flex flex-col items-center gap-2"
+                className="overflow-hidden rounded-[4px] border border-[#E8E8E6] bg-white"
                 style={{
+                  width: CARD_W,
+                  height: CARD_H,
                   marginTop: i % 2 === 0 ? 0 : 60,
                   transform: `rotate(${i % 2 === 0 ? -3 : 3}deg)`,
                 }}
               >
-                <div
-                  className="overflow-hidden rounded-[4px] border border-[#E8E8E6] bg-white"
-                  style={{ width: CARD_W, height: CARD_H }}
-                >
-                  <Render />
-                </div>
-                <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110]">
-                  {frag.label}
-                </span>
+                <Render />
               </div>
             );
           })}
