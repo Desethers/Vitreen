@@ -229,14 +229,14 @@ function DeployPile() {
     { label: "Collector follow-up", meta: "Assigned internally", time: "09:30" },
   ];
   return (
-    <div className="relative h-[52px]">
+    <div className="relative h-[78px]">
       {events.map((event, index) => (
         <div
           key={event.label}
-          className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-1.5 rounded-[4px] bg-white px-1.5 py-[4px] shadow-[0_2px_6px_rgba(17,17,16,0.04)]"
+          className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-1.5 rounded-[4px] bg-white px-1.5 py-[6px] shadow-[0_2px_6px_rgba(17,17,16,0.04)]"
           style={{
             zIndex: events.length - index,
-            top: index * 9,
+            top: index * 15,
             left: index * 6,
             right: index * 6,
             opacity: 1 - index * 0.2,
