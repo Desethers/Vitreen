@@ -317,21 +317,21 @@ function DeployPill({
 function DeployJourney() {
   return (
     <div className="flex flex-col">
-      {/* Main request card */}
-      <div className="rounded-[5px] px-2.5 py-2" style={darkSurface}>
+      {/* Main request card (light) */}
+      <div className="rounded-[5px] bg-white px-2.5 py-2" style={hairline}>
         <div className="flex items-baseline justify-between">
-          <span className="text-[8.5px] font-semibold leading-none text-white">
+          <span className="text-[8.5px] font-semibold leading-none text-[#111110]">
             M. Tanaka — Tokyo
           </span>
-          <span className="text-[6.5px] leading-none text-white/45">Tue · 14:32</span>
+          <span className="text-[6.5px] leading-none text-[#ADADAA]">Tue · 14:32</span>
         </div>
-        <p className="mt-1.5 text-[7.5px] leading-[1.45] text-white/65">
+        <p className="mt-1.5 text-[7.5px] leading-[1.45] text-[#6B6A67]">
           Re: Available Warhol works — could you share the Marilyn 1967 selection
           for our preview?
         </p>
       </div>
 
-      {/* Reply-thread connector + indented stack */}
+      {/* Reply-thread connector + indented dark pill stack */}
       <div className="relative pl-4 pt-1">
         {/* Vertical thread line on the left */}
         <div
@@ -341,7 +341,7 @@ function DeployJourney() {
             top: 0,
             bottom: 4,
             width: 0.5,
-            background: "rgba(255,255,255,0.15)",
+            background: "rgba(17,17,16,0.18)",
           }}
         />
         {/* Small horizontal tick into the first pill */}
@@ -352,7 +352,7 @@ function DeployJourney() {
             top: 9,
             width: 7,
             height: 0.5,
-            background: "rgba(255,255,255,0.15)",
+            background: "rgba(17,17,16,0.18)",
           }}
         />
 
@@ -391,7 +391,7 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-[#0B0B0A]"
+      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-white"
     >
       <div
         style={{
