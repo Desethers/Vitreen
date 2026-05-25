@@ -239,7 +239,6 @@ function DeployPile() {
             top: index * 15,
             left: index * 6,
             right: index * 6,
-            opacity: 1 - index * 0.2,
             transform: `scale(${1 - index * 0.04})`,
             transformOrigin: "top center",
             border: "0.5px solid #EFEFEB",
