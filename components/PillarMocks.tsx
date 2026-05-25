@@ -231,40 +231,6 @@ function AppOutlook() {
   );
 }
 
-/* Legacy hand-drawn fallback (kept for reference, unused). */
-function _AppOutlookFallback() {
-  return (
-    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0 overflow-visible">
-      <defs>
-        <linearGradient id="ot-back" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#5BB1F0" />
-          <stop offset="100%" stopColor="#1F78D5" />
-        </linearGradient>
-        <linearGradient id="ot-front" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#2580D8" />
-          <stop offset="100%" stopColor="#0E4B95" />
-        </linearGradient>
-        <linearGradient id="ot-purple" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#B5A8E2" />
-          <stop offset="100%" stopColor="#6B58B0" />
-        </linearGradient>
-        <clipPath id="ot-clip">
-          <rect width="32" height="32" rx="6" />
-        </clipPath>
-      </defs>
-      <g clipPath="url(#ot-clip)">
-        <rect width="32" height="32" fill="url(#ot-back)" />
-        <path d="M18 0 L32 0 L32 14 L24 18 Z" fill="url(#ot-purple)" />
-        <path d="M0 0 L18 0 L14 12 L0 16 Z" fill="white" opacity="0.08" />
-        <path d="M0 11 L32 11 L32 32 L0 32 Z" fill="url(#ot-front)" />
-        <path d="M0 11 L16 22 L32 11" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" fill="none" />
-        <ellipse cx="10.5" cy="20.5" rx="5" ry="5.8" fill="white" />
-        <ellipse cx="10.5" cy="20.5" rx="2.4" ry="3.3" fill="url(#ot-front)" />
-      </g>
-    </svg>
-  );
-}
-
 /* WhatsApp: official app icon from /public/logos/. */
 function AppWhatsapp() {
   return (

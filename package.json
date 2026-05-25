@@ -8,6 +8,9 @@
     "dev:clean": "(lsof -ti tcp:3000 2>/dev/null; lsof -ti tcp:3001 2>/dev/null; lsof -ti tcp:3002 2>/dev/null) | sort -u | xargs kill -9 2>/dev/null || true && rm -f .next/dev/lock && next dev --webpack -p 3000",
     "build": "next build",
     "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "check": "next lint && tsc --noEmit",
     "generate:variations": "tsx scripts/generate-variations.ts"
   },
   "dependencies": {

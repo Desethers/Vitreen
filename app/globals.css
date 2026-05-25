@@ -5,7 +5,11 @@
   --background: #ffffff;
   --foreground: #111110;
   --muted: #6B6A67;
+  --subtle: #ADADAA;
   --border: #E8E8E6;
+  --border-soft: #EFEFEB;
+  --surface-soft: #F5F5F3;
+  --surface-warm: #FAFAF8;
   --glass-bg: rgba(0, 0, 0, 0.03);
   --glass-border: rgba(0, 0, 0, 0.07);
 }
@@ -13,8 +17,14 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-ink: var(--foreground);
   --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
   --color-border: var(--border);
+  --color-line: var(--border);
+  --color-line-soft: var(--border-soft);
+  --color-surface-soft: var(--surface-soft);
+  --color-surface-warm: var(--surface-warm);
   --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
   --font-serif: var(--font-inter), "Inter", system-ui, sans-serif;
   --font-display: var(--font-inter), "Inter", system-ui, sans-serif;
