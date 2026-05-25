@@ -132,20 +132,10 @@ export function StepTwoSharingFlow() {
             }}
           />
         </div>
-        <div className="flex flex-1 flex-col gap-[1px] px-1.5 pt-[2px] pb-[2px]">
-          <span className="truncate text-[4.5px] leading-tight text-[#6B6A67]">Sacha Elron</span>
-          <span className="truncate text-[5.5px] leading-tight text-[#111110]">
-            <span className="font-semibold">Dawn Study No. 7</span>
-            <span className="text-[#ADADAA]">, 2023</span>
-          </span>
-          <div className="mt-[1px] flex justify-end">
-            <span
-              className="rounded-full px-[3px] py-[0.5px] text-[3.5px] leading-none text-[#1A8F4B]"
-              style={{ border: "0.3px solid #1A8F4B" }}
-            >
-              Available
-            </span>
-          </div>
+        <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
+          <span className="truncate text-[5.5px] font-medium leading-tight text-[#111110]">Sacha Elron</span>
+          <span className="truncate text-[5px] italic leading-tight text-[#6B6A67]">Dawn Study No. 7, 2023</span>
+          <span className="truncate text-[4.5px] leading-tight text-[#ADADAA]">Oil on canvas · 120 × 90 cm</span>
         </div>
       </div>
       {rightIcons.map((icon) => (
