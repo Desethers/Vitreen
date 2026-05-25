@@ -328,6 +328,174 @@ export function AssistantMock() {
 }
 
 /* ─────────────────────────────────────────
+   Dashboard Mock — Gallery OS Overview
+───────────────────────────────────────── */
+export function DashboardMock() {
+  const navItems = [
+    { label: "Overview", active: true },
+    { label: "Artworks", active: false },
+    { label: "Artists", active: false },
+    { label: "Exhibitions", active: false },
+    { label: "Inquiries", active: false },
+    { label: "Sales drafts", active: false, badge: 2 },
+    { label: "Private Selection", active: false },
+    { label: "Collectors", active: false },
+    { label: "Tools", active: false },
+  ];
+  const artworkColors = ["#1A3BBF","#1A3BBF","#1A3BBF","#1A2A4A","#B8D0EC","#F0C830"];
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.38, ease }}
+      className="flex h-full w-full overflow-hidden rounded-lg border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.08)]"
+    >
+      {/* Sidebar */}
+      <div className="flex w-36 shrink-0 flex-col border-r border-[#F0F0EE] bg-[#FAFAF8] px-2 py-3">
+        <div className="mb-4 flex items-center gap-1.5 px-1">
+          <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111110]">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <rect x="1.5" y="1.5" width="3" height="3" rx="0.5" fill="white" opacity="0.9" />
+              <rect x="5.5" y="1.5" width="3" height="3" rx="0.5" fill="white" opacity="0.5" />
+              <rect x="1.5" y="5.5" width="3" height="3" rx="0.5" fill="white" opacity="0.5" />
+              <rect x="5.5" y="5.5" width="3" height="3" rx="0.5" fill="white" opacity="0.3" />
+            </svg>
+          </div>
+          <span className="font-display text-[11px] font-medium tracking-tight text-[#111110]">Gallery OS</span>
+        </div>
+        <div className="flex flex-col gap-[1px]">
+          {navItems.map((item) => (
+            <div key={item.label} className={`flex items-center justify-between rounded-[4px] px-1.5 py-[4px] ${item.active ? "bg-[#111110]" : ""}`}>
+              <span className={`text-[9.5px] leading-none ${item.active ? "text-white" : "text-[#6B6A67]"}`}>{item.label}</span>
+              {item.badge && (
+                <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#22C55E] text-[7px] font-bold text-white">{item.badge}</span>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="mt-auto pt-3 text-[8px] text-[#ADADAA]">Powered by Vitreen</div>
+      </div>
+      {/* Main */}
+      <div className="flex flex-1 flex-col overflow-hidden px-4 py-3">
+        <div className="mb-3">
+          <h2 className="font-display text-[13px] font-semibold text-[#111110]">Overview</h2>
+          <p className="text-[10px] text-[#6B6A67]">Aperçu de votre galerie</p>
+        </div>
+        <div className="mb-3 grid grid-cols-4 gap-1.5">
+          {[
+            { label: "ŒUVRES", value: "6", sub: "6 disponibles" },
+            { label: "VENDUES", value: "0", sub: "depuis le début" },
+            { label: "INQUIRIES", value: "2", sub: "2 nouvelles" },
+            { label: "COLLECTIONNEURS", value: "1", sub: "" },
+          ].map((stat) => (
+            <div key={stat.label} className="rounded-[5px] border border-[#E8E8E6] px-2 py-1.5">
+              <p className="text-[7px] uppercase tracking-wider text-[#ADADAA]">{stat.label}</p>
+              <p className="mt-0.5 font-display text-[16px] font-light leading-none text-[#111110]">{stat.value}</p>
+              {stat.sub && <p className="mt-0.5 text-[7.5px] text-[#ADADAA]">{stat.sub}</p>}
+            </div>
+          ))}
+        </div>
+        <div className="grid flex-1 grid-cols-2 gap-2 min-h-0">
+          <div className="flex flex-col overflow-hidden rounded-[5px] border border-[#E8E8E6] px-2.5 py-2">
+            <div className="mb-1.5 flex items-center justify-between">
+              <p className="text-[10px] font-medium text-[#111110]">Dernières inquiries</p>
+              <span className="text-[8px] text-[#6B6A67]">Voir tout</span>
+            </div>
+            {[{ name: "Rr", work: "Evening field" }, { name: "Test Collector", work: "Evening field" }].map((inq) => (
+              <div key={inq.name} className="flex items-center gap-1.5 border-t border-[#F0F0EE] py-1 first:border-t-0">
+                <div className="h-5 w-5 shrink-0 rounded bg-[#E8E8E6]" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[9px] font-medium text-[#111110]">{inq.name}</p>
+                  <p className="truncate text-[8px] text-[#6B6A67]">{inq.work}</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-[#EFF6FF] px-1 py-0.5 text-[7px] font-medium text-[#2563EB]">New</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col overflow-hidden rounded-[5px] border border-[#E8E8E6] px-2.5 py-2">
+            <p className="mb-1.5 text-[10px] font-medium text-[#111110]">Œuvres récentes</p>
+            <div className="grid grid-cols-3 gap-1">
+              {artworkColors.map((color, i) => (
+                <div key={i} className="aspect-square rounded-[2px]" style={{ backgroundColor: color }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Share Mock — Email + Viewing Room
+───────────────────────────────────────── */
+export function ShareMock() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.38, ease }}
+      className="relative h-full w-full overflow-hidden rounded-lg"
+    >
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/gallery hero mock/shoes-exhibition.png')", filter: "grayscale(100%) brightness(0.55)" }} />
+      <div className="absolute inset-0 bg-black/20" />
+      {/* Step cards */}
+      <div className="absolute left-4 top-4 flex items-center gap-2 rounded-2xl bg-white px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#111110] text-[10px] font-medium text-white">3</div>
+        <div>
+          <p className="text-[11px] font-medium leading-tight text-[#111110]">Share</p>
+          <p className="text-[9px] leading-tight text-[#6B6A67]">Link, private Viewing Room…</p>
+        </div>
+      </div>
+      <div className="absolute right-4 top-4 flex items-center gap-2 rounded-2xl bg-white px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#111110] text-[10px] font-medium text-white">1</div>
+        <div>
+          <p className="text-[11px] font-medium leading-tight text-[#111110]">Add an artwork</p>
+          <p className="text-[9px] leading-tight text-[#6B6A67]">Simple form, one click.</p>
+        </div>
+      </div>
+      <div className="absolute bottom-4 left-4 flex items-center gap-2 rounded-2xl bg-white px-3 py-2 shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
+        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#111110] text-[10px] font-medium text-white">2</div>
+        <div>
+          <p className="text-[11px] font-medium leading-tight text-[#111110]">Site updated</p>
+          <p className="text-[9px] leading-tight text-[#6B6A67]">Artwork appears instantly.</p>
+        </div>
+      </div>
+      {/* Email composer */}
+      <div className="absolute inset-x-16 bottom-14 top-16 flex flex-col overflow-hidden rounded-xl bg-white shadow-[0_20px_60px_rgba(0,0,0,0.18)]">
+        <div className="border-b border-[#E8E8E6] px-4 py-2.5">
+          <p className="text-[12px] font-medium text-[#111110]">New message</p>
+        </div>
+        <div className="border-b border-[#E8E8E6]">
+          {[["From","galerie@fontaine.com"],["To","marc.durand@collection.fr"],["Subject","Sélection Printemps 2026 — Viewing Room"]].map(([label, val]) => (
+            <div key={label} className="flex items-center gap-3 border-b border-[#F5F5F3] px-3 py-1.5 last:border-b-0">
+              <span className="w-10 shrink-0 text-[10px] text-[#6B6A67]">{label}</span>
+              <span className="truncate text-[10px] text-[#111110]">{val}</span>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-4 gap-1 px-3 pt-2">
+          {["#1A2A4A","#B8D0EC","#F0C830","#7A1F18"].map((c, i) => (
+            <div key={i} className="aspect-video rounded-[3px]" style={{ backgroundColor: c }} />
+          ))}
+        </div>
+        <div className="mx-3 mt-2 flex items-center justify-between rounded-lg bg-[#F5F5F3] px-2.5 py-2">
+          <div>
+            <p className="text-[10px] font-medium text-[#111110]">Private Viewing · Spring 2026</p>
+            <p className="text-[8px] text-[#6B6A67]">4 works — galerie-fontaine.com</p>
+          </div>
+          <div className="rounded-full bg-[#111110] px-2 py-0.5 text-[9px] font-medium text-white">View</div>
+        </div>
+        <div className="mt-auto flex items-center justify-between px-3 py-2">
+          <div className="flex items-center gap-1 rounded-full bg-[#111110] px-3 py-1.5">
+            <span className="text-[10px] font-medium text-white">✓ Sent</span>
+          </div>
+          <span className="text-[10px] text-[#6B6A67]">1 of 3 collectors</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─────────────────────────────────────────
    Pillar data (static, EN)
 ───────────────────────────────────────── */
 export const PILLARS = [
@@ -354,5 +522,17 @@ export const PILLARS = [
     title: "Gallery Assistants",
     desc: "Reduce repetitive operational work so galleries can focus on artists, exhibitions and collectors.",
     Mock: AssistantMock,
+  },
+  {
+    number: "05",
+    title: "Gallery OS Dashboard",
+    desc: "A single overview of artworks, inquiries, collectors and private selections — updated in real time.",
+    Mock: DashboardMock,
+  },
+  {
+    number: "06",
+    title: "Share & Distribute",
+    desc: "Add an artwork, publish it instantly, and send a private Viewing Room to collectors in one flow.",
+    Mock: ShareMock,
   },
 ];
