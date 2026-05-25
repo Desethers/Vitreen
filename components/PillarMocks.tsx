@@ -317,18 +317,47 @@ function DeployPill({
 function DeployJourney() {
   return (
     <div className="flex flex-col">
-      {/* Main request card (light) */}
-      <div className="rounded-[5px] bg-white px-2.5 py-2" style={hairline}>
-        <div className="flex items-baseline justify-between">
-          <span className="text-[8.5px] font-semibold leading-none text-[#111110]">
-            M. Tanaka — Tokyo
-          </span>
-          <span className="text-[6.5px] leading-none text-[#ADADAA]">Tue · 14:32</span>
+      {/* Main request card — Outlook-style layout (icon · sender · time / divider / body) */}
+      <div className="rounded-[6px] bg-white px-2.5 py-2.5" style={hairline}>
+        {/* Header row */}
+        <div className="flex items-start gap-2">
+          {/* Outlook circular avatar */}
+          <div
+            className="flex h-[18px] w-[18px] flex-shrink-0 items-center justify-center rounded-full"
+            style={{ background: "linear-gradient(135deg, #1B9DE2 0%, #0364B8 100%)" }}
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
+              <ellipse cx="11" cy="12" rx="4" ry="5.2" stroke="white" strokeWidth="2.4" />
+            </svg>
+          </div>
+          <div className="flex flex-1 flex-col leading-tight">
+            <div className="flex items-baseline justify-between">
+              <span className="text-[9px] font-semibold text-[#111110]">M. Tanaka</span>
+              <span className="text-[6.5px] text-[#ADADAA]">Tue 14:32</span>
+            </div>
+            <span className="text-[7.5px] text-[#ADADAA]">to maria</span>
+          </div>
         </div>
-        <p className="mt-1.5 text-[7.5px] leading-[1.45] text-[#6B6A67]">
-          Re: Available Warhol works — could you share the Marilyn 1967 selection
-          for our preview?
+
+        {/* Divider */}
+        <div className="my-2 h-px w-full bg-[#E8E8E6]" />
+
+        {/* Body */}
+        <p className="text-[7.5px] leading-[1.5] text-[#111110]">
+          Could we have the Warhol <em className="italic">Marilyn, 1967</em> selection
+          ahead of Tuesday’s preview? Please include:
         </p>
+        <ul className="mt-1.5 flex flex-col gap-[2px]">
+          <li className="text-[7.5px] leading-[1.4] text-[#111110]">
+            — 6 high-res images
+          </li>
+          <li className="text-[7.5px] leading-[1.4] text-[#111110]">
+            — Provenance documents
+          </li>
+          <li className="text-[7.5px] leading-[1.4] text-[#111110]">
+            — Auction comparables (2018–24)
+          </li>
+        </ul>
       </div>
 
       {/* Reply-thread connector + indented dark pill stack */}
