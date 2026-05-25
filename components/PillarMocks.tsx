@@ -15,6 +15,22 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const cardSurface =
   "rounded-[3px] border border-[#E8E8E6] bg-white shadow-[0_4px_14px_rgba(0,0,0,0.05)]";
 
+function MetaLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="block text-[6px] uppercase tracking-[0.16em] text-[#ADADAA]">
+      {children}
+    </span>
+  );
+}
+
+function MetaValue({ children, mono = false }: { children: React.ReactNode; mono?: boolean }) {
+  return (
+    <span className={`block text-[8px] leading-[1.3] text-[#111110] ${mono ? "font-mono" : ""}`}>
+      {children}
+    </span>
+  );
+}
+
 function AuditMock() {
   return (
     <motion.div
@@ -24,124 +40,102 @@ function AuditMock() {
       transition={{ duration: 0.5, ease }}
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      {/* Finder window */}
+      {/* Artwork thumb */}
       <div
         className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ top: 70, left: 40, width: 200, transform: "rotate(-2.5deg)" }}
-      >
-        <div className="flex items-center justify-between border-b border-[#E8E8E6] bg-[#ECECEC] px-2 py-[5px]">
-          <div className="flex items-center gap-[4px]">
-            <span className="block h-[7px] w-[7px] rounded-full bg-[#FF5F57]" />
-            <span className="block h-[7px] w-[7px] rounded-full bg-[#FEBC2E]" />
-            <span className="block h-[7px] w-[7px] rounded-full bg-[#28C840]" />
-          </div>
-          <span className="text-[7px] font-medium text-[#6B6A67]">Artworks 2024</span>
-        </div>
-        <div className="flex flex-col gap-[5px] px-2 py-2">
-          {[
-            { name: "Exhibitions", date: "Mar 4" },
-            { name: "Inventory.xlsx", date: "Feb 28" },
-            { name: "Invoices_Q1", date: "Feb 12" },
-          ].map((f, i) => (
-            <div key={i} className="flex items-center gap-1.5">
-              <svg width="11" height="8" viewBox="0 0 16 12" fill="#7FB5F5" stroke="#4A8FD8" strokeWidth="0.4">
-                <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
-              </svg>
-              <span className="flex-1 truncate text-[7px] text-[#111110]">{f.name}</span>
-              <span className="text-[6px] text-[#ADADAA]">{f.date}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Spreadsheet corner */}
-      <div
-        className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ bottom: 60, right: 40, width: 180, transform: "rotate(3deg)" }}
-      >
-        <div className="h-[4px] w-full bg-[#107C41]" />
-        <div className="flex border-b border-[#E8E8E6] bg-[#F3F3F1]">
-          <span className="w-[14px] border-r border-[#E8E8E6] py-[2px] text-center text-[6px] text-[#ADADAA]" />
-          {["A", "B", "C"].map((c) => (
-            <span
-              key={c}
-              className="flex-1 border-r border-[#E8E8E6] py-[2px] text-center text-[6.5px] font-medium text-[#6B6A67] last:border-0"
-            >
-              {c}
-            </span>
-          ))}
-        </div>
-        {[
-          ["Picasso", "1972", "120K"],
-          ["Calder", "1965", "85K"],
-          ["Mitchell", "1958", "—"],
-          ["Doig", "2018", "240K"],
-        ].map((r, ri) => (
-          <div key={ri} className="flex border-b border-[#E8E8E6] last:border-0">
-            <span className="flex w-[14px] items-center justify-center border-r border-[#E8E8E6] bg-[#F3F3F1] py-[2px] text-[6px] text-[#ADADAA]">
-              {ri + 1}
-            </span>
-            {r.map((cell, ci) => (
-              <div
-                key={ci}
-                className="flex flex-1 items-center border-r border-[#E8E8E6] px-1 py-[2px] text-[6.5px] text-[#111110] last:border-0"
-              >
-                {cell}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-
-      {/* Cropped artwork image */}
-      <div
-        className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ top: 130, left: 260, width: 90, height: 112, transform: "rotate(-4deg)", padding: 4 }}
+        style={{ top: 90, left: 90, width: 84, height: 104, transform: "rotate(-3deg)", padding: 4 }}
       >
         <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#D4C5B0] via-[#B8A48A] to-[#8A7560]">
-          {/* Abstract painted form */}
           <div className="absolute left-[18%] top-[14%] h-[55%] w-[42%] rounded-[40%] bg-[#3A2F25]/70 blur-[1px]" />
           <div className="absolute bottom-[10%] right-[12%] h-[18%] w-[40%] bg-[#5B4A3A]/55" />
           <div className="absolute left-[8%] bottom-[8%] h-[2px] w-[30%] bg-[#EAD9BF]/60" />
         </div>
       </div>
 
-      {/* Timestamp — floating above cluster */}
+      {/* Artwork metadata record */}
       <div
-        className="absolute"
-        style={{ top: 44, left: 220, transform: "rotate(1.5deg)" }}
+        className={`absolute ${cardSurface} px-3 py-2`}
+        style={{ top: 80, left: 190, width: 200, transform: "rotate(-0.5deg)" }}
       >
-        <span className="block text-[8px] font-medium uppercase tracking-[0.18em] text-[#ADADAA]">
-          Wed · 25 May · 14:32
+        <div className="flex items-baseline justify-between">
+          <MetaValue>Pablo Picasso</MetaValue>
+          <span className="text-[7px] tabular-nums text-[#6B6A67]">INV-2410</span>
+        </div>
+        <span className="block text-[7px] italic text-[#6B6A67]">Mousquetaire, 1972</span>
+        <div className="mt-1 grid grid-cols-2 gap-x-2 gap-y-[3px]">
+          <MetaLabel>Medium</MetaLabel>
+          <MetaLabel>Dimensions</MetaLabel>
+          <span className="text-[7px] text-[#111110]">Oil on canvas</span>
+          <span className="text-[7px] tabular-nums text-[#111110]">162 × 130 cm</span>
+          <MetaLabel>Provenance</MetaLabel>
+          <MetaLabel>Price</MetaLabel>
+          <span className="text-[7px] text-[#111110]">Pace, NY · 2014</span>
+          <span className="text-[7px] tabular-nums text-[#111110]">€ 120,000</span>
+        </div>
+      </div>
+
+      {/* Status pill */}
+      <div
+        className="absolute flex items-center gap-1.5 rounded-full border border-[#111110] bg-[#111110] px-2 py-[3px]"
+        style={{ top: 200, left: 290, transform: "rotate(2deg)" }}
+      >
+        <span className="block h-[5px] w-[5px] rounded-full bg-[#FEBC2E]" />
+        <span className="text-[7px] font-medium uppercase tracking-[0.14em] text-white">
+          Reserved · Hold 06.06.26
         </span>
       </div>
 
-      {/* Collector initial chip */}
+      {/* Collector chip */}
       <div
         className={`absolute ${cardSurface} flex items-center gap-2 px-2 py-1.5`}
-        style={{ bottom: 70, left: 110, transform: "rotate(-1.5deg)" }}
+        style={{ bottom: 70, left: 90, transform: "rotate(-1.5deg)" }}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#111110]">
           <span className="text-[9px] font-semibold tracking-wide text-white">MT</span>
         </div>
         <div className="flex flex-col leading-tight">
-          <span className="text-[7.5px] font-medium text-[#111110]">M. Tanaka</span>
-          <span className="text-[6.5px] text-[#ADADAA]">Collector · Tokyo</span>
+          <MetaValue>M. Tanaka</MetaValue>
+          <span className="text-[6.5px] uppercase tracking-[0.14em] text-[#ADADAA]">
+            Tokyo · Tier 1 · Since 2018
+          </span>
         </div>
       </div>
 
-      {/* Tiny WhatsApp bubble peek */}
+      {/* File path strip */}
       <div
-        className="absolute rounded-[3px] bg-[#DCF8C6] shadow-[0_0_2px_rgba(0,0,0,0.08)]"
-        style={{ top: 90, right: 60, padding: "4px 6px", transform: "rotate(2deg)" }}
+        className="absolute flex items-center gap-1 rounded-[3px] border border-[#E8E8E6] bg-[#F5F5F3] px-1.5 py-[3px]"
+        style={{ top: 46, left: 110, transform: "rotate(1deg)" }}
       >
-        <div className="flex items-center gap-1">
-          <span className="text-[6.5px] text-[#111110]">Yes, sold</span>
-          <svg width="8" height="5" viewBox="0 0 12 6" fill="none" stroke="#34B7F1" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m1 3 2 2 4-4" />
-            <path d="m5 5 4-4" />
-          </svg>
-        </div>
+        <svg width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="#6B6A67" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 4 V12 a1 1 0 0 0 1 1 h10 a1 1 0 0 0 1-1 V6 a1 1 0 0 0-1-1 H8 L6 3 H4 a1 1 0 0 0-1 1 Z" />
+        </svg>
+        <span className="font-mono text-[7px] text-[#6B6A67]">
+          /Gallery/Artworks/Picasso_1972.tiff
+        </span>
+        <span className="ml-1 text-[6.5px] text-[#ADADAA]">· 4.2 MB</span>
+      </div>
+
+      {/* Tags row */}
+      <div
+        className="absolute flex items-center gap-1"
+        style={{ bottom: 56, right: 60, transform: "rotate(1.5deg)" }}
+      >
+        {["#picasso", "#blue-period", "#sold-2024"].map((t) => (
+          <span
+            key={t}
+            className="rounded-full border border-[#E8E8E6] bg-white px-1.5 py-[2px] text-[6.5px] text-[#6B6A67]"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+
+      {/* Timestamp — floating */}
+      <div
+        className="absolute"
+        style={{ top: 30, right: 60, transform: "rotate(1.5deg)" }}
+      >
+        <MetaLabel>2026-05-25 · 14:32:08 UTC</MetaLabel>
       </div>
     </motion.div>
   );
