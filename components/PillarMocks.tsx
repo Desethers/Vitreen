@@ -19,7 +19,7 @@ function AuditMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col justify-center rounded-lg border border-[#E8E8E6] bg-white px-6 py-6"
+      className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
     >
       <p className="mb-4 text-[11px] uppercase tracking-[0.1em] text-[#ADADAA]">Audit</p>
       <div className="flex flex-wrap gap-2">
@@ -48,7 +48,7 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col justify-center rounded-lg border border-[#E8E8E6] bg-white px-6 py-6"
+      className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
     >
       <p className="mb-4 text-[11px] uppercase tracking-[0.1em] text-[#ADADAA]">Connect &amp; build</p>
       <StepTwoSharingFlow />
@@ -67,7 +67,7 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col justify-center rounded-lg border border-[#E8E8E6] bg-white px-6 py-6"
+      className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
     >
       <p className="mb-4 text-[11px] uppercase tracking-[0.1em] text-[#ADADAA]">Deploy</p>
       <DeployCardStack lang="en" />
