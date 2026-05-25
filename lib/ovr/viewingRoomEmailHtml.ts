@@ -42,11 +42,10 @@ const VR_QUERY = `*[_type == "viewingRoom" && token == $token && status == "acti
 }`
 
 export async function fetchPublishedViewingRoom(token: string): Promise<PublishedVR | null> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const vr = await (client as any).fetch(VR_QUERY, { token })
+  const vr = await client.fetch<PublishedVR | null>(VR_QUERY, { token } as Record<string, unknown>)
   if (!vr) return null
   return {
-    ...(vr as PublishedVR),
+    ...vr,
     blocks: Array.isArray(vr.blocks) ? vr.blocks : [],
   }
 }
