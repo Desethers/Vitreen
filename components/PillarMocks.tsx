@@ -134,9 +134,12 @@ function AuditMock() {
         <div className="overflow-hidden rounded-[6px] border border-[#E8E8E6] bg-white">
           {/* Outlook title bar */}
           <div className="flex items-center gap-1.5 bg-[#0078D4] px-2.5 py-[6px]">
-            <div className="flex h-3.5 w-3.5 items-center justify-center rounded-[2px] bg-white">
-              <span className="text-[8px] font-bold leading-none text-[#0078D4]">O</span>
-            </div>
+            <img
+              src="/logos/Microsoft_Office_Outlook_Logo.svg"
+              alt=""
+              aria-hidden="true"
+              className="h-3.5 w-3.5 object-contain"
+            />
             <span className="text-[9px] font-semibold text-white">Outlook</span>
             <span className="ml-auto text-[8.5px] text-white/75">Inbox · Collectors</span>
           </div>
@@ -228,10 +231,20 @@ const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
 
 /* ── Real app icons ── */
 
-/* Outlook (Microsoft Fluent, 2022 redesign):
-   Folded-paper geometry — light-blue back plane, purple top accent,
-   dark-blue front envelope, stylized white "O" on the left face. */
+/* Outlook (Microsoft Fluent): official logo from /public/logos/. */
 function AppOutlook() {
+  return (
+    <img
+      src="/logos/Microsoft_Office_Outlook_Logo.svg"
+      alt=""
+      aria-hidden="true"
+      className="h-[11px] w-[11px] flex-shrink-0 object-contain"
+    />
+  );
+}
+
+/* Legacy hand-drawn fallback (kept for reference, unused). */
+function _AppOutlookFallback() {
   return (
     <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0 overflow-visible">
       <defs>
@@ -252,17 +265,11 @@ function AppOutlook() {
         </clipPath>
       </defs>
       <g clipPath="url(#ot-clip)">
-        {/* Background — light blue back plane */}
         <rect width="32" height="32" fill="url(#ot-back)" />
-        {/* Purple folder/flap accent diagonal in upper-right */}
         <path d="M18 0 L32 0 L32 14 L24 18 Z" fill="url(#ot-purple)" />
-        {/* Subtle highlight on the back plane */}
         <path d="M0 0 L18 0 L14 12 L0 16 Z" fill="white" opacity="0.08" />
-        {/* Front envelope face */}
         <path d="M0 11 L32 11 L32 32 L0 32 Z" fill="url(#ot-front)" />
-        {/* V crease of the envelope */}
         <path d="M0 11 L16 22 L32 11" stroke="rgba(0,0,0,0.18)" strokeWidth="0.6" fill="none" />
-        {/* White "O" — outer ellipse + inner cutout */}
         <ellipse cx="10.5" cy="20.5" rx="5" ry="5.8" fill="white" />
         <ellipse cx="10.5" cy="20.5" rx="2.4" ry="3.3" fill="url(#ot-front)" />
       </g>
@@ -377,17 +384,32 @@ function DeployPill({
   label,
   time,
   app,
+  tone,
 }: {
   label: string;
   time: string;
   app: "outlook" | "whatsapp" | "calendar";
+  tone: "blue" | "green" | "amber";
 }) {
+  const dotColor = {
+    blue: "#4EA3FF",
+    green: "#36D37E",
+    amber: "#F2C94C",
+  }[tone];
+
   return (
     <div
-      className="flex items-center justify-between rounded-[3px] pl-1.5 pr-1 py-[5px]"
+      className="flex items-center justify-between rounded-[3px] py-[5px] pl-[5px] pr-1"
       style={darkSurface}
     >
-      <span className="text-[5px] leading-none text-white">{label}</span>
+      <span className="flex min-w-0 items-center gap-1 text-[5px] leading-none text-white">
+        <span
+          className="h-[3px] w-[3px] shrink-0 rounded-full"
+          style={{ backgroundColor: dotColor, boxShadow: `0 0 0 1.5px ${dotColor}24` }}
+          aria-hidden="true"
+        />
+        <span className="truncate">{label}</span>
+      </span>
       <div className="flex items-center gap-1.5">
         <span className="text-[4px] leading-none tabular-nums text-white/45">{time}</span>
         {app === "outlook" && <AppOutlook />}
@@ -461,23 +483,23 @@ function DeployJourney() {
         {/* Stacked pills */}
         <div className="relative" style={{ height: 19 + 2 * 13 }}>
           {[
-            { label: "Selection requested", time: "14:32", app: "outlook" as const },
-            { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const },
-            { label: "Follow-up scheduled", time: "Mon · 09:00", app: "calendar" as const },
+            { label: "Selection requested", time: "14:32", app: "outlook" as const, tone: "blue" as const },
+            { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const, tone: "green" as const },
+            { label: "Follow-up scheduled", time: "Mon · 09:00", app: "calendar" as const, tone: "amber" as const },
           ].map((p, i, arr) => (
             <div
               key={p.label}
               className="absolute"
               style={{
                 top: i * 13,
-                left: i * 4,
-                right: i * 4,
+                left: i * 5,
+                right: 8 + i * 8,
                 zIndex: arr.length - i,
                 transform: `scale(${1 - i * 0.025})`,
                 transformOrigin: "top center",
               }}
             >
-              <DeployPill label={p.label} time={p.time} app={p.app} />
+              <DeployPill label={p.label} time={p.time} app={p.app} tone={p.tone} />
             </div>
           ))}
         </div>
