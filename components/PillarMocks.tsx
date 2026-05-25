@@ -284,6 +284,11 @@ function AppCalendar() {
   );
 }
 
+const darkSurface: React.CSSProperties = {
+  border: "0.5px solid rgba(255,255,255,0.08)",
+  background: "#18181A",
+};
+
 function DeployPill({
   label,
   time,
@@ -295,12 +300,12 @@ function DeployPill({
 }) {
   return (
     <div
-      className="flex items-center justify-between rounded-[4px] bg-white pl-2.5 pr-[5px] py-[3px]"
-      style={hairline}
+      className="flex items-center justify-between rounded-[4px] pl-2.5 pr-[5px] py-[3px]"
+      style={darkSurface}
     >
-      <span className="text-[7.5px] leading-none text-[#111110]">{label}</span>
+      <span className="text-[7.5px] leading-none text-white">{label}</span>
       <div className="flex items-center gap-1.5">
-        <span className="text-[6.5px] leading-none text-[#ADADAA] tabular-nums">{time}</span>
+        <span className="text-[6.5px] leading-none tabular-nums text-white/45">{time}</span>
         {app === "outlook" && <AppOutlook />}
         {app === "whatsapp" && <AppWhatsapp />}
         {app === "calendar" && <AppCalendar />}
@@ -311,43 +316,69 @@ function DeployPill({
 
 function DeployJourney() {
   return (
-    <div className="flex flex-col gap-[6px]">
+    <div className="flex flex-col">
       {/* Main request card */}
-      <div className="rounded-[5px] bg-white px-2.5 py-2" style={hairline}>
+      <div className="rounded-[5px] px-2.5 py-2" style={darkSurface}>
         <div className="flex items-baseline justify-between">
-          <span className="text-[8.5px] font-semibold leading-none text-[#111110]">
+          <span className="text-[8.5px] font-semibold leading-none text-white">
             M. Tanaka — Tokyo
           </span>
-          <span className="text-[6.5px] leading-none text-[#ADADAA]">Tue · 14:32</span>
+          <span className="text-[6.5px] leading-none text-white/45">Tue · 14:32</span>
         </div>
-        <p className="mt-1.5 text-[7.5px] leading-[1.45] text-[#6B6A67]">
+        <p className="mt-1.5 text-[7.5px] leading-[1.45] text-white/65">
           Re: Available Warhol works — could you share the Marilyn 1967 selection
           for our preview?
         </p>
       </div>
 
-      {/* Three pills stacked as a pile */}
-      <div className="relative" style={{ height: 17 + 2 * 13 }}>
-        {[
-          { label: "Selection requested", time: "14:32", app: "outlook" as const },
-          { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const },
-          { label: "Follow-up scheduled", time: "Mon · 09:00", app: "calendar" as const },
-        ].map((p, i, arr) => (
-          <div
-            key={p.label}
-            className="absolute"
-            style={{
-              top: i * 13,
-              left: i * 5,
-              right: i * 5,
-              zIndex: arr.length - i,
-              transform: `scale(${1 - i * 0.025})`,
-              transformOrigin: "top center",
-            }}
-          >
-            <DeployPill label={p.label} time={p.time} app={p.app} />
-          </div>
-        ))}
+      {/* Reply-thread connector + indented stack */}
+      <div className="relative pl-4 pt-1">
+        {/* Vertical thread line on the left */}
+        <div
+          className="absolute"
+          style={{
+            left: 7,
+            top: 0,
+            bottom: 4,
+            width: 0.5,
+            background: "rgba(255,255,255,0.15)",
+          }}
+        />
+        {/* Small horizontal tick into the first pill */}
+        <div
+          className="absolute"
+          style={{
+            left: 7,
+            top: 9,
+            width: 7,
+            height: 0.5,
+            background: "rgba(255,255,255,0.15)",
+          }}
+        />
+
+        {/* Stacked pills */}
+        <div className="relative" style={{ height: 17 + 2 * 13 }}>
+          {[
+            { label: "Selection requested", time: "14:32", app: "outlook" as const },
+            { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const },
+            { label: "Follow-up scheduled", time: "Mon · 09:00", app: "calendar" as const },
+          ].map((p, i, arr) => (
+            <div
+              key={p.label}
+              className="absolute"
+              style={{
+                top: i * 13,
+                left: i * 5,
+                right: i * 5,
+                zIndex: arr.length - i,
+                transform: `scale(${1 - i * 0.025})`,
+                transformOrigin: "top center",
+              }}
+            >
+              <DeployPill label={p.label} time={p.time} app={p.app} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -360,7 +391,7 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-white"
+      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-[#0B0B0A]"
     >
       <div
         style={{
