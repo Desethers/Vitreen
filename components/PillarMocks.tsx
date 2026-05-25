@@ -132,101 +132,64 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* ── Foreground: mail inquiry with rich metadata ── */}
-      <div className="absolute" style={{ bottom: 22, right: 22, width: 252 }}>
-        <div className="rounded-[6px] border border-[#E8E8E6] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.08)]">
-          {/* Mail toolbar */}
-          <div className="flex items-center justify-between border-b border-[#E8E8E6] px-2.5 py-1.5">
-            <div className="flex items-center gap-1.5">
-              <span className="block h-[6px] w-[6px] rounded-full bg-[#FF5F57]" />
-              <span className="block h-[6px] w-[6px] rounded-full bg-[#FEBC2E]" />
-              <span className="block h-[6px] w-[6px] rounded-full bg-[#28C840]" />
+      {/* ── Foreground: Outlook mail ── */}
+      <div className="absolute" style={{ bottom: 24, right: 24, width: 248 }}>
+        <div className="overflow-hidden rounded-[6px] border border-[#E8E8E6] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.08)]">
+          {/* Outlook title bar */}
+          <div className="flex items-center gap-1.5 bg-[#0078D4] px-2.5 py-[6px]">
+            <div className="flex h-3.5 w-3.5 items-center justify-center rounded-[2px] bg-white">
+              <span className="text-[8px] font-bold leading-none text-[#0078D4]">O</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="text-[8.5px] text-[#6B6A67]">Inbox · Collectors</span>
-              <span className="block h-[3px] w-[3px] rounded-full bg-[#ADADAA]" />
-              <span className="text-[8.5px] text-[#ADADAA]">3 / 412</span>
-            </div>
+            <span className="text-[9px] font-semibold text-white">Outlook</span>
+            <span className="ml-auto text-[8.5px] text-white/75">Inbox · Collectors</span>
           </div>
 
-          {/* Top bar: avatar + subject + star */}
-          <div className="flex items-start gap-2 border-b border-[#E8E8E6] px-3 py-2.5">
-            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#111110]">
+          {/* Sender row */}
+          <div className="flex items-center gap-2 px-3 py-2.5">
+            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#0078D4]">
               <span className="text-[9px] font-semibold tracking-wide text-white">MT</span>
             </div>
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
-              <div className="flex items-center justify-between">
-                <span className="text-[10.5px] font-semibold text-[#111110]">M. Tanaka</span>
-                <span className="text-[8.5px] text-[#ADADAA]">14:32</span>
+              <div className="flex items-baseline justify-between gap-2">
+                <span className="truncate text-[10.5px] font-semibold text-[#111110]">
+                  M. Tanaka
+                </span>
+                <span className="flex-shrink-0 text-[8.5px] text-[#6B6A67]">Tue 14:32</span>
               </div>
-              <span className="text-[9.5px] text-[#6B6A67]">Re: Available Warhol works</span>
+              <span className="truncate text-[9px] text-[#6B6A67]">
+                m.tanaka@tanaka-collection.jp
+              </span>
             </div>
           </div>
 
-          {/* Metadata grid */}
-          <div className="grid grid-cols-[44px_1fr] gap-y-[3px] gap-x-2 border-b border-[#E8E8E6] px-3 py-2.5">
-            <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">From</span>
-            <span className="truncate text-[9.5px] text-[#111110]">
-              m.tanaka@tanaka-collection.jp
+          {/* Subject */}
+          <div className="border-t border-[#E8E8E6] px-3 py-2">
+            <span className="block text-[11px] font-semibold leading-tight text-[#111110]">
+              Re: Available Warhol works
             </span>
-            <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">To</span>
-            <span className="truncate text-[9.5px] text-[#111110]">
-              maria@vitreen.gallery
-            </span>
-            <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">Cc</span>
-            <span className="truncate text-[9.5px] text-[#6B6A67]">studio@vitreen.gallery</span>
-            <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">Date</span>
-            <span className="text-[9.5px] text-[#6B6A67]">
-              25 May 2026 · 14:32 <span className="text-[#ADADAA]">(JST)</span>
+            <span className="mt-[2px] block text-[8.5px] text-[#ADADAA]">
+              To: maria@vitreen.gallery
             </span>
           </div>
 
-          {/* Body excerpt */}
-          <div className="border-b border-[#E8E8E6] px-3 py-2.5">
+          {/* Body */}
+          <div className="border-t border-[#E8E8E6] px-3 py-2.5">
             <p className="text-[9.5px] leading-[1.55] text-[#6B6A67]">
               Dear Maria, thank you — please find attached the curated selection
               for our conversation last week.
             </p>
-            <p className="mt-1.5 text-[9.5px] leading-[1.55] text-[#ADADAA]">
-              —<br />
-              M. Tanaka · Tokyo Contemporary Collection
-            </p>
           </div>
 
-          {/* Attachment row */}
-          <div className="flex flex-col gap-1.5 px-3 py-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[8.5px] uppercase tracking-[0.12em] text-[#ADADAA]">
-                1 attachment
-              </span>
-              <span className="text-[8.5px] text-[#ADADAA]">4.2 MB</span>
-            </div>
-            <div className="flex items-center gap-2 rounded-[4px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5">
+          {/* Attachment */}
+          <div className="border-t border-[#E8E8E6] px-3 py-2.5">
+            <div className="flex items-center gap-2 rounded-[3px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5">
               <FilePdf />
               <div className="flex min-w-0 flex-1 flex-col leading-tight">
                 <span className="truncate text-[10px] font-medium text-[#111110]">
                   Warhol_Selection_May_2026.pdf
                 </span>
-                <span className="text-[8.5px] text-[#ADADAA]">
-                  6 works · 12 pages · v3
-                </span>
+                <span className="text-[8.5px] text-[#ADADAA]">4.2 MB · 6 works</span>
               </div>
-              <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 2 v9 m-3 -3 3 3 3 -3" />
-                <path d="M3 14 h10" />
-              </svg>
-            </div>
-            {/* Tag/label row */}
-            <div className="mt-0.5 flex items-center gap-1">
-              <span className="rounded-full bg-[#FFE08A]/70 px-1.5 py-[1px] text-[8px] text-[#111110]">
-                Tier 1
-              </span>
-              <span className="rounded-full border border-[#E8E8E6] px-1.5 py-[1px] text-[8px] text-[#6B6A67]">
-                Warhol
-              </span>
-              <span className="rounded-full border border-[#E8E8E6] px-1.5 py-[1px] text-[8px] text-[#6B6A67]">
-                Basel ’26
-              </span>
             </div>
           </div>
         </div>
