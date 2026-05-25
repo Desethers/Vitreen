@@ -229,28 +229,28 @@ function DeployPile() {
     { label: "Collector follow-up", meta: "Assigned internally", time: "09:30" },
   ];
   return (
-    <div className="relative h-[64px]">
+    <div className="relative h-[52px]">
       {events.map((event, index) => (
         <div
           key={event.label}
-          className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-2 rounded-[5px] bg-white px-2 py-[6px] shadow-[0_2px_8px_rgba(17,17,16,0.05)]"
+          className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-1.5 rounded-[4px] bg-white px-1.5 py-[4px] shadow-[0_2px_6px_rgba(17,17,16,0.04)]"
           style={{
             zIndex: events.length - index,
-            top: index * 11,
-            left: index * 8,
-            right: index * 8,
+            top: index * 9,
+            left: index * 6,
+            right: index * 6,
             opacity: 1 - index * 0.2,
             transform: `scale(${1 - index * 0.04})`,
             transformOrigin: "top center",
             border: "0.5px solid #EFEFEB",
           }}
         >
-          <span className="h-[6px] w-[6px] rounded-full bg-[#111110]" aria-hidden="true" />
+          <span className="h-[5px] w-[5px] rounded-full bg-[#111110]" aria-hidden="true" />
           <div className="min-w-0">
-            <p className="truncate text-[10px] leading-none text-[#111110]">{event.label}</p>
-            <p className="mt-[3px] truncate text-[8px] leading-none text-[#8A8A86]">{event.meta}</p>
+            <p className="truncate text-[8.5px] leading-none text-[#111110]">{event.label}</p>
+            <p className="mt-[2px] truncate text-[7px] leading-none text-[#8A8A86]">{event.meta}</p>
           </div>
-          <span className="text-[8px] leading-none text-[#ADADAA] tabular-nums">{event.time}</span>
+          <span className="text-[7px] leading-none text-[#ADADAA] tabular-nums">{event.time}</span>
         </div>
       ))}
     </div>
