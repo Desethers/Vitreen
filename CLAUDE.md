@@ -8,6 +8,14 @@ Ce fichier est lu à chaque session. Il sert de mémoire stable du projet : posi
 
 Every gallery develops its own way of working — across artworks, publishing, collector relationships and internal coordination. Vitreen helps connect these fragmented activities into a more coherent working environment without forcing galleries into rigid software workflows.
 
+### Pitch de vente
+
+Vitreen aide les galeries d’art à faire circuler leurs œuvres plus rapidement et plus simplement auprès de leurs collectionneurs.
+
+Concrètement, on connecte les archives, inventaires ou bases de données existantes de la galerie, puis on transforme ces œuvres en matériel collector prêt à être partagé : viewing rooms, sélections privées, PDFs, pages web ou échanges WhatsApp.
+
+L’idée n’est pas de remplacer les habitudes de travail des galeries avec une nouvelle plateforme lourde, mais plutôt de construire une couche opérationnelle discrète autour de leurs outils existants pour fluidifier la diffusion des œuvres et les conversations de vente.
+
 ### 4 piliers
 
 **1. Artworks & Archives**

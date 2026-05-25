@@ -248,16 +248,16 @@ export const translations = {
         "Un même artwork source alimente les pages, les sélections privées et les demandes.",
       cards: [
         {
-          title: "Publishing Workspace",
-          desc: "Transformez les données d’œuvres en pages, expositions, viewing rooms, PDFs et emails collectionneurs.",
+          title: "Artwork Library",
+          desc: "Structurez œuvres, images, documents et historiques depuis les systèmes que votre galerie utilise déjà.",
         },
         {
-          title: "Private Selections",
-          desc: "Préparez des sélections adaptées pour collectionneurs, advisors ou previews de foires.",
+          title: "Private Sharing",
+          desc: "Préparez les œuvres pour sites, viewing rooms, PDFs et partages privés sans ressaisir les mêmes informations.",
         },
         {
-          title: "Inquiry Layer",
-          desc: "Rattachez l’intérêt collectionneur aux œuvres, viewing rooms et sélections privées sans changer vos outils clients.",
+          title: "Sales Continuity",
+          desc: "Gardez demandes, intérêt et relances reliés aux bonnes œuvres pour poursuivre les conversations avec contexte.",
         },
       ],
     },
@@ -890,16 +890,16 @@ export const translations = {
         "One artwork source feeds pages, private selections and inquiries.",
       cards: [
         {
-          title: "Publishing Workspace",
-          desc: "Turn artwork data into website pages, exhibitions, viewing rooms, PDFs and collector emails.",
+          title: "Artwork Library",
+          desc: "Structure artworks, images, documents and history from the systems your gallery already uses.",
         },
         {
-          title: "Private Selections",
-          desc: "Prepare tailored selections for collectors, advisors or fair previews.",
+          title: "Private Sharing",
+          desc: "Prepare artworks for websites, viewing rooms, PDFs and private sharing without re-entering the same information.",
         },
         {
-          title: "Inquiry Layer",
-          desc: "Attach collector interest to artworks, viewing rooms and private selections without changing your client tools.",
+          title: "Sales Continuity",
+          desc: "Keep inquiries, interest and follow-up connected to the right artworks so conversations continue with context.",
         },
       ],
     },
