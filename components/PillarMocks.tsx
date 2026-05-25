@@ -227,22 +227,35 @@ function ConnectMock() {
 const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
 
 /* ── Real app icons ── */
+/* Modern Outlook (Fluent 2022+): layered blue envelope + purple folder accent
+   + stylized white "O" on the left face. */
 function AppOutlook() {
   return (
-    <div
-      className="relative h-[9px] w-[9px] flex-shrink-0 overflow-hidden rounded-[2.5px]"
-      style={{ background: "linear-gradient(135deg, #1B9DE2 0%, #0364B8 100%)" }}
-    >
-      {/* Stylized O */}
-      <svg className="absolute inset-0" viewBox="0 0 24 24" fill="none">
-        <ellipse cx="9" cy="12" rx="3.8" ry="5" stroke="white" strokeWidth="2.2" />
-      </svg>
-      {/* Envelope flap accent on right */}
-      <div
-        className="absolute right-0 top-0 h-full w-[5px]"
-        style={{ background: "linear-gradient(180deg, #E8F4FB 0%, #BFDFF2 100%)" }}
-      />
-    </div>
+    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0">
+      <defs>
+        <linearGradient id="ot-blue-back" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#50B0F0" />
+          <stop offset="100%" stopColor="#1E78D5" />
+        </linearGradient>
+        <linearGradient id="ot-blue-front" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#1F78D6" />
+          <stop offset="100%" stopColor="#0F4E96" />
+        </linearGradient>
+        <linearGradient id="ot-purple" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#B0A3E0" />
+          <stop offset="100%" stopColor="#6D5BB5" />
+        </linearGradient>
+      </defs>
+      {/* Back face — light blue */}
+      <path d="M5 7 L19 4 L27 7 L27 25 L5 25 Z" fill="url(#ot-blue-back)" />
+      {/* Purple folder/flap accent (top-right) */}
+      <path d="M19 4 L27 7 L23 17 L15 14 Z" fill="url(#ot-purple)" />
+      {/* Front envelope face — darker blue */}
+      <path d="M3 11 L29 11 L29 28 L3 28 Z" fill="url(#ot-blue-front)" />
+      {/* White "O" — outer disc + inner cutout */}
+      <ellipse cx="11" cy="20" rx="5.2" ry="6" fill="white" />
+      <ellipse cx="11" cy="20" rx="2.4" ry="3.4" fill="url(#ot-blue-front)" />
+    </svg>
   );
 }
 
@@ -321,14 +334,9 @@ function DeployJourney() {
       <div className="rounded-[4px] bg-white px-1.5 py-1.5" style={hairline}>
         {/* Header row */}
         <div className="flex items-start gap-1.5">
-          {/* Outlook circular avatar */}
-          <div
-            className="flex h-[12px] w-[12px] flex-shrink-0 items-center justify-center rounded-full"
-            style={{ background: "linear-gradient(135deg, #1B9DE2 0%, #0364B8 100%)" }}
-          >
-            <svg width="7" height="7" viewBox="0 0 24 24" fill="none">
-              <ellipse cx="11" cy="12" rx="4" ry="5.2" stroke="white" strokeWidth="2.8" />
-            </svg>
+          {/* Outlook avatar */}
+          <div className="flex h-[12px] w-[12px] flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
+            <AppOutlook />
           </div>
           <div className="flex flex-1 flex-col leading-tight">
             <div className="flex items-baseline justify-between">
