@@ -9,10 +9,51 @@ import {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ─── Step 01 — Audit ─── */
-/* Clean composition: a research bar + three aligned cards.
-   Artwork · Collector · Status. */
+/* Agent timeline aesthetic: a quiet checklist of the audit happening in
+   real time — scanning inventory, reading records, generating a synthesis.
+   File icons (PDF, XLSX, DOC) carry recognition. */
 
-const auditCard = "rounded-[4px] border border-[#E8E8E6] bg-white";
+function FilePdf() {
+  return (
+    <div className="relative flex h-4 w-[14px] flex-shrink-0 items-end justify-center overflow-hidden rounded-[1.5px] bg-[#EA4335]">
+      <span className="mb-[1px] text-[4.5px] font-bold leading-none text-white">PDF</span>
+      <div className="absolute right-0 top-0 h-0 w-0 border-b-[4px] border-l-[4px] border-b-white/40 border-l-transparent" />
+    </div>
+  );
+}
+function FileXlsx() {
+  return (
+    <div className="relative flex h-4 w-[14px] flex-shrink-0 items-end justify-center overflow-hidden rounded-[1.5px] bg-[#107C41]">
+      <span className="mb-[1px] text-[5px] font-bold leading-none text-white">X</span>
+      <div className="absolute right-0 top-0 h-0 w-0 border-b-[4px] border-l-[4px] border-b-white/40 border-l-transparent" />
+    </div>
+  );
+}
+function FileDoc() {
+  return (
+    <div className="relative flex h-4 w-[14px] flex-shrink-0 items-end justify-center overflow-hidden rounded-[1.5px] bg-[#2A6DF4]">
+      <span className="mb-[1px] text-[4.5px] font-bold leading-none text-white">DOC</span>
+      <div className="absolute right-0 top-0 h-0 w-0 border-b-[4px] border-l-[4px] border-b-white/40 border-l-transparent" />
+    </div>
+  );
+}
+
+function CheckDot() {
+  return (
+    <div className="flex h-[14px] w-[14px] flex-shrink-0 items-center justify-center rounded-full bg-[#111110]">
+      <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 6.5 5 8.5 9 4" />
+      </svg>
+    </div>
+  );
+}
+function PendingDot() {
+  return (
+    <div className="flex h-[14px] w-[14px] flex-shrink-0 items-center justify-center rounded-full border border-[#E8E8E6] bg-white">
+      <span className="block h-[3px] w-[3px] rounded-full bg-[#ADADAA]" />
+    </div>
+  );
+}
 
 function AuditMock() {
   return (
@@ -23,92 +64,57 @@ function AuditMock() {
       transition={{ duration: 0.5, ease }}
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      <div className="absolute inset-0 flex flex-col items-stretch justify-center gap-3 px-6">
-        {/* Search / research bar */}
-        <div className="flex items-center gap-2 rounded-[4px] border border-[#E8E8E6] bg-white px-3 py-2">
-          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="#6B6A67" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="7" cy="7" r="5" />
-            <path d="m14 14-3-3" />
-          </svg>
-          <span className="text-[9px] text-[#111110]">Warhol</span>
-          <span className="h-[10px] w-px bg-[#E8E8E6]" />
-          <span className="text-[9px] text-[#ADADAA]">Search artworks, collectors, exhibitions…</span>
-          <span className="ml-auto rounded-[2px] border border-[#E8E8E6] px-1 py-[1px] text-[7px] font-mono text-[#6B6A67]">
-            ⌘K
-          </span>
+      <div className="absolute inset-0 flex flex-col justify-center px-10">
+        {/* Step 1 — Scanned inventory */}
+        <div className="flex items-start gap-3">
+          <div className="flex flex-col items-center">
+            <CheckDot />
+            <span className="mt-1 block h-3 w-px bg-[#E8E8E6]" />
+          </div>
+          <div className="flex items-center gap-2 pt-[1px]">
+            <span className="text-[11px] font-semibold leading-none text-[#111110]">
+              Scanned inventory
+            </span>
+            <svg width="11" height="10" viewBox="0 0 16 14" fill="none" stroke="#ADADAA" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <ellipse cx="8" cy="3" rx="6" ry="1.5" />
+              <path d="M2 3 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V3" />
+              <path d="M2 7 v4 c0 .8 2.7 1.5 6 1.5 s6 -.7 6 -1.5 V7" />
+            </svg>
+            <span className="text-[11px] leading-none text-[#ADADAA]">Vitreen Gallery</span>
+          </div>
         </div>
 
-        {/* Three aligned cards */}
-        <div className="grid grid-cols-3 gap-3">
-          {/* ── Card 1 — Artwork ─────────────────────── */}
-          <div className={`${auditCard} flex flex-col overflow-hidden`}>
-            {/* Thumb */}
-            <div className="relative h-[88px] w-full overflow-hidden bg-gradient-to-br from-[#D4C5B0] via-[#B8A48A] to-[#8A7560]">
-              <div className="absolute left-[18%] top-[14%] h-[55%] w-[42%] rounded-[40%] bg-[#3A2F25]/70 blur-[1px]" />
-              <div className="absolute bottom-[10%] right-[12%] h-[18%] w-[40%] bg-[#5B4A3A]/55" />
-              <div className="absolute left-[8%] bottom-[8%] h-[2px] w-[30%] bg-[#EAD9BF]/60" />
-            </div>
-            <div className="flex flex-col gap-[2px] px-2 py-2">
-              <span className="font-mono text-[7px] text-[#ADADAA]">INV-2410-A</span>
-              <span className="text-[9px] leading-tight text-[#111110]">Andy Warhol</span>
-              <span className="text-[8px] italic leading-tight text-[#6B6A67]">Marilyn, 1967</span>
-              <span className="mt-1 text-[7.5px] text-[#111110]">91 × 91 cm</span>
-              <span className="text-[7.5px] text-[#6B6A67]">acrylic/silkscreen</span>
-            </div>
+        {/* Step 2 — Read records */}
+        <div className="mt-2 flex items-start gap-3">
+          <div className="flex flex-col items-center self-stretch">
+            <CheckDot />
+            <span className="mt-1 block w-px flex-1 bg-[#E8E8E6]" />
           </div>
-
-          {/* ── Card 2 — Collector ───────────────────── */}
-          <div className={`${auditCard} flex flex-col px-2 py-2.5`}>
+          <div className="flex flex-col gap-2 pb-3">
+            <span className="text-[11px] font-semibold leading-none text-[#111110]">
+              Read 3 records
+            </span>
             <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#111110]">
-                <span className="text-[10px] font-semibold tracking-wide text-white">MT</span>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className="text-[9px] text-[#111110]">M. Tanaka</span>
-                <span className="text-[7.5px] text-[#6B6A67]">Tokyo · Tier 1</span>
-              </div>
+              <FilePdf />
+              <span className="text-[10px] text-[#111110]">Andy Warhol — Marilyn, 1967</span>
             </div>
-            <div className="mt-2 flex flex-col gap-[2px] border-t border-[#E8E8E6] pt-2">
-              <div className="flex justify-between text-[7.5px]">
-                <span className="text-[#ADADAA]">Since</span>
-                <span className="text-[#111110]">2018</span>
-              </div>
-              <div className="flex justify-between text-[7.5px]">
-                <span className="text-[#ADADAA]">Last contact</span>
-                <span className="text-[#111110]">14:32</span>
-              </div>
-              <div className="flex justify-between text-[7.5px]">
-                <span className="text-[#ADADAA]">Channel</span>
-                <span className="text-[#111110]">WhatsApp</span>
-              </div>
-              <div className="flex justify-between text-[7.5px]">
-                <span className="text-[#ADADAA]">Owner</span>
-                <span className="text-[#111110]">Maria</span>
-              </div>
+            <div className="flex items-center gap-2">
+              <FileXlsx />
+              <span className="text-[10px] text-[#111110]">Inventory Q1 2026</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <FileDoc />
+              <span className="text-[10px] text-[#111110]">M. Tanaka — collector notes</span>
             </div>
           </div>
+        </div>
 
-          {/* ── Card 3 — Status / file ───────────────── */}
-          <div className={`${auditCard} flex flex-col px-2 py-2.5`}>
-            <div className="flex items-center gap-1.5">
-              <span className="block h-[6px] w-[6px] rounded-full bg-[#FEBC2E]" />
-              <span className="text-[8px] font-medium uppercase tracking-[0.14em] text-[#111110]">
-                Reserved
-              </span>
-            </div>
-            <span className="mt-1 text-[7.5px] text-[#6B6A67]">Hold until 06.06.26</span>
-
-            <div className="mt-2 flex flex-col gap-[3px] border-t border-[#E8E8E6] pt-2">
-              <span className="text-[6.5px] uppercase tracking-[0.16em] text-[#ADADAA]">File</span>
-              <span className="font-mono text-[7px] text-[#111110]">WARHOL_1967_FINAL.tiff</span>
-              <span className="font-mono text-[7px] text-[#ADADAA]">/Vol/Gallery_2024/Warhol/</span>
-            </div>
-
-            <div className="mt-2 flex flex-col gap-[3px] border-t border-[#E8E8E6] pt-2">
-              <span className="text-[6.5px] uppercase tracking-[0.16em] text-[#ADADAA]">Show</span>
-              <span className="font-mono text-[7.5px] text-[#111110]">EXH-005 · Basel ’26</span>
-            </div>
-          </div>
+        {/* Step 3 — Generating */}
+        <div className="flex items-start gap-3">
+          <PendingDot />
+          <span className="pt-[1px] text-[11px] leading-none text-[#ADADAA]">
+            Generating audit
+          </span>
         </div>
       </div>
     </motion.div>
