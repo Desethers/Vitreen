@@ -76,25 +76,76 @@ export function StepTwoSharingFlow() {
           border: "0.5px solid #E3E3DF",
         }}>
         <div
-          className="relative flex-shrink-0 overflow-hidden bg-[#111110]"
-          style={{ flexBasis: "62%" }}
+          className="relative flex-shrink-0 overflow-hidden"
+          style={{ flexBasis: "62%", background: "#FCFCFB" }}
         >
-          {/* Real artwork photo, cropped via object-cover */}
-          <img
-            src="/artworks/painting-04.jpg"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: "center 35%" }}
-            loading="lazy"
+          {/* Wall — slight gradient + ambient occlusion */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, #FBFAF8 0%, #F6F5F2 70%, #ECEBE7 100%)",
+            }}
           />
-          {/* Subtle vignette around the crop */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0)_55%,rgba(0,0,0,0.18)_100%)]" />
+          {/* Painting on the wall — centered */}
+          <div
+            className="absolute"
+            style={{
+              top: "14%",
+              left: "26%",
+              width: "48%",
+              height: "60%",
+              background: "linear-gradient(160deg, #C9D2EE 0%, #B8C3E6 100%)",
+              boxShadow:
+                "0 0.4px 0.6px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.10)",
+            }}
+          />
+          {/* Floor strip */}
+          <div
+            className="absolute inset-x-0 bottom-0"
+            style={{
+              height: "18%",
+              background:
+                "linear-gradient(180deg, #B8B5AE 0%, #A6A39C 55%, #908D86 100%)",
+            }}
+          />
+          {/* Floor reflection of painting */}
+          <div
+            className="absolute"
+            style={{
+              bottom: "12%",
+              left: "26%",
+              width: "48%",
+              height: "5%",
+              background:
+                "linear-gradient(180deg, rgba(184,195,230,0.45) 0%, rgba(184,195,230,0) 100%)",
+              filter: "blur(0.3px)",
+            }}
+          />
+          {/* Skirting line between wall and floor */}
+          <div
+            className="absolute inset-x-0"
+            style={{
+              bottom: "18%",
+              height: "0.3px",
+              background: "rgba(0,0,0,0.08)",
+            }}
+          />
         </div>
-        <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
-          <span className="truncate text-[5.5px] font-medium leading-tight text-[#111110]">Jean Doig</span>
-          <span className="truncate text-[5px] italic leading-tight text-[#6B6A67]">Untitled, 2024</span>
-          <span className="truncate text-[4.5px] leading-tight text-[#ADADAA]">Oil on canvas · 120 × 90 cm</span>
+        <div className="flex flex-1 flex-col gap-[1px] px-1.5 pt-[2px] pb-[2px]">
+          <span className="truncate text-[4.5px] leading-tight text-[#6B6A67]">Sacha Elron</span>
+          <span className="truncate text-[5.5px] leading-tight text-[#111110]">
+            <span className="font-semibold">Dawn Study No. 7</span>
+            <span className="text-[#ADADAA]">, 2023</span>
+          </span>
+          <div className="mt-[1px] flex justify-end">
+            <span
+              className="rounded-full px-[3px] py-[0.5px] text-[3.5px] leading-none text-[#1A8F4B]"
+              style={{ border: "0.3px solid #1A8F4B" }}
+            >
+              Available
+            </span>
+          </div>
         </div>
       </div>
       {rightIcons.map((icon) => (
