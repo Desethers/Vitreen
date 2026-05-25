@@ -133,8 +133,8 @@ function AuditMock() {
       </div>
 
       {/* ── Foreground: Outlook mail ── */}
-      <div className="absolute" style={{ bottom: 24, right: 24, width: 248 }}>
-        <div className="overflow-hidden rounded-[6px] border border-[#E8E8E6] bg-white shadow-[0_14px_32px_rgba(0,0,0,0.08)]">
+      <div className="absolute" style={{ bottom: 8, right: 24, width: 248 }}>
+        <div className="overflow-hidden rounded-[6px] border border-[#E8E8E6] bg-white">
           {/* Outlook title bar */}
           <div className="flex items-center gap-1.5 bg-[#0078D4] px-2.5 py-[6px]">
             <div className="flex h-3.5 w-3.5 items-center justify-center rounded-[2px] bg-white">
