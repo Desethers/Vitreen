@@ -29,7 +29,7 @@ function escapeHtml(value: string) {
 }
 
 const OVR_FROM_FORMAT_HINT =
-  'Dans Vercel, la variable OVR_EMAIL_FROM doit être soit une seule adresse (ex. noreply@viewingroom.vitreen.art), soit « Nom <adresse@domaine> » avec des chevrons < > ASCII (pas « », pas &lt;…&gt;), sans retour à la ligne.'
+  'In Vercel, the OVR_EMAIL_FROM variable must be either a single address (for example noreply.com), or "Name <address@domain>" with ASCII angle brackets < >, no smart quotes, no &lt;…&gt;, and no line breaks.'
 
 /** Valide / normalise l’expéditeur attendu par Resend (`email@x` ou `Name <email@x>`). */
 function normalizeResendFrom(raw: string): { ok: true; from: string } | { ok: false } {
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
     const recipientEmail = body.recipientEmail?.trim()
     const shareUrl = body.shareUrl?.trim()
     const recipientName = body.recipientName?.trim() || ''
-    const galleryName = body.galleryName?.trim() || 'Vitreen'
+    const galleryName = body.galleryName?.trim() || 'Viewing Room Studio'
     const introText = body.introText?.trim() || ''
 
     if (!recipientEmail || !recipientEmail.includes('@')) {
@@ -125,10 +125,10 @@ export async function POST(req: NextRequest) {
 
 ${introText ? `${introText}
 
-` : ''}Voir la viewing room :
+` : ''}View the viewing room:
 ${shareUrl}${footLines ? `\n\n${footLines}` : ''}
 
-Designed with care by Vitreen`
+Designed with care by Viewing Room Studio`
 
       htmlBody = `
 <!DOCTYPE html>
@@ -147,7 +147,7 @@ Designed with care by Vitreen`
       <tr><td style="padding:40px 24px;">
         <p style="margin:0 0 12px;font-family:Arial,sans-serif;font-size:14px;color:#111111;">${escapeHtml(greeting)}</p>
         ${introText ? `<p style="margin:0 0 16px;font-family:Arial,sans-serif;font-size:14px;color:#333333;">${escapeHtml(introText).replaceAll('\n', '<br>')}</p>` : ''}
-        <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:13px;color:#555555;">Lien vers la viewing room :</p>
+        <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:13px;color:#555555;">Viewing room link:</p>
         <p style="margin:0;"><a href="${escapeHtml(shareUrl)}" style="font-family:Arial,sans-serif;font-size:13px;color:#111111;text-decoration:underline;word-break:break-all;">${escapeHtml(shareUrl)}</a></p>
       </td></tr>
       ${galleryFooterEmailSection(body.galleryName, body.galleryAddress, body.galleryContact)}
@@ -159,7 +159,7 @@ Designed with care by Vitreen`
     }
 
     const fromEnv = process.env.OVR_EMAIL_FROM?.trim()
-    const defaultFrom = 'Vitreen <onboarding@resend.dev>'
+    const defaultFrom = 'Viewing Room Studio <onboarding@resend.dev>'
     const usesResendSandboxSender =
       !fromEnv || /onboarding@resend\.dev/i.test(fromEnv)
 
@@ -167,7 +167,7 @@ Designed with care by Vitreen`
       return NextResponse.json(
         {
           error:
-            'Production : ajoute la variable Vercel OVR_EMAIL_FROM (ex. Vitreen <noreply@viewingroom.vitreen.art>) avec une adresse sur le domaine déjà vérifié dans Resend (resend.com/domains). Sans cela, Resend n’autorise pas l’envoi vers des destinataires externes.',
+            'Production: add the Vercel OVR_EMAIL_FROM variable (for example Viewing Room Studio <noreply.com>) with an address on a domain already verified in Resend (resend.com/domains). Without it, Resend cannot send to external recipients.',
         },
         { status: 503 },
       )
@@ -200,7 +200,7 @@ Designed with care by Vitreen`
         message = OVR_FROM_FORMAT_HINT
       } else if (/testing emails|only send|verify a domain|resend\.com\/domains/i.test(message)) {
         message =
-          'Resend est en mode test : n’envoie qu’à l’email de ton compte Resend, ou vérifie un domaine sur resend.com puis définis OVR_EMAIL_FROM avec une adresse @tondomaine.com.'
+          'Resend is in test mode: it can only send to your Resend account email, or verify a domain on resend.com and set OVR_EMAIL_FROM with an address @yourdomain.com.'
       }
       return NextResponse.json({ error: message }, { status: 500 })
     }

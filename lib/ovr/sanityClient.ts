@@ -6,13 +6,13 @@ const dataset = (process.env.NEXT_PUBLIC_SANITY_DATASET || 'production').trim()
 
 export function getSanityConfigError({ requireWriteToken = false }: { requireWriteToken?: boolean } = {}) {
   if (!projectId || projectId === 'placeholder') {
-    return 'Sanity non configuré : NEXT_PUBLIC_SANITY_PROJECT_ID est manquant.'
+    return 'Sanity is not configured: NEXT_PUBLIC_SANITY_PROJECT_ID is missing.'
   }
   if (!dataset || dataset === 'placeholder') {
-    return 'Sanity non configuré : NEXT_PUBLIC_SANITY_DATASET est manquant.'
+    return 'Sanity is not configured: NEXT_PUBLIC_SANITY_DATASET is missing.'
   }
   if (requireWriteToken && !process.env.SANITY_API_TOKEN) {
-    return 'Sanity non configuré : SANITY_API_TOKEN est manquant pour la publication.'
+    return 'Sanity is not configured: SANITY_API_TOKEN is missing for publishing.'
   }
   return null
 }

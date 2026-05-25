@@ -12,7 +12,12 @@ export async function POST(req: NextRequest) {
   const quota = await checkExportQuota()
   if (!quota.ok) return NextResponse.json({ error: quota.error }, { status: quota.status })
 
-  const { blocks, images, setup, inquireHref: rawInquire } = await req.json() as {
+  const contentType = req.headers.get('content-type') ?? ''
+  const body = contentType.includes('multipart/form-data') || contentType.includes('application/x-www-form-urlencoded')
+    ? JSON.parse(String((await req.formData()).get('payload') ?? '{}'))
+    : await req.json()
+
+  const { blocks, images, setup, inquireHref: rawInquire } = body as {
     blocks: Block[]
     images: ImageItem[]
     setup: VrSetup | null

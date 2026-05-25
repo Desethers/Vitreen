@@ -14,8 +14,8 @@ type Feature = { title: string; desc: string; icon: ReactNode };
 
 const features: Feature[] = [
   {
-    title: "Mise en page libre",
-    desc: "Pleine page, diptyque, triptyque, image avec texte ou citation. Réordonnez par glisser-déposer.",
+    title: "Free layout",
+    desc: "Full page, diptych, triptych, image with text or quote. Reorder everything by drag and drop.",
     icon: (
       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
         <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M21 7.5H3" />
@@ -24,7 +24,7 @@ const features: Feature[] = [
   },
   {
     title: "Export PDF",
-    desc: "Document haute résolution, aligné sur la preview — prêt à imprimer ou à archiver.",
+    desc: "High-resolution document aligned with the preview — ready to print or archive.",
     icon: (
       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
         <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
@@ -33,7 +33,7 @@ const features: Feature[] = [
   },
   {
     title: "Email HTML",
-    desc: "Rendu soigné dans les messageries (dont Gmail), lien « voir en ligne », légendes et appels à l’action.",
+    desc: "Polished rendering in email clients including Gmail, an online viewing link, captions, and calls to action.",
     icon: (
       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
         <path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.815a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -41,8 +41,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: "Lien privé",
-    desc: "Une URL par envoi : ouverture sur mobile ou bureau, sans pièces jointes lourdes.",
+    title: "Private link",
+    desc: "One URL per send: opens on mobile or desktop, with no heavy attachments.",
     icon: (
       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
         <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
@@ -50,8 +50,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: "Personnalisation",
-    desc: "Destinataire, accroche, introduction, pied de page : chaque room est pensée pour un contact.",
+    title: "Personalization",
+    desc: "Recipient, headline, introduction, footer: each room is tailored to one contact.",
     icon: (
       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
         <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -59,8 +59,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: "Parcours unique",
-    desc: "Import, composition, retouches — le tout dans le navigateur, sans changer d’outil.",
+    title: "Single workflow",
+    desc: "Import, compose, and refine — all in the browser, without switching tools.",
     icon: (
       <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
         <path d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
@@ -72,32 +72,32 @@ const features: Feature[] = [
 
 /** Lignes communes aux deux formules (même produit, facturation différente). */
 const planIncludes = [
-  "Envois illimités",
-  "Éditeur dans le navigateur : images, textes, citations, glisser-déposer",
-  "Exports PDF haute définition alignés sur la prévisualisation",
-  "Emails HTML soignés + lien privé « voir en ligne » pour vos contacts",
-  "Personnalisation par destinataire (accroche, intro, légendes, INQUIRE)",
+  "Unlimited sends",
+  "Browser editor: images, text, quotes, drag and drop",
+  "High-definition PDF exports aligned with the preview",
+  "Polished HTML emails + private online viewing links for your contacts",
+  "Personalization by recipient (headline, intro, captions, INQUIRE)",
 ] as const;
 
 const mockupStories = [
   {
     title: "Images",
-    desc: "Importez vos oeuvres et composez une sequence claire, prete a etre reorganisee dans la room.",
+    desc: "Import your artworks and compose a clear sequence, ready to reorganize in the room.",
     visual: "image",
   },
   {
     title: "Quotes",
-    desc: "Ajoutez une citation seule, puis associez-la a une oeuvre pour creer un bloc image + texte.",
+    desc: "Add a standalone quote, then pair it with an artwork to create an image + text block.",
     visual: "quote",
   },
   {
     title: "Layouts",
-    desc: "Transformez une selection en pleine page, diptyque, triptyque ou composition editoriale.",
+    desc: "Turn a selection into full page, diptych, triptych, or editorial layouts.",
     visual: "layout",
   },
   {
     title: "Exports",
-    desc: "La room finalisee devient un lien prive, un email HTML ou un PDF haute definition.",
+    desc: "The finalized room becomes a private link, an HTML email, or a high-definition PDF.",
     visual: "export",
   },
 ] as const;
@@ -111,7 +111,7 @@ export default function OvrLandingPage() {
   const [yearlyError, setYearlyError] = useState<string | null>(null);
 
   const goToEditor = () => {
-    window.location.href = "https://room.vitreen.art/editor";
+    window.location.href = "/viewing-room-studio/editor";
   };
 
   const handleSubscribe = async (billing: "monthly" | "yearly") => {
@@ -120,7 +120,7 @@ export default function OvrLandingPage() {
       return;
     }
     if (clerkEnabled && !isSignedIn) {
-      router.push(`/sign-in?redirect_url=${encodeURIComponent(pathname || "/room")}`);
+      router.push(`/viewing-room-studio/sign-in?redirect_url=${encodeURIComponent(pathname || "/viewing-room-studio/room")}`);
       return;
     }
     if (!stripeConfigured) {
@@ -141,7 +141,7 @@ export default function OvrLandingPage() {
         return;
       }
       if (billing === "yearly" && res.status === 400 && data.error === "yearly_not_configured") {
-        setYearlyError("Paiement annuel : ajoutez STRIPE_PRICE_ID_YEARLY sur le serveur.");
+        setYearlyError("Yearly billing: add STRIPE_PRICE_ID_YEARLY on the server.");
       }
       setLoadingCheckout(false);
     } catch {
@@ -157,11 +157,11 @@ export default function OvrLandingPage() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.06)]">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-6 px-5 py-4 md:px-8">
           <Link href="/" className="font-display text-[15px] tracking-tight text-[#111110]">
-            Vitreen
+            Viewing Room Studio
           </Link>
           <span className="hidden flex-1 text-center text-[13px] text-[#6B6A67] sm:block">Viewing Room Studio</span>
           <Button onClick={goToEditor} size="sm">
-            {isPro ? "Éditeur" : "Essayer gratuitement"}
+            {isPro ? "Editor" : "Try for free"}
           </Button>
         </div>
       </header>
@@ -175,18 +175,18 @@ export default function OvrLandingPage() {
             className="mx-auto max-w-2xl text-center"
           >
             <h1 className="font-display text-balance text-[2rem] font-normal leading-[1.12] tracking-tight text-[#111110] sm:text-[2.35rem] md:text-[2.65rem]">
-              Une viewing room online composée en quelques minutes
+              An online viewing room composed in minutes
             </h1>
             <p className="mx-auto mt-5 max-w-lg text-pretty text-[16px] leading-[1.65] text-[#6B6A67]">
-              Une présentation nette et cohérente : mise en page fluide, PDF haute définition, email HTML et lien privé
-              — sans refaire la mise en page à la main dans InDesign ou PowerPoint.
+              A clean, consistent presentation: fluid layout, high-definition PDF, HTML email, and private link
+              — without rebuilding layouts by hand in InDesign or PowerPoint.
             </p>
             <div className="mt-9 flex flex-col items-stretch justify-center gap-2.5 sm:flex-row sm:items-center sm:justify-center">
               <Button onClick={goToEditor} size="lg">
-                {isPro ? "Ouvrir l'éditeur" : "Essayer gratuitement"}
+                {isPro ? "Open editor" : "Try for free"}
               </Button>
               <Button href="/" variant="inverse" size="lg" className="bg-white">
-                Retour à Vitreen
+                Back to Viewing Room Studio
               </Button>
             </div>
           </motion.div>
@@ -239,7 +239,7 @@ export default function OvrLandingPage() {
                         className="h-full w-full object-cover opacity-75"
                       />
                       <div className="absolute bottom-12 left-8 right-8 rounded-sm bg-white/65 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-2">
-                        <p className="text-[11px] text-[#111110]">Image + citation</p>
+                        <p className="text-[11px] text-[#111110]">Image + quote</p>
                         <div className="mt-3 h-8 w-28 rounded-sm bg-white" />
                       </div>
                     </div>
@@ -271,8 +271,8 @@ export default function OvrLandingPage() {
       <section className="px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-xl text-left md:mx-0 md:max-w-lg">
-            <p className={sectionKicker}>Fonctionnalités</p>
-            <h2 className={sectionTitle}>Le nécessaire, sans surcharge</h2>
+            <p className={sectionKicker}>Features</p>
+            <h2 className={sectionTitle}>Everything you need, without the clutter</h2>
           </div>
 
           <ul className="mx-auto mt-14 max-w-3xl space-y-10 md:mt-16 md:space-y-12">
@@ -296,24 +296,24 @@ export default function OvrLandingPage() {
       <section className="px-5 py-16 md:px-8 md:py-24">
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <p className={sectionKicker}>Tarifs</p>
-            <h2 className={`${sectionTitle} mx-auto max-w-md`}>Mensuel ou annuel</h2>
+            <p className={sectionKicker}>Pricing</p>
+            <h2 className={`${sectionTitle} mx-auto max-w-md`}>Monthly or yearly</h2>
             <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-[#6B6A67]">
-              Rooms illimitées, exports et partage. Résiliable à tout moment.
+              Unlimited rooms, exports, and sharing. Cancel anytime.
             </p>
           </div>
 
           <div className="mx-auto mt-12 grid max-w-3xl gap-6 md:grid-cols-2 md:gap-8">
             <div className="flex h-full min-h-0 flex-col rounded-sm border border-black/[0.06] bg-white p-7 md:p-8">
-              <p className="text-[12px] font-medium text-[#6B6A67]">Mensuel</p>
+              <p className="text-[12px] font-medium text-[#6B6A67]">Monthly</p>
               <div className="mt-3 flex items-baseline gap-1.5">
                 <span className="font-display text-4xl text-[#111110]">19</span>
-                <span className="text-[15px] text-[#6B6A67]">€ / mois</span>
+                <span className="text-[15px] text-[#6B6A67]">€ / month</span>
               </div>
               <p className="mt-4 text-[14px] leading-relaxed text-[#6B6A67]">
-                Facturation flexible, adaptée aux envois ponctuels.
+                Flexible billing, suited to occasional sends.
               </p>
-              <ul className="mt-5 flex-1 space-y-2.5" aria-label="Inclus dans l’abonnement mensuel">
+              <ul className="mt-5 flex-1 space-y-2.5" aria-label="Included in the monthly plan">
                 {planIncludes.map((line) => (
                   <li key={line} className="flex gap-2.5 text-[13px] leading-snug text-[#454543]">
                     <svg
@@ -338,21 +338,21 @@ export default function OvrLandingPage() {
                 className="mt-8 w-full justify-center"
                 disabled={!!loadingCheckout}
               >
-                {loadingCheckout === "monthly" ? "Redirection…" : isPro ? "Ouvrir l'éditeur" : "S'abonner — 19 €/mois"}
+                {loadingCheckout === "monthly" ? "Redirecting…" : isPro ? "Open editor" : "Subscribe — €19/month"}
               </Button>
             </div>
 
             <div className="flex h-full min-h-0 flex-col rounded-sm bg-[#111110] p-7 text-white md:p-8">
-              <p className="text-[12px] font-medium text-white/65">Annuel</p>
+              <p className="text-[12px] font-medium text-white/65">Yearly</p>
               <div className="mt-3 flex items-baseline gap-1.5">
                 <span className="font-display text-4xl">110</span>
-                <span className="text-[15px] text-white/70">€ / an</span>
+                <span className="text-[15px] text-white/70">€ / year</span>
               </div>
-              <p className="mt-1 text-[13px] text-white/55">Environ 9,17 € / mois · ~52 % moins cher que 12 mois au tarif mensuel</p>
+              <p className="mt-1 text-[13px] text-white/55">Around €9.17 / month · ~52% cheaper than 12 months at the monthly rate</p>
               <p className="mt-4 text-[14px] leading-relaxed text-white/70">
-                Même accès, engagement annuel.
+                Same access, yearly commitment.
               </p>
-              <ul className="mt-5 flex-1 space-y-2.5" aria-label="Inclus dans l’abonnement annuel">
+              <ul className="mt-5 flex-1 space-y-2.5" aria-label="Included in the yearly plan">
                 {planIncludes.map((line) => (
                   <li key={line} className="flex gap-2.5 text-[13px] leading-snug text-white/85">
                     <svg
@@ -379,17 +379,17 @@ export default function OvrLandingPage() {
                 disabled={!!loadingCheckout}
               >
                 {loadingCheckout === "yearly"
-                  ? "Redirection…"
+                  ? "Redirecting…"
                   : isPro
-                    ? "Ouvrir l'éditeur"
-                    : "S'abonner — 110 €/an"}
+                    ? "Open editor"
+                    : "Subscribe — €110/year"}
               </Button>
               {yearlyError && <p className="mt-3 text-center text-[12px] text-amber-200/90">{yearlyError}</p>}
             </div>
           </div>
 
           <p className="mx-auto mt-8 max-w-md text-center text-[12px] text-[#ADADAA]">
-            Paiement sécurisé par Stripe
+            Secure payment by Stripe
           </p>
         </div>
       </section>
@@ -397,7 +397,7 @@ export default function OvrLandingPage() {
       <footer className="px-5 py-10 md:px-8">
         <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-4 text-[12px] text-[#ADADAA] sm:flex-row sm:items-center">
           <Link href="/" className="text-[#6B6A67] transition-colors hover:text-[#111110]">
-            Vitreen
+            Viewing Room Studio
           </Link>
           <p>Viewing Room Studio</p>
         </div>

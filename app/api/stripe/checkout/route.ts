@@ -1,10 +1,21 @@
-import { auth } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
-import Stripe from 'stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: '2026-04-22.dahlia' as const })
 
 export async function POST(req: Request) {
+  if (process.env.NEXT_PUBLIC_CLERK_ENABLED !== 'true') {
+    return NextResponse.json({ error: 'auth_not_configured' }, { status: 503 })
+  }
+
+  const stripeSecret = process.env.STRIPE_SECRET_KEY
+  const monthlyPriceId = process.env.STRIPE_PRICE_ID
+  if (!stripeSecret || !monthlyPriceId) {
+    return NextResponse.json({ error: 'stripe_not_configured' }, { status: 503 })
+  }
+
+  const [{ auth }, { default: Stripe }] = await Promise.all([
+    import('@clerk/nextjs/server'),
+    import('stripe'),
+  ])
+
   const { userId, sessionClaims } = await auth()
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
@@ -24,23 +35,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'yearly_not_configured' }, { status: 400 })
   }
 
-  const priceId = billing === 'yearly' && yearlyPriceId ? yearlyPriceId : process.env.STRIPE_PRICE_ID!
-
+  const stripe = new Stripe(stripeSecret, { apiVersion: '2026-04-22.dahlia' as const })
+  const priceId = billing === 'yearly' && yearlyPriceId ? yearlyPriceId : monthlyPriceId
   const email = (sessionClaims?.email as string) ?? undefined
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'http://localhost:3001'
 
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
     payment_method_types: ['card'],
     customer_email: email,
-    line_items: [
-      {
-        price: priceId,
-        quantity: 1,
-      },
-    ],
+    line_items: [{ price: priceId, quantity: 1 }],
     metadata: { clerkUserId: userId },
-    success_url: `https://room.vitreen.art/editor?subscribed=1`,
-    cancel_url: `https://vitreen.art/ovr`,
+    success_url: `${siteUrl}/editor?subscribed=1`,
+    cancel_url: `${siteUrl}/room`,
   })
 
   return NextResponse.json({ url: session.url })

@@ -1,12 +1,12 @@
 import type { Block } from './buildTypes'
 
 export const VR_CANVAS_TEXT_BODY_PLACEHOLDER =
-  'Ajoutez ici un texte d’accompagnement : présentez le contexte, les œuvres ou le fil narratif de ce viewing room.'
+  'Add accompanying text here: introduce the context, the works, or the narrative thread of this viewing room.'
 
 export const VR_CANVAS_QUOTE_BODY_PLACEHOLDER =
-  '« Une citation qui résume l’esprit de cette sélection — remplacez ce texte par la vôtre. »'
+  '“A quote that captures the spirit of this selection — replace this text with your own.”'
 
-export const VR_CANVAS_QUOTE_AUTHOR_PLACEHOLDER = 'Auteur ou source'
+export const VR_CANVAS_QUOTE_AUTHOR_PLACEHOLDER = 'Author or source'
 
 export function vrCanvasNewQuoteContent(kind: 'quote' | 'text'): Pick<Block, 'quoteText' | 'quoteAuthor'> {
   if (kind === 'text') {

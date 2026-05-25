@@ -77,7 +77,7 @@ function galleryFooterLinesHtml(galleryName: string, galleryAddress: string, gal
     .join('')
 }
 
-/** Bloc pied de page galerie + Vitreen (réutilisable si pas de doc Sanity). */
+/** Bloc pied de page galerie + Viewing Room Studio (réutilisable si pas de doc Sanity). */
 export function galleryFooterEmailSection(galleryName?: string, galleryAddress?: string, galleryContact?: string): string {
   const gn = normalizeText(galleryName)
   const ga = normalizeText(galleryAddress)
@@ -90,7 +90,7 @@ export function galleryFooterEmailSection(galleryName?: string, galleryAddress?:
   <tr><td style="border-top:1px solid #f1f5f9;padding:32px 24px 28px;text-align:center;background:#ffffff;">
     ${linesHtml}
     ${gap}
-    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#d4d4d4;">Designed with care by <span style="font-weight:600;color:#a3a3a3;">Vitreen</span></p>
+    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:11px;color:#d4d4d4;">Designed with care by <span style="font-weight:600;color:#a3a3a3;">Viewing Room Studio</span></p>
   </td></tr>
 </table>`
 }
@@ -171,7 +171,7 @@ function captionHtml(
   slot: PublishedSlot,
   showInquire: boolean | undefined,
   inquireHref: string,
-  _layout: 'split' | 'stackInquireRight' = 'split',
+  layout: 'split' | 'stackInquireRight' = 'split',
   /** Largeur explicite des légendes en colonnes étroites (évite les débordements Gmail). */
   columnInnerWidthPx?: number,
 ): string {
@@ -192,7 +192,7 @@ function captionHtml(
   const lineRows: string[] = []
   if (artist) {
     lineRows.push(
-      `<tr><td align="left" valign="top" style="${textBase}font-weight:400;">${escapeHtml(artist)}</td></tr>`,
+      `<tr><td align="left" valign="top" style="${textBase}font-weight:500 !important;">${escapeHtml(artist)}</td></tr>`,
     )
   }
   if (title || year) {
@@ -213,7 +213,8 @@ function captionHtml(
   }
 
   const inquireHrefSafe = inquireHref.trim() || '#'
-  const inquireBtn = `<a class="vr-inquire-hvr" href="${escapeHtml(inquireHrefSafe)}" style="display:inline-block;border:1px solid #111111;background-color:#ffffff;color:#111111;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;padding:8px 22px;text-decoration:none;line-height:1.2;mso-line-height-rule:exactly;">INQUIRE</a>`
+  const inquireBtn = `<a class="vr-inquire-hvr" href="${escapeHtml(inquireHrefSafe)}" style="display:inline-block;border:1px solid #111111;background-color:#ffffff;color:#111111;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 12px;text-decoration:none;line-height:1.2;mso-line-height-rule:exactly;">INQUIRE</a>`
+  const inquireTextLink = `<a href="${escapeHtml(inquireHrefSafe)}" style="display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.45;color:#111111;text-decoration:underline;text-underline-offset:3px;">Inquire</a>`
   /** Gmail : `align="right"` sur le td + lien inline-block est fragile ; table imbriquée `align="right"`. */
   const inquireBtnRight = `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="right" style="margin:0 0 0 auto;">
@@ -235,14 +236,29 @@ function captionHtml(
 
   if (!showInquire) {
     return `
-<table role="presentation" ${wrapWAttr} cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;${wrapStyleBase}">
+<table role="presentation" ${wrapWAttr} cellpadding="0" cellspacing="0" border="0" style="margin-top:0;${wrapStyleBase}">
   <tr><td valign="top" align="left" style="padding:0;word-wrap:break-word;">${linesTableHtml}</td></tr>
 </table>`
   }
 
-  // Une seule rangée (même chose pour `split` et `stackInquireRight`) : évite le double INQUIRE / décalages Gmail.
+  // En colonnes étroites, un lien texte est plus fiable qu'un bouton dans les clients mail mobiles.
+  if (layout === 'stackInquireRight') {
+    return `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:0;table-layout:fixed;width:100%;">
+  <tr>
+    <td valign="top" align="left" style="padding:0;word-wrap:break-word;">${lineRows.length ? linesTableHtml : '&nbsp;'}</td>
+  </tr>
+  <tr>
+    <td valign="top" align="left" style="padding:8px 0 0;text-align:left;mso-padding-alt:8px 0 0 0;">
+      ${inquireTextLink}
+    </td>
+  </tr>
+</table>`
+  }
+
+  // Image pleine largeur : conserve la mise en page horizontale texte | INQUIRE.
   return `
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;table-layout:fixed;width:100%;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:0;table-layout:fixed;width:100%;">
   <tr>
     <td valign="top" align="left" style="padding:0;padding-right:12px;word-wrap:break-word;">${lineRows.length ? linesTableHtml : '&nbsp;'}</td>
     <td width="140" valign="top" align="right" nowrap="nowrap" style="width:140px;max-width:140px;vertical-align:top;padding:0;text-align:right;mso-padding-alt:0;">
@@ -281,7 +297,7 @@ function worksPlainTextAppendix(vr: PublishedVR): string {
     }
   }
   if (!lines.length) return ''
-  return `\n\nLégendes\n${lines.join('\n')}`
+  return `\n\nCaptions\n${lines.join('\n')}`
 }
 
 function imgNatural(slot: PublishedSlot): string {
@@ -344,7 +360,7 @@ function pairBlockHtml(a: PublishedSlot, b: PublishedSlot, showInquire: boolean,
 <td width="50%" valign="top" style="width:50%;vertical-align:top;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
     <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, EMAIL_IMAGE_CROP_PAIR, Math.round((EMAIL_IMAGE_CROP_PAIR * 3) / 4))}</td></tr>
-    <tr><td align="left" width="100%" style="padding:12px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+    <tr><td align="left" width="100%" style="padding:8px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
   return `
@@ -366,7 +382,7 @@ function trioThreeColCell(slot: PublishedSlot, showInquire: boolean, inquireHref
 <td width="33%" valign="top" style="width:33%;vertical-align:top;${pad};">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
     <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, cropW, cropH)}</td></tr>
-    <tr><td align="left" width="100%" style="padding:12px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+    <tr><td align="left" width="100%" style="padding:8px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
 }
@@ -376,7 +392,7 @@ function trioTwoColCell(slot: PublishedSlot, showInquire: boolean, inquireHref: 
 <td width="50%" valign="top" style="width:50%;vertical-align:top;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
     <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(slot, EMAIL_IMAGE_CROP_PAIR, Math.round((EMAIL_IMAGE_CROP_PAIR * 3) / 4))}</td></tr>
-    <tr><td align="left" width="100%" style="padding:12px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
+    <tr><td align="left" width="100%" style="padding:8px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'stackInquireRight')}</td></tr>
   </table>
 </td>`
 }
@@ -385,7 +401,7 @@ function slotPublishedNatural(slot: PublishedSlot, showInquire: boolean | undefi
   return `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 56px auto;table-layout:fixed;width:100%;">
   <tr><td style="padding:0;">${imgNatural(slot)}</td></tr>
-  <tr><td width="100%" style="padding:14px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'split')}</td></tr>
+  <tr><td width="100%" style="padding:8px 0 0;width:100%;">${captionHtml(slot, showInquire, inquireHref, 'split')}</td></tr>
 </table>`
 }
 
@@ -458,7 +474,7 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
     const imgSide = s
       ? `<table role="presentation" width="100%" align="center" cellpadding="0" cellspacing="0" border="0" style="width:100%;table-layout:fixed;margin:0 auto;">
   <tr><td align="center" style="padding:0;line-height:0;font-size:0;">${imgCoverCellColumnFluid(s, EMAIL_IMAGE_CROP_SIDE, Math.round((EMAIL_IMAGE_CROP_SIDE * 3) / 4))}</td></tr>
-  <tr><td align="left" width="100%" style="padding:12px 0 0;width:100%;">${captionHtml(s, si, inquireHref, 'stackInquireRight')}</td></tr>
+  <tr><td align="left" width="100%" style="padding:8px 0 0;width:100%;">${captionHtml(s, si, inquireHref, 'stackInquireRight')}</td></tr>
 </table>`
       : ''
     const txt = block.quoteText ? `<p style="${textCls}">${escapeHtml(block.quoteText)}</p>` : ''
@@ -504,7 +520,7 @@ function blockHtml(block: PublishedBlock, inquireHref: string): string {
       : `<div style="background:#f4f4f4;width:100%;min-height:200px;"></div>`
     const meta = [
       artist
-        ? `<p style="margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#888888;">${escapeHtml(artist)}</p>`
+        ? `<p style="margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#888888;font-weight:500 !important;">${escapeHtml(artist)}</p>`
         : '',
       title || year
         ? `<p style="margin:0 0 8px;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-style:italic;color:#444444;">${title ? `<em>${escapeHtml(title)}</em>` : ''}${year ? `${title ? ', b. ' : ''}${escapeHtml(year)}` : ''}</p>`
@@ -542,7 +558,7 @@ export function buildPlainTextFallback(vr: PublishedVR, shareUrl: string, recipi
     .filter(Boolean)
     .join('\n')
   const footBlock = foot ? `\n\n${foot}` : ''
-  return `${greeting}${intro}\n\nVoir la viewing room en ligne :\n${shareUrl}${legends}${footBlock}\n\nDesigned with care by Vitreen`
+  return `${greeting}${intro}\n\nView the viewing room online:\n${shareUrl}${legends}${footBlock}\n\nDesigned with care by Viewing Room Studio`
 }
 
 /** Corps HTML — mise en page proche du preview / page publique (tables + styles inline pour clients mail). */
@@ -573,7 +589,7 @@ export function buildViewingRoomEmailHtml(vr: PublishedVR, shareUrl: string): st
   const footer = galleryFooterEmailSection(galleryName, galleryAddress, galleryContact)
 
   /** Lien discret en haut à droite (flèche renforcée au survol). */
-  const headerRoomLink = `<a class="vr-room-discrete" href="${escapeHtml(shareUrl)}" target="_blank" rel="noopener noreferrer" title="Ouvrir la viewing room" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#64748b;text-decoration:none;letter-spacing:0.02em;">Voir en ligne<span class="vr-room-discrete__arr" aria-hidden="true" style="display:inline-block;margin-left:5px;font-size:11px;line-height:1;">↗</span></a>`
+  const headerRoomLink = `<a class="vr-room-discrete" href="${escapeHtml(shareUrl)}" target="_blank" rel="noopener noreferrer" title="Open the viewing room" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#64748b;text-decoration:none;letter-spacing:0.02em;">View online<span class="vr-room-discrete__arr" aria-hidden="true" style="display:inline-block;margin-left:5px;font-size:11px;line-height:1;">↗</span></a>`
 
   const headerMain = `
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;">

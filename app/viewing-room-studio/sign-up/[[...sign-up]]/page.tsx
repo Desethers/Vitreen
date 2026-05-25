@@ -15,8 +15,8 @@ export default async function SignUpPage({
     <div className="min-h-screen flex items-center justify-center bg-[#F5F5F3]">
       <SignUp
         routing="path"
-        path="/sign-up"
-        forceRedirectUrl={redirect_url ?? 'https://room.vitreen.art/editor'}
+        path="/viewing-room-studio/sign-up"
+        forceRedirectUrl={redirect_url ?? '/viewing-room-studio/editor'}
       />
     </div>
   )
