@@ -21,7 +21,6 @@ function AuditMock() {
       transition={{ duration: 0.38, ease }}
       className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
     >
-      <p className="mb-4 text-[11px] uppercase tracking-[0.1em] text-[#ADADAA]">Audit</p>
       <div className="flex flex-wrap gap-2">
         {auditTags.map((tag) => (
           <span
@@ -50,7 +49,6 @@ function ConnectMock() {
       transition={{ duration: 0.38, ease }}
       className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
     >
-      <p className="mb-4 text-[11px] uppercase tracking-[0.1em] text-[#ADADAA]">Connect &amp; build</p>
       <StepTwoSharingFlow />
       <p className="mt-4 text-[13px] leading-[1.6] text-[#425466]">
         Vitreen connects artwork files, selections and collector communication into one flow.
@@ -69,7 +67,6 @@ function DeployMock() {
       transition={{ duration: 0.38, ease }}
       className="flex h-full w-full flex-col justify-center rounded-lg bg-white px-6 py-6"
     >
-      <p className="mb-4 text-[11px] uppercase tracking-[0.1em] text-[#ADADAA]">Deploy</p>
       <DeployCardStack lang="en" />
     </motion.div>
   );
