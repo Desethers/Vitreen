@@ -9,54 +9,133 @@ import {
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /* ─── Step 01 — Audit ─── */
-const AUDIT_CARDS = [
-  {
-    label: "CRM",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="14" height="14" rx="2" />
-        <path d="M3 15l5-5 4 4 3-3 6 6" />
-      </svg>
-    ),
-  },
-  {
-    label: "Email",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="m2 7 10 7 10-7" />
-      </svg>
-    ),
-  },
-  {
-    label: "Collector",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-      </svg>
-    ),
-  },
-  {
-    label: "Spreadsheet",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="14" height="14" rx="2" />
-        <path d="M3 9h18M3 15h18M9 3v18" />
-      </svg>
-    ),
-  },
-  {
-    label: "PDF",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-        <polyline points="14 2 14 8 20 8" />
-        <line x1="8" y1="13" x2="16" y2="13" />
-        <line x1="8" y1="17" x2="13" y2="17" />
-      </svg>
-    ),
-  },
+/* Mixed systems: micro-fragments of the real tools galleries currently juggle.
+   No standardization — that is precisely the story. */
+
+const CARD_W = 90;
+const CARD_H = 76;
+const CARD_GAP = 20;
+
+function FinderFragment() {
+  return (
+    <div className="flex h-full w-full flex-col bg-white">
+      {/* Title bar */}
+      <div className="flex items-center gap-[3px] border-b border-[#E8E8E6] bg-[#F5F5F3] px-1.5 py-[3px]">
+        <span className="block h-[5px] w-[5px] rounded-full bg-[#FF5F57]" />
+        <span className="block h-[5px] w-[5px] rounded-full bg-[#FEBC2E]" />
+        <span className="block h-[5px] w-[5px] rounded-full bg-[#28C840]" />
+      </div>
+      {/* File rows */}
+      <div className="flex flex-1 flex-col justify-center gap-[5px] px-2 py-1.5">
+        {[22, 16, 20].map((w, i) => (
+          <div key={i} className="flex items-center gap-1.5">
+            <svg width="9" height="7" viewBox="0 0 16 12" fill="#9CC8FF" stroke="#5B9BD5" strokeWidth="0.5">
+              <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
+            </svg>
+            <span className="block h-[2px] rounded-full bg-[#E8E8E6]" style={{ width: w }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function WhatsappFragment() {
+  return (
+    <div className="flex h-full w-full flex-col justify-center gap-[3px] bg-[#ECE5DD] px-1.5 py-2">
+      <div className="self-start rounded-[3px] bg-white px-1.5 py-[3px] shadow-[0_0_1px_rgba(0,0,0,0.1)]">
+        <span className="block h-[2px] w-9 rounded-full bg-[#6B6A67]/40" />
+      </div>
+      <div className="self-end rounded-[3px] bg-[#DCF8C6] px-1.5 py-[3px] shadow-[0_0_1px_rgba(0,0,0,0.1)]">
+        <span className="mb-[2px] block h-[2px] w-8 rounded-full bg-[#6B6A67]/50" />
+        <div className="flex items-center justify-end gap-[1px]">
+          <span className="text-[5px] text-[#6B6A67]/60">14:32</span>
+          <svg width="9" height="5" viewBox="0 0 12 6" fill="none" stroke="#34B7F1" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m1 3 2 2 4-4" />
+            <path d="m5 5 4-4" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExcelFragment() {
+  return (
+    <div className="flex h-full w-full flex-col bg-white">
+      {/* Column header */}
+      <div className="flex border-b border-[#E8E8E6] bg-[#F5F5F3]">
+        {["A", "B", "C"].map((c) => (
+          <span
+            key={c}
+            className="flex-1 border-r border-[#E8E8E6] py-[2px] text-center text-[5px] font-medium text-[#6B6A67] last:border-0"
+          >
+            {c}
+          </span>
+        ))}
+      </div>
+      {/* Cells */}
+      <div className="flex flex-1 flex-col">
+        {[0, 1, 2].map((r) => (
+          <div key={r} className="flex flex-1 border-b border-[#E8E8E6] last:border-0">
+            {[12, 8, 14].map((w, c) => (
+              <div
+                key={c}
+                className="flex flex-1 items-center border-r border-[#E8E8E6] px-1 last:border-0"
+              >
+                <span className="block h-[1.5px] rounded-full bg-[#E8E8E6]" style={{ width: w }} />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function NotesFragment() {
+  return (
+    <div className="flex h-full w-full flex-col gap-1 bg-[#FFFDF4] px-2 py-2">
+      <span className="block h-[3px] w-12 rounded-full bg-[#111110]" />
+      <span className="block h-[2px] w-8 rounded-full bg-[#6B6A67]/40" />
+      <div className="mt-0.5 flex flex-col gap-[3px]">
+        {[18, 14, 20].map((w, i) => (
+          <div key={i} className="flex items-center gap-1">
+            <span className="block h-[3px] w-[3px] rounded-full bg-[#FEBC2E]" />
+            <span className="block h-[2px] rounded-full bg-[#E8E8E6]" style={{ width: w }} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GmailFragment() {
+  return (
+    <div className="flex h-full w-full flex-col gap-[3px] bg-white px-1.5 py-1.5">
+      {/* Header: envelope + sender */}
+      <div className="flex items-center gap-1">
+        <svg width="11" height="8" viewBox="0 0 16 11" fill="white" stroke="#EA4335" strokeWidth="0.7" strokeLinejoin="round">
+          <path d="M1 2 v7 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V2 L8 7 Z" />
+          <path d="M1 2 L8 7 L15 2" fill="none" />
+        </svg>
+        <span className="block h-[2px] flex-1 rounded-full bg-[#111110]" />
+      </div>
+      {/* Subject */}
+      <span className="block h-[2px] w-14 rounded-full bg-[#6B6A67]/60" />
+      {/* Preview */}
+      <span className="block h-[2px] w-12 rounded-full bg-[#E8E8E6]" />
+      <span className="block h-[2px] w-10 rounded-full bg-[#E8E8E6]" />
+    </div>
+  );
+}
+
+const AUDIT_FRAGMENTS: { label: string; render: () => React.ReactNode }[] = [
+  { label: "Finder", render: FinderFragment },
+  { label: "WhatsApp", render: WhatsappFragment },
+  { label: "Excel", render: ExcelFragment },
+  { label: "Notes", render: NotesFragment },
+  { label: "Gmail", render: GmailFragment },
 ];
 
 function AuditMock() {
@@ -68,38 +147,41 @@ function AuditMock() {
       transition={{ duration: 0.5, ease }}
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      {/* Cards row */}
-      <div className="absolute inset-0 flex items-center justify-center px-8">
-        <div className="relative flex gap-5">
-          {AUDIT_CARDS.map((card, i) => (
-            <div
-              key={card.label}
-              className="flex flex-col items-center justify-center gap-3 rounded-[4px] border border-[#E8E8E6] bg-white"
-              style={{
-                width: 72,
-                height: 84,
-                marginTop: i % 2 === 0 ? 0 : 60,
-                transform: `rotate(${i % 2 === 0 ? -3 : 3}deg)`,
-              }}
-            >
-              <span className="text-[#111110]">{card.icon}</span>
-              <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110]">
-                {card.label}
-              </span>
-            </div>
-          ))}
+      <div className="absolute inset-0 flex items-center justify-center px-6">
+        <div className="relative flex" style={{ gap: CARD_GAP }}>
+          {AUDIT_FRAGMENTS.map((frag, i) => {
+            const Render = frag.render;
+            return (
+              <div
+                key={frag.label}
+                className="flex flex-col items-center gap-2"
+                style={{
+                  marginTop: i % 2 === 0 ? 0 : 60,
+                  transform: `rotate(${i % 2 === 0 ? -3 : 3}deg)`,
+                }}
+              >
+                <div
+                  className="overflow-hidden rounded-[4px] border border-[#E8E8E6] bg-white"
+                  style={{ width: CARD_W, height: CARD_H }}
+                >
+                  <Render />
+                </div>
+                <span className="text-[7.5px] uppercase tracking-[0.1em] text-[#111110]">
+                  {frag.label}
+                </span>
+              </div>
+            );
+          })}
 
           {/* Scanner */}
           <motion.div
             className="pointer-events-none absolute inset-y-0 flex items-stretch"
-            style={{ width: 32, x: -32 }}
-            animate={{ x: [-(32), (72 + 12) * AUDIT_CARDS.length] }}
-            transition={{ duration: 2.2, repeat: Infinity, repeatDelay: 0.6, ease: "linear" }}
+            style={{ width: 36, x: -36 }}
+            animate={{ x: [-(36), (CARD_W + CARD_GAP) * AUDIT_FRAGMENTS.length] }}
+            transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 0.6, ease: "linear" }}
             aria-hidden="true"
           >
-            {/* Glow */}
             <div className="flex-1 bg-gradient-to-r from-transparent via-[#111110]/8 to-transparent" />
-            {/* Sharp line */}
             <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-[#111110] opacity-30" />
           </motion.div>
         </div>
