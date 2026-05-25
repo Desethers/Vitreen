@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExhibitionPageMock } from "./Showcase";
+import { ExhibitionPageMock } from "./showcase/ExhibitionPageMock";
 import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
