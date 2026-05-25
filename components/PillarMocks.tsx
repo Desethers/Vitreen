@@ -2,43 +2,29 @@
 
 import { motion } from "framer-motion";
 import { StepTwoSharingFlow } from "@/components/ProcessFlow";
+import { FileIcon } from "@/components/icons/FileIcon";
+import { AppIcon } from "@/components/icons/AppIcon";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-/* ─── Step 01 — Audit ─── */
-/* Agent timeline aesthetic: a quiet checklist of the audit happening in
-   real time — scanning inventory, reading records, generating a synthesis.
-   File icons (PDF, XLSX, DOC) carry recognition. */
-
-function FilePdf() {
-  return (
-    <div className="relative flex h-4 w-[14px] flex-shrink-0 items-end justify-center overflow-hidden rounded-[1.5px] bg-[#EA4335]">
-      <span className="mb-[1px] text-[4.5px] font-bold leading-none text-white">PDF</span>
-      <div className="absolute right-0 top-0 h-0 w-0 border-b-[4px] border-l-[4px] border-b-white/40 border-l-transparent" />
-    </div>
-  );
-}
-function FileXlsx() {
-  return (
-    <div className="relative flex h-4 w-[14px] flex-shrink-0 items-end justify-center overflow-hidden rounded-[1.5px] bg-[#107C41]">
-      <span className="mb-[1px] text-[5px] font-bold leading-none text-white">X</span>
-      <div className="absolute right-0 top-0 h-0 w-0 border-b-[4px] border-l-[4px] border-b-white/40 border-l-transparent" />
-    </div>
-  );
-}
-function FileDoc() {
-  return (
-    <div className="relative flex h-4 w-[14px] flex-shrink-0 items-end justify-center overflow-hidden rounded-[1.5px] bg-[#2A6DF4]">
-      <span className="mb-[1px] text-[4.5px] font-bold leading-none text-white">DOC</span>
-      <div className="absolute right-0 top-0 h-0 w-0 border-b-[4px] border-l-[4px] border-b-white/40 border-l-transparent" />
-    </div>
-  );
-}
+/* Local thin aliases — keep call-sites short. */
+const FilePdf = () => <FileIcon kind="pdf" />;
+const FileXlsx = () => <FileIcon kind="xlsx" />;
+const FileDoc = () => <FileIcon kind="doc" />;
 
 function CheckDot() {
   return (
     <div className="flex h-[14px] w-[14px] flex-shrink-0 items-center justify-center rounded-full bg-[#111110]">
-      <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="8"
+        height="8"
+        viewBox="0 0 12 12"
+        fill="none"
+        stroke="white"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M3 6.5 5 8.5 9 4" />
       </svg>
     </div>
@@ -54,14 +40,30 @@ function PendingDot() {
 
 function ChevronDown({ muted = false }: { muted?: boolean }) {
   return (
-    <svg width="7" height="7" viewBox="0 0 12 12" fill="none" stroke={muted ? "#ADADAA" : "#6B6A67"} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="7"
+      height="7"
+      viewBox="0 0 12 12"
+      fill="none"
+      stroke={muted ? "#ADADAA" : "#6B6A67"}
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M3 5 L6 8 L9 5" />
     </svg>
   );
 }
 function FolderClosed() {
   return (
-    <svg width="11" height="8" viewBox="0 0 16 12" fill="#C8C7C2" stroke="#A8A7A2" strokeWidth="0.4">
+    <svg
+      width="11"
+      height="8"
+      viewBox="0 0 16 12"
+      fill="#C8C7C2"
+      stroke="#A8A7A2"
+      strokeWidth="0.4"
+    >
       <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
     </svg>
   );
@@ -83,16 +85,41 @@ function AuditMock() {
           <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
             <span className="block h-[9px] w-[9px] rounded-[3px] border border-[#ADADAA]" />
             <span className="text-[13px] font-medium text-[#111110]">Document</span>
-            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="9"
+              height="9"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="#6B6A67"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M6 3 v6 m-3 -3 3 3 3 -3" />
             </svg>
           </div>
           {/* Folder 1 */}
           <div className="flex items-center gap-2.5">
-            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="9"
+              height="9"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="#6B6A67"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M3 5 L6 8 L9 5" />
             </svg>
-            <svg width="15" height="11" viewBox="0 0 16 12" fill="#C8C7C2" stroke="#A8A7A2" strokeWidth="0.4">
+            <svg
+              width="15"
+              height="11"
+              viewBox="0 0 16 12"
+              fill="#C8C7C2"
+              stroke="#A8A7A2"
+              strokeWidth="0.4"
+            >
               <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
             </svg>
             <span className="text-[13px] font-medium text-[#111110]">01 — Inventory 2026</span>
@@ -100,10 +127,26 @@ function AuditMock() {
           </div>
           {/* Subfolder */}
           <div className="flex items-center gap-2.5 pl-7">
-            <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="9"
+              height="9"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="#6B6A67"
+              strokeWidth="1.3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M3 5 L6 8 L9 5" />
             </svg>
-            <svg width="15" height="11" viewBox="0 0 16 12" fill="#C8C7C2" stroke="#A8A7A2" strokeWidth="0.4">
+            <svg
+              width="15"
+              height="11"
+              viewBox="0 0 16 12"
+              fill="#C8C7C2"
+              stroke="#A8A7A2"
+              strokeWidth="0.4"
+            >
               <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
             </svg>
             <span className="text-[13px] font-medium text-[#111110]">01.1 Warhol</span>
@@ -144,9 +187,7 @@ function AuditMock() {
             </div>
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-[13px] font-semibold text-[#111110]">
-                  M. Tanaka
-                </span>
+                <span className="truncate text-[13px] font-semibold text-[#111110]">M. Tanaka</span>
                 <span className="flex-shrink-0 text-[10.5px] text-[#ADADAA]">Tue 14:32</span>
               </div>
               <span className="truncate text-[10.5px] text-[#ADADAA]">to me</span>
@@ -163,8 +204,8 @@ function AuditMock() {
           {/* Body */}
           <div className="border-t border-[#E8E8E6] px-3.5 py-3">
             <p className="text-[11px] leading-[1.55] text-[#6B6A67]">
-              Dear Maria, thank you — please find attached the curated selection
-              for our conversation last week.
+              Dear Maria, thank you — please find attached the curated selection for our
+              conversation last week.
             </p>
           </div>
 
@@ -182,7 +223,6 @@ function AuditMock() {
           </div>
         </div>
       </div>
-
     </motion.div>
   );
 }
@@ -217,77 +257,10 @@ function ConnectMock() {
 
 const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
 
-/* ── Real app icons ── */
-
-/* Outlook (Microsoft Fluent): official logo from /public/logos/. */
-function AppOutlook() {
-  return (
-    <img
-      src="/logos/Microsoft_Office_Outlook_Logo.svg"
-      alt=""
-      aria-hidden="true"
-      className="h-[11px] w-[11px] flex-shrink-0 object-contain"
-    />
-  );
-}
-
-/* WhatsApp: official app icon from /public/logos/. */
-function AppWhatsapp() {
-  return (
-    <img
-      src="/logos/Android_App_Icon_2026.png"
-      alt=""
-      aria-hidden="true"
-      className="h-[11px] w-[11px] flex-shrink-0 rounded-[2px] object-contain"
-    />
-  );
-}
-
-/* Apple Calendar (macOS): white card, red top bar with day, bold black date. */
-function AppCalendar() {
-  return (
-    <svg viewBox="0 0 32 32" width="11" height="11" className="flex-shrink-0">
-      <defs>
-        <clipPath id="cal-clip">
-          <rect width="32" height="32" rx="6" />
-        </clipPath>
-      </defs>
-      <g clipPath="url(#cal-clip)">
-        {/* White body */}
-        <rect width="32" height="32" fill="white" />
-        {/* Red top bar */}
-        <rect width="32" height="9" fill="#FF3B30" />
-        {/* Day label */}
-        <text
-          x="16"
-          y="6.5"
-          fontSize="4"
-          fontWeight="700"
-          fill="white"
-          textAnchor="middle"
-          fontFamily="-apple-system, system-ui, sans-serif"
-          letterSpacing="0.3"
-        >
-          TUE
-        </text>
-        {/* Date number */}
-        <text
-          x="16"
-          y="25"
-          fontSize="14"
-          fontWeight="700"
-          fill="#111110"
-          textAnchor="middle"
-          fontFamily="-apple-system, system-ui, sans-serif"
-        >
-          25
-        </text>
-        {/* Outline */}
-        <rect x="0.25" y="0.25" width="31.5" height="31.5" rx="5.75" fill="none" stroke="#E0E0DD" strokeWidth="0.5" />
-      </g>
-    </svg>
-  );
-}
+/* App icons (Outlook / WhatsApp / Calendar) come from @/components/icons/AppIcon */
+const AppOutlook = () => <AppIcon brand="outlook" />;
+const AppWhatsapp = () => <AppIcon brand="whatsapp" />;
+const AppCalendar = () => <AppIcon brand="calendar" />;
 
 const darkSurface: React.CSSProperties = {
   border: "0.5px solid rgba(255,255,255,0.08)",
@@ -359,13 +332,15 @@ function DeployJourney() {
 
         {/* Body */}
         <p className="text-[5px] leading-[1.5] text-[#111110]">
-          Could we have the Warhol <em className="italic">Marilyn, 1967</em> selection
-          ahead of Tuesday’s preview? Please include:
+          Could we have the Warhol <em className="italic">Marilyn, 1967</em> selection ahead of
+          Tuesday’s preview? Please include:
         </p>
         <ul className="mt-[3px] flex flex-col gap-[1px]">
           <li className="text-[5px] leading-[1.4] text-[#111110]">— 6 high-res images</li>
           <li className="text-[5px] leading-[1.4] text-[#111110]">— Provenance documents</li>
-          <li className="text-[5px] leading-[1.4] text-[#111110]">— Auction comparables (2018–24)</li>
+          <li className="text-[5px] leading-[1.4] text-[#111110]">
+            — Auction comparables (2018–24)
+          </li>
         </ul>
       </div>
 
@@ -397,9 +372,24 @@ function DeployJourney() {
         {/* Stacked pills */}
         <div className="relative" style={{ height: 23 + 2 * 18 }}>
           {[
-            { label: "Selection requested", time: "14:32", app: "outlook" as const, tone: "blue" as const },
-            { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const, tone: "green" as const },
-            { label: "Follow-up scheduled", time: "Mon · 09:00", app: "calendar" as const, tone: "amber" as const },
+            {
+              label: "Selection requested",
+              time: "14:32",
+              app: "outlook" as const,
+              tone: "blue" as const,
+            },
+            {
+              label: "PDF selection generated",
+              time: "14:38",
+              app: "whatsapp" as const,
+              tone: "green" as const,
+            },
+            {
+              label: "Follow-up scheduled",
+              time: "Mon · 09:00",
+              app: "calendar" as const,
+              tone: "amber" as const,
+            },
           ].map((p, i, arr) => (
             <div
               key={p.label}
