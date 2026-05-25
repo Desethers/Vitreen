@@ -130,53 +130,53 @@ function AuditMock() {
       </div>
 
       {/* ── Foreground: Outlook mail ── */}
-      <div className="absolute" style={{ bottom: 8, right: 24, width: 248 }}>
-        <div className="overflow-hidden rounded-[6px] border border-[#E8E8E6] bg-white">
+      <div className="absolute" style={{ bottom: 16, right: 28, width: 320 }}>
+        <div className="overflow-hidden rounded-[7px] border border-[#E8E8E6] bg-white">
           {/* Sender row — Outlook logo avatar + name + "to me" + time */}
-          <div className="flex items-center gap-2 px-3 py-2.5">
-            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#F3F3F1]">
+          <div className="flex items-center gap-2.5 px-3.5 py-3">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#F3F3F1]">
               <img
                 src="/logos/Microsoft_Office_Outlook_Logo.svg"
                 alt=""
                 aria-hidden="true"
-                className="h-[18px] w-[18px] object-contain"
+                className="h-[22px] w-[22px] object-contain"
               />
             </div>
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-[11px] font-semibold text-[#111110]">
+                <span className="truncate text-[13px] font-semibold text-[#111110]">
                   M. Tanaka
                 </span>
-                <span className="flex-shrink-0 text-[9px] text-[#ADADAA]">Tue 14:32</span>
+                <span className="flex-shrink-0 text-[10.5px] text-[#ADADAA]">Tue 14:32</span>
               </div>
-              <span className="truncate text-[9px] text-[#ADADAA]">to me</span>
+              <span className="truncate text-[10.5px] text-[#ADADAA]">to me</span>
             </div>
           </div>
 
           {/* Subject */}
-          <div className="border-t border-[#E8E8E6] px-3 py-2">
-            <span className="block text-[11px] font-semibold leading-tight text-[#111110]">
+          <div className="border-t border-[#E8E8E6] px-3.5 py-2.5">
+            <span className="block text-[13px] font-semibold leading-tight text-[#111110]">
               Re: Available Warhol works
             </span>
           </div>
 
           {/* Body */}
-          <div className="border-t border-[#E8E8E6] px-3 py-2.5">
-            <p className="text-[9.5px] leading-[1.55] text-[#6B6A67]">
+          <div className="border-t border-[#E8E8E6] px-3.5 py-3">
+            <p className="text-[11px] leading-[1.55] text-[#6B6A67]">
               Dear Maria, thank you — please find attached the curated selection
               for our conversation last week.
             </p>
           </div>
 
           {/* Attachment */}
-          <div className="border-t border-[#E8E8E6] px-3 py-2.5">
-            <div className="flex items-center gap-2 rounded-[3px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5">
+          <div className="border-t border-[#E8E8E6] px-3.5 py-3">
+            <div className="flex items-center gap-2 rounded-[4px] border border-[#E8E8E6] bg-[#FAFAF8] px-2.5 py-2">
               <FilePdf />
               <div className="flex min-w-0 flex-1 flex-col leading-tight">
-                <span className="truncate text-[10px] font-medium text-[#111110]">
+                <span className="truncate text-[11.5px] font-medium text-[#111110]">
                   Warhol_Selection_May_2026.pdf
                 </span>
-                <span className="text-[8.5px] text-[#ADADAA]">4.2 MB · 6 works</span>
+                <span className="text-[10px] text-[#ADADAA]">4.2 MB · 6 works</span>
               </div>
             </div>
           </div>
