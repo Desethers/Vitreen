@@ -26,13 +26,13 @@ const FRAGMENTS: Frag[] = [
     style: { top: 32, left: 56, transform: "rotate(-2deg)" },
   },
   {
-    el: <span className="font-mono text-[8px] text-[#6B6A67]">PICASSO_1972_FINAL.tiff</span>,
+    el: <span className="font-mono text-[8px] text-[#6B6A67]">WARHOL_1967_FINAL.tiff</span>,
     style: { top: 52, left: 48, transform: "rotate(-1.5deg)" },
   },
   {
     el: (
       <span className="font-mono text-[7.5px] text-[#ADADAA] line-through decoration-[#ADADAA]/60">
-        picasso_v3_final.tif
+        warhol_v3_final.tif
       </span>
     ),
     style: { top: 70, left: 66, transform: "rotate(-2deg)" },
@@ -54,8 +54,8 @@ const FRAGMENTS: Frag[] = [
   {
     el: (
       <div className="leading-tight">
-        <span className="block text-[9.5px] text-[#111110]">Pablo Picasso</span>
-        <span className="block text-[8px] italic text-[#6B6A67]">Mousquetaire, 1972</span>
+        <span className="block text-[9.5px] text-[#111110]">Andy Warhol</span>
+        <span className="block text-[8px] italic text-[#6B6A67]">Marilyn, 1967</span>
       </div>
     ),
     style: { top: 138, left: 180, transform: "rotate(-0.5deg)" },
@@ -63,7 +63,7 @@ const FRAGMENTS: Frag[] = [
   {
     el: (
       <span className="text-[8px] text-[#111110]">
-        162 × 130 cm <span className="text-[#ADADAA]">— oil/canvas</span>
+        91 × 91 cm <span className="text-[#ADADAA]">— acrylic/silkscreen</span>
       </span>
     ),
     style: { top: 178, left: 184, transform: "rotate(-0.5deg)" },
@@ -119,7 +119,7 @@ const FRAGMENTS: Frag[] = [
   {
     el: (
       <span className="font-mono text-[7px] text-[#ADADAA]">
-        /Vol/Gallery_2024/Picasso/
+        /Vol/Gallery_2024/Warhol/
       </span>
     ),
     style: { bottom: 46, left: 60, transform: "rotate(-0.5deg)" },
