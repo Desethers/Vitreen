@@ -265,7 +265,7 @@ function DeployPill({
 }) {
   return (
     <div
-      className="flex items-center justify-between rounded-full bg-white pl-2.5 pr-[5px] py-[3px]"
+      className="flex items-center justify-between rounded-[4px] bg-white pl-2.5 pr-[5px] py-[3px]"
       style={hairline}
     >
       <span className="text-[7.5px] leading-none text-[#111110]">{label}</span>
