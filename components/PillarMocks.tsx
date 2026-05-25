@@ -22,12 +22,12 @@ function AuditMock() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease }}
-      className="relative h-full w-full overflow-hidden rounded-lg bg-[#FAFAF8]"
+      className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
-      {/* Finder window — pokes out from top-left edge */}
+      {/* Finder window */}
       <div
         className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ top: 36, left: -28, width: 200, transform: "rotate(-2.5deg)" }}
+        style={{ top: 70, left: 40, width: 200, transform: "rotate(-2.5deg)" }}
       >
         <div className="flex items-center justify-between border-b border-[#E8E8E6] bg-[#ECECEC] px-2 py-[5px]">
           <div className="flex items-center gap-[4px]">
@@ -54,10 +54,10 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* Spreadsheet corner — pokes from bottom-right */}
+      {/* Spreadsheet corner */}
       <div
         className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ bottom: -38, right: -24, width: 180, transform: "rotate(3deg)" }}
+        style={{ bottom: 60, right: 40, width: 180, transform: "rotate(3deg)" }}
       >
         <div className="h-[4px] w-full bg-[#107C41]" />
         <div className="flex border-b border-[#E8E8E6] bg-[#F3F3F1]">
@@ -93,10 +93,10 @@ function AuditMock() {
         ))}
       </div>
 
-      {/* Cropped artwork image — center-ish */}
+      {/* Cropped artwork image */}
       <div
         className={`absolute ${cardSurface} overflow-hidden`}
-        style={{ top: 116, left: 200, width: 90, height: 112, transform: "rotate(-4deg)", padding: 4 }}
+        style={{ top: 130, left: 260, width: 90, height: 112, transform: "rotate(-4deg)", padding: 4 }}
       >
         <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#D4C5B0] via-[#B8A48A] to-[#8A7560]">
           {/* Abstract painted form */}
@@ -106,10 +106,10 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* Timestamp — top-right, floating */}
+      {/* Timestamp — floating above cluster */}
       <div
         className="absolute"
-        style={{ top: 26, right: 22, transform: "rotate(1.5deg)" }}
+        style={{ top: 44, left: 220, transform: "rotate(1.5deg)" }}
       >
         <span className="block text-[8px] font-medium uppercase tracking-[0.18em] text-[#ADADAA]">
           Wed · 25 May · 14:32
@@ -119,7 +119,7 @@ function AuditMock() {
       {/* Collector initial chip */}
       <div
         className={`absolute ${cardSurface} flex items-center gap-2 px-2 py-1.5`}
-        style={{ bottom: 64, left: 38, transform: "rotate(-1.5deg)" }}
+        style={{ bottom: 70, left: 110, transform: "rotate(-1.5deg)" }}
       >
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#111110]">
           <span className="text-[9px] font-semibold tracking-wide text-white">MT</span>
@@ -130,10 +130,10 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* Tiny WhatsApp bubble peek — top-right corner */}
+      {/* Tiny WhatsApp bubble peek */}
       <div
         className="absolute rounded-[3px] bg-[#DCF8C6] shadow-[0_0_2px_rgba(0,0,0,0.08)]"
-        style={{ top: 64, right: -14, padding: "4px 6px", transform: "rotate(2deg)" }}
+        style={{ top: 90, right: 60, padding: "4px 6px", transform: "rotate(2deg)" }}
       >
         <div className="flex items-center gap-1">
           <span className="text-[6.5px] text-[#111110]">Yes, sold</span>
