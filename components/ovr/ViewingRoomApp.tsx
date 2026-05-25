@@ -2595,7 +2595,7 @@ export function ExportPanel({ open, onClose, blocks, images, setup, onPaywall, o
         let errKey = ''
         try { errKey = String(((await res.clone().json()) as { error?: string }).error || '') } catch { /* ignore */ }
         if (errKey === 'anonymous_limit_reached') {
-          setError('Free limit reached (5). Sign in to keep generating share links.')
+          setError('Free limit reached (10). Sign in to keep generating share links.')
           return null
         }
         onClose(); onPaywall(); return null

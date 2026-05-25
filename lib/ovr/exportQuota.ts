@@ -8,7 +8,7 @@ export const EXPORT_QUOTA_ENABLED = true
 export const FREE_EXPORT_LIMIT = 3
 
 /** Plafond gratuit pour utilisateurs ANONYMES (track via cookie). */
-export const FREE_ANON_LIMIT = 5
+export const FREE_ANON_LIMIT = 10
 
 const ANON_COOKIE = 'vr_anon_exports'
 const BYPASS_USER_ID = '__bypass_export_quota__'
