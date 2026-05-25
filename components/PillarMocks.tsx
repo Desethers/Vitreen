@@ -79,7 +79,7 @@ function AuditMock() {
                 width: 72,
                 height: 84,
                 marginTop: i % 2 === 0 ? 0 : 60,
-                transform: `rotate(${i % 2 === 0 ? -4 : 4}deg)`,
+                transform: `rotate(${i % 2 === 0 ? -3 : 3}deg)`,
               }}
             >
               <span className="text-[#111110]">{card.icon}</span>
