@@ -17,22 +17,32 @@ const CARD_H = 76;
 const CARD_GAP = 20;
 
 function FinderFragment() {
+  const files = [
+    { name: "Artworks 2024", date: "Mar 4" },
+    { name: "Exhibitions", date: "Feb 28" },
+    { name: "Inventory.xlsx", date: "Feb 12" },
+  ];
   return (
     <div className="flex h-full w-full flex-col bg-white">
       {/* Title bar */}
-      <div className="flex items-center gap-[3px] border-b border-[#E8E8E6] bg-[#F5F5F3] px-1.5 py-[3px]">
-        <span className="block h-[5px] w-[5px] rounded-full bg-[#FF5F57]" />
-        <span className="block h-[5px] w-[5px] rounded-full bg-[#FEBC2E]" />
-        <span className="block h-[5px] w-[5px] rounded-full bg-[#28C840]" />
+      <div className="flex items-center justify-between border-b border-[#E8E8E6] bg-[#ECECEC] px-1.5 py-[3px]">
+        <div className="flex items-center gap-[3px]">
+          <span className="block h-[5px] w-[5px] rounded-full bg-[#FF5F57]" />
+          <span className="block h-[5px] w-[5px] rounded-full bg-[#FEBC2E]" />
+          <span className="block h-[5px] w-[5px] rounded-full bg-[#28C840]" />
+        </div>
+        <span className="text-[5px] font-medium text-[#6B6A67]">Documents</span>
+        <span className="block w-[10px]" />
       </div>
       {/* File rows */}
-      <div className="flex flex-1 flex-col justify-center gap-[5px] px-2 py-1.5">
-        {[22, 16, 20].map((w, i) => (
-          <div key={i} className="flex items-center gap-1.5">
-            <svg width="9" height="7" viewBox="0 0 16 12" fill="#9CC8FF" stroke="#5B9BD5" strokeWidth="0.5">
+      <div className="flex flex-1 flex-col justify-center gap-[3px] px-1.5 py-1">
+        {files.map((f, i) => (
+          <div key={i} className="flex items-center gap-1">
+            <svg width="9" height="7" viewBox="0 0 16 12" fill="#7FB5F5" stroke="#4A8FD8" strokeWidth="0.4">
               <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
             </svg>
-            <span className="block h-[2px] rounded-full bg-[#E8E8E6]" style={{ width: w }} />
+            <span className="flex-1 truncate text-[5px] text-[#111110]">{f.name}</span>
+            <span className="text-[4.5px] text-[#ADADAA]">{f.date}</span>
           </div>
         ))}
       </div>
@@ -42,18 +52,25 @@ function FinderFragment() {
 
 function WhatsappFragment() {
   return (
-    <div className="flex h-full w-full flex-col justify-center gap-[3px] bg-[#ECE5DD] px-1.5 py-2">
-      <div className="self-start rounded-[3px] bg-white px-1.5 py-[3px] shadow-[0_0_1px_rgba(0,0,0,0.1)]">
-        <span className="block h-[2px] w-9 rounded-full bg-[#6B6A67]/40" />
+    <div className="flex h-full w-full flex-col bg-[#ECE5DD]">
+      {/* Header */}
+      <div className="flex items-center gap-1 border-b border-black/5 bg-[#075E54] px-1.5 py-[3px]">
+        <span className="block h-[6px] w-[6px] rounded-full bg-white/30" />
+        <span className="text-[5px] font-medium text-white">Mrs. Tanaka</span>
       </div>
-      <div className="self-end rounded-[3px] bg-[#DCF8C6] px-1.5 py-[3px] shadow-[0_0_1px_rgba(0,0,0,0.1)]">
-        <span className="mb-[2px] block h-[2px] w-8 rounded-full bg-[#6B6A67]/50" />
-        <div className="flex items-center justify-end gap-[1px]">
-          <span className="text-[5px] text-[#6B6A67]/60">14:32</span>
-          <svg width="9" height="5" viewBox="0 0 12 6" fill="none" stroke="#34B7F1" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-            <path d="m1 3 2 2 4-4" />
-            <path d="m5 5 4-4" />
-          </svg>
+      {/* Messages */}
+      <div className="flex flex-1 flex-col justify-center gap-[3px] px-1.5 py-1">
+        <div className="self-start rounded-[3px] bg-white px-1 py-[2px] shadow-[0_0_1px_rgba(0,0,0,0.15)]">
+          <span className="text-[5px] text-[#111110]">Confirmed?</span>
+        </div>
+        <div className="self-end rounded-[3px] bg-[#DCF8C6] px-1 py-[2px] shadow-[0_0_1px_rgba(0,0,0,0.15)]">
+          <div className="flex items-center gap-[2px]">
+            <span className="text-[5px] text-[#111110]">Yes, sold</span>
+            <svg width="7" height="4" viewBox="0 0 12 6" fill="none" stroke="#34B7F1" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m1 3 2 2 4-4" />
+              <path d="m5 5 4-4" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -61,14 +78,22 @@ function WhatsappFragment() {
 }
 
 function ExcelFragment() {
+  const rows = [
+    ["Picasso", "1972", "120K"],
+    ["Calder", "1965", "85K"],
+    ["Mitchell", "1958", "—"],
+  ];
   return (
     <div className="flex h-full w-full flex-col bg-white">
+      {/* Excel green top strip */}
+      <div className="h-[3px] w-full bg-[#107C41]" />
       {/* Column header */}
-      <div className="flex border-b border-[#E8E8E6] bg-[#F5F5F3]">
+      <div className="flex border-b border-[#E8E8E6] bg-[#F3F3F1]">
+        <span className="w-[10px] border-r border-[#E8E8E6] py-[1.5px] text-center text-[4.5px] text-[#ADADAA]"></span>
         {["A", "B", "C"].map((c) => (
           <span
             key={c}
-            className="flex-1 border-r border-[#E8E8E6] py-[2px] text-center text-[5px] font-medium text-[#6B6A67] last:border-0"
+            className="flex-1 border-r border-[#E8E8E6] py-[1.5px] text-center text-[5px] font-medium text-[#6B6A67] last:border-0"
           >
             {c}
           </span>
@@ -76,14 +101,17 @@ function ExcelFragment() {
       </div>
       {/* Cells */}
       <div className="flex flex-1 flex-col">
-        {[0, 1, 2].map((r) => (
-          <div key={r} className="flex flex-1 border-b border-[#E8E8E6] last:border-0">
-            {[12, 8, 14].map((w, c) => (
+        {rows.map((r, ri) => (
+          <div key={ri} className="flex flex-1 border-b border-[#E8E8E6] last:border-0">
+            <span className="flex w-[10px] items-center justify-center border-r border-[#E8E8E6] bg-[#F3F3F1] text-[4.5px] text-[#ADADAA]">
+              {ri + 1}
+            </span>
+            {r.map((cell, ci) => (
               <div
-                key={c}
-                className="flex flex-1 items-center border-r border-[#E8E8E6] px-1 last:border-0"
+                key={ci}
+                className="flex flex-1 items-center border-r border-[#E8E8E6] px-1 text-[4.5px] text-[#111110] last:border-0"
               >
-                <span className="block h-[1.5px] rounded-full bg-[#E8E8E6]" style={{ width: w }} />
+                {cell}
               </div>
             ))}
           </div>
@@ -95,37 +123,63 @@ function ExcelFragment() {
 
 function NotesFragment() {
   return (
-    <div className="flex h-full w-full flex-col gap-1 bg-[#FFFDF4] px-2 py-2">
-      <span className="block h-[3px] w-12 rounded-full bg-[#111110]" />
-      <span className="block h-[2px] w-8 rounded-full bg-[#6B6A67]/40" />
-      <div className="mt-0.5 flex flex-col gap-[3px]">
-        {[18, 14, 20].map((w, i) => (
-          <div key={i} className="flex items-center gap-1">
-            <span className="block h-[3px] w-[3px] rounded-full bg-[#FEBC2E]" />
-            <span className="block h-[2px] rounded-full bg-[#E8E8E6]" style={{ width: w }} />
-          </div>
-        ))}
+    <div className="flex h-full w-full flex-col gap-[3px] bg-[#FFFBEA] px-2 py-1.5">
+      <span className="text-[7px] font-semibold leading-tight text-[#111110]">Studio visit</span>
+      <span className="text-[4.5px] text-[#ADADAA]">25 May 2026</span>
+      <div className="mt-[2px] flex flex-col gap-[3px]">
+        <div className="flex items-start gap-1">
+          <span className="mt-[3px] block h-[2px] w-[2px] rounded-full bg-[#111110]" />
+          <span className="text-[5px] leading-[1.2] text-[#111110]">3 new paintings</span>
+        </div>
+        <div className="flex items-start gap-1">
+          <span className="mt-[3px] block h-[2px] w-[2px] rounded-full bg-[#111110]" />
+          <span className="text-[5px] leading-[1.2] text-[#111110]">Frame quotes Mon</span>
+        </div>
+        <div className="flex items-start gap-1">
+          <span className="mt-[3px] block h-[2px] w-[2px] rounded-full bg-[#111110]" />
+          <span className="text-[5px] leading-[1.2] text-[#111110]">Send to Maria</span>
+        </div>
       </div>
     </div>
   );
 }
 
 function GmailFragment() {
+  const emails = [
+    { from: "Maria Tanaka", subj: "Artwork inquiry", unread: true },
+    { from: "Studio Doig", subj: "Invoice #2410", unread: false },
+    { from: "Art Basel", subj: "Booth layout", unread: false },
+  ];
   return (
-    <div className="flex h-full w-full flex-col gap-[3px] bg-white px-1.5 py-1.5">
-      {/* Header: envelope + sender */}
-      <div className="flex items-center gap-1">
-        <svg width="11" height="8" viewBox="0 0 16 11" fill="white" stroke="#EA4335" strokeWidth="0.7" strokeLinejoin="round">
-          <path d="M1 2 v7 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V2 L8 7 Z" />
-          <path d="M1 2 L8 7 L15 2" fill="none" />
+    <div className="flex h-full w-full flex-col bg-white">
+      {/* Gmail logo bar */}
+      <div className="flex items-center gap-1 border-b border-[#E8E8E6] px-1.5 py-[3px]">
+        <svg width="9" height="7" viewBox="0 0 16 12" fill="none">
+          <path d="M1 2 v8 a1 1 0 0 0 1 1 h2 V6 L8 9 L12 6 v5 h2 a1 1 0 0 0 1-1 V2 a1 1 0 0 0-1-1 L8 5.5 L2 1 a1 1 0 0 0-1 1 Z" fill="#EA4335" />
         </svg>
-        <span className="block h-[2px] flex-1 rounded-full bg-[#111110]" />
+        <span className="text-[5px] font-semibold text-[#6B6A67]">Inbox</span>
       </div>
-      {/* Subject */}
-      <span className="block h-[2px] w-14 rounded-full bg-[#6B6A67]/60" />
-      {/* Preview */}
-      <span className="block h-[2px] w-12 rounded-full bg-[#E8E8E6]" />
-      <span className="block h-[2px] w-10 rounded-full bg-[#E8E8E6]" />
+      {/* Email rows */}
+      <div className="flex flex-1 flex-col">
+        {emails.map((e, i) => (
+          <div
+            key={i}
+            className="flex flex-1 items-center gap-1 border-b border-[#E8E8E6] px-1.5 last:border-0"
+          >
+            <span
+              className={`flex-shrink-0 text-[5px] ${e.unread ? "font-bold text-[#111110]" : "text-[#6B6A67]"}`}
+              style={{ width: 24 }}
+            >
+              {e.from.split(" ")[0]}
+            </span>
+            <span
+              className={`flex-1 truncate text-[5px] ${e.unread ? "text-[#111110]" : "text-[#ADADAA]"}`}
+            >
+              {e.subj}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -172,18 +226,6 @@ function AuditMock() {
               </div>
             );
           })}
-
-          {/* Scanner */}
-          <motion.div
-            className="pointer-events-none absolute inset-y-0 flex items-stretch"
-            style={{ width: 36, x: -36 }}
-            animate={{ x: [-(36), (CARD_W + CARD_GAP) * AUDIT_FRAGMENTS.length] }}
-            transition={{ duration: 2.6, repeat: Infinity, repeatDelay: 0.6, ease: "linear" }}
-            aria-hidden="true"
-          >
-            <div className="flex-1 bg-gradient-to-r from-transparent via-[#111110]/8 to-transparent" />
-            <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-[#111110] opacity-30" />
-          </motion.div>
         </div>
       </div>
     </motion.div>
