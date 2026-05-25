@@ -81,7 +81,7 @@ function AuditMock() {
         <div className="flex flex-col gap-[11px]">
           {/* Document header */}
           <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
-            <span className="block h-[13px] w-[13px] rounded-[3px] border border-[#ADADAA]" />
+            <span className="block h-[9px] w-[9px] rounded-[3px] border border-[#ADADAA]" />
             <span className="text-[13px] font-medium text-[#111110]">Document</span>
             <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="#6B6A67" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
               <path d="M6 3 v6 m-3 -3 3 3 3 -3" />
@@ -230,7 +230,7 @@ const hairline: React.CSSProperties = { border: "0.5px solid #EFEFEB" };
 function AppOutlook() {
   return (
     <div
-      className="relative h-[13px] w-[13px] flex-shrink-0 overflow-hidden rounded-[2.5px]"
+      className="relative h-[9px] w-[9px] flex-shrink-0 overflow-hidden rounded-[2.5px]"
       style={{ background: "linear-gradient(135deg, #1B9DE2 0%, #0364B8 100%)" }}
     >
       {/* Stylized O */}
@@ -248,7 +248,7 @@ function AppOutlook() {
 
 function AppWhatsapp() {
   return (
-    <div className="flex h-[13px] w-[13px] flex-shrink-0 items-center justify-center rounded-[3px] bg-[#25D366]">
+    <div className="flex h-[9px] w-[9px] flex-shrink-0 items-center justify-center rounded-[3px] bg-[#25D366]">
       <svg width="9" height="9" viewBox="0 0 32 32" fill="none">
         {/* Speech bubble shape */}
         <path
@@ -268,7 +268,7 @@ function AppWhatsapp() {
 function AppCalendar() {
   return (
     <div
-      className="flex h-[13px] w-[13px] flex-shrink-0 flex-col overflow-hidden rounded-[2.5px] bg-white"
+      className="flex h-[9px] w-[9px] flex-shrink-0 flex-col overflow-hidden rounded-[2.5px] bg-white"
       style={hairline}
     >
       <div className="h-[3px] w-full bg-[#FF3B30]" />
@@ -300,12 +300,12 @@ function DeployPill({
 }) {
   return (
     <div
-      className="flex items-center justify-between rounded-[4px] pl-2.5 pr-[5px] py-[3px]"
+      className="flex items-center justify-between rounded-[3px] pl-1.5 pr-1 py-[2px]"
       style={darkSurface}
     >
-      <span className="text-[7.5px] leading-none text-white">{label}</span>
+      <span className="text-[5px] leading-none text-white">{label}</span>
       <div className="flex items-center gap-1.5">
-        <span className="text-[6.5px] leading-none tabular-nums text-white/45">{time}</span>
+        <span className="text-[4px] leading-none tabular-nums text-white/45">{time}</span>
         {app === "outlook" && <AppOutlook />}
         {app === "whatsapp" && <AppWhatsapp />}
         {app === "calendar" && <AppCalendar />}
@@ -318,39 +318,39 @@ function DeployJourney() {
   return (
     <div className="flex flex-col">
       {/* Main request card — Outlook-style layout (icon · sender · time / divider / body) */}
-      <div className="rounded-[5px] bg-white px-2 py-2" style={hairline}>
+      <div className="rounded-[4px] bg-white px-1.5 py-1.5" style={hairline}>
         {/* Header row */}
         <div className="flex items-start gap-1.5">
           {/* Outlook circular avatar */}
           <div
-            className="flex h-[14px] w-[14px] flex-shrink-0 items-center justify-center rounded-full"
+            className="flex h-[12px] w-[12px] flex-shrink-0 items-center justify-center rounded-full"
             style={{ background: "linear-gradient(135deg, #1B9DE2 0%, #0364B8 100%)" }}
           >
-            <svg width="8.5" height="8.5" viewBox="0 0 24 24" fill="none">
-              <ellipse cx="11" cy="12" rx="4" ry="5.2" stroke="white" strokeWidth="2.6" />
+            <svg width="7" height="7" viewBox="0 0 24 24" fill="none">
+              <ellipse cx="11" cy="12" rx="4" ry="5.2" stroke="white" strokeWidth="2.8" />
             </svg>
           </div>
           <div className="flex flex-1 flex-col leading-tight">
             <div className="flex items-baseline justify-between">
-              <span className="text-[7.5px] font-semibold text-[#111110]">M. Tanaka</span>
-              <span className="text-[5.5px] text-[#ADADAA]">Tue 14:32</span>
+              <span className="text-[5.5px] font-semibold text-[#111110]">M. Tanaka</span>
+              <span className="text-[4px] text-[#ADADAA]">Tue 14:32</span>
             </div>
-            <span className="text-[6px] text-[#ADADAA]">to maria</span>
+            <span className="text-[4.5px] text-[#ADADAA]">to maria</span>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="my-1.5 h-px w-full bg-[#E8E8E6]" />
+        <div className="my-1 h-px w-full bg-[#E8E8E6]" />
 
         {/* Body */}
-        <p className="text-[6.5px] leading-[1.5] text-[#111110]">
+        <p className="text-[5px] leading-[1.5] text-[#111110]">
           Could we have the Warhol <em className="italic">Marilyn, 1967</em> selection
           ahead of Tuesday’s preview? Please include:
         </p>
-        <ul className="mt-1 flex flex-col gap-[1px]">
-          <li className="text-[6.5px] leading-[1.4] text-[#111110]">— 6 high-res images</li>
-          <li className="text-[6.5px] leading-[1.4] text-[#111110]">— Provenance documents</li>
-          <li className="text-[6.5px] leading-[1.4] text-[#111110]">— Auction comparables (2018–24)</li>
+        <ul className="mt-[3px] flex flex-col gap-[1px]">
+          <li className="text-[5px] leading-[1.4] text-[#111110]">— 6 high-res images</li>
+          <li className="text-[5px] leading-[1.4] text-[#111110]">— Provenance documents</li>
+          <li className="text-[5px] leading-[1.4] text-[#111110]">— Auction comparables (2018–24)</li>
         </ul>
       </div>
 
@@ -380,7 +380,7 @@ function DeployJourney() {
         />
 
         {/* Stacked pills */}
-        <div className="relative" style={{ height: 17 + 2 * 13 }}>
+        <div className="relative" style={{ height: 13 + 2 * 10 }}>
           {[
             { label: "Selection requested", time: "14:32", app: "outlook" as const },
             { label: "PDF selection generated", time: "14:38", app: "whatsapp" as const },
@@ -390,9 +390,9 @@ function DeployJourney() {
               key={p.label}
               className="absolute"
               style={{
-                top: i * 13,
-                left: i * 5,
-                right: i * 5,
+                top: i * 10,
+                left: i * 4,
+                right: i * 4,
                 zIndex: arr.length - i,
                 transform: `scale(${1 - i * 0.025})`,
                 transformOrigin: "top center",
