@@ -132,33 +132,24 @@ function AuditMock() {
       {/* ── Foreground: Outlook mail ── */}
       <div className="absolute" style={{ bottom: 8, right: 24, width: 248 }}>
         <div className="overflow-hidden rounded-[6px] border border-[#E8E8E6] bg-white">
-          {/* Outlook title bar */}
-          <div className="flex items-center gap-1.5 bg-[#0078D4] px-2.5 py-[6px]">
-            <img
-              src="/logos/Microsoft_Office_Outlook_Logo.svg"
-              alt=""
-              aria-hidden="true"
-              className="h-3.5 w-3.5 object-contain"
-            />
-            <span className="text-[9px] font-semibold text-white">Outlook</span>
-            <span className="ml-auto text-[8.5px] text-white/75">Inbox · Collectors</span>
-          </div>
-
-          {/* Sender row */}
+          {/* Sender row — Outlook logo avatar + name + "to me" + time */}
           <div className="flex items-center gap-2 px-3 py-2.5">
-            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[#0078D4]">
-              <span className="text-[9px] font-semibold tracking-wide text-white">MT</span>
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#F3F3F1]">
+              <img
+                src="/logos/Microsoft_Office_Outlook_Logo.svg"
+                alt=""
+                aria-hidden="true"
+                className="h-[18px] w-[18px] object-contain"
+              />
             </div>
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
               <div className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-[10.5px] font-semibold text-[#111110]">
+                <span className="truncate text-[11px] font-semibold text-[#111110]">
                   M. Tanaka
                 </span>
-                <span className="flex-shrink-0 text-[8.5px] text-[#6B6A67]">Tue 14:32</span>
+                <span className="flex-shrink-0 text-[9px] text-[#ADADAA]">Tue 14:32</span>
               </div>
-              <span className="truncate text-[9px] text-[#6B6A67]">
-                m.tanaka@tanaka-collection.jp
-              </span>
+              <span className="truncate text-[9px] text-[#ADADAA]">to me</span>
             </div>
           </div>
 
@@ -166,9 +157,6 @@ function AuditMock() {
           <div className="border-t border-[#E8E8E6] px-3 py-2">
             <span className="block text-[11px] font-semibold leading-tight text-[#111110]">
               Re: Available Warhol works
-            </span>
-            <span className="mt-[2px] block text-[8.5px] text-[#ADADAA]">
-              To: maria@vitreen.gallery
             </span>
           </div>
 
