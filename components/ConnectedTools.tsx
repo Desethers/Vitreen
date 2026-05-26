@@ -474,7 +474,7 @@ export default function ConnectedTools() {
           style={{ aspectRatio: "16 / 10" }}
         >
           {/* Central: Gallery OS — dominant background */}
-          <div className="absolute" style={{ top: "5%", left: "3%", width: "68%" }}>
+          <div className="absolute" style={{ top: "5%", left: "3%", width: "90%" }}>
             <GalleryOsDashboard />
           </div>
 
