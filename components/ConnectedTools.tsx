@@ -473,18 +473,18 @@ export default function ConnectedTools() {
           className="relative overflow-hidden rounded-2xl bg-white"
           style={{ aspectRatio: "16 / 10" }}
         >
-          {/* Central: Gallery OS */}
-          <div className="absolute" style={{ top: "6%", left: "4%", width: "52%" }}>
+          {/* Central: Gallery OS — dominant background */}
+          <div className="absolute" style={{ top: "5%", left: "3%", width: "68%" }}>
             <GalleryOsDashboard />
           </div>
 
           {/* Right: Gmail composer + Vitreen popover */}
-          <div className="absolute" style={{ top: "5%", right: "8%", width: "32%" }}>
+          <div className="absolute" style={{ top: "8%", right: "14%", width: "22%" }}>
             <GmailMock />
           </div>
 
           {/* Bottom-left: WhatsApp */}
-          <div className="absolute" style={{ bottom: "4%", left: "8%", width: "14%" }}>
+          <div className="absolute" style={{ bottom: "4%", left: "6%", width: "13%" }}>
             <WhatsappBotMock />
           </div>
 
