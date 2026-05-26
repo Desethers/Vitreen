@@ -255,19 +255,6 @@ function GmailMock() {
           </div>
         </div>
 
-        {/* Editor toolbar */}
-        <div className="flex items-center gap-1.5 border-t border-[#E8E8E6] bg-[#F5F5F3] px-3 py-1.5 text-[9px] text-[#5F6368]">
-          <span>↶</span>
-          <span>↷</span>
-          <span className="mx-1 h-2 w-px bg-[#D8D8D5]" />
-          <span>Sans Serif</span>
-          <span>▾</span>
-          <span className="mx-1 h-2 w-px bg-[#D8D8D5]" />
-          <span className="font-bold">B</span>
-          <span className="italic">I</span>
-          <span className="underline">U</span>
-        </div>
-
         {/* Bottom action bar */}
         <div className="flex items-center gap-2 border-t border-[#E8E8E6] px-3 py-2">
           <div className="flex items-center overflow-hidden rounded-[18px]">
