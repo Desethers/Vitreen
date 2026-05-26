@@ -197,10 +197,10 @@ export default function Nav() {
                 className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
                 <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
-                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,18rem)] gap-x-12">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                     <div>
                       <p className="text-[12px] text-[#ADADAA]">{productMenu.sectionLabel}</p>
-                      <div className="mt-5 grid grid-cols-2 gap-x-8 gap-y-5">
+                      <div className="mt-5 grid grid-cols-1 gap-y-5">
                         {productMenu.items.map((item) => (
                           <a
                             key={item.title}
@@ -229,7 +229,7 @@ export default function Nav() {
                       className="flex flex-col"
                     >
                       <div
-                        className="aspect-[4/3] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
+                        className="aspect-[16/10] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
                         style={{ backgroundImage: `url(${productMenu.featured.image})` }}
                       />
                       <p className="mt-3 text-[10px] text-[#ADADAA]">
@@ -260,14 +260,16 @@ export default function Nav() {
                 onMouseLeave={() => setSolutionsOpen(false)}
                 className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
-                <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white">
-                  <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_minmax(0,18rem)] gap-x-12 px-8 py-8">
-                    <div className="grid grid-cols-2 gap-x-12">
-                      {solutionsMenu.columns.map((col) => (
-                        <div key={col.label}>
-                          <p className="text-[12px] text-[#ADADAA]">{col.label}</p>
+                <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white px-8 py-8">
+                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
+                    <div>
+                      {solutionsMenu.columns[0] && (
+                        <>
+                          <p className="text-[12px] text-[#ADADAA]">
+                            {solutionsMenu.columns[0].label}
+                          </p>
                           <ul className="mt-5 grid gap-y-5">
-                            {col.items.map((item) => (
+                            {solutionsMenu.columns[0].items.map((item) => (
                               <li key={item.title}>
                                 <a
                                   href={item.href}
@@ -286,8 +288,8 @@ export default function Nav() {
                               </li>
                             ))}
                           </ul>
-                        </div>
-                      ))}
+                        </>
+                      )}
                     </div>
                     <a
                       href={solutionsMenu.featured.href}
@@ -295,7 +297,7 @@ export default function Nav() {
                       className="flex flex-col"
                     >
                       <div
-                        className="aspect-[4/3] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
+                        className="aspect-[16/10] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
                         style={{ backgroundImage: `url(${solutionsMenu.featured.image})` }}
                       />
                       <p className="mt-3 text-[10px] text-[#ADADAA]">
@@ -309,7 +311,7 @@ export default function Nav() {
                       </p>
                     </a>
                   </div>
-                  <div className="mx-auto flex max-w-7xl items-center justify-end px-8 py-4">
+                  <div className="mx-auto flex max-w-7xl items-center justify-end py-0 pt-4">
                     <a
                       href={solutionsMenu.ctaAllHref}
                       onClick={() => setSolutionsOpen(false)}
