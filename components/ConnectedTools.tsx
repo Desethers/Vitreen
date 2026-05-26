@@ -152,85 +152,212 @@ function GalleryOsDashboard() {
   );
 }
 
-/* ─── Floating: Gmail compose with Vitreen inserter ─────────────── */
+/* ─── Floating: Gmail compose + Vitreen inserter popover ─────────── */
+/* Faithful to the user-supplied reference: full New Message composer
+ * with the artwork inserted in the body, and the Vitreen popover
+ * floating over the bottom-right of the email body. */
 
 function GmailMock() {
   return (
-    <div className="overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)]">
-      {/* Title bar */}
-      <div className="flex items-center justify-between bg-[#F1F3F4] px-3 py-1.5">
-        <span className="text-[10px] font-semibold text-[#202124]">New Message</span>
-        <div className="flex items-center gap-1.5 text-[#5F6368]">
-          <span className="text-[10px]">_</span>
-          <span className="text-[10px]">⤢</span>
-          <span className="text-[10px]">✕</span>
+    <div className="relative">
+      {/* Gmail composer window */}
+      <div className="overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
+        {/* Title bar */}
+        <div className="flex items-center justify-between bg-[#F0F4F9] px-3 py-2">
+          <span className="text-[11px] font-semibold text-[#202124]">New Message</span>
+          <div className="flex items-center gap-2 text-[10px] text-[#5F6368]">
+            <span>_</span>
+            <span>⤢</span>
+            <span>✕</span>
+          </div>
+        </div>
+
+        {/* Recipients */}
+        <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] text-[#6B6A67]">
+          Recipients
+        </div>
+        {/* Subject */}
+        <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] text-[#6B6A67]">
+          Subject
+        </div>
+
+        {/* Body */}
+        <div className="px-3 pt-3 pb-2">
+          {/* Inserted artwork — gallery wall photo */}
+          <div
+            className="relative overflow-hidden rounded-[2px] bg-[#F5F0E8]"
+            style={{ aspectRatio: "16 / 11" }}
+          >
+            {/* Wall */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "linear-gradient(180deg, #F5F0E8 0%, #EDE6DA 70%, #DCD3C2 100%)",
+              }}
+            />
+            {/* Painting */}
+            <div
+              className="absolute"
+              style={{
+                top: "20%",
+                left: "32%",
+                width: "36%",
+                height: "52%",
+                background: "linear-gradient(135deg, #2540B8 0%, #1A3088 60%, #15276F 100%)",
+                boxShadow: "0 1px 2px rgba(0,0,0,0.12), 0 0.5px 1px rgba(0,0,0,0.08)",
+              }}
+            />
+            {/* Floor */}
+            <div
+              className="absolute inset-x-0 bottom-0"
+              style={{
+                height: "22%",
+                background: "linear-gradient(180deg, #B8B0A2 0%, #9C9486 100%)",
+              }}
+            />
+            {/* Floor reflection of painting */}
+            <div
+              className="absolute"
+              style={{
+                bottom: "18%",
+                left: "32%",
+                width: "36%",
+                height: "6%",
+                background:
+                  "linear-gradient(180deg, rgba(37,64,184,0.32) 0%, rgba(37,64,184,0) 100%)",
+                filter: "blur(0.3px)",
+              }}
+            />
+            {/* Ceiling track lights */}
+            <div
+              className="absolute inset-x-[10%] top-0 h-[6%]"
+              style={{
+                background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 100%)",
+              }}
+            />
+          </div>
+          {/* Artwork metadata */}
+          <div className="mt-2 flex flex-col gap-[1px] leading-tight">
+            <span className="text-[10px] font-semibold text-[#202124]">Sun Dog</span>
+            <span className="text-[9.5px] italic text-[#202124]">Evening field, 2023</span>
+            <span className="text-[9px] text-[#6B6A67]">Acrylic on canvas</span>
+            <span className="text-[9px] text-[#6B6A67]">120 × 120 cm</span>
+            <span className="mt-0.5 text-[9px] text-[#202124]">8 000 €</span>
+          </div>
+          {/* Signature */}
+          <div className="mt-2.5 text-[9.5px] leading-[1.5] text-[#202124]">
+            <p>--</p>
+            <p>Raphaël Rossi</p>
+          </div>
+        </div>
+
+        {/* Editor toolbar */}
+        <div className="flex items-center gap-1.5 border-t border-[#E8E8E6] bg-[#F5F5F3] px-3 py-1.5 text-[9px] text-[#5F6368]">
+          <span>↶</span>
+          <span>↷</span>
+          <span className="mx-1 h-2 w-px bg-[#D8D8D5]" />
+          <span>Sans Serif</span>
+          <span>▾</span>
+          <span className="mx-1 h-2 w-px bg-[#D8D8D5]" />
+          <span className="font-bold">B</span>
+          <span className="italic">I</span>
+          <span className="underline">U</span>
+        </div>
+
+        {/* Bottom action bar */}
+        <div className="flex items-center gap-2 border-t border-[#E8E8E6] px-3 py-2">
+          <div className="flex items-center overflow-hidden rounded-[18px]">
+            <button className="bg-[#0B57D0] px-3 py-1 text-[10px] font-medium text-white">
+              Send
+            </button>
+            <button className="bg-[#0B57D0] px-1.5 py-1 text-[10px] text-white">▾</button>
+          </div>
+          <span className="text-[10px] text-[#5F6368]">𝐀</span>
+          <span className="text-[10px] text-[#5F6368]">📎</span>
+          <span className="text-[10px] text-[#5F6368]">🔗</span>
+          <span className="text-[10px] text-[#5F6368]">🙂</span>
+          <span className="ml-auto text-[10px] text-[#5F6368]">🗑</span>
         </div>
       </div>
 
-      {/* Fields */}
-      <div className="border-b border-[#E8E8E6] px-3 py-1.5 text-[9px] text-[#5F6368]">
-        To <span className="float-right">Cc Bcc</span>
-      </div>
-      <div className="border-b border-[#E8E8E6] px-3 py-1.5 text-[9px] text-[#5F6368]">Subject</div>
-
-      {/* Body */}
-      <div className="px-3 py-3 text-[9px] leading-[1.5] text-[#202124]">
-        <p>—</p>
-        <p className="mt-0.5">Raphaël Rossi</p>
-        <p className="mt-0.5">+33 6 45 64 28 43</p>
-        <p className="mt-0.5 text-[#1A73E8] underline">raphaelrossi.com</p>
-      </div>
-
-      {/* Vitreen inserter (floating sub-card) */}
-      <div className="border-t border-[#E8E8E6] bg-white px-3 py-2.5">
-        <div className="rounded-[5px] border border-[#E8E8E6] bg-white px-2.5 py-2 shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
-          <div className="mb-1.5 flex items-center justify-between">
-            <span className="text-[7.5px] uppercase tracking-[0.14em] text-[#ADADAA]">Vitreen</span>
-            <span className="text-[8px] text-[#ADADAA]">✕</span>
+      {/* Vitreen popover — overlaps bottom-right of the composer */}
+      <div
+        className="absolute rounded-[10px] border border-[#E8E8E6] bg-white shadow-[0_18px_42px_rgba(0,0,0,0.12)]"
+        style={{ right: "-10%", bottom: "16%", width: "84%" }}
+      >
+        <div className="px-3 pt-2.5 pb-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[9px] uppercase tracking-[0.22em] text-[#ADADAA]">Vitreen</span>
+            <span className="text-[10px] text-[#ADADAA]">✕</span>
           </div>
-          <div className="border-b border-[#E8E8E6] pb-1.5 text-[8.5px] text-[#111110]">eve</div>
-          <div className="mt-1.5 flex items-center gap-1">
-            <span className="rounded-full bg-[#111110] px-1.5 py-[1px] text-[7px] text-white">
+          <div className="mt-2 border-b border-[#E8E8E6] pb-1.5 text-[10px] text-[#111110]">
+            eve
+          </div>
+          <div className="mt-2 flex items-center gap-1">
+            <span className="rounded-full bg-[#111110] px-2 py-[2px] text-[8px] font-medium text-white">
               Tout
             </span>
-            <span className="rounded-full border border-[#E8E8E6] px-1.5 py-[1px] text-[7px] text-[#6B6A67]">
+            <span className="rounded-full border border-[#E8E8E6] px-2 py-[2px] text-[8px] text-[#6B6A67]">
               Disponibles
             </span>
-            <span className="rounded-full border border-[#E8E8E6] px-1.5 py-[1px] text-[7px] text-[#6B6A67]">
+            <span className="rounded-full border border-[#E8E8E6] px-2 py-[2px] text-[8px] text-[#6B6A67]">
+              Réservées
+            </span>
+            <span className="rounded-full border border-[#E8E8E6] px-2 py-[2px] text-[8px] text-[#6B6A67]">
               Vendues
+            </span>
+            <span className="rounded-full border border-[#E8E8E6] px-2 py-[2px] text-[8px] text-[#6B6A67]">
+              NFS
             </span>
           </div>
           {/* Selected result */}
           <div
-            className="mt-2 flex items-center gap-2 rounded-[4px] bg-[#E8F0FE] px-1.5 py-1.5"
-            style={{ border: "0.5px solid #1A73E8" }}
+            className="mt-2 flex items-center gap-2 rounded-[6px] bg-[#EAF3FF] px-2 py-2"
+            style={{ border: "1px solid #4F8EE6" }}
           >
-            <span className="flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-[2px] bg-[#1A73E8] text-[7px] text-white">
+            <span className="flex h-3.5 w-3.5 flex-shrink-0 items-center justify-center rounded-[3px] bg-[#0B57D0] text-[8px] text-white">
               ✓
             </span>
             <div
-              className="h-7 w-9 flex-shrink-0 overflow-hidden rounded-[2px]"
+              className="relative h-7 w-9 flex-shrink-0 overflow-hidden rounded-[3px] bg-[#F5F0E8]"
               style={{ border: "0.5px solid #E8E8E6" }}
             >
-              <div className="h-[68%] w-full bg-[#1B2A4A]" />
-              <div className="h-[32%] w-full bg-[#E8E8E6]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#F5F0E8] via-[#EDE6DA] to-[#C8C0B2]" />
+              <div
+                className="absolute"
+                style={{
+                  top: "20%",
+                  left: "30%",
+                  width: "40%",
+                  height: "50%",
+                  background: "linear-gradient(135deg, #2540B8 0%, #1A3088 100%)",
+                }}
+              />
             </div>
             <div className="flex min-w-0 flex-1 flex-col leading-tight">
-              <span className="text-[7px] uppercase tracking-[0.1em] text-[#6B6A67]">Sun Dog</span>
-              <span className="truncate text-[8.5px] italic text-[#111110]">
-                Evening Field, 2023
+              <span className="text-[7.5px] uppercase tracking-[0.16em] text-[#6B6A67]">
+                Sun Dog
               </span>
-              <span className="text-[8px] text-[#6B6A67]">8 000 €</span>
+              <span className="truncate text-[9.5px] italic text-[#111110]">
+                Evening field, 2023
+              </span>
+              <span className="text-[8.5px] text-[#6B6A67]">8 000 €</span>
             </div>
-            <span className="rounded-full border border-[#1FA854]/40 bg-[#1FA854]/[0.06] px-1.5 py-[1px] text-[7px] text-[#1FA854]">
+            <span className="rounded-full border border-[#1FA854]/40 bg-[#1FA854]/[0.08] px-1.5 py-[1px] text-[7.5px] uppercase tracking-[0.1em] text-[#1FA854]">
               Available
             </span>
           </div>
-          <div className="mt-2 flex items-center justify-between">
-            <span className="text-[7.5px] text-[#6B6A67]">1 œuvre sélectionnée</span>
-            <button className="rounded-full bg-[#111110] px-2.5 py-1 text-[8px] font-medium text-white">
-              Insérer
-            </button>
+          {/* Footer */}
+          <div className="mt-2.5 flex items-center justify-between">
+            <span className="text-[8.5px] text-[#6B6A67]">1 œuvre sélectionnée</span>
+            <div className="flex items-center gap-1.5">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full border border-[#E8E8E6] text-[8px] text-[#6B6A67]">
+                ↺
+              </span>
+              <button className="rounded-full bg-[#111110] px-3 py-1.5 text-[9px] font-medium text-white">
+                Insérer
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -347,17 +474,17 @@ export default function ConnectedTools() {
           style={{ aspectRatio: "16 / 10" }}
         >
           {/* Central: Gallery OS */}
-          <div className="absolute" style={{ top: "6%", left: "10%", width: "62%" }}>
+          <div className="absolute" style={{ top: "6%", left: "4%", width: "52%" }}>
             <GalleryOsDashboard />
           </div>
 
-          {/* Right: Gmail composer */}
-          <div className="absolute" style={{ top: "8%", right: "3%", width: "26%" }}>
+          {/* Right: Gmail composer + Vitreen popover */}
+          <div className="absolute" style={{ top: "5%", right: "8%", width: "32%" }}>
             <GmailMock />
           </div>
 
           {/* Bottom-left: WhatsApp */}
-          <div className="absolute" style={{ bottom: "4%", left: "3%", width: "16%" }}>
+          <div className="absolute" style={{ bottom: "4%", left: "8%", width: "14%" }}>
             <WhatsappBotMock />
           </div>
 
