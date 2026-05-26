@@ -6,6 +6,7 @@ import ArtworkSourceSection from "@/components/ArtworkSourceSection";
 import Showcase from "@/components/Showcase";
 
 const Audiences = dynamic(() => import("@/components/Audiences"));
+import ConnectedTools from "@/components/ConnectedTools";
 import Solution from "@/components/Solution";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
@@ -20,6 +21,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Audiences />
+      <ConnectedTools />
       <ArtworkSourceSection />
       <Showcase />
       <Solution />
