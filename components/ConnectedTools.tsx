@@ -30,6 +30,10 @@ const ARTWORK_ROWS = [
   { title: "Evening Field", year: "2023", price: "8 000 €", color: "#1B2A4A" },
   { title: SAMPLE_ARTWORK.title, year: SAMPLE_ARTWORK.year, price: "6 000 €", color: "#C8D2EE" },
   { title: "Untitled (Horizon)", year: "2024", price: "8 000 €", color: "#E8D34A" },
+  { title: "Sun Dog", year: "2024", price: "12 000 €", color: "#7A1F18" },
+  { title: "Studio Notebook", year: "2022", price: "4 500 €", color: "#3E4A60" },
+  { title: "Solstice", year: "2024", price: "14 000 €", color: "#D4A574" },
+  { title: "Rivière", year: "2023", price: "9 200 €", color: "#2D5043" },
 ];
 
 function GalleryOsDashboard() {
@@ -74,7 +78,7 @@ function GalleryOsDashboard() {
             <div>
               <h3 className="font-display text-[15px] leading-tight text-[#111110]">Œuvres</h3>
               <p className="mt-0.5 text-[9px] text-[#6B6A67]">
-                3 au total · 3 disponibles · 0 vendue
+                7 au total · 7 disponibles · 0 vendue
               </p>
             </div>
             <button className="rounded-[5px] bg-[#111110] px-2.5 py-[5px] text-[9px] text-white">
@@ -474,7 +478,7 @@ export default function ConnectedTools() {
           style={{ aspectRatio: "16 / 13" }}
         >
           {/* Central: Gallery OS — dominant background */}
-          <div className="absolute" style={{ top: "5%", left: "3%", width: "90%" }}>
+          <div className="absolute" style={{ top: "5%", left: "3%", width: "80%" }}>
             <GalleryOsDashboard />
           </div>
 
