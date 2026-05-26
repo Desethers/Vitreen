@@ -343,73 +343,42 @@ export default function ConnectedTools() {
         {/* Composition */}
         <motion.div
           {...fadeUp(0.1)}
-          className="relative overflow-hidden rounded-2xl"
-          style={{
-            aspectRatio: "16 / 10",
-            background:
-              "radial-gradient(120% 80% at 80% 30%, #5A2326 0%, #3A1A1C 45%, #1F0F11 100%)",
-          }}
+          className="relative overflow-hidden rounded-2xl bg-white"
+          style={{ aspectRatio: "16 / 10" }}
         >
-          {/* Subtle grain overlay */}
-          <div
-            className="pointer-events-none absolute inset-0 mix-blend-overlay opacity-30"
-            style={{
-              backgroundImage: "radial-gradient(rgba(255,255,255,0.16) 0.4px, transparent 0.5px)",
-              backgroundSize: "3.5px 3.5px",
-            }}
-          />
-
-          {/* Soft warm glow top-right */}
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(50% 40% at 88% 12%, rgba(244,168,96,0.18) 0%, rgba(244,168,96,0) 100%)",
-            }}
-          />
-
           {/* Central: Gallery OS */}
-          <div
-            className="absolute"
-            style={{ top: "6%", left: "10%", width: "62%", transform: "rotate(-0.6deg)" }}
-          >
+          <div className="absolute" style={{ top: "6%", left: "10%", width: "62%" }}>
             <GalleryOsDashboard />
           </div>
 
           {/* Right: Gmail composer */}
-          <div
-            className="absolute"
-            style={{ top: "8%", right: "3%", width: "26%", transform: "rotate(2.5deg)" }}
-          >
+          <div className="absolute" style={{ top: "8%", right: "3%", width: "26%" }}>
             <GmailMock />
           </div>
 
           {/* Bottom-left: WhatsApp */}
-          <div
-            className="absolute"
-            style={{ bottom: "4%", left: "3%", width: "16%", transform: "rotate(-3deg)" }}
-          >
+          <div className="absolute" style={{ bottom: "4%", left: "3%", width: "16%" }}>
             <WhatsappBotMock />
           </div>
 
-          {/* Floating action pills (Comet-style) */}
+          {/* Floating action pills */}
           <div
-            className="absolute flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.18)]"
-            style={{ bottom: "32%", left: "20%", transform: "rotate(-2deg)" }}
+            className="absolute flex items-center gap-1.5 rounded-full border border-[#E8E8E6] bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+            style={{ bottom: "32%", left: "20%" }}
           >
             <span className="text-[10px] text-[#111110]">✉</span>
             <span className="text-[10px] font-medium text-[#111110]">Insert in Gmail</span>
           </div>
           <div
-            className="absolute flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.18)]"
-            style={{ bottom: "18%", left: "22%", transform: "rotate(1deg)" }}
+            className="absolute flex items-center gap-1.5 rounded-full border border-[#E8E8E6] bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+            style={{ bottom: "18%", left: "22%" }}
           >
             <span className="text-[10px] text-[#1FA854]">●</span>
             <span className="text-[10px] font-medium text-[#111110]">Generate PDF</span>
           </div>
           <div
-            className="absolute flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.18)]"
-            style={{ top: "62%", right: "30%", transform: "rotate(2deg)" }}
+            className="absolute flex items-center gap-1.5 rounded-full border border-[#E8E8E6] bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+            style={{ top: "62%", right: "30%" }}
           >
             <span className="text-[10px] text-[#111110]">🔗</span>
             <span className="text-[10px] font-medium text-[#111110]">Private link</span>
