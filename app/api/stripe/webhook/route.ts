@@ -2,12 +2,24 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { clerkClient } from "@clerk/nextjs/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2026-04-22.dahlia" as const,
-});
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
+/** Lazy Stripe client — see /api/stripe/checkout for rationale. */
+let _stripe: Stripe | null = null;
+function getStripe(): Stripe | null {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) return null;
+  if (!_stripe) {
+    _stripe = new Stripe(key, { apiVersion: "2026-04-22.dahlia" as const });
+  }
+  return _stripe;
+}
 
 export async function POST(req: NextRequest) {
+  const stripe = getStripe();
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  if (!stripe || !webhookSecret) {
+    return NextResponse.json({ error: "stripe_not_configured" }, { status: 500 });
+  }
+
   const body = await req.text();
   const sig = req.headers.get("stripe-signature")!;
 
