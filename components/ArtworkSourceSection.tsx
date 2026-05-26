@@ -38,7 +38,10 @@ export default function ArtworkSourceSection() {
   const Mock = pillar.Mock;
 
   return (
-    <section id="inventory-source" className="bg-white px-4 pb-12 pt-0 md:px-6 md:pb-[60px]">
+    <section
+      id="inventory-source"
+      className="bg-white px-4 pt-16 pb-12 md:px-6 md:pt-[96px] md:pb-[60px]"
+    >
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...fadeUp(0)}
@@ -49,6 +52,9 @@ export default function ArtworkSourceSection() {
             <h2 className="font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
               {t.artworkSource.title}
             </h2>
+            <p className="mt-1 font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
+              Keep artwork sharing simple.
+            </p>
             <p className="mt-4 text-[13px] leading-[1.7] tracking-[-0.01em] text-[#6B6A67] md:text-[14px]">
               {t.artworkSource.body}
             </p>
