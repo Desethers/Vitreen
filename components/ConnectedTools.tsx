@@ -471,7 +471,7 @@ export default function ConnectedTools() {
         <motion.div
           {...fadeUp(0.1)}
           className="relative overflow-hidden rounded-2xl bg-white"
-          style={{ aspectRatio: "16 / 10" }}
+          style={{ aspectRatio: "16 / 13" }}
         >
           {/* Central: Gallery OS — dominant background */}
           <div className="absolute" style={{ top: "5%", left: "3%", width: "90%" }}>
