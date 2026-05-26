@@ -164,11 +164,16 @@ function GalleryOsDashboard() {
 function GmailMock() {
   return (
     <div className="relative">
-      {/* Gmail composer window — simplified */}
+      {/* Gmail composer window */}
       <div className="overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.12)]">
         {/* Title bar */}
-        <div className="bg-[#F0F4F9] px-3 py-2">
+        <div className="flex items-center justify-between bg-[#F0F4F9] px-3 py-2">
           <span className="text-[11px] font-semibold text-[#202124]">New Message</span>
+          <div className="flex items-center gap-2 text-[10px] text-[#5F6368]">
+            <span>_</span>
+            <span>⤢</span>
+            <span>✕</span>
+          </div>
         </div>
 
         {/* Recipients */}
@@ -181,18 +186,20 @@ function GmailMock() {
         </div>
 
         {/* Body */}
-        <div className="px-3 pt-3 pb-4">
+        <div className="px-3 pt-3 pb-2">
           {/* Inserted artwork — gallery wall photo */}
           <div
-            className="relative overflow-hidden rounded-[2px]"
+            className="relative overflow-hidden rounded-[2px] bg-[#F5F0E8]"
             style={{ aspectRatio: "16 / 11" }}
           >
+            {/* Wall */}
             <div
               className="absolute inset-0"
               style={{
                 background: "linear-gradient(180deg, #F5F0E8 0%, #EDE6DA 70%, #DCD3C2 100%)",
               }}
             />
+            {/* Painting */}
             <div
               className="absolute"
               style={{
@@ -201,9 +208,10 @@ function GmailMock() {
                 width: "36%",
                 height: "52%",
                 background: "linear-gradient(135deg, #2540B8 0%, #1A3088 60%, #15276F 100%)",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.12)",
+                boxShadow: "0 1px 2px rgba(0,0,0,0.12), 0 0.5px 1px rgba(0,0,0,0.08)",
               }}
             />
+            {/* Floor */}
             <div
               className="absolute inset-x-0 bottom-0"
               style={{
@@ -211,12 +219,68 @@ function GmailMock() {
                 background: "linear-gradient(180deg, #B8B0A2 0%, #9C9486 100%)",
               }}
             />
+            {/* Floor reflection of painting */}
+            <div
+              className="absolute"
+              style={{
+                bottom: "18%",
+                left: "32%",
+                width: "36%",
+                height: "6%",
+                background:
+                  "linear-gradient(180deg, rgba(37,64,184,0.32) 0%, rgba(37,64,184,0) 100%)",
+                filter: "blur(0.3px)",
+              }}
+            />
+            {/* Ceiling track lights */}
+            <div
+              className="absolute inset-x-[10%] top-0 h-[6%]"
+              style={{
+                background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 100%)",
+              }}
+            />
           </div>
-          {/* Minimal artwork metadata */}
-          <div className="mt-2 flex flex-col leading-tight">
+          {/* Artwork metadata */}
+          <div className="mt-2 flex flex-col gap-[1px] leading-tight">
             <span className="text-[10px] font-semibold text-[#202124]">Sun Dog</span>
-            <span className="text-[9.5px] italic text-[#6B6A67]">Evening field, 2023</span>
+            <span className="text-[9.5px] italic text-[#202124]">Evening field, 2023</span>
+            <span className="text-[9px] text-[#6B6A67]">Acrylic on canvas</span>
+            <span className="text-[9px] text-[#6B6A67]">120 × 120 cm</span>
+            <span className="mt-0.5 text-[9px] text-[#202124]">8 000 €</span>
           </div>
+          {/* Signature */}
+          <div className="mt-2.5 text-[9.5px] leading-[1.5] text-[#202124]">
+            <p>--</p>
+            <p>Raphaël Rossi</p>
+          </div>
+        </div>
+
+        {/* Editor toolbar */}
+        <div className="flex items-center gap-1.5 border-t border-[#E8E8E6] bg-[#F5F5F3] px-3 py-1.5 text-[9px] text-[#5F6368]">
+          <span>↶</span>
+          <span>↷</span>
+          <span className="mx-1 h-2 w-px bg-[#D8D8D5]" />
+          <span>Sans Serif</span>
+          <span>▾</span>
+          <span className="mx-1 h-2 w-px bg-[#D8D8D5]" />
+          <span className="font-bold">B</span>
+          <span className="italic">I</span>
+          <span className="underline">U</span>
+        </div>
+
+        {/* Bottom action bar */}
+        <div className="flex items-center gap-2 border-t border-[#E8E8E6] px-3 py-2">
+          <div className="flex items-center overflow-hidden rounded-[18px]">
+            <button className="bg-[#0B57D0] px-3 py-1 text-[10px] font-medium text-white">
+              Send
+            </button>
+            <button className="bg-[#0B57D0] px-1.5 py-1 text-[10px] text-white">▾</button>
+          </div>
+          <span className="text-[10px] text-[#5F6368]">𝐀</span>
+          <span className="text-[10px] text-[#5F6368]">📎</span>
+          <span className="text-[10px] text-[#5F6368]">🔗</span>
+          <span className="text-[10px] text-[#5F6368]">🙂</span>
+          <span className="ml-auto text-[10px] text-[#5F6368]">🗑</span>
         </div>
       </div>
 
