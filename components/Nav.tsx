@@ -212,11 +212,14 @@ export default function Nav() {
                               <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
                                 {item.title}
                               </span>
-                              {"badge" in item && item.badge && (
-                                <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
-                                  {item.badge}
-                                </span>
-                              )}
+                              {(() => {
+                                const b = "badge" in item && (item as { badge?: string }).badge;
+                                return b ? (
+                                  <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
+                                    {b}
+                                  </span>
+                                ) : null;
+                              })()}
                             </div>
                             <p className="text-[12px] leading-snug text-[#6B6A67]">{item.desc}</p>
                           </a>

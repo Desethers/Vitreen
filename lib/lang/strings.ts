@@ -7,23 +7,19 @@ export const translations = {
   fr: {
     nav: {
       links: [
-        { label: "Outils", href: "#tools", menu: "product" as const },
+        { label: "Produits", href: "#tools", menu: "product" as const },
         { label: "Workflows", href: "#solutions", menu: "solutions" as const },
         { label: "Déploiement", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
       ],
       productMenu: {
-        sectionLabel: "Outils",
+        sectionLabel: "Produits",
         items: [
-          { title: "Overview", desc: "Outils connectés pour expositions, publication et communication collectionneurs.", href: "/tools/overview" },
-          { title: "Archive", desc: "Œuvres, artistes et expositions organisés autour de votre workflow.", href: "/tools/archive" },
-          { title: "Viewing Rooms", desc: "Présentations privées pour collectionneurs et expositions.", href: "/tools/viewing-rooms", badge: "Bientôt" },
-          { title: "Previews", desc: "Présentations privées d’œuvres pour collectionneurs.", href: "/tools/previews" },
-          { title: "Publishing", desc: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.", href: "/tools/publishing" },
-          { title: "Inquiries", desc: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.", href: "/tools/inquiries" },
-          { title: "Mobile", desc: "Publication galerie, même en déplacement.", href: "/tools/mobile" },
-          { title: "Custom Operations", desc: "Workflows sur mesure adaptés à votre galerie.", href: "/tools/custom-operations" },
+          { title: "Artworks Management", desc: "Organisez œuvres, expositions et archives à travers vos systèmes existants.", href: "/tools/archive" },
+          { title: "Publication Publique & Privée", desc: "Publiez les œuvres sur sites web, viewing rooms, PDFs collectionneurs et canaux privés.", href: "/tools/publishing" },
+          { title: "Relations Collectionneurs", desc: "Gardez conversations, demandes et suivis connectés aux bonnes œuvres.", href: "/tools/inquiries" },
+          { title: "Assistants Galerie", desc: "Soutenez la publication, la préparation des ventes et les opérations quotidiennes.", href: "/tools/custom-operations" },
         ],
         featured: {
           eyebrow: "Nouveautés",
@@ -536,8 +532,8 @@ export const translations = {
         cta: "Discuter de votre setup",
       },
       archive: {
-        eyebrow: "Outils · Archive",
-        title: "Œuvres, artistes et expositions, organisés.",
+        eyebrow: "Outils · Artworks Management",
+        title: "Artworks Management",
         subtitle: "Œuvres, artistes et expositions organisés autour de votre workflow.",
         body:
           "Archive sert de base structurée pour les œuvres de la galerie : artistes, expositions, médiums, dimensions, statuts. Les données restent disponibles pour les pages publiques, les viewing rooms et les supports envoyés aux collectionneurs.",
@@ -649,23 +645,19 @@ export const translations = {
   en: {
     nav: {
       links: [
-        { label: "Tools", href: "#tools", menu: "product" as const },
+        { label: "Products", href: "#tools", menu: "product" as const },
         { label: "Workflows", href: "#solutions", menu: "solutions" as const },
         { label: "Deployment", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
       ],
       productMenu: {
-        sectionLabel: "Tools",
+        sectionLabel: "Products",
         items: [
-          { title: "Overview", desc: "Connected tools for exhibitions, publishing and collector communication.", href: "/tools/overview" },
-          { title: "Archive", desc: "Artworks, artists and exhibitions organized around your workflow.", href: "/tools/archive" },
-          { title: "Viewing Rooms", desc: "Private presentations for collectors and exhibitions.", href: "/tools/viewing-rooms", badge: "Soon" },
-          { title: "Previews", desc: "Private artwork presentations for collectors.", href: "/tools/previews" },
-          { title: "Publishing", desc: "Website pages, PDFs and collector communication from the same artwork structure.", href: "/tools/publishing" },
-          { title: "Inquiries", desc: "Track collector interest across artworks and private sharing.", href: "/tools/inquiries" },
-          { title: "Mobile", desc: "Gallery publishing, on the go.", href: "/tools/mobile" },
-          { title: "Custom Operations", desc: "Tailored workflows adapted to your gallery.", href: "/tools/custom-operations" },
+          { title: "Artworks Management", desc: "Organise artworks, exhibitions and gallery archives across existing systems.", href: "/tools/archive" },
+          { title: "Public & Private Publishing", desc: "Publish artworks across websites, viewing rooms, collector PDFs and private sharing.", href: "/products/publishing" },
+          { title: "Collector Relationships", desc: "Keep collector conversations, inquiries and follow-ups connected to artworks.", href: "/products/collector-relationships" },
+          { title: "Gallery Assistants", desc: "Support publishing, sales preparation and day-to-day gallery operations.", href: "/products/assistants" },
         ],
         featured: {
           eyebrow: "What's new",
@@ -1181,8 +1173,8 @@ export const translations = {
         cta: "Discuss your setup",
       },
       archive: {
-        eyebrow: "Tools · Archive",
-        title: "Artworks, artists and exhibitions, organized.",
+        eyebrow: "Tools · Artworks Management",
+        title: "Artworks Management",
         subtitle: "Artworks, artists and exhibitions organized around your workflow.",
         body:
           "Archive provides a structured base for the gallery's artworks: artists, exhibitions, mediums, dimensions, status. The data stays available for public pages, viewing rooms and collector materials.",

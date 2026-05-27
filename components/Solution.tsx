@@ -1376,8 +1376,69 @@ function ViewingMock() {
   );
 }
 
+function WhatsappInquiryMock() {
+  return (
+    <div className="flex h-full items-center justify-center bg-[#F5F5F3] px-3 py-4">
+      <div className="flex h-full w-full max-w-[250px] flex-col overflow-hidden rounded-[18px] bg-[#101410] shadow-[0_18px_44px_rgba(0,0,0,0.18)]">
+        <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2.5">
+          <span className="text-[10px] text-white/70">‹</span>
+          <div className="relative flex h-7 w-7 items-center justify-center rounded-full bg-[#2A2A28]">
+            <span className="text-[9px] font-semibold text-white">MT</span>
+            <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full border border-[#101410] bg-[#25D366]" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[10px] font-medium leading-tight text-white">M. Tanaka</p>
+            <p className="text-[7px] leading-tight text-white/45">online</p>
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col gap-2.5 px-2.5 py-3">
+          <div className="self-start rounded-[10px] rounded-tl-sm bg-[#1F2B24] px-2.5 py-2 text-[8.5px] leading-[1.35] text-white/90">
+            Could you send the Horizon work from the preview?
+            <p className="mt-1 text-right text-[6.5px] text-white/40">09:24</p>
+          </div>
+
+          <div className="self-end overflow-hidden rounded-[10px] rounded-tr-sm bg-[#075E54] text-white shadow-[0_6px_20px_rgba(0,0,0,0.16)]">
+            <div className="relative h-[118px] w-[172px] bg-[#E8E5DD]">
+              <Image
+                src={shareableMomentArtwork.image}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="180px"
+                quality={92}
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent px-2 pb-1.5 pt-8">
+                <p className="text-[8px] font-medium italic leading-tight">
+                  {shareableMomentArtwork.title}, {shareableMomentArtwork.year}
+                </p>
+                <p className="mt-0.5 text-[6.5px] text-white/75">
+                  {shareableMomentArtwork.medium} · {shareableMomentArtwork.dimensions}
+                </p>
+              </div>
+            </div>
+            <div className="px-2 py-1.5">
+              <p className="text-[8px] leading-snug">Private viewing link attached.</p>
+              <p className="mt-0.5 text-right text-[6.5px] text-white/55">09:26 ✓✓</p>
+            </div>
+          </div>
+
+          <div className="self-start rounded-[10px] rounded-tl-sm bg-[#1F2B24] px-2.5 py-2 text-[8.5px] leading-[1.35] text-white/90">
+            Available for the opening preview?
+            <p className="mt-1 text-right text-[6.5px] text-white/40">09:29</p>
+          </div>
+
+          <div className="mt-auto rounded-full border border-white/10 bg-white/[0.06] px-3 py-2">
+            <p className="text-[8px] text-white/42">Message linked to artwork inquiry</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function InquiryMock() {
-  return <ShareableMomentMock />;
+  return <WhatsappInquiryMock />;
 }
 
 const mocks: Record<string, () => React.JSX.Element> = {

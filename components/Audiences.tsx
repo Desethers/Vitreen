@@ -4,6 +4,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExhibitionPageMock } from "./showcase/ExhibitionPageMock";
+import { ArchiveMock, PublishingMock, CollectorsMock, AssistantMock } from "./showcase/PillarMocks";
 import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -2033,33 +2034,33 @@ type PageExample = {
   mock: React.ComponentType;
 };
 
-const SITE_DOMAIN = "galerie-fontaine.com";
-const SITE_NAME = "Galerie Fontaine";
+const SITE_DOMAIN = "app.galleryos.com";
+const SITE_NAME = "Gallery OS";
 
 const PAGES: (PageExample & { description: string })[] = [
   {
-    label: "Home",
-    path: "",
-    mock: GalleryHeroMock,
-    description: "Homepage",
+    label: "Artworks",
+    path: "/dashboard/artworks",
+    mock: ArchiveMock,
+    description: "Artworks & archives",
   },
   {
-    label: "Exhibition",
-    path: "/exhibitions/your-friends",
-    mock: ExhibitionPageMock,
-    description: "Exhibition page",
+    label: "Private Selection",
+    path: "/dashboard/viewing-rooms",
+    mock: PublishingMock,
+    description: "Public & private publishing",
   },
   {
-    label: "Artist",
-    path: "/artists/sacha-elron",
-    mock: ArtistPortfolioMock,
-    description: "Artist portfolio",
+    label: "Collectors",
+    path: "/dashboard/collectors",
+    mock: CollectorsMock,
+    description: "Collector relationships",
   },
   {
-    label: "Viewing Room",
-    path: "/viewing-rooms/spring-2026",
-    mock: PrivateViewingMock,
-    description: "Private viewing room",
+    label: "Tools",
+    path: "/dashboard/tools",
+    mock: AssistantMock,
+    description: "Gallery assistants",
   },
 ];
 

@@ -84,7 +84,7 @@ function AuditMock() {
       className="relative h-full w-full overflow-hidden rounded-lg bg-white"
     >
       {/* ── Background: folder tree (gallery's real file system) ── */}
-      <div className="absolute inset-0 px-6 py-6">
+      <div className="absolute inset-0 px-6 pt-0 pb-6">
         <div className="flex flex-col gap-[11px]">
           {/* Document header */}
           <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
@@ -190,7 +190,7 @@ function AuditMock() {
       </div>
 
       {/* ── Foreground: Outlook mail ── */}
-      <div className="absolute" style={{ bottom: 16, right: 28, width: 320 }}>
+      <div className="absolute" style={{ top: 180, right: 28, width: 320 }}>
         <div className="overflow-hidden rounded-[7px] border border-[#E8E8E6] bg-white">
           {/* Sender row — Outlook logo avatar + name + "to me" + time */}
           <div className="flex items-center gap-2.5 px-3.5 py-3">
@@ -261,13 +261,13 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-white"
+      className="flex h-full w-full flex-col items-center justify-start overflow-hidden rounded-lg bg-white"
     >
       <div
         style={{
           width: "50%",
           transform: "scale(2)",
-          transformOrigin: "center center",
+          transformOrigin: "top center",
         }}
       >
         <StepTwoSharingFlow />
@@ -449,13 +449,13 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-white"
+      className="flex h-full w-full flex-col items-center justify-start overflow-hidden rounded-lg bg-white"
     >
       <div
         style={{
           width: "42%",
           transform: "scale(2.2)",
-          transformOrigin: "center center",
+          transformOrigin: "top center",
         }}
       >
         <DeployJourney />

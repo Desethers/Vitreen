@@ -45,11 +45,11 @@ export default function ArtworkSourceSection() {
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...fadeUp(0)}
-          className="grid gap-8 md:grid-cols-[0.62fr_1.38fr] md:items-start md:gap-14"
+          className="grid gap-8 md:grid-cols-[0.82fr_1.18fr] md:items-start md:gap-14"
         >
           {/* Left — text */}
           <div>
-            <h2 className="font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
+            <h2 className="font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:whitespace-nowrap md:text-[26px]">
               {t.artworkSource.title}
             </h2>
             <p className="mt-1 font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
@@ -63,14 +63,14 @@ export default function ArtworkSourceSection() {
           {/* Right — pillar mockup slideshow */}
           <div className="md:ml-auto md:self-start" style={{ maxWidth: 640, width: "100%" }}>
             {/* Mock panel */}
-            <div className="relative rounded-lg bg-white" style={{ height: 480 }}>
+            <div className="relative rounded-lg bg-white" style={{ height: 420 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>
             </div>
 
             {/* Pillar info + progress */}
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-2 flex flex-col gap-2">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`info-${current}`}
@@ -79,7 +79,7 @@ export default function ArtworkSourceSection() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="text-[15px] font-medium tracking-[-0.02em] text-[#111110]">
+                  <p className="text-[18px] font-medium leading-tight tracking-[-0.02em] text-[#111110] md:text-[20px]">
                     {pillar.title}
                   </p>
                   <p className="mt-1 text-[14px] leading-[1.6] text-[#6B6A67]">{pillar.desc}</p>

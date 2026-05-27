@@ -36,7 +36,7 @@ const ARTWORK_ROWS = [
   { title: "Rivière", year: "2023", price: "9 200 €", color: "#2D5043" },
 ];
 
-function GalleryOsDashboard() {
+export function GalleryOsDashboard() {
   return (
     <div className="overflow-hidden rounded-[10px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.15)]">
       <div className="flex">
@@ -50,7 +50,7 @@ function GalleryOsDashboard() {
             <div className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-[#111110]">
               <span className="text-[8px] leading-none text-white">▤</span>
             </div>
-            <span className="text-[10px] font-semibold text-[#111110]">Gallery OS</span>
+            <span className="text-[10px] font-medium text-[#111110]">Gallery OS</span>
           </div>
           {SIDEBAR_ITEMS.map((item) => (
             <div
@@ -61,7 +61,7 @@ function GalleryOsDashboard() {
               style={item.active ? { boxShadow: "0 0 0 0.5px #E8E8E6 inset" } : undefined}
             >
               <span className="text-[10px] leading-none text-[#ADADAA]">{item.icon}</span>
-              <span className="flex-1 truncate">{item.label}</span>
+              <span className="flex-1 truncate font-medium">{item.label}</span>
               {item.badge !== undefined && (
                 <span className="rounded-full bg-[#1FA854] px-1.5 py-[1px] text-[7.5px] font-medium text-white">
                   {item.badge}
@@ -76,7 +76,9 @@ function GalleryOsDashboard() {
         <div className="flex-1 px-5 py-4">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="font-display text-[15px] leading-tight text-[#111110]">Œuvres</h3>
+              <h3 className="font-display text-[15px] font-medium leading-tight text-[#111110]">
+                Œuvres
+              </h3>
               <p className="mt-0.5 text-[9px] text-[#6B6A67]">
                 7 au total · 7 disponibles · 0 vendue
               </p>
@@ -161,7 +163,7 @@ function GalleryOsDashboard() {
  * with the artwork inserted in the body, and the Vitreen popover
  * floating over the bottom-right of the email body. */
 
-function GmailMock() {
+export function GmailMock() {
   return (
     <div className="relative">
       {/* Gmail composer window */}
@@ -247,11 +249,6 @@ function GmailMock() {
             <span className="text-[9px] text-[#6B6A67]">Acrylic on canvas</span>
             <span className="text-[9px] text-[#6B6A67]">120 × 120 cm</span>
             <span className="mt-0.5 text-[9px] text-[#202124]">8 000 €</span>
-          </div>
-          {/* Signature */}
-          <div className="mt-2.5 text-[9.5px] leading-[1.5] text-[#202124]">
-            <p>--</p>
-            <p>Raphaël Rossi</p>
           </div>
         </div>
 
@@ -394,7 +391,7 @@ function WhatsappBotMock() {
             <div className="absolute inset-x-0 bottom-0 h-[22%] bg-gradient-to-b from-[#C8C0B2] to-[#A89E8C]" />
           </div>
           <div className="px-2 py-1.5 text-[8px] text-white">
-            <p>Raphael Rossi — sans titres — 2025</p>
+            <p>Sun Dog — Evening field, 2023</p>
             <p className="mt-0.5 text-right text-[7px] text-white/55">15:53 ✓✓</p>
           </div>
         </div>
@@ -439,6 +436,30 @@ function WhatsappBotMock() {
   );
 }
 
+/* ─── Comet-style floating action pill ─────────────────────────── */
+
+function ActionPill({
+  label,
+  icon,
+  style,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  style?: React.CSSProperties;
+}) {
+  return (
+    <div
+      className="absolute flex items-center gap-3 rounded-full bg-white py-2.5 pl-2.5 pr-6 shadow-[0_18px_40px_rgba(0,0,0,0.08),0_4px_10px_rgba(0,0,0,0.04)]"
+      style={style}
+    >
+      <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#F5F5F3]">
+        {icon}
+      </div>
+      <span className="text-[15px] font-medium tracking-tight text-[#111110]">{label}</span>
+    </div>
+  );
+}
+
 /* ─── Section ───────────────────────────────────────────────────── */
 
 export default function ConnectedTools() {
@@ -474,33 +495,65 @@ export default function ConnectedTools() {
             <GmailMock />
           </div>
 
-          {/* Bottom-left: WhatsApp */}
-          <div className="absolute" style={{ bottom: "4%", left: "6%", width: "13%" }}>
-            <WhatsappBotMock />
-          </div>
-
-          {/* Floating action pills */}
-          <div
-            className="absolute flex items-center gap-1.5 rounded-full border border-[#E8E8E6] bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+          {/* Floating action pills — Comet style */}
+          <ActionPill
+            label="Insert in Gmail"
+            icon={
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#111110"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
+            }
             style={{ bottom: "32%", left: "20%" }}
-          >
-            <span className="text-[10px] text-[#111110]">✉</span>
-            <span className="text-[10px] font-medium text-[#111110]">Insert in Gmail</span>
-          </div>
-          <div
-            className="absolute flex items-center gap-1.5 rounded-full border border-[#E8E8E6] bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+          />
+          <ActionPill
+            label="Generate PDF"
+            icon={
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#111110"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="M8 14h8M8 18h5" />
+              </svg>
+            }
             style={{ bottom: "18%", left: "22%" }}
-          >
-            <span className="text-[10px] text-[#1FA854]">●</span>
-            <span className="text-[10px] font-medium text-[#111110]">Generate PDF</span>
-          </div>
-          <div
-            className="absolute flex items-center gap-1.5 rounded-full border border-[#E8E8E6] bg-white px-3 py-1.5 shadow-[0_6px_20px_rgba(0,0,0,0.06)]"
+          />
+          <ActionPill
+            label="Private link"
+            icon={
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#111110"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M10 13a5 5 0 0 0 7.07 0l3.54-3.54a5 5 0 0 0-7.07-7.07l-1.41 1.41" />
+                <path d="M14 11a5 5 0 0 0-7.07 0l-3.54 3.54a5 5 0 0 0 7.07 7.07l1.41-1.41" />
+              </svg>
+            }
             style={{ top: "62%", right: "30%" }}
-          >
-            <span className="text-[10px] text-[#111110]">🔗</span>
-            <span className="text-[10px] font-medium text-[#111110]">Private link</span>
-          </div>
+          />
         </motion.div>
       </div>
     </section>

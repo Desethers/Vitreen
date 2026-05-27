@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import { GalleryOsDashboard } from "@/components/ConnectedTools";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -248,8 +249,257 @@ function ShowcaseCard({
   );
 }
 
-const INTERVAL = 4500;
 const bgImage = "/colin deland.jpeg";
+
+function GalleryWorkflowMock() {
+  const [scene, setScene] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    function play() {
+      setScene(0);
+      timers.push(setTimeout(() => !cancelled && setScene(1), 1200));
+      timers.push(setTimeout(() => !cancelled && setScene(2), 2600));
+      timers.push(setTimeout(() => !cancelled && setScene(3), 3900));
+      timers.push(setTimeout(() => !cancelled && setScene(4), 5400));
+      timers.push(setTimeout(() => !cancelled && play(), 8200));
+    }
+
+    play();
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+    };
+  }, []);
+
+  const mailVisible = scene >= 1;
+  const panelVisible = scene >= 3;
+  const inserted = scene >= 4;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.4, ease }}
+      className="absolute inset-0 overflow-visible bg-transparent"
+    >
+      <div
+        className="absolute"
+        style={{
+          bottom: -10,
+          left: "0%",
+          width: "94%",
+          transform: "scaleY(1.08)",
+          transformOrigin: "bottom left",
+        }}
+      >
+        <GalleryOsDashboard />
+      </div>
+      <AnimatePresence>
+        {mailVisible && (
+          <motion.div
+            key="gmail"
+            initial={{ opacity: 0, y: 18, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            transition={{ duration: 0.45, ease }}
+            className="absolute overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.14)]"
+            style={{ top: "7%", right: "0%", width: "34%" }}
+          >
+            <div className="flex items-center justify-between bg-[#F0F4F9] px-3 py-2">
+              <span className="text-[11px] font-semibold text-[#202124]">New Message</span>
+              <div className="flex items-center gap-2 text-[10px] text-[#5F6368]">
+                <span>_</span>
+                <span>↗</span>
+                <span>×</span>
+              </div>
+            </div>
+            <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] text-[#6B6A67]">
+              Recipients
+            </div>
+            <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] text-[#6B6A67]">
+              Subject
+            </div>
+            <div className="relative min-h-[178px] px-3 pt-3 pb-2">
+              <AnimatePresence>
+                {inserted && (
+                  <motion.div
+                    key="inserted-artwork"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.38, ease }}
+                    className="overflow-hidden rounded-[3px] bg-[#F5F0E8]"
+                  >
+                    <div className="relative aspect-[16/10]">
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background:
+                            "linear-gradient(180deg, #F5F0E8 0%, #EDE6DA 70%, #DCD3C2 100%)",
+                        }}
+                      />
+                      <div
+                        className="absolute"
+                        style={{
+                          top: "20%",
+                          left: "32%",
+                          width: "36%",
+                          height: "52%",
+                          background:
+                            "linear-gradient(135deg, #2540B8 0%, #1A3088 60%, #15276F 100%)",
+                          boxShadow: "0 1px 2px rgba(0,0,0,0.12), 0 0.5px 1px rgba(0,0,0,0.08)",
+                        }}
+                      />
+                      <div
+                        className="absolute inset-x-0 bottom-0"
+                        style={{
+                          height: "22%",
+                          background: "linear-gradient(180deg, #B8B0A2 0%, #9C9486 100%)",
+                        }}
+                      />
+                    </div>
+                    <div className="px-2.5 py-2">
+                      <p className="text-[10px] font-semibold leading-tight text-[#202124]">
+                        Evening Field
+                      </p>
+                      <p className="mt-0.5 text-[9px] leading-tight text-[#6B6A67]">
+                        Sacha Elron · Acrylic on canvas · 120 × 120 cm
+                      </p>
+                      <p className="mt-0.5 text-[9px] leading-tight text-[#202124]">8 000 €</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            <div className="flex items-center justify-between border-t border-[#E8E8E6] px-3 py-2">
+              <button className="rounded-full bg-[#0B57D0] px-3 py-1 text-[10px] font-medium text-white">
+                Send
+              </button>
+              <div className="flex items-center gap-2 text-[12px] text-[#5F6368]">
+                <span>A</span>
+                <span>⌘</span>
+                <span>🔗</span>
+                <motion.span
+                  className="flex h-5 w-5 items-center justify-center rounded-full border border-[#E8E8E6] bg-white text-[8px] font-semibold text-[#111110]"
+                  animate={
+                    scene === 2
+                      ? {
+                          scale: [1, 1.18, 1],
+                          boxShadow: [
+                            "0 0 0 rgba(17,17,16,0)",
+                            "0 0 0 8px rgba(17,17,16,0.08)",
+                            "0 0 0 rgba(17,17,16,0)",
+                          ],
+                        }
+                      : { scale: 1 }
+                  }
+                  transition={{ duration: 0.55, ease }}
+                >
+                  V
+                </motion.span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {panelVisible && (
+          <motion.div
+            key="vitreen-panel"
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.98 }}
+            transition={{ duration: 0.38, ease }}
+            className="absolute rounded-[12px] border border-[#E8E8E6] bg-white p-4 shadow-[0_18px_50px_rgba(0,0,0,0.13)]"
+            style={{ top: "27%", right: "-3%", width: "31%", zIndex: 20 }}
+          >
+            <div className="flex items-center justify-between">
+              <p className="text-[9px] uppercase tracking-[0.18em] text-[#ADADAA]">Vitreen</p>
+              <span className="text-[14px] text-[#ADADAA]">×</span>
+            </div>
+            <div className="mt-3 border-b border-[#E8E8E6] pb-2 text-[12px] text-[#111110]">
+              eve
+            </div>
+            <div className="mt-3 flex gap-1.5">
+              {["Tout", "Disponibles", "Réservées"].map((tag, i) => (
+                <span
+                  key={tag}
+                  className={`rounded-full border px-2 py-1 text-[8px] ${
+                    i === 0
+                      ? "border-[#111110] bg-[#111110] text-white"
+                      : "border-[#E8E8E6] text-[#6B6A67]"
+                  }`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <motion.div
+              className="mt-3 rounded-[8px] border border-[#6DA1FF] bg-[#EEF4FF] p-2"
+              initial={{ opacity: 0.65 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.15 }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex h-5 w-5 items-center justify-center rounded bg-[#2F6FE4] text-[10px] text-white">
+                  ✓
+                </div>
+                <div className="h-7 w-8 rounded-sm bg-[#1B2A4A]" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8A8A86]">
+                    Sun Dog
+                  </p>
+                  <p className="truncate text-[10px] font-medium italic leading-tight text-[#111110]">
+                    Evening Field
+                  </p>
+                  <p className="text-[8px] text-[#6B6A67]">8 000 €</p>
+                </div>
+                <span className="rounded-full border border-[#A8DDB5] bg-[#EAF8EE] px-2 py-0.5 text-[8px] uppercase tracking-[0.08em] text-[#4FA766]">
+                  Available
+                </span>
+              </div>
+            </motion.div>
+            <div className="mt-3 flex items-center justify-between">
+              <span className="text-[9px] text-[#6B6A67]">1 œuvre sélectionnée</span>
+              <button className="rounded-full bg-[#111110] px-3 py-1.5 text-[10px] font-medium text-white">
+                Insérer
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {scene === 2 && (
+          <motion.div
+            key="cursor"
+            className="absolute z-30 text-[#111110]"
+            style={{ top: "55%", right: "7%" }}
+            initial={{ opacity: 0, x: -18, y: -14 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.38, ease }}
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="white"
+              stroke="currentColor"
+              strokeWidth="1.6"
+            >
+              <path d="M4 3l14 9-6.2 1.3L8.2 20 4 3Z" />
+            </svg>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
 
 /* Step 1 — Branded admin interface */
 export function AdminMock() {
@@ -958,39 +1208,8 @@ export function ShareMock() {
   );
 }
 
-const MOCKS = [AdminMock, LiveSiteMock, ShareMock];
-
-const STEP_POSITIONS: React.CSSProperties[] = [
-  { top: 60, right: "calc(22% - 140px)" },
-  { bottom: 60, left: "calc(22% - 140px)" },
-  { top: 60, left: "calc(22% - 140px)" },
-];
-
 export default function Showcase() {
   const { t } = useLang();
-  const stepData = t.stepper.steps;
-
-  const [active, setActive] = useState(0);
-  const [revealed, setRevealed] = useState<Set<number>>(new Set([0]));
-
-  const advance = useCallback(() => {
-    setActive((prev) => {
-      const next = (prev + 1) % MOCKS.length;
-      if (next === 0) {
-        setRevealed(new Set([0]));
-      } else {
-        setRevealed((r) => new Set([...r, next]));
-      }
-      return next;
-    });
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(advance, INTERVAL);
-    return () => clearInterval(id);
-  }, [advance]);
-
-  const Mock = MOCKS[active];
 
   return (
     <section id="blog" className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
@@ -1019,100 +1238,11 @@ export default function Showcase() {
             />
 
             <div
-              className="absolute bg-white rounded overflow-hidden top-6 bottom-6 left-[4%] right-[4%] md:top-[70px] md:bottom-[70px] md:left-[22%] md:right-[22%]"
-              style={{
-                zIndex: 10,
-                boxShadow: "0 8px 40px rgba(0,0,0,0.14)",
-              }}
+              className="absolute top-6 bottom-6 left-[4%] right-[4%] overflow-visible md:top-[60px] md:bottom-[70px] md:left-[8%] md:right-[8%]"
+              style={{ zIndex: 10 }}
             >
-              <AnimatePresence mode="sync">
-                <motion.div
-                  key={active}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 1 }}
-                  transition={{ duration: 0.35 }}
-                  className="absolute inset-0"
-                >
-                  <Mock />
-                </motion.div>
-              </AnimatePresence>
+              <GalleryWorkflowMock />
             </div>
-
-            {stepData.map((step, i) => {
-              const isActive = active === i;
-              const isRevealed = revealed.has(i);
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{
-                    opacity: isRevealed ? 1 : 0,
-                    scale: isRevealed ? 1 : 0.9,
-                    boxShadow: isActive
-                      ? "0 8px 32px rgba(0,0,0,0.16)"
-                      : "0 2px 10px rgba(0,0,0,0.06)",
-                  }}
-                  transition={{ duration: 0.4, ease }}
-                  className="hidden md:block absolute bg-white rounded-[20px] px-5 py-3"
-                  style={{ ...STEP_POSITIONS[i], zIndex: 20, width: 300 }}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold transition-colors duration-300 ${
-                        isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#111110]"
-                      }`}
-                    >
-                      {i + 1}
-                    </div>
-                    <span className="text-[14px] font-medium leading-tight text-[#111110]">
-                      {step.title}
-                    </span>
-                  </div>
-                  <motion.p
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: isRevealed ? 1 : 0, height: isRevealed ? "auto" : 0 }}
-                    transition={{ duration: 0.35, delay: isRevealed ? 0.15 : 0 }}
-                    className="text-[12px] text-[#6B6A67] leading-[1.5] mt-1.5 pl-[38px] overflow-hidden truncate"
-                  >
-                    {step.desc}
-                  </motion.p>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          <div
-            className="block md:hidden px-[15px] py-4"
-            style={{ borderTop: "0.5px solid #E8E8E6" }}
-          >
-            {stepData.map((step, i) => {
-              const isActive = active === i;
-              return (
-                <div
-                  key={i}
-                  className={`flex items-start gap-3 py-3 ${i > 0 ? "border-t border-[#F4F4F2]" : ""}`}
-                >
-                  <div
-                    className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold mt-0.5 transition-colors duration-300 ${isActive ? "bg-[#111110] text-white" : "bg-[#F0F0EE] text-[#ADADAA]"}`}
-                  >
-                    {i + 1}
-                  </div>
-                  <div>
-                    <p
-                      className={`text-[13px] font-medium leading-tight transition-colors duration-300 ${isActive ? "text-[#111110]" : "text-[#ADADAA]"}`}
-                    >
-                      {step.title}
-                    </p>
-                    {isActive && (
-                      <p className="text-[12px] text-[#6B6A67] leading-[1.45] mt-0.5">
-                        {step.desc}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </motion.div>
       </div>
