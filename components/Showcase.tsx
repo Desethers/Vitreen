@@ -251,7 +251,7 @@ function ShowcaseCard({
 
 const bgImage = "/colin deland.jpeg";
 
-function GalleryWorkflowMock() {
+export function GalleryWorkflowMock() {
   const [scene, setScene] = useState(0);
 
   useEffect(() => {
@@ -289,7 +289,7 @@ function GalleryWorkflowMock() {
       <div
         className="absolute"
         style={{
-          bottom: -10,
+          bottom: 22,
           left: "0%",
           width: "94%",
           transform: "scaleY(1.08)",

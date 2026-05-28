@@ -41,7 +41,9 @@ export default function ViewingRoomStudio() {
             <div className="mt-6">
               <Button
                 size="md"
-                onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
+                href="https://vitreen.art/viewingroom-studio"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {content.cta}
               </Button>

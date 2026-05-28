@@ -15,6 +15,11 @@ const fadeUp = (delay = 0) => ({
 });
 
 const SLIDE_DURATION = 5000;
+const STEP_BACKGROUNDS = [
+  "/paula-cooper-background.jpg",
+  "/colin deland.jpeg",
+  "/max hetzler-kippen.jpg",
+];
 
 export default function ArtworkSourceSection() {
   const { t } = useLang();
@@ -61,9 +66,16 @@ export default function ArtworkSourceSection() {
           </div>
 
           {/* Right — pillar mockup slideshow */}
-          <div className="md:ml-auto md:self-start" style={{ maxWidth: 640, width: "100%" }}>
+          <div
+            className="overflow-hidden rounded-lg bg-cover bg-center md:ml-auto md:self-start"
+            style={{
+              maxWidth: 640,
+              width: "100%",
+              backgroundImage: `url("${STEP_BACKGROUNDS[current]}")`,
+            }}
+          >
             {/* Mock panel */}
-            <div className="relative rounded-lg bg-white" style={{ height: 420 }}>
+            <div className="relative overflow-hidden" style={{ height: 420 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>

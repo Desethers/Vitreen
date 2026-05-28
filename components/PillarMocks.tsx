@@ -81,116 +81,121 @@ function AuditMock() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease }}
-      className="relative h-full w-full overflow-hidden rounded-lg bg-white"
+      className="relative z-10 h-full w-full overflow-hidden rounded-lg bg-transparent"
     >
       {/* ── Background: folder tree (gallery's real file system) ── */}
-      <div className="absolute inset-0 px-6 pt-0 pb-6">
-        <div className="flex flex-col gap-[11px]">
-          {/* Document header */}
-          <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
-            <span className="block h-[9px] w-[9px] rounded-[3px] border border-[#ADADAA]" />
-            <span className="text-[13px] font-medium text-[#111110]">Document</span>
-            <svg
-              width="9"
-              height="9"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="#6B6A67"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M6 3 v6 m-3 -3 3 3 3 -3" />
-            </svg>
-          </div>
-          {/* Folder 1 */}
-          <div className="flex items-center gap-2.5">
-            <svg
-              width="9"
-              height="9"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="#6B6A67"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 5 L6 8 L9 5" />
-            </svg>
-            <svg
-              width="15"
-              height="11"
-              viewBox="0 0 16 12"
-              fill="#C8C7C2"
-              stroke="#A8A7A2"
-              strokeWidth="0.4"
-            >
-              <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
-            </svg>
-            <span className="text-[13px] font-medium text-[#111110]">
-              {SAMPLE_INVENTORY.rootFolder}
-            </span>
-            <span className="text-[13px] text-[#ADADAA]">· 42 files</span>
-          </div>
-          {/* Subfolder */}
-          <div className="flex items-center gap-2.5 pl-7">
-            <svg
-              width="9"
-              height="9"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="#6B6A67"
-              strokeWidth="1.3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 5 L6 8 L9 5" />
-            </svg>
-            <svg
-              width="15"
-              height="11"
-              viewBox="0 0 16 12"
-              fill="#C8C7C2"
-              stroke="#A8A7A2"
-              strokeWidth="0.4"
-            >
-              <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
-            </svg>
-            <span className="text-[13px] font-medium text-[#111110]">
-              {SAMPLE_INVENTORY.artistFolder}
-            </span>
-            <span className="text-[13px] text-[#ADADAA]">· 6 files</span>
-          </div>
-          {/* Files inside */}
-          <div className="flex items-center gap-2.5 pl-16">
-            <FilePdf />
-            <span className="text-[12.5px] text-[#111110]">
-              {SAMPLE_INVENTORY.filenames.provenance}
-            </span>
-          </div>
-          <div className="flex items-center gap-2.5 pl-16">
-            <FileXlsx />
-            <span className="text-[12.5px] text-[#111110]">
-              {SAMPLE_INVENTORY.filenames.inventory}
-            </span>
-          </div>
-          <div className="flex items-center gap-2.5 pl-16">
-            <FileDoc />
-            <span className="text-[12.5px] text-[#111110]">
-              {SAMPLE_INVENTORY.filenames.collectorNotes}
-            </span>
-          </div>
-          <div className="flex items-center gap-2.5 pl-16">
-            <FilePdf />
-            <span className="text-[12.5px] text-[#111110]">
-              {SAMPLE_INVENTORY.filenames.exhibition}
-            </span>
+      <div className="absolute inset-0 flex items-center px-6 py-6">
+        <div className="w-full">
+          <div className="flex flex-col gap-[11px]">
+            {/* Document header */}
+            <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
+              <span className="block h-[9px] w-[9px] rounded-[3px] border border-[#ADADAA]" />
+              <span className="text-[13px] font-medium text-[#111110]">Document</span>
+              <svg
+                width="9"
+                height="9"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="#6B6A67"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M6 3 v6 m-3 -3 3 3 3 -3" />
+              </svg>
+            </div>
+            {/* Folder 1 */}
+            <div className="flex items-center gap-2.5">
+              <svg
+                width="9"
+                height="9"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="#6B6A67"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 5 L6 8 L9 5" />
+              </svg>
+              <svg
+                width="15"
+                height="11"
+                viewBox="0 0 16 12"
+                fill="#C8C7C2"
+                stroke="#A8A7A2"
+                strokeWidth="0.4"
+              >
+                <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
+              </svg>
+              <span className="text-[13px] font-medium text-[#111110]">
+                {SAMPLE_INVENTORY.rootFolder}
+              </span>
+              <span className="text-[13px] text-[#ADADAA]">· 42 files</span>
+            </div>
+            {/* Subfolder */}
+            <div className="flex items-center gap-2.5 pl-7">
+              <svg
+                width="9"
+                height="9"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="#6B6A67"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 5 L6 8 L9 5" />
+              </svg>
+              <svg
+                width="15"
+                height="11"
+                viewBox="0 0 16 12"
+                fill="#C8C7C2"
+                stroke="#A8A7A2"
+                strokeWidth="0.4"
+              >
+                <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
+              </svg>
+              <span className="text-[13px] font-medium text-[#111110]">
+                {SAMPLE_INVENTORY.artistFolder}
+              </span>
+              <span className="text-[13px] text-[#ADADAA]">· 6 files</span>
+            </div>
+            {/* Files inside */}
+            <div className="flex items-center gap-2.5 pl-16">
+              <FilePdf />
+              <span className="text-[12.5px] text-[#111110]">
+                {SAMPLE_INVENTORY.filenames.provenance}
+              </span>
+            </div>
+            <div className="flex items-center gap-2.5 pl-16">
+              <FileXlsx />
+              <span className="text-[12.5px] text-[#111110]">
+                {SAMPLE_INVENTORY.filenames.inventory}
+              </span>
+            </div>
+            <div className="flex items-center gap-2.5 pl-16">
+              <FileDoc />
+              <span className="text-[12.5px] text-[#111110]">
+                {SAMPLE_INVENTORY.filenames.collectorNotes}
+              </span>
+            </div>
+            <div className="flex items-center gap-2.5 pl-16">
+              <FilePdf />
+              <span className="text-[12.5px] text-[#111110]">
+                {SAMPLE_INVENTORY.filenames.exhibition}
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* ── Foreground: Outlook mail ── */}
-      <div className="absolute" style={{ top: 180, right: 28, width: 320 }}>
+      <div
+        className="absolute"
+        style={{ top: "50%", right: 28, width: 320, transform: "translateY(-12%)" }}
+      >
         <div className="overflow-hidden rounded-[7px] border border-[#E8E8E6] bg-white">
           {/* Sender row — Outlook logo avatar + name + "to me" + time */}
           <div className="flex items-center gap-2.5 px-3.5 py-3">
@@ -261,13 +266,13 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-start overflow-hidden rounded-lg bg-white"
+      className="relative z-10 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-transparent"
     >
       <div
         style={{
           width: "50%",
           transform: "scale(2)",
-          transformOrigin: "top center",
+          transformOrigin: "center center",
         }}
       >
         <StepTwoSharingFlow />
@@ -449,13 +454,13 @@ function DeployMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-start overflow-hidden rounded-lg bg-white"
+      className="relative z-10 flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-transparent"
     >
       <div
         style={{
           width: "42%",
           transform: "scale(2.2)",
-          transformOrigin: "top center",
+          transformOrigin: "center center",
         }}
       >
         <DeployJourney />

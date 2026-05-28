@@ -38,7 +38,7 @@ const ARTWORK_ROWS = [
 
 export function GalleryOsDashboard() {
   return (
-    <div className="overflow-hidden rounded-[10px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.15)]">
+    <div className="overflow-hidden rounded-[10px] border border-[#E8E8E6] bg-white">
       <div className="flex">
         {/* Sidebar */}
         <div

@@ -1,12 +1,9 @@
-import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import ViewingRoomStudio from "@/components/ViewingRoomStudio";
 import ArtworkSourceSection from "@/components/ArtworkSourceSection";
-import Showcase from "@/components/Showcase";
+import { GalleryWorkflowMock } from "@/components/Showcase";
 
-const Audiences = dynamic(() => import("@/components/Audiences"));
-import ConnectedTools from "@/components/ConnectedTools";
 import Solution from "@/components/Solution";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
@@ -20,10 +17,14 @@ export default function Home() {
     <main className="relative">
       <Nav />
       <Hero />
-      <Audiences />
-      <ConnectedTools />
+      <section className="bg-white px-4 pb-12 md:px-6 md:pb-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative h-[360px] overflow-visible md:h-[520px]">
+            <GalleryWorkflowMock />
+          </div>
+        </div>
+      </section>
       <ArtworkSourceSection />
-      <Showcase />
       <Solution />
       <QuoteSection />
       <ViewingRoomStudio />
