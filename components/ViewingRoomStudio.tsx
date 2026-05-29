@@ -39,12 +39,7 @@ export default function ViewingRoomStudio() {
               {content.body}
             </p>
             <div className="mt-6">
-              <Button
-                size="md"
-                href="https://vitreen.art/viewingroom-studio"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Button size="md" href="/viewing-room-studio">
                 {content.cta}
               </Button>
             </div>

@@ -130,10 +130,20 @@ export function StepTwoSharingFlow() {
       {leftIcons.map((icon) => (
         <div
           key={`li-${icon.alt}`}
-          className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(22 / 280) * 100}%`, top: `${(icon.y / 124) * 100}%` }}
+          className="absolute flex h-[22px] w-[22px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[5px] bg-white"
+          style={{
+            left: `${(22 / 280) * 100}%`,
+            top: `${(icon.y / 124) * 100}%`,
+            border: "0.5px solid #E8E8E6",
+            boxShadow: "0 1px 3px rgba(17,17,16,0.06)",
+          }}
         >
-          <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
+          <img
+            src={icon.src}
+            alt={icon.alt}
+            className="h-3.5 w-3.5 object-contain"
+            loading="lazy"
+          />
         </div>
       ))}
       <div
@@ -215,10 +225,15 @@ export function StepTwoSharingFlow() {
       {rightIcons.map((icon) => (
         <div
           key={`ri-${icon.alt}`}
-          className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(258 / 280) * 100}%`, top: `${(icon.y / 124) * 100}%` }}
+          className="absolute flex h-[26px] w-[26px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[6px] bg-white"
+          style={{
+            left: `${(258 / 280) * 100}%`,
+            top: `${(icon.y / 124) * 100}%`,
+            border: "0.5px solid #E8E8E6",
+            boxShadow: "0 1px 3px rgba(17,17,16,0.06)",
+          }}
         >
-          <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
+          <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
         </div>
       ))}
     </div>

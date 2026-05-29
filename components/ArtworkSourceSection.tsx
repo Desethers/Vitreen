@@ -50,7 +50,7 @@ export default function ArtworkSourceSection() {
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...fadeUp(0)}
-          className="grid gap-8 md:grid-cols-[0.82fr_1.18fr] md:items-start md:gap-14"
+          className="grid gap-8 md:grid-cols-[0.62fr_1.38fr] md:items-start md:gap-14"
         >
           {/* Left — text */}
           <div>
@@ -75,14 +75,14 @@ export default function ArtworkSourceSection() {
             }}
           >
             {/* Mock panel */}
-            <div className="relative overflow-hidden" style={{ height: 420 }}>
+            <div className="relative overflow-hidden" style={{ height: 520 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>
             </div>
 
             {/* Pillar info + progress */}
-            <div className="mt-2 flex flex-col gap-2">
+            <div className="mt-2 flex flex-col gap-2 px-6 pb-8 md:px-8 md:pb-10">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`info-${current}`}
