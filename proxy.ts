@@ -1,10 +1,10 @@
-import { clerkMiddleware } from '@clerk/nextjs/server'
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === 'true'
+const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === "true";
 
 // Routes that used to live at the root of vitreen.art (and on the old
-// room.vitreen.art subdomain). They are now nested under /viewing-room-studio/.
+// room.vitreen.art subdomain). They are now nested under /viewingroom-studio/.
 const LEGACY_PREFIXES = [
   "/dashboard",
   "/editor",
@@ -17,9 +17,7 @@ const LEGACY_PREFIXES = [
 ];
 
 function isLegacyPath(pathname: string): boolean {
-  return LEGACY_PREFIXES.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`)
-  );
+  return LEGACY_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 }
 
 function applyHostRewrite(request: NextRequest): NextResponse | null {
@@ -29,16 +27,16 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
   // Legacy subdomain — redirect to the new prefix on the main domain.
   if (host === "room.vitreen.art") {
     const target = new URL(
-      `https://vitreen.art/viewing-room-studio${pathname === "/" ? "" : pathname}${search}`,
+      `https://vitreen.art/viewingroom-studio${pathname === "/" ? "" : pathname}${search}`,
       request.url
     );
     return NextResponse.redirect(target, 308);
   }
 
-  // Legacy bare paths on vitreen.art — redirect to /viewing-room-studio/<path>.
+  // Legacy bare paths on vitreen.art — redirect to /viewingroom-studio/<path>.
   if (isLegacyPath(pathname)) {
     const url = request.nextUrl.clone();
-    url.pathname = `/viewing-room-studio${pathname}`;
+    url.pathname = `/viewingroom-studio${pathname}`;
     return NextResponse.redirect(url, 308);
   }
 

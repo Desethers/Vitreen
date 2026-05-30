@@ -24,10 +24,7 @@ export default function ViewingRoomStudio() {
       className="bg-white px-4 pt-12 pb-12 md:px-6 md:pt-[60px] md:pb-[60px]"
     >
       <div className="mx-auto max-w-7xl">
-        <motion.div
-          {...fadeUp(0)}
-          className="grid gap-8 md:grid-cols-[0.78fr_1.22fr] md:gap-14"
-        >
+        <motion.div {...fadeUp(0)} className="grid gap-8 md:grid-cols-[0.78fr_1.22fr] md:gap-14">
           <div>
             <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
               {content.eyebrow}
@@ -42,12 +39,7 @@ export default function ViewingRoomStudio() {
               {content.body}
             </p>
             <div className="mt-6">
-              <Button
-                size="md"
-                onClick={() =>
-                  window.dispatchEvent(new CustomEvent("open-contact-modal"))
-                }
-              >
+              <Button size="md" href="/viewingroom-studio">
                 {content.cta}
               </Button>
             </div>

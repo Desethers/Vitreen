@@ -17,7 +17,15 @@ const features: Feature[] = [
     title: "Free layout",
     desc: "Full page, diptych, triptych, image with text or quote. Reorder everything by drag and drop.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M21 7.5H3" />
       </svg>
     ),
@@ -26,7 +34,15 @@ const features: Feature[] = [
     title: "Export PDF",
     desc: "High-resolution document aligned with the preview — ready to print or archive.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
       </svg>
     ),
@@ -35,7 +51,15 @@ const features: Feature[] = [
     title: "Email HTML",
     desc: "Polished rendering in email clients including Gmail, an online viewing link, captions, and calls to action.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.815a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
       </svg>
     ),
@@ -44,7 +68,15 @@ const features: Feature[] = [
     title: "Private link",
     desc: "One URL per send: opens on mobile or desktop, with no heavy attachments.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
       </svg>
     ),
@@ -53,7 +85,15 @@ const features: Feature[] = [
     title: "Personalization",
     desc: "Recipient, headline, introduction, footer: each room is tailored to one contact.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
       </svg>
     ),
@@ -62,7 +102,15 @@ const features: Feature[] = [
     title: "Single workflow",
     desc: "Import, compose, and refine — all in the browser, without switching tools.",
     icon: (
-      <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" aria-hidden>
+      <svg
+        width="18"
+        height="18"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
         <path d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
         <path d="M8.25 9.75h7.5M8.25 12.75h4.5" strokeLinecap="round" />
       </svg>
@@ -111,7 +159,7 @@ export default function OvrLandingPage() {
   const [yearlyError, setYearlyError] = useState<string | null>(null);
 
   const goToEditor = () => {
-    window.location.href = "/viewing-room-studio/editor";
+    window.location.href = "/viewingroom-studio/editor";
   };
 
   const handleSubscribe = async (billing: "monthly" | "yearly") => {
@@ -120,7 +168,9 @@ export default function OvrLandingPage() {
       return;
     }
     if (clerkEnabled && !isSignedIn) {
-      router.push(`/viewing-room-studio/sign-in?redirect_url=${encodeURIComponent(pathname || "/viewing-room-studio/room")}`);
+      router.push(
+        `/viewingroom-studio/sign-in?redirect_url=${encodeURIComponent(pathname || "/viewingroom-studio/room")}`
+      );
       return;
     }
     if (!stripeConfigured) {
@@ -150,7 +200,8 @@ export default function OvrLandingPage() {
   };
 
   const sectionKicker = "text-[13px] text-[#6B6A67] tracking-wide";
-  const sectionTitle = "font-display mt-2 text-[1.65rem] font-normal leading-snug tracking-tight text-[#111110] md:text-[1.85rem]";
+  const sectionTitle =
+    "font-display mt-2 text-[1.65rem] font-normal leading-snug tracking-tight text-[#111110] md:text-[1.85rem]";
 
   return (
     <div className="min-h-screen bg-white text-[#111110]">
@@ -159,7 +210,9 @@ export default function OvrLandingPage() {
           <Link href="/" className="font-display text-[15px] tracking-tight text-[#111110]">
             Viewing Room Studio
           </Link>
-          <span className="hidden flex-1 text-center text-[13px] text-[#6B6A67] sm:block">Viewing Room Studio</span>
+          <span className="hidden flex-1 text-center text-[13px] text-[#6B6A67] sm:block">
+            Viewing Room Studio
+          </span>
           <Button onClick={goToEditor} size="sm">
             {isPro ? "Editor" : "Try for free"}
           </Button>
@@ -178,8 +231,8 @@ export default function OvrLandingPage() {
               An online viewing room composed in minutes
             </h1>
             <p className="mx-auto mt-5 max-w-lg text-pretty text-[16px] leading-[1.65] text-[#6B6A67]">
-              A clean, consistent presentation: fluid layout, high-definition PDF, HTML email, and private link
-              — without rebuilding layouts by hand in InDesign or PowerPoint.
+              A clean, consistent presentation: fluid layout, high-definition PDF, HTML email, and
+              private link — without rebuilding layouts by hand in InDesign or PowerPoint.
             </p>
             <div className="mt-9 flex flex-col items-stretch justify-center gap-2.5 sm:flex-row sm:items-center sm:justify-center">
               <Button onClick={goToEditor} size="lg">
@@ -249,8 +302,12 @@ export default function OvrLandingPage() {
                       <div className="text-center">
                         <p className="text-[13px] text-[#111110]">Destinations</p>
                         <div className="mt-5 space-y-2">
-                          <span className="mx-auto block w-fit rounded-sm bg-white px-5 py-2 text-[13px] text-[#111110] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">Private link</span>
-                          <span className="mx-auto block w-fit rounded-sm bg-white/25 px-5 py-2 text-[13px] text-[#9B653B]">PDF</span>
+                          <span className="mx-auto block w-fit rounded-sm bg-white px-5 py-2 text-[13px] text-[#111110] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+                            Private link
+                          </span>
+                          <span className="mx-auto block w-fit rounded-sm bg-white/25 px-5 py-2 text-[13px] text-[#9B653B]">
+                            PDF
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -338,7 +395,11 @@ export default function OvrLandingPage() {
                 className="mt-8 w-full justify-center"
                 disabled={!!loadingCheckout}
               >
-                {loadingCheckout === "monthly" ? "Redirecting…" : isPro ? "Open editor" : "Subscribe — €19/month"}
+                {loadingCheckout === "monthly"
+                  ? "Redirecting…"
+                  : isPro
+                    ? "Open editor"
+                    : "Subscribe — €19/month"}
               </Button>
             </div>
 
@@ -348,7 +409,9 @@ export default function OvrLandingPage() {
                 <span className="font-display text-4xl">110</span>
                 <span className="text-[15px] text-white/70">€ / year</span>
               </div>
-              <p className="mt-1 text-[13px] text-white/55">Around €9.17 / month · ~52% cheaper than 12 months at the monthly rate</p>
+              <p className="mt-1 text-[13px] text-white/55">
+                Around €9.17 / month · ~52% cheaper than 12 months at the monthly rate
+              </p>
               <p className="mt-4 text-[14px] leading-relaxed text-white/70">
                 Same access, yearly commitment.
               </p>
@@ -384,7 +447,9 @@ export default function OvrLandingPage() {
                     ? "Open editor"
                     : "Subscribe — €110/year"}
               </Button>
-              {yearlyError && <p className="mt-3 text-center text-[12px] text-amber-200/90">{yearlyError}</p>}
+              {yearlyError && (
+                <p className="mt-3 text-center text-[12px] text-amber-200/90">{yearlyError}</p>
+              )}
             </div>
           </div>
 
