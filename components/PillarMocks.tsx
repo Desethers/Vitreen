@@ -88,15 +88,15 @@ function AuditMock() {
         <div className="w-full">
           <div className="flex flex-col gap-[11px]">
             {/* Document header */}
-            <div className="flex items-center gap-2.5 border-b border-[#E8E8E6] pb-3">
-              <span className="block h-[9px] w-[9px] rounded-[3px] border border-[#ADADAA]" />
-              <span className="text-[13px] font-medium text-[#111110]">Document</span>
+            <div className="flex items-center gap-2.5 border-b border-white/20 pb-3">
+              <span className="block h-[9px] w-[9px] rounded-[3px] border border-white/40" />
+              <span className="text-[13px] font-medium text-white">Document</span>
               <svg
                 width="9"
                 height="9"
                 viewBox="0 0 12 12"
                 fill="none"
-                stroke="#6B6A67"
+                stroke="rgba(255,255,255,0.6)"
                 strokeWidth="1.3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -111,7 +111,7 @@ function AuditMock() {
                 height="9"
                 viewBox="0 0 12 12"
                 fill="none"
-                stroke="#6B6A67"
+                stroke="rgba(255,255,255,0.6)"
                 strokeWidth="1.3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -122,16 +122,16 @@ function AuditMock() {
                 width="15"
                 height="11"
                 viewBox="0 0 16 12"
-                fill="#C8C7C2"
-                stroke="#A8A7A2"
+                fill="rgba(255,255,255,0.25)"
+                stroke="rgba(255,255,255,0.4)"
                 strokeWidth="0.4"
               >
                 <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
               </svg>
-              <span className="text-[13px] font-medium text-[#111110]">
+              <span className="text-[13px] font-medium text-white">
                 {SAMPLE_INVENTORY.rootFolder}
               </span>
-              <span className="text-[13px] text-[#ADADAA]">· 42 files</span>
+              <span className="text-[13px] text-white/50">· 42 files</span>
             </div>
             {/* Subfolder */}
             <div className="flex items-center gap-2.5 pl-7">
@@ -140,7 +140,7 @@ function AuditMock() {
                 height="9"
                 viewBox="0 0 12 12"
                 fill="none"
-                stroke="#6B6A67"
+                stroke="rgba(255,255,255,0.6)"
                 strokeWidth="1.3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -151,39 +151,39 @@ function AuditMock() {
                 width="15"
                 height="11"
                 viewBox="0 0 16 12"
-                fill="#C8C7C2"
-                stroke="#A8A7A2"
+                fill="rgba(255,255,255,0.25)"
+                stroke="rgba(255,255,255,0.4)"
                 strokeWidth="0.4"
               >
                 <path d="M1 3.5 V10 a1 1 0 0 0 1 1 h12 a1 1 0 0 0 1-1 V5 a1 1 0 0 0-1-1 H7 L5.5 2.5 a1 1 0 0 0-.7-.3 H2 a1 1 0 0 0-1 1 Z" />
               </svg>
-              <span className="text-[13px] font-medium text-[#111110]">
+              <span className="text-[13px] font-medium text-white">
                 {SAMPLE_INVENTORY.artistFolder}
               </span>
-              <span className="text-[13px] text-[#ADADAA]">· 6 files</span>
+              <span className="text-[13px] text-white/50">· 6 files</span>
             </div>
             {/* Files inside */}
             <div className="flex items-center gap-2.5 pl-16">
               <FilePdf />
-              <span className="text-[12.5px] text-[#111110]">
+              <span className="text-[12.5px] text-white/90">
                 {SAMPLE_INVENTORY.filenames.provenance}
               </span>
             </div>
             <div className="flex items-center gap-2.5 pl-16">
               <FileXlsx />
-              <span className="text-[12.5px] text-[#111110]">
+              <span className="text-[12.5px] text-white/90">
                 {SAMPLE_INVENTORY.filenames.inventory}
               </span>
             </div>
             <div className="flex items-center gap-2.5 pl-16">
               <FileDoc />
-              <span className="text-[12.5px] text-[#111110]">
+              <span className="text-[12.5px] text-white/90">
                 {SAMPLE_INVENTORY.filenames.collectorNotes}
               </span>
             </div>
             <div className="flex items-center gap-2.5 pl-16">
               <FilePdf />
-              <span className="text-[12.5px] text-[#111110]">
+              <span className="text-[12.5px] text-white/90">
                 {SAMPLE_INVENTORY.filenames.exhibition}
               </span>
             </div>
@@ -341,7 +341,7 @@ function DeployJourney() {
   return (
     <div className="flex flex-col">
       {/* Main request card — Outlook-style layout (icon · sender · time / divider / body) */}
-      <div className="rounded-[4px] bg-white px-1.5 py-1.5" style={hairline}>
+      <div className="w-[86%] rounded-[4px] bg-white px-1.5 py-1.5" style={hairline}>
         {/* Header row */}
         <div className="flex items-start gap-1.5">
           {/* Outlook avatar */}
@@ -458,7 +458,7 @@ function DeployMock() {
     >
       <div
         style={{
-          width: "42%",
+          width: "36%",
           transform: "scale(2.2)",
           transformOrigin: "center center",
         }}

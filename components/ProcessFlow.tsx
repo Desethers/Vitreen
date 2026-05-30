@@ -92,6 +92,7 @@ export function StepTwoSharingFlow() {
     { src: pdf.src, alt: pdf.alt, y: 20 },
     { src: whatsApp.src, alt: whatsApp.alt, y: 104 },
   ];
+
   return (
     <div className="relative h-[124px] w-full">
       <svg

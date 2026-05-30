@@ -275,8 +275,12 @@ export function GalleryWorkflowMock() {
   }, []);
 
   const mailVisible = scene >= 1;
-  const panelVisible = scene >= 3;
+  // Panel only shows while the collector is picking the work (scene 3).
+  // It exits as the artwork is inserted (scene 4) so the two cards never
+  // sit on top of each other — the email body is revealed cleanly.
+  const panelVisible = scene === 3;
   const inserted = scene >= 4;
+  const highlightedExtension = scene === 2;
 
   return (
     <motion.div
@@ -303,11 +307,11 @@ export function GalleryWorkflowMock() {
           <motion.div
             key="gmail"
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={{ opacity: 1, y: 0, scale: inserted ? 1.01 : 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.45, ease }}
             className="absolute overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.14)]"
-            style={{ top: "7%", right: "0%", width: "34%" }}
+            style={{ top: "7%", right: "0%", width: "36%", zIndex: 12 }}
           >
             <div className="flex items-center justify-between bg-[#F0F4F9] px-3 py-2">
               <span className="text-[11px] font-semibold text-[#202124]">New Message</span>
@@ -317,14 +321,32 @@ export function GalleryWorkflowMock() {
                 <span>×</span>
               </div>
             </div>
-            <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] text-[#6B6A67]">
-              Recipients
+            <div className="flex items-center gap-2 border-b border-[#E8E8E6] px-3 py-2 text-[10px]">
+              <span className="text-[#6B6A67]">To</span>
+              <span className="rounded-full bg-[#F5F5F3] px-2 py-0.5 font-medium text-[#202124]">
+                M. Tanaka
+              </span>
             </div>
-            <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] text-[#6B6A67]">
-              Subject
+            <div className="border-b border-[#E8E8E6] px-3 py-2 text-[10px] font-medium text-[#202124]">
+              Available Warhol works
             </div>
-            <div className="relative min-h-[178px] px-3 pt-3 pb-2">
+            <div className="relative min-h-[190px] px-3 pt-3 pb-2">
               <AnimatePresence>
+                {!inserted && (
+                  <motion.div
+                    key="draft-copy"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="pr-2 text-[10px] leading-[1.5] text-[#8A8A86]"
+                  >
+                    <p>Dear Maria,</p>
+                    <p className="mt-2">
+                      Preparing the requested selection. Insert artwork details from Vitreen.
+                    </p>
+                  </motion.div>
+                )}
                 {inserted && (
                   <motion.div
                     key="inserted-artwork"
@@ -363,12 +385,14 @@ export function GalleryWorkflowMock() {
                     </div>
                     <div className="px-2.5 py-2">
                       <p className="text-[10px] font-semibold leading-tight text-[#202124]">
-                        Evening Field
+                        Marilyn 1967 — selection
                       </p>
                       <p className="mt-0.5 text-[9px] leading-tight text-[#6B6A67]">
-                        Sacha Elron · Acrylic on canvas · 120 × 120 cm
+                        6 works · provenance documents · auction comparables
                       </p>
-                      <p className="mt-0.5 text-[9px] leading-tight text-[#202124]">8 000 €</p>
+                      <p className="mt-1 text-[9px] leading-tight text-[#202124]">
+                        Private PDF attached
+                      </p>
                     </div>
                   </motion.div>
                 )}
@@ -383,9 +407,9 @@ export function GalleryWorkflowMock() {
                 <span>⌘</span>
                 <span>🔗</span>
                 <motion.span
-                  className="flex h-5 w-5 items-center justify-center rounded-full border border-[#E8E8E6] bg-white text-[8px] font-semibold text-[#111110]"
+                  className="relative flex h-6 w-6 items-center justify-center rounded-full border border-[#E8E8E6] bg-[#111110] text-[8px] font-semibold text-white"
                   animate={
-                    scene === 2
+                    highlightedExtension
                       ? {
                           scale: [1, 1.18, 1],
                           boxShadow: [
@@ -399,6 +423,9 @@ export function GalleryWorkflowMock() {
                   transition={{ duration: 0.55, ease }}
                 >
                   V
+                  {highlightedExtension && (
+                    <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full border border-white bg-[#1FA854]" />
+                  )}
                 </motion.span>
               </div>
             </div>
@@ -410,12 +437,12 @@ export function GalleryWorkflowMock() {
         {panelVisible && (
           <motion.div
             key="vitreen-panel"
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.98 }}
-            transition={{ duration: 0.38, ease }}
-            className="absolute rounded-[12px] border border-[#E8E8E6] bg-white p-4 shadow-[0_18px_50px_rgba(0,0,0,0.13)]"
-            style={{ top: "27%", right: "-3%", width: "31%", zIndex: 20 }}
+            initial={{ opacity: 0, x: -16, y: 12, scale: 0.97 }}
+            animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 28, scale: 0.94 }}
+            transition={{ duration: 0.4, ease }}
+            className="absolute rounded-[12px] border border-[#E8E8E6] bg-white p-4 shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
+            style={{ top: "26%", right: "40%", width: "31%", zIndex: 20 }}
           >
             <div className="flex items-center justify-between">
               <p className="text-[9px] uppercase tracking-[0.18em] text-[#ADADAA]">Vitreen</p>
@@ -451,12 +478,12 @@ export function GalleryWorkflowMock() {
                 <div className="h-7 w-8 rounded-sm bg-[#1B2A4A]" />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[9px] font-semibold uppercase tracking-[0.12em] text-[#8A8A86]">
-                    Sun Dog
+                    Andy Warhol
                   </p>
                   <p className="truncate text-[10px] font-medium italic leading-tight text-[#111110]">
-                    Evening Field
+                    Marilyn, 1967
                   </p>
-                  <p className="text-[8px] text-[#6B6A67]">8 000 €</p>
+                  <p className="text-[8px] text-[#6B6A67]">6 works · private PDF</p>
                 </div>
                 <span className="rounded-full border border-[#A8DDB5] bg-[#EAF8EE] px-2 py-0.5 text-[8px] uppercase tracking-[0.08em] text-[#4FA766]">
                   Available
@@ -478,7 +505,7 @@ export function GalleryWorkflowMock() {
           <motion.div
             key="cursor"
             className="absolute z-30 text-[#111110]"
-            style={{ top: "55%", right: "7%" }}
+            style={{ top: "54%", right: "6.5%" }}
             initial={{ opacity: 0, x: -18, y: -14 }}
             animate={{ opacity: 1, x: 0, y: 0 }}
             exit={{ opacity: 0 }}
