@@ -100,6 +100,31 @@ export function StepTwoSharingFlow() {
         fill="none"
         aria-hidden="true"
       >
+        <defs>
+          {/* Fade toward the icons, fuller near the central card */}
+          <linearGradient
+            id="flowLeft"
+            gradientUnits="userSpaceOnUse"
+            x1="22"
+            y1="0"
+            x2={cardLeft}
+            y2="0"
+          >
+            <stop offset="0" stopColor="rgba(17,17,16,0.04)" />
+            <stop offset="1" stopColor="rgba(17,17,16,0.22)" />
+          </linearGradient>
+          <linearGradient
+            id="flowRight"
+            gradientUnits="userSpaceOnUse"
+            x1={cardRight}
+            y1="0"
+            x2="258"
+            y2="0"
+          >
+            <stop offset="0" stopColor="rgba(17,17,16,0.22)" />
+            <stop offset="1" stopColor="rgba(17,17,16,0.04)" />
+          </linearGradient>
+        </defs>
         {leftIcons.map((icon, i) => {
           const endY = cardMidY + (icon.y - cardMidY) * 0.35;
           const cx = (22 + cardLeft) / 2;
@@ -107,8 +132,8 @@ export function StepTwoSharingFlow() {
             <path
               key={`l-${i}`}
               d={`M22 ${icon.y} C${cx} ${icon.y} ${cx} ${endY} ${cardLeft} ${endY}`}
-              stroke="rgba(17,17,16,0.16)"
-              strokeWidth="0.75"
+              stroke="url(#flowLeft)"
+              strokeWidth="0.6"
               strokeLinecap="round"
             />
           );
@@ -120,8 +145,8 @@ export function StepTwoSharingFlow() {
             <path
               key={`r-${i}`}
               d={`M${cardRight} ${startY} C${cx} ${startY} ${cx} ${icon.y} 258 ${icon.y}`}
-              stroke="rgba(17,17,16,0.16)"
-              strokeWidth="0.75"
+              stroke="url(#flowRight)"
+              strokeWidth="0.6"
               strokeLinecap="round"
             />
           );
