@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/lib/lang";
 import { PILLARS } from "@/components/PillarMocks";
 
@@ -18,16 +18,19 @@ const SLIDE_DURATION = 5000;
 
 export default function ArtworkSourceSection() {
   const { t } = useLang();
+  const prefersReduced = useReducedMotion();
   const [current, setCurrent] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
+    if (paused || prefersReduced) return;
     const id = setInterval(() => {
       setCurrent((c) => (c + 1) % PILLARS.length);
       setProgressKey((k) => k + 1);
     }, SLIDE_DURATION);
     return () => clearInterval(id);
-  }, []);
+  }, [paused, prefersReduced]);
 
   const goTo = (i: number) => {
     setCurrent(i);
@@ -40,7 +43,7 @@ export default function ArtworkSourceSection() {
   return (
     <section
       id="inventory-source"
-      className="bg-white px-4 pt-16 pb-12 md:px-6 md:pt-[96px] md:pb-[60px]"
+      className="bg-white px-4 pt-12 pb-12 md:px-6 md:pt-[60px] md:pb-[60px]"
     >
       <div className="mx-auto max-w-7xl">
         <motion.div
@@ -60,54 +63,81 @@ export default function ArtworkSourceSection() {
             </p>
           </div>
 
-          {/* Right — pillar mockup slideshow */}
-          <div className="md:ml-auto md:self-start" style={{ maxWidth: 640, width: "100%" }}>
-            {/* Mock panel */}
-            <div className="relative rounded-lg bg-white" style={{ height: 520 }}>
-              <AnimatePresence mode="wait">
-                <Mock key={current} />
-              </AnimatePresence>
+          {/* Right — process tabs + active mock */}
+          <div
+            className="md:ml-auto md:self-start"
+            style={{ maxWidth: 640, width: "100%" }}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {/* Process tabs (number + title, progress underline on the active one) */}
+            <div
+              role="tablist"
+              aria-label={t.artworkSource.title}
+              className="flex border-b border-[#E8E8E6]"
+            >
+              {PILLARS.map((p, i) => {
+                const active = i === current;
+                return (
+                  <button
+                    key={p.number}
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => goTo(i)}
+                    className="group relative flex-1 pb-2.5 text-left focus:outline-none"
+                  >
+                    <span className="flex items-baseline gap-1.5">
+                      <span className="text-[11px] tabular-nums text-[#ADADAA]">{p.number}</span>
+                      <span
+                        className={`font-display text-[14px] tracking-[-0.02em] transition-colors ${
+                          active ? "text-[#111110]" : "text-[#6B6A67] group-hover:text-[#111110]"
+                        }`}
+                      >
+                        {p.title}
+                      </span>
+                    </span>
+                    {/* Progress underline, sitting on the shared border */}
+                    <span className="absolute -bottom-px left-0 right-0 h-[1.5px] overflow-hidden">
+                      {active && (
+                        <motion.span
+                          key={progressKey}
+                          className="block h-full bg-[#111110]"
+                          initial={{ width: "0%" }}
+                          animate={{ width: "100%" }}
+                          transition={{
+                            duration: prefersReduced ? 0 : SLIDE_DURATION / 1000,
+                            ease: "linear",
+                          }}
+                        />
+                      )}
+                      {i < current && <span className="block h-full w-full bg-[#111110]" />}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Pillar info + progress */}
-            <div className="mt-3 flex flex-col gap-2">
+            {/* Active step description — height reserved to avoid layout shift */}
+            <div className="mt-3 min-h-[40px]">
               <AnimatePresence mode="wait">
-                <motion.div
-                  key={`info-${current}`}
+                <motion.p
+                  key={`desc-${current}`}
                   initial={{ opacity: 0, y: 4 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
+                  className="max-w-xl text-[13px] leading-[1.6] text-[#6B6A67] md:text-[14px]"
                 >
-                  <p className="text-[14px] font-medium leading-tight tracking-[-0.02em] text-[#111110]">
-                    {pillar.title}
-                  </p>
-                  <p className="mt-1 text-[14px] leading-[1.6] text-[#6B6A67]">{pillar.desc}</p>
-                </motion.div>
+                  {pillar.desc}
+                </motion.p>
               </AnimatePresence>
+            </div>
 
-              {/* Progress segments */}
-              <div className="mt-1 flex items-center gap-1.5">
-                {PILLARS.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => goTo(i)}
-                    aria-label={`Pillar ${i + 1}`}
-                    className="relative h-px flex-1 overflow-hidden rounded-full bg-[#E8E8E6]"
-                  >
-                    {i === current && (
-                      <motion.span
-                        key={progressKey}
-                        className="absolute inset-y-0 left-0 rounded-full bg-[#111110]"
-                        initial={{ width: "0%" }}
-                        animate={{ width: "100%" }}
-                        transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}
-                      />
-                    )}
-                    {i < current && <span className="absolute inset-0 rounded-full bg-[#111110]" />}
-                  </button>
-                ))}
-              </div>
+            {/* Mock panel (last element — residual whitespace blends into section padding) */}
+            <div className="relative mt-4 rounded-lg bg-white" style={{ height: 410 }}>
+              <AnimatePresence mode="wait">
+                <Mock key={current} />
+              </AnimatePresence>
             </div>
           </div>
         </motion.div>

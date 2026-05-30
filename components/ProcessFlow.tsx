@@ -78,85 +78,91 @@ export function StepOnePillIcon({ tag }: { tag: string }) {
 export function StepTwoSharingFlow() {
   const [gmail, outlook, , excel, whatsApp] = stepTwoLogos;
   const pdf = stepTwoLogos[2];
-  const cardLeft = 104,
-    cardRight = 176,
-    cardTop = 8,
-    cardBottom = 116;
-  const cardMidY = (cardTop + cardBottom) / 2;
-  const leftIcons = [
-    { src: gmail.src, alt: gmail.alt, y: 10 },
-    { src: outlook.src, alt: outlook.alt, y: cardMidY },
-    { src: excel.src, alt: excel.alt, y: 114 },
+  // Portrait flow: sources feed in from the top, the artwork sits in the
+  // middle, sharing channels fan out at the bottom.
+  const W = 300,
+    H = 190;
+  const cardLeft = 115,
+    cardRight = 185,
+    cardTop = 66,
+    cardBottom = 132;
+  const cardMidX = (cardLeft + cardRight) / 2;
+  const topY = 16,
+    bottomY = 174;
+  const topIcons = [
+    { src: gmail.src, alt: gmail.alt, x: 50 },
+    { src: outlook.src, alt: outlook.alt, x: cardMidX },
+    { src: excel.src, alt: excel.alt, x: 250 },
   ];
-  const rightIcons = [
-    { src: pdf.src, alt: pdf.alt, y: 20 },
-    { src: whatsApp.src, alt: whatsApp.alt, y: 104 },
+  const bottomIcons = [
+    { src: pdf.src, alt: pdf.alt, x: 105 },
+    { src: whatsApp.src, alt: whatsApp.alt, x: 195 },
   ];
   return (
-    <div className="relative h-[124px] w-full">
+    <div className="relative" style={{ width: W, height: H }}>
       <svg
         className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 280 124"
+        viewBox={`0 0 ${W} ${H}`}
         fill="none"
         aria-hidden="true"
       >
         <defs>
           {/* Fade toward the icons, fuller near the central card */}
           <linearGradient
-            id="flowLeft"
+            id="flowTop"
             gradientUnits="userSpaceOnUse"
-            x1="22"
-            y1="0"
-            x2={cardLeft}
-            y2="0"
+            x1="0"
+            y1={topY}
+            x2="0"
+            y2={cardTop}
           >
             <stop offset="0" stopColor="rgba(17,17,16,0.04)" />
             <stop offset="1" stopColor="rgba(17,17,16,0.22)" />
           </linearGradient>
           <linearGradient
-            id="flowRight"
+            id="flowBottom"
             gradientUnits="userSpaceOnUse"
-            x1={cardRight}
-            y1="0"
-            x2="258"
-            y2="0"
+            x1="0"
+            y1={cardBottom}
+            x2="0"
+            y2={bottomY}
           >
             <stop offset="0" stopColor="rgba(17,17,16,0.22)" />
             <stop offset="1" stopColor="rgba(17,17,16,0.04)" />
           </linearGradient>
         </defs>
-        {leftIcons.map((icon, i) => {
-          const endY = cardMidY + (icon.y - cardMidY) * 0.35;
-          const cx = (22 + cardLeft) / 2;
+        {topIcons.map((icon, i) => {
+          const endX = cardMidX + (icon.x - cardMidX) * 0.35;
+          const cy = (topY + cardTop) / 2;
           return (
             <path
-              key={`l-${i}`}
-              d={`M22 ${icon.y} C${cx} ${icon.y} ${cx} ${endY} ${cardLeft} ${endY}`}
-              stroke="url(#flowLeft)"
+              key={`t-${i}`}
+              d={`M${icon.x} ${topY} C${icon.x} ${cy} ${endX} ${cy} ${endX} ${cardTop}`}
+              stroke="url(#flowTop)"
               strokeWidth="0.6"
               strokeLinecap="round"
             />
           );
         })}
-        {rightIcons.map((icon, i) => {
-          const startY = cardMidY + (icon.y - cardMidY) * 0.35;
-          const cx = (cardRight + 258) / 2;
+        {bottomIcons.map((icon, i) => {
+          const startX = cardMidX + (icon.x - cardMidX) * 0.35;
+          const cy = (cardBottom + bottomY) / 2;
           return (
             <path
-              key={`r-${i}`}
-              d={`M${cardRight} ${startY} C${cx} ${startY} ${cx} ${icon.y} 258 ${icon.y}`}
-              stroke="url(#flowRight)"
+              key={`b-${i}`}
+              d={`M${startX} ${cardBottom} C${startX} ${cy} ${icon.x} ${cy} ${icon.x} ${bottomY}`}
+              stroke="url(#flowBottom)"
               strokeWidth="0.6"
               strokeLinecap="round"
             />
           );
         })}
       </svg>
-      {leftIcons.map((icon) => (
+      {topIcons.map((icon) => (
         <div
-          key={`li-${icon.alt}`}
+          key={`ti-${icon.alt}`}
           className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(22 / 280) * 100}%`, top: `${(icon.y / 124) * 100}%` }}
+          style={{ left: `${(icon.x / W) * 100}%`, top: `${(topY / H) * 100}%` }}
         >
           <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
         </div>
@@ -164,10 +170,10 @@ export function StepTwoSharingFlow() {
       <div
         className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
         style={{
-          left: `${(cardLeft / 280) * 100}%`,
-          right: `${((280 - cardRight) / 280) * 100}%`,
-          top: `${(cardTop / 124) * 100}%`,
-          bottom: `${((124 - cardBottom) / 124) * 100}%`,
+          left: `${(cardLeft / W) * 100}%`,
+          right: `${((W - cardRight) / W) * 100}%`,
+          top: `${(cardTop / H) * 100}%`,
+          bottom: `${((H - cardBottom) / H) * 100}%`,
           border: "0.5px solid #E3E3DF",
         }}
       >
@@ -226,22 +232,22 @@ export function StepTwoSharingFlow() {
           />
         </div>
         <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
-          <span className="truncate text-[5.5px] font-medium leading-tight text-[#111110]">
+          <span className="truncate text-[7px] font-medium leading-tight text-[#111110]">
             {SAMPLE_ARTWORK.artist}
           </span>
-          <span className="truncate text-[5px] italic leading-tight text-[#6B6A67]">
+          <span className="truncate text-[6.5px] italic leading-tight text-[#6B6A67]">
             {SAMPLE_ARTWORK.title}, {SAMPLE_ARTWORK.year}
           </span>
-          <span className="truncate text-[4.5px] leading-tight text-[#ADADAA]">
+          <span className="truncate text-[6px] leading-tight text-[#ADADAA]">
             {SAMPLE_ARTWORK.medium} · {SAMPLE_ARTWORK.dimensions}
           </span>
         </div>
       </div>
-      {rightIcons.map((icon) => (
+      {bottomIcons.map((icon) => (
         <div
-          key={`ri-${icon.alt}`}
+          key={`bi-${icon.alt}`}
           className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(258 / 280) * 100}%`, top: `${(icon.y / 124) * 100}%` }}
+          style={{ left: `${(icon.x / W) * 100}%`, top: `${(bottomY / H) * 100}%` }}
         >
           <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
         </div>

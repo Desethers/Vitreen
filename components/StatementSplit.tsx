@@ -84,7 +84,7 @@ export default function StatementSplit() {
       className="bg-cover bg-center px-4 md:px-6"
       style={{ backgroundImage: "url('/statement-radial-bg.jpg')" }}
     >
-      <div className="pt-12 md:pt-[80px] pb-20 md:pb-[120px]">
+      <div className="pt-12 md:pt-[60px] pb-12 md:pb-[60px]">
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
             <h2 className="font-display font-normal text-[#111110] text-[22px] leading-[1.25] tracking-[-0.02em] text-center sm:text-[26px] md:text-[32px] lg:text-[38px] md:leading-[1.3]">

@@ -193,62 +193,40 @@ function AuditMock() {
         </div>
       </div>
 
-      {/* ── Foreground: Outlook mail ── */}
-      <div className="absolute" style={{ top: 180, right: 28, width: 320 }}>
-        <div className="overflow-hidden rounded-[7px] border border-[#E8E8E6] bg-white">
-          {/* Sender row — Outlook logo avatar + name + "to me" + time */}
-          <div className="flex items-center gap-2.5 px-3.5 py-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#F3F3F1]">
-              <img
-                src="/logos/Microsoft_Office_Outlook_Logo.svg"
-                alt=""
-                aria-hidden="true"
-                className="h-[22px] w-[22px] object-contain"
-              />
+      {/* ── Foreground: macOS Finder window — gallery's artwork .jpeg files ── */}
+      <div className="absolute" style={{ top: 168, right: 28, width: 320 }}>
+        <div className="overflow-hidden rounded-[10px] border border-[#E2E2DF] bg-white shadow-[0_22px_50px_rgba(0,0,0,0.13)]">
+          {/* Title bar — traffic lights + folder name */}
+          <div className="relative flex items-center border-b border-[#EAEAE7] bg-[#F6F6F4] px-3.5 py-2.5">
+            <div className="flex items-center gap-[6px]">
+              <span className="h-[11px] w-[11px] rounded-full bg-[#FF5F57]" />
+              <span className="h-[11px] w-[11px] rounded-full bg-[#FEBC2E]" />
+              <span className="h-[11px] w-[11px] rounded-full bg-[#28C840]" />
             </div>
-            <div className="flex min-w-0 flex-1 flex-col leading-tight">
-              <div className="flex items-baseline justify-between gap-2">
-                <span className="truncate text-[13px] font-semibold text-[#111110]">
-                  {SAMPLE_COLLECTOR.name}
-                </span>
-                <span className="flex-shrink-0 text-[10.5px] text-[#ADADAA]">
-                  {SAMPLE_COLLECTOR.contactDay} {SAMPLE_COLLECTOR.contactTime}
-                </span>
-              </div>
-              <span className="truncate text-[10.5px] text-[#ADADAA]">
-                {SAMPLE_COLLECTOR.recipient}
-              </span>
-            </div>
-          </div>
-
-          {/* Subject */}
-          <div className="border-t border-[#E8E8E6] px-3.5 py-2.5">
-            <span className="block text-[13px] font-semibold leading-tight text-[#111110]">
-              Re: Available Warhol works
+            <span className="absolute left-1/2 -translate-x-1/2 text-[11.5px] font-medium text-[#6B6A67]">
+              {SAMPLE_INVENTORY.artistFolder}
             </span>
           </div>
 
-          {/* Body */}
-          <div className="border-t border-[#E8E8E6] px-3.5 py-3">
-            <p className="text-[11px] leading-[1.55] text-[#6B6A67]">
-              Dear Maria, thank you — please find attached the curated selection for our
-              conversation last week.
-            </p>
-          </div>
-
-          {/* Attachment */}
-          <div className="border-t border-[#E8E8E6] px-3.5 py-3">
-            <div className="flex items-center gap-2 rounded-[4px] border border-[#E8E8E6] bg-[#FAFAF8] px-2.5 py-2">
-              <FilePdf />
-              <div className="flex min-w-0 flex-1 flex-col leading-tight">
-                <span className="truncate text-[11.5px] font-medium text-[#111110]">
-                  {SAMPLE_REFERENCE_ARTWORK.filename}
-                </span>
-                <span className="text-[10px] text-[#ADADAA]">
-                  {SAMPLE_REFERENCE_ARTWORK.fileSize} · {SAMPLE_REFERENCE_ARTWORK.fileCount} works
+          {/* Thumbnail grid */}
+          <div className="grid grid-cols-3 gap-3 px-3.5 py-3.5">
+            {[
+              "/artworks/painting-03.jpg",
+              "/artworks/painting-04.jpg",
+              "/artworks/painting-05.jpg",
+              "/artworks/painting-07.jpg",
+              "/artworks/painting-08.jpg",
+              "/artworks/painting-10.jpg",
+            ].map((src, i) => (
+              <div key={i} className="flex flex-col items-center gap-1">
+                <div className="aspect-square w-full overflow-hidden rounded-[5px] bg-[#F0F0EE]">
+                  <img src={src} alt="" aria-hidden="true" className="h-full w-full object-cover" />
+                </div>
+                <span className="w-full truncate text-center text-[8.5px] text-[#ADADAA]">
+                  IMG_{8841 + i}.jpeg
                 </span>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -269,8 +247,7 @@ function ConnectMock() {
     >
       <div
         style={{
-          width: "50%",
-          transform: "scale(2)",
+          transform: "scale(2.15)",
           transformOrigin: "top center",
         }}
       >
@@ -341,7 +318,7 @@ function DeployJourney() {
     <div className="flex flex-col">
       {/* Main request card — Outlook-style layout (icon · sender · time / divider / body) */}
       <div
-        className="flex min-h-[102px] w-[90%] flex-col rounded-[4px] bg-white px-1.5 py-1.5"
+        className="flex min-h-[102px] w-[78%] flex-col rounded-[4px] bg-white px-1.5 py-1.5"
         style={hairline}
       >
         {/* Header row */}
@@ -390,30 +367,7 @@ function DeployJourney() {
       </div>
 
       {/* Reply-thread connector + indented dark pill stack */}
-      <div className="relative pl-4 pt-1.5">
-        {/* Vertical thread line on the left */}
-        <div
-          className="absolute"
-          style={{
-            left: 7,
-            top: 0,
-            bottom: 4,
-            width: 0.5,
-            background: "rgba(17,17,16,0.18)",
-          }}
-        />
-        {/* Small horizontal tick into the first pill */}
-        <div
-          className="absolute"
-          style={{
-            left: 7,
-            top: 9,
-            width: 7,
-            height: 0.5,
-            background: "rgba(17,17,16,0.18)",
-          }}
-        />
-
+      <div className="relative -mt-4 pl-1">
         {/* Stacked pills */}
         <div className="relative" style={{ height: 23 + 2 * 18 }}>
           {[
@@ -442,7 +396,7 @@ function DeployJourney() {
               style={{
                 top: i * 18,
                 left: i * 5,
-                right: 26 + i * 8,
+                right: 40 + i * 8,
                 zIndex: arr.length - i,
                 transform: `scale(${1 - i * 0.025})`,
                 transformOrigin: "top center",
@@ -468,8 +422,8 @@ function DeployMock() {
     >
       <div
         style={{
-          width: "42%",
-          transform: "scale(2.2)",
+          width: "38%",
+          transform: "scale(2.5)",
           transformOrigin: "top center",
         }}
       >

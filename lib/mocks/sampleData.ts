@@ -54,7 +54,7 @@ export const SAMPLE_EXHIBITION = {
 /** Inventory tooling references. */
 export const SAMPLE_INVENTORY = {
   rootFolder: "01 — Inventory 2026",
-  artistFolder: "01.1 Warhol",
+  artistFolder: "01.1 Sacha Elron",
   filenames: {
     provenance: "Marilyn 1967 — provenance.pdf",
     inventory: "Inventory Q1 2026.xlsx",

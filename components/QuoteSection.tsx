@@ -10,7 +10,7 @@ export default function QuoteSection() {
   const q = t.quoteSection;
   return (
     <section className="px-4 md:px-6 bg-white">
-      <div className="max-w-7xl mx-auto pt-10 pb-10 md:pt-32 md:pb-32 md:px-8">
+      <div className="max-w-7xl mx-auto pt-12 pb-12 md:pt-[60px] md:pb-[60px] md:px-8">
         <motion.blockquote
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
