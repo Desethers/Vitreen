@@ -123,6 +123,16 @@ export default function Services() {
                   >
                     {service.price}
                   </p>
+                  {"priceSecondary" in service && service.priceSecondary ? (
+                    <p
+                      className="text-xs leading-relaxed"
+                      style={{
+                        color: service.highlight ? "rgba(255,255,255,0.45)" : "#6B6A67",
+                      }}
+                    >
+                      {service.priceSecondary}
+                    </p>
+                  ) : null}
                   {service.priceNote ? (
                     <p
                       className="text-xs leading-relaxed min-h-[2.5rem]"

@@ -50,7 +50,7 @@ export function GalleryOsDashboard({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-[10px] border ${
+      className={`overflow-hidden rounded-[10px] border-[0.5px] ${
         glass
           ? "border-white/55 bg-white/72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] backdrop-blur-md"
           : "border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
@@ -59,7 +59,7 @@ export function GalleryOsDashboard({
       <div className="flex">
         {/* Sidebar */}
         <div
-          className={`${compact ? "hidden" : "flex"} flex-col gap-1 border-r px-3 py-4 ${
+          className={`${compact ? "hidden" : "flex"} flex-col gap-1 border-r-[0.5px] px-3 py-4 ${
             glass ? "border-white/45 bg-white/38" : "border-[#E8E8E6] bg-[#FAFAF8]"
           }`}
           style={{ width: "26%" }}
@@ -104,7 +104,7 @@ export function GalleryOsDashboard({
           }
         >
           {compact && (
-            <div className="mb-3 flex items-center justify-between border-b border-[#E8E8E6] pb-2">
+            <div className="mb-3 flex items-center justify-between border-b-[0.5px] border-[#E8E8E6] pb-2">
               <div className="flex items-center gap-2">
                 <button
                   className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-[#111110] text-[11px] leading-none text-white"
@@ -143,7 +143,7 @@ export function GalleryOsDashboard({
 
           {/* Search */}
           <div
-            className={`flex items-center gap-2 rounded-[5px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5 ${
+            className={`flex items-center gap-2 rounded-[5px] border-[0.5px] border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5 ${
               compact ? "mt-2" : "mt-3"
             }`}
           >
@@ -152,7 +152,7 @@ export function GalleryOsDashboard({
               {compact ? "Rechercher…" : "Rechercher titre, artiste, année, médium…"}
             </span>
             <span
-              className={`rounded border border-[#E8E8E6] px-1 py-[1px] text-[7px] text-[#6B6A67] ${
+              className={`rounded border-[0.5px] border-[#E8E8E6] px-1 py-[1px] text-[7px] text-[#6B6A67] ${
                 compact ? "hidden" : ""
               }`}
             >
@@ -165,7 +165,7 @@ export function GalleryOsDashboard({
             {["Disponibles", "Réservées", "Vendues", "Consignées", "En prêt"].map((p) => (
               <span
                 key={p}
-                className="rounded-full border border-[#E8E8E6] px-2 py-[2px] text-[7.5px] text-[#6B6A67]"
+                className="rounded-full border-[0.5px] border-[#E8E8E6] px-2 py-[2px] text-[7.5px] text-[#6B6A67]"
               >
                 {p}
               </span>
@@ -178,7 +178,7 @@ export function GalleryOsDashboard({
 
           {/* Table header */}
           <div
-            className={`mt-3 grid items-center gap-2 border-b border-[#E8E8E6] pb-1.5 text-[7.5px] uppercase tracking-[0.06em] text-[#ADADAA] ${
+            className={`mt-3 grid items-center gap-2 border-b-[0.5px] border-[#E8E8E6] pb-1.5 text-[7.5px] uppercase tracking-[0.06em] text-[#ADADAA] ${
               compact ? "grid-cols-[1fr_58px]" : "grid-cols-[1fr_120px_60px_90px_80px]"
             }`}
           >
@@ -194,7 +194,7 @@ export function GalleryOsDashboard({
             {ARTWORK_ROWS.map((row) => (
               <div
                 key={row.title}
-                className={`grid items-center gap-2 border-b border-[#F1F1ED] py-2 text-[9px] text-[#111110] ${
+                className={`grid items-center gap-2 border-b-[0.5px] border-[#F1F1ED] py-2 text-[9px] text-[#111110] ${
                   compact ? "grid-cols-[1fr_58px]" : "grid-cols-[1fr_120px_60px_90px_80px]"
                 }`}
               >
@@ -214,7 +214,7 @@ export function GalleryOsDashboard({
                 {!compact && <span className="text-[#6B6A67]">{row.year}</span>}
                 {!compact && <span className="text-right tabular-nums">{row.price}</span>}
                 <span>
-                  <span className="rounded-full border border-[#1FA854]/40 bg-[#1FA854]/[0.06] px-1.5 py-[1px] text-[7.5px] text-[#1FA854]">
+                  <span className="rounded-full border-[0.5px] border-[#1FA854]/40 bg-[#1FA854]/[0.06] px-1.5 py-[1px] text-[7.5px] text-[#1FA854]">
                     {compact ? "Live" : "Available"}
                   </span>
                 </span>

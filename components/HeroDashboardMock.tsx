@@ -7,7 +7,7 @@ import { GalleryOsDashboard } from "@/components/ConnectedTools";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 function HeroWorkflowAnimation() {
-  const [dashboardWidth, setDashboardWidth] = useState(84);
+  const [dashboardWidth, setDashboardWidth] = useState(72);
   const [dashboardPosition, setDashboardPosition] = useState({ x: 50, y: 52 });
   // Half the dashboard height expressed as % of the stage — measured at
   // runtime so vertical clamping accounts for the real card height.
@@ -15,9 +15,11 @@ function HeroWorkflowAnimation() {
   // Narrative sequence: type "evening" → result card appears → click → insert.
   const [typed, setTyped] = useState("");
   const [step, setStep] = useState(0); // 0 idle · 1 result shown · 2 inserted
-  // Curtain: % of the dashboard hidden from the right edge while dragging the
-  // handle. Only clips the view — the inner layout is never reflowed.
+  // Curtains: % of the dashboard hidden from the right / left edges while
+  // dragging the handles. Only clips the view — the inner layout is never
+  // reflowed.
   const [curtain, setCurtain] = useState(0);
+  const [curtainLeft, setCurtainLeft] = useState(0);
   const stageRef = useRef<HTMLDivElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
   // Plays the insert sequence once, when the hero scrolls into view.
@@ -27,8 +29,8 @@ function HeroWorkflowAnimation() {
   useEffect(() => {
     if (!started) return;
     const word = "evening";
-    const typeStart = 500; // ms before typing begins
-    const charDelay = 95; // ms per character
+    const typeStart = 1700; // ms before typing begins
+    const charDelay = 165; // ms per character
     const typeEnd = typeStart + word.length * charDelay;
 
     let typeInterval: ReturnType<typeof setInterval>;
@@ -41,8 +43,8 @@ function HeroWorkflowAnimation() {
       }, charDelay);
     }, typeStart);
 
-    const showResult = setTimeout(() => setStep(1), typeEnd + 350);
-    const insert = setTimeout(() => setStep(2), typeEnd + 1250);
+    const showResult = setTimeout(() => setStep(1), typeEnd + 650);
+    const insert = setTimeout(() => setStep(2), typeEnd + 2200);
 
     return () => {
       clearTimeout(startTyping);
@@ -125,7 +127,31 @@ function HeroWorkflowAnimation() {
 
     const onMove = (moveEvent: MouseEvent) => {
       const deltaPct = ((startX - moveEvent.clientX) / dashWidth) * 100;
-      setCurtain(Math.max(0, Math.min(72, startCurtain + deltaPct)));
+      setCurtain(Math.max(0, Math.min(72, 80 - curtainLeft, startCurtain + deltaPct)));
+    };
+
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
+
+  const startDashboardResizeLeft = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Mirror of the right curtain: dragging this handle inward hides the
+    // dashboard from the left edge.
+    const dashWidth = dashboardRef.current?.offsetWidth ?? 1;
+    const startX = event.clientX;
+    const startCurtain = curtainLeft;
+
+    const onMove = (moveEvent: MouseEvent) => {
+      const deltaPct = ((moveEvent.clientX - startX) / dashWidth) * 100;
+      setCurtainLeft(Math.max(0, Math.min(72, 80 - curtain, startCurtain + deltaPct)));
     };
 
     const onUp = () => {
@@ -160,8 +186,19 @@ function HeroWorkflowAnimation() {
           zIndex: 1,
         }}
       >
-        <div style={{ width: `${100 - curtain}%`, overflow: "hidden" }}>
-          <div style={{ width: `${(100 / (100 - curtain)) * 100}%` }}>
+        <div
+          style={{
+            marginLeft: `${curtainLeft}%`,
+            width: `${100 - curtain - curtainLeft}%`,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              width: `${(100 / (100 - curtain - curtainLeft)) * 100}%`,
+              marginLeft: `${(-curtainLeft / (100 - curtain - curtainLeft)) * 100}%`,
+            }}
+          >
             <GalleryOsDashboard glass />
           </div>
         </div>
@@ -171,6 +208,22 @@ function HeroWorkflowAnimation() {
           aria-hidden="true"
         >
           <div className="h-[3px] w-8 rounded-full bg-[#111110]/18 shadow-[0_0_0_1px_rgba(255,255,255,0.45)]" />
+        </div>
+        <div
+          className="absolute bottom-0 top-0 hidden w-4 cursor-ew-resize items-center justify-center md:flex"
+          style={{ left: `${curtainLeft}%` }}
+          onMouseDown={startDashboardResizeLeft}
+          aria-hidden="true"
+        >
+          <div className="h-9 w-[3px] rounded-full bg-[#111110]/20 shadow-[0_0_0_1px_rgba(255,255,255,0.55)]" />
+        </div>
+        <div
+          className="absolute bottom-2 hidden h-5 w-5 cursor-ew-resize items-center justify-center rounded-full border border-white/50 bg-white/60 text-[10px] text-[#111110]/45 shadow-[0_8px_20px_rgba(0,0,0,0.08)] backdrop-blur-sm md:flex"
+          style={{ left: `calc(${curtainLeft}% + 0.5rem)` }}
+          onMouseDown={startDashboardResizeLeft}
+          aria-hidden="true"
+        >
+          ↔
         </div>
         <div
           className="absolute bottom-0 top-0 hidden w-4 cursor-ew-resize items-center justify-center md:flex"
@@ -238,7 +291,7 @@ function HeroWorkflowAnimation() {
             className="relative"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={step >= 2 ? { clipPath: "inset(0 0 0% 0)" } : {}}
-            transition={{ duration: 0.7, ease, delay: 0.15 }}
+            transition={{ duration: 1.1, ease, delay: 0.2 }}
           >
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[3px]">
               <img
