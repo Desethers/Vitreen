@@ -39,10 +39,7 @@ export default function ViewingRoomStudio() {
               {content.body}
             </p>
             <div className="mt-6">
-              <Button
-                size="md"
-                onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
-              >
+              <Button size="md" href="/viewingroom-studio">
                 {content.cta}
               </Button>
             </div>
