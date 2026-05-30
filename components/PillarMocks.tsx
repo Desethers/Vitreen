@@ -197,7 +197,7 @@ function AuditMock() {
       <div className="absolute" style={{ top: 168, right: 28, width: 320 }}>
         <div className="overflow-hidden rounded-[10px] border border-[#E2E2DF] bg-white shadow-[0_22px_50px_rgba(0,0,0,0.13)]">
           {/* Title bar — traffic lights + folder name */}
-          <div className="relative flex items-center border-b border-[#EAEAE7] bg-[#F6F6F4] px-3.5 py-2.5">
+          <div className="relative flex items-center border-b border-[#EFEFEC] bg-[#FBFBFA] px-3.5 py-2.5">
             <div className="flex items-center gap-[6px]">
               <span className="h-[11px] w-[11px] rounded-full bg-[#FF5F57]" />
               <span className="h-[11px] w-[11px] rounded-full bg-[#FEBC2E]" />
@@ -243,12 +243,12 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full flex-col items-center justify-start overflow-hidden rounded-lg bg-white"
+      className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-white"
     >
       <div
         style={{
-          transform: "scale(2.15)",
-          transformOrigin: "top center",
+          transform: "scale(1.95)",
+          transformOrigin: "center",
         }}
       >
         <StepTwoSharingFlow />

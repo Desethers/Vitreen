@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLang } from "@/lib/lang";
-import { SAMPLE_ARTWORK } from "@/lib/mocks/sampleData";
 
 /* ─── Visual sub-components (used in ProcessFlow + ArtworkSourceSection) ─── */
 
@@ -76,180 +75,47 @@ export function StepOnePillIcon({ tag }: { tag: string }) {
 }
 
 export function StepTwoSharingFlow() {
-  const [gmail, outlook, , excel, whatsApp] = stepTwoLogos;
-  const pdf = stepTwoLogos[2];
-  // Portrait flow: sources feed in from the top, the artwork sits in the
-  // middle, sharing channels fan out at the bottom.
-  const W = 300,
-    H = 190;
-  const cardLeft = 115,
-    cardRight = 185,
-    cardTop = 66,
-    cardBottom = 132;
-  const cardMidX = (cardLeft + cardRight) / 2;
-  const topY = 16,
-    bottomY = 174;
-  const topIcons = [
-    { src: gmail.src, alt: gmail.alt, x: 50 },
-    { src: outlook.src, alt: outlook.alt, x: cardMidX },
-    { src: excel.src, alt: excel.alt, x: 250 },
-  ];
-  const bottomIcons = [
-    { src: pdf.src, alt: pdf.alt, x: 105 },
-    { src: whatsApp.src, alt: whatsApp.alt, x: 195 },
-  ];
+  const [gmail, outlook, pdf, excel, whatsApp] = stepTwoLogos;
+  const green = { src: "/logos/Digital_Stacked_Green_RGB_2026.svg", alt: "Channel" };
+
+  // A ring of the gallery's existing tools — each icon in its own rounded
+  // square, evenly spaced around a circle.
+  const W = 200,
+    H = 200;
+  const cx = W / 2,
+    cy = H / 2;
+  const R = 78; // orbit radius
+
+  const orbit = [gmail, outlook, excel, green, whatsApp, pdf];
+  const n = orbit.length;
+  const nodes = orbit.map((ic, i) => {
+    const a = (-90 + (360 / n) * i) * (Math.PI / 180); // start at top, clockwise
+    return {
+      ...ic,
+      x: cx + R * Math.cos(a),
+      y: cy + R * Math.sin(a),
+    };
+  });
+
   return (
     <div className="relative" style={{ width: W, height: H }}>
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox={`0 0 ${W} ${H}`}
-        fill="none"
-        aria-hidden="true"
-      >
-        <defs>
-          {/* Fade toward the icons, fuller near the central card */}
-          <linearGradient
-            id="flowTop"
-            gradientUnits="userSpaceOnUse"
-            x1="0"
-            y1={topY}
-            x2="0"
-            y2={cardTop}
-          >
-            <stop offset="0" stopColor="rgba(17,17,16,0.04)" />
-            <stop offset="1" stopColor="rgba(17,17,16,0.22)" />
-          </linearGradient>
-          <linearGradient
-            id="flowBottom"
-            gradientUnits="userSpaceOnUse"
-            x1="0"
-            y1={cardBottom}
-            x2="0"
-            y2={bottomY}
-          >
-            <stop offset="0" stopColor="rgba(17,17,16,0.22)" />
-            <stop offset="1" stopColor="rgba(17,17,16,0.04)" />
-          </linearGradient>
-        </defs>
-        {topIcons.map((icon, i) => {
-          const endX = cardMidX + (icon.x - cardMidX) * 0.35;
-          const cy = (topY + cardTop) / 2;
-          return (
-            <path
-              key={`t-${i}`}
-              d={`M${icon.x} ${topY} C${icon.x} ${cy} ${endX} ${cy} ${endX} ${cardTop}`}
-              stroke="url(#flowTop)"
-              strokeWidth="0.6"
-              strokeLinecap="round"
-            />
-          );
-        })}
-        {bottomIcons.map((icon, i) => {
-          const startX = cardMidX + (icon.x - cardMidX) * 0.35;
-          const cy = (cardBottom + bottomY) / 2;
-          return (
-            <path
-              key={`b-${i}`}
-              d={`M${startX} ${cardBottom} C${startX} ${cy} ${icon.x} ${cy} ${icon.x} ${bottomY}`}
-              stroke="url(#flowBottom)"
-              strokeWidth="0.6"
-              strokeLinecap="round"
-            />
-          );
-        })}
-      </svg>
-      {topIcons.map((icon) => (
+      {/* Icon nodes — each in a rounded square */}
+      {nodes.map((nde, i) => (
         <div
-          key={`ti-${icon.alt}`}
-          className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(icon.x / W) * 100}%`, top: `${(topY / H) * 100}%` }}
+          key={`node-${i}`}
+          className="absolute flex h-[34px] w-[34px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[9px] bg-white shadow-[0_3px_8px_rgba(17,17,16,0.07)]"
+          style={{
+            left: `${(nde.x / W) * 100}%`,
+            top: `${(nde.y / H) * 100}%`,
+            border: "0.5px solid #EFEFEC",
+          }}
         >
-          <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
-        </div>
-      ))}
-      <div
-        className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
-        style={{
-          left: `${(cardLeft / W) * 100}%`,
-          right: `${((W - cardRight) / W) * 100}%`,
-          top: `${(cardTop / H) * 100}%`,
-          bottom: `${((H - cardBottom) / H) * 100}%`,
-          border: "0.5px solid #E3E3DF",
-        }}
-      >
-        <div
-          className="relative flex-shrink-0 overflow-hidden"
-          style={{ flexBasis: "62%", background: "#FCFCFB" }}
-        >
-          {/* Wall — slight gradient + ambient occlusion */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: "linear-gradient(180deg, #FBFAF8 0%, #F6F5F2 70%, #ECEBE7 100%)",
-            }}
+          <img
+            src={nde.src}
+            alt={nde.alt}
+            className="h-[18px] w-[18px] object-contain"
+            loading="lazy"
           />
-          {/* Painting on the wall — centered */}
-          <div
-            className="absolute"
-            style={{
-              top: "14%",
-              left: "26%",
-              width: "48%",
-              height: "60%",
-              background: "linear-gradient(160deg, #C9D2EE 0%, #B8C3E6 100%)",
-              boxShadow: "0 0.4px 0.6px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.10)",
-            }}
-          />
-          {/* Floor strip */}
-          <div
-            className="absolute inset-x-0 bottom-0"
-            style={{
-              height: "18%",
-              background: "linear-gradient(180deg, #B8B5AE 0%, #A6A39C 55%, #908D86 100%)",
-            }}
-          />
-          {/* Floor reflection of painting */}
-          <div
-            className="absolute"
-            style={{
-              bottom: "12%",
-              left: "26%",
-              width: "48%",
-              height: "5%",
-              background:
-                "linear-gradient(180deg, rgba(184,195,230,0.45) 0%, rgba(184,195,230,0) 100%)",
-              filter: "blur(0.3px)",
-            }}
-          />
-          {/* Skirting line between wall and floor */}
-          <div
-            className="absolute inset-x-0"
-            style={{
-              bottom: "18%",
-              height: "0.3px",
-              background: "rgba(0,0,0,0.08)",
-            }}
-          />
-        </div>
-        <div className="flex flex-1 flex-col justify-center gap-[1px] px-1.5 py-[3px]">
-          <span className="truncate text-[7px] font-medium leading-tight text-[#111110]">
-            {SAMPLE_ARTWORK.artist}
-          </span>
-          <span className="truncate text-[6.5px] italic leading-tight text-[#6B6A67]">
-            {SAMPLE_ARTWORK.title}, {SAMPLE_ARTWORK.year}
-          </span>
-          <span className="truncate text-[6px] leading-tight text-[#ADADAA]">
-            {SAMPLE_ARTWORK.medium} · {SAMPLE_ARTWORK.dimensions}
-          </span>
-        </div>
-      </div>
-      {bottomIcons.map((icon) => (
-        <div
-          key={`bi-${icon.alt}`}
-          className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(icon.x / W) * 100}%`, top: `${(bottomY / H) * 100}%` }}
-        >
-          <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
         </div>
       ))}
     </div>
