@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSanityConfigError, writeClient } from "@/lib/ovr/sanityClient";
 import { checkExportQuota, consumeExport } from "@/lib/ovr/exportQuota";
 import type { Block, BlockSlot, ImageItem, VrSetup } from "@/lib/ovr/buildTypes";
+import { getSignedInDashboardUser } from "@/lib/ovr/authAccess";
 
 function generateToken() {
   return Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
@@ -20,6 +21,11 @@ async function uploadDataUrl(dataUrl: string): Promise<string | null> {
   }
 }
 
+function validEmail(value: string | undefined) {
+  if (!value) return false;
+  return /^[^\s<>"']+@[^\s<>"']+\.[^\s<>"']+$/.test(value.trim());
+}
+
 export async function POST(req: NextRequest) {
   try {
     const sanityConfigError = getSanityConfigError({ requireWriteToken: true });
@@ -35,6 +41,11 @@ export async function POST(req: NextRequest) {
       images: ImageItem[];
       setup: VrSetup | null;
     };
+    const signedInUser = await getSignedInDashboardUser().catch(() => null);
+    const ownerId = signedInUser?.userId ?? quota.userId;
+    const ownerEmail = signedInUser?.email ?? "";
+    const setupContact = setup?.galleryContact?.trim() ?? "";
+    const inquiryEmail = validEmail(setupContact) ? setupContact : ownerEmail;
     const imageById = new Map(images.map((img) => [img.id, img]));
 
     // Upload all images to Sanity and build an id → assetId map
@@ -89,6 +100,10 @@ export async function POST(req: NextRequest) {
       recipientName: setup?.recipientName ?? "",
       recipientEmail: setup?.recipientEmail ?? "",
       introText: setup?.introText ?? "",
+      ownerId,
+      ownerEmail,
+      inquiryEmail,
+      createdAt: new Date().toISOString(),
       token,
       status: "active",
       expiresAt: expiresAt.toISOString().split("T")[0],

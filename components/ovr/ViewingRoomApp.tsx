@@ -26,7 +26,12 @@ import type {
   TextPool,
   QuoteItem,
 } from "@/lib/ovr/buildTypes";
-import { isVrCanvasQuotePlaceholder } from "@/lib/ovr/vrCanvasPlaceholders";
+import {
+  isVrCanvasQuotePlaceholder,
+  VR_CANVAS_QUOTE_AUTHOR_PLACEHOLDER,
+  VR_CANVAS_QUOTE_BODY_PLACEHOLDER,
+  VR_CANVAS_TEXT_BODY_PLACEHOLDER,
+} from "@/lib/ovr/vrCanvasPlaceholders";
 import { makeBlock, BLOCK_CONFIGS, makeQuote } from "@/lib/ovr/buildTypes";
 import { buildInquireHref } from "@/lib/ovr/pdfInquireHref";
 
@@ -240,7 +245,7 @@ function InfosSection({ setup, onChange }: { setup: VrSetup; onChange: (s: VrSet
               <input
                 value={setup.galleryName}
                 onChange={(e) => set("galleryName", e.target.value)}
-                placeholder="Vitreen"
+                placeholder="Viewing Room Studio"
                 className={input}
                 autoFocus
               />
@@ -912,7 +917,7 @@ function ArtworkChip({
         onDragStart();
       }}
       onDragEnd={onDragEnd}
-      title={[img.title, img.artist].filter(Boolean).join(" — ") + (placed ? " (placée)" : "")}
+      title={[img.title, img.artist].filter(Boolean).join(" — ") + (placed ? " (placed)" : "")}
       className={`relative rounded-lg overflow-hidden group transition-all ${
         placed ? "opacity-40 cursor-default" : "cursor-grab active:cursor-grabbing"
       }`}
@@ -1314,6 +1319,7 @@ function TextBlockRow({
   onExpand: () => void;
   onUpdate: (b: Block) => void;
 }) {
+  const hostRef = useRef<HTMLDivElement | null>(null);
   const [over, setOver] = useState(false);
   const meta = TEXT_TYPE_META[block.type] ?? {
     label: block.type,
@@ -2202,6 +2208,17 @@ function Editable({
   multiline?: boolean;
 }) {
   const ref = useRef<HTMLElement | null>(null);
+  const seedPlaceholders = new Set([
+    VR_CANVAS_TEXT_BODY_PLACEHOLDER,
+    VR_CANVAS_QUOTE_BODY_PLACEHOLDER,
+    VR_CANVAS_QUOTE_AUTHOR_PLACEHOLDER,
+  ]);
+  const clearSeedPlaceholder = () => {
+    const el = ref.current;
+    if (!el || !seedPlaceholders.has(value)) return;
+    el.innerText = "";
+    onChange("");
+  };
   useEffect(() => {
     const el = ref.current;
     if (el && el.innerText !== value) el.innerText = value;
@@ -2214,6 +2231,7 @@ function Editable({
       data-placeholder={placeholder}
       data-hover-placeholder={hoverPlaceholder ?? placeholder}
       data-focus-placeholder={focusPlaceholder ?? hoverPlaceholder ?? placeholder}
+      onFocus={clearSeedPlaceholder}
       onBlur={() => {
         const v = ref.current?.innerText.replace(/ /g, " ") ?? "";
         if (v !== value) onChange(v);
@@ -2227,6 +2245,7 @@ function Editable({
       }}
       onPaste={(e) => {
         e.preventDefault();
+        clearSeedPlaceholder();
         const text = e.clipboardData.getData("text/plain");
         document.execCommand("insertText", false, text);
       }}
@@ -2273,15 +2292,15 @@ function useDragAutoScroll(active: boolean, rootRef: React.RefObject<HTMLElement
           scroller === document.scrollingElement
             ? { top: 0, bottom: window.innerHeight }
             : scroller.getBoundingClientRect();
-        const edge = Math.min(140, Math.max(84, (rect.bottom - rect.top) * 0.22));
+        const edge = Math.min(170, Math.max(96, (rect.bottom - rect.top) * 0.26));
         let delta = 0;
 
         if (y < rect.top + edge) {
           const intensity = (rect.top + edge - y) / edge;
-          delta = -Math.ceil(34 * intensity * intensity);
+          delta = -Math.ceil(46 * intensity * intensity);
         } else if (y > rect.bottom - edge) {
           const intensity = (y - (rect.bottom - edge)) / edge;
-          delta = Math.ceil(34 * intensity * intensity);
+          delta = Math.ceil(46 * intensity * intensity);
         }
 
         if (delta !== 0) scroller.scrollTop += delta;
@@ -2396,7 +2415,7 @@ function PreviewSlot({
   const hasNameTitle = editing || !!img.artist || !!img.title || !!img.year;
   const hasMediumSize = editing || !!img.medium || !!img.dimensions;
   const shouldShowInquire = showInquire ?? true;
-  const showInquireTopRight = !inquireTiny;
+  const showInquireTopRight = !inquireTiny && !inquireCompact;
   /** Bloc secondaire (medium, dimensions, prix) : toujours visible en édition inline pour pouvoir remplir les champs vides. */
   const showMetaBlock =
     hasMediumSize || editing || (!showInquireTopRight && (shouldShowInquire || !!onRestoreInquire));
@@ -2433,7 +2452,7 @@ function PreviewSlot({
             <button
               type="button"
               onClick={onClearImage}
-              className="absolute bottom-2 right-2 z-[5] flex h-7 w-7 items-center justify-center rounded-full border border-gray-200/90 bg-white/95 text-gray-500 shadow-sm backdrop-blur-sm transition-all hover:border-red-200 hover:text-red-500 opacity-0 group-hover/image-slot:opacity-100 dark:border-gray-600/90 dark:bg-[#0f0f0f]/95 dark:text-gray-400 dark:hover:border-red-900/60 dark:hover:text-red-400"
+              className="absolute bottom-2 right-2 z-[5] flex h-8 w-8 items-center justify-center rounded-full border border-gray-200/90 bg-white/95 text-gray-500 opacity-100 shadow-sm backdrop-blur-sm transition-all hover:border-red-200 hover:text-red-500 sm:h-7 sm:w-7 sm:opacity-0 sm:group-hover/image-slot:opacity-100 dark:border-gray-600/90 dark:bg-[#0f0f0f]/95 dark:text-gray-400 dark:hover:border-red-900/60 dark:hover:text-red-400"
               aria-label="Retirer cette œuvre du bloc"
               title="Retirer cette œuvre du bloc"
             >
@@ -2468,7 +2487,7 @@ function PreviewSlot({
             <button
               type="button"
               onClick={onClearImage}
-              className="absolute bottom-2 right-2 z-[5] flex h-7 w-7 items-center justify-center rounded-full border border-gray-200/90 bg-white/95 text-gray-500 shadow-sm backdrop-blur-sm transition-all hover:border-red-200 hover:text-red-500 opacity-0 group-hover/image-slot:opacity-100 dark:border-gray-600/90 dark:bg-[#0f0f0f]/95 dark:text-gray-400 dark:hover:border-red-900/60 dark:hover:text-red-400"
+              className="absolute bottom-2 right-2 z-[5] flex h-8 w-8 items-center justify-center rounded-full border border-gray-200/90 bg-white/95 text-gray-500 opacity-100 shadow-sm backdrop-blur-sm transition-all hover:border-red-200 hover:text-red-500 sm:h-7 sm:w-7 sm:opacity-0 sm:group-hover/image-slot:opacity-100 dark:border-gray-600/90 dark:bg-[#0f0f0f]/95 dark:text-gray-400 dark:hover:border-red-900/60 dark:hover:text-red-400"
               aria-label="Retirer cette œuvre du bloc"
               title="Retirer cette œuvre du bloc"
             >
@@ -2492,17 +2511,17 @@ function PreviewSlot({
           )}
         </div>
       )}
-      <div className="pt-1.5 flex items-start justify-between gap-4">
+      <div className="pt-2 flex items-start justify-between gap-3 sm:gap-4">
         <div className="space-y-0 flex-1 min-w-0">
           {hasNameTitle && (
             <div className="space-y-0">
               {(img.artist || editing) &&
                 (editing ? (
-                  <p className="text-[14px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
+                  <p className="text-[14px] leading-[1.35] font-medium text-gray-900 dark:text-gray-100">
                     <Editable value={img.artist} onChange={set("artist")} placeholder="Artist" />
                   </p>
                 ) : (
-                  <p className="text-[14px] leading-[1.35] font-normal text-gray-900 dark:text-gray-100">
+                  <p className="text-[14px] leading-[1.35] font-medium text-gray-900 dark:text-gray-100">
                     {img.artist}
                   </p>
                 ))}
@@ -2579,7 +2598,7 @@ function PreviewSlot({
                         e.stopPropagation();
                         onHideInquire();
                       }}
-                      className="absolute -right-4 top-1/2 flex h-3.5 w-3.5 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-[8px] leading-none text-gray-400 opacity-0 shadow-sm transition-all hover:border-red-200 hover:text-red-500 group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
+                      className="absolute -right-5 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-[11px] leading-none text-gray-400 opacity-100 shadow-sm transition-all hover:border-red-200 hover:text-red-500 sm:-right-4 sm:h-3.5 sm:w-3.5 sm:text-[8px] sm:opacity-0 sm:group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
                       aria-label="Masquer Inquire"
                       title="Masquer Inquire"
                     >
@@ -2608,7 +2627,7 @@ function PreviewSlot({
           <span className="group/inquire relative shrink-0 inline-flex items-center">
             <button
               type="button"
-              className={`rounded-[2px] border border-rose-300 py-1.5 text-[12px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900 ${wide ? "px-8" : "px-6"}`}
+              className={`rounded-[2px] border border-rose-300 py-1 text-[11px] font-normal text-gray-900 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white dark:border-rose-700 dark:text-gray-100 dark:hover:border-white dark:hover:bg-white dark:hover:text-gray-900 sm:py-1.5 sm:text-[12px] ${wide ? "px-4 sm:px-8" : "px-4 sm:px-6"}`}
             >
               Inquire
             </button>
@@ -2619,7 +2638,7 @@ function PreviewSlot({
                   e.stopPropagation();
                   onHideInquire();
                 }}
-                className="absolute -right-4 top-1/2 flex h-3.5 w-3.5 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-[8px] leading-none text-gray-400 opacity-0 shadow-sm transition-all hover:border-red-200 hover:text-red-500 group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
+                className="absolute -right-5 top-1/2 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white text-[11px] leading-none text-gray-400 opacity-100 shadow-sm transition-all hover:border-red-200 hover:text-red-500 sm:-right-4 sm:h-3.5 sm:w-3.5 sm:text-[8px] sm:opacity-0 sm:group-hover/inquire:opacity-100 dark:border-gray-700 dark:bg-[#0f0f0f] dark:hover:border-red-900/60 dark:hover:text-red-400"
                 aria-label="Masquer Inquire"
                 title="Masquer Inquire"
               >
@@ -2745,7 +2764,7 @@ function PreviewBlock({
     const bodyCls = asText
       ? `font-sans text-base leading-relaxed mb-3 ${seedGray ? "text-gray-400 dark:text-gray-500" : "text-gray-800 dark:text-gray-200"}`
       : `font-sans text-3xl italic leading-relaxed mb-3 ${seedGray ? "text-gray-400 dark:text-gray-500" : "text-gray-700 dark:text-gray-300"}`;
-    const authorCls = `text-[10px] tracking-widest uppercase ${seedGray ? "text-gray-400 dark:text-gray-500" : "text-gray-400"}`;
+    const authorCls = `text-[12px] tracking-widest uppercase ${seedGray ? "text-gray-400 dark:text-gray-500" : "text-gray-400"}`;
     const canDragQuote = editing && !!onDragStartBlock;
     return (
       <div
@@ -2770,33 +2789,8 @@ function PreviewBlock({
               }
             : undefined
         }
-        className={`group/quote relative rounded-[5px] border transition-[border-color,box-shadow,transform,opacity] ${asText ? "py-10 px-6 max-w-2xl mx-auto" : "py-12 px-6 text-center max-w-lg mx-auto"} ${canDragQuote ? "cursor-grab border-transparent hover:border-gray-200/80 hover:shadow-sm active:cursor-grabbing dark:hover:border-gray-800" : "border-transparent"} ${draggingTextSelf ? "-translate-y-1 border-gray-200/90 bg-white/80 opacity-70 shadow-xl dark:border-gray-800 dark:bg-[#0f0f0f]/80" : ""}`}
+        className={`relative rounded-[5px] transition-[transform,opacity] ${asText ? "px-6 py-10 max-w-2xl mx-auto" : "px-6 py-12 text-center max-w-lg mx-auto"} ${canDragQuote ? "cursor-grab active:cursor-grabbing" : ""} ${draggingTextSelf ? "-translate-y-1 opacity-80" : ""}`}
       >
-        {editing && onRemoveBlock && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              removeQuoteContent();
-            }}
-            aria-label="Supprimer la citation"
-            title="Supprimer la citation"
-            className="absolute right-0 top-0 z-20 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/quote:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
-          >
-            <svg
-              width="11"
-              height="11"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              aria-hidden
-            >
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        )}
         <p className={bodyCls}>
           {editing ? (
             <Editable
@@ -2871,7 +2865,7 @@ function PreviewBlock({
         {/* Bio text */}
         <div className="pt-4 space-y-4">
           {(img?.artist || (editing && img)) && (
-            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400">
+            <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-gray-400">
               {editing && img ? (
                 <Editable value={img.artist} onChange={setImg("artist")} placeholder="Artist" />
               ) : (
@@ -2928,7 +2922,7 @@ function PreviewBlock({
             )}
           </p>
           {(block.quoteAuthor || editing) && (
-            <p className="text-[10px] text-gray-400 tracking-widest uppercase">
+            <p className="text-[12px] text-gray-400 tracking-widest uppercase">
               {editing ? (
                 <Editable value={block.quoteAuthor} onChange={setQA} placeholder="Author" />
               ) : (
@@ -2992,7 +2986,7 @@ function PreviewBlock({
       );
     }
     return (
-      <div className="grid grid-cols-2 gap-3 sm:gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {allSlots.map((s, i) => (
           <PreviewSlot
             key={s.imageId ?? `empty-${i}`}
@@ -3042,7 +3036,7 @@ function PreviewBlock({
       : undefined;
     if (hasEmpty) {
       return (
-        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-4">
           {allSlots.map((s, i) => (
             <PreviewSlot
               key={s.imageId ?? `empty-${i}`}
@@ -3067,9 +3061,10 @@ function PreviewBlock({
         </div>
       );
     }
-    const cols = filled.length >= 3 ? "grid-cols-3" : filled.length === 2 ? "grid-cols-2" : "";
+    const cols =
+      filled.length >= 3 ? "sm:grid-cols-3" : filled.length === 2 ? "sm:grid-cols-2" : "";
     return cols ? (
-      <div className={`grid ${cols} gap-2 sm:gap-4`}>
+      <div className={`grid grid-cols-1 gap-6 ${cols} sm:gap-4`}>
         {filled.map((s) => (
           <PreviewSlot
             key={s.imageId ?? ""}
@@ -3163,7 +3158,7 @@ function PreviewBlock({
           draggable={canDragText}
           onDragStart={startTextDrag}
           onDragEnd={endTextDrag}
-          className={`group/quote relative max-w-full rounded-[5px] border p-4 transition-[border-color,box-shadow,transform,opacity] ${canDragText ? "cursor-grab border-transparent hover:border-gray-200/80 hover:shadow-sm active:cursor-grabbing dark:hover:border-gray-800" : "border-transparent"} ${draggingTextSelf ? "-translate-y-1 border-gray-200/90 bg-white/80 opacity-70 shadow-xl dark:border-gray-800 dark:bg-[#0f0f0f]/80" : ""}`}
+          className={`group/quote relative max-w-full rounded-[5px] p-4 transition-[transform,opacity] ${canDragText ? "cursor-grab active:cursor-grabbing" : ""} ${draggingTextSelf ? "-translate-y-1 opacity-80" : ""}`}
         >
           {editing && onRemoveBlock && (
             <button
@@ -3172,9 +3167,9 @@ function PreviewBlock({
                 e.stopPropagation();
                 removeQuoteContent();
               }}
-              aria-label={asText ? "Supprimer le texte" : "Supprimer la citation"}
-              title={asText ? "Supprimer le texte" : "Supprimer la citation"}
-              className="absolute right-0 top-0 z-20 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/quote:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
+              aria-label={asText ? "Delete text" : "Delete quote"}
+              title={asText ? "Delete text" : "Delete quote"}
+              className="absolute right-0 top-0 z-20 flex h-7 w-7 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-100 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 sm:h-6 sm:w-6 sm:opacity-0 sm:group-hover/quote:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
             >
               <svg
                 width="11"
@@ -3207,7 +3202,7 @@ function PreviewBlock({
             </p>
           )}
           {!asText && (block.quoteAuthor || editing) && (
-            <p className="mt-3 text-[10px] tracking-widest uppercase text-gray-400">
+            <p className="mt-3 text-[12px] tracking-widest uppercase text-gray-400">
               {editing ? (
                 <Editable value={block.quoteAuthor} onChange={setQA} placeholder="Author" />
               ) : (
@@ -3268,6 +3263,7 @@ function BlockHost({
   onDragEndMoveBlock?: () => void;
   onRemoveBlock?: (blockId: string) => void;
 }) {
+  const hostRef = useRef<HTMLDivElement | null>(null);
   const [over, setOver] = useState(false);
   useEffect(() => {
     const end = () => setOver(false);
@@ -3349,14 +3345,16 @@ function BlockHost({
   const draggableBlock = isQuoteBlock && !!onMergeQuoteIntoFull;
   const draggableMoveBlock = !!onDragStartMoveBlock;
   const showDragHandle = draggableMoveBlock || draggableBlock;
-  const showRemoveBlock = !!onRemoveBlock && block.type !== "side" && block.type !== "quote";
+  const showRemoveBlock = !!onRemoveBlock && block.type !== "side";
+  const isDraggingThisBlock = isMoveBlockSource || isBlockSource;
 
   return (
     <div
+      ref={hostRef}
       onDragOver={handleDragOver}
       onDragLeave={() => setOver(false)}
       onDrop={handleDrop}
-      className={`group/host relative rounded-md transition-[opacity,box-shadow,transform] ${onRemoveBlock ? "hover:ring-1 hover:ring-gray-200/80 hover:ring-offset-8 hover:ring-offset-white dark:hover:ring-gray-800 dark:hover:ring-offset-[#0f0f0f]" : ""} ${over ? "ring-2 ring-emerald-400/80 ring-offset-8 ring-offset-white dark:ring-offset-[#0f0f0f]" : ""} ${isMoveBlockSource ? "opacity-35" : ""}`}
+      className={`group/host relative rounded-[8px] border border-transparent bg-white/0 p-4 transition-[border-color,box-shadow,transform,opacity,background-color] duration-150 hover:border-gray-200/90 hover:bg-white hover:shadow-[0_10px_34px_rgba(15,23,42,0.08)] sm:p-5 dark:hover:border-gray-800 dark:hover:bg-[#0f0f0f] ${over ? "border-emerald-300 bg-white shadow-[0_14px_40px_rgba(16,185,129,0.14)] ring-1 ring-emerald-300/80 dark:border-emerald-700 dark:bg-[#0f0f0f]" : ""} ${isDraggingThisBlock ? "-translate-y-1 scale-[0.995] border-gray-200/90 bg-white opacity-90 shadow-[0_18px_55px_rgba(15,23,42,0.16)] dark:border-gray-800 dark:bg-[#0f0f0f]" : ""}`}
     >
       {label && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-emerald-500 text-white text-[10px] font-medium tracking-wide shadow z-10 pointer-events-none">
@@ -3369,6 +3367,19 @@ function BlockHost({
           draggable
           onDragStart={(e) => {
             e.dataTransfer.effectAllowed = "move";
+            const host = hostRef.current;
+            if (host) {
+              const rect = host.getBoundingClientRect();
+              const offsetX = Math.min(
+                Math.max(e.clientX - rect.left, 24),
+                Math.max(24, rect.width - 24)
+              );
+              const offsetY = Math.min(
+                Math.max(e.clientY - rect.top, 24),
+                Math.max(24, rect.height - 24)
+              );
+              e.dataTransfer.setDragImage(host, offsetX, offsetY);
+            }
             if (draggableMoveBlock) {
               e.dataTransfer.setData("text/x-vr-block-move", block.id);
               onDragStartMoveBlock?.(block.id);
@@ -3384,9 +3395,9 @@ function BlockHost({
             onDragEndMoveBlock?.();
             if (draggableBlock) onDragEndBlock();
           }}
-          aria-label="Déplacer ce bloc"
-          title="Déplacer ce bloc"
-          className="absolute left-[-8px] top-1/2 z-20 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-grab items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color,transform] hover:border-gray-300 hover:bg-white hover:text-gray-800 active:cursor-grabbing active:scale-95 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-gray-600 dark:hover:bg-[#181818] dark:hover:text-gray-100"
+          aria-label="Move this block"
+          title="Move this block"
+          className="absolute left-0 top-1/2 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 cursor-grab items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-100 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color,transform] hover:border-gray-300 hover:bg-white hover:text-gray-800 active:cursor-grabbing active:scale-95 sm:h-8 sm:w-8 sm:opacity-0 sm:group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-gray-600 dark:hover:bg-[#181818] dark:hover:text-gray-100"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
             <circle cx="9" cy="6" r="1.5" />
@@ -3405,9 +3416,9 @@ function BlockHost({
             e.stopPropagation();
             onRemoveBlock(block.id);
           }}
-          aria-label="Supprimer tout le bloc"
-          title="Supprimer tout le bloc"
-          className="absolute right-[-2px] top-[-2px] z-20 flex h-6 w-6 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-0 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
+          aria-label="Delete entire block"
+          title="Delete entire block"
+          className="absolute right-0 top-0 z-20 flex h-8 w-8 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200/80 bg-white/95 text-gray-400 opacity-100 shadow-sm backdrop-blur transition-[opacity,color,background-color,border-color] hover:border-red-200 hover:bg-white hover:text-red-500 sm:h-7 sm:w-7 sm:opacity-0 sm:group-hover/host:opacity-100 dark:border-gray-700/80 dark:bg-[#0f0f0f]/95 dark:hover:border-red-900/60 dark:hover:bg-[#181818] dark:hover:text-red-400"
         >
           <svg
             width="11"
@@ -3423,7 +3434,7 @@ function BlockHost({
           </svg>
         </button>
       )}
-      <div className="group">
+      <div className="group rounded-[7px] transition-transform duration-150 group-hover/host:translate-y-[-1px]">
         <PreviewBlock
           block={block}
           images={images}
@@ -3897,15 +3908,6 @@ export function ViewingRoomPreview({
             </div>
           </div>
         )}
-
-        {/* Watermark */}
-        {!isPro && (
-          <div className="py-4 text-center">
-            <p className="text-[12px] text-gray-300 dark:text-gray-700 tracking-wide">
-              Designed with care by <span className="font-medium">Vitreen</span>
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );
@@ -3929,7 +3931,7 @@ function ExportPhonePreview({
     img ? (
       <div className="mt-1 flex items-start justify-between gap-1.5 text-left text-[5.5px] leading-[1.15]">
         <div className="min-w-0">
-          {img.artist ? <p className="truncate font-normal text-gray-900">{img.artist}</p> : null}
+          {img.artist ? <p className="truncate font-medium text-gray-900">{img.artist}</p> : null}
           {img.title || img.year ? (
             <p className="truncate text-gray-900">
               <em>{img.title}</em>
@@ -4085,9 +4087,6 @@ function ExportPhonePreview({
               {screen}
             </div>
           </div>
-          <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(112deg,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.16)_17%,transparent_35%,transparent_62%,rgba(255,255,255,0.24)_78%,transparent_100%)] mix-blend-screen" />
-          <div className="pointer-events-none absolute -right-16 -top-12 z-20 h-[120%] w-28 rotate-[12deg] bg-white/30 blur-2xl" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-36 bg-gradient-to-b from-white/30 to-transparent" />
         </div>
       </div>
     </div>
@@ -4263,6 +4262,16 @@ export function ExportPanel({
         body: JSON.stringify(payload),
       });
       if (res.status === 402) {
+        let errKey = "";
+        try {
+          errKey = String(((await res.clone().json()) as { error?: string }).error || "");
+        } catch {
+          /* ignore */
+        }
+        if (errKey === "anonymous_limit_reached") {
+          setError("Free limit reached (10). Sign in to keep generating share links.");
+          return null;
+        }
         onClose();
         onPaywall();
         return null;
@@ -4283,7 +4292,7 @@ export function ExportPanel({
       }
       const data = await res.json();
       const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || window.location.origin;
-      const nextUrl = `${base}/vr/${data.token}`;
+      const nextUrl = `${base}/viewingroom-studio/vr/${data.token}`;
       setShareUrl(nextUrl);
       lastExportRef.current = { fingerprint, url: nextUrl };
       return nextUrl;
@@ -4294,7 +4303,7 @@ export function ExportPanel({
         : /request body too large|body exceeded|payload too large|entity too large|413/i.test(raw)
           ? "Payload too large while generating the share link. Try with fewer or lighter images."
           : /dataset not found|project id "placeholder"|sanity non configur/i.test(raw)
-            ? "Le partage n’est pas configuré en production (Sanity). Ajoute les variables SANITY sur Vercel."
+            ? "Sharing is not configured in production (Sanity). Add the SANITY variables on Vercel."
             : raw;
       setError(message);
       return null;
@@ -4307,40 +4316,33 @@ export function ExportPanel({
     setGenerating(true);
     setError(null);
     setSuccess(null);
+    const targetName = `vr_pdf_download_${Date.now()}`;
+    const iframe = document.createElement("iframe");
+    iframe.name = targetName;
+    iframe.style.display = "none";
+    iframe.setAttribute("aria-hidden", "true");
     try {
       const payload = await buildExportPayload({ kind: "pdf" });
-      const res = await fetch("/api/ovr/generate-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (res.status === 402) {
-        onClose();
-        onPaywall();
-        return;
-      }
-      if (res.status === 401) {
-        setError("Please sign in to export the PDF.");
-        return;
-      }
-      if (!res.ok) {
-        let message = "Error generating the PDF.";
-        try {
-          const payload = await res.json();
-          if (payload?.error) message = String(payload.error);
-        } catch {
-          /* ignore */
-        }
-        throw new Error(message);
-      }
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "viewing-room.pdf";
-      a.click();
-      URL.revokeObjectURL(url);
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/api/ovr/generate-pdf";
+      form.target = targetName;
+      form.enctype = "multipart/form-data";
+      form.style.display = "none";
+
+      const field = document.createElement("textarea");
+      field.name = "payload";
+      field.value = JSON.stringify(payload);
+      form.appendChild(field);
+
+      document.body.appendChild(iframe);
+      document.body.appendChild(form);
+      form.submit();
+      window.setTimeout(() => form.remove(), 1000);
+      window.setTimeout(() => iframe.remove(), 60_000);
+      setSuccess("PDF export started.");
     } catch (e) {
+      iframe.remove();
       const raw = e instanceof Error ? e.message : "Error generating the PDF.";
       const message = /Unterminated string in JSON|Unexpected end of JSON input/i.test(raw)
         ? "Payload too large while generating the PDF. Try with fewer or lighter images."
@@ -4371,7 +4373,7 @@ export function ExportPanel({
 
       const emailTo = setup.recipientEmail?.trim();
       if (!emailTo || !emailTo.includes("@")) {
-        setError("Indique l’email du destinataire ci-dessous pour envoyer le lien.");
+        setError("Enter the recipient email below to send the link.");
         return;
       }
 
@@ -4414,7 +4416,7 @@ export function ExportPanel({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      setError("Impossible de copier le lien.");
+      setError("Unable to copy the link.");
     }
   };
 
@@ -4647,7 +4649,7 @@ export function SubscriptionModal({
       return;
     }
     if (!isSignedIn) {
-      window.location.href = "https://vitreen.art/sign-in";
+      window.location.href = "/viewingroom-studio/sign-in";
       return;
     }
     setLoading(true);
@@ -4860,7 +4862,7 @@ export default function ViewingRoomApp() {
             <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
           ) : (
             <a
-              href="https://vitreen.art/sign-in"
+              href="/viewingroom-studio/sign-in"
               className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]"
             >
               Sign in
@@ -4910,7 +4912,7 @@ export default function ViewingRoomApp() {
                   <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
                 ) : (
                   <a
-                    href="https://vitreen.art/sign-in"
+                    href="/viewingroom-studio/sign-in"
                     className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]"
                   >
                     Sign in

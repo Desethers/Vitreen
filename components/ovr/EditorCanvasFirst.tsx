@@ -161,7 +161,7 @@ function HeroEntry({ onUpload }: { onUpload: (files: File[]) => void }) {
 
       <div className="relative z-10 max-w-xl px-6 text-center">
         <p className="hero-fade-up text-[11px] uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600 mb-6">
-          Vitreen Studio
+          Viewing Room Studio
         </p>
 
         <h1 className="hero-fade-up text-[36px] leading-[1.05] tracking-[-0.02em] text-gray-900 dark:text-gray-100 font-normal mb-5 md:text-[56px]">
@@ -233,7 +233,7 @@ function ActionBar({
   const sendLabel = recipientName ? `Send to ${recipientName}` : "Send";
 
   return (
-    <div className="fixed bottom-4 left-3 right-3 z-30 vr-shell-fade md:bottom-auto md:left-1/2 md:right-auto md:top-4 md:-translate-x-1/2">
+    <div className="fixed bottom-3 left-3 right-3 z-30 vr-shell-fade md:bottom-auto md:left-1/2 md:right-auto md:top-4 md:-translate-x-1/2">
       <input
         ref={fileRef}
         type="file"
@@ -246,14 +246,15 @@ function ActionBar({
           e.target.value = "";
         }}
       />
-      <div className="grid h-[37px] w-full grid-cols-3 items-center gap-1 rounded-[5px] border border-gray-200/70 bg-white/95 px-1 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:h-[37px] md:w-auto md:rounded-[5px] md:pl-2 md:pr-1">
+      <div className="grid h-[48px] w-full grid-cols-[1fr_1fr_1.15fr] items-center gap-1 rounded-[8px] border border-gray-200/70 bg-white/95 px-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.08)] backdrop-blur-xl dark:border-gray-800 dark:bg-[#1c1c1c]/95 md:flex md:h-[41px] md:w-auto md:rounded-[5px] md:pl-2.5 md:pr-1.5">
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1.5 self-stretch rounded-[5px] px-2.5 py-0 text-[12px] text-gray-700 transition-colors hover:bg-gray-100/90 dark:text-gray-200 dark:hover:bg-gray-800 md:mx-px md:my-[2px] md:px-3"
-          title="Ajouter des images au projet"
+          className="mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1 self-stretch rounded-[6px] px-2 py-0 text-[12px] leading-none text-gray-700 transition-colors hover:bg-gray-100/90 dark:text-gray-200 dark:hover:bg-gray-800 md:mx-px md:my-[2px] md:rounded-[5px] md:px-3.5 md:text-[13px]"
+          title="Add images to the project"
         >
-          + Add images
+          <span className="text-[15px] leading-none">+</span>
+          <span className="truncate">Images</span>
         </button>
 
         <span className="hidden h-4 w-px bg-gray-200 dark:bg-gray-700 md:block" />
@@ -261,17 +262,18 @@ function ActionBar({
         <button
           type="button"
           onClick={onAddText}
-          className="mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1.5 self-stretch rounded-[5px] px-2.5 py-0 text-[12px] text-gray-700 transition-colors hover:bg-gray-100/90 dark:text-gray-200 dark:hover:bg-gray-800 md:mx-px md:my-[2px] md:px-3"
-          title="Insérer un bloc texte dans la preview"
+          className="mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1 self-stretch rounded-[6px] px-2 py-0 text-[12px] leading-none text-gray-700 transition-colors hover:bg-gray-100/90 dark:text-gray-200 dark:hover:bg-gray-800 md:mx-px md:my-[2px] md:rounded-[5px] md:px-3.5 md:text-[13px]"
+          title="Insert a text block into the preview"
         >
-          + Add text
+          <span className="text-[15px] leading-none">+</span>
+          <span className="truncate">Text</span>
         </button>
 
         <button
           type="button"
           onClick={onSend}
           disabled={sendDisabled}
-          className="group flex min-w-0 items-center justify-center gap-1.5 rounded-[5px] bg-gray-900 px-2.5 py-2 text-[12px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:ml-1 md:px-4 md:py-1.5"
+          className="group mx-[0.5px] my-[2px] flex min-w-0 items-center justify-center gap-1.5 self-stretch rounded-[6px] bg-gray-900 px-3 py-0 text-[13px] font-medium text-white transition-colors hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-30 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-200 md:mx-px md:my-[2px] md:ml-1 md:rounded-[5px] md:px-5"
         >
           <span className="truncate">{sendLabel}</span>
           <span className="relative h-3 w-3 shrink-0 overflow-hidden" aria-hidden>
@@ -633,7 +635,7 @@ function TextsSection({
                                 <button
                                   type="button"
                                   onClick={() => removeQuote(q.id)}
-                                  className="flex h-5 w-5 items-center justify-center rounded-full text-gray-400 opacity-0 transition-opacity hover:bg-red-50 hover:text-red-500 group-hover/q:opacity-100 dark:hover:bg-red-900/20"
+                                  className="flex h-6 w-6 items-center justify-center rounded-full text-gray-400 opacity-100 transition-opacity hover:bg-red-50 hover:text-red-500 sm:h-5 sm:w-5 sm:opacity-0 sm:group-hover/q:opacity-100 dark:hover:bg-red-900/20"
                                   aria-label="Remove"
                                 >
                                   <svg
@@ -846,7 +848,7 @@ function SettingsDrawer({
                   <button
                     type="button"
                     onClick={() => onChangeImages(images.filter((x) => x.id !== img.id))}
-                    className="absolute top-1 right-1 w-5 h-5 rounded-full bg-white/90 text-gray-700 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center text-[10px] shadow"
+                    className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-white/90 text-[12px] text-gray-700 opacity-100 shadow transition-opacity sm:h-5 sm:w-5 sm:text-[10px] sm:opacity-0 sm:group-hover/img:opacity-100"
                     aria-label="Remove image"
                   >
                     ×
@@ -869,15 +871,81 @@ function SettingsDrawer({
               />
               <input
                 className={inputCls}
-                placeholder="Contact"
+                placeholder="Inquiry email / contact"
                 value={setup.galleryContact}
                 onChange={(e) => set("galleryContact", e.target.value)}
               />
+              <p className="text-[11px] leading-5 text-gray-400 dark:text-gray-500">
+                Used to receive collector inquiries for this viewing room.
+              </p>
             </div>
           </section>
         </div>
       </aside>
     </>
+  );
+}
+
+function EditorWebFooter() {
+  return (
+    <footer className="bg-white px-6 py-8 text-gray-950 dark:bg-[#111111] dark:text-gray-100 sm:px-10">
+      <div className="mx-auto w-full max-w-5xl">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sm:col-span-2">
+            <p className="text-[15px] font-medium tracking-[-0.01em]">Viewing Room Studio</p>
+            <p className="mt-2 max-w-sm text-[13px] leading-6 text-gray-500 dark:text-gray-400">
+              Private viewing rooms, PDFs and collector sharing for galleries.
+            </p>
+          </div>
+
+          <div>
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500">
+              Product
+            </p>
+            <div className="mt-3 space-y-2 text-[13px] text-gray-500 dark:text-gray-400">
+              <a
+                href="/viewingroom-studio/editor"
+                className="block transition-colors hover:text-gray-950 dark:hover:text-gray-100"
+              >
+                Editor
+              </a>
+              <a
+                href="/viewingroom-studio/dashboard"
+                className="block transition-colors hover:text-gray-950 dark:hover:text-gray-100"
+              >
+                Dashboard
+              </a>
+              <a
+                href="/viewingroom-studio/room"
+                className="block transition-colors hover:text-gray-950 dark:hover:text-gray-100"
+              >
+                Preview
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-gray-400 dark:text-gray-500">
+              Contact
+            </p>
+            <div className="mt-3 space-y-2 text-[13px] text-gray-500 dark:text-gray-400">
+              <a
+                href="mailto:vitreen@proton.me"
+                className="block transition-colors hover:text-gray-950 dark:hover:text-gray-100"
+              >
+                contact@viewingroom.studio
+              </a>
+              <p>Viewing Room Studio</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-2 pt-5 text-[12px] text-gray-400 dark:text-gray-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© Viewing Room Studio</p>
+          <p>Built for gallery viewing rooms.</p>
+        </div>
+      </div>
+    </footer>
   );
 }
 
@@ -1300,7 +1368,7 @@ export default function EditorCanvasFirst() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-[#111111] px-6">
         <p className="text-[11px] uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600 mb-5">
-          Vitreen Studio
+          Viewing Room Studio
         </p>
         <div
           className="h-1 w-28 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden"
@@ -1321,7 +1389,7 @@ export default function EditorCanvasFirst() {
   // Canvas state — flex + min-h-0 : scroll fiable (évite zone vide type « écran blanc » avec absolute/inset-0).
   return (
     <div className="min-h-screen min-h-[100dvh] flex flex-col bg-gray-50 dark:bg-[#111111] relative">
-      <main className="flex-1 min-h-0 overflow-y-auto pb-24 pt-14 md:pb-0 md:pt-0">
+      <main className="flex-1 min-h-0 overflow-y-auto pb-36 pt-14 md:pb-0 md:pt-0">
         <ViewingRoomPreview
           setup={setup}
           images={images}
@@ -1341,6 +1409,7 @@ export default function EditorCanvasFirst() {
           onMoveBlock={moveBlock}
           onRemoveBlock={removeBlock}
         />
+        <EditorWebFooter />
       </main>
 
       <HealthPill {...health} />
@@ -1357,10 +1426,15 @@ export default function EditorCanvasFirst() {
       <div className="fixed right-3 top-3 z-30 flex items-center gap-2 vr-shell-fade md:right-4 md:top-4">
         {clerkEnabled &&
           (isSignedIn ? (
-            <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
+            <a
+              href="/viewingroom-studio/dashboard"
+              className="inline-flex h-8 items-center rounded-[5px] border border-gray-200 bg-white/90 px-3 text-[12px] text-gray-700 transition-colors hover:border-gray-300 hover:text-gray-950 dark:border-gray-800 dark:bg-[#1c1c1c]/90 dark:text-gray-200 dark:hover:border-gray-700"
+            >
+              Dashboard
+            </a>
           ) : (
             <a
-              href="https://vitreen.art/sign-in"
+              href="/viewingroom-studio/sign-in"
               className="inline-flex h-8 items-center rounded-[5px] bg-gray-900 px-4 text-[12px] text-white transition-colors hover:bg-gray-700"
             >
               Sign in

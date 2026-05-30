@@ -6,15 +6,15 @@ import { ExportPanel, ViewingRoomPreview } from "@/components/ovr/ViewingRoomApp
 import type { Block, BlockType, ImageItem, VrSetup } from "@/lib/ovr/buildTypes";
 
 const setup: VrSetup = {
-  galleryName: "Galerie du Jour",
+  galleryName: "Gallery of the Day",
   headline: "Recent Acquisitions",
   title: "Spring Selection",
-  recipientName: "M. Dupont",
+  recipientName: "Mr. Dupont",
   recipientEmail: "",
   introText:
-    "Cher M. Dupont, voici une sélection d'œuvres récemment acquises qui pourraient vous intéresser. Nous restons à votre disposition pour toute information complémentaire.",
-  galleryAddress: "12, rue de Seine — 75006 Paris",
-  galleryContact: "contact@maison-vitreen.com",
+    "Dear Mr. Dupont, here is a selection of recently acquired works that may interest you. We remain at your disposal for any additional information.",
+  galleryAddress: "12 Seine Street — 75006 Paris",
+  galleryContact: "contact@viewingroom.studio",
 };
 
 const initialImages: ImageItem[] = [
@@ -290,7 +290,7 @@ export function PreviewMockup() {
                   <path d="M7 11V7a5 5 0 0110 0v4" />
                 </svg>
                 <span className="text-[11px] tracking-tight text-black/40">
-                  room.vitreen.art / private
+                  viewing room / private
                 </span>
               </div>
               <div className="w-[58px]" />
