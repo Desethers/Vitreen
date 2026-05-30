@@ -79,7 +79,7 @@ export default function ArtworkSourceSection() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="text-[18px] font-medium leading-tight tracking-[-0.02em] text-[#111110] md:text-[20px]">
+                  <p className="text-[14px] font-medium leading-tight tracking-[-0.02em] text-[#111110]">
                     {pillar.title}
                   </p>
                   <p className="mt-1 text-[14px] leading-[1.6] text-[#6B6A67]">{pillar.desc}</p>

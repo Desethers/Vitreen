@@ -442,7 +442,7 @@ function DeployJourney() {
               style={{
                 top: i * 18,
                 left: i * 5,
-                right: 8 + i * 8,
+                right: 26 + i * 8,
                 zIndex: arr.length - i,
                 transform: `scale(${1 - i * 0.025})`,
                 transformOrigin: "top center",
