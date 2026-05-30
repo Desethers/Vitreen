@@ -336,9 +336,12 @@ function DeployJourney() {
   return (
     <div className="flex flex-col">
       {/* Main request card — Outlook-style layout (icon · sender · time / divider / body) */}
-      <div className="rounded-[4px] bg-white px-1.5 py-1.5" style={hairline}>
+      <div
+        className="flex min-h-[88px] flex-col rounded-[4px] bg-white px-1.5 py-1.5"
+        style={hairline}
+      >
         {/* Header row */}
-        <div className="flex items-start gap-1.5">
+        <div className="flex items-start gap-1.5 pb-0.5">
           {/* Outlook avatar */}
           <div className="flex h-[12px] w-[12px] flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-white">
             <AppOutlook />
@@ -357,25 +360,33 @@ function DeployJourney() {
         </div>
 
         {/* Divider */}
-        <div className="my-1 h-px w-full bg-[#E8E8E6]" />
+        <div className="my-1.5 h-px w-full bg-[#E8E8E6]" />
 
         {/* Body */}
-        <p className="text-[5px] leading-[1.5] text-[#111110]">
-          Could we have the {SAMPLE_REFERENCE_ARTWORK.artist}{" "}
-          <em className="italic">{SAMPLE_REFERENCE_ARTWORK.title}</em> selection ahead of Tuesday’s
-          preview? Please include:
-        </p>
-        <ul className="mt-[3px] flex flex-col gap-[1px]">
-          <li className="text-[5px] leading-[1.4] text-[#111110]">— 6 high-res images</li>
-          <li className="text-[5px] leading-[1.4] text-[#111110]">— Provenance documents</li>
-          <li className="text-[5px] leading-[1.4] text-[#111110]">
-            — Auction comparables (2018–24)
-          </li>
-        </ul>
+        <div className="flex flex-1 flex-col justify-between">
+          <div>
+            <p className="text-[5px] leading-[1.55] text-[#111110]">
+              Could we have the {SAMPLE_REFERENCE_ARTWORK.artist}{" "}
+              <em className="italic">{SAMPLE_REFERENCE_ARTWORK.title}</em> selection ahead of
+              Tuesday’s preview? Please include:
+            </p>
+            <ul className="mt-[4px] flex flex-col gap-[1.5px]">
+              <li className="text-[5px] leading-[1.45] text-[#111110]">— 6 high-res images</li>
+              <li className="text-[5px] leading-[1.45] text-[#111110]">— Provenance documents</li>
+              <li className="text-[5px] leading-[1.45] text-[#111110]">
+                — Auction comparables (2018–24)
+              </li>
+            </ul>
+          </div>
+          <div className="mt-2 flex items-center gap-1 border-t border-[#F1F1ED] pt-1.5">
+            <span className="h-[4px] w-[28px] rounded-full bg-[#E8E8E6]" />
+            <span className="h-[4px] w-[18px] rounded-full bg-[#F1F1ED]" />
+          </div>
+        </div>
       </div>
 
       {/* Reply-thread connector + indented dark pill stack */}
-      <div className="relative pl-4 pt-1">
+      <div className="relative pl-4 pt-1.5">
         {/* Vertical thread line on the left */}
         <div
           className="absolute"

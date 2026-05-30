@@ -45,7 +45,7 @@ export default function ArtworkSourceSection() {
       <div className="mx-auto max-w-7xl">
         <motion.div
           {...fadeUp(0)}
-          className="grid gap-8 md:grid-cols-[0.82fr_1.18fr] md:items-start md:gap-14"
+          className="grid gap-8 md:grid-cols-[0.62fr_1.38fr] md:items-start md:gap-14"
         >
           {/* Left — text */}
           <div>
@@ -53,7 +53,7 @@ export default function ArtworkSourceSection() {
               {t.artworkSource.title}
             </h2>
             <p className="mt-1 font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
-              Keep artwork sharing simple.
+              Tailored to your artists, collectors and operations.
             </p>
             <p className="mt-4 text-[13px] leading-[1.7] tracking-[-0.01em] text-[#6B6A67] md:text-[14px]">
               {t.artworkSource.body}
@@ -63,14 +63,14 @@ export default function ArtworkSourceSection() {
           {/* Right — pillar mockup slideshow */}
           <div className="md:ml-auto md:self-start" style={{ maxWidth: 640, width: "100%" }}>
             {/* Mock panel */}
-            <div className="relative rounded-lg bg-white" style={{ height: 420 }}>
+            <div className="relative rounded-lg bg-white" style={{ height: 520 }}>
               <AnimatePresence mode="wait">
                 <Mock key={current} />
               </AnimatePresence>
             </div>
 
             {/* Pillar info + progress */}
-            <div className="mt-2 flex flex-col gap-2">
+            <div className="mt-3 flex flex-col gap-2">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`info-${current}`}

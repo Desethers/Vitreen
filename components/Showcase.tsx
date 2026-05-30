@@ -296,7 +296,7 @@ function GalleryWorkflowMock() {
           transformOrigin: "bottom left",
         }}
       >
-        <GalleryOsDashboard />
+        <GalleryOsDashboard glass />
       </div>
       <AnimatePresence>
         {mailVisible && (

@@ -34,15 +34,34 @@ const ARTWORK_ROWS = [
   { title: "Studio Notebook", year: "2022", price: "4 500 €", color: "#3E4A60" },
   { title: "Solstice", year: "2024", price: "14 000 €", color: "#D4A574" },
   { title: "Rivière", year: "2023", price: "9 200 €", color: "#2D5043" },
+  { title: "Northern Light", year: "2022", price: "11 500 €", color: "#4A6B7A" },
+  { title: "Quiet Interval", year: "2023", price: "7 400 €", color: "#9A8C6E" },
+  { title: "Untitled (Drift)", year: "2024", price: "10 800 €", color: "#5C3A52" },
+  { title: "Morning Tide", year: "2021", price: "6 800 €", color: "#A8BCC4" },
+  { title: "Cobalt Study", year: "2024", price: "13 200 €", color: "#243E8C" },
 ];
 
-export function GalleryOsDashboard() {
+export function GalleryOsDashboard({
+  glass = false,
+  compact = false,
+}: {
+  glass?: boolean;
+  compact?: boolean;
+}) {
   return (
-    <div className="overflow-hidden rounded-[10px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.15)]">
+    <div
+      className={`overflow-hidden rounded-[10px] border ${
+        glass
+          ? "border-white/55 bg-white/72 shadow-[0_24px_60px_rgba(0,0,0,0.1)] backdrop-blur-md"
+          : "border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.15)]"
+      }`}
+    >
       <div className="flex">
         {/* Sidebar */}
         <div
-          className="flex flex-col gap-1 border-r border-[#E8E8E6] bg-[#FAFAF8] px-3 py-4"
+          className={`${compact ? "hidden" : "flex"} flex-col gap-1 border-r px-3 py-4 ${
+            glass ? "border-white/45 bg-white/38" : "border-[#E8E8E6] bg-[#FAFAF8]"
+          }`}
           style={{ width: "26%" }}
         >
           {/* Logo */}
@@ -56,7 +75,11 @@ export function GalleryOsDashboard() {
             <div
               key={item.label}
               className={`flex items-center gap-2 rounded-[4px] px-2 py-[5px] text-[9px] ${
-                item.active ? "bg-white text-[#111110]" : "text-[#6B6A67]"
+                item.active
+                  ? glass
+                    ? "bg-white/45 text-[#111110]"
+                    : "bg-white text-[#111110]"
+                  : "text-[#6B6A67]"
               }`}
               style={item.active ? { boxShadow: "0 0 0 0.5px #E8E8E6 inset" } : undefined}
             >
@@ -73,34 +96,72 @@ export function GalleryOsDashboard() {
         </div>
 
         {/* Main */}
-        <div className="flex-1 px-5 py-4">
-          <div className="flex items-start justify-between">
+        <div
+          className={
+            glass
+              ? `flex-1 bg-white/28 ${compact ? "px-3 py-3" : "min-h-[600px] px-5 py-4"}`
+              : `flex-1 ${compact ? "px-3 py-3" : "min-h-[600px] px-5 py-4"}`
+          }
+        >
+          {compact && (
+            <div className="mb-3 flex items-center justify-between border-b border-[#E8E8E6] pb-2">
+              <div className="flex items-center gap-2">
+                <button
+                  className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-[#111110] text-[11px] leading-none text-white"
+                  aria-label="Open menu"
+                >
+                  ☰
+                </button>
+                <span className="text-[10px] font-medium text-[#111110]">Gallery OS</span>
+              </div>
+              <span className="rounded-full bg-[#1FA854] px-1.5 py-[1px] text-[7.5px] font-medium text-white">
+                2
+              </span>
+            </div>
+          )}
+          <div className="flex items-start justify-between gap-2">
             <div>
-              <h3 className="font-display text-[15px] font-medium leading-tight text-[#111110]">
+              <h3
+                className={`font-display font-medium leading-tight text-[#111110] ${
+                  compact ? "text-[13px]" : "text-[15px]"
+                }`}
+              >
                 Œuvres
               </h3>
-              <p className="mt-0.5 text-[9px] text-[#6B6A67]">
-                7 au total · 7 disponibles · 0 vendue
+              <p className={`mt-0.5 text-[#6B6A67] ${compact ? "text-[8px]" : "text-[9px]"}`}>
+                12 au total · 12 disponibles · 0 vendue
               </p>
             </div>
-            <button className="rounded-[5px] bg-[#111110] px-2.5 py-[5px] text-[9px] text-white">
+            <button
+              className={`rounded-[5px] bg-[#111110] text-white ${
+                compact ? "px-2 py-[4px] text-[8px]" : "px-2.5 py-[5px] text-[9px]"
+              }`}
+            >
               + Ajouter
             </button>
           </div>
 
           {/* Search */}
-          <div className="mt-3 flex items-center gap-2 rounded-[5px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5">
+          <div
+            className={`flex items-center gap-2 rounded-[5px] border border-[#E8E8E6] bg-[#FAFAF8] px-2 py-1.5 ${
+              compact ? "mt-2" : "mt-3"
+            }`}
+          >
             <span className="text-[9px] text-[#ADADAA]">⌕</span>
             <span className="flex-1 text-[8.5px] text-[#ADADAA]">
-              Rechercher titre, artiste, année, médium…
+              {compact ? "Rechercher…" : "Rechercher titre, artiste, année, médium…"}
             </span>
-            <span className="rounded border border-[#E8E8E6] px-1 py-[1px] text-[7px] text-[#6B6A67]">
+            <span
+              className={`rounded border border-[#E8E8E6] px-1 py-[1px] text-[7px] text-[#6B6A67] ${
+                compact ? "hidden" : ""
+              }`}
+            >
               ⌘K
             </span>
           </div>
 
           {/* Filter pills */}
-          <div className="mt-2.5 flex flex-wrap items-center gap-1">
+          <div className={`mt-2.5 flex flex-wrap items-center gap-1 ${compact ? "hidden" : ""}`}>
             {["Disponibles", "Réservées", "Vendues", "Consignées", "En prêt"].map((p) => (
               <span
                 key={p}
@@ -116,11 +177,15 @@ export function GalleryOsDashboard() {
           </div>
 
           {/* Table header */}
-          <div className="mt-3 grid grid-cols-[1fr_120px_60px_90px_80px] items-center gap-2 border-b border-[#E8E8E6] pb-1.5 text-[7.5px] uppercase tracking-[0.06em] text-[#ADADAA]">
+          <div
+            className={`mt-3 grid items-center gap-2 border-b border-[#E8E8E6] pb-1.5 text-[7.5px] uppercase tracking-[0.06em] text-[#ADADAA] ${
+              compact ? "grid-cols-[1fr_58px]" : "grid-cols-[1fr_120px_60px_90px_80px]"
+            }`}
+          >
             <span>Titre</span>
-            <span>Artiste</span>
-            <span>Année</span>
-            <span className="text-right">Prix</span>
+            {!compact && <span>Artiste</span>}
+            {!compact && <span>Année</span>}
+            {!compact && <span className="text-right">Prix</span>}
             <span>Statut</span>
           </div>
 
@@ -129,11 +194,15 @@ export function GalleryOsDashboard() {
             {ARTWORK_ROWS.map((row) => (
               <div
                 key={row.title}
-                className="grid grid-cols-[1fr_120px_60px_90px_80px] items-center gap-2 border-b border-[#F1F1ED] py-2 text-[9px] text-[#111110]"
+                className={`grid items-center gap-2 border-b border-[#F1F1ED] py-2 text-[9px] text-[#111110] ${
+                  compact ? "grid-cols-[1fr_58px]" : "grid-cols-[1fr_120px_60px_90px_80px]"
+                }`}
               >
                 <div className="flex items-center gap-2">
                   <div
-                    className="h-6 w-7 flex-shrink-0 overflow-hidden rounded-[2px] bg-white"
+                    className={`flex-shrink-0 overflow-hidden rounded-[2px] bg-white ${
+                      compact ? "h-8 w-8" : "h-6 w-7"
+                    }`}
                     style={{ border: "0.5px solid #E8E8E6" }}
                   >
                     <div className="h-[68%] w-full" style={{ background: row.color }} />
@@ -141,12 +210,12 @@ export function GalleryOsDashboard() {
                   </div>
                   <span className="truncate font-medium">{row.title}</span>
                 </div>
-                <span className="text-[#6B6A67]">{SAMPLE_ARTIST.fullName}</span>
-                <span className="text-[#6B6A67]">{row.year}</span>
-                <span className="text-right tabular-nums">{row.price}</span>
+                {!compact && <span className="text-[#6B6A67]">{SAMPLE_ARTIST.fullName}</span>}
+                {!compact && <span className="text-[#6B6A67]">{row.year}</span>}
+                {!compact && <span className="text-right tabular-nums">{row.price}</span>}
                 <span>
                   <span className="rounded-full border border-[#1FA854]/40 bg-[#1FA854]/[0.06] px-1.5 py-[1px] text-[7.5px] text-[#1FA854]">
-                    Available
+                    {compact ? "Live" : "Available"}
                   </span>
                 </span>
               </div>

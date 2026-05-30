@@ -81,8 +81,7 @@ export const translations = {
       },
     },
     hero: {
-      title:
-        "Des outils qui s’intègrent à la manière dont les galeries travaillent déjà.",
+      title: "Your gallery, wherever you already work.",
       subtitle:
         "Connect existing systems or build a custom operating structure for artworks, exhibitions, private selections and collector communication.",
       ctaPrimary: "Discuter de votre setup",
@@ -107,7 +106,7 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Couche opérationnelle",
-      title: "Conçu autour de la façon dont les galeries fonctionnent vraiment.",
+      title: "A gallery infrastructure, not another platform.",
       body:
         "Chaque galerie gère ses œuvres, collectionneurs et ventes différemment. Vitreen s’adapte à vos sources existantes, vos habitudes de communication et vos workflows relationnels — et les transforme en une couche opérationnelle plus claire.",
       connectedLabel: "Côté archive",
@@ -719,8 +718,7 @@ export const translations = {
       },
     },
     hero: {
-      title:
-        "Tools that plug into the way galleries already work.",
+      title: "Your gallery, wherever you already work.",
       subtitle:
         "Connect existing systems or build a custom operating structure for artworks, exhibitions, private selections and collector communication.",
       ctaPrimary: "Discuss your setup",
@@ -745,7 +743,7 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Operational layer",
-      title: "Built around the way galleries actually work.",
+      title: "A gallery infrastructure, not another platform.",
       body:
         "Every gallery handles artworks, collectors and sales differently. Vitreen adapts to your existing sources, communication habits and relationship-driven workflows — then turns them into a clearer operating layer.",
       connectedLabel: "Archive side",

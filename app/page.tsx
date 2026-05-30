@@ -1,12 +1,9 @@
-import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import HeroDashboardMock from "@/components/HeroDashboardMock";
 import ViewingRoomStudio from "@/components/ViewingRoomStudio";
 import ArtworkSourceSection from "@/components/ArtworkSourceSection";
-import Showcase from "@/components/Showcase";
 
-const Audiences = dynamic(() => import("@/components/Audiences"));
-import ConnectedTools from "@/components/ConnectedTools";
 import Solution from "@/components/Solution";
 import Services from "@/components/Services";
 import StatementSplit from "@/components/StatementSplit";
@@ -20,10 +17,8 @@ export default function Home() {
     <main className="relative">
       <Nav />
       <Hero />
-      <Audiences />
-      <ConnectedTools />
+      <HeroDashboardMock />
       <ArtworkSourceSection />
-      <Showcase />
       <Solution />
       <QuoteSection />
       <ViewingRoomStudio />
