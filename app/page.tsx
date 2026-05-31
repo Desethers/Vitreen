@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import HeroDashboardMock from "@/components/HeroDashboardMock";
+import ProcessFlow from "@/components/ProcessFlow";
 import ViewingRoomStudio from "@/components/ViewingRoomStudio";
 import ArtworkSourceSection from "@/components/ArtworkSourceSection";
 
@@ -17,6 +18,7 @@ export default function Home() {
     <main className="relative">
       <Nav />
       <Hero />
+      <ProcessFlow />
       <HeroDashboardMock />
       <ArtworkSourceSection />
       <Solution />
