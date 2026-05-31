@@ -195,7 +195,7 @@ function AuditMock() {
 
       {/* ── Foreground: macOS Finder window — gallery's artwork .jpeg files ── */}
       <div className="absolute" style={{ top: 168, right: 28, width: 320 }}>
-        <div className="overflow-hidden rounded-[10px] border border-[#E2E2DF] bg-white shadow-[0_22px_50px_rgba(0,0,0,0.13)]">
+        <div className="overflow-hidden rounded-[10px] border border-[#E2E2DF] bg-white">
           {/* Title bar — traffic lights + folder name */}
           <div className="relative flex items-center border-b border-[#EFEFEC] bg-[#FBFBFA] px-3.5 py-2.5">
             <div className="flex items-center gap-[6px]">

@@ -76,7 +76,8 @@ export function StepOnePillIcon({ tag }: { tag: string }) {
 
 export function StepTwoSharingFlow() {
   const [gmail, outlook, pdf, excel, whatsApp] = stepTwoLogos;
-  const green = { src: "/logos/Digital_Stacked_Green_RGB_2026.svg", alt: "Channel" };
+  const green = { src: "/logos/Microsoft_Office_Word_Logo.svg", alt: "Word" };
+  const notion = { src: "/logos/Symbol.svg", alt: "Notion" };
 
   // A ring of the gallery's existing tools — each icon in its own rounded
   // square, evenly spaced around a circle.
@@ -86,7 +87,7 @@ export function StepTwoSharingFlow() {
     cy = H / 2;
   const R = 78; // orbit radius
 
-  const orbit = [gmail, outlook, excel, green, whatsApp, pdf];
+  const orbit = [gmail, outlook, excel, green, notion, whatsApp, pdf];
   const n = orbit.length;
   const nodes = orbit.map((ic, i) => {
     const a = (-90 + (360 / n) * i) * (Math.PI / 180); // start at top, clockwise

@@ -1250,7 +1250,44 @@ function ViewingMock() {
   );
 }
 
+function TypingDots() {
+  return (
+    <span className="inline-flex items-center" style={{ gap: 3 }}>
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={i}
+          className="rounded-full"
+          style={{ width: 4, height: 4, background: "#9B9B98", display: "inline-block" }}
+          animate={{ opacity: [0.3, 1, 0.3] }}
+          transition={{ duration: 1, repeat: Infinity, ease: "easeInOut", delay: i * 0.18 }}
+        />
+      ))}
+    </span>
+  );
+}
+
 function InquiryMock() {
+  // Only the last two messages animate: "building" bubble, then the PDF card.
+  const [step, setStep] = useState(0); // 0: none · 1: building · 2: pdf
+
+  useEffect(() => {
+    let cancelled = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    function run() {
+      if (cancelled) return;
+      setStep(0);
+      timers.push(setTimeout(() => !cancelled && setStep(1), 700));
+      timers.push(setTimeout(() => !cancelled && setStep(2), 1900));
+      timers.push(setTimeout(run, 5400));
+    }
+    const init = setTimeout(run, 500);
+    return () => {
+      cancelled = true;
+      clearTimeout(init);
+      timers.forEach(clearTimeout);
+    };
+  }, []);
+
   return (
     <div className="flex h-full flex-col overflow-hidden font-sans text-[#111110]">
       {/* Minimal conversation header */}
@@ -1281,15 +1318,15 @@ function InquiryMock() {
         </div>
       </div>
 
-      {/* Chat — static conversation, only the PDF result animates */}
-      <div className="flex flex-1 flex-col justify-end" style={{ gap: 7, paddingTop: 10 }}>
-        {/* incoming artwork media card */}
+      {/* Chat — top-aligned, static; only the typing indicator animates */}
+      <div className="flex flex-col" style={{ gap: 7, paddingTop: 10 }}>
+        {/* outgoing artwork media card */}
         <div
-          className="self-start overflow-hidden rounded-[10px] rounded-tl-sm bg-white"
+          className="self-end overflow-hidden rounded-[10px] rounded-tr-sm"
           style={{
             maxWidth: "82%",
-            border: "1px solid #ECECEA",
-            boxShadow: "0 4px 14px rgba(17,17,16,0.05)",
+            background: "#E7FCE3",
+            border: "1px solid #D6F2CF",
           }}
         >
           <div style={{ height: 70, background: "linear-gradient(135deg,#1E3FD6,#2A4FE8)" }} />
@@ -1298,6 +1335,21 @@ function InquiryMock() {
             <br />
             2025 · 180 × 180 cm · 5 000 €
           </p>
+        </div>
+
+        {/* incoming confirmation */}
+        <div
+          className="self-start rounded-[10px] rounded-tl-sm bg-white"
+          style={{
+            maxWidth: "86%",
+            border: "1px solid #ECECEA",
+            padding: "6px 9px",
+            fontSize: 8.5,
+            lineHeight: 1.4,
+            color: "#111110",
+          }}
+        >
+          Reçu. «&nbsp;Blue Painting&nbsp;» ajoutée à votre Sélection.
         </div>
 
         {/* outgoing command */}
@@ -1310,63 +1362,80 @@ function InquiryMock() {
           </span>
         </div>
 
-        {/* PDF delivered — the single animated element */}
-        <motion.div
-          className="self-start"
-          style={{ maxWidth: "86%" }}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: [0, 1, 1, 0], y: [8, 0, 0, 8] }}
-          transition={{
-            duration: 4,
-            times: [0, 0.12, 0.85, 1],
-            ease,
-            repeat: Infinity,
-            repeatDelay: 0.6,
-          }}
-        >
-          <div
-            className="flex items-center rounded-[10px] rounded-tl-sm bg-white"
-            style={{ gap: 8, border: "1px solid #ECECEA", padding: "7px 9px" }}
-          >
-            <div
-              className="flex shrink-0 items-center justify-center rounded"
-              style={{ width: 24, height: 28, background: "#E8443B" }}
+        {/* Animated — last two messages reveal in sequence */}
+        <AnimatePresence>
+          {step >= 1 && (
+            <motion.div
+              key="building"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease }}
+              className="self-start flex items-center rounded-[10px] rounded-tl-sm bg-white"
+              style={{ gap: 7, border: "1px solid #ECECEA", padding: "6px 9px" }}
             >
-              <span
-                style={{ fontSize: 6, fontWeight: 700, color: "#fff", letterSpacing: "0.04em" }}
-              >
-                PDF
+              <span style={{ fontSize: 8.5, color: "#6B6A67" }}>
+                Constitution de votre sélection
               </span>
-            </div>
-            <div className="min-w-0">
-              <p
-                className="truncate"
-                style={{ fontSize: 8.5, fontWeight: 500, color: "#111110", lineHeight: 1.3 }}
-              >
-                spring-selection.pdf
-              </p>
-              <p style={{ fontSize: 7.5, color: "#ADADAA", lineHeight: 1.3 }}>44 Ko · pdf</p>
-            </div>
-          </div>
-          <p
-            className="flex items-center"
-            style={{ gap: 4, fontSize: 7.5, color: "#1F8A4C", paddingLeft: 2, paddingTop: 4 }}
-          >
-            <svg
-              width="9"
-              height="9"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              <TypingDots />
+            </motion.div>
+          )}
+
+          {step >= 2 && (
+            <motion.div
+              key="pdf"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease }}
+              className="self-start"
+              style={{ maxWidth: "86%" }}
             >
-              <path d="M20 6 9 17l-5-5" />
-            </svg>
-            Sélection prête · 1 page
-          </p>
-        </motion.div>
+              <div
+                className="flex items-center rounded-[10px] rounded-tl-sm bg-white"
+                style={{ gap: 8, border: "1px solid #ECECEA", padding: "7px 9px" }}
+              >
+                <div
+                  className="flex shrink-0 items-center justify-center rounded"
+                  style={{ width: 24, height: 28, background: "#E8443B" }}
+                >
+                  <span
+                    style={{ fontSize: 6, fontWeight: 700, color: "#fff", letterSpacing: "0.04em" }}
+                  >
+                    PDF
+                  </span>
+                </div>
+                <div className="min-w-0">
+                  <p
+                    className="truncate"
+                    style={{ fontSize: 8.5, fontWeight: 500, color: "#111110", lineHeight: 1.3 }}
+                  >
+                    spring-selection.pdf
+                  </p>
+                  <p style={{ fontSize: 7.5, color: "#ADADAA", lineHeight: 1.3 }}>44 Ko · pdf</p>
+                </div>
+              </div>
+              <p
+                className="flex items-center"
+                style={{ gap: 4, fontSize: 7.5, color: "#1F8A4C", paddingLeft: 2, paddingTop: 4 }}
+              >
+                <svg
+                  width="9"
+                  height="9"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Sélection prête · 1 page
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
