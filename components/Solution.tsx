@@ -884,324 +884,198 @@ function ShareableMomentMock() {
   );
 }
 
+const libraryRows = [
+  { title: "Untitled (Horizon)", meta: "Sacha Elron · 2024", img: "/artworks/painting-02.png" },
+  { title: "Night Garden IV", meta: "Sacha Elron · 2024", img: "/artworks/painting-05.jpg" },
+  { title: "Soft Power I", meta: "Sacha Elron · 2025", img: "/artworks/painting-09.png" },
+];
+
 function ArtworkMock() {
-  const [cartOpen, setCartOpen] = useState(false);
-  const [addHover, setAddHover] = useState(false);
+  const total = libraryRows.length;
+  const [synced, setSynced] = useState(0);
 
-  // Animation loop: hover → open cart → close → replay
   useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = [];
     let cancelled = false;
-
-    function play() {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    function run() {
       if (cancelled) return;
-      // Reset
-      setCartOpen(false);
-      setAddHover(false);
-
-      // t=800ms : hover sur le bouton
-      timers.push(
-        setTimeout(() => {
-          if (!cancelled) setAddHover(true);
-        }, 800)
-      );
-      // t=1700ms : click → ouvre le volet
-      timers.push(
-        setTimeout(() => {
-          if (!cancelled) {
-            setCartOpen(true);
-            setAddHover(false);
-          }
-        }, 1700)
-      );
-      // t=4200ms : fermeture du volet
-      timers.push(
-        setTimeout(() => {
-          if (!cancelled) setCartOpen(false);
-        }, 4200)
-      );
-      // t=5400ms : rejoue
-      timers.push(
-        setTimeout(() => {
-          if (!cancelled) play();
-        }, 5400)
-      );
+      setSynced(0);
+      for (let i = 1; i <= total; i++) {
+        timers.push(setTimeout(() => !cancelled && setSynced(i), 600 + (i - 1) * 750));
+      }
+      timers.push(setTimeout(run, 600 + total * 750 + 1700));
     }
-
-    // Délai initial avant le premier play
-    const init = setTimeout(play, 600);
+    const init = setTimeout(run, 350);
     return () => {
       cancelled = true;
       clearTimeout(init);
       timers.forEach(clearTimeout);
     };
-  }, []);
+  }, [total]);
+
+  const done = synced >= total;
 
   return (
-    <div className="relative flex h-full overflow-hidden" style={{ gap: 10 }}>
-      {/* LEFT — white wall + painting */}
+    <div className="flex h-full items-center justify-center font-sans text-[#111110]">
       <div
-        className="relative shrink-0 flex items-center justify-center transition-all duration-400"
-        style={{ width: "48%", background: "#fff" }}
-      >
-        {cartOpen && (
-          <div className="absolute inset-0 bg-black/10 z-10 transition-opacity duration-400" />
-        )}
-        <div
-          style={{
-            width: "68%",
-            height: "90%",
-            background: "#1C1D2E",
-            boxShadow: "2px 2px 16px rgba(0,0,0,0.18)",
-          }}
-        />
-        <span className="absolute text-[#ADADAA] select-none" style={{ right: 5, fontSize: 11 }}>
-          ›
-        </span>
-      </div>
-
-      {/* RIGHT — 3 stacked bordered cards */}
-      <div className="flex-1 flex flex-col" style={{ gap: 5 }}>
-        {/* Card 1 — main info */}
-        <div
-          style={{
-            border: "1px solid #E4E4E0",
-            borderRadius: 4,
-            padding: "10px 10px 8px",
-            flex: "1 1 auto",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 1 }}>
-            Untitled, 2018
-          </p>
-          <p style={{ fontSize: 7.5, color: "#888", marginBottom: 0 }}>Acrylic on canvas</p>
-          <p style={{ fontSize: 7.5, color: "#888", marginBottom: 8 }}>220 × 120 cm</p>
-          <p style={{ fontSize: 10.5, fontWeight: 500, color: "#111110", marginBottom: 7 }}>
-            $16,500
-          </p>
-
-          {/* Add to cart — cliquable */}
-          <button
-            onClick={() => setCartOpen(true)}
-            onMouseEnter={() => setAddHover(true)}
-            onMouseLeave={() => setAddHover(false)}
-            style={{
-              border: "0.5px solid #111110",
-              borderRadius: 4,
-              height: 24,
-              marginBottom: 7,
-              cursor: "pointer",
-              background: addHover ? "#111110" : "transparent",
-              transition: "background 0.2s",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
-            <span
-              style={{
-                fontSize: 6.5,
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                color: addHover ? "#fff" : "#111110",
-                transition: "color 0.2s",
-              }}
-            >
-              Add to cart
-            </span>
-          </button>
-
-          <div style={{ height: 1, background: "#EEEEED", marginBottom: 7 }} />
-          <p
-            style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: 5 }}
-            className="line-clamp-3"
-          >
-            This monochromatic, large-scale painting explores color, surface, and minimalism.
-          </p>
-          <p
-            style={{ fontSize: 6.5, color: "#555", lineHeight: 1.6, marginBottom: "auto" }}
-            className="line-clamp-2"
-          >
-            The paintings are not the centre of the discussion; rather, it is the relationship in
-            which they are entwined.
-          </p>
-          <p style={{ fontSize: 6, color: "#ADADAA", lineHeight: 1.4, marginTop: 6 }}>
-            Request details about shipping and availability through the contact form.
-          </p>
-        </div>
-
-        {/* Card 2 — Shipping */}
-        <div
-          className="flex items-center justify-between"
-          style={{
-            border: "1px solid #E4E4E0",
-            borderRadius: 4,
-            padding: "7px 10px",
-            flexShrink: 0,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 6.5,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "#111110",
-            }}
-          >
-            Shipping and taxes
-          </span>
-          <svg
-            width="8"
-            height="8"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#ADADAA"
-            strokeWidth="2"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </div>
-
-        {/* Card 3 — FAQ */}
-        <div
-          className="flex items-center justify-between"
-          style={{
-            border: "1px solid #E4E4E0",
-            borderRadius: 4,
-            padding: "7px 10px",
-            flexShrink: 0,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 6.5,
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "#111110",
-            }}
-          >
-            FAQ
-          </span>
-          <svg
-            width="8"
-            height="8"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#ADADAA"
-            strokeWidth="2"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </div>
-      </div>
-
-      {/* CART PANEL — slide in from right */}
-      <div
-        className="absolute inset-y-0 right-0 bg-white flex flex-col"
+        className="w-full overflow-hidden rounded-xl bg-white"
         style={{
-          width: "58%",
-          borderLeft: "1px solid #E8E8E6",
-          transform: cartOpen ? "translateX(0)" : "translateX(100%)",
-          transition: "transform 0.65s cubic-bezier(0.16,1,0.3,1)",
-          padding: "10px 10px 8px",
-          zIndex: 20,
+          maxWidth: 264,
+          border: "1px solid #ECECEA",
+          boxShadow: "0 10px 30px rgba(17,17,16,0.06)",
         }}
       >
-        {/* Header */}
-        <div className="flex items-start justify-between" style={{ marginBottom: 6 }}>
-          <div>
-            <p
-              style={{
-                fontSize: 6,
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                color: "#888",
-                marginBottom: 1,
-              }}
-            >
-              Your selection
-            </p>
-            <p style={{ fontSize: 11, fontWeight: 500, color: "#111110" }}>1 piece</p>
-          </div>
-          <button
-            onClick={() => setCartOpen(false)}
-            className="flex items-center justify-center"
-            style={{
-              width: 16,
-              height: 16,
-              borderRadius: "50%",
-              border: "1px solid #E4E4E0",
-              background: "white",
-              cursor: "pointer",
-              flexShrink: 0,
-            }}
-          >
-            <svg
-              width="7"
-              height="7"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#666"
-              strokeWidth="2.5"
-            >
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Separator */}
-        <div style={{ height: 1, background: "#EEEEED", marginBottom: 8 }} />
-
-        {/* Item row */}
-        <div className="flex items-start" style={{ gap: 7, marginBottom: "auto" }}>
-          {/* Thumbnail */}
-          <div
-            style={{ width: 26, height: 32, background: "#1C1D2E", borderRadius: 4, flexShrink: 0 }}
-          />
-          {/* Info */}
-          <div className="flex-1">
-            <div className="flex items-start justify-between">
-              <p style={{ fontSize: 8, fontWeight: 600, color: "#111110" }}>Untitled, 2018</p>
-              <p style={{ fontSize: 8, fontWeight: 600, color: "#111110" }}>$16 500</p>
-            </div>
-            <p style={{ fontSize: 6.5, color: "#888", marginTop: 1 }}>Acrylic on canvas</p>
-            <p style={{ fontSize: 6.5, color: "#888" }}>220 × 120</p>
-            <p style={{ fontSize: 6.5, color: "#ADADAA", marginTop: 3 }}>Remove</p>
+        {/* Source header */}
+        <div
+          className="flex items-center justify-between"
+          style={{ padding: "9px 12px", borderBottom: "1px solid #F2F2F0" }}
+        >
+          <span style={{ fontSize: 10, fontWeight: 500, color: "#111110" }}>
+            Artwork Management
+          </span>
+          <div className="flex items-center" style={{ gap: 5 }}>
+            <span style={{ fontSize: 8.5, color: "#ADADAA" }}>Artlogic</span>
+            <AnimatePresence mode="wait" initial={false}>
+              {done ? (
+                <motion.span
+                  key="done"
+                  className="flex items-center"
+                  style={{ gap: 3, fontSize: 8.5, fontWeight: 500, color: "#1F8A4C" }}
+                  initial={{ opacity: 0, y: 2 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -2 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <span
+                    className="rounded-full"
+                    style={{ width: 4, height: 4, background: "#28C840" }}
+                  />
+                  Synced
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="progress"
+                  className="flex items-center"
+                  style={{ gap: 4, fontSize: 8.5, color: "#6B6A67" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <motion.span
+                    className="rounded-full"
+                    style={{ width: 4, height: 4, background: "#28C840" }}
+                    animate={{ opacity: [1, 0.3, 1] }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  {synced}/{total}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Footer */}
-        <div style={{ marginTop: "auto" }}>
-          <div style={{ height: 1, background: "#EEEEED", marginBottom: 6 }} />
-          <div className="flex items-center justify-between" style={{ marginBottom: 7 }}>
-            <span style={{ fontSize: 7.5, fontWeight: 500, color: "#111110" }}>Total</span>
-            <span style={{ fontSize: 10, fontWeight: 500, color: "#111110" }}>$16 500</span>
-          </div>
-          {/* Proceed to checkout */}
-          <div
-            className="flex items-center justify-center transition-colors duration-200 hover:bg-[#2F4FE0]"
-            style={{ background: "#111110", borderRadius: 4, height: 22, marginBottom: 5 }}
-          >
-            <span
-              style={{
-                fontSize: 6,
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                color: "#fff",
-              }}
-            >
-              Proceed to checkout
-            </span>
-          </div>
-          <div className="text-center" style={{ marginBottom: 5 }}>
-            <span style={{ fontSize: 6, color: "#ADADAA" }}>Clear cart</span>
-          </div>
-          <p style={{ fontSize: 5.5, color: "#ADADAA", lineHeight: 1.4, textAlign: "center" }}>
-            Secure payment via Stripe. The studio will confirm your commission within 2–3 days.
-          </p>
+        {/* Rows */}
+        <div className="flex flex-col" style={{ padding: "4px 0" }}>
+          {libraryRows.map((row, i) => {
+            const isSynced = i < synced;
+            return (
+              <div
+                key={row.title}
+                className="flex items-center"
+                style={{ gap: 9, padding: "7px 12px" }}
+              >
+                <div
+                  className="relative shrink-0 overflow-hidden rounded"
+                  style={{
+                    width: 26,
+                    height: 26,
+                    background: "#F0F0EE",
+                    opacity: isSynced ? 1 : 0.4,
+                    transition: "opacity 0.45s ease",
+                  }}
+                >
+                  <Image
+                    src={row.img}
+                    alt=""
+                    fill
+                    quality={80}
+                    className="object-cover"
+                    sizes="32px"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p
+                    className="truncate"
+                    style={{
+                      fontSize: 9.5,
+                      fontWeight: 500,
+                      color: isSynced ? "#111110" : "#B6B6B2",
+                      lineHeight: 1.25,
+                      transition: "color 0.45s ease",
+                    }}
+                  >
+                    {row.title}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 8,
+                      color: isSynced ? "#ADADAA" : "#CFCFCB",
+                      lineHeight: 1.25,
+                      transition: "color 0.45s ease",
+                    }}
+                  >
+                    {row.meta}
+                  </p>
+                </div>
+
+                {/* Status — empty ring until the row's record syncs in */}
+                <span
+                  className="relative flex shrink-0 items-center justify-center rounded-full"
+                  style={{ width: 16, height: 16 }}
+                >
+                  <span
+                    className="absolute inset-0 rounded-full"
+                    style={{
+                      border: "1.5px solid #E4E4E0",
+                      opacity: isSynced ? 0 : 1,
+                      transition: "opacity 0.3s ease",
+                    }}
+                  />
+                  <AnimatePresence>
+                    {isSynced && (
+                      <motion.span
+                        key="check"
+                        className="absolute inset-0 flex items-center justify-center rounded-full"
+                        style={{ background: "#111110", color: "#fff" }}
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 520, damping: 24 }}
+                      >
+                        <svg
+                          width="9"
+                          height="9"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <motion.path
+                            d="M20 6 9 17l-5-5"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: 1 }}
+                            transition={{ duration: 0.3, delay: 0.08, ease: "easeOut" }}
+                          />
+                        </svg>
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -1376,69 +1250,126 @@ function ViewingMock() {
   );
 }
 
-function WhatsappInquiryMock() {
+function InquiryMock() {
   return (
-    <div className="flex h-full items-center justify-center bg-[#F5F5F3] px-3 py-4">
-      <div className="flex h-full w-full max-w-[250px] flex-col overflow-hidden rounded-[18px] bg-[#101410] shadow-[0_18px_44px_rgba(0,0,0,0.18)]">
-        <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2.5">
-          <span className="text-[10px] text-white/70">‹</span>
-          <div className="relative flex h-7 w-7 items-center justify-center rounded-full bg-[#2A2A28]">
-            <span className="text-[9px] font-semibold text-white">MT</span>
-            <span className="absolute bottom-0 right-0 h-2 w-2 rounded-full border border-[#101410] bg-[#25D366]" />
-          </div>
-          <div className="min-w-0">
-            <p className="text-[10px] font-medium leading-tight text-white">M. Tanaka</p>
-            <p className="text-[7px] leading-tight text-white/45">online</p>
-          </div>
+    <div className="flex h-full flex-col overflow-hidden font-sans text-[#111110]">
+      {/* Minimal conversation header */}
+      <div
+        className="flex items-center border-b border-[#F2F2F0]"
+        style={{ gap: 7, paddingBottom: 9 }}
+      >
+        <div
+          className="relative flex shrink-0 items-center justify-center rounded-full"
+          style={{ width: 22, height: 22, background: "#111110" }}
+        >
+          <span style={{ fontSize: 8.5, fontWeight: 600, color: "#fff" }}>V</span>
+          <span
+            className="absolute rounded-full"
+            style={{
+              width: 6,
+              height: 6,
+              right: -1,
+              bottom: -1,
+              background: "#28C840",
+              border: "1.5px solid #fff",
+            }}
+          />
+        </div>
+        <div className="min-w-0">
+          <p style={{ fontSize: 9.5, fontWeight: 500, lineHeight: 1.2 }}>Vitreen · Sélection</p>
+          <p style={{ fontSize: 7.5, color: "#ADADAA", lineHeight: 1.2 }}>WhatsApp</p>
+        </div>
+      </div>
+
+      {/* Chat — static conversation, only the PDF result animates */}
+      <div className="flex flex-1 flex-col justify-end" style={{ gap: 7, paddingTop: 10 }}>
+        {/* incoming artwork media card */}
+        <div
+          className="self-start overflow-hidden rounded-[10px] rounded-tl-sm bg-white"
+          style={{
+            maxWidth: "82%",
+            border: "1px solid #ECECEA",
+            boxShadow: "0 4px 14px rgba(17,17,16,0.05)",
+          }}
+        >
+          <div style={{ height: 70, background: "linear-gradient(135deg,#1E3FD6,#2A4FE8)" }} />
+          <p style={{ fontSize: 8.5, color: "#111110", lineHeight: 1.35, padding: "6px 8px 7px" }}>
+            Sacha Elron · <span style={{ fontStyle: "italic" }}>Blue Painting</span>
+            <br />
+            2025 · 180 × 180 cm · 5 000 €
+          </p>
         </div>
 
-        <div className="flex flex-1 flex-col gap-2.5 px-2.5 py-3">
-          <div className="self-start rounded-[10px] rounded-tl-sm bg-[#1F2B24] px-2.5 py-2 text-[8.5px] leading-[1.35] text-white/90">
-            Could you send the Horizon work from the preview?
-            <p className="mt-1 text-right text-[6.5px] text-white/40">09:24</p>
-          </div>
-
-          <div className="self-end overflow-hidden rounded-[10px] rounded-tr-sm bg-[#075E54] text-white shadow-[0_6px_20px_rgba(0,0,0,0.16)]">
-            <div className="relative h-[118px] w-[172px] bg-[#E8E5DD]">
-              <Image
-                src={shareableMomentArtwork.image}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="180px"
-                quality={92}
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent px-2 pb-1.5 pt-8">
-                <p className="text-[8px] font-medium italic leading-tight">
-                  {shareableMomentArtwork.title}, {shareableMomentArtwork.year}
-                </p>
-                <p className="mt-0.5 text-[6.5px] text-white/75">
-                  {shareableMomentArtwork.medium} · {shareableMomentArtwork.dimensions}
-                </p>
-              </div>
-            </div>
-            <div className="px-2 py-1.5">
-              <p className="text-[8px] leading-snug">Private viewing link attached.</p>
-              <p className="mt-0.5 text-right text-[6.5px] text-white/55">09:26 ✓✓</p>
-            </div>
-          </div>
-
-          <div className="self-start rounded-[10px] rounded-tl-sm bg-[#1F2B24] px-2.5 py-2 text-[8.5px] leading-[1.35] text-white/90">
-            Available for the opening preview?
-            <p className="mt-1 text-right text-[6.5px] text-white/40">09:29</p>
-          </div>
-
-          <div className="mt-auto rounded-full border border-white/10 bg-white/[0.06] px-3 py-2">
-            <p className="text-[8px] text-white/42">Message linked to artwork inquiry</p>
-          </div>
+        {/* outgoing command */}
+        <div
+          className="self-end rounded-[10px] rounded-tr-sm"
+          style={{ background: "#E7FCE3", padding: "6px 10px" }}
+        >
+          <span style={{ fontSize: 9, fontWeight: 500, color: "#0F6B3A", letterSpacing: "0.01em" }}>
+            /pdf
+          </span>
         </div>
+
+        {/* PDF delivered — the single animated element */}
+        <motion.div
+          className="self-start"
+          style={{ maxWidth: "86%" }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: [0, 1, 1, 0], y: [8, 0, 0, 8] }}
+          transition={{
+            duration: 4,
+            times: [0, 0.12, 0.85, 1],
+            ease,
+            repeat: Infinity,
+            repeatDelay: 0.6,
+          }}
+        >
+          <div
+            className="flex items-center rounded-[10px] rounded-tl-sm bg-white"
+            style={{ gap: 8, border: "1px solid #ECECEA", padding: "7px 9px" }}
+          >
+            <div
+              className="flex shrink-0 items-center justify-center rounded"
+              style={{ width: 24, height: 28, background: "#E8443B" }}
+            >
+              <span
+                style={{ fontSize: 6, fontWeight: 700, color: "#fff", letterSpacing: "0.04em" }}
+              >
+                PDF
+              </span>
+            </div>
+            <div className="min-w-0">
+              <p
+                className="truncate"
+                style={{ fontSize: 8.5, fontWeight: 500, color: "#111110", lineHeight: 1.3 }}
+              >
+                spring-selection.pdf
+              </p>
+              <p style={{ fontSize: 7.5, color: "#ADADAA", lineHeight: 1.3 }}>44 Ko · pdf</p>
+            </div>
+          </div>
+          <p
+            className="flex items-center"
+            style={{ gap: 4, fontSize: 7.5, color: "#1F8A4C", paddingLeft: 2, paddingTop: 4 }}
+          >
+            <svg
+              width="9"
+              height="9"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            Sélection prête · 1 page
+          </p>
+        </motion.div>
       </div>
     </div>
   );
-}
-
-function InquiryMock() {
-  return <WhatsappInquiryMock />;
 }
 
 const mocks: Record<string, () => React.JSX.Element> = {

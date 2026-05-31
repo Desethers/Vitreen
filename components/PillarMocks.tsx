@@ -243,12 +243,12 @@ function ConnectMock() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-white"
+      className="flex h-full w-full items-start justify-center overflow-hidden rounded-lg bg-white"
     >
       <div
         style={{
           transform: "scale(1.95)",
-          transformOrigin: "center",
+          transformOrigin: "top center",
         }}
       >
         <StepTwoSharingFlow />

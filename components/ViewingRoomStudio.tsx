@@ -26,9 +26,6 @@ export default function ViewingRoomStudio() {
       <div className="mx-auto max-w-7xl">
         <motion.div {...fadeUp(0)} className="grid gap-8 md:grid-cols-[0.78fr_1.22fr] md:gap-14">
           <div>
-            <p className="mb-3 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-              {content.eyebrow}
-            </p>
             <h2 className="font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
               {content.title}
             </h2>

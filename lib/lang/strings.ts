@@ -88,7 +88,6 @@ export const translations = {
       ctaSecondary: "Voir les outils",
     },
     viewingRoomStudio: {
-      eyebrow: "Produit d’entrée · Conçu par Vitreen",
       title: "Viewing Room Studio",
       subtitle: "Présentations privées d’œuvres pour les galeries.",
       body:
@@ -236,16 +235,16 @@ export const translations = {
         "Un même artwork source alimente les pages, les sélections privées et les demandes.",
       cards: [
         {
-          title: "Artwork Library",
-          desc: "Structurez œuvres, images, documents et historiques depuis les systèmes que votre galerie utilise déjà.",
+          title: "Artwork Management",
+          desc: "Gérez les informations des œuvres et leurs documents associés depuis un seul endroit.",
         },
         {
           title: "Private Sharing",
           desc: "Préparez les œuvres pour sites, viewing rooms, PDFs et partages privés sans ressaisir les mêmes informations.",
         },
         {
-          title: "Sales Continuity",
-          desc: "Gardez demandes, intérêt et relances reliés aux bonnes œuvres pour poursuivre les conversations avec contexte.",
+          title: "Collector Selections",
+          desc: "Ajoutez des œuvres à une sélection depuis la conversation et partagez-la en PDF prêt à l’emploi.",
         },
       ],
     },
@@ -725,7 +724,6 @@ export const translations = {
       ctaSecondary: "View tools",
     },
     viewingRoomStudio: {
-      eyebrow: "Entry product · Built by Vitreen",
       title: "Viewing Room Studio",
       subtitle: "Private artwork presentations for galleries.",
       body:
@@ -873,16 +871,16 @@ export const translations = {
         "One artwork source feeds pages, private selections and inquiries.",
       cards: [
         {
-          title: "Artwork Library",
-          desc: "Structure artworks, images, documents and history from the systems your gallery already uses.",
+          title: "Artwork Management",
+          desc: "Manage artwork information and supporting documents from one place.",
         },
         {
           title: "Private Sharing",
           desc: "Prepare artworks for websites, viewing rooms, PDFs and private sharing without re-entering the same information.",
         },
         {
-          title: "Sales Continuity",
-          desc: "Keep inquiries, interest and follow-up connected to the right artworks so conversations continue with context.",
+          title: "Collector Selections",
+          desc: "Add works to a selection right from the conversation and share it as a ready-made PDF.",
         },
       ],
     },
