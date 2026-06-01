@@ -203,6 +203,134 @@ function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+const importFiles = [
+  { src: "/artworks/painting-03.jpg", name: "evening-field.jpg", size: "3.2 MB" },
+  { src: "/artworks/painting-05.jpg", name: "dawn-study-07.jpg", size: "2.8 MB" },
+  { src: "/artworks/painting-07.jpg", name: "northern-light.jpg", size: "4.1 MB" },
+  { src: "/artworks/painting-08.jpg", name: "untitled-2024.jpg", size: "2.5 MB" },
+  { src: "/artworks/painting-10.jpg", name: "horizon-iii.jpg", size: "3.7 MB" },
+] as const;
+
+function ImportMock() {
+  return (
+    <div
+      className="relative h-full min-h-[300px] overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#FAFAFA] md:min-h-[340px]"
+      style={{
+        backgroundImage: "radial-gradient(rgba(17,17,16,0.12) 1px, transparent 1px)",
+        backgroundSize: "16px 16px",
+      }}
+    >
+      {/* Dropzone pill */}
+      <div className="absolute inset-x-0 bottom-6 flex justify-center px-6">
+        <div className="inline-flex items-center gap-3 rounded-full bg-[#111110] px-6 py-3.5 shadow-[0_12px_32px_rgba(0,0,0,0.18)]">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            aria-hidden
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <span className="text-[14px] font-medium text-white">Choose images</span>
+          <span className="text-[13px] text-white/40">or drag them here</span>
+        </div>
+      </div>
+
+      {/* Folder modal */}
+      <div className="absolute left-1/2 top-5 w-[88%] max-w-[360px] -translate-x-1/2 overflow-hidden rounded-xl border border-black/[0.08] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.04),0_18px_44px_rgba(0,0,0,0.14)]">
+        {/* Title bar */}
+        <div className="flex items-center gap-2.5 border-b border-black/[0.06] bg-gradient-to-b from-[#FBFBFA] to-[#F4F4F2] px-3.5 py-2.5">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+              d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"
+              fill="#ADADAA"
+            />
+          </svg>
+          <span className="text-[12px] font-medium tracking-tight text-[#111110]">
+            Gallery inventory
+          </span>
+          <span className="ml-auto text-[11px] text-[#ADADAA]">5 images</span>
+        </div>
+
+        {/* Thumbnails */}
+        <div className="grid grid-cols-5 gap-1.5 p-3">
+          {importFiles.map((f) => (
+            <div key={f.name}>
+              <div className="relative overflow-hidden rounded-[5px] bg-[#EFEFEC] ring-1 ring-[#111110]/15">
+                <img src={f.src} alt={f.name} className="aspect-square w-full object-cover" />
+                <span className="absolute right-0.5 top-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#111110]">
+                  <svg width="8" height="8" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <path
+                      d="M3 8l3.5 3.5L13 4"
+                      stroke="#fff"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div className="flex items-center justify-between border-t border-black/[0.06] px-3.5 py-2.5">
+          <span className="text-[11px] text-[#6B6A67]">5 selected · 16.3 MB</span>
+          <span className="rounded-full bg-[#111110] px-3 py-1.5 text-[11px] font-medium text-white">
+            Import artworks
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DragHandle() {
+  return (
+    <span className="grid grid-cols-2 gap-[2px]" aria-hidden>
+      {Array.from({ length: 6 }).map((_, i) => (
+        <span key={i} className="h-[2.5px] w-[2.5px] rounded-full bg-[#ADADAA]" />
+      ))}
+    </span>
+  );
+}
+
+function ComposeMock() {
+  return (
+    <div className="relative flex h-full min-h-[300px] items-center justify-center overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#FAFAFA] px-8 md:min-h-[340px]">
+      {/* Target block */}
+      <div className="relative w-[60%] overflow-hidden rounded-md border border-dashed border-[#3b82f6]/50 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+        <img
+          src="/artworks/painting-09.png"
+          alt="Artwork block"
+          className="aspect-square w-full object-cover"
+        />
+        {/* Drop indicator */}
+        <span className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-emerald-500 px-3 py-1.5 text-[11px] font-medium text-white shadow-[0_6px_16px_rgba(16,185,129,0.4)]">
+          Make diptych
+        </span>
+      </div>
+
+      {/* Dragging block — distinctive grab handle + lifted shadow */}
+      <div className="absolute right-7 top-7 z-20 w-[42%] rotate-[-4deg] overflow-hidden rounded-md border border-black/[0.08] bg-white opacity-95 shadow-[0_24px_48px_rgba(0,0,0,0.22)]">
+        <div className="flex items-center justify-center border-b border-black/[0.05] bg-[#FBFBFA] py-1.5">
+          <DragHandle />
+        </div>
+        <img
+          src="/artworks/v2-earth.png"
+          alt="Dragging artwork block"
+          className="aspect-square w-full object-cover"
+        />
+      </div>
+    </div>
+  );
+}
+
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -375,19 +503,63 @@ export default function OvrLandingPage() {
             </h2>
           </motion.div>
 
-          <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#E8E8E6] md:mt-12 md:grid-cols-3">
-            {howSteps.map((s, i) => (
-              <motion.div key={s.n} {...fadeUp(i * 0.08)} className="bg-white p-7 md:p-8">
-                <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
-                  {s.n}
-                </span>
-                <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#6B6A67]">{s.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          {/* Step 01 — featured with import mockup */}
+          <motion.div
+            {...fadeUp()}
+            className="mt-10 grid gap-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#E8E8E6] md:mt-12 md:grid-cols-2"
+          >
+            <div className="flex flex-col justify-center bg-white p-7 md:p-10">
+              <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
+                {howSteps[0].n}
+              </span>
+              <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
+                {howSteps[0].title}
+              </h3>
+              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#6B6A67]">
+                {howSteps[0].desc}
+              </p>
+            </div>
+            <div className="bg-white p-5 md:p-7">
+              <ImportMock />
+            </div>
+          </motion.div>
+
+          {/* Step 02 — featured with compose mockup */}
+          <motion.div
+            {...fadeUp()}
+            className="mt-px grid gap-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#E8E8E6] md:grid-cols-2"
+          >
+            <div className="order-2 bg-white p-5 md:order-1 md:p-7">
+              <ComposeMock />
+            </div>
+            <div className="order-1 flex flex-col justify-center bg-white p-7 md:order-2 md:p-10">
+              <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
+                {howSteps[1].n}
+              </span>
+              <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
+                {howSteps[1].title}
+              </h3>
+              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#6B6A67]">
+                {howSteps[1].desc}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Step 03 */}
+          <motion.div
+            {...fadeUp()}
+            className="mt-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-white p-7 md:p-8"
+          >
+            <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
+              {howSteps[2].n}
+            </span>
+            <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
+              {howSteps[2].title}
+            </h3>
+            <p className="mt-2 max-w-md text-[14px] leading-relaxed text-[#6B6A67]">
+              {howSteps[2].desc}
+            </p>
+          </motion.div>
         </div>
       </section>
 

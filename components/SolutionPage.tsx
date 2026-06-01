@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
 import { useLang } from "@/lib/lang";
+import { ROLE_SLUGS, ROLE_HREF, type RoleSlug } from "@/lib/solutions";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -16,18 +17,6 @@ const fadeUp = (delay = 0) => ({
   viewport: { once: true, margin: "-60px" },
   transition: { duration: 0.6, ease, delay },
 });
-
-export const ROLE_SLUGS = ["galleries", "advisors", "artists", "collectors", "estates"] as const;
-
-export type RoleSlug = (typeof ROLE_SLUGS)[number];
-
-const ROLE_HREF: Record<RoleSlug, string> = {
-  galleries: "/solutions/galleries",
-  advisors: "/solutions/advisors",
-  artists: "/solutions/artists",
-  collectors: "/solutions/collectors",
-  estates: "/solutions/estates",
-};
 
 type SolutionContent = {
   eyebrow: string;

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import SolutionPage, { ROLE_SLUGS, type RoleSlug } from "@/components/SolutionPage";
+import SolutionPage from "@/components/SolutionPage";
+import { ROLE_SLUGS, type RoleSlug } from "@/lib/solutions";
 import { translations } from "@/lib/lang/strings";
 
 type Params = { role: string };
