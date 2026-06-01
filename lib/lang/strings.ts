@@ -8,7 +8,7 @@ export const translations = {
     nav: {
       links: [
         { label: "Produits", href: "#tools", menu: "product" as const },
-        { label: "Workflows", href: "#solutions", menu: "solutions" as const },
+        { label: "Solutions", href: "#solutions", menu: "solutions" as const },
         { label: "Déploiement", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "À propos", href: "#approche" },
@@ -16,10 +16,10 @@ export const translations = {
       productMenu: {
         sectionLabel: "Produits",
         items: [
-          { title: "Artworks Management", desc: "Organisez œuvres, expositions et archives à travers vos systèmes existants.", href: "/tools/archive" },
-          { title: "Publication Publique & Privée", desc: "Publiez les œuvres sur sites web, viewing rooms, PDFs collectionneurs et canaux privés.", href: "/tools/publishing" },
-          { title: "Relations Collectionneurs", desc: "Gardez conversations, demandes et suivis connectés aux bonnes œuvres.", href: "/tools/inquiries" },
-          { title: "Assistants Galerie", desc: "Soutenez la publication, la préparation des ventes et les opérations quotidiennes.", href: "/tools/custom-operations" },
+          { title: "Artworks Management", desc: "Organisez œuvres, expositions et archives à travers vos systèmes existants.", href: "/products/archive" },
+          { title: "Publication Publique & Privée", desc: "Publiez les œuvres sur sites web, viewing rooms, PDFs collectionneurs et canaux privés.", href: "/products/publishing" },
+          { title: "Relations Collectionneurs", desc: "Gardez conversations, demandes et suivis connectés aux bonnes œuvres.", href: "/products/inquiries" },
+          { title: "Assistants Galerie", desc: "Soutenez la publication, la préparation des ventes et les opérations quotidiennes.", href: "/products/custom-operations" },
         ],
         featured: {
           eyebrow: "Nouveautés",
@@ -43,11 +43,11 @@ export const translations = {
           {
             label: "By role",
             items: [
-              { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "#galeries" },
-              { title: "Conseillers & Marchands", desc: "Sélections privées et suivi client", href: "#conseil" },
-              { title: "Artistes", desc: "Archive, séries, présentation", href: "#artistes" },
-              { title: "Collectionneurs", desc: "Acquisitions et documents", href: "#collectionneurs" },
-              { title: "Successions d’artistes", desc: "Corpus, provenance, transmission", href: "#estates" },
+              { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "/solutions/galleries" },
+              { title: "Conseillers & Marchands", desc: "Sélections privées et suivi client", href: "/solutions/advisors" },
+              { title: "Artistes", desc: "Archive, séries, présentation", href: "/solutions/artists" },
+              { title: "Collectionneurs", desc: "Acquisitions et documents", href: "/solutions/collectors" },
+              { title: "Successions d’artistes", desc: "Corpus, provenance, transmission", href: "/solutions/estates" },
             ],
           },
           {
@@ -288,9 +288,9 @@ export const translations = {
       },
     },
     processFlow: {
-      title: "Conçu autour de votre workflow existant.",
+      title: "On part de votre galerie existante.",
       subtitle:
-        "Vitreen se connecte à vos opérations puis ajoute les outils pour publier, partager et suivre.",
+        "On examine vos fiches d’œuvres, on connecte vos outils et on construit autour de votre quotidien.",
       steps: [
         {
           number: "01",
@@ -629,6 +629,82 @@ export const translations = {
         cta: "Discuter du workflow",
       },
     },
+    solutions: {
+      sectionLabel: "Solutions",
+      backToHome: "Retour à l’accueil",
+      featuresLabel: "Inclus",
+      relatedLabel: "Par profil",
+      galleries: {
+        eyebrow: "Solutions · Galeries",
+        title: "Pensé autour de la façon dont votre galerie travaille déjà.",
+        subtitle: "Œuvres, expositions et demandes réunies dans une couche opérationnelle connectée.",
+        body:
+          "Vitreen connecte les archives, inventaires ou bases de données existants de la galerie, puis transforme les œuvres en matériel collector prêt à partager — viewing rooms, sélections privées, PDFs — sans remplacer vos outils.",
+        features: [
+          "Connexion à vos archives, inventaires ou bases existantes",
+          "Œuvres transformées en viewing rooms, PDFs et liens privés",
+          "Demandes rattachées aux bonnes œuvres",
+          "Passage fluide entre publication publique et partage privé",
+        ],
+        cta: "Discuter de votre setup",
+      },
+      advisors: {
+        eyebrow: "Solutions · Conseillers & Marchands",
+        title: "Des sélections privées que vos clients prennent au sérieux.",
+        subtitle: "Sélections privées et suivi client, rattachés à chaque œuvre.",
+        body:
+          "Pour les conseillers et marchands, composez une sélection privée par client, partagez-la via un lien soigné ou un PDF, et gardez le suivi connecté à chaque œuvre — sans exposer vos sources.",
+        features: [
+          "Sélection privée par client",
+          "Partage par lien privé, PDF ou WhatsApp",
+          "Suivi rattaché à chaque œuvre",
+          "Présentation des œuvres sans révéler vos sources",
+        ],
+        cta: "Discuter de votre setup",
+      },
+      artists: {
+        eyebrow: "Solutions · Artistes",
+        title: "Une archive qui présente votre travail clairement.",
+        subtitle: "Archive, séries et présentation, structurées autour de votre œuvre.",
+        body:
+          "Pour les artistes et les studios, structurez le corpus — séries, médiums, années, provenance — et présentez une sélection aux galeries, commissaires ou collectionneurs via des liens privés.",
+        features: [
+          "Structuration des séries, médiums et années",
+          "Provenance et historique d’expositions conservés",
+          "Présentation d’une sélection via liens privés",
+          "Partage des actualités du studio avec galeries et commissaires",
+        ],
+        cta: "Structurer votre archive",
+      },
+      collectors: {
+        eyebrow: "Solutions · Collectionneurs",
+        title: "Votre collection, documentée et à portée de main.",
+        subtitle: "Acquisitions et documents réunis, viewing rooms reçues des galeries.",
+        body:
+          "Pour les collectionneurs, gardez acquisitions, documents et informations d’état au même endroit, et recevez des viewing rooms privées des galeries avec lesquelles vous travaillez.",
+        features: [
+          "Acquisitions et documents réunis en un lieu",
+          "Factures, certificats et constats d’état conservés",
+          "Réception de viewing rooms privées des galeries",
+          "Examen des œuvres proposées avant acquisition",
+        ],
+        cta: "Discuter de votre setup",
+      },
+      estates: {
+        eyebrow: "Solutions · Successions d’artistes",
+        title: "La gestion d’un corpus complet d’œuvres.",
+        subtitle: "Corpus, provenance et transmission, sous votre contrôle.",
+        body:
+          "Pour les successions d’artistes et fondations, structurez l’ensemble du corpus, préservez la provenance et l’historique d’expositions, et maîtrisez la façon dont les œuvres sont présentées aux institutions et collectionneurs.",
+        features: [
+          "Structuration du corpus complet",
+          "Provenance et historique d’expositions préservés",
+          "Contrôle de la présentation des œuvres",
+          "Préparation des prêts, ventes et demandes institutionnelles",
+        ],
+        cta: "Discuter de votre setup",
+      },
+    },
     ctaBand: {
       title: "Commencez avec votre workflow actuel",
       subtitle: "Ajoutez les outils dont votre galerie a besoin",
@@ -644,7 +720,7 @@ export const translations = {
     nav: {
       links: [
         { label: "Products", href: "#tools", menu: "product" as const },
-        { label: "Workflows", href: "#solutions", menu: "solutions" as const },
+        { label: "Solutions", href: "#solutions", menu: "solutions" as const },
         { label: "Deployment", href: "#offre" },
         { label: "Blog", href: "#blog" },
         { label: "About", href: "#approche" },
@@ -652,10 +728,10 @@ export const translations = {
       productMenu: {
         sectionLabel: "Products",
         items: [
-          { title: "Artworks Management", desc: "Organise artworks, exhibitions and gallery archives across existing systems.", href: "/tools/archive" },
+          { title: "Artworks Management", desc: "Organise artworks, exhibitions and gallery archives across existing systems.", href: "/products/archive" },
           { title: "Public & Private Publishing", desc: "Publish artworks across websites, viewing rooms, collector PDFs and private sharing.", href: "/products/publishing" },
-          { title: "Collector Relationships", desc: "Keep collector conversations, inquiries and follow-ups connected to artworks.", href: "/products/collector-relationships" },
-          { title: "Gallery Assistants", desc: "Support publishing, sales preparation and day-to-day gallery operations.", href: "/products/assistants" },
+          { title: "Collector Relationships", desc: "Keep collector conversations, inquiries and follow-ups connected to artworks.", href: "/products/inquiries" },
+          { title: "Gallery Assistants", desc: "Support publishing, sales preparation and day-to-day gallery operations.", href: "/products/custom-operations" },
         ],
         featured: {
           eyebrow: "What's new",
@@ -679,11 +755,11 @@ export const translations = {
           {
             label: "By role",
             items: [
-              { title: "Galleries", desc: "Artworks, shows, inquiries", href: "#galleries" },
-              { title: "Advisors and dealers", desc: "Private selections and client follow-up", href: "#conseil" },
-              { title: "Artists", desc: "Archive, series, presentation", href: "#artistes" },
-              { title: "Collectors", desc: "Acquisitions and documents", href: "#collectionneurs" },
-              { title: "Artist Estates", desc: "Corpus, provenance, stewardship", href: "#estates" },
+              { title: "Galleries", desc: "Artworks, shows, inquiries", href: "/solutions/galleries" },
+              { title: "Advisors and dealers", desc: "Private selections and client follow-up", href: "/solutions/advisors" },
+              { title: "Artists", desc: "Archive, series, presentation", href: "/solutions/artists" },
+              { title: "Collectors", desc: "Acquisitions and documents", href: "/solutions/collectors" },
+              { title: "Artist Estates", desc: "Corpus, provenance, stewardship", href: "/solutions/estates" },
             ],
           },
           {
@@ -924,9 +1000,9 @@ export const translations = {
       },
     },
     processFlow: {
-      title: "Built around your existing workflow.",
+      title: "Starting from your existing gallery",
       subtitle:
-        "Vitreen connects to the way your gallery already operates, then adds the tools needed to publish, share and follow up with collectors.",
+        "We review your artwork records, connect your tools and build around your day-to-day operation",
       steps: [
         {
           number: "01",
@@ -1266,6 +1342,82 @@ export const translations = {
           "Sharing templates tied to the gallery",
         ],
         cta: "Discuss the workflow",
+      },
+    },
+    solutions: {
+      sectionLabel: "Solutions",
+      backToHome: "Back to home",
+      featuresLabel: "Included",
+      relatedLabel: "By role",
+      galleries: {
+        eyebrow: "Solutions · Galleries",
+        title: "Built around how your gallery already works.",
+        subtitle: "Artworks, exhibitions and inquiries in one connected operating layer.",
+        body:
+          "Vitreen connects the gallery’s existing archives, inventories or databases, then turns artworks into collector-ready material to share — viewing rooms, private selections, PDFs — without replacing your tools.",
+        features: [
+          "Connect existing archives, inventories or databases",
+          "Turn artworks into viewing rooms, PDFs and private links",
+          "Keep inquiries connected to the right works",
+          "Move smoothly between public publishing and private sharing",
+        ],
+        cta: "Discuss your setup",
+      },
+      advisors: {
+        eyebrow: "Solutions · Advisors & Dealers",
+        title: "Private selections your clients take seriously.",
+        subtitle: "Private selections and client follow-up, tied to each artwork.",
+        body:
+          "For advisors and dealers, compose a private selection per client, share it through a refined link or PDF, and keep follow-up connected to each work — without exposing your sources.",
+        features: [
+          "Compose a private selection per client",
+          "Share by private link, PDF or WhatsApp",
+          "Keep follow-up tied to each artwork",
+          "Present works without revealing your sources",
+        ],
+        cta: "Discuss your setup",
+      },
+      artists: {
+        eyebrow: "Solutions · Artists",
+        title: "An archive that presents your work clearly.",
+        subtitle: "Archive, series and presentation, structured around your body of work.",
+        body:
+          "For artists and studios, structure the body of work — series, mediums, years, provenance — and present a selection to galleries, curators or collectors through private links.",
+        features: [
+          "Structure series, mediums and years",
+          "Preserve provenance and exhibition history",
+          "Present a selection through private links",
+          "Share studio updates with galleries and curators",
+        ],
+        cta: "Structure your archive",
+      },
+      collectors: {
+        eyebrow: "Solutions · Collectors",
+        title: "Your collection, documented and at hand.",
+        subtitle: "Acquisitions and documents in one place, viewing rooms received from galleries.",
+        body:
+          "For collectors, keep acquisitions, documents and condition information in one place, and receive private viewing rooms from the galleries you work with.",
+        features: [
+          "Keep acquisitions and documents in one place",
+          "Store invoices, certificates and condition reports",
+          "Receive private viewing rooms from galleries",
+          "Review proposed works before acquiring",
+        ],
+        cta: "Discuss your setup",
+      },
+      estates: {
+        eyebrow: "Solutions · Artist Estates",
+        title: "Stewardship of a complete body of work.",
+        subtitle: "Corpus, provenance and transmission, under your control.",
+        body:
+          "For artist estates and foundations, structure the full corpus, preserve provenance and exhibition history, and control how works are presented to institutions and collectors.",
+        features: [
+          "Structure the complete corpus",
+          "Preserve provenance and exhibition history",
+          "Control how works are presented",
+          "Prepare loans, sales and institutional requests",
+        ],
+        cta: "Discuss your setup",
       },
     },
     ctaBand: {

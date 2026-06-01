@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { StepTwoSharingFlow } from "@/components/ProcessFlow";
 import { FileIcon } from "@/components/icons/FileIcon";
 import { AppIcon } from "@/components/icons/AppIcon";
 import {
@@ -236,6 +235,65 @@ function AuditMock() {
 
 /* ─── Step 02 — Connect & build ─── */
 // Scale 2× : pre-scale width = 50%, post-scale fills 100% of container
+/* ─── Step 02 — Connect & build (orbit of existing gallery tools) ─── */
+
+const stepTwoLogos = [
+  { src: "/logos/google-gmail-svgrepo-com.svg", alt: "Gmail" },
+  { src: "/logos/Microsoft_Office_Outlook_Logo.svg", alt: "Outlook" },
+  { src: "/logos/pdf-svgrepo-com.svg", alt: "PDF" },
+  { src: "/logos/Microsoft_Office_Excel_Logo.svg", alt: "Excel" },
+  { src: "/logos/Android_App_Icon_2026.png", alt: "WhatsApp" },
+];
+
+function StepTwoSharingFlow() {
+  const [gmail, outlook, pdf, excel, whatsApp] = stepTwoLogos;
+  const green = { src: "/logos/Microsoft_Office_Word_Logo.svg", alt: "Word" };
+  const notion = { src: "/logos/Symbol.svg", alt: "Notion" };
+
+  // A ring of the gallery's existing tools — each icon in its own rounded
+  // square, evenly spaced around a circle.
+  const W = 200,
+    H = 200;
+  const cx = W / 2,
+    cy = H / 2;
+  const R = 78; // orbit radius
+
+  const orbit = [gmail, outlook, excel, green, notion, whatsApp, pdf];
+  const n = orbit.length;
+  const nodes = orbit.map((ic, i) => {
+    const a = (-90 + (360 / n) * i) * (Math.PI / 180); // start at top, clockwise
+    return {
+      ...ic,
+      x: cx + R * Math.cos(a),
+      y: cy + R * Math.sin(a),
+    };
+  });
+
+  return (
+    <div className="relative" style={{ width: W, height: H }}>
+      {/* Icon nodes — each in a rounded square */}
+      {nodes.map((nde, i) => (
+        <div
+          key={`node-${i}`}
+          className="absolute flex h-[34px] w-[34px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[9px] bg-white shadow-[0_3px_8px_rgba(17,17,16,0.07)]"
+          style={{
+            left: `${(nde.x / W) * 100}%`,
+            top: `${(nde.y / H) * 100}%`,
+            border: "0.5px solid #EFEFEC",
+          }}
+        >
+          <img
+            src={nde.src}
+            alt={nde.alt}
+            className="h-[18px] w-[18px] object-contain"
+            loading="lazy"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ConnectMock() {
   return (
     <motion.div
@@ -292,7 +350,7 @@ function DeployPill({
 
   return (
     <div
-      className="flex items-center justify-between rounded-[3px] py-[7px] pl-[5px] pr-1"
+      className="flex items-center justify-between rounded-[3px] py-[5px] pl-[5px] pr-1"
       style={darkSurface}
     >
       <span className="flex min-w-0 items-center gap-1 text-[5px] leading-none text-white">

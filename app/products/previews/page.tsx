@@ -3,9 +3,9 @@ import ToolPage from "@/components/ToolPage";
 export const metadata = {
   title: "Previews",
   description: "Présentations privées d’œuvres pour collectionneurs.",
-  alternates: { canonical: "/tools/previews" },
+  alternates: { canonical: "/products/previews" },
   openGraph: {
-    url: "/tools/previews",
+    url: "/products/previews",
     title: "Previews — Vitreen",
     description: "Présentations privées d’œuvres pour collectionneurs.",
   },

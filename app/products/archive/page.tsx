@@ -3,9 +3,9 @@ import ToolPage from "@/components/ToolPage";
 export const metadata = {
   title: "Artworks Management",
   description: "Œuvres, artistes et expositions organisés autour de votre workflow.",
-  alternates: { canonical: "/tools/archive" },
+  alternates: { canonical: "/products/archive" },
   openGraph: {
-    url: "/tools/archive",
+    url: "/products/archive",
     title: "Artworks Management — Vitreen",
     description: "Œuvres, artistes et expositions organisés autour de votre workflow.",
   },

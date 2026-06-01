@@ -18,8 +18,8 @@ export default function Home() {
     <main className="relative">
       <Nav />
       <Hero />
-      <ProcessFlow />
       <HeroDashboardMock />
+      <ProcessFlow />
       <ArtworkSourceSection />
       <Solution />
       <QuoteSection />

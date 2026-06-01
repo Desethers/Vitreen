@@ -7,7 +7,7 @@ import { GalleryOsDashboard } from "@/components/ConnectedTools";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 function HeroWorkflowAnimation() {
-  const [dashboardWidth, setDashboardWidth] = useState(72);
+  const [dashboardWidth, setDashboardWidth] = useState(82);
   const [dashboardPosition, setDashboardPosition] = useState({ x: 50, y: 52 });
   // Half the dashboard height expressed as % of the stage — measured at
   // runtime so vertical clamping accounts for the real card height.

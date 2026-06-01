@@ -3,10 +3,10 @@
 import { useState, type ReactNode } from "react";
 import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
 import { useRouter, usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import { PreviewMockup } from "@/components/ovr/PreviewMockup";
+import { HeroRoomMockup } from "@/components/ovr/HeroRoomMockup";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -150,6 +150,107 @@ const mockupStories = [
   },
 ] as const;
 
+const howSteps = [
+  {
+    n: "01",
+    title: "Import your artworks",
+    desc: "Bring in works from your inventory, a folder of images, or a spreadsheet — no reformatting.",
+  },
+  {
+    n: "02",
+    title: "Compose the room",
+    desc: "Arrange full-page, diptych, triptych and image-with-text blocks by drag and drop.",
+  },
+  {
+    n: "03",
+    title: "Send it your way",
+    desc: "Publish a private link, export a high-definition PDF, or send a polished HTML email.",
+  },
+] as const;
+
+const faqs = [
+  {
+    q: "Do collectors need an account?",
+    a: "No. Each room opens from a single private link on any device — nothing to download, no login.",
+  },
+  {
+    q: "Can I export to PDF?",
+    a: "Yes. Every room becomes a high-definition PDF aligned with the on-screen layout, ready to print or archive.",
+  },
+  {
+    q: "Does it replace my website or CRM?",
+    a: "No. Viewing Room Studio sits alongside your existing tools — you compose and send, with nothing to migrate.",
+  },
+  {
+    q: "How is billing handled?",
+    a: "Monthly or yearly through Stripe. Unlimited rooms, exports and sharing, cancel anytime.",
+  },
+] as const;
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-60px" },
+  transition: { duration: 0.6, ease, delay },
+});
+
+function Eyebrow({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-[#E8E8E6] bg-[#F5F5F3] px-3 py-1 text-[11px] tracking-tight text-[#6B6A67]">
+      <span className="h-1.5 w-1.5 rounded-full bg-[#111110]" />
+      {children}
+    </span>
+  );
+}
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b border-[#E8E8E6]">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="group flex w-full items-center justify-between gap-8 py-6 text-left"
+        aria-expanded={open}
+      >
+        <span className="text-[15px] font-medium tracking-[-0.01em] text-[#111110] transition-colors group-hover:text-[#3a3a38] md:text-[16px]">
+          {q}
+        </span>
+        <span
+          className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-[#E8E8E6] text-[#6B6A67] transition-transform duration-300 ${
+            open ? "rotate-45" : ""
+          }`}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            strokeLinecap="round"
+          >
+            <path d="M7 2v10M2 7h10" />
+          </svg>
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease }}
+            className="overflow-hidden"
+          >
+            <p className="max-w-2xl pb-6 text-[14px] leading-relaxed text-[#6B6A67]">{a}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 export default function OvrLandingPage() {
   const { isSignedIn, isPro } = useOptionalUser();
   const router = useRouter();
@@ -199,125 +300,163 @@ export default function OvrLandingPage() {
     }
   };
 
-  const sectionKicker = "text-[13px] text-[#6B6A67] tracking-wide";
-  const sectionTitle =
-    "font-display mt-2 text-[1.65rem] font-normal leading-snug tracking-tight text-[#111110] md:text-[1.85rem]";
+  const ctaLabel = isPro ? "Open editor" : "Try for free";
 
   return (
     <div className="min-h-screen bg-white text-[#111110]">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.06)]">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-6 px-5 py-4 md:px-8">
-          <Link href="/" className="font-display text-[15px] tracking-tight text-[#111110]">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-[#E8E8E6] bg-white/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3.5 md:px-6">
+          <Link href="/" className="font-display text-[15px] tracking-[-0.01em] text-[#111110]">
             Viewing Room Studio
           </Link>
-          <span className="hidden flex-1 text-center text-[13px] text-[#6B6A67] sm:block">
-            Viewing Room Studio
-          </span>
+          <nav className="hidden items-center gap-8 text-[13px] tracking-tight text-[#6B6A67] md:flex">
+            <a href="#features" className="transition-colors hover:text-[#111110]">
+              Features
+            </a>
+            <a href="#how" className="transition-colors hover:text-[#111110]">
+              How it works
+            </a>
+            <a href="#pricing" className="transition-colors hover:text-[#111110]">
+              Pricing
+            </a>
+          </nav>
           <Button onClick={goToEditor} size="sm">
-            {isPro ? "Editor" : "Try for free"}
+            {ctaLabel}
           </Button>
         </div>
       </header>
 
-      <section className="px-5 pb-16 pt-28 md:px-8 md:pb-24 md:pt-32">
-        <div className="mx-auto max-w-5xl">
+      {/* Hero */}
+      <section className="px-4 pb-10 pt-28 md:px-6 md:pb-14 md:pt-36">
+        <div className="mx-auto max-w-7xl">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease }}
-            className="mx-auto max-w-2xl text-center"
+            transition={{ duration: 0.6, ease }}
+            className="mx-auto max-w-3xl text-center"
           >
-            <h1 className="font-display text-balance text-[2rem] font-normal leading-[1.12] tracking-tight text-[#111110] sm:text-[2.35rem] md:text-[2.65rem]">
-              An online viewing room composed in minutes
+            <Eyebrow>Viewing Room Studio</Eyebrow>
+            <h1 className="mx-auto mt-6 max-w-3xl text-balance font-display text-[32px] font-normal leading-[1.08] tracking-[-0.03em] text-[#111110] md:text-[52px]">
+              Online viewing rooms your collectors take seriously
             </h1>
-            <p className="mx-auto mt-5 max-w-lg text-pretty text-[16px] leading-[1.65] text-[#6B6A67]">
-              A clean, consistent presentation: fluid layout, high-definition PDF, HTML email, and
-              private link — without rebuilding layouts by hand in InDesign or PowerPoint.
+            <p className="mx-auto mt-5 max-w-xl text-pretty text-[16px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67] md:text-[18px]">
+              Compose a polished room in minutes, then share it as a private link, a high-definition
+              PDF or an HTML email — no InDesign, no PowerPoint, no rebuilding layouts by hand.
             </p>
-            <div className="mt-9 flex flex-col items-stretch justify-center gap-2.5 sm:flex-row sm:items-center sm:justify-center">
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Button onClick={goToEditor} size="lg">
-                {isPro ? "Open editor" : "Try for free"}
+                {ctaLabel}
               </Button>
-              <Button href="/" variant="inverse" size="lg" className="bg-white">
-                Back to Viewing Room Studio
+              <Button
+                href="#pricing"
+                variant="inverse"
+                size="lg"
+                className="border border-[#E8E8E6]"
+              >
+                See pricing
               </Button>
             </div>
+            <p className="mt-5 text-[12.5px] tracking-tight text-[#ADADAA]">
+              Unlimited rooms · No collector login · Cancel anytime
+            </p>
           </motion.div>
         </div>
       </section>
 
-      <PreviewMockup />
+      <HeroRoomMockup />
 
-      <section className="px-5 pb-16 pt-4 md:px-8 md:pb-24 md:pt-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {mockupStories.map((card, index) => (
+      {/* How it works */}
+      <section id="how" className="px-4 py-12 md:px-6 md:py-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...fadeUp()} className="max-w-2xl">
+            <Eyebrow>How it works</Eyebrow>
+            <h2 className="mt-4 font-display text-[24px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110] md:text-[32px]">
+              From inventory to a room collectors can open — in three steps
+            </h2>
+          </motion.div>
+
+          <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#E8E8E6] md:mt-12 md:grid-cols-3">
+            {howSteps.map((s, i) => (
+              <motion.div key={s.n} {...fadeUp(i * 0.08)} className="bg-white p-7 md:p-8">
+                <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
+                  {s.n}
+                </span>
+                <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-[#6B6A67]">{s.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section id="features" className="px-4 py-12 md:px-6 md:py-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...fadeUp()} className="max-w-2xl">
+            <Eyebrow>Features</Eyebrow>
+            <h2 className="mt-4 font-display text-[24px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110] md:text-[32px]">
+              Everything you need, without the clutter
+            </h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-[#6B6A67]">
+              A focused browser editor and the three outputs galleries actually send — nothing else
+              to learn, nothing to migrate.
+            </p>
+          </motion.div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
+            {features.map((f, i) => (
+              <motion.div
+                key={f.title}
+                {...fadeUp(i * 0.05)}
+                className="rounded-lg border border-[#E8E8E6] bg-white p-6 transition-colors hover:bg-[#FAFAF9]"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5F5F3] text-[#111110]">
+                  {f.icon}
+                </div>
+                <h3 className="mt-5 font-display text-[17px] font-normal tracking-[-0.01em] text-[#111110]">
+                  {f.title}
+                </h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-[#6B6A67]">{f.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Outputs — one room, every format */}
+      <section className="px-4 py-12 md:px-6 md:py-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...fadeUp()} className="max-w-2xl">
+            <Eyebrow>One room, every format</Eyebrow>
+            <h2 className="mt-4 font-display text-[24px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110] md:text-[32px]">
+              Compose once. Send it the way each collector prefers.
+            </h2>
+          </motion.div>
+
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-4">
+            {mockupStories.map((card, i) => (
               <motion.article
                 key={card.title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.55, ease, delay: index * 0.08 }}
-                className="group"
+                {...fadeUp(i * 0.06)}
+                className="group overflow-hidden rounded-lg border border-[#E8E8E6] bg-white"
               >
-                <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-[#F0F0ED]">
-                  {card.visual === "image" && (
-                    <div className="absolute inset-8 rounded-sm bg-white p-5 shadow-[0_22px_70px_rgba(0,0,0,0.08)] transition-transform duration-500 group-hover:-translate-y-2">
-                      <div className="h-3 w-28 rounded-full bg-[#E2E1DD]" />
-                      <div className="mt-8 space-y-2">
-                        <span className="block h-1.5 w-full rounded-full bg-[#D2D0CB]" />
-                        <span className="block h-1.5 w-5/6 rounded-full bg-[#DAD8D3]" />
-                        <span className="block h-1.5 w-4/6 rounded-full bg-[#E3E1DC]" />
-                      </div>
-                      <div className="absolute bottom-5 left-5 h-12 w-12 rounded-sm bg-[#D8D9D4]" />
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#F5F5F3]">
+                  <div className="absolute inset-6 rounded-md border border-[#E8E8E6] bg-white p-4 shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-transform duration-500 group-hover:-translate-y-1.5">
+                    <div className="h-2 w-16 rounded-full bg-[#E2E1DD]" />
+                    <div className="mt-4 space-y-1.5">
+                      <span className="block h-1.5 w-full rounded-full bg-[#ECEBE7]" />
+                      <span className="block h-1.5 w-4/5 rounded-full bg-[#ECEBE7]" />
+                      <span className="block h-1.5 w-3/5 rounded-full bg-[#ECEBE7]" />
                     </div>
-                  )}
-                  {card.visual === "quote" && (
-                    <div className="absolute inset-0 bg-[#DCE2DE]">
-                      <div className="absolute left-8 right-8 top-16 rounded-sm bg-white/70 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.08)] backdrop-blur-sm transition-transform duration-500 group-hover:translate-y-3">
-                        <div className="h-2 w-20 rounded-full bg-[#AEB8B2]" />
-                        <div className="mt-5 space-y-2">
-                          <span className="block h-2 w-full rounded-full bg-[#C2CBC5]" />
-                          <span className="block h-2 w-4/5 rounded-full bg-[#C8D0CB]" />
-                          <span className="block h-2 w-3/5 rounded-full bg-[#D1D8D4]" />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  {card.visual === "layout" && (
-                    <div className="absolute inset-0 bg-[#E9E6DF]">
-                      <img
-                        src="/artworks/painting-03.jpg"
-                        alt=""
-                        className="h-full w-full object-cover opacity-75"
-                      />
-                      <div className="absolute bottom-12 left-8 right-8 rounded-sm bg-white/65 p-4 shadow-[0_20px_60px_rgba(0,0,0,0.12)] backdrop-blur-sm transition-transform duration-500 group-hover:-translate-y-2">
-                        <p className="text-[11px] text-[#111110]">Image + quote</p>
-                        <div className="mt-3 h-8 w-28 rounded-sm bg-white" />
-                      </div>
-                    </div>
-                  )}
-                  {card.visual === "export" && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-[#DF9659]">
-                      <div className="text-center">
-                        <p className="text-[13px] text-[#111110]">Destinations</p>
-                        <div className="mt-5 space-y-2">
-                          <span className="mx-auto block w-fit rounded-sm bg-white px-5 py-2 text-[13px] text-[#111110] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
-                            Private link
-                          </span>
-                          <span className="mx-auto block w-fit rounded-sm bg-white/25 px-5 py-2 text-[13px] text-[#9B653B]">
-                            PDF
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  </div>
                 </div>
-                <div className="pt-4">
-                  <h3 className="font-display text-[1.05rem] font-normal tracking-tight text-[#111110]">
+                <div className="p-5">
+                  <h3 className="font-display text-[16px] font-normal tracking-[-0.01em] text-[#111110]">
                     {card.title}
                   </h3>
-                  <p className="mt-1.5 text-[14px] leading-relaxed text-[#6B6A67]">{card.desc}</p>
+                  <p className="mt-1.5 text-[13px] leading-relaxed text-[#6B6A67]">{card.desc}</p>
                 </div>
               </motion.article>
             ))}
@@ -325,43 +464,26 @@ export default function OvrLandingPage() {
         </div>
       </section>
 
-      <section className="px-5 py-16 md:px-8 md:py-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="mx-auto max-w-xl text-left md:mx-0 md:max-w-lg">
-            <p className={sectionKicker}>Features</p>
-            <h2 className={sectionTitle}>Everything you need, without the clutter</h2>
-          </div>
-
-          <ul className="mx-auto mt-14 max-w-3xl space-y-10 md:mt-16 md:space-y-12">
-            {features.map((f) => (
-              <li key={f.title} className="flex gap-5 md:gap-6">
-                <div className="mt-0.5 shrink-0 text-[#8A8986]" aria-hidden>
-                  {f.icon}
-                </div>
-                <div>
-                  <h3 className="font-display text-[1.05rem] font-normal tracking-tight text-[#111110] md:text-[1.125rem]">
-                    {f.title}
-                  </h3>
-                  <p className="mt-1.5 text-[15px] leading-relaxed text-[#6B6A67]">{f.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="px-5 py-16 md:px-8 md:py-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="text-center">
-            <p className={sectionKicker}>Pricing</p>
-            <h2 className={`${sectionTitle} mx-auto max-w-md`}>Monthly or yearly</h2>
+      {/* Pricing */}
+      <section id="pricing" className="px-4 py-12 md:px-6 md:py-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...fadeUp()} className="mx-auto max-w-xl text-center">
+            <div className="flex justify-center">
+              <Eyebrow>Pricing</Eyebrow>
+            </div>
+            <h2 className="mt-4 font-display text-[24px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110] md:text-[32px]">
+              Monthly or yearly
+            </h2>
             <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-[#6B6A67]">
-              Unlimited rooms, exports, and sharing. Cancel anytime.
+              Unlimited rooms, exports and sharing. Cancel anytime.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mx-auto mt-12 grid max-w-3xl gap-6 md:grid-cols-2 md:gap-8">
-            <div className="flex h-full min-h-0 flex-col rounded-sm border border-black/[0.06] bg-white p-7 md:p-8">
+          <div className="mx-auto mt-10 grid max-w-3xl gap-5 md:mt-12 md:grid-cols-2 md:gap-6">
+            <motion.div
+              {...fadeUp(0.05)}
+              className="flex h-full min-h-0 flex-col rounded-lg border border-[#E8E8E6] bg-white p-7 md:p-8"
+            >
               <p className="text-[12px] font-medium text-[#6B6A67]">Monthly</p>
               <div className="mt-3 flex items-baseline gap-1.5">
                 <span className="font-display text-4xl text-[#111110]">19</span>
@@ -392,7 +514,8 @@ export default function OvrLandingPage() {
               <Button
                 onClick={() => handleSubscribe("monthly")}
                 size="lg"
-                className="mt-8 w-full justify-center"
+                variant="inverse"
+                className="mt-8 w-full justify-center border border-[#E8E8E6]"
                 disabled={!!loadingCheckout}
               >
                 {loadingCheckout === "monthly"
@@ -401,9 +524,15 @@ export default function OvrLandingPage() {
                     ? "Open editor"
                     : "Subscribe — €19/month"}
               </Button>
-            </div>
+            </motion.div>
 
-            <div className="flex h-full min-h-0 flex-col rounded-sm bg-[#111110] p-7 text-white md:p-8">
+            <motion.div
+              {...fadeUp(0.12)}
+              className="relative flex h-full min-h-0 flex-col rounded-lg bg-[#111110] p-7 text-white md:p-8"
+            >
+              <span className="absolute right-6 top-7 rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-medium tracking-tight text-white/80 md:top-8">
+                Best value
+              </span>
               <p className="text-[12px] font-medium text-white/65">Yearly</p>
               <div className="mt-3 flex items-baseline gap-1.5">
                 <span className="font-display text-4xl">110</span>
@@ -450,7 +579,7 @@ export default function OvrLandingPage() {
               {yearlyError && (
                 <p className="mt-3 text-center text-[12px] text-amber-200/90">{yearlyError}</p>
               )}
-            </div>
+            </motion.div>
           </div>
 
           <p className="mx-auto mt-8 max-w-md text-center text-[12px] text-[#ADADAA]">
@@ -459,12 +588,67 @@ export default function OvrLandingPage() {
         </div>
       </section>
 
-      <footer className="px-5 py-10 md:px-8">
-        <div className="mx-auto flex max-w-5xl flex-col items-start justify-between gap-4 text-[12px] text-[#ADADAA] sm:flex-row sm:items-center">
-          <Link href="/" className="text-[#6B6A67] transition-colors hover:text-[#111110]">
+      {/* FAQ */}
+      <section className="px-4 py-12 md:px-6 md:py-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
+            <motion.div {...fadeUp()}>
+              <Eyebrow>FAQ</Eyebrow>
+              <h2 className="mt-4 font-display text-[24px] font-normal leading-[1.15] tracking-[-0.02em] text-[#111110] md:text-[32px]">
+                Questions, answered
+              </h2>
+            </motion.div>
+            <motion.div {...fadeUp(0.08)} className="border-t border-[#E8E8E6]">
+              {faqs.map((f) => (
+                <FaqItem key={f.q} q={f.q} a={f.a} />
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="px-4 py-12 md:px-6 md:py-[60px]">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            {...fadeUp()}
+            className="rounded-2xl bg-[#111110] px-6 py-14 text-center md:px-12 md:py-20"
+          >
+            <h2 className="mx-auto max-w-2xl font-display text-[28px] font-normal leading-[1.12] tracking-[-0.02em] text-white md:text-[40px]">
+              Your next viewing room is a few minutes away
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
+              Compose, share and follow up — without leaving the browser.
+            </p>
+            <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+              <Button
+                onClick={goToEditor}
+                size="lg"
+                variant="inverse"
+                className="border-0 bg-white text-[#111110] hover:bg-neutral-100"
+              >
+                {ctaLabel}
+              </Button>
+              <a
+                href="#pricing"
+                className="inline-flex items-center justify-center rounded-full border border-white/25 px-6 py-3 text-[14px] font-medium tracking-[-0.01em] text-white transition-colors hover:bg-white/10 md:px-8 md:py-3.5 md:text-[15px]"
+              >
+                See pricing
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <footer className="border-t border-[#E8E8E6] px-4 py-10 md:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-4 text-[12px] text-[#ADADAA] sm:flex-row sm:items-center">
+          <Link
+            href="/"
+            className="font-display text-[14px] tracking-[-0.01em] text-[#111110] transition-colors hover:text-[#6B6A67]"
+          >
             Viewing Room Studio
           </Link>
-          <p>Viewing Room Studio</p>
+          <p>Part of Vitreen · Made for galleries</p>
         </div>
       </footer>
     </div>

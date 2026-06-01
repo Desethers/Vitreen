@@ -3,9 +3,9 @@ import ToolPage from "@/components/ToolPage";
 export const metadata = {
   title: "Mobile",
   description: "Publication galerie, même en déplacement.",
-  alternates: { canonical: "/tools/mobile" },
+  alternates: { canonical: "/products/mobile" },
   openGraph: {
-    url: "/tools/mobile",
+    url: "/products/mobile",
     title: "Mobile — Vitreen",
     description: "Publication galerie, même en déplacement.",
   },

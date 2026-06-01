@@ -3,9 +3,9 @@ import ToolPage from "@/components/ToolPage";
 export const metadata = {
   title: "Custom Operations",
   description: "Workflows sur mesure adaptés à votre galerie.",
-  alternates: { canonical: "/tools/custom-operations" },
+  alternates: { canonical: "/products/custom-operations" },
   openGraph: {
-    url: "/tools/custom-operations",
+    url: "/products/custom-operations",
     title: "Custom Operations — Vitreen",
     description: "Workflows sur mesure adaptés à votre galerie.",
   },

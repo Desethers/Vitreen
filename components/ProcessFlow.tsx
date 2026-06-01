@@ -188,6 +188,8 @@ export default function ProcessFlow() {
   const [activeStep, setActiveStep] = useState(-1);
   const [visualActiveStep, setVisualActiveStep] = useState(-1);
   const [horizontalActiveStep, setHorizontalActiveStep] = useState(-1);
+  // Circles whose incoming progress line has finished travelling — these fill black.
+  const [filledCircles, setFilledCircles] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (!isInView) {
@@ -232,20 +234,41 @@ export default function ProcessFlow() {
   useEffect(() => {
     if (!horizontalIsInView) {
       setHorizontalActiveStep(-1);
+      setFilledCircles(new Set());
       return;
     }
 
-    const timers = storySteps.map((_, index) =>
-      setTimeout(() => setHorizontalActiveStep(index), 180 + index * STEP_DELAY)
-    );
-    const reset = setTimeout(
-      () => setHorizontalActiveStep(storySteps.length - 1),
-      storySteps.length * STEP_DELAY + LOOP_PAUSE
-    );
+    let cancelled = false;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    const run = () => {
+      if (cancelled) return;
+      // Reset to replay the sequence from the start.
+      setHorizontalActiveStep(-1);
+      setFilledCircles(new Set());
+
+      storySteps.forEach((_, index) => {
+        timers.push(
+          setTimeout(
+            () => {
+              if (!cancelled) setHorizontalActiveStep(index);
+            },
+            180 + index * STEP_DELAY
+          )
+        );
+      });
+
+      // Full cycle: last step activates, then the fade-out line plays for one
+      // STEP_DELAY, then a pause before looping back to the beginning.
+      const cycle = 180 + storySteps.length * STEP_DELAY + LOOP_PAUSE;
+      timers.push(setTimeout(run, cycle));
+    };
+
+    run();
 
     return () => {
+      cancelled = true;
       timers.forEach(clearTimeout);
-      clearTimeout(reset);
     };
   }, [horizontalIsInView, storySteps.length]);
 
@@ -267,6 +290,9 @@ export default function ProcessFlow() {
               {storySteps.map((step, index) => {
                 const active = horizontalActiveStep >= index;
                 const current = horizontalActiveStep === index;
+                // First circle has no incoming line, so it fills as soon as the
+                // timer starts there; the rest fill only once their line arrives.
+                const filled = index === 0 ? active : filledCircles.has(index);
 
                 return (
                   <motion.li
@@ -291,11 +317,21 @@ export default function ProcessFlow() {
                           className="absolute inset-0 origin-left bg-[#111110]"
                           initial={{ scaleX: 0 }}
                           animate={{
-                            scaleX: horizontalActiveStep > index ? 1 : 0,
+                            scaleX: horizontalActiveStep >= index ? 1 : 0,
                           }}
                           transition={{
                             duration: STEP_DELAY / 1000,
                             ease: "linear",
+                          }}
+                          onAnimationComplete={() => {
+                            // Line reached the next circle → fill it black.
+                            if (horizontalActiveStep >= index) {
+                              setFilledCircles((prev) => {
+                                const next = new Set(prev);
+                                next.add(index + 1);
+                                return next;
+                              });
+                            }
                           }}
                         />
                       </div>
@@ -316,7 +352,7 @@ export default function ProcessFlow() {
                           }}
                           initial={{ scaleX: 0 }}
                           animate={{
-                            scaleX: horizontalActiveStep >= index ? 1 : 0,
+                            scaleX: filledCircles.has(index) ? 1 : 0,
                           }}
                           transition={{
                             duration: STEP_DELAY / 1000,
@@ -326,11 +362,11 @@ export default function ProcessFlow() {
                       </div>
                     )}
                     <motion.div
-                      className="relative z-10 mb-6 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 bg-white text-[13px] font-normal leading-none tracking-[-0.02em] text-[#111110]"
+                      className="relative z-10 mb-6 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border bg-white text-[13px] font-normal leading-none tracking-[-0.02em] text-[#111110]"
                       animate={{
-                        borderColor: active ? "#111110" : "#D8D8D2",
-                        backgroundColor: active ? "#111110" : "#ffffff",
-                        color: active ? "#ffffff" : "#6B6A67",
+                        borderColor: filled || active ? "#111110" : "#D8D8D2",
+                        backgroundColor: filled ? "#111110" : "#ffffff",
+                        color: filled ? "#ffffff" : "#6B6A67",
                         scale: current ? 1.06 : 1,
                       }}
                       transition={{ duration: 0.28, ease }}
@@ -340,7 +376,7 @@ export default function ProcessFlow() {
 
                     <div className="min-w-0">
                       <div className="max-w-3xl">
-                        <h3 className="font-display text-[18px] font-medium leading-[1.35] tracking-[-0.02em] text-[#111110]">
+                        <h3 className="font-display text-[18px] font-normal leading-[1.35] tracking-[-0.02em] text-[#111110]">
                           {step.title}
                         </h3>
                         <p className="mt-3 max-w-[390px] text-[14px] leading-[1.45] tracking-[-0.01em] text-[#6B6A67]">
