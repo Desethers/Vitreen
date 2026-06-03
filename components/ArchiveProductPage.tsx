@@ -181,6 +181,118 @@ function WorkflowIcon({ index }: { index: number }) {
   );
 }
 
+function GmailAddInCard() {
+  return (
+    <div className="relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-lg bg-[#D2E2F7] p-8">
+      <div className="pointer-events-none absolute left-1/2 top-24 h-56 w-[72%] -translate-x-1/2 rounded-full bg-white/30 blur-3xl" />
+      <div className="relative z-10">
+        <img
+          src="/logos/google-gmail-svgrepo-com.svg"
+          alt=""
+          aria-hidden="true"
+          className="h-11 w-11 object-contain"
+        />
+        <div className="mx-auto mt-24 max-w-[330px] rounded-[24px] border border-white/60 bg-white/80 p-4 shadow-[0_24px_60px_rgba(17,17,16,0.12)] backdrop-blur-sm">
+          <div className="rounded-[18px] bg-white px-4 py-3 shadow-[0_12px_32px_rgba(17,17,16,0.08)]">
+            <div className="flex items-center gap-2 text-[13px] text-[#111110]">
+              <span className="text-[17px] leading-none">+</span>
+              <span className="text-[#ADADAA]">Search artwork...</span>
+              <span className="ml-auto rounded-full bg-[#111110] px-2 py-0.5 text-[10px] text-white">
+                eve
+              </span>
+            </div>
+          </div>
+          <div className="mt-3 flex items-center gap-3 rounded-[16px] bg-white p-3 shadow-[0_12px_32px_rgba(17,17,16,0.08)]">
+            <SmallArtworkSwatch />
+            <div className="min-w-0">
+              <p className="truncate text-[14px] font-medium text-[#111110]">Evening Field</p>
+              <p className="mt-0.5 text-[13px] text-[#6B6A67]">Artwork sheet · PDF</p>
+            </div>
+          </div>
+          <button className="mt-3 w-full rounded-full bg-[#111110] px-4 py-3 text-[14px] font-medium text-white shadow-[0_12px_32px_rgba(17,17,16,0.12)]">
+            Insert in email
+          </button>
+        </div>
+      </div>
+      <div className="relative z-10">
+        <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">
+          Gmail
+        </h3>
+        <p className="mt-1.5 max-w-[360px] text-[16px] leading-[1.45] tracking-[-0.01em] text-[#4F5F73]">
+          Insert artwork details and PDFs inside collector threads.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function WhatsAppAddInCard() {
+  return (
+    <div className="relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-lg bg-[#D9E8D7] p-8">
+      <div className="pointer-events-none absolute left-1/2 top-24 h-56 w-[72%] -translate-x-1/2 rounded-full bg-white/28 blur-3xl" />
+      <div className="relative z-10">
+        <AppIcon brand="whatsapp" size={44} rounded={10} />
+        <div className="mx-auto mt-24 max-w-[330px] rounded-[24px] bg-[#111110] p-4 text-white shadow-[0_24px_60px_rgba(17,17,16,0.2)]">
+          <p className="px-1 text-[11px] uppercase tracking-[0.16em] text-white/35">Selection</p>
+          <div className="mt-4 flex items-center gap-3 rounded-[16px] bg-white/8 p-3">
+            <SmallArtworkSwatch color="#E8D34A" />
+            <div className="min-w-0">
+              <p className="truncate text-[14px] font-medium">Untitled (Horizon)</p>
+              <p className="mt-0.5 text-[13px] text-white/45">3 works · private link</p>
+            </div>
+          </div>
+          <div className="mt-3 rounded-[18px] bg-white px-4 py-3 text-[14px] text-[#111110]">
+            Ready to send on WhatsApp
+          </div>
+        </div>
+      </div>
+      <div className="relative z-10">
+        <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">
+          WhatsApp
+        </h3>
+        <p className="mt-1.5 max-w-[360px] text-[16px] leading-[1.45] tracking-[-0.01em] text-[#4D664B]">
+          Turn selected works into a clean private link.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function OutlookAddInCard() {
+  return (
+    <div className="relative flex min-h-[560px] flex-col justify-between overflow-hidden rounded-lg bg-[#F4F2EE] p-8">
+      <div className="pointer-events-none absolute left-1/2 top-24 h-56 w-[72%] -translate-x-1/2 rounded-full bg-white/45 blur-3xl" />
+      <div className="relative z-10">
+        <AppIcon brand="outlook" size={44} />
+        <div className="mx-auto mt-24 max-w-[330px] overflow-hidden rounded-[24px] border border-white/80 bg-white shadow-[0_24px_60px_rgba(17,17,16,0.12)]">
+          <div className="bg-[#F5F5F3] px-5 py-4 text-[14px] font-medium text-[#111110]">
+            Re: Available works
+          </div>
+          <div className="px-5 py-5">
+            <div className="h-2 w-3/4 rounded-full bg-[#E8E8E6]" />
+            <div className="mt-2 h-2 w-1/2 rounded-full bg-[#E8E8E6]" />
+            <div className="mt-6 flex items-center gap-3 rounded-[16px] border border-[#E8E8E6] p-3">
+              <SmallArtworkSwatch color="#7A1F18" />
+              <div className="min-w-0">
+                <p className="truncate text-[14px] font-medium text-[#111110]">Sun Dog</p>
+                <p className="mt-0.5 text-[13px] text-[#6B6A67]">Availability requested</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="relative z-10">
+        <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">
+          Outlook
+        </h3>
+        <p className="mt-1.5 max-w-[360px] text-[16px] leading-[1.45] tracking-[-0.01em] text-[#6B6A67]">
+          Keep artwork context attached to collector replies.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function ArchiveProductPage() {
   const openContact = () => {
     window.dispatchEvent(new CustomEvent("open-contact-modal"));
@@ -249,6 +361,29 @@ export default function ArchiveProductPage() {
             <div className="relative h-[420px] md:h-[560px]">
               <ArchiveMock />
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 py-12 md:px-6 md:py-[72px]">
+        <div className="mx-auto max-w-7xl">
+          <motion.div {...fadeUp(0)} className="grid gap-8 md:grid-cols-[0.45fr_1fr] md:items-end">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">Add-ins</p>
+              <h2 className="mt-3 font-display text-[22px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[30px]">
+                Artwork records inside daily communication
+              </h2>
+            </div>
+            <p className="max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:ml-auto md:text-[15px]">
+              Vitreen add-ins bring artwork information into the places where collectors already ask
+              questions: Gmail, WhatsApp and Outlook Mail.
+            </p>
+          </motion.div>
+
+          <motion.div {...fadeUp(0.05)} className="mt-8 grid gap-4 lg:grid-cols-3">
+            <GmailAddInCard />
+            <WhatsAppAddInCard />
+            <OutlookAddInCard />
           </motion.div>
         </div>
       </section>
