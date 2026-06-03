@@ -1,4 +1,4 @@
-import ToolPage from "@/components/ToolPage";
+import ArchiveProductPage from "@/components/ArchiveProductPage";
 
 export const metadata = {
   title: "Artworks Management",
@@ -12,5 +12,5 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <ToolPage slug="archive" />;
+  return <ArchiveProductPage />;
 }
