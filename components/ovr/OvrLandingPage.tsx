@@ -1,122 +1,14 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
 import { useRouter, usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { HeroRoomMockup } from "@/components/ovr/HeroRoomMockup";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-
-type Feature = { title: string; desc: string; icon: ReactNode };
-
-const features: Feature[] = [
-  {
-    title: "Free layout",
-    desc: "Full page, diptych, triptych, image with text or quote. Reorder everything by drag and drop.",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        aria-hidden
-      >
-        <path d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 20.25h18M21 7.5H3" />
-      </svg>
-    ),
-  },
-  {
-    title: "Export PDF",
-    desc: "High-resolution document aligned with the preview — ready to print or archive.",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        aria-hidden
-      >
-        <path d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Email HTML",
-    desc: "Polished rendering in email clients including Gmail, an online viewing link, captions, and calls to action.",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        aria-hidden
-      >
-        <path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.815a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-      </svg>
-    ),
-  },
-  {
-    title: "Private link",
-    desc: "One URL per send: opens on mobile or desktop, with no heavy attachments.",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        aria-hidden
-      >
-        <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-      </svg>
-    ),
-  },
-  {
-    title: "Personalization",
-    desc: "Recipient, headline, introduction, footer: each room is tailored to one contact.",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        aria-hidden
-      >
-        <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Single workflow",
-    desc: "Import, compose, and refine — all in the browser, without switching tools.",
-    icon: (
-      <svg
-        width="18"
-        height="18"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        aria-hidden
-      >
-        <path d="M3.75 6A2.25 2.25 0 016 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6z" />
-        <path d="M8.25 9.75h7.5M8.25 12.75h4.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-];
 
 /** Lignes communes aux deux formules (même produit, facturation différente). */
 const planIncludes = [
@@ -292,42 +184,468 @@ function ImportMock() {
 
 function DragHandle() {
   return (
-    <span className="grid grid-cols-2 gap-[2px]" aria-hidden>
-      {Array.from({ length: 6 }).map((_, i) => (
-        <span key={i} className="h-[2.5px] w-[2.5px] rounded-full bg-[#ADADAA]" />
-      ))}
+    <span
+      className="flex h-7 w-7 items-center justify-center rounded-full border border-[#E8E8E6] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.14)]"
+      aria-hidden
+    >
+      <span className="grid grid-cols-2 gap-x-[3px] gap-y-[2.5px]">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <span key={i} className="h-[3px] w-[3px] rounded-full bg-[#ADADAA]" />
+        ))}
+      </span>
     </span>
   );
 }
 
-function ComposeMock() {
+function WirePlaceholder() {
   return (
-    <div className="relative flex h-full min-h-[300px] items-center justify-center overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#FAFAFA] px-8 md:min-h-[340px]">
-      {/* Target block */}
-      <div className="relative w-[60%] overflow-hidden rounded-md border border-dashed border-[#3b82f6]/50 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
-        <img
-          src="/artworks/painting-09.png"
-          alt="Artwork block"
-          className="aspect-square w-full object-cover"
+    <div className="flex aspect-[16/10] w-full items-center justify-center bg-[#F0F0EE]">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden>
+        <rect x="3" y="3" width="18" height="18" rx="2" stroke="#CFCFCB" strokeWidth="1.4" />
+        <circle cx="8.5" cy="8.5" r="1.6" fill="#CFCFCB" />
+        <path
+          d="M21 16l-5-5-9 9"
+          stroke="#CFCFCB"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
-        {/* Drop indicator */}
-        <span className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-emerald-500 px-3 py-1.5 text-[11px] font-medium text-white shadow-[0_6px_16px_rgba(16,185,129,0.4)]">
-          Make diptych
-        </span>
+      </svg>
+    </div>
+  );
+}
+
+function WireCaption() {
+  return (
+    <div className="space-y-1.5 px-4 py-3">
+      <span className="block h-2 w-1/2 rounded-full bg-[#E2E2DF]" />
+      <span className="block h-2 w-1/3 rounded-full bg-[#ECECE9]" />
+    </div>
+  );
+}
+
+function GrabCursor() {
+  // Small "grabbing hand" pointer so the gesture reads as drag-and-drop
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.25)]"
+      aria-hidden
+    >
+      <path
+        d="M9 11V6.5a1.5 1.5 0 0 1 3 0V11m0-1.2V5.6a1.5 1.5 0 0 1 3 0V11m0-1.2a1.5 1.5 0 0 1 3 0V14c0 3-2 5-5 5h-1.2c-1.6 0-2.5-.5-3.4-1.7l-2.2-3c-.7-1-.4-2 .6-2.5.7-.4 1.5-.2 2 .4L9 13.5V8.5a1.5 1.5 0 0 1 3 0"
+        fill="#111110"
+        stroke="#fff"
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** Phase 1 — one block is dragged into the empty slot next to the target. */
+function ComposeDragScene() {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease }}
+      className="absolute inset-0 flex flex-col items-center justify-center px-6 py-7"
+    >
+      <div className="flex w-full max-w-[420px] items-start justify-center gap-3">
+        {/* Target block (stays put) */}
+        <div className="relative w-[46%]">
+          <div className="absolute -left-3 top-3 z-30">
+            <DragHandle />
+          </div>
+          <div className="overflow-hidden rounded-md border border-[#E0E0DC] bg-white">
+            <WirePlaceholder />
+            <WireCaption />
+          </div>
+        </div>
+
+        {/* Empty slot + the block flying into it */}
+        <div className="relative w-[46%]">
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center rounded-md border border-dashed border-[#3b82f6]/40 bg-[#3b82f6]/[0.06]">
+            <span className="text-[11px] text-[#3b82f6]">Move here</span>
+          </div>
+          <motion.div
+            className="relative z-10"
+            initial={{ y: 150, x: 26, rotate: -6, scale: 1.05, opacity: 0.92 }}
+            animate={{ y: 0, x: 0, rotate: 0, scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease, delay: 0.25 }}
+          >
+            <div className="absolute -top-3 left-1/2 z-30 -translate-x-1/2">
+              <DragHandle />
+            </div>
+            <span className="absolute -top-1.5 left-[calc(50%+8px)] z-40">
+              <GrabCursor />
+            </span>
+            <div className="overflow-hidden rounded-md border border-[#D8D8D4] bg-white shadow-[0_24px_48px_rgba(0,0,0,0.18)]">
+              <WirePlaceholder />
+              <WireCaption />
+            </div>
+          </motion.div>
+        </div>
       </div>
 
-      {/* Dragging block — distinctive grab handle + lifted shadow */}
-      <div className="absolute right-7 top-7 z-20 w-[42%] rotate-[-4deg] overflow-hidden rounded-md border border-black/[0.08] bg-white opacity-95 shadow-[0_24px_48px_rgba(0,0,0,0.22)]">
-        <div className="flex items-center justify-center border-b border-black/[0.05] bg-[#FBFBFA] py-1.5">
+      <motion.span
+        className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1 text-[11px] font-medium text-white shadow-[0_4px_12px_rgba(16,185,129,0.4)]"
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.15, duration: 0.4, ease }}
+      >
+        Make diptych
+      </motion.span>
+    </motion.div>
+  );
+}
+
+/** Phase 2 — the two blocks have merged into a single diptych. */
+function ComposeMergedScene() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease }}
+      className="absolute inset-0 flex flex-col items-center justify-center px-6 py-7"
+    >
+      <div className="relative w-full max-w-[420px]">
+        <div className="absolute -left-3 -top-3 z-30">
           <DragHandle />
         </div>
-        <img
-          src="/artworks/v2-earth.png"
-          alt="Dragging artwork block"
-          className="aspect-square w-full object-cover"
+        <div className="overflow-hidden rounded-md border border-[#111110]/15 bg-white shadow-[0_18px_40px_rgba(0,0,0,0.14)]">
+          <div className="grid grid-cols-2 divide-x divide-[#E0E0DC]">
+            <WirePlaceholder />
+            <WirePlaceholder />
+          </div>
+          <WireCaption />
+        </div>
+        <span className="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-emerald-500 px-3 py-1 text-[11px] font-medium text-white shadow-[0_4px_12px_rgba(16,185,129,0.4)]">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden>
+            <path
+              d="M3 8l3.5 3.5L13 4"
+              stroke="#fff"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          Diptych created
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+function ComposeMock() {
+  const prefersReduced = useReducedMotion();
+  const [phase, setPhase] = useState<"drag" | "merged">("drag");
+
+  // Loop the sequence: drag the block in, hold on the merged diptych, repeat.
+  useEffect(() => {
+    if (prefersReduced) return;
+    const id = setTimeout(
+      () => setPhase((p) => (p === "drag" ? "merged" : "drag")),
+      phase === "drag" ? 2600 : 2200
+    );
+    return () => clearTimeout(id);
+  }, [phase, prefersReduced]);
+
+  return (
+    <div className="relative h-full min-h-[300px] overflow-hidden rounded-lg border border-dashed border-[#E0E0DC] bg-[#FAFAFA] md:min-h-[340px]">
+      {prefersReduced ? (
+        <ComposeMergedScene />
+      ) : (
+        <AnimatePresence mode="wait">
+          {phase === "drag" ? <ComposeDragScene key="drag" /> : <ComposeMergedScene key="merged" />}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+}
+
+/** ── Quartr-style bento: light-gray card, a floating white mock, title + desc ── */
+function BentoCard({
+  title,
+  desc,
+  className = "",
+  children,
+}: {
+  title: string;
+  desc: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <motion.div
+      {...fadeUp()}
+      className={`flex flex-col overflow-hidden rounded-3xl bg-[#EFEFED] p-6 md:p-8 ${className}`}
+    >
+      <div className="relative mb-7 flex min-h-[190px] flex-1 items-center justify-center md:min-h-[220px]">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 90% at 50% -10%, rgba(255,255,255,0.85), transparent 65%)",
+          }}
         />
+        <div className="relative w-full">{children}</div>
+      </div>
+      <h3 className="font-display text-[20px] font-normal tracking-[-0.01em] text-[#111110] md:text-[22px]">
+        {title}
+      </h3>
+      <p className="mt-2.5 max-w-md text-[14.5px] leading-relaxed text-[#6B6A67] md:text-[15px]">
+        {desc}
+      </p>
+    </motion.div>
+  );
+}
+
+const bentoShadow = "shadow-[0_14px_40px_rgba(0,0,0,0.10)]";
+
+function CaptionBars() {
+  return (
+    <div className="space-y-1.5 px-3 py-2.5">
+      <span className="block h-1.5 w-1/2 rounded-full bg-[#E0E0DD]" />
+      <span className="block h-1.5 w-1/3 rounded-full bg-[#ECECE9]" />
+    </div>
+  );
+}
+
+/** Wide card — composing a room with drag-and-drop blocks. */
+function ComposeVisual() {
+  return (
+    <div
+      className={`mx-auto max-w-[440px] rounded-xl border border-black/[0.06] bg-white p-3.5 ${bentoShadow}`}
+    >
+      <div className="relative grid grid-cols-2 gap-2.5">
+        <span className="absolute -left-2.5 -top-2.5 z-10 flex h-6 w-6 items-center justify-center rounded-full border border-[#E8E8E6] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.12)]">
+          <span className="grid grid-cols-2 gap-x-[3px] gap-y-[2.5px]">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <span key={i} className="h-[2.5px] w-[2.5px] rounded-full bg-[#ADADAA]" />
+            ))}
+          </span>
+        </span>
+        <div className="overflow-hidden rounded-md border border-[#EDEDEA]">
+          <div className="aspect-[16/10] bg-[#E6E6E3]" />
+          <CaptionBars />
+        </div>
+        <div className="overflow-hidden rounded-md border border-[#EDEDEA]">
+          <div className="aspect-[16/10] bg-[#E6E6E3]" />
+          <CaptionBars />
+        </div>
       </div>
     </div>
+  );
+}
+
+/** Narrow card — output formats list. */
+function FormatsVisual() {
+  const rows = ["Private link", "High-definition PDF", "HTML email"];
+  return (
+    <div
+      className={`mx-auto max-w-[240px] rounded-xl border border-black/[0.06] bg-white p-2.5 ${bentoShadow}`}
+    >
+      {rows.map((label, i) => (
+        <div
+          key={label}
+          className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 ${
+            i === 0 ? "bg-[#F5F5F3]" : ""
+          }`}
+        >
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#111110]">
+            <svg width="9" height="9" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <path
+                d="M3 8l3.5 3.5L13 4"
+                stroke="#fff"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          <span className="text-[12px] tracking-tight text-[#111110]">{label}</span>
+          {i === 0 ? (
+            <span className="ml-auto text-[10px] font-medium text-emerald-600">Ready</span>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Bottom card — a personalized recipient note. */
+function RecipientVisual() {
+  return (
+    <div
+      className={`mx-auto max-w-[260px] rounded-xl border border-black/[0.06] bg-white p-3.5 ${bentoShadow}`}
+    >
+      <div className="flex items-center gap-2.5">
+        <span className="h-8 w-8 rounded-full bg-gradient-to-br from-[#E4E4E1] to-[#D6D6D2]" />
+        <div className="min-w-0">
+          <p className="text-[12px] font-medium tracking-tight text-[#111110]">Anna Müller</p>
+          <p className="text-[10px] text-[#ADADAA]">Collector</p>
+        </div>
+      </div>
+      <p className="mt-2.5 text-[11px] leading-snug text-[#6B6A67]">
+        “A private selection from the new show, chosen with you in mind.”
+      </p>
+      <div className="mt-2.5 flex items-center gap-2 rounded-lg bg-[#F5F5F3] px-2.5 py-1.5">
+        <span className="h-5 w-5 rounded bg-[#E4E4E1]" />
+        <span className="text-[10px] tracking-tight text-[#6B6A67]">Untitled, 2024</span>
+        <span className="ml-auto text-[12px] leading-none text-[#ADADAA]">›</span>
+      </div>
+    </div>
+  );
+}
+
+/** Bottom card — one private link, any device. */
+function LinkVisual() {
+  return (
+    <div className="mx-auto w-full max-w-[300px]">
+      <div
+        className={`flex items-center gap-2 rounded-full border border-black/[0.06] bg-white px-3.5 py-2.5 ${bentoShadow}`}
+      >
+        <svg
+          width="13"
+          height="13"
+          fill="none"
+          stroke="#6B6A67"
+          strokeWidth="1.6"
+          viewBox="0 0 24 24"
+          aria-hidden
+        >
+          <rect x="5" y="11" width="14" height="9" rx="2" />
+          <path d="M8 11V8a4 4 0 018 0v3" />
+        </svg>
+        <span className="text-[12px] tracking-tight text-[#111110]">view.vitreen.art/anna-m</span>
+        <span className="ml-auto flex items-center gap-1 text-[10px] font-medium text-emerald-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          Live
+        </span>
+      </div>
+      <div className="mt-4 flex items-end justify-center gap-2.5">
+        <div className="h-[58px] w-[88px] rounded-md border border-[#E0E0DD] bg-white p-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.07)]">
+          <div className="h-full w-full rounded-sm bg-[#ECECEA]" />
+        </div>
+        <div className="h-[66px] w-[34px] rounded-md border border-[#E0E0DD] bg-white p-1 shadow-[0_8px_20px_rgba(0,0,0,0.07)]">
+          <div className="h-full w-full rounded-sm bg-[#ECECEA]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Bottom card — high-definition PDF export. */
+function PdfVisual() {
+  return (
+    <div className="mx-auto flex max-w-[260px] items-center justify-center">
+      <div
+        className={`w-[112px] -rotate-3 rounded-md border border-[#E8E8E6] bg-white p-2 ${bentoShadow}`}
+      >
+        <div className="aspect-[3/4] rounded-sm bg-[#ECECEA]" />
+        <div className="mt-1.5 space-y-1">
+          <span className="block h-1 w-2/3 rounded-full bg-[#E0E0DD]" />
+          <span className="block h-1 w-1/2 rounded-full bg-[#ECECE9]" />
+        </div>
+      </div>
+      <div
+        className={`-ml-5 w-[112px] rotate-3 rounded-md border border-[#E8E8E6] bg-white p-2 ${bentoShadow}`}
+      >
+        <div className="relative aspect-[3/4] rounded-sm bg-[#ECECEA]">
+          <span className="absolute bottom-1 right-1 rounded bg-[#111110] px-1.5 py-0.5 text-[7px] font-medium tracking-tight text-white">
+            PDF · HD
+          </span>
+        </div>
+        <div className="mt-1.5 space-y-1">
+          <span className="block h-1 w-2/3 rounded-full bg-[#E0E0DD]" />
+          <span className="block h-1 w-1/2 rounded-full bg-[#ECECE9]" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** vitreen.art-style stepper that auto-advances on a timer with a progress fill. */
+const STEP_DURATION = 4200;
+
+function HowItWorksStepper() {
+  const prefersReduced = useReducedMotion();
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (prefersReduced) return;
+    const id = setTimeout(() => setActive((a) => (a + 1) % howSteps.length), STEP_DURATION);
+    return () => clearTimeout(id);
+  }, [active, prefersReduced]);
+
+  return (
+    <motion.div
+      {...fadeUp()}
+      className="mt-10 grid gap-10 border-t border-[#E8E8E6] pt-10 md:mt-14 md:grid-cols-3 md:gap-px md:border-t-0 md:bg-[#E8E8E6] md:pt-0"
+    >
+      {howSteps.map((step, i) => {
+        const isActive = !prefersReduced && i === active;
+        const isPast = !prefersReduced && i < active;
+        const lit = prefersReduced || isActive;
+        return (
+          <button
+            key={step.n}
+            type="button"
+            onClick={() => setActive(i)}
+            className="group bg-white text-left transition-colors md:px-8 md:py-9 lg:px-10"
+          >
+            {/* timer track */}
+            <div className="mb-7 h-[2px] w-full overflow-hidden rounded-full bg-[#E8E8E6]">
+              {prefersReduced ? (
+                <div className="h-full w-full bg-[#111110]" />
+              ) : isActive ? (
+                <motion.div
+                  key={`fill-${active}`}
+                  className="h-full bg-[#111110]"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: STEP_DURATION / 1000, ease: "linear" }}
+                />
+              ) : (
+                <div
+                  className={`h-full bg-[#111110] transition-[width] duration-500 ease-out ${
+                    isPast ? "w-full" : "w-0"
+                  }`}
+                />
+              )}
+            </div>
+
+            <span
+              className={`flex h-14 w-14 items-center justify-center rounded-full border font-display text-[18px] font-normal tracking-tight transition-colors duration-500 ${
+                lit
+                  ? "border-transparent bg-[#111110] text-white"
+                  : "border-[#E8E8E6] text-[#ADADAA] group-hover:text-[#111110]"
+              }`}
+            >
+              {step.n}
+            </span>
+            <h3
+              className={`mt-6 font-display text-[19px] font-normal tracking-[-0.01em] transition-colors duration-500 ${
+                lit ? "text-[#111110]" : "text-[#6B6A67]"
+              }`}
+            >
+              {step.title}
+            </h3>
+            <p className="mt-2.5 max-w-sm text-[14px] leading-relaxed text-[#6B6A67]">
+              {step.desc}
+            </p>
+          </button>
+        );
+      })}
+    </motion.div>
   );
 }
 
@@ -503,63 +821,8 @@ export default function OvrLandingPage() {
             </h2>
           </motion.div>
 
-          {/* Step 01 — featured with import mockup */}
-          <motion.div
-            {...fadeUp()}
-            className="mt-10 grid gap-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#E8E8E6] md:mt-12 md:grid-cols-2"
-          >
-            <div className="flex flex-col justify-center bg-white p-7 md:p-10">
-              <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
-                {howSteps[0].n}
-              </span>
-              <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
-                {howSteps[0].title}
-              </h3>
-              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#6B6A67]">
-                {howSteps[0].desc}
-              </p>
-            </div>
-            <div className="bg-white p-5 md:p-7">
-              <ImportMock />
-            </div>
-          </motion.div>
-
-          {/* Step 02 — featured with compose mockup */}
-          <motion.div
-            {...fadeUp()}
-            className="mt-px grid gap-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-[#E8E8E6] md:grid-cols-2"
-          >
-            <div className="order-2 bg-white p-5 md:order-1 md:p-7">
-              <ComposeMock />
-            </div>
-            <div className="order-1 flex flex-col justify-center bg-white p-7 md:order-2 md:p-10">
-              <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
-                {howSteps[1].n}
-              </span>
-              <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
-                {howSteps[1].title}
-              </h3>
-              <p className="mt-2 max-w-sm text-[14px] leading-relaxed text-[#6B6A67]">
-                {howSteps[1].desc}
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Step 03 */}
-          <motion.div
-            {...fadeUp()}
-            className="mt-px overflow-hidden rounded-lg border border-[#E8E8E6] bg-white p-7 md:p-8"
-          >
-            <span className="font-display text-[28px] font-normal tracking-tight text-[#ADADAA]">
-              {howSteps[2].n}
-            </span>
-            <h3 className="mt-4 font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110]">
-              {howSteps[2].title}
-            </h3>
-            <p className="mt-2 max-w-md text-[14px] leading-relaxed text-[#6B6A67]">
-              {howSteps[2].desc}
-            </p>
-          </motion.div>
+          {/* Stepper — auto-advancing on a timer (vitreen.art style) */}
+          <HowItWorksStepper />
         </div>
       </section>
 
@@ -577,22 +840,42 @@ export default function OvrLandingPage() {
             </p>
           </motion.div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-12 lg:grid-cols-3">
-            {features.map((f, i) => (
-              <motion.div
-                key={f.title}
-                {...fadeUp(i * 0.05)}
-                className="rounded-lg border border-[#E8E8E6] bg-white p-6 transition-colors hover:bg-[#FAFAF9]"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5F5F3] text-[#111110]">
-                  {f.icon}
-                </div>
-                <h3 className="mt-5 font-display text-[17px] font-normal tracking-[-0.01em] text-[#111110]">
-                  {f.title}
-                </h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-[#6B6A67]">{f.desc}</p>
-              </motion.div>
-            ))}
+          {/* Bento — light-gray cards with floating mocks (Quartr style) */}
+          <div className="mt-10 grid gap-5 md:mt-12 md:grid-cols-3">
+            {/* Row 1 — wide + narrow */}
+            <BentoCard
+              className="md:col-span-2"
+              title="Compose visually"
+              desc="Full page, diptych, triptych, image with text or quote — arrange and reorder every block by drag and drop."
+            >
+              <ComposeVisual />
+            </BentoCard>
+            <BentoCard
+              title="Send your way"
+              desc="One room, three outputs: a private link, a high-definition PDF, or a polished HTML email."
+            >
+              <FormatsVisual />
+            </BentoCard>
+
+            {/* Row 2 — three equal */}
+            <BentoCard
+              title="Personalize each room"
+              desc="Recipient, headline, intro and captions — each room is tailored to one collector."
+            >
+              <RecipientVisual />
+            </BentoCard>
+            <BentoCard
+              title="One link, any device"
+              desc="Each room opens from a single private link on mobile or desktop — no download, no login."
+            >
+              <LinkVisual />
+            </BentoCard>
+            <BentoCard
+              title="Export in high definition"
+              desc="Every room becomes a print-ready PDF aligned with the on-screen preview."
+            >
+              <PdfVisual />
+            </BentoCard>
           </div>
         </div>
       </section>

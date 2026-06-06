@@ -4,73 +4,15 @@ import { motion, useReducedMotion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-type Work = {
-  src: string;
-  artist: string;
-  title: string;
-  year: string;
-  medium: string;
-  dimensions: string;
-  price: string;
-  status?: "available" | "reserved";
-};
-
-const HERO: Work = {
-  src: "/artworks/painting-03.jpg",
-  artist: "Sacha Elron",
-  title: "Evening Field",
-  year: "2023",
-  medium: "Oil on linen",
-  dimensions: "180 × 180 cm",
-  price: "8 000 €",
-  status: "available",
-};
-
-const GRID: Work[] = [
-  {
-    src: "/artworks/painting-05.jpg",
-    artist: "Sacha Elron",
-    title: "Dawn Study No. 7",
-    year: "2024",
-    medium: "Acrylic on canvas",
-    dimensions: "120 × 90 cm",
-    price: "5 400 €",
-    status: "available",
-  },
-  {
-    src: "/artworks/painting-07.jpg",
-    artist: "Sacha Elron",
-    title: "Northern Light",
-    year: "2024",
-    medium: "Oil on canvas",
-    dimensions: "150 × 120 cm",
-    price: "6 800 €",
-    status: "reserved",
-  },
-];
-
-function StatusPill({ status }: { status: NonNullable<Work["status"]> }) {
-  const available = status === "available";
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2 py-[3px] text-[10px] font-medium tracking-tight ${
-        available ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"
-      }`}
-    >
-      <span
-        className={`h-1.5 w-1.5 rounded-full ${available ? "bg-emerald-500" : "bg-amber-500"}`}
-      />
-      {available ? "Available" : "Reserved"}
-    </span>
-  );
-}
+const INSTALL = "/gallery%20hero%20mock/judd-wall-stack.png";
+const INSTALL_2 = "/gallery%20hero%20mock/judd-floor-boxes.png";
 
 export function HeroRoomMockup() {
   const prefersReduced = useReducedMotion();
 
   return (
     <section className="relative px-4 pb-16 pt-2 md:px-8 md:pb-24">
-      {/* Ambient studio backdrop */}
+      {/* Ambient backdrop */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-[-40px] -z-10 mx-auto h-[420px] max-w-4xl rounded-[80px] opacity-70 blur-3xl"
@@ -85,125 +27,163 @@ export function HeroRoomMockup() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.8, ease, delay: 0.05 }}
-        className="relative mx-auto max-w-5xl"
+        className="relative mx-auto max-w-7xl"
       >
-        {/* Browser window — realistic layered shadow + hairline border */}
-        <div className="relative overflow-hidden rounded-[14px] border border-black/[0.08] bg-white shadow-[0_2px_4px_rgba(0,0,0,0.04),0_14px_28px_rgba(0,0,0,0.06),0_44px_88px_rgba(0,0,0,0.14)]">
-          {/* Chrome / title bar */}
-          <div className="flex items-center gap-3 border-b border-black/[0.06] bg-gradient-to-b from-[#FBFBFA] to-[#F4F4F2] px-4 py-3">
-            <div className="flex gap-2">
-              <span className="h-3 w-3 rounded-full bg-[#ff5f57] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.12)]" />
-              <span className="h-3 w-3 rounded-full bg-[#febc2e] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.12)]" />
-              <span className="h-3 w-3 rounded-full bg-[#28c840] shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.12)]" />
-            </div>
-            <div className="mx-auto flex max-w-sm flex-1 items-center justify-center gap-2 rounded-md border border-black/[0.05] bg-white px-3 py-1 shadow-[inset_0_1px_2px_rgba(0,0,0,0.03)]">
+        {/* Editor frame */}
+        <div className="relative overflow-hidden rounded-[16px] border border-black/[0.08] bg-[#F6F6F5]">
+          {/* ── Floating editor UI ───────────────────────────── */}
+          {/* Progress ring (top-left) */}
+          <div className="absolute left-4 top-4 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-[0_6px_20px_rgba(0,0,0,0.10)]">
+            <svg width="40" height="40" viewBox="0 0 40 40" className="-rotate-90" aria-hidden>
+              <circle cx="20" cy="20" r="17" fill="none" stroke="#ECECEA" strokeWidth="3" />
+              <circle
+                cx="20"
+                cy="20"
+                r="17"
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeDasharray="106.8"
+                strokeDashoffset="0"
+              />
+            </svg>
+            <span className="absolute text-[10px] font-semibold tracking-tight text-emerald-600">
+              100%
+            </span>
+          </div>
+
+          {/* Toolbar (top-center) */}
+          <div className="absolute left-1/2 top-4 z-30 hidden -translate-x-1/2 items-stretch overflow-hidden rounded-[8px] border border-black/[0.06] bg-white shadow-[0_6px_20px_rgba(0,0,0,0.10)] sm:flex">
+            <button
+              type="button"
+              className="my-1 ml-1 flex items-center rounded-[6px] px-4 text-[14px] tracking-tight text-[#3A3A38] transition-colors hover:bg-[#F5F5F3]"
+            >
+              + Images
+            </button>
+            <span className="my-3 w-px bg-black/[0.08]" />
+            <button
+              type="button"
+              className="my-1 ml-1 flex items-center rounded-[6px] px-4 text-[14px] tracking-tight text-[#3A3A38] transition-colors hover:bg-[#F5F5F3]"
+            >
+              + Text
+            </button>
+            <button
+              type="button"
+              className="m-1 flex items-center gap-2 rounded-[6px] bg-[#111110] px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-black"
+            >
+              Send to Jean dupond
               <svg
-                width="10"
-                height="10"
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                viewBox="0 0 24 24"
-                className="text-black/30"
                 aria-hidden
               >
-                <rect x="3" y="11" width="18" height="11" rx="2" />
-                <path d="M7 11V7a5 5 0 0110 0v4" />
+                <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="truncate text-[11px] tracking-tight text-black/45">
-                meridian-gallery.com/viewing-room/private
-              </span>
-            </div>
-            <div className="hidden w-[52px] sm:block" />
+            </button>
           </div>
 
-          {/* Screen — finished collector-facing viewing room */}
-          <div className="relative bg-[#FBFBFA]">
-            {/* Subtle screen glare */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-b from-white/30 via-transparent to-transparent"
-            />
+          {/* Account controls (top-right) */}
+          <div className="absolute right-4 top-4 z-30 flex items-center gap-2.5">
+            <span className="rounded-full bg-[#111110] px-4 py-2 text-[12.5px] font-medium text-white shadow-[0_6px_20px_rgba(0,0,0,0.10)]">
+              Sign in
+            </span>
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-black/[0.06] bg-white text-[#6B6A67] shadow-[0_6px_20px_rgba(0,0,0,0.10)]">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                aria-hidden
+              >
+                <path
+                  d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </span>
+          </div>
 
-            {/* Gallery bar */}
-            <div className="flex items-center justify-between border-b border-black/[0.05] px-6 py-4 md:px-10">
-              <span className="font-display text-[12px] uppercase tracking-[0.22em] text-[#111110]">
-                Meridian
-              </span>
-              <nav className="hidden items-center gap-6 text-[11px] tracking-tight text-[#6B6A67] sm:flex">
-                <span>Works</span>
-                <span>Exhibition</span>
-                <span className="rounded-full bg-[#111110] px-3 py-1 text-white">Inquire</span>
-              </nav>
-            </div>
-
-            {/* Room body */}
-            <div className="mx-auto max-w-3xl px-6 pb-12 pt-9 md:px-10 md:pb-16 md:pt-12">
+          {/* ── Document canvas ──────────────────────────────── */}
+          <div className="relative max-h-[640px] overflow-hidden px-4 pb-10 pt-[78px] md:px-10 md:pt-[92px]">
+            <div className="mx-auto max-w-5xl bg-white px-7 py-9 md:px-16 md:py-14">
               {/* Header */}
-              <p className="text-[10px] uppercase tracking-[0.2em] text-[#ADADAA]">
-                Private viewing room · prepared for Eve Bertrand
+              <p className="text-[11px] uppercase tracking-[0.22em] text-[#ADADAA]">
+                Galerie du Jour
               </p>
-              <h3 className="mt-3 font-display text-[26px] font-normal leading-[1.1] tracking-tight text-[#111110] md:text-[34px]">
-                Sacha Elron — Evening Field
+              <h3 className="mt-5 font-display text-[28px] font-normal leading-[1.1] tracking-[-0.01em] text-[#111110] md:text-[34px]">
+                Exhibition Selection
               </h3>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#6B6A67]">
-                12 March – 20 April 2025 · A suite of new paintings, available by private
-                appointment.
+              <p className="font-display text-[24px] font-normal leading-[1.15] tracking-[-0.01em] text-[#ADADAA] md:text-[30px]">
+                Works from the show
               </p>
 
-              {/* Hero artwork */}
-              <figure className="mt-8">
-                <div className="overflow-hidden rounded-sm bg-[#EFEFEC] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_50px_rgba(0,0,0,0.10)]">
+              <p className="mt-7 text-[14px] tracking-tight text-[#6B6A67]">For Jean Dupond</p>
+              <p className="mt-5 max-w-xl text-[15px] leading-[1.7] text-[#111110]">
+                Following the exhibition, here is a selection of remaining works.
+                <br />
+                Let me know if you’d like further material.
+              </p>
+
+              <div className="mt-9 h-px w-full bg-[#ECECEA]" />
+
+              {/* Artwork 1 — install shot */}
+              <figure className="mt-9">
+                <div className="overflow-hidden bg-[#EFEFEC]">
                   <img
-                    src={HERO.src}
-                    alt={`${HERO.artist}, ${HERO.title}`}
-                    className="aspect-[4/3] w-full object-cover"
+                    src={INSTALL}
+                    alt="Sacha Elron, Painting 10 — installation view"
+                    className="aspect-[16/10] w-full object-cover"
                     loading="lazy"
                   />
                 </div>
-                <figcaption className="mt-3 flex items-end justify-between gap-4">
+                <figcaption className="mt-4 flex items-start justify-between gap-6">
                   <div>
-                    <p className="text-[13px] text-[#111110]">
-                      <span className="font-medium">{HERO.artist}</span>,{" "}
-                      <span className="italic">{HERO.title}</span>, {HERO.year}
+                    <p className="text-[14px] tracking-tight text-[#111110]">Sacha Elron</p>
+                    <p className="text-[14px] tracking-tight text-[#111110]">
+                      <span className="italic">Painting 10</span>, 2024
                     </p>
-                    <p className="mt-0.5 text-[12px] text-[#6B6A67]">
-                      {HERO.medium} · {HERO.dimensions}
+                    <p className="mt-2 text-[13px] leading-snug text-[#ADADAA]">
+                      Acrylic on canvas
+                      <br />
+                      180 × 180 cm
                     </p>
+                    <p className="mt-2 text-[14px] tabular-nums text-[#111110]">8000 €</p>
                   </div>
-                  <div className="flex shrink-0 flex-col items-end gap-1.5">
-                    {HERO.status && <StatusPill status={HERO.status} />}
-                    <span className="text-[13px] tabular-nums text-[#111110]">{HERO.price}</span>
-                  </div>
+                  <button
+                    type="button"
+                    className="shrink-0 rounded-md border border-[#E6B0B0] px-5 py-2 text-[13px] tracking-tight text-[#111110] transition-colors hover:bg-[#FBF3F3]"
+                  >
+                    Inquire
+                  </button>
                 </figcaption>
               </figure>
 
-              {/* Two-up grid */}
-              <div className="mt-10 grid grid-cols-2 gap-5 md:gap-7">
-                {GRID.map((w) => (
-                  <figure key={w.title}>
-                    <div className="overflow-hidden rounded-sm bg-[#EFEFEC] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_34px_rgba(0,0,0,0.08)]">
-                      <img
-                        src={w.src}
-                        alt={`${w.artist}, ${w.title}`}
-                        className="aspect-[3/4] w-full object-cover"
-                        loading="lazy"
-                      />
-                    </div>
-                    <figcaption className="mt-2.5">
-                      <p className="text-[12px] text-[#111110]">
-                        <span className="italic">{w.title}</span>, {w.year}
-                      </p>
-                      <p className="mt-0.5 text-[11px] text-[#6B6A67]">{w.dimensions}</p>
-                      <div className="mt-1.5 flex items-center justify-between gap-2">
-                        {w.status && <StatusPill status={w.status} />}
-                        <span className="text-[12px] tabular-nums text-[#111110]">{w.price}</span>
-                      </div>
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
+              {/* Artwork 2 — teased below the fold */}
+              <figure className="mt-10">
+                <div className="overflow-hidden bg-[#EFEFEC]">
+                  <img
+                    src={INSTALL_2}
+                    alt="Installation view"
+                    className="aspect-[16/9] w-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </figure>
             </div>
+
+            {/* Fade the document into the frame at the bottom */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F6F6F5] to-transparent"
+            />
           </div>
         </div>
       </motion.div>
