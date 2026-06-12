@@ -25,13 +25,25 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`bg-white ${inter.variable}`}>
       <head>
-        <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" fetchPriority="high" />
+        <link
+          rel="preload"
+          as="image"
+          href="/allen14.jpg-preview3.jpg"
+          fetchPriority="high"
+        />
+        {/* Marque le document quand le site est embarqué dans une iframe
+            (portfolio) : la scrollbar est masquée via globals.css. Exécuté
+            avant le premier rendu pour éviter tout flash de scrollbar. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(window.self!==window.top)document.documentElement.classList.add('is-embedded')}catch(e){document.documentElement.classList.add('is-embedded')}",
+          }}
+        />
       </head>
       <body className="antialiased bg-white font-sans">
         <ClerkClientProvider>
-          <LangProvider>
-            {children}
-          </LangProvider>
+          <LangProvider>{children}</LangProvider>
         </ClerkClientProvider>
         <Analytics />
       </body>
