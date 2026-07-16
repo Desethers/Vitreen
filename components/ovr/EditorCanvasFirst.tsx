@@ -1,8 +1,7 @@
 "use client";
 import { useState, useLayoutEffect, useRef, useCallback } from "react";
-import dynamic from "next/dynamic";
 import { DragDropContext, Droppable, Draggable, type DropResult } from "@hello-pangea/dnd";
-import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
+import { useOptionalUser } from "@/lib/useOptionalUser";
 import type {
   Block,
   BlockType,
@@ -21,10 +20,6 @@ import {
   ExportPanel,
   SubscriptionModal,
 } from "@/components/ovr/ViewingRoomApp";
-
-const UserButton = clerkEnabled
-  ? dynamic(() => import("@clerk/nextjs").then((m) => ({ default: m.UserButton })), { ssr: false })
-  : () => null;
 
 const DEFAULT_SETUP: VrSetup = {
   galleryName: "",
@@ -206,7 +201,6 @@ function HeroEntry({ onUpload }: { onUpload: (files: File[]) => void }) {
 
       {/* Top-right utilities */}
       <div className="absolute top-5 right-5 flex items-center gap-3 z-20">
-        {clerkEnabled ? <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} /> : null}
         <ThemeToggle />
       </div>
     </div>
@@ -884,7 +878,7 @@ function SettingsDrawer({
 // ─── Main shell ──────────────────────────────────────────────────────────────
 
 export default function EditorCanvasFirst() {
-  const { isPro, isSignedIn } = useOptionalUser();
+  const { isPro } = useOptionalUser();
 
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP);
   const [images, setImages] = useState<ImageItem[]>([]);
@@ -1353,19 +1347,8 @@ export default function EditorCanvasFirst() {
         sendDisabled={sendDisabled}
       />
 
-      {/* Top-right utilities — auth + theme */}
+      {/* Top-right utilities */}
       <div className="fixed right-3 top-3 z-30 flex items-center gap-2 vr-shell-fade md:right-4 md:top-4">
-        {clerkEnabled &&
-          (isSignedIn ? (
-            <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
-          ) : (
-            <a
-              href="https://vitreen.art/sign-in"
-              className="inline-flex h-8 items-center rounded-[5px] bg-gray-900 px-4 text-[12px] text-white transition-colors hover:bg-gray-700"
-            >
-              Sign in
-            </a>
-          ))}
         <ThemeToggle />
       </div>
 

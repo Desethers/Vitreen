@@ -53,7 +53,6 @@ jobs:
       - name: Next build
         env:
           # Public placeholders so the build resolves NEXT_PUBLIC_* at compile time.
-          NEXT_PUBLIC_CLERK_ENABLED: "false"
           NEXT_PUBLIC_SITE_URL: "https://vitreen.art"
           NEXT_PUBLIC_SANITY_PROJECT_ID: "placeholder"
           NEXT_PUBLIC_SANITY_DATASET: "production"

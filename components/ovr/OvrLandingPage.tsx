@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
-import { useRouter, usePathname } from "next/navigation";
+import { useOptionalUser } from "@/lib/useOptionalUser";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
@@ -151,9 +150,7 @@ const mockupStories = [
 ] as const;
 
 export default function OvrLandingPage() {
-  const { isSignedIn, isPro } = useOptionalUser();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { isPro } = useOptionalUser();
   const [loadingCheckout, setLoadingCheckout] = useState<false | "monthly" | "yearly">(false);
   const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === "true";
   const [yearlyError, setYearlyError] = useState<string | null>(null);
@@ -165,10 +162,6 @@ export default function OvrLandingPage() {
   const handleSubscribe = async (billing: "monthly" | "yearly") => {
     if (isPro) {
       goToEditor();
-      return;
-    }
-    if (clerkEnabled && !isSignedIn) {
-      router.push(`/sign-in?redirect_url=${encodeURIComponent(pathname || "/room")}`);
       return;
     }
     if (!stripeConfigured) {
