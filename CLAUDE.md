@@ -2,38 +2,51 @@
 
 Ce fichier est lu à chaque session. Il sert de mémoire stable du projet : positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 
+> **Mandatory:** read `vitreen-playbook.md` in full at the beginning of every session, before making product, UX, copywriting, design or implementation decisions.
+
 ---
 
 ## 1. Positionnement (la vision)
 
-Vitreen n'est pas un studio web. C'est le **Digital Sales Partner** des galeries d'art — une plateforme qui centralise l'inventaire pour automatiser le rayonnement et générer des ventes.
+Every gallery develops its own way of working — across artworks, publishing, collector relationships and internal coordination. Vitreen helps connect these fragmented activities into a more coherent working environment without forcing galleries into rigid software workflows.
 
-Architecture en 3 briques indissociables :
-- **CRM** — *L'Inventaire Intelligent.* Chaque œuvre entrée une seule fois.
-- **Website** — *L'Expérience de Vente.* Une Viewing Room permanente.
-- **Content Engine** — *L'Ampli Marketing.* Une expo devient une campagne en un clic.
+### Pitch de vente
 
-Pitch : `Inventaire (Input) → UNE PLATEFORME UNIQUE → (Outputs) Site / Social / Mail`.
+Vitreen aide les galeries d’art à faire circuler leurs œuvres plus rapidement et plus simplement auprès de leurs collectionneurs.
 
-Source détaillée (idées, pricing, killer features) : page Notion *Idées à developper* (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
+Concrètement, on connecte les archives, inventaires ou bases de données existantes de la galerie, puis on transforme ces œuvres en matériel collector prêt à être partagé : viewing rooms, sélections privées, PDFs, pages web ou échanges WhatsApp.
 
-### Personas (menu Solutions — "By role")
-Galeries · Conseillers & Marchands · Artistes · Collectionneurs · Successions d'artistes
+L’idée n’est pas de remplacer les habitudes de travail des galeries avec une nouvelle plateforme lourde, mais plutôt de construire une couche opérationnelle discrète autour de leurs outils existants pour fluidifier la diffusion des œuvres et les conversations de vente.
 
-### Domaines (menu Solutions — "By area")
-Gestion de galerie · Sites web · Contenu social · Marketing
+### 4 piliers
+
+**1. Artworks & Archives**
+Organise artworks, exhibitions and archives across existing gallery systems. Vitreen structures artwork information, exhibition history, inventory and archival material from spreadsheets, legacy CMSs, PDFs or gallery databases — without replacing existing tools.
+
+**2. Public & Private Publishing**
+Publish artworks across websites, viewing rooms, collector PDFs and private sharing channels. Vitreen helps galleries move seamlessly between public presentation and private distribution while maintaining consistency around artworks and exhibitions.
+
+**3. Collector Relationships**
+Keep collector inquiries, follow-ups and sales conversations connected to the right artworks. Vitreen helps galleries preserve continuity across collector interactions and sales preparation without introducing unnecessary CRM complexity.
+
+**4. Gallery Assistants**
+Assist galleries across publishing, collector communication and operational preparation using gallery-specific context. The goal is not to automate relationships, but to give galleries more time to focus on artists, exhibitions and collectors.
+
+Source détaillée (idées, pricing, killer features) : page Notion _Idées à developper_ (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
 
 ---
 
 ## 2. Vocabulaire
 
 **Préférer**
+
 - "Sales Journey", "Collector Engagement"
 - "Distribute" (le bouton magique)
 - "Viewing Room", "Private Viewing"
 - "Partner", "Digital Sales Partner"
 
 **Éviter**
+
 - "CMS", "Responsive", "Sites web pour galeries"
 - "Studio de création de sites"
 - Jargon technique côté client
@@ -49,6 +62,7 @@ Gestion de galerie · Sites web · Contenu social · Marketing
 - **i18n :** `lib/lang.tsx` (FR/EN, contexte React custom)
 
 Dev server (port 3001 par défaut) :
+
 ```bash
 npm run dev          # webpack
 ```
@@ -88,15 +102,18 @@ Couleurs :
 | Fond | `#FFFFFF` |
 
 Typographie :
+
 - `font-display` pour les titres (cf. `app/layout.tsx`)
 - Sans-serif système pour le reste
 
 Tailles courantes dans la nav et menus :
+
 - Eyebrows / labels gris : `text-[10px]` ou `text-[11px]` (pas d'uppercase par défaut)
 - Items menu : `text-[14px]` (`font-display`)
 - Descriptions : `text-[11px]` à `text-[12px]`
 
 Radius :
+
 - Cartes / dropdowns : `rounded-lg`
 - Pills / badges : `rounded-full`
 - Images dans dropdowns : `rounded-md`
@@ -132,18 +149,18 @@ Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
 
 ## 9. Roadmap produit (état actuel)
 
-| Brique | Statut |
-| --- | --- |
-| CRM / Inventaire | ✅ Existant |
-| Site galerie / Vitrine | ✅ Existant |
-| Pages artistes / expositions | ✅ Existant |
-| Viewing Room Studio | 🟡 *Bientôt* (badge sur la nav) |
-| Distribute (bouton magique) | 🔴 À développer — *killer feature* |
-| Generate Private Room | 🔴 À développer |
-| Export to Story (9:16 IG) | 🔴 À développer |
-| AI Copywriter | 🔴 À développer |
-| Viewing Room "Active" (analytics) | 🔴 À développer |
-| Dashboard / Slack Partner | 🔴 À développer |
+| Brique                       | Statut                             |
+| ---------------------------- | ---------------------------------- |
+| CRM / Inventaire             | ✅ Existant                        |
+| Site galerie / Vitrine       | ✅ Existant                        |
+| Pages artistes / expositions | ✅ Existant                        |
+| Private Selections           | ✅ Intégré à Gallery OS            |
+| Distribute (bouton magique)  | 🔴 À développer — _killer feature_ |
+| Generate Private Room        | 🔴 À développer                    |
+| Export to Story (9:16 IG)    | 🔴 À développer                    |
+| AI Copywriter                | 🔴 À développer                    |
+| Private Selection analytics  | 🔴 À développer                    |
+| Dashboard / Slack Partner    | 🔴 À développer                    |
 
 ---
 
@@ -152,7 +169,7 @@ Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
 - Pivot vers du **récurrent (SaaS + Service)** plutôt que one-shot
 - Setup : ~2 000€
 - Monthly Partnership : 300-800€/mois
-- Argument : *"Artlogic = 200€/mois pour stocker. Vitreen = 500€/mois pour vendre."*
+- Argument : _"Artlogic = 200€/mois pour stocker. Vitreen = 500€/mois pour vendre."_
 
 Détails dans la page Notion.
 
@@ -161,6 +178,7 @@ Détails dans la page Notion.
 ## 11. Social content
 
 Guides de rédaction par réseau dans `.claude/social/` :
+
 - `README.md` — voix globale + matrice IG vs X
 - `instagram.md` — ton "luxe calme", carrousels, stories
 - `twitter.md` — voix founder, threads, building in public

@@ -1,0 +1,16 @@
+import ToolPage from "@/components/ToolPage";
+
+export const metadata = {
+  title: "Inquiries",
+  description: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.",
+  alternates: { canonical: "/products/inquiries" },
+  openGraph: {
+    url: "/products/inquiries",
+    title: "Inquiries — Vitreen",
+    description: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.",
+  },
+};
+
+export default function Page() {
+  return <ToolPage slug="inquiries" />;
+}

@@ -14,6 +14,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [activeProductIndex, setActiveProductIndex] = useState(0);
   const [contactModalOpen, setContactModalOpen] = useState(false);
 
   const [form, setForm] = useState({ nom: "", galerie: "", email: "", projet: "" });
@@ -94,9 +95,7 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 border-b-[0.5px] bg-white py-2 px-4 transition-[border-color] duration-200 md:px-6 ${
-          scrolled || megaMenuOpen
-            ? "border-[#E8E8E6]"
-            : "border-transparent"
+          scrolled || megaMenuOpen ? "border-[#E8E8E6]" : "border-transparent"
         }`}
       >
         <div className="relative mx-auto flex h-9 w-full max-w-7xl items-center justify-between">
@@ -120,7 +119,10 @@ export default function Nav() {
                 }`}
               />
             </button>
-            <a href="#" className="w-32 shrink-0 font-display text-[15px] tracking-tight text-[#111110] md:text-base">
+            <a
+              href="/"
+              className="w-32 shrink-0 font-display text-[15px] tracking-tight text-[#111110] md:text-base"
+            >
               Vitreen
             </a>
           </div>
@@ -144,7 +146,9 @@ export default function Nav() {
                 const isProduct = linkMenu === "product";
                 const open = isProduct ? productOpen : solutionsOpen;
                 const setOpen = isProduct ? setProductOpen : setSolutionsOpen;
-                const closeOther = isProduct ? () => setSolutionsOpen(false) : () => setProductOpen(false);
+                const closeOther = isProduct
+                  ? () => setSolutionsOpen(false)
+                  : () => setProductOpen(false);
                 return (
                   <div
                     key={link.label}
@@ -197,25 +201,36 @@ export default function Nav() {
                   <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                     <div>
                       <p className="text-[12px] text-[#ADADAA]">{productMenu.sectionLabel}</p>
-                      <div className="mt-5 grid grid-cols-1 gap-y-5">
-                        {productMenu.items.map((item) => (
+                      <div className="mt-4 grid grid-cols-1 gap-y-1">
+                        {productMenu.items.map((item, index) => (
                           <a
                             key={item.title}
                             href={item.href}
                             onClick={() => setProductOpen(false)}
-                            className="group"
+                            onMouseEnter={() => setActiveProductIndex(index)}
+                            onFocus={() => setActiveProductIndex(index)}
+                            className={`group -mx-[42px] block w-[calc(100%-150px)] rounded px-[42px] py-2 transition-colors duration-200 ${
+                              activeProductIndex === index ? "bg-[#F5F5F3]" : "hover:bg-[#F8F8F6]"
+                            }`}
                           >
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
-                                {item.title}
-                              </span>
-                              {"badge" in item && item.badge && (
-                                <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
-                                  {item.badge}
+                            <div className="flex items-center gap-3">
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                                  {item.title}
                                 </span>
-                              )}
+                                {(() => {
+                                  const b = "badge" in item && (item as { badge?: string }).badge;
+                                  return b ? (
+                                    <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[9px] font-medium leading-none text-white">
+                                      {b}
+                                    </span>
+                                  ) : null;
+                                })()}
+                              </div>
                             </div>
-                            <p className="text-[12px] leading-snug text-[#6B6A67]">{item.desc}</p>
+                            <p className="mt-0.5 max-w-xl text-[12px] leading-snug text-[#6B6A67]">
+                              {item.desc}
+                            </p>
                           </a>
                         ))}
                       </div>
@@ -223,21 +238,30 @@ export default function Nav() {
                     <a
                       href={productMenu.featured.href}
                       onClick={() => setProductOpen(false)}
-                      className="flex flex-col"
+                      className="group block"
                     >
-                      <div
-                        className="aspect-[16/10] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
-                        style={{ backgroundImage: `url(${productMenu.featured.image})` }}
-                      />
-                      <p className="mt-3 text-[10px] text-[#ADADAA]">
-                        {productMenu.featured.eyebrow}
-                      </p>
-                      <h4 className="mt-1 font-display text-[15px] text-[#111110]">
-                        {productMenu.featured.title}
-                      </h4>
-                      <p className="mt-1 text-[12px] text-[#111110] underline-offset-4 hover:underline">
-                        {productMenu.featured.cta}
-                      </p>
+                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-[#111110]">
+                        <div
+                          className="absolute inset-0 bg-cover bg-[center_42%]"
+                          style={{ backgroundImage: `url(${productMenu.featured.image})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                          <h4 className="font-display text-[17px]">{productMenu.featured.title}</h4>
+                          <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
+                            {productMenu.featured.desc}
+                          </p>
+                          <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
+                            {productMenu.featured.cta}
+                            <span
+                              aria-hidden="true"
+                              className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
+                            >
+                              →
+                            </span>
+                          </p>
+                        </div>
+                      </div>
                     </a>
                   </div>
                 </div>
@@ -258,34 +282,42 @@ export default function Nav() {
                 className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
               >
                 <div className="w-full overflow-hidden border-b border-[#E8E8E6] bg-white px-8 py-8">
-                  <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
-                    <div>
-                      {solutionsMenu.columns[0] && (
-                        <>
-                          <p className="text-[12px] text-[#ADADAA]">{solutionsMenu.columns[0].label}</p>
-                          <ul className="mt-5 grid gap-y-5">
-                            {solutionsMenu.columns[0].items.map((item) => (
-                              <li key={item.title}>
-                                <a
-                                  href={item.href}
-                                  onClick={() => setSolutionsOpen(false)}
-                                  className="group block"
-                                >
-                                  <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
-                                    {item.title}
-                                  </span>
-                                  {"desc" in item && item.desc && (
-                                    <span className="block text-[12px] leading-snug text-[#6B6A67]">
-                                      {item.desc}
+                  <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,24rem)_minmax(0,32rem)] justify-between gap-x-12">
+                    {(() => {
+                      const column = solutionsMenu.columns[0];
+                      return (
+                        <div>
+                          <p className="text-[12px] text-[#ADADAA]">{column.label}</p>
+                          <ul className="mt-4 grid gap-y-1">
+                            {column.items
+                              .filter(
+                                (item) =>
+                                  item.title !== "Collectors" && item.title !== "Collectionneurs"
+                              )
+                              .map((item) => (
+                                <li key={item.title}>
+                                  <a
+                                    href={item.href}
+                                    onClick={() => setSolutionsOpen(false)}
+                                    className="group -mx-4 block w-[calc(100%+32px)] rounded px-4 py-2 transition-colors duration-200 hover:bg-[#F8F8F6]"
+                                  >
+                                    <span className="flex items-center gap-3">
+                                      <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                                        {item.title}
+                                      </span>
                                     </span>
-                                  )}
-                                </a>
-                              </li>
-                            ))}
+                                    {"desc" in item && item.desc && (
+                                      <span className="mt-0.5 block text-[12px] leading-snug text-[#6B6A67]">
+                                        {item.desc}
+                                      </span>
+                                    )}
+                                  </a>
+                                </li>
+                              ))}
                           </ul>
-                        </>
-                      )}
-                    </div>
+                        </div>
+                      );
+                    })()}
                     <a
                       href={solutionsMenu.featured.href}
                       onClick={() => setSolutionsOpen(false)}
@@ -320,7 +352,11 @@ export default function Nav() {
             )}
           </AnimatePresence>
 
-          <Button size="sm" onClick={() => setContactModalOpen(true)} className="z-20 shrink-0 !py-[7px] !px-3 !text-[12px]">
+          <Button
+            size="sm"
+            onClick={() => setContactModalOpen(true)}
+            className="z-20 shrink-0 !py-[7px] !px-3 !text-[12px]"
+          >
             {t.nav.cta}
           </Button>
         </div>
@@ -398,13 +434,18 @@ export default function Nav() {
                     <span className="text-lg leading-none">×</span>
                   </button>
 
-                  <h2 id="contact-modal-title" className="mb-2 pr-10 font-display text-xl text-[#111110]">
+                  <h2
+                    id="contact-modal-title"
+                    className="mb-2 pr-10 font-display text-xl text-[#111110]"
+                  >
                     {t.nav.modal.title}
                   </h2>
                   <p className="mb-6 text-sm text-[#6B6A67]">{t.nav.modal.subtitle}</p>
 
                   {submitted ? (
-                    <p className="py-4 font-display text-lg leading-relaxed text-[#111110]">{t.nav.modal.success}</p>
+                    <p className="py-4 font-display text-lg leading-relaxed text-[#111110]">
+                      {t.nav.modal.success}
+                    </p>
                   ) : (
                     <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
                       <input

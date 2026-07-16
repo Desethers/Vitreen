@@ -1,0 +1,117 @@
+CONNECTEDTOOLS — USE CASE DESIGN
+components/ConnectedTools.tsx
+
+---------------------------------------------------------------
+IDEE
+---------------------------------------------------------------
+
+Avant ce composant, Vitreen se presentait comme "un site pour galerie".
+Ce mock repond a une objection implicite : "vous allez encore nous faire
+changer d'outils ?"
+
+ConnectedTools montre l'inverse — un seul ecran "Gallery OS" au centre,
+et autour, les canaux par lesquels une oeuvre part deja chez un
+collectionneur : email (Gmail) et WhatsApp.
+
+Le message visuel : Vitreen orchestre, les outils existants restent.
+
+---------------------------------------------------------------
+ANATOMIE
+---------------------------------------------------------------
+
+1. GalleryOsDashboard (centre)
+
+Le coeur du composant — reutilise a 3 endroits du site (voir
+"Reutilisation").
+
+- Sidebar gauche (26% de largeur) : navigation type CRM — Overview,
+  Artworks (actif), Artists, Exhibitions, Inquiries, Sales drafts
+  (badge "2"), Private Selection, Collectors, Tools. Footer
+  "Powered by Vitreen".
+
+- Zone principale : header "Oeuvres" + compteur ("12 au total ·
+  12 disponibles · 0 vendue"), bouton "+ Ajouter", barre de recherche
+  (Cmd+K), pills de filtres (Disponibles, Reservees, Vendues,
+  Consignees, En pret + pill artiste), puis un tableau de 12 oeuvres
+  (vignette couleur, titre, artiste, annee, prix, statut "Available").
+
+- Deux props controlent les variantes :
+  - glass : fond translucide/blur (bg-white/72 backdrop-blur-md) —
+    utilise quand le dashboard est superpose a une photo (hero, Showcase).
+  - compact : sidebar masquee, colonnes reduites a "Titre / Statut",
+    header simplifie avec menu burger — variante mobile.
+
+2. GmailMock (flottant, haut-droite)
+
+Reproduction fidele d'un composeur Gmail "New Message" : destinataires,
+sujet, corps de mail avec une photo de mur de galerie generee en CSS pur
+(pas d'image — gradients representant mur/oeuvre/sol/reflet/eclairage de
+rail), metadonnees de l'oeuvre ("Sun Dog"), et un popover Vitreen
+flottant en bas a droite du corps du mail.
+
+Message : depuis Gallery OS, on insere une oeuvre directement dans un
+email classique — pas de nouvelle interface a apprendre pour le
+collectionneur.
+
+3. WhatsappBotMock (flottant, bas)
+
+Conversation WhatsApp dans un theme sombre : l'utilisateur envoie une
+image d'oeuvre, le bot Vitreen repond ("Recu. 'sans titre' ajoutee a
+votre Selection"), puis repond a la commande /pdf en generant un PDF
+de selection (2 pages, 44 Ko) directement dans le fil.
+
+Message : les commandes "magiques" (Distribute, Generate PDF)
+fonctionnent depuis une conversation existante, sans changer de canal.
+
+4. ActionPill
+
+Petite pilule flottante (icone + label) — element de composition
+"Comet-style" pour suggerer une action contextuelle au survol/scroll
+de la section.
+
+---------------------------------------------------------------
+REUTILISATION DE GalleryOsDashboard
+---------------------------------------------------------------
+
+- ConnectedTools (section dediee)        -> par defaut
+  Section "outils connectes" de la home
+
+- HeroDashboardMock (desktop)            -> glass
+  Superpose a la photo de galerie dans le hero
+
+- HeroDashboardMock (mobile)             -> compact
+  Dashboard plein ecran, sidebar masquee
+
+- Showcase                               -> glass
+  Meme traitement translucide que le hero
+
+- PortfolioPreviewShell (/portfolio-preview) -> —
+  Page standalone pour partager/iframer le mockup seul
+
+Un seul composant source de verite pour le visuel "produit" — toute
+evolution du dashboard (couleurs, donnees, layout) se propage partout
+ou il apparait.
+
+---------------------------------------------------------------
+DONNEES MOCK
+---------------------------------------------------------------
+
+SAMPLE_ARTIST / SAMPLE_ARTWORK viennent de lib/mocks/sampleData.ts —
+les 12 lignes du tableau (ARTWORK_ROWS) sont codees en dur dans
+ConnectedTools.tsx avec des couleurs representant chaque oeuvre
+(pas de vraies images), pour rester legeres et stylees de facon
+coherente.
+
+---------------------------------------------------------------
+HISTORIQUE (commits cles)
+---------------------------------------------------------------
+
+- 11d1a1d — Add ConnectedTools section — Comet-style composition
+  (creation)
+- 176988e — fond blanc, suppression des rotations
+- d6714a7 — GmailMock fidele au composeur Gmail reel
+- 9040b23 -> bc4891a — iterations de proportions (dashboard 68% -> 90%
+  -> 80% de largeur, Gmail mock reduit, hauteur 16/10 -> 16/13)
+- f5b3ce3 — extraction en page /portfolio-preview pour partage externe
+- 9f0edbd — reduction de moitie de la hauteur de la barre de recherche
+  (variante glass)

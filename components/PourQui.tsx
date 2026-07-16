@@ -9,11 +9,7 @@ const audiences = [
     label: "Galeries",
     headline: "Un site à la hauteur de votre programme.",
     body: "Gérez vos artistes, documentez vos expositions et constituez une archive vivante de votre galerie — sans dépendre d'un développeur.",
-    points: [
-      "Pages artistes & œuvres",
-      "Archives d'expositions",
-      "CMS autonome",
-    ],
+    points: ["Pages artistes & œuvres", "Archives d'expositions", "CMS autonome"],
     cta: "Voir l'offre galerie",
     href: "#offre",
   },
@@ -21,11 +17,7 @@ const audiences = [
     label: "Artistes",
     headline: "Votre portfolio, entre vos mains.",
     body: "Un site personnel que vous gérez directement, indépendant de votre galerie. Votre travail présenté selon vos termes.",
-    points: [
-      "Portfolio sur-mesure",
-      "Mise à jour en autonomie",
-      "Séries & œuvres organisées",
-    ],
+    points: ["Portfolio sur-mesure", "Mise à jour en autonomie", "Séries & œuvres organisées"],
     cta: "Voir l'offre artiste",
     href: "#offre",
   },
@@ -33,11 +25,7 @@ const audiences = [
     label: "Art Advisors",
     headline: "Présentez vos sélections avec élégance.",
     body: "Une interface dédiée pour partager des sélections d'œuvres à vos clients. Sobre, rapide, mémorable.",
-    points: [
-      "Sélections par client",
-      "Interface de présentation",
-      "Mise à jour à la demande",
-    ],
+    points: ["Sélections par client", "Interface de présentation", "Mise à jour à la demande"],
     cta: "Voir l'offre advisor",
     href: "#offre",
   },
@@ -69,21 +57,14 @@ export default function PourQui() {
               transition={{ duration: 0.5, ease, delay: i * 0.1 }}
               className="glass rounded p-8 flex flex-col"
             >
-              <p className="text-xs tracking-widest uppercase text-[#ADADAA] mb-6">
-                {a.label}
-              </p>
+              <p className="text-xs tracking-widest uppercase text-[#ADADAA] mb-6">{a.label}</p>
               <h3 className="font-display text-xl text-[#111110] leading-snug tracking-tight mb-4">
                 {a.headline}
               </h3>
-              <p className="text-[#6B6A67] text-sm leading-relaxed mb-8">
-                {a.body}
-              </p>
+              <p className="text-[#6B6A67] text-sm leading-relaxed mb-8">{a.body}</p>
               <ul className="space-y-2 mb-10 flex-1">
                 {a.points.map((point) => (
-                  <li
-                    key={point}
-                    className="flex items-center gap-2 text-sm text-[#6B6A67]"
-                  >
+                  <li key={point} className="flex items-center gap-2 text-sm text-[#6B6A67]">
                     <span className="w-1 h-1 rounded-full bg-[#ADADAA] shrink-0" />
                     {point}
                   </li>

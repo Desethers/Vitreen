@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { LangProvider } from "@/components/LangProvider";
-import { ClerkClientProvider } from "@/components/ClerkClientProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,7 +30,6 @@ export const metadata: Metadata = {
     "site web galerie",
     "art contemporain",
     "CRM galerie",
-    "Artlogic",
     "collectionneurs",
     "Vitreen",
   ],
@@ -109,6 +107,15 @@ export default function RootLayout({
     <html lang="fr" className={`bg-white ${inter.variable}`}>
       <head>
         <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" fetchPriority="high" />
+        {/* Marque le document quand le site est embarqué dans une iframe
+            (portfolio) : la scrollbar est masquée via globals.css. Exécuté
+            avant le premier rendu pour éviter tout flash de scrollbar. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(window.self!==window.top)document.documentElement.classList.add('is-embedded')}catch(e){document.documentElement.classList.add('is-embedded')}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -119,11 +126,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased bg-white font-sans">
-        <ClerkClientProvider>
-          <LangProvider>
-            {children}
-          </LangProvider>
-        </ClerkClientProvider>
+        <LangProvider>{children}</LangProvider>
         <Analytics />
       </body>
     </html>

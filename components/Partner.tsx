@@ -7,7 +7,16 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const items = [
   {
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="3" y="3" width="18" height="18" rx="2" />
         <path d="M3 9h18" />
         <path d="M9 21V9" />
@@ -18,7 +27,16 @@ const items = [
   },
   {
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <rect x="3" y="3" width="7" height="7" rx="1" />
         <rect x="14" y="3" width="7" height="7" rx="1" />
         <rect x="3" y="14" width="7" height="7" rx="1" />
@@ -30,7 +48,16 @@ const items = [
   },
   {
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
         <path d="M12 2v4" />
         <path d="m16.24 7.76 2.83-2.83" />
         <path d="M22 12h-4" />
@@ -51,7 +78,6 @@ export default function Partner() {
     <section className="py-12 md:py-20 px-4 md:px-6 bg-white">
       <div className="max-w-7xl mx-auto bg-[#111110] rounded-[20px] px-10 md:px-16 py-14 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-
           {/* Left — text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -88,7 +114,6 @@ export default function Partner() {
               </motion.div>
             ))}
           </div>
-
         </div>
       </div>
     </section>

@@ -8,33 +8,35 @@
     "dev:clean": "(lsof -ti tcp:3000 2>/dev/null; lsof -ti tcp:3001 2>/dev/null; lsof -ti tcp:3002 2>/dev/null) | sort -u | xargs kill -9 2>/dev/null || true && rm -f .next/dev/lock && next dev --webpack -p 3000",
     "build": "next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "check": "tsc --noEmit && prettier --check .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "ladle": "ladle serve",
+    "ladle:build": "ladle build",
+    "prepare": "simple-git-hooks",
     "generate:variations": "tsx scripts/generate-variations.ts"
   },
+  "simple-git-hooks": {
+    "pre-commit": "npx prettier --check --ignore-unknown $(git diff --cached --name-only --diff-filter=ACM)"
+  },
   "dependencies": {
-    "@clerk/nextjs": "^7.2.7",
-    "@hello-pangea/dnd": "^18.0.1",
-    "@sanity/client": "^7.22.0",
-    "@sanity/image-url": "^2.1.1",
-    "@sparticuz/chromium": "^148.0.0",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.36.0",
     "next": "16.1.6",
-    "next-sanity": "^12.3.0",
-    "puppeteer-core": "^24.42.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "resend": "^6.10.0",
-    "sanity": "^5.22.0",
-    "stripe": "^22.1.0",
-    "styled-components": "^6.4.1"
+    "resend": "^6.10.0"
   },
   "devDependencies": {
-    "@ai-sdk/google": "^3.0.53",
+    "@ladle/react": "^5.1.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "ai": "^6.0.141",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "simple-git-hooks": "^2.13.1",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
     "typescript": "^5"

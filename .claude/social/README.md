@@ -15,6 +15,7 @@ Vitreen parle comme un **partenaire des galeries qui vendent**, pas comme une ag
 - **Visuelle dans le choix des mots** — "Viewing Room", "vernissage", "accrochage", "fragmenter une expo en campagne"
 
 ### À bannir
+
 - "On vous propose un outil pour…"
 - "CMS", "Responsive", "Sites web pour galeries", "stack", "framework"
 - Emojis (sauf cas exceptionnel d'ironie/typographie)
@@ -22,6 +23,7 @@ Vitreen parle comme un **partenaire des galeries qui vendent**, pas comme une ag
 - Promesses chiffrées non vérifiées
 
 ### À garder
+
 - "Sales Journey", "Collector Engagement"
 - "Distribute" (le bouton magique — concept signature)
 - "Viewing Room", "Private Viewing"
@@ -31,16 +33,16 @@ Vitreen parle comme un **partenaire des galeries qui vendent**, pas comme une ag
 
 ## Matrice IG vs X
 
-| | Instagram | Twitter / X |
-| --- | --- | --- |
-| **Audience** | Galeristes, collectionneurs, mondains art | Founders, builders, art-tech, prospects B2B |
-| **Objectif** | Crédibilité, brand love, mood luxe | Autorité d'idées, distribution, leads |
-| **Format dominant** | Carrousel + visuel léché, story, reel | One-liner, thread (5-10 tweets), reply |
-| **Caption** | Longue OK, posée, pas de hashtag bourré | Court, punchy, voix founder personnelle |
-| **Cadence cible** | 2-3 posts/sem + stories quotidiennes | 5-10 tweets/sem + 1 thread/sem |
-| **CTA typique** | Bio link, "DM us", inviter au dialogue | Lien direct site, follow, reply |
-| **Hashtags** | 3-5 max, art-world (#contemporaryart, …) | Aucun, ou 1 niche |
-| **Voix** | "Nous" (galerie / Vitreen) | Plutôt "je" (founder Raphael) |
+|                     | Instagram                                 | Twitter / X                                 |
+| ------------------- | ----------------------------------------- | ------------------------------------------- |
+| **Audience**        | Galeristes, collectionneurs, mondains art | Founders, builders, art-tech, prospects B2B |
+| **Objectif**        | Crédibilité, brand love, mood luxe        | Autorité d'idées, distribution, leads       |
+| **Format dominant** | Carrousel + visuel léché, story, reel     | One-liner, thread (5-10 tweets), reply      |
+| **Caption**         | Longue OK, posée, pas de hashtag bourré   | Court, punchy, voix founder personnelle     |
+| **Cadence cible**   | 2-3 posts/sem + stories quotidiennes      | 5-10 tweets/sem + 1 thread/sem              |
+| **CTA typique**     | Bio link, "DM us", inviter au dialogue    | Lien direct site, follow, reply             |
+| **Hashtags**        | 3-5 max, art-world (#contemporaryart, …)  | Aucun, ou 1 niche                           |
+| **Voix**            | "Nous" (galerie / Vitreen)                | Plutôt "je" (founder Raphael)               |
 
 ## Piliers de contenu (transverses)
 
@@ -64,5 +66,6 @@ Voir détails par réseau dans `instagram.md` et `twitter.md`.
 ## Fichiers
 
 - `instagram.md` — voix, audience, piliers, formats, exemples, queue
-- `twitter.md` — idem, version X
+- `twitter.md` — idem, version X, ton plus _founder mode_ / marketing (industry takes, CTA, growth)
+- `daily-log-tweets.md` — tweets quotidiens **non marketing** : on documente le log/note du jour (ce qui a été construit, une décision produit, une friction remarquée), pas une campagne. À utiliser quand la demande est "documente ma journée" / "sors des tweets depuis mon log du jour", pas `twitter.md`.
 - `references.md` — chiffres marché vérifiés, comptes inspirants, à éviter

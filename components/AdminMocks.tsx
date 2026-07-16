@@ -24,12 +24,7 @@ function AdminShell({
 }
 
 function StatusDot({ color }: { color: string }) {
-  return (
-    <span
-      className="inline-block w-1.5 h-1.5 rounded-full"
-      style={{ background: color }}
-    />
-  );
+  return <span className="inline-block w-1.5 h-1.5 rounded-full" style={{ background: color }} />;
 }
 
 export function InquiryInboxMock() {
@@ -122,11 +117,36 @@ export function InquiryInboxMock() {
 }
 
 export function ExhibitionSchedulerMock() {
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const shows = [
     { title: "Sacha Elron — Your friends", start: 1, end: 2.5, color: "#111110", room: "Turenne" },
-    { title: "Clémence Rivière — Other Rooms", start: 2.5, end: 4.5, color: "#6B6A67", room: "Turenne" },
-    { title: "Jonas Mehler — Vetiver (Shanghai)", start: 4, end: 6, color: "#1F7A4A", room: "Marais" },
+    {
+      title: "Clémence Rivière — Other Rooms",
+      start: 2.5,
+      end: 4.5,
+      color: "#6B6A67",
+      room: "Turenne",
+    },
+    {
+      title: "Jonas Mehler — Vetiver (Shanghai)",
+      start: 4,
+      end: 6,
+      color: "#1F7A4A",
+      room: "Marais",
+    },
     { title: "Group show — Paper Works", start: 6.5, end: 8.5, color: "#B88442", room: "Turenne" },
     { title: "Lena Ohta — Solo", start: 9, end: 11, color: "#4A4E9A", room: "Marais" },
   ];
@@ -274,8 +294,12 @@ export function InventoryMock() {
             <div className="min-w-0">
               <p className="text-[11px] font-medium truncate">{a.title}</p>
               <p className="text-[9px] text-[#ADADAA] truncate">
-                <span className="md:hidden">{a.artist} · {a.price}</span>
-                <span className="hidden md:inline">{a.medium} · {a.dims}</span>
+                <span className="md:hidden">
+                  {a.artist} · {a.price}
+                </span>
+                <span className="hidden md:inline">
+                  {a.medium} · {a.dims}
+                </span>
               </p>
             </div>
             <span className="hidden md:block text-[11px] text-[#6B6A67] truncate">{a.artist}</span>

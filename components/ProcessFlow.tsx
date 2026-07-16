@@ -5,595 +5,1506 @@ import { motion, useInView } from "framer-motion";
 import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+const STEP_DELAY = 1400;
+const LOOP_PAUSE = 1800;
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 18 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-40px" },
-  transition: { duration: 0.6, ease, delay },
+  transition: { duration: 0.55, ease, delay },
 });
 
+const detailContainer = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.09,
+      delayChildren: 0.12,
+    },
+  },
+};
 
-// Séquence (continuité maximale) :
-// t=0ms    → cercle 01 s'allume
-// t=260ms  → segment entre dans la ligne 1
-// t=1320ms → bord droit touche cercle 02 → absorption (scaleX→0) → cercle 02 s'allume
-//            → ligne 2 démarre immédiatement comme une continuité de flux
-// t=2380ms → bord droit touche cercle 03 → absorption → cercle 03 s'allume
-// t=4400ms → reset & boucle
-//
-// Note : x="150%" = translateX(150% de la largeur propre de l'élément = 60% du container)
-// → bord droit = 60% + 40% = 100% du container = exactement sur le cercle suivant
-// Vertical (mobile) : même logique avec y / scaleY et transformOrigin bottom
+const detailItem = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.38, ease },
+  },
+};
 
-const T_CIRCLE_2 = 1320;
-const T_CIRCLE_3 = 2380;
-const T_LINE_1   = 260;
-const T_LINE_2   = 1320;  // démarre quand le flux traverse le cercle 02
-const LINE_DUR   = 1.3;   // secondes
-const ARRIVE_AT  = 0.82;  // fraction de LINE_DUR où le bord droit touche le cercle
-const LOOP_MS    = 4400;
+type Detail =
+  | {
+      type: "source";
+      items: Array<{
+        label: string;
+        active?: boolean;
+        icon: "archive" | "sheet" | "folder" | "library" | "mail";
+      }>;
+    }
+  | {
+      type: "checks";
+      items: Array<{ label: string; icon: "file" | "alert" | "check" }>;
+    }
+  | {
+      type: "delivery";
+      items: Array<{
+        label: string;
+        icon: "gmail" | "whatsapp" | "views" | "inquiries";
+      }>;
+    }
+  | {
+      type: "dashboard";
+      items: Array<{
+        strong: string;
+        label: string;
+        icon: "file" | "reply" | "people";
+      }>;
+    };
 
-const stepTwoLogos = [
-  { src: "/logos/google-gmail-svgrepo-com.svg", alt: "Gmail" },
-  { src: "/logos/Microsoft_Office_Outlook_Logo.svg", alt: "Outlook" },
-  { src: "/logos/pdf-svgrepo-com.svg", alt: "PDF" },
-  { src: "/logos/Microsoft_Office_Excel_Logo.svg", alt: "Excel" },
-  { src: "/logos/Android_App_Icon_2026.png", alt: "WhatsApp" },
-];
+const details: Record<"fr" | "en", Detail[]> = {
+  fr: [
+    {
+      type: "source",
+      items: [
+        { label: "Dossiers", icon: "folder" },
+        { label: "Archives", icon: "library" },
+        { label: "Canaux d’échange", icon: "mail" },
+        { label: "PDF & fiches", icon: "archive" },
+      ],
+    },
+    {
+      type: "checks",
+      items: [
+        { label: "Légendes, dimensions et prix préparés.", icon: "check" },
+        { label: "Identité galerie appliquée aux supports.", icon: "file" },
+        {
+          label: "Viewing room, PDF et email prêts à partager.",
+          icon: "alert",
+        },
+      ],
+    },
+    {
+      type: "delivery",
+      items: [
+        { label: "Gmail", icon: "gmail" },
+        { label: "WhatsApp", icon: "whatsapp" },
+        { label: "Vues PDF", icon: "views" },
+        { label: "Demandes", icon: "inquiries" },
+      ],
+    },
+  ],
+  en: [
+    {
+      type: "source",
+      items: [
+        { label: "Folders", icon: "folder" },
+        { label: "Archives", icon: "library" },
+        { label: "Communication channels", icon: "mail" },
+        { label: "PDFs & sheets", icon: "archive" },
+      ],
+    },
+    {
+      type: "checks",
+      items: [
+        { label: "Captions, dimensions and prices prepared.", icon: "check" },
+        { label: "Gallery identity applied to each material.", icon: "file" },
+        { label: "Viewing room, PDF and email ready to share.", icon: "alert" },
+      ],
+    },
+    {
+      type: "delivery",
+      items: [
+        { label: "Gmail", icon: "gmail" },
+        { label: "WhatsApp", icon: "whatsapp" },
+        { label: "PDF views", icon: "views" },
+        { label: "Inquiries", icon: "inquiries" },
+      ],
+    },
+  ],
+};
 
-function StepTwoSharingFlow() {
-  const [gmail, outlook, pdf, excel, whatsApp] = stepTwoLogos;
+const flowVisualCopy = {
+  fr: {
+    title: "Le même flux, en mouvement.",
+    body: "Les œuvres partent de vos sources et deviennent des supports prêts à partager.",
+  },
+  en: {
+    title: "The same flow, in motion.",
+    body: "Artworks move from your sources into material ready to share.",
+  },
+};
 
-  // Layout (viewBox 280 x 96):
-  // Left column icons centered at x=12 — top/middle/bottom
-  // Right column icons centered at x=268 — top/bottom
-  // Card centered horizontally, from x=104 → x=176 (width 72), y=14 → y=82
-  const cardLeft = 104;
-  const cardRight = 176;
-  const cardTop = 14;
-  const cardBottom = 82;
-  const cardMidY = (cardTop + cardBottom) / 2;
-
-  const leftIcons = [
-    { src: gmail.src, alt: gmail.alt, y: 18 },
-    { src: outlook.src, alt: outlook.alt, y: cardMidY },
-    { src: excel.src, alt: excel.alt, y: 78 },
-  ];
-  const rightIcons = [
-    { src: pdf.src, alt: pdf.alt, y: 28 },
-    { src: whatsApp.src, alt: whatsApp.alt, y: 68 },
-  ];
-
-  return (
-    <div className="relative mt-3 h-[96px] w-full max-w-[340px]">
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 280 96"
-        fill="none"
-        aria-hidden="true"
-      >
-        {leftIcons.map((icon, i) => {
-          const startX = 22;
-          const startY = icon.y;
-          const endX = cardLeft;
-          const endY = cardMidY + (icon.y - cardMidY) * 0.35;
-          const cx = (startX + endX) / 2;
-          return (
-            <path
-              key={`l-${i}`}
-              d={`M${startX} ${startY} C${cx} ${startY} ${cx} ${endY} ${endX} ${endY}`}
-              stroke="rgba(17,17,16,0.16)"
-              strokeWidth="0.75"
-              strokeLinecap="round"
-            />
-          );
-        })}
-        {rightIcons.map((icon, i) => {
-          const startX = cardRight;
-          const startY = cardMidY + (icon.y - cardMidY) * 0.35;
-          const endX = 258;
-          const endY = icon.y;
-          const cx = (startX + endX) / 2;
-          return (
-            <path
-              key={`r-${i}`}
-              d={`M${startX} ${startY} C${cx} ${startY} ${cx} ${endY} ${endX} ${endY}`}
-              stroke="rgba(17,17,16,0.16)"
-              strokeWidth="0.75"
-              strokeLinecap="round"
-            />
-          );
-        })}
-      </svg>
-
-      {leftIcons.map((icon) => (
-        <div
-          key={`li-${icon.alt}`}
-          className="absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(22 / 280) * 100}%`, top: `${(icon.y / 96) * 100}%` }}
-        >
-          <img src={icon.src} alt={icon.alt} className="h-4 w-4 object-contain" loading="lazy" />
-        </div>
-      ))}
-
-      {/* Artwork card — monochrome painting mockup */}
-      <div
-        className="absolute z-10 flex flex-col overflow-hidden rounded-[3px] border border-[#E3E3DF] bg-white shadow-[0_10px_24px_rgba(17,17,16,0.06)]"
-        style={{
-          left: `${(cardLeft / 280) * 100}%`,
-          right: `${((280 - cardRight) / 280) * 100}%`,
-          top: `${(cardTop / 96) * 100}%`,
-          bottom: `${((96 - cardBottom) / 96) * 100}%`,
-        }}
-      >
-        <div className="relative flex-1 overflow-hidden bg-[#7A1F18]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0)_55%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_70%,rgba(0,0,0,0.18)_0%,rgba(0,0,0,0)_60%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_45%,rgba(0,0,0,0.08)_100%)]" />
-        </div>
-        <div className="flex flex-col gap-0.5 px-1.5 py-1">
-          <span className="truncate text-[7px] leading-tight text-[#111110]">Untitled, 2024</span>
-          <span className="truncate text-[6px] leading-tight text-[#6B6A67]">Oil on canvas · 120 × 90 cm</span>
-        </div>
-      </div>
-
-      {rightIcons.map((icon) => (
-        <div
-          key={`ri-${icon.alt}`}
-          className="absolute flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-          style={{ left: `${(258 / 280) * 100}%`, top: `${(icon.y / 96) * 100}%` }}
-        >
-          <img src={icon.src} alt={icon.alt} className="h-5 w-5 object-contain" loading="lazy" />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function StepOnePillIcon({ tag }: { tag: string }) {
-  const normalized = tag.toLowerCase();
-  const commonProps = {
-    className: "h-3 w-3 shrink-0",
-    fill: "none",
-    stroke: "currentColor",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    strokeWidth: 1.7,
-    viewBox: "0 0 16 16",
-    "aria-hidden": true,
-  };
-
-  if (normalized.includes("artwork") || normalized.includes("oeuvre")) {
-    return (
-      <svg {...commonProps}>
-        <rect x="3" y="3" width="10" height="10" rx="1.5" />
-        <path d="M5.5 10.5 7.1 8.9l1.2 1.2 1.9-2.4 1.3 2.8" />
-      </svg>
-    );
-  }
-
-  if (normalized.includes("artist")) {
-    return (
-      <svg {...commonProps}>
-        <path d="M8 8.2a2.3 2.3 0 1 0 0-4.6 2.3 2.3 0 0 0 0 4.6Z" />
-        <path d="M3.8 13c.7-1.9 2.1-3 4.2-3s3.5 1.1 4.2 3" />
-      </svg>
-    );
-  }
-
-  if (normalized.includes("collector")) {
-    return (
-      <svg {...commonProps}>
-        <path d="M5.2 7.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-        <path d="M10.8 7.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-        <path d="M2.5 12.8c.5-1.8 1.4-2.7 2.7-2.7s2.2.9 2.7 2.7" />
-        <path d="M8.1 12.8c.5-1.8 1.4-2.7 2.7-2.7s2.2.9 2.7 2.7" />
-      </svg>
-    );
-  }
-
-  if (normalized.includes("exhibition")) {
-    return (
-      <svg {...commonProps}>
-        <path d="M3 4h10" />
-        <path d="M4 4v7.5h8V4" />
-        <path d="M6.2 11.5 8 8.8l1.8 2.7" />
-      </svg>
-    );
-  }
-
-  if (normalized.includes("crm")) {
-    return (
-      <svg {...commonProps}>
-        <rect x="3" y="3.5" width="10" height="9" rx="1.5" />
-        <path d="M5.5 6.2h5" />
-        <path d="M5.5 8h5" />
-        <path d="M5.5 9.8h3" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg {...commonProps}>
-      <rect x="2.8" y="4.2" width="10.4" height="7.6" rx="1.4" />
-      <path d="m3.2 5 4.8 3.6L12.8 5" />
-    </svg>
-  );
-}
-
-function DeployCardStack({ lang }: { lang: "fr" | "en" }) {
-  const labels =
-    lang === "fr"
-      ? {
-          shared: "Private PDF shared",
-          viewed: "Interested in Untitled, 2024",
-          followUp: "Collector follow-up",
-          metaShared: "VIP collectors · Opening preview",
-          metaViewed: "Availability requested",
-          metaFollowUp: "Assigned internally",
-        }
-      : {
-          shared: "Private PDF shared",
-          viewed: "Interested in Untitled, 2024",
-          followUp: "Collector follow-up",
-          metaShared: "VIP collectors · Opening preview",
-          metaViewed: "Availability requested",
-          metaFollowUp: "Assigned internally",
-        };
-  const events = [
-    { label: labels.shared, meta: labels.metaShared, time: "09:18", zIndex: 3 },
-    { label: labels.viewed, meta: labels.metaViewed, time: "09:24", zIndex: 2 },
-    { label: labels.followUp, meta: labels.metaFollowUp, time: "09:30", zIndex: 1 },
-  ];
-
-  return (
-    <div className="mt-4 max-w-[420px]">
-      <div className="relative h-[80px]">
-        {events.map((event, index) => {
-          // index 0 = top card (fully visible), 1 & 2 peek behind
-          const reverseIndex = events.length - 1 - index; // 2, 1, 0 for stacking
-          return (
-            <div
-              key={event.label}
-              className="absolute inset-x-0 grid grid-cols-[auto_1fr_auto] items-center gap-2.5 rounded-[6px] border border-[#EFEFEB] bg-white px-2.5 py-2 shadow-[0_4px_14px_rgba(17,17,16,0.06)]"
-              style={{
-                zIndex: events.length - index,
-                top: index * 14,
-                left: index * 10,
-                right: index * 10,
-                opacity: 1 - index * 0.2,
-                transform: `scale(${1 - index * 0.04})`,
-                transformOrigin: "top center",
-              }}
-            >
-              <span
-                className="h-2 w-2 rounded-full bg-[#111110]"
-                aria-hidden="true"
-              />
-              <div className="min-w-0">
-                <p className="truncate text-[12px] leading-none text-[#111110]">{event.label}</p>
-                <p className="mt-1 truncate text-[10px] leading-none text-[#8A8A86]">{event.meta}</p>
-              </div>
-              <span className="text-[10px] leading-none text-[#ADADAA] tabular-nums">{event.time}</span>
-            </div>
-          );
-        })}
-      </div>
-      <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">
-        Operational infrastructure installed around your existing gallery environment.
-      </p>
-    </div>
-  );
-}
+const horizontalDisplaySteps = {
+  fr: [
+    {
+      title: "Audit",
+      body: "On regarde comment vos œuvres et vos informations circulent déjà dans la galerie.",
+    },
+    {
+      title: "Connect",
+      body: "Vitreen relie vos fichiers d’œuvres, vos sélections et vos échanges collectionneurs en un seul flux.",
+    },
+    {
+      title: "Ready",
+      body: "On construit votre dashboard et votre site connecté, puis on reste partenaire au quotidien.",
+    },
+  ],
+  en: [
+    {
+      title: "Audit",
+      body: "We review how artworks and information already move across the gallery.",
+    },
+    {
+      title: "Connect",
+      body: "Vitreen connects your artwork files, selections and collector conversations into one flow.",
+    },
+    {
+      title: "Ready",
+      body: "We build your dashboard and connected website, then stay on as your operating partner.",
+    },
+  ],
+} as const;
 
 export default function ProcessFlow() {
   const { lang, t } = useLang();
   const steps = t.processFlow.steps;
+  const storySteps = horizontalDisplaySteps[lang];
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
-  const [loopKey, setLoopKey]         = useState(0);
-  const [activeCircle, setActiveCircle] = useState(-1);
-  const [activeLine, setActiveLine]   = useState(-1);
+  const visualRef = useRef<HTMLDivElement>(null);
+  const horizontalRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: false, margin: "0px", amount: 0.35 });
+  const visualIsInView = useInView(visualRef, {
+    once: false,
+    margin: "0px",
+    amount: 0.35,
+  });
+  const horizontalIsInView = useInView(horizontalRef, {
+    once: false,
+    margin: "0px",
+    amount: 0.35,
+  });
+  const [activeStep, setActiveStep] = useState(-1);
+  const [visualActiveStep, setVisualActiveStep] = useState(-1);
+  const [horizontalActiveStep, setHorizontalActiveStep] = useState(-1);
+  // Circles whose incoming progress line has finished travelling — these fill black.
+  const [filledCircles, setFilledCircles] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView) {
+      setActiveStep(-1);
+      return;
+    }
 
-    // Cercle 01 s'allume immédiatement, lignes et cercles suivants via timers
-    setActiveCircle(0);
-    setActiveLine(-1);
+    const timers = steps.map((_, index) =>
+      setTimeout(() => setActiveStep(index), 180 + index * STEP_DELAY)
+    );
+    const reset = setTimeout(
+      () => setActiveStep(steps.length - 1),
+      steps.length * STEP_DELAY + LOOP_PAUSE
+    );
 
+    return () => {
+      timers.forEach(clearTimeout);
+      clearTimeout(reset);
+    };
+  }, [isInView, steps.length]);
+
+  useEffect(() => {
+    if (!visualIsInView) {
+      setVisualActiveStep(-1);
+      return;
+    }
+
+    const timers = steps.map((_, index) =>
+      setTimeout(() => setVisualActiveStep(index), 180 + index * STEP_DELAY)
+    );
+    const reset = setTimeout(
+      () => setVisualActiveStep(steps.length - 1),
+      steps.length * STEP_DELAY + LOOP_PAUSE
+    );
+
+    return () => {
+      timers.forEach(clearTimeout);
+      clearTimeout(reset);
+    };
+  }, [visualIsInView, steps.length]);
+
+  useEffect(() => {
+    if (!horizontalIsInView) {
+      setHorizontalActiveStep(-1);
+      setFilledCircles(new Set());
+      return;
+    }
+
+    let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    timers.push(setTimeout(() => setActiveLine(0),    T_LINE_1));
-    timers.push(setTimeout(() => setActiveCircle(1),  T_CIRCLE_2));
-    timers.push(setTimeout(() => setActiveLine(1),    T_LINE_2));
-    timers.push(setTimeout(() => setActiveCircle(2),  T_CIRCLE_3));
-    timers.push(setTimeout(() => setLoopKey((k) => k + 1), LOOP_MS));
+    const run = () => {
+      if (cancelled) return;
+      // Reset to replay the sequence from the start.
+      setHorizontalActiveStep(-1);
+      setFilledCircles(new Set());
 
-    return () => timers.forEach(clearTimeout);
-  }, [isInView, loopKey]);
+      storySteps.forEach((_, index) => {
+        timers.push(
+          setTimeout(
+            () => {
+              if (!cancelled) setHorizontalActiveStep(index);
+            },
+            180 + index * STEP_DELAY
+          )
+        );
+      });
+
+      // Full cycle: last step activates, then the fade-out line plays for one
+      // STEP_DELAY, then a pause before looping back to the beginning.
+      const cycle = 180 + storySteps.length * STEP_DELAY + LOOP_PAUSE;
+      timers.push(setTimeout(run, cycle));
+    };
+
+    run();
+
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+    };
+  }, [horizontalIsInView, storySteps.length]);
 
   return (
-    <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div {...fadeUp(0)} className="mb-8 md:mb-14">
-          <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.2] tracking-[-0.02em]">
+    <section id="how-it-works" className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
+      <div className="mx-auto max-w-7xl">
+        <motion.div {...fadeUp(0)} className="mb-8 max-w-3xl md:mb-10">
+          <h2 className="font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
             {t.processFlow.title}
           </h2>
-          <p className="mt-0 text-[#6B6A67] text-[20px] md:text-[26px] font-normal leading-[1.2] tracking-[-0.02em]">
+          <p className="mt-1 text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
             {t.processFlow.subtitle}
           </p>
         </motion.div>
 
-        <div ref={ref}>
-          {/* Mobile — même séquence que le stepper horizontal, connecteurs verticaux */}
-          <motion.ol
-            {...fadeUp(0.1)}
-            className="m-0 flex list-none flex-col gap-0 p-0 md:hidden"
-          >
-            {steps.map((step, i) => (
-              <li key={step.number} className="flex gap-4">
-                <div className="flex w-9 shrink-0 flex-col items-center self-stretch">
-                  <motion.div
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-normal tracking-[-0.02em]"
-                    animate={{
-                      backgroundColor: activeCircle >= i ? "#111110" : "#ffffff",
-                      color: activeCircle >= i ? "#ffffff" : "#111110",
-                    }}
-                    transition={{
-                      backgroundColor: { duration: 0.28, ease: "easeIn" },
-                      color: { duration: 0.2 },
-                    }}
-                    style={{ border: "1px solid #111110" }}
+        <motion.div {...fadeUp(0.08)} ref={horizontalRef} className="mt-0">
+          <div className="relative">
+            <ol className="m-0 grid list-none gap-6 p-0 md:grid-cols-3 md:gap-10">
+              {storySteps.map((step, index) => {
+                const active = horizontalActiveStep >= index;
+                const current = horizontalActiveStep === index;
+                // First circle has no incoming line, so it fills as soon as the
+                // timer starts there; the rest fill only once their line arrives.
+                const filled = index === 0 ? active : filledCircles.has(index);
+
+                return (
+                  <li
+                    key={`horizontal-story-step-${step.title}`}
+                    className={`relative flex gap-4 md:block md:min-h-0 ${
+                      index < storySteps.length - 1 ? "min-h-[128px]" : ""
+                    }`}
                   >
-                    {step.number}
-                  </motion.div>
-                  {i < steps.length - 1 && (
-                    <div className="relative mx-auto min-h-[48px] w-px flex-1 bg-[#111110]/12 overflow-hidden">
-                      <motion.div
-                        key={`seg-v-${loopKey}-${i}`}
-                        className="absolute inset-x-0 bg-[#111110]"
-                        style={{
-                          top: 0,
-                          height: "40%",
-                          transformOrigin: "bottom center",
-                        }}
-                        initial={{ y: "-100%", scaleY: 1 }}
-                        animate={
-                          activeLine >= i
-                            ? {
-                                y: ["-100%", "150%", "150%"],
-                                scaleY: [1, 1, 0],
-                              }
-                            : { y: "-100%", scaleY: 1 }
-                        }
-                        transition={{
-                          duration: LINE_DUR,
-                          times: [0, ARRIVE_AT, 1],
-                          ease: [0.35, 0, 0.65, 1],
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-                <motion.div
-                  className={
-                    i < steps.length - 1
-                      ? "min-w-0 flex-1 pt-0.5 pb-10"
-                      : "min-w-0 flex-1 pt-0.5"
-                  }
-                  initial={{ opacity: 0.35 }}
-                  animate={{ opacity: activeCircle >= i ? 1 : 0.35 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                >
-                  <p className="font-normal text-base text-[#111110] tracking-[-0.02em]">
-                    {step.title}
-                  </p>
-                  {"tags" in step && step.tags && i === 0 ? (
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {step.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-medium leading-none text-[#111110]"
-                        >
-                          <StepOnePillIcon tag={tag} />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
-                  {i === 2 ? (
-                    <DeployCardStack lang={lang} />
-                  ) : (
-                    <>
-                      {i === 1 ? (
-                        <StepTwoSharingFlow />
-                      ) : null}
-                      <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
-                      {step.week ? (
-                        <p
-                          className={
-                            "tags" in step && step.tags
-                              ? "mt-3 text-[14px] leading-[1.55] text-[#6B6A67]"
-                              : "mt-3 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]"
+                    {/* Mobile vertical connector */}
+                    {index < storySteps.length - 1 && (
+                      <div
+                        className="absolute -bottom-6 left-5 top-10 w-px -translate-x-1/2 md:hidden"
+                        aria-hidden
+                      >
+                        <div className="absolute inset-0 bg-[#111110]/12" />
+                        <motion.div
+                          className="absolute inset-0 origin-top bg-[#111110]"
+                          initial={{ scaleY: 0 }}
+                          animate={{ scaleY: horizontalActiveStep >= index ? 1 : 0 }}
+                          transition={
+                            horizontalActiveStep >= index
+                              ? { duration: STEP_DELAY / 1000, ease: "linear" }
+                              : { duration: 0 }
                           }
+                        />
+                      </div>
+                    )}
+                    {/* Mobile vertical fade-out connector from the last step */}
+                    {index === storySteps.length - 1 && (
+                      <div
+                        className="absolute left-5 top-10 h-20 w-px -translate-x-1/2 md:hidden"
+                        style={{
+                          background:
+                            "linear-gradient(to bottom, rgba(17,17,16,0.12), rgba(17,17,16,0))",
+                        }}
+                        aria-hidden
+                      >
+                        <motion.div
+                          className="absolute inset-0 origin-top"
+                          style={{
+                            background: "linear-gradient(to bottom, #111110, rgba(17,17,16,0))",
+                          }}
+                          initial={{ scaleY: 0 }}
+                          animate={{
+                            scaleY: filledCircles.has(index) ? 1 : 0,
+                          }}
+                          transition={
+                            filledCircles.has(index)
+                              ? { duration: STEP_DELAY / 1000, ease: "linear" }
+                              : { duration: 0 }
+                          }
+                        />
+                      </div>
+                    )}
+                    {index < storySteps.length - 1 && (
+                      <div
+                        className="absolute left-14 top-5 hidden h-px -translate-y-px md:block"
+                        style={{ right: -60 }}
+                        aria-hidden
+                      >
+                        <div className="absolute inset-0 bg-[#111110]/12" />
+                        <motion.div
+                          className="absolute inset-0 origin-left bg-[#111110]"
+                          initial={{ scaleX: 0 }}
+                          animate={{
+                            scaleX: horizontalActiveStep >= index ? 1 : 0,
+                          }}
+                          transition={
+                            horizontalActiveStep >= index
+                              ? { duration: STEP_DELAY / 1000, ease: "linear" }
+                              : { duration: 0 }
+                          }
+                          onAnimationComplete={() => {
+                            // Line reached the next circle → fill it black.
+                            if (horizontalActiveStep >= index) {
+                              setFilledCircles((prev) => {
+                                const next = new Set(prev);
+                                next.add(index + 1);
+                                return next;
+                              });
+                            }
+                          }}
+                        />
+                      </div>
+                    )}
+                    {index === storySteps.length - 1 && (
+                      <div
+                        className="absolute left-14 right-0 top-5 hidden h-px -translate-y-px md:block"
+                        style={{
+                          background:
+                            "linear-gradient(to right, rgba(17,17,16,0.12), rgba(17,17,16,0))",
+                        }}
+                        aria-hidden
+                      >
+                        <motion.div
+                          className="absolute inset-0 origin-left"
+                          style={{
+                            background: "linear-gradient(to right, #111110, rgba(17,17,16,0))",
+                          }}
+                          initial={{ scaleX: 0 }}
+                          animate={{
+                            scaleX: filledCircles.has(index) ? 1 : 0,
+                          }}
+                          transition={
+                            filledCircles.has(index)
+                              ? { duration: STEP_DELAY / 1000, ease: "linear" }
+                              : { duration: 0 }
+                          }
+                        />
+                      </div>
+                    )}
+                    <motion.div
+                      className="relative z-10 mb-0 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border bg-white text-[13px] font-normal leading-none tracking-[-0.02em] text-[#111110] md:mb-6"
+                      animate={{
+                        borderColor: filled || active ? "#111110" : "#D8D8D2",
+                        backgroundColor: filled ? "#111110" : "#ffffff",
+                        color: filled ? "#ffffff" : "#6B6A67",
+                        scale: current ? 1.06 : 1,
+                      }}
+                      transition={{ duration: 0.28, ease }}
+                    >
+                      {index + 1}
+                    </motion.div>
+
+                    <div className="flex min-w-0 flex-1 flex-col pt-1 md:block md:pt-0">
+                      <div className="max-w-3xl">
+                        <motion.h3
+                          className="font-display text-[16px] font-normal leading-[1.35] tracking-[-0.02em] md:text-[18px]"
+                          animate={{ color: active ? "#111110" : "#ADADAA" }}
+                          transition={{ duration: 0.35, ease }}
                         >
-                          {step.week}
-                        </p>
-                      ) : null}
-                    </>
-                  )}
-                </motion.div>
-              </li>
-            ))}
-          </motion.ol>
-
-          {/* Desktop */}
-          <div className="hidden md:block">
-          {/* Cercles + connecteurs */}
-          <div className="mb-8 grid w-full grid-cols-3 items-center">
-            {steps.map((step, i) => (
-              <div key={step.number} className="flex min-w-0 items-center">
-                {/* Cercle */}
-                <motion.div
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xs font-normal tracking-[-0.02em]"
-                  animate={{
-                    backgroundColor: activeCircle >= i ? "#111110" : "#ffffff",
-                    color:           activeCircle >= i ? "#ffffff" : "#111110",
-                  }}
-                  transition={{
-                    backgroundColor: { duration: 0.28, ease: "easeIn" },
-                    color:           { duration: 0.2 },
-                  }}
-                  style={{ border: "1px solid #111110" }}
-                >
-                  {step.number}
-                </motion.div>
-
-                {/* Ligne connectrice avec segment voyageur */}
-                {i < steps.length - 1 && (
-                  <motion.div
-                    className="ml-4 h-px min-w-0 flex-1 relative overflow-hidden"
-                    animate={{
-                      backgroundColor:
-                        i === 0 || activeCircle >= i
-                          ? "rgba(17, 17, 16, 0.12)"
-                          : "rgba(17, 17, 16, 0)",
-                    }}
-                    transition={{ duration: 0.24, ease: "easeOut" }}
-                  >
-                    <motion.div
-                      // La clé force un remount du segment à chaque boucle
-                      key={`seg-${loopKey}-${i}`}
-                      className="absolute inset-y-0 bg-[#111110]"
-                      // transformOrigin: right → le bord droit reste fixé sur le cercle pendant l'absorption
-                      style={{ left: 0, width: "40%", transformOrigin: "right center" }}
-                      // x="150%" : translateX(150% de la largeur propre 40%) = 60% du container
-                      //   → bord droit = 60% + 40% = 100% = exactement sur le cercle
-                      // scaleX 1→0 : la queue rattrape le bord droit (absorption dans le cercle)
-                      initial={{ x: "-100%", scaleX: 1 }}
-                      animate={
-                        activeLine >= i
-                          ? {
-                              x:      ["-100%", "150%", "150%"],
-                              scaleX: [1,       1,      0],
-                            }
-                          : { x: "-100%", scaleX: 1 }
-                      }
-                      transition={{
-                        duration: LINE_DUR,
-                        times:    [0, ARRIVE_AT, 1],
-                        ease:     [0.35, 0, 0.65, 1],
-                      }}
-                    />
-                  </motion.div>
-                )}
-                {i === steps.length - 1 && (
-                  <div className="ml-4 h-px min-w-0 flex-1 relative overflow-visible">
-                    <motion.div
-                      key={`seg-out-${loopKey}`}
-                      className="absolute inset-y-0 left-0"
-                      style={{
-                        background:
-                          "linear-gradient(90deg, #111110 0%, #111110 52%, rgba(17,17,16,0.5) 74%, rgba(255,255,255,0) 100%)",
-                      }}
-                      initial={{ width: "0%", opacity: 0 }}
-                      animate={
-                        activeCircle >= i
-                          ? {
-                              width: ["0%", "100%", "100%"],
-                              opacity: [0, 1, 0],
-                            }
-                          : { width: "0%", opacity: 0 }
-                      }
-                      transition={{
-                        duration: 1.45,
-                        times: [0, 0.56, 1],
-                        ease: [0.35, 0, 0.65, 1],
-                      }}
-                    />
-                    <motion.div
-                      key={`seg-out-glow-${loopKey}`}
-                      className="pointer-events-none absolute right-[-34px] top-1/2 h-14 w-24 -translate-y-1/2"
-                      style={{
-                        background:
-                          "radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.98) 42%, rgba(255,255,255,0) 76%)",
-                      }}
-                      initial={{ opacity: 0, scale: 0.7 }}
-                      animate={
-                        activeCircle >= i
-                          ? {
-                              opacity: [0, 1, 1, 0],
-                              scale: [0.7, 1, 1.12, 1.22],
-                            }
-                          : { opacity: 0, scale: 0.7 }
-                      }
-                      transition={{
-                        duration: 1.45,
-                        times: [0, 0.44, 0.76, 1],
-                        ease: [0.35, 0, 0.65, 1],
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Colonnes de texte */}
-          <ol className="m-0 grid list-none grid-cols-3 gap-10 p-0">
-            {steps.map((step, i) => (
-              <motion.li
-                key={step.number}
-                className="min-w-0"
-                initial={{ opacity: 0.35 }}
-                animate={{ opacity: activeCircle >= i ? 1 : 0.35 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              >
-                <p className="font-normal text-base text-[#111110] tracking-[-0.02em] mb-0">{step.title}</p>
-                {"tags" in step && step.tags && i === 0 ? (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {step.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-medium leading-none text-[#111110]"
+                          {step.title}
+                        </motion.h3>
+                      </div>
+                      <motion.div
+                        className="flex flex-1 flex-col justify-start md:block md:flex-none"
+                        animate={{ opacity: active ? 1 : 0.35 }}
+                        transition={{ duration: 0.35, ease }}
                       >
-                        <StepOnePillIcon tag={tag} />
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  ) : null}
-                {i === 2 ? (
-                  <DeployCardStack lang={lang} />
-                ) : (
-                  <>
-                    {i === 1 ? (
-                      <StepTwoSharingFlow />
-                    ) : null}
-                    <p className="mt-2 text-[14px] leading-[1.6] text-[#425466]">{step.desc}</p>
-                    {step.week ? (
-                      <p
-                        className={
-                          "tags" in step && step.tags
-                            ? "mt-3 text-[14px] leading-[1.55] text-[#6B6A67]"
-                            : "mt-4 text-[11px] uppercase tracking-[0.08em] text-[#ADADAA]"
-                        }
-                      >
-                        {step.week}
-                      </p>
-                    ) : null}
-                  </>
-                )}
-              </motion.li>
-            ))}
-          </ol>
+                        {index === 0 ? (
+                          <div className="mt-2 md:mt-4">
+                            <StepDetail detail={details[lang][0]} active compact />
+                            <HorizontalSourceNotes lang={lang} active />
+                          </div>
+                        ) : null}
+                        {index === 1 ? <HorizontalConnectDetail /> : null}
+                        {index === 2 ? <HorizontalFollowUpDetail lang={lang} active /> : null}
+                      </motion.div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
+  );
+}
+
+function VisualSelectionDetail({ lang, active }: { lang: "fr" | "en"; active: boolean }) {
+  const items = {
+    fr: [
+      { label: "Viewing rooms", icon: "layout" },
+      { label: "PDFs", icon: "views" },
+      { label: "Liens privés", icon: "link" },
+      { label: "Emails collector", icon: "mail" },
+    ],
+    en: [
+      { label: "Viewing rooms", icon: "layout" },
+      { label: "PDFs", icon: "views" },
+      { label: "Private links", icon: "link" },
+      { label: "Collector emails", icon: "mail" },
+    ],
+  }[lang];
+
+  return (
+    <motion.div
+      className="mt-2"
+      variants={detailContainer}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+    >
+      <p className="max-w-[360px] text-[12px] leading-[1.35] tracking-[-0.01em] text-[#6B6A67]">
+        {lang === "fr"
+          ? "Transformez votre sélection en belles présentations et partagez-la avec les collectionneurs."
+          : "Turn your selection into beautiful presentations and share with collectors."}
+      </p>
+      <div className="mt-3 grid max-w-[360px] grid-cols-2 gap-2 sm:grid-cols-4">
+        {items.map((item) => (
+          <motion.div
+            key={item.label}
+            variants={detailItem}
+            className="flex h-[64px] flex-col items-center justify-center gap-1.5 rounded-[8px] border border-[#E1E1DE] bg-white px-2 text-center"
+          >
+            <Icon name={item.icon} tone={item.icon === "mail" ? "blue" : undefined} />
+            <span className="text-[10px] font-medium leading-[1.15] tracking-[-0.01em] text-[#111110]">
+              {item.label}
+            </span>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+function HorizontalConnectDetail() {
+  // Reproduces the latest Figma node 562:2210 (Vitreen file, "Connect"
+  // schema): Gallery OS hub, thin curve fan (#AEAEAE) to WhatsApp, PDF,
+  // Excel and Gmail — Gmail rendered slightly larger (46×46) to match the
+  // source. Coordinates are the exact design values, offset to a local
+  // origin (37, 66) and converted to percentages of the content bounding
+  // box (449 × 122.50983) so the whole graphic scales as one unit.
+  const W = 449;
+  const H = 122.50983428955078;
+
+  const hub = { left: 0, top: 20, size: 40 };
+  const nodes = [
+    { name: "whatsapp" as const, left: 217, top: 0, size: 40 },
+    { name: "pdf" as const, left: 409, top: 0, size: 40 },
+    { name: "excel" as const, left: 124, top: 60, size: 40 },
+    { name: "gmail" as const, left: 310, top: 54, size: 46 },
+  ];
+
+  const pct = (v: number, total: number) => `${(v / total) * 100}%`;
+
+  return (
+    <div className="mt-2 md:mt-5">
+      <div className="relative w-full max-w-[380px]" style={{ aspectRatio: `${W} / ${H}` }}>
+        {/* Connector curves — single path traced from the Figma source */}
+        <svg
+          className="absolute overflow-visible"
+          style={{
+            left: pct(43, W),
+            top: pct(10.87890625, H),
+            width: pct(364, W),
+            height: pct(111.63092803955078, H),
+          }}
+          viewBox="0 0 364 111.63092803955078"
+          preserveAspectRatio="none"
+          fill="none"
+          aria-hidden
+        >
+          <path
+            d="M5.49951 26.6212C5.49951 26.6212 -13.5005 33.1212 42.9995 11.1212C99.4995 -10.8789 171.5 8.12113 171.5 8.12113M0.499512 39.1212C0.499512 39.1212 4.49969 166.121 83.4995 85.1211M266.999 52.1212C225.999 19.1212 5.49951 34.6212 5.49951 34.6212C5.49951 34.6212 201.999 126.121 364.499 11.1212"
+            stroke="#AEAEAE"
+          />
+        </svg>
+
+        {/* Gallery OS hub */}
+        <div
+          className="absolute"
+          style={{
+            left: pct(hub.left, W),
+            top: pct(hub.top, H),
+            width: pct(hub.size, W),
+            height: pct(hub.size, H),
+          }}
+        >
+          <img
+            src="/icons/gallery-os.svg"
+            alt="Gallery OS"
+            width={40}
+            height={40}
+            className="h-full w-full rounded-[9px]"
+          />
+        </div>
+
+        {/* Existing tools it connects to */}
+        {nodes.map((node) => (
+          <div
+            key={node.name}
+            className="absolute [&>img]:h-full [&>img]:w-full [&>img]:object-contain"
+            style={{
+              left: pct(node.left, W),
+              top: pct(node.top, H),
+              width: pct(node.size, W),
+              height: pct(node.size, H),
+            }}
+          >
+            <FormatLogo name={node.name} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function HorizontalSelectionDetail({ lang, active }: { lang: "fr" | "en"; active: boolean }) {
+  const formats = {
+    fr: [
+      { label: "Excel", brand: "excel" as const },
+      { label: "WhatsApp", brand: "whatsapp" as const },
+      { label: "Outlook", brand: "outlook" as const },
+      { label: "PDF", brand: "pdf" as const },
+      { label: "Word", brand: "word" as const },
+      { label: "Notion", brand: "notion" as const },
+    ],
+    en: [
+      { label: "Excel", brand: "excel" as const },
+      { label: "WhatsApp", brand: "whatsapp" as const },
+      { label: "Outlook", brand: "outlook" as const },
+      { label: "PDF", brand: "pdf" as const },
+      { label: "Word", brand: "word" as const },
+      { label: "Notion", brand: "notion" as const },
+    ],
+  }[lang];
+
+  return (
+    <motion.div
+      className="mt-2 md:mt-5"
+      variants={detailContainer}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+    >
+      <div
+        className="relative w-full max-w-[360px] overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+        }}
+      >
+        <div className="flex items-center justify-between py-2">
+          {formats.map((item) => (
+            <motion.div
+              key={item.label}
+              variants={detailItem}
+              className="flex shrink-0 flex-col items-center gap-1.5"
+            >
+              <FormatLogo name={item.brand} />
+              <span className="text-[10px] font-medium leading-none tracking-[-0.01em] text-[#6B6A67]">
+                {item.label}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function HorizontalFollowUpDetail({ lang, active }: { lang: "fr" | "en"; active: boolean }) {
+  const notifications = {
+    fr: [
+      {
+        label: "Nouvelle demande · James Collector",
+        time: "2h",
+        dot: "green" as const,
+        app: "gmail" as const,
+      },
+      {
+        label: "PDF consulté · Untitled (2023)",
+        time: "1h",
+        dot: "blue" as const,
+        app: "outlook" as const,
+      },
+      {
+        label: "Relance planifiée · lundi",
+        time: "—",
+        dot: "yellow" as const,
+        app: "whatsapp" as const,
+      },
+    ],
+    en: [
+      {
+        label: "New inquiry · James Collector",
+        time: "2h",
+        dot: "green" as const,
+        app: "gmail" as const,
+      },
+      {
+        label: "PDF viewed · Untitled (2023)",
+        time: "1h",
+        dot: "blue" as const,
+        app: "outlook" as const,
+      },
+      {
+        label: "Follow-up scheduled · Mon",
+        time: "—",
+        dot: "yellow" as const,
+        app: "whatsapp" as const,
+      },
+    ],
+  }[lang];
+
+  const FRONT_HEIGHT = 52;
+  const PEEK = 10;
+
+  return (
+    <motion.div
+      className="relative mt-2 max-w-[360px] md:mt-4"
+      style={{ height: FRONT_HEIGHT + (notifications.length - 1) * PEEK }}
+      variants={detailContainer}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+    >
+      {notifications.map((n, i) => (
+        <motion.div
+          key={n.label}
+          variants={detailItem}
+          className={`absolute flex items-center gap-2.5 rounded-[10px] border px-3 ${
+            i === 0
+              ? "border-[#E8E8E6] bg-white shadow-[0_8px_24px_rgba(17,17,16,0.08)]"
+              : "border-[#E8E8E6] bg-[#F5F5F3]"
+          }`}
+          style={{
+            top: i * PEEK,
+            left: i * 7,
+            right: i * 7,
+            height: FRONT_HEIGHT,
+            zIndex: notifications.length - i,
+          }}
+        >
+          {i === 0 ? (
+            <>
+              <span
+                className={`h-2 w-2 shrink-0 rounded-full ${
+                  n.dot === "green"
+                    ? "bg-[#10B981]"
+                    : n.dot === "blue"
+                      ? "bg-[#3B82F6]"
+                      : "bg-[#F59E0B]"
+                }`}
+              />
+              <span className="flex-1 text-[11px] font-medium leading-none text-[#111110]">
+                {n.label}
+              </span>
+              <span className="shrink-0 text-[10px] leading-none text-[#ADADAA]">{n.time}</span>
+              <span className="ml-0.5 shrink-0">
+                <AppIcon name={n.app} />
+              </span>
+            </>
+          ) : null}
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+function FormatLogo({
+  name,
+}: {
+  name: "gmail" | "whatsapp" | "outlook" | "excel" | "pdf" | "word" | "notion" | "viewing" | "link";
+}) {
+  if (name === "word") {
+    return <img src="/logos/word-logo.svg" alt="Word" width={28} height={28} />;
+  }
+
+  if (name === "notion") {
+    return <img src="/logos/notion-symbol.svg" alt="Notion" width={28} height={28} />;
+  }
+
+  if (name === "gmail") {
+    return <img src="/logos/icon-gmail-96.png" alt="Gmail" width={28} height={28} />;
+  }
+
+  if (name === "whatsapp") {
+    return <img src="/logos/whatsapp.svg" alt="WhatsApp" width={28} height={28} />;
+  }
+
+  if (name === "outlook") {
+    return (
+      <img src="/logos/Microsoft_Office_Outlook_Logo.svg" alt="Outlook" width={28} height={28} />
+    );
+  }
+
+  if (name === "excel") {
+    return <img src="/logos/Microsoft_Office_Excel_Logo.svg" alt="Excel" width={28} height={28} />;
+  }
+
+  if (name === "pdf") {
+    return <img src="/logos/pdf-svgrepo-com.svg" alt="PDF" width={28} height={28} />;
+  }
+
+  return (
+    <div className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-[#F5F5F3]">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#6B6A67"
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M4 5h16v14H4z" />
+        <path d="M12 5v14" />
+      </svg>
+    </div>
+  );
+}
+
+function AppIcon({ name }: { name: "outlook" | "whatsapp" | "calendar" | "gmail" }) {
+  if (name === "gmail") {
+    return <img src="/logos/icon-gmail-96.png" alt="Gmail" width={20} height={20} />;
+  }
+
+  if (name === "outlook") {
+    return (
+      <img src="/logos/Microsoft_Office_Outlook_Logo.svg" alt="Outlook" width={20} height={20} />
+    );
+  }
+
+  if (name === "whatsapp") {
+    return (
+      <img
+        src="/logos/Digital_Stacked_Green_RGB_2026.svg"
+        alt="WhatsApp"
+        width={20}
+        height={20}
+        className="rounded-[4px]"
+      />
+    );
+  }
+
+  return (
+    <div className="flex h-5 w-5 flex-col overflow-hidden rounded-[4px] bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.12)]">
+      <div className="h-[6px] bg-[#EA4335]" />
+      <div className="flex flex-1 items-center justify-center">
+        <span className="text-[8px] font-bold leading-none text-[#111110]">25</span>
+      </div>
+    </div>
+  );
+}
+
+function HorizontalSourceNotes({ lang, active }: { lang: "fr" | "en"; active: boolean }) {
+  const items = {
+    fr: [
+      { label: "Migration incluse", icon: "checkCircle" },
+      { label: "Données confidentielles", icon: "shield" },
+    ],
+    en: [
+      { label: "Migration included", icon: "checkCircle" },
+      { label: "Your data stays confidential", icon: "shield" },
+    ],
+  }[lang];
+
+  return (
+    <motion.div
+      className="mt-5 flex flex-nowrap items-center gap-x-3 md:flex-wrap md:gap-x-4 md:gap-y-2"
+      variants={detailContainer}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+    >
+      {items.map((item) => (
+        <motion.div
+          key={item.label}
+          variants={detailItem}
+          className="flex shrink-0 items-center gap-1.5 md:gap-2"
+        >
+          <span className="mt-px shrink-0 [&>svg]:h-3.5 [&>svg]:w-3.5 md:[&>svg]:h-[17px] md:[&>svg]:w-[17px]">
+            <Icon name={item.icon} />
+          </span>
+          <p className="whitespace-nowrap text-[10px] font-normal leading-[1.25] tracking-[-0.01em] text-[#111110] md:text-[12px]">
+            {item.label}
+          </p>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+function CompactVisualDetail({ detail, active }: { detail?: Detail; active: boolean }) {
+  if (!detail) return null;
+
+  const items =
+    detail.type === "dashboard"
+      ? detail.items.map((item) => ({ label: item.strong, icon: item.icon }))
+      : detail.items.map((item) => ({
+          label: item.label,
+          icon: item.icon,
+          active: "active" in item ? item.active : false,
+        }));
+
+  return (
+    <motion.div
+      className="mt-3 flex flex-wrap gap-1.5"
+      variants={detailContainer}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+    >
+      {items.map((item) => (
+        <motion.span
+          key={item.label}
+          variants={detailItem}
+          className="inline-flex min-h-6 items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-medium leading-none text-[#111110]"
+        >
+          <Icon name={item.icon} active={"active" in item ? item.active : false} />
+          {item.label}
+        </motion.span>
+      ))}
+    </motion.div>
+  );
+}
+
+function StepDetail({
+  detail,
+  active,
+  compact = false,
+}: {
+  detail?: Detail;
+  active: boolean;
+  compact?: boolean;
+}) {
+  if (!detail) return null;
+
+  if (detail.type === "source") {
+    return (
+      <motion.div
+        className={
+          compact
+            ? "mt-0 flex flex-nowrap gap-1 md:flex-wrap md:gap-1.5"
+            : "mt-5 flex flex-wrap gap-2.5"
+        }
+        variants={detailContainer}
+        initial="hidden"
+        animate={active ? "visible" : "hidden"}
+      >
+        {detail.items.map((item) => (
+          <motion.span
+            key={item.label}
+            variants={detailItem}
+            className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full border font-medium leading-none ${
+              compact
+                ? "min-h-6 gap-1.5 px-2 py-0.5 text-[11px] md:px-2.5"
+                : "min-h-7 gap-2 px-3.5 py-1 text-[14px]"
+            } ${
+              item.active
+                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                : "border-[#E1E1DE] bg-white text-[#111110]"
+            }`}
+          >
+            {compact ? (
+              <span className="hidden shrink-0 md:inline-flex">
+                <Icon name={item.icon} active={item.active} />
+              </span>
+            ) : (
+              <Icon name={item.icon} active={item.active} />
+            )}
+            {item.label}
+          </motion.span>
+        ))}
+      </motion.div>
+    );
+  }
+
+  if (detail.type === "checks") {
+    return (
+      <motion.div
+        className={compact ? "mt-4 space-y-2" : "mt-5 space-y-3.5"}
+        variants={detailContainer}
+        initial="hidden"
+        animate={active ? "visible" : "hidden"}
+      >
+        {detail.items.map((item) => (
+          <motion.div
+            key={item.label}
+            className={compact ? "flex items-start gap-3" : "flex items-start gap-4"}
+            variants={detailItem}
+          >
+            <span className="mt-0.5 shrink-0">
+              <Icon name={item.icon} />
+            </span>
+            <p
+              className={
+                compact
+                  ? "text-[14px] leading-[1.35] tracking-[-0.01em] text-[#111110]"
+                  : "text-[14px] leading-[1.5] tracking-[-0.01em] text-[#111110]"
+              }
+            >
+              {item.label}
+            </p>
+          </motion.div>
+        ))}
+      </motion.div>
+    );
+  }
+
+  if (detail.type === "delivery") {
+    return (
+      <motion.div
+        className="mt-5 flex flex-col gap-2.5"
+        variants={detailContainer}
+        initial="hidden"
+        animate={active ? "visible" : "hidden"}
+      >
+        {detail.items.map((item) => (
+          <motion.div
+            key={item.label}
+            variants={detailItem}
+            className="inline-flex w-full max-w-[360px] items-center gap-3 rounded-[10px] border border-[#E1E1DE] bg-[#FAFAF8] px-3.5 py-2 text-[14px] font-medium text-[#111110]"
+          >
+            <Icon name={item.icon} />
+            {item.label}
+          </motion.div>
+        ))}
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      className="mt-5 space-y-3"
+      variants={detailContainer}
+      initial="hidden"
+      animate={active ? "visible" : "hidden"}
+    >
+      {detail.items.map((item) => (
+        <motion.div key={item.strong} className="flex items-start gap-4" variants={detailItem}>
+          <span className="mt-0.5 shrink-0">
+            <Icon name={item.icon} />
+          </span>
+          <p className="text-[14px] leading-[1.5] tracking-[-0.01em] text-[#111110]">
+            <span className="font-semibold">{item.strong}</span> {item.label}
+          </p>
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+function GoogleGLogo() {
+  return (
+    <svg width="17" height="17" viewBox="0 0 48 48" aria-hidden>
+      <path
+        fill="#4285F4"
+        d="M44.5 20H24v8.5h11.8C34.7 34 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.2 0 6.2 1.2 8.4 3.2l6-6C34.6 4.9 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.9 0 20.5-7.9 20.5-21 0-1.4-.1-2.7-.3-4Z"
+      />
+      <path
+        fill="#34A853"
+        d="M6.1 14.1 13.1 19.2C14.9 14.4 19.1 11 24 11c3.2 0 6.2 1.2 8.4 3.2l6-6C34.6 4.9 29.6 3 24 3 16.1 3 9.3 7.5 6.1 14.1Z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M24 45c5.5 0 10.2-1.8 13.8-4.9l-6.4-5.2C29.4 36.3 26.9 37 24 37c-5.9 0-10.9-3.9-12.7-9.3l-7 5.4C7.5 40.2 15 45 24 45Z"
+      />
+      <path
+        fill="#EA4335"
+        d="M11.3 27.7A13.3 13.3 0 0 1 11 24c0-1.3.2-2.6.6-3.8l-7-5.4A21 21 0 0 0 3 24c0 3.3.8 6.4 2.1 9.1l6.2-5.4Z"
+      />
+    </svg>
+  );
+}
+
+function Icon({
+  name,
+  active = false,
+  tone,
+}: {
+  name: string;
+  active?: boolean;
+  tone?: "blue" | "green" | "purple";
+}) {
+  const stroke =
+    tone === "blue"
+      ? "#2563EB"
+      : tone === "purple"
+        ? "#6D5BD0"
+        : tone === "green"
+          ? "#10B981"
+          : name === "alert" || name === "inbox" || name === "inquiries"
+            ? "#F59E0B"
+            : name === "shield"
+              ? "#111110"
+              : name === "mail" || name === "gmail"
+                ? "#EA4335"
+                : name === "link" ||
+                    name === "check" ||
+                    name === "checkCircle" ||
+                    name === "spark" ||
+                    name === "whatsapp" ||
+                    active
+                  ? "#10B981"
+                  : name === "views"
+                    ? "#EA4335"
+                    : "#9CA3AF";
+
+  if (name === "spark") {
+    return (
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M12 3l1.6 5.2L19 10l-5.4 1.8L12 17l-1.6-5.2L5 10l5.4-1.8L12 3Z" />
+        <path d="M19 15l.8 2.6L22 18l-2.2.4L19 21l-.8-2.6L16 18l2.2-.4L19 15Z" />
+      </svg>
+    );
+  }
+
+  if (name === "plus") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M12 5v14" />
+        <path d="M5 12h14" />
+      </svg>
+    );
+  }
+
+  if (name === "lock") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M6 10h12v10H6z" />
+        <path d="M8 10V8a4 4 0 0 1 8 0v2" />
+      </svg>
+    );
+  }
+
+  if (name === "chart") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M5 20V10" />
+        <path d="M12 20V4" />
+        <path d="M19 20v-7" />
+      </svg>
+    );
+  }
+
+  if (name === "clock") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    );
+  }
+
+  if (name === "palette") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M12 3a9 9 0 0 0 0 18h1.5a2 2 0 0 0 1.2-3.6 1.8 1.8 0 0 1 1.1-3.2H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3Z" />
+        <path d="M7.5 10h.01" />
+        <path d="M10 7h.01" />
+        <path d="M14 7h.01" />
+      </svg>
+    );
+  }
+
+  if (name === "instagram") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <rect x="5" y="5" width="14" height="14" rx="4" />
+        <path d="M15 11.4a3 3 0 1 1-5.9 1.2 3 3 0 0 1 5.9-1.2Z" />
+        <path d="M16.5 7.5h.01" />
+      </svg>
+    );
+  }
+
+  if (name === "check") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="2"
+        aria-hidden
+      >
+        <path d="M20 6 9 17l-5-5" />
+      </svg>
+    );
+  }
+
+  if (name === "checkCircle") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.9"
+        aria-hidden
+      >
+        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        <path d="m8.2 12.2 2.4 2.4 5.2-5.2" />
+      </svg>
+    );
+  }
+
+  if (name === "alert") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.9"
+        aria-hidden
+      >
+        <path d="m12 3 10 18H2L12 3Z" />
+        <path d="M12 9v5" />
+        <path d="M12 17h.01" />
+      </svg>
+    );
+  }
+
+  if (name === "mail") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M4 6h16v12H4z" />
+        <path d="m4 7 8 6 8-6" />
+      </svg>
+    );
+  }
+
+  if (name === "gmail") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M4 6h16v12H4z" />
+        <path d="M4 7l8 6 8-6" />
+        <path d="M4 18V8l8 6 8-6v10" />
+      </svg>
+    );
+  }
+
+  if (name === "whatsapp") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z" />
+        <path d="M9.5 8.5c.2 3 2.1 5 5 5.8l1.2-1.2" />
+        <path d="M8.7 8.4l.8-.7 1.2 2-.7.8" />
+      </svg>
+    );
+  }
+
+  if (name === "views") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+        <path d="M14 2v6h6" />
+        <path d="M7 15h2.2a1.4 1.4 0 0 0 0-2.8H7v5.6" />
+        <path d="M12 17.8v-5.6h1.4a2.8 2.8 0 0 1 0 5.6H12Z" />
+        <path d="M17 12.2h3" />
+        <path d="M17 15h2.4" />
+      </svg>
+    );
+  }
+
+  if (name === "inquiries") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+        <path d="M9 10h6" />
+        <path d="M9 14h4" />
+      </svg>
+    );
+  }
+
+  if (name === "link") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.9"
+        aria-hidden
+      >
+        <path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1" />
+        <path d="M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20.1l1.1-1.1" />
+      </svg>
+    );
+  }
+
+  if (name === "inbox") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M4 13 6.5 5h11L20 13v6H4z" />
+        <path d="M4 13h5l1.5 2h3L15 13h5" />
+      </svg>
+    );
+  }
+
+  if (name === "people") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+        <path d="M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+        <path d="M22 21v-2a4 4 0 0 0-3-3.8" />
+        <path d="M16 3.2a4 4 0 0 1 0 7.6" />
+      </svg>
+    );
+  }
+
+  if (name === "reply") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+      </svg>
+    );
+  }
+
+  if (name === "sheet") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+        <path d="M14 2v6h6" />
+        <path d="M8 13h8" />
+        <path d="M8 17h5" />
+      </svg>
+    );
+  }
+
+  if (name === "folder") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M3 6h7l2 2h9v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
+      </svg>
+    );
+  }
+
+  if (name === "shield") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M12 3 20 6v6c0 4.8-3.2 7.8-8 9-4.8-1.2-8-4.2-8-9V6l8-3Z" />
+        <path d="M9.2 12.2 11 14l3.8-4" />
+      </svg>
+    );
+  }
+
+  if (name === "layout") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M4 5h16v14H4z" />
+        <path d="M12 5v14" />
+      </svg>
+    );
+  }
+
+  if (name === "library") {
+    return (
+      <svg
+        width="17"
+        height="17"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke={stroke}
+        strokeWidth="1.8"
+        aria-hidden
+      >
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg
+      width="17"
+      height="17"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={stroke}
+      strokeWidth="1.8"
+      aria-hidden
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+      <path d="M14 2v6h6" />
+    </svg>
   );
 }

@@ -1,0 +1,22 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 36 35.3898" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icone_Galley OS">
+<rect id="Rectangle 8" width="36" height="35.3898" rx="8" fill="var(--fill-0, black)"/>
+<path id="Polygon 2" d="M7.74271 14.3033C7.17129 14.0037 7.17123 13.1858 7.74271 12.8863L17.1099 7.97904C17.3424 7.85727 17.6206 7.85726 17.8531 7.97904L27.2202 12.8863C27.7915 13.1858 27.7915 14.0037 27.2202 14.3033L17.8531 19.2105C17.6206 19.3323 17.3424 19.3323 17.1099 19.2105L7.74271 14.3033Z" stroke="var(--stroke-0, white)" stroke-width="1.4"/>
+<g id="Mask group">
+<mask id="mask0_0_4" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="4" y="9" width="28" height="17">
+<path id="Polygon 3" d="M5.66267 17.4264C5.45848 17.3119 5.45866 17.0177 5.66267 16.903L17.9761 10.0065C18.0672 9.95556 18.1781 9.9555 18.2691 10.0065L30.5816 16.903C30.7861 17.0175 30.7862 17.3118 30.5816 17.4264L18.2691 24.3219C18.178 24.3729 18.0672 24.3729 17.9761 24.3219L5.66267 17.4264Z" stroke="var(--stroke-0, white)" stroke-width="1.4"/>
+</mask>
+<g mask="url(#mask0_0_4)">
+<rect id="Rectangle 10" x="6.00026" y="18" width="22.8" height="9.6" rx="1" fill="var(--fill-0, white)"/>
+</g>
+</g>
+<g id="Mask group_2">
+<mask id="mask1_0_4" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="14" width="26" height="16">
+<path id="Polygon 3_2" d="M6.9364 22.9619C6.16881 22.5456 6.16865 21.4434 6.9364 21.0273L17.5575 15.2744C17.8842 15.0974 18.2786 15.0975 18.6053 15.2744L29.2264 21.0273C29.9944 21.4433 29.9942 22.5457 29.2264 22.9619L18.6053 28.7148C18.2785 28.8918 17.8843 28.8918 17.5575 28.7148L6.9364 22.9619Z" stroke="var(--stroke-0, white)" stroke-width="1.4"/>
+</mask>
+<g mask="url(#mask1_0_4)">
+<rect id="Rectangle 10_2" x="4.80036" y="22.8" width="25.2" height="9.6" rx="2" fill="var(--fill-0, white)"/>
+</g>
+</g>
+</g>
+</svg>

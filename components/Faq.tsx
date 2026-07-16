@@ -17,8 +17,19 @@ function Item({ q, a }: { q: string; a: string }) {
         <span className="font-medium text-[#111110] text-base group-hover:text-[#3a3a38] transition-colors">
           {q}
         </span>
-        <span className="flex-shrink-0 w-6 h-6 rounded-full border border-[#E8E8E6] flex items-center justify-center text-[#6B6A67] transition-transform duration-300" style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <span
+          className="flex-shrink-0 w-6 h-6 rounded-full border border-[#E8E8E6] flex items-center justify-center text-[#6B6A67] transition-transform duration-300"
+          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+        >
+          <svg
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+          >
             <path d="M6 1v10M1 6h10" />
           </svg>
         </span>
@@ -32,9 +43,7 @@ function Item({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.3, ease }}
             className="overflow-hidden"
           >
-            <p className="text-[#6B6A67] text-sm leading-relaxed pb-6 max-w-2xl">
-              {a}
-            </p>
+            <p className="text-[#6B6A67] text-sm leading-relaxed pb-6 max-w-2xl">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -45,7 +54,7 @@ function Item({ q, a }: { q: string; a: string }) {
 export default function Faq() {
   const { t } = useLang();
   return (
-    <section className="pt-12 md:pt-[60px] pb-12 md:pb-[60px] px-4 md:px-6 bg-white">
+    <section id="faq" className="bg-white px-4 pt-14 pb-20 md:px-6 md:pt-[72px] md:pb-[96px]">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

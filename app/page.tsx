@@ -1,15 +1,12 @@
-import dynamic from "next/dynamic";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import ViewingRoomStudio from "@/components/ViewingRoomStudio";
-import Showcase from "@/components/Showcase";
-
-const Audiences = dynamic(() => import("@/components/Audiences"));
-import Solution from "@/components/Solution";
+import HeroDashboardMock from "@/components/HeroDashboardMock";
 import ProcessFlow from "@/components/ProcessFlow";
-import Services from "@/components/Services";
-import StatementSplit from "@/components/StatementSplit";
+import HomeAddIns from "@/components/HomeAddIns";
 import QuoteSection from "@/components/QuoteSection";
+import StatementSplit from "@/components/StatementSplit";
+import Services from "@/components/Services";
+import PricingBand from "@/components/PricingBand";
 import Faq from "@/components/Faq";
 import CtaBand from "@/components/CtaBand";
 import Footer from "@/components/Footer";
@@ -19,13 +16,12 @@ export default function Home() {
     <main className="relative">
       <Nav />
       <Hero />
-      <Audiences />
+      <HeroDashboardMock />
       <ProcessFlow />
-      <Showcase />
-      <Solution />
-      <QuoteSection />
-      <ViewingRoomStudio />
       <Services />
+      <HomeAddIns />
+      <QuoteSection />
+      <PricingBand />
       <Faq />
       <StatementSplit />
       <CtaBand />

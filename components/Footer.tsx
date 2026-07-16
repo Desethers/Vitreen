@@ -6,7 +6,9 @@ export default function Footer() {
   return (
     <footer id="contact" className="py-10 px-4 md:px-6">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <span className="font-display text-[#111110] text-base">Vitreen</span>
+        <a href="/" className="font-display text-[#111110] text-base">
+          Vitreen
+        </a>
         <div className="flex items-center gap-6">
           <p className="text-[#ADADAA] text-xs">{t.footer.copy}</p>
           <button

@@ -1,16 +1,18 @@
-import ProductPage from "@/components/ProductPage";
+import WebsitePublisherProductPage from "@/components/WebsitePublisherProductPage";
 
 export const metadata = {
-  title: "Public & Private Publishing — Vitreen",
-  description: "Publiez partout, depuis une seule source.",
+  title: "Publishing",
+  description:
+    "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
   alternates: { canonical: "/products/publishing" },
   openGraph: {
     url: "/products/publishing",
-    title: "Public & Private Publishing — Vitreen",
-    description: "Publiez partout, depuis une seule source.",
+    title: "Publishing — Vitreen",
+    description:
+      "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
   },
 };
 
 export default function Page() {
-  return <ProductPage slug="publishing" />;
+  return <WebsitePublisherProductPage />;
 }

@@ -9,7 +9,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 export default function CtaBand() {
   const { t } = useLang();
   return (
-    <section className="relative pt-20 pb-8 md:pt-[100px] md:pb-[60px] px-4 md:px-6 overflow-hidden bg-[var(--background)]">
+    <section className="relative pt-14 pb-14 md:pt-[72px] md:pb-[72px] px-4 md:px-6 overflow-hidden bg-[var(--background)]">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
