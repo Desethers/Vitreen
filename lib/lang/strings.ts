@@ -1237,7 +1237,7 @@ export const translations = {
         },
         dashboard: { label: "Artworks", title: "Database" },
         pdf: { label: "Collector material", title: "Private Selection editor" },
-        addins: { label: "Add-ins", title: "Gallery OS inside Gmail and WhatsApp." },
+        addins: { label: "Add-ins", title: "Add-ins" },
         gmail: { label: "Gmail", title: "Your artworks inside email." },
         whatsapp: { label: "WhatsApp", title: "Selections ready to send." },
       },

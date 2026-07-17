@@ -81,7 +81,7 @@ export default function ScrollStory({
   }, []);
 
   return (
-    <section className="bg-white px-4 pt-14 md:px-6 md:pt-[72px]">
+    <section className="bg-white px-5 pt-14 md:px-10 md:pt-[72px] xl:px-14">
       <div className="mx-auto max-w-7xl">
         <div className="pb-12 md:pb-10">
           <h2 className="font-display text-[26px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110]">
@@ -92,7 +92,7 @@ export default function ScrollStory({
           </p>
         </div>
 
-        <div className="hidden lg:grid lg:grid-cols-[0.54fr_1fr] lg:gap-16">
+        <div className="hidden lg:grid lg:grid-cols-[0.54fr_1fr] lg:gap-8 xl:gap-10">
           <div className="pb-[12vh] pt-[6vh]">
             {steps.map((step, index) => (
               <article

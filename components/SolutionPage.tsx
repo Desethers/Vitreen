@@ -12,6 +12,7 @@ import { ArtistWebsitePage } from "@/components/WebsitePublisherProductPage";
 import { SyncVisual } from "@/components/ViewingRoomsScrollStory";
 import { ExhibitionPageMock } from "@/components/showcase/ExhibitionPageMock";
 import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
+import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -52,6 +53,15 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, ease, delay },
 });
 
+const chatMessage = (delay: number, duration = 0.5) => ({
+  initial: { opacity: 0, y: 12, scale: 0.98 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  transition: { duration, ease, delay },
+});
+
+const pdfMessageDelay = 2.8;
+const pdfTypingDuration = 2;
+
 type SolutionContent = {
   eyebrow: string;
   title: string;
@@ -79,6 +89,183 @@ function CheckIcon() {
         strokeLinejoin="round"
       />
     </svg>
+  );
+}
+
+/*
+ * Réplique du node Figma 526:2471 (WhatsApp Chat) — mêmes bulles (queues
+ * incluses), photo d'œuvre, double-check bleu et carte PDF, exportés du
+ * fichier Vitreen vers /mockups/whatsapp-figma-v2. La barre de saisie garde
+ * le contexte mobile et anime la commande juste avant son envoi.
+ */
+const WA = "/mockups/whatsapp-figma-v2";
+
+function WhatsAppReadCheck({ className }: { className: string }) {
+  return (
+    <svg viewBox="0 0 16 10" fill="none" className={className} aria-hidden="true">
+      <path
+        d="m.6 5.1 2.6 2.6L8 1.1M5.1 6.4l1.4 1.3 4.8-6.6"
+        stroke="#3497F9"
+        strokeWidth="1.35"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function WhatsAppShareWorksMock() {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex h-full w-full items-center justify-center overflow-hidden bg-[#EFEFF4] px-4 md:px-6"
+    >
+      <div className="flex h-full w-full max-w-[420px] flex-col">
+        <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden py-2">
+          <div className="flex w-[340px] origin-center -translate-y-4 scale-[0.8] flex-col gap-[6px] md:w-[400px] md:-translate-y-5 md:scale-[0.92]">
+            {/* 1 — Outgoing: artwork photo + caption */}
+            <motion.div {...chatMessage(0.1)} className="relative h-[208px] w-[280px] self-end">
+              <img
+                src={`${WA}/shape-incoming1b.svg`}
+                alt=""
+                className="absolute inset-0 h-full w-full"
+              />
+              <img
+                src={`${WA}/artwork-photo.png`}
+                alt=""
+                className="absolute left-[4px] top-[3px] h-[128px] w-[260px] rounded-[6px] object-cover"
+              />
+              <p className="absolute left-[11px] right-[20px] top-[138px] text-[12.5px] leading-[1.32] tracking-[-0.3px] text-black">
+                Sacha Elron - Evening Field - 2026 -
+                <br />
+                Acrylic on canvas - 180 × 180 cm -
+                <br />
+                $10,000
+              </p>
+              <p className="absolute bottom-[9px] right-[27px] text-[9px] tracking-[0.5px] text-black/25">
+                10:15
+              </p>
+              <WhatsAppReadCheck className="absolute bottom-[10px] right-[9px] h-[8px] w-[14px]" />
+            </motion.div>
+
+            {/* 2 — Incoming: added to selection */}
+            <motion.div {...chatMessage(0.75)} className="relative h-[50px] w-[276px] self-start">
+              <img
+                src={`${WA}/shape-incoming2b.svg`}
+                alt=""
+                className="absolute inset-0 h-full w-full -scale-x-100"
+              />
+              <p className="absolute left-[16px] top-[7px] text-[12.5px] leading-[1.3] tracking-[-0.3px] text-black">
+                Received. “Evening Field” added
+                <br />
+                to your selection
+              </p>
+              <p className="absolute bottom-[5px] right-[13px] text-[9px] tracking-[0.5px] text-black/25">
+                11:40
+              </p>
+            </motion.div>
+
+            {/* 3 — Outgoing: /pdf command */}
+            <motion.div
+              {...chatMessage(pdfMessageDelay, 0.25)}
+              className="relative h-[30px] w-[102px] self-end"
+            >
+              <img
+                src={`${WA}/shape-outgoing2.svg`}
+                alt=""
+                className="absolute inset-0 h-full w-full"
+              />
+              <p className="absolute left-[10px] top-[7px] text-[12.5px] leading-none tracking-[-0.3px] text-black">
+                /pdf
+              </p>
+              <p className="absolute bottom-[8px] right-[26px] text-[8px] tracking-[0.5px] text-black/25">
+                11:43
+              </p>
+              <WhatsAppReadCheck className="absolute bottom-[8px] right-[10px] h-[7px] w-[12px]" />
+            </motion.div>
+
+            {/* 4 — Incoming: building the selection */}
+            <motion.div {...chatMessage(3.4)} className="relative h-[41px] w-[255px] self-start">
+              <img
+                src={`${WA}/shape-incoming3.svg`}
+                alt=""
+                className="absolute inset-0 h-full w-full -scale-x-100"
+              />
+              <p className="absolute left-[16px] top-[9px] text-[12.5px] leading-none tracking-[-0.3px] text-black">
+                Building your selection…
+              </p>
+              <p className="absolute bottom-[6px] right-[13px] text-[9px] tracking-[0.5px] text-black/25">
+                11:45
+              </p>
+            </motion.div>
+
+            {/* 5 — Incoming: PDF ready */}
+            <motion.div {...chatMessage(4)} className="relative h-[107px] w-[262px] self-start">
+              <img
+                src={`${WA}/add-plus.svg`}
+                alt=""
+                className="absolute inset-0 h-full w-full -scale-x-100"
+              />
+              <div className="absolute left-[17px] top-[3px] h-[74px] w-[242px] rounded-[7px] bg-[#F3F0F0]">
+                <img
+                  src={`${WA}/pdf-thumb.png`}
+                  alt=""
+                  className="absolute left-[14px] top-[13px] h-[24px] w-[20px] object-cover"
+                />
+                <p className="absolute left-[42px] top-[9px] text-[12.5px] leading-[1.3] tracking-[-0.3px] text-black">
+                  spring_selection_2026_
+                  <br />
+                  Marie_Beaumont.pdf
+                </p>
+                <p className="absolute bottom-[8px] left-[42px] text-[9px] tracking-[0.1px] text-black/40">
+                  2.8 MB · PDF
+                </p>
+              </div>
+              <p className="absolute bottom-[9px] left-[17px] text-[10px] tracking-[-0.3px] text-black">
+                Selection ready · 1 page
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="shrink-0 bg-transparent py-2 md:py-2.5">
+          <div className="mx-auto flex w-[300px] items-center md:w-[340px]">
+            <div className="flex h-8 min-w-0 flex-1 items-center rounded-full border border-[#D8D8DE] bg-white px-3 md:h-9">
+              <span className="relative block h-[1.25em] overflow-hidden whitespace-nowrap text-[10px] text-[#8E8E93] md:text-[11px]">
+                <motion.span
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: [1, 1, 0, 0, 1] }}
+                  transition={{
+                    duration: pdfTypingDuration,
+                    delay: pdfMessageDelay - pdfTypingDuration,
+                    times: [0, 0.08, 0.16, 0.84, 1],
+                    ease: "easeInOut",
+                  }}
+                >
+                  Message
+                </motion.span>
+                <motion.span
+                  initial={{ width: "0ch", opacity: 0 }}
+                  animate={{
+                    width: ["0ch", "0ch", "4ch", "4ch", "0ch"],
+                    opacity: [0, 0, 1, 1, 0],
+                  }}
+                  transition={{
+                    duration: pdfTypingDuration,
+                    delay: pdfMessageDelay - pdfTypingDuration,
+                    times: [0, 0.08, 0.54, 0.76, 1],
+                    ease: "easeInOut",
+                  }}
+                  className="absolute left-0 top-0 overflow-hidden whitespace-nowrap bg-white font-medium text-[#111110]"
+                >
+                  /pdf
+                </motion.span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -175,7 +362,7 @@ function GalleriesEditorialIntro({
               {highlights.map((highlight) => (
                 <li
                   key={highlight.title}
-                  className="grid grid-cols-[1rem_1fr] items-start gap-4 rounded-[8px] border border-transparent bg-[#F7F7F5] px-6 py-7 transition-colors duration-200 hover:border-[#111110] md:px-7 md:py-8"
+                  className="grid grid-cols-[1rem_1fr] items-start gap-4 rounded-[8px] bg-[#F7F7F5] px-6 py-7 md:px-7 md:py-8"
                 >
                   <CheckIcon />
                   <div>
@@ -217,9 +404,13 @@ function GalleriesStickyWorkflow() {
       ],
     },
     {
-      title: "Share works privately",
-      subtitle: "Prepare the right material for each collector conversation.",
-      bullets: ["Private links", "Emails and PDFs", "Control prices and visible details"],
+      title: "Send artwork PDFs from your phone",
+      subtitle: "Create a polished selection and share it directly in a WhatsApp conversation.",
+      bullets: [
+        "Build a PDF in minutes",
+        "Share without leaving your phone",
+        "Choose prices and details before sending",
+      ],
     },
     {
       title: "Keep track of interest",
@@ -233,7 +424,15 @@ function GalleriesStickyWorkflow() {
       title="From inventory to collector follow-up."
       subtitle="The same artwork records keep each step connected."
       steps={steps}
-      renderVisual={() => <div className="h-full w-full bg-[#F5F5F3]" />}
+      renderVisual={(index) =>
+        index === 0 ? (
+          <ArtworkFormMock />
+        ) : index === 2 ? (
+          <WhatsAppShareWorksMock />
+        ) : (
+          <div className="h-full w-full bg-[#F5F5F3]" />
+        )
+      }
     />
   );
 }
