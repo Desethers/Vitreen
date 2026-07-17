@@ -13,6 +13,7 @@ import { SyncVisual } from "@/components/ViewingRoomsScrollStory";
 import { ExhibitionPageMock } from "@/components/showcase/ExhibitionPageMock";
 import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
 import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
+import { InquiryDraftsFrame } from "@/components/GalleryAssistantProductPage";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -413,9 +414,14 @@ function GalleriesStickyWorkflow() {
       ],
     },
     {
-      title: "Keep track of interest",
-      subtitle: "Remember what was shared, discussed, reserved or sold.",
-      bullets: ["Collector inquiries", "Works already presented", "Availability and next steps"],
+      title: "A Gallery Assistant and Sales Agent for every collector inquiry.",
+      subtitle:
+        "AI-prepared replies for every collector inquiry, reviewed and sent by the gallery.",
+      bullets: [
+        "New inquiries become sales drafts",
+        "Artwork details are added automatically",
+        "Your team reviews before anything is sent",
+      ],
     },
   ];
 
@@ -424,11 +430,14 @@ function GalleriesStickyWorkflow() {
       title="From inventory to collector follow-up."
       subtitle="The same artwork records keep each step connected."
       steps={steps}
+      isVisualBare={(index) => index === 3}
       renderVisual={(index) =>
         index === 0 ? (
           <ArtworkFormMock />
         ) : index === 2 ? (
           <WhatsAppShareWorksMock />
+        ) : index === 3 ? (
+          <InquiryDraftsFrame animatePipeline />
         ) : (
           <div className="h-full w-full bg-[#F5F5F3]" />
         )

@@ -85,11 +85,19 @@ const GMAIL_RESULTS = [
   },
 ] as const;
 
-function InquiryDraftsFrame() {
+export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipeline?: boolean }) {
+  const prefersReducedMotion = useReducedMotion();
+  const shouldAnimate = animatePipeline && !prefersReducedMotion;
+
   return (
     <div className="absolute inset-0">
       <div className="grid h-full w-full grid-cols-[0.84fr_1.16fr] gap-[5px]">
-        <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[18px] border border-[#E2E2DF] bg-white">
+        <motion.section
+          initial={shouldAnimate ? { opacity: 0, y: 10 } : false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease, delay: shouldAnimate ? 0.1 : 0 }}
+          className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] border border-[#E2E2DF] bg-white"
+        >
           <div className="flex items-center justify-between gap-3 border-b border-zinc-100 px-4 py-3">
             <div>
               <h3 className="text-[13px] font-semibold text-zinc-900">Collector inquiry</h3>
@@ -137,9 +145,14 @@ function InquiryDraftsFrame() {
               Inquiry received
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[18px] border border-[#E2E2DF] bg-white">
+        <motion.section
+          initial={shouldAnimate ? { opacity: 0, x: 14 } : false}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease, delay: shouldAnimate ? 0.85 : 0 }}
+          className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] border border-[#E2E2DF] bg-white"
+        >
           <div className="flex items-center justify-between gap-3 border-b border-zinc-100 px-4 py-3">
             <div>
               <h3 className="text-[13px] font-semibold text-zinc-900">Prepared reply</h3>
@@ -167,20 +180,6 @@ function InquiryDraftsFrame() {
               <p className="mt-1.5">Best regards,</p>
             </div>
 
-            <div className="mt-2.5 border-t border-zinc-100 pt-2.5">
-              <p className="text-[10px] font-medium text-zinc-900">
-                Prepared from Gallery OS records
-              </p>
-              <div className="mt-1.5 divide-y divide-zinc-100">
-                {["Artwork details", "Price & availability", "Inquiry context"].map((item) => (
-                  <div key={item} className="flex items-center gap-2 py-1 text-[9px] text-zinc-600">
-                    <span className="text-emerald-600">✓</span>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             <div className="mt-2.5 flex items-end justify-between gap-3">
               <p className="max-w-[190px] text-[9px] leading-[1.35] text-zinc-500">
                 Nothing is sent without gallery approval.
@@ -201,7 +200,7 @@ function InquiryDraftsFrame() {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </div>
     </div>
   );
