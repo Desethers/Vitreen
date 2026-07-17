@@ -20,7 +20,7 @@ export default function Hero() {
         >
           {t.hero.title}
         </h1>
-        <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-3xl text-[18px] leading-[1.45] tracking-[-0.02em] text-[#6B6A67] md:text-[22px]">
+        <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-5xl leading-[inherit] tracking-[-0.02em] text-[#6B6A67]">
           {t.hero.subtitle}
         </p>
         <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center gap-3 md:mt-[22px]">

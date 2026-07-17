@@ -938,9 +938,9 @@ export const translations = {
     hero: {
       title: "Your gallery, wherever you already work.",
       subtitle:
-        "Manage artworks, update your website and simplify collector sales.",
-      ctaPrimary: "Discuss your setup",
-      ctaSecondary: "View tools",
+        "Connect your artwork records to your website, private selections and collector conversations.",
+      ctaPrimary: "Talk about your gallery",
+      ctaSecondary: "See how it works",
     },
     privateSelections: {
       title: "Viewing Rooms",
