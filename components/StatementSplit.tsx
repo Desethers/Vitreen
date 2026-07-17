@@ -99,7 +99,7 @@ export default function StatementSplit() {
             {t.statementSplit.stats.map((m) => (
               <div
                 key={m.value}
-                className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#111110]/14 rounded-[8px] bg-white/10 transition-all duration-200 hover:border-[#111110]/28 hover:bg-white/22"
+                className="flex flex-col justify-between min-h-[260px] md:min-h-[320px] px-6 py-8 md:px-8 md:py-10 border border-[#111110]/14 rounded-[12px] bg-white/10 transition-all duration-200 hover:border-[#111110]/28 hover:bg-white/22"
               >
                 <span className="font-display text-[1.75rem] md:text-[2rem] font-normal text-[#111110] leading-[1.05] tracking-[-0.03em]">
                   {m.value}

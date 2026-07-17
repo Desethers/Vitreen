@@ -414,7 +414,7 @@ export default function Services() {
           <motion.a
             {...fadeUp(0.05)}
             href="/products/archive"
-            className="group relative overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+            className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
             <div className="pointer-events-none h-[300px] overflow-hidden bg-[#F8F8F6]">
               <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
@@ -431,7 +431,7 @@ export default function Services() {
           <motion.a
             {...fadeUp(0.1)}
             href="/products/publishing"
-            className="group relative overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+            className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
             <div className="pointer-events-none h-[300px] overflow-hidden bg-[#F8F8F6]">
               <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
@@ -450,7 +450,7 @@ export default function Services() {
           <motion.a
             {...fadeUp(0.12)}
             href="/products/viewing-rooms"
-            className="group relative overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+            className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
             <div className="h-[300px] overflow-hidden">
               <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
@@ -468,7 +468,7 @@ export default function Services() {
           <motion.a
             {...fadeUp(0.16)}
             href="/products/custom-operations"
-            className="group relative grid h-[300px] grid-cols-2 gap-[6px] overflow-hidden rounded-lg border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+            className="group relative grid h-[300px] grid-cols-2 gap-[6px] overflow-hidden rounded-[12px] border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
             {addInCards.map((card) => (
               <article

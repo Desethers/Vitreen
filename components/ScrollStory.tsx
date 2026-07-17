@@ -114,7 +114,7 @@ export default function ScrollStory({
                 className={`relative h-full w-full ${
                   isVisualBare?.(activeStep)
                     ? "overflow-visible bg-transparent"
-                    : "overflow-hidden rounded-[18px] border border-[#E8E8E6] bg-[#F8F8F6]"
+                    : "overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F8F8F6]"
                 }`}
               >
                 {renderVisual(activeStep)}
@@ -132,7 +132,7 @@ export default function ScrollStory({
                 className={`mt-8 h-[420px] sm:h-[520px] ${
                   isVisualBare?.(index)
                     ? "overflow-visible bg-transparent"
-                    : "overflow-hidden rounded-xl border border-[#E8E8E6] bg-[#F8F8F6]"
+                    : "overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F8F8F6]"
                 }`}
               >
                 {renderVisual(index)}

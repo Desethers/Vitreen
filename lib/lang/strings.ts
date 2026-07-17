@@ -1609,8 +1609,9 @@ export const translations = {
       mockCaption: "Preview",
       galleries: {
         eyebrow: "Solutions · Galleries",
-        title: "Built around how your gallery already works.",
-        subtitle: "Artworks, exhibitions and inquiries in one connected operating layer.",
+        title: "A connected operating system and website for contemporary galleries.",
+        subtitle:
+          "A custom Gallery OS and website built around your artworks, exhibitions and collector relationships.",
         body:
           "Vitreen connects the gallery’s existing archives, inventories or databases, then turns artworks into collector-ready material to share — viewing rooms, private selections, PDFs — without replacing your tools.",
         features: [
@@ -1637,8 +1638,9 @@ export const translations = {
       },
       artists: {
         eyebrow: "Solutions · Artists",
-        title: "An archive that presents your work clearly.",
-        subtitle: "Archive, series and presentation, structured around your body of work.",
+        title: "Artist archive, artwork inventory and portfolio website in one place.",
+        subtitle:
+          "Organise your artworks, update your website without code and create private presentations for galleries, curators and collectors.",
         body:
           "For artists and studios, structure the body of work — series, mediums, years, provenance — and present a selection to galleries, curators or collectors through private links.",
         features: [

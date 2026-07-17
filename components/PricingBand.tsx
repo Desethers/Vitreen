@@ -69,7 +69,7 @@ export default function PricingBand() {
           {/* Gallery OS — the offer, as a filled card */}
           <motion.article
             {...fadeUp(0.05)}
-            className="flex flex-col rounded-[16px] bg-[#F5F5F3] p-6 md:p-10"
+            className="flex flex-col rounded-[12px] bg-[#F5F5F3] p-6 md:p-10"
           >
             <div className="flex flex-col gap-3 md:min-h-[81px] md:flex-row md:items-start md:justify-between md:gap-6">
               <div className="min-w-0">

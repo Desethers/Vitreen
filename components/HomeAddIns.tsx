@@ -51,7 +51,7 @@ export default function HomeAddIns() {
             return (
               <article
                 key={card.key}
-                className="relative grid min-h-[520px] grid-rows-[42px_minmax(0,1fr)_auto] overflow-hidden rounded-[8px] p-8"
+                className="relative grid min-h-[520px] grid-rows-[42px_minmax(0,1fr)_auto] overflow-hidden rounded-[12px] p-8"
                 style={{ background: card.background }}
               >
                 <img src={card.logo} alt="" className={`object-contain ${card.logoClassName}`} />

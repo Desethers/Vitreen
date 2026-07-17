@@ -82,31 +82,114 @@ function CheckIcon() {
   );
 }
 
-function GalleriesBenefitsStrip() {
-  const benefits = [
-    { metric: "×5", text: "surfaces served by one artwork record" },
-    { metric: "24/7", text: "website aligned with your records" },
-    { metric: "3 wks", text: "from your inventory to a working Gallery OS" },
-  ];
+function GalleriesEditorialIntro({
+  content,
+  lang,
+  onContact,
+}: {
+  content: SolutionContent;
+  lang: "fr" | "en";
+  onContact: () => void;
+}) {
+  const editorial =
+    lang === "fr"
+      ? {
+          label: "Pour quelles galeries ?",
+          titleLines: [
+            "Toute galerie qui souhaite une présence en ligne",
+            "sans dépendre d’un développeur.",
+          ],
+          body: "Vitreen part de vos archives, de vos outils et de vos habitudes pour créer une infrastructure plus claire autour des œuvres.",
+        }
+      : {
+          label: "Who is it for?",
+          titleLines: [
+            "Any gallery that wants an online presence",
+            "without depending on a developer.",
+          ],
+          body: "Vitreen starts from your archives, tools and habits, then builds a clearer operating layer around your artworks.",
+        };
+
+  const highlights =
+    lang === "fr"
+      ? [
+          {
+            title: "Connectez ce que vous utilisez déjà",
+            description:
+              "Réunissez archives, inventaires et bases de données dans une couche opérationnelle connectée.",
+          },
+          {
+            title: "Réutilisez chaque fiche œuvre",
+            description:
+              "Préparez viewing rooms, PDFs et liens privés sans recréer les mêmes informations.",
+          },
+          {
+            title: "Publiez et partagez depuis une seule source",
+            description:
+              "Passez de la publication publique au partage privé avec les mêmes fiches œuvres.",
+          },
+        ]
+      : [
+          {
+            title: "Connect what you already use",
+            description:
+              "Bring archives, inventories and databases into one connected operating layer.",
+          },
+          {
+            title: "Use artwork details everywhere",
+            description:
+              "Turn one artwork record into website pages, PDFs, viewing rooms and collector replies.",
+          },
+          {
+            title: "Publish and share from one source",
+            description:
+              "Move between public publishing and private sharing with the same artwork records.",
+          },
+        ];
 
   return (
-    <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
+    <section className="bg-white px-4 py-16 md:px-6 md:py-24">
       <div className="mx-auto max-w-7xl">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-4">
-          {benefits.map((benefit, i) => (
-            <motion.div
-              key={benefit.metric}
-              {...fadeUp(i * 0.06)}
-              className="w-[72vw] shrink-0 snap-start rounded-lg bg-[#F5F5F3] px-5 py-5 sm:w-[42vw] md:w-auto"
-            >
-              <span className="font-display text-[32px] font-normal leading-none tracking-[-0.02em] text-[#111110] md:text-[36px]">
-                {benefit.metric}
-              </span>
-              <p className="mt-3 max-w-[220px] text-[14px] leading-[1.4] tracking-[-0.01em] text-[#6B6A67]">
-                {benefit.text}
-              </p>
-            </motion.div>
-          ))}
+        <div className="grid gap-16 md:grid-cols-[1.08fr_0.92fr] md:gap-12 lg:gap-16">
+          <motion.div {...fadeUp(0)}>
+            <p className="text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+              {editorial.label}
+            </p>
+            <h2 className="mt-6 font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
+              {editorial.titleLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h2>
+            <p className="mt-6 max-w-xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
+              {editorial.body}
+            </p>
+            <Button size="lg" onClick={onContact} className="mt-10">
+              {content.cta} <span aria-hidden="true">→</span>
+            </Button>
+          </motion.div>
+
+          <motion.div {...fadeUp(0.08)}>
+            <ol className="flex list-none flex-col gap-3 p-0">
+              {highlights.map((highlight) => (
+                <li
+                  key={highlight.title}
+                  className="grid grid-cols-[1rem_1fr] items-start gap-4 rounded-[8px] border border-transparent bg-[#F7F7F5] px-6 py-7 transition-colors duration-200 hover:border-[#111110] md:px-7 md:py-8"
+                >
+                  <CheckIcon />
+                  <div>
+                    <h3 className="font-display text-[17px] font-normal leading-[1.35] tracking-[-0.02em] text-[#111110] md:text-[18px]">
+                      {highlight.title}
+                    </h3>
+                    <p className="mt-3 text-[14px] leading-[1.5] tracking-[-0.01em] text-[#9A9A96] md:text-[15px]">
+                      {highlight.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -226,7 +309,7 @@ function GalleriesBuiltAroundSection() {
 }
 
 export default function SolutionPage({ slug }: { slug: RoleSlug }) {
-  const { t } = useLang();
+  const { lang, t } = useLang();
   const solutions = t.solutions as unknown as Record<RoleSlug, SolutionContent> & {
     sectionLabel: string;
     backToHome: string;
@@ -252,9 +335,11 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
             <p className="mt-2 max-w-4xl text-[30px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
               {content.subtitle}
             </p>
-            <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
-              {content.body}
-            </p>
+            {slug !== "galleries" && slug !== "artists" ? (
+              <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
+                {content.body}
+              </p>
+            ) : null}
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" onClick={openContact}>
                 {content.cta}
@@ -277,7 +362,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
 
       {slug === "galleries" ? (
         <>
-          <GalleriesBenefitsStrip />
+          <GalleriesEditorialIntro content={content} lang={lang} onContact={openContact} />
           <GalleriesStickyWorkflow />
           <GalleriesBuiltAroundSection />
         </>
