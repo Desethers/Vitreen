@@ -413,7 +413,13 @@ const NAV: {
   { id: "tools", label: "Tools", icon: Icon.Wrench },
 ];
 
-function GalleryOsSidebar({ active, onSelect }: { active: NavId; onSelect?: (id: NavId) => void }) {
+export function GalleryOsSidebar({
+  active,
+  onSelect,
+}: {
+  active: NavId;
+  onSelect?: (id: NavId) => void;
+}) {
   return (
     <aside
       className="hidden shrink-0 flex-col border-r border-zinc-200 bg-white md:flex"
@@ -469,7 +475,7 @@ function GalleryOsSidebar({ active, onSelect }: { active: NavId; onSelect?: (id:
   );
 }
 
-function PageHeader({
+export function PageHeader({
   title,
   sub,
   action,

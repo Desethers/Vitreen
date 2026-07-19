@@ -14,6 +14,7 @@ import { ExhibitionPageMock } from "@/components/showcase/ExhibitionPageMock";
 import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
 import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
 import { InquiryDraftsFrame } from "@/components/GalleryAssistantProductPage";
+import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -516,6 +517,77 @@ function GalleriesBuiltAroundSection() {
   );
 }
 
+function AdvisorsWorkflow({ lang, onContact }: { lang: "fr" | "en"; onContact: () => void }) {
+  const copy =
+    lang === "fr"
+      ? {
+          title: "Des œuvres disponibles à la présentation privée.",
+          subtitle:
+            "Choisissez les œuvres pertinentes une fois, puis préparez une sélection soignée à envoyer directement à votre client.",
+          steps: [
+            {
+              title: "Retrouvez les bonnes œuvres",
+              subtitle: "Recherchez dans vos fiches et filtrez par disponibilité.",
+            },
+            {
+              title: "Composez la sélection",
+              subtitle: "Réunissez les œuvres retenues directement depuis votre inventaire.",
+            },
+            {
+              title: "Partagez-la en privé",
+              subtitle: "Envoyez la présentation par lien privé ou exportez-la en PDF.",
+            },
+            {
+              title: "Gardez l’échange relié aux œuvres",
+              subtitle:
+                "Lorsqu’un client répond, retrouvez la sélection et l’œuvre dans le même contexte.",
+            },
+          ],
+        }
+      : {
+          title: "From available works to a private presentation.",
+          subtitle:
+            "Choose the relevant works once, then prepare a polished selection you can send directly to your client.",
+          steps: [
+            {
+              title: "Find the right works",
+              subtitle: "Search your artwork records and filter by availability.",
+            },
+            {
+              title: "Build the selection",
+              subtitle: "Bring the chosen works together directly from your inventory.",
+            },
+            {
+              title: "Share it privately",
+              subtitle: "Send the presentation by private link or export it as a PDF.",
+            },
+            {
+              title: "Keep the conversation connected",
+              subtitle:
+                "When a client replies, keep the selection and artwork visible in the same context.",
+            },
+          ],
+        };
+
+  return (
+    <ScrollStory
+      title={copy.title}
+      subtitle={copy.subtitle}
+      steps={copy.steps}
+      renderVisual={(index) => <AdvisorsSelectionWorkflowVisual step={index} />}
+      renderVisualFooter={(index) =>
+        index === 3 ? (
+          <div className="flex justify-end pt-5">
+            <Button size="lg" onClick={onContact}>
+              {lang === "fr" ? "Discuter de votre setup" : "Discuss your setup"}
+            </Button>
+          </div>
+        ) : null
+      }
+    />
+  );
+}
+
 export default function SolutionPage({ slug }: { slug: RoleSlug }) {
   const { lang, t } = useLang();
   const solutions = t.solutions as unknown as Record<RoleSlug, SolutionContent> & {
@@ -537,13 +609,18 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
+            {slug === "advisors" ? (
+              <p className="mb-5 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+                {content.eyebrow}
+              </p>
+            ) : null}
             <h1 className="font-display text-[30px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110]">
               {content.title}
             </h1>
             <p className="mt-2 max-w-4xl text-[30px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
               {content.subtitle}
             </p>
-            {slug !== "galleries" && slug !== "artists" ? (
+            {slug !== "galleries" && slug !== "artists" && slug !== "advisors" ? (
               <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
                 {content.body}
               </p>
@@ -576,7 +653,9 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
         </>
       ) : null}
 
-      <CtaBand />
+      {slug === "advisors" ? <AdvisorsWorkflow lang={lang} onContact={openContact} /> : null}
+
+      {slug !== "advisors" ? <CtaBand /> : null}
       <Footer />
     </main>
   );

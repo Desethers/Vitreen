@@ -356,18 +356,6 @@ const addInCards = [
     src: "/logos/whatsapp.svg",
     className: "h-[42px] w-[42px]",
   },
-  {
-    type: "excel",
-    label: "Microsoft Excel",
-    src: "/logos/Microsoft_Office_Excel_Logo.svg",
-    className: "h-[42px] w-[42px]",
-  },
-  {
-    type: "outlook",
-    label: "Microsoft Outlook",
-    src: "/logos/Microsoft_Office_Outlook_Logo.svg",
-    className: "h-[42px] w-[42px]",
-  },
 ] as const satisfies readonly {
   type: string;
   label: string;
@@ -443,7 +431,6 @@ export default function Services() {
               title={cards.website.title}
               action="Explore"
               actionHover="dark"
-              titleTone="light"
             />
           </motion.a>
 

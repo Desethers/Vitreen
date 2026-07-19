@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import HeroDashboardMock from "@/components/HeroDashboardMock";
 import ProcessFlow from "@/components/ProcessFlow";
-import HomeAddIns from "@/components/HomeAddIns";
+import SignatureDemo from "@/components/SignatureDemo";
 import QuoteSection from "@/components/QuoteSection";
 import StatementSplit from "@/components/StatementSplit";
 import Services from "@/components/Services";
@@ -19,7 +19,7 @@ export default function Home() {
       <HeroDashboardMock />
       <ProcessFlow />
       <Services />
-      <HomeAddIns />
+      <SignatureDemo />
       <QuoteSection />
       <PricingBand />
       <Faq />

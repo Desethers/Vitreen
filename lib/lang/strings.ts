@@ -776,11 +776,11 @@ export const translations = {
         cta: "Discuter de votre setup",
       },
       advisors: {
-        eyebrow: "Solutions · Conseillers & Marchands",
-        title: "Des sélections privées que vos clients prennent au sérieux.",
-        subtitle: "Sélections privées et suivi client, rattachés à chaque œuvre.",
-        body:
-          "Pour les conseillers et marchands, composez une sélection privée par client, partagez-la via un lien soigné ou un PDF, et gardez le suivi connecté à chaque œuvre — sans exposer vos sources.",
+        eyebrow: "Conseillers & marchands",
+        title: "Présentez les bonnes œuvres à chaque client.",
+        subtitle:
+          "Créez des sélections privées depuis vos fiches œuvres, partagez-les par lien ou PDF et gardez chaque échange relié aux œuvres.",
+        body: "",
         features: [
           "Sélection privée par client",
           "Partage par lien privé, PDF ou WhatsApp",
@@ -1623,11 +1623,11 @@ export const translations = {
         cta: "Discuss your setup",
       },
       advisors: {
-        eyebrow: "Solutions · Advisors & Dealers",
-        title: "Private selections your clients take seriously.",
-        subtitle: "Private selections and client follow-up, tied to each artwork.",
-        body:
-          "For advisors and dealers, compose a private selection per client, share it through a refined link or PDF, and keep follow-up connected to each work — without exposing your sources.",
+        eyebrow: "Advisors & dealers",
+        title: "Present the right works to every client.",
+        subtitle:
+          "Build private selections from your artwork records, share them by link or PDF, and keep each conversation connected to the works.",
+        body: "",
         features: [
           "Compose a private selection per client",
           "Share by private link, PDF or WhatsApp",

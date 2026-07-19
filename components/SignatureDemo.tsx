@@ -29,10 +29,37 @@ function SurfacePrice({ synced, delay }: { synced: boolean; delay: number }) {
   );
 }
 
+/*
+ * Légende d’œuvre partagée par les 3 surfaces de sortie (Website / PDF / Viewing
+ * Room). Structure et typo identiques partout pour que la ligne de prix tombe
+ * exactement au même Y sur chaque carte — c’est le même artwork record réutilisé.
+ */
+function ArtworkCaption({ synced, delay }: { synced: boolean; delay: number }) {
+  return (
+    <div className="min-w-0">
+      <p className="text-[11px] font-medium text-[#111110]">Sacha Elron</p>
+      <p className="text-[11px] text-[#6B6A67]">
+        <span className="italic">Evening Field</span>, 2023
+      </p>
+      <p className="mt-1 truncate text-[10px] leading-[14px] text-[#9A9A97]">
+        Acrylic on canvas · 120 × 120 cm
+      </p>
+      <div className="mt-2 text-[12px] font-semibold">
+        <SurfacePrice synced={synced} delay={delay} />
+      </div>
+    </div>
+  );
+}
+
+// Surfaces de sortie : en-tête à hauteur fixe + image à hauteur fixe → alignement
+const OUTPUT_INTRO = "flex h-[64px] shrink-0";
+const OUTPUT_BODY = "flex flex-1 flex-col px-5 pt-3";
+const OUTPUT_IMG = "h-[128px] w-full object-cover";
+
 function BleedPanel({ children, address }: { children: ReactNode; address: string }) {
   return (
-    <div className="mt-6 h-[340px] flex-none pl-6">
-      <div className="h-full w-[calc(100%+40px)] overflow-hidden rounded-tl-xl border border-[#E4E4E7] bg-white">
+    <div className="mt-6 min-h-0 flex-1 pb-[20px] pl-[20px]">
+      <div className="h-full w-[calc(100%+40px)] overflow-hidden rounded-[12px] border border-[#E4E4E7] bg-white">
         <div className="flex h-10 items-center gap-2 border-b border-[#E8E8E6] bg-white px-4">
           <div className="flex shrink-0 items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-[#E3E3E1]" />
@@ -172,25 +199,18 @@ function RecordMock({
 function WebsiteMock({ synced, delay }: { synced: boolean; delay: number }) {
   return (
     <div className="flex h-full flex-col bg-white">
-      <div className="border-b border-[#E8E8E6] px-5 py-3">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-[#111110]">Galerie</p>
+      <div className={`${OUTPUT_INTRO} items-center border-b border-[#E8E8E6] px-5`}>
+        <p className="text-[10px] uppercase tracking-[0.24em] text-[#111110]">Galerie</p>
       </div>
-      <div className="p-3">
+      <div className={OUTPUT_BODY}>
         <img
           src="/artworks/painting-05.jpg"
           alt="Evening Field by Sacha Elron"
-          className="h-[112px] w-full object-cover"
+          className={OUTPUT_IMG}
         />
-        <div className="mt-2.5 flex items-start justify-between gap-3">
-          <div>
-            <p className="text-[12px] text-[#111110]">Sacha Elron</p>
-            <p className="text-[12px] italic text-[#111110]">Evening Field, 2023</p>
-            <p className="mt-1 text-[10px] text-[#6B6A67]">Acrylic on canvas</p>
-            <div className="mt-2 text-[13px]">
-              <SurfacePrice synced={synced} delay={delay} />
-            </div>
-          </div>
-          <span className="border border-[#111110] px-3 py-1.5 text-[10px] text-[#111110]">
+        <div className="mt-3 flex items-start justify-between gap-3">
+          <ArtworkCaption synced={synced} delay={delay} />
+          <span className="shrink-0 border border-[#111110] px-3 py-1.5 text-[10px] text-[#111110]">
             Inquire
           </span>
         </div>
@@ -205,34 +225,20 @@ function WebsiteMock({ synced, delay }: { synced: boolean; delay: number }) {
  */
 function PdfMock({ synced, delay }: { synced: boolean; delay: number }) {
   return (
-    <div className="flex h-full flex-col bg-white px-5 pt-4 pb-3">
-      <div className="flex items-start justify-between">
+    <div className="flex h-full flex-col bg-white">
+      <div className={`${OUTPUT_INTRO} items-start justify-between px-5 pt-5`}>
         <p className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#111110]">
           Galerie Fontaine
         </p>
         <p className="text-right text-[7px] leading-3 text-[#888]">Paris · 5 July 2026</p>
       </div>
-      <div className="mt-4">
-        <img
-          src="/artworks/painting-05.jpg"
-          alt=""
-          aria-hidden="true"
-          className="h-[108px] w-full object-contain object-left"
-        />
-        <div className="mt-2.5">
-          <p className="text-[11px] font-semibold text-[#111110]">Sacha Elron</p>
-          <p className="text-[11px] italic text-[#111110]">Evening Field, 2023</p>
-          <p className="mt-1 text-[9px] leading-4 text-[#888]">
-            Acrylic on canvas
-            <br />
-            120 × 120 cm
-          </p>
-          <div className="mt-2 text-[11px] font-semibold">
-            <SurfacePrice synced={synced} delay={delay} />
-          </div>
+      <div className={OUTPUT_BODY}>
+        <img src="/artworks/painting-05.jpg" alt="" aria-hidden="true" className={OUTPUT_IMG} />
+        <div className="mt-3">
+          <ArtworkCaption synced={synced} delay={delay} />
         </div>
       </div>
-      <div className="mt-auto flex justify-between border-t border-[#EEE] pt-2 text-[7px] text-[#AAA]">
+      <div className="flex justify-between border-t border-[#EEE] px-5 pb-3 pt-2 text-[7px] text-[#AAA]">
         <span>Galerie Fontaine</span>
         <span>Confidentiel — usage privé</span>
       </div>
@@ -246,33 +252,26 @@ function PdfMock({ synced, delay }: { synced: boolean; delay: number }) {
  */
 function ViewingRoomMock({ synced, delay }: { synced: boolean; delay: number }) {
   return (
-    <div className="flex h-full flex-col bg-white px-5 pt-4 pb-3">
-      <p className="text-[8px] uppercase italic tracking-[0.22em] text-[#ADADAA]">
-        Gallery Fontaine
-      </p>
-      <p className="mt-2 font-display text-[17px] text-[#111110]">Exhibition Selection</p>
-      <p className="mt-0.5 text-[9px] text-[#6B6A67]">For Jean Dupont</p>
-      <img
-        src="/artworks/painting-07.jpg"
-        alt=""
-        aria-hidden="true"
-        className="mt-3 h-[112px] w-full object-cover"
-      />
-      <div className="mt-2.5 flex items-start justify-between gap-2">
-        <div>
-          <p className="text-[10px] font-medium text-[#111110]">Sacha Elron</p>
-          <p className="text-[9px] text-[#6B6A67]">
-            <span className="italic">Evening Field</span>, 2023
-          </p>
-          <div className="mt-1.5 text-[11px]">
-            <SurfacePrice synced={synced} delay={delay} />
-          </div>
-        </div>
-        <span className="rounded-[2px] border border-rose-300 px-3 py-1 text-[9px] text-[#111110]">
-          Inquire
-        </span>
+    <div className="flex h-full flex-col bg-white">
+      <div className={`${OUTPUT_INTRO} flex-col justify-center px-5`}>
+        <p className="text-[8px] uppercase italic tracking-[0.22em] text-[#ADADAA]">
+          Gallery Fontaine
+        </p>
+        <p className="mt-1 font-display text-[16px] leading-tight text-[#111110]">
+          Exhibition Selection
+        </p>
+        <p className="text-[9px] text-[#6B6A67]">For Jean Dupont</p>
       </div>
-      <div className="mt-auto flex justify-center pt-3">
+      <div className={OUTPUT_BODY}>
+        <img src="/artworks/painting-05.jpg" alt="" aria-hidden="true" className={OUTPUT_IMG} />
+        <div className="mt-3 flex items-start justify-between gap-2">
+          <ArtworkCaption synced={synced} delay={delay} />
+          <span className="shrink-0 rounded-[2px] border border-rose-300 px-3 py-1 text-[9px] text-[#111110]">
+            Inquire
+          </span>
+        </div>
+      </div>
+      <div className="mt-auto flex justify-center px-5 pb-3 pt-2">
         <div className="flex items-center gap-2 rounded-[10px] border border-black/[0.06] bg-white px-3 py-2">
           <span className="text-[8px] text-[#6B6A67]">+ Images</span>
           <span className="h-3 w-px bg-[#E8E8E6]" />
@@ -355,7 +354,7 @@ export default function SignatureDemo() {
         </p>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <article className="relative flex h-[428px] flex-col overflow-hidden rounded-lg border border-[#E8E8E6] bg-white pt-6">
+          <article className="relative flex h-[480px] flex-col overflow-hidden rounded-[12px] bg-[#F8F8F6] pt-6">
             <div className="h-10 shrink-0 px-6">
               <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">
                 {t.signatureDemo.sourceLabel}
@@ -376,7 +375,7 @@ export default function SignatureDemo() {
             return (
               <article
                 key={output.label}
-                className="relative flex h-[428px] flex-col overflow-hidden rounded-lg border border-[#E8E8E6] bg-white pt-6"
+                className="relative flex h-[480px] flex-col overflow-hidden rounded-[12px] bg-[#F8F8F6] pt-6"
               >
                 <div className="h-10 shrink-0 px-6">
                   <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">
