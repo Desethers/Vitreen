@@ -517,7 +517,7 @@ function GalleriesBuiltAroundSection() {
   );
 }
 
-function AdvisorsWorkflow({ lang, onContact }: { lang: "fr" | "en"; onContact: () => void }) {
+function AdvisorsWorkflow({ lang }: { lang: "fr" | "en" }) {
   const copy =
     lang === "fr"
       ? {
@@ -575,15 +575,6 @@ function AdvisorsWorkflow({ lang, onContact }: { lang: "fr" | "en"; onContact: (
       subtitle={copy.subtitle}
       steps={copy.steps}
       renderVisual={(index) => <AdvisorsSelectionWorkflowVisual step={index} />}
-      renderVisualFooter={(index) =>
-        index === 3 ? (
-          <div className="flex justify-end pt-5">
-            <Button size="lg" onClick={onContact}>
-              {lang === "fr" ? "Discuter de votre setup" : "Discuss your setup"}
-            </Button>
-          </div>
-        ) : null
-      }
     />
   );
 }
@@ -653,7 +644,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
         </>
       ) : null}
 
-      {slug === "advisors" ? <AdvisorsWorkflow lang={lang} onContact={openContact} /> : null}
+      {slug === "advisors" ? <AdvisorsWorkflow lang={lang} /> : null}
 
       {slug !== "advisors" ? <CtaBand /> : null}
       <Footer />

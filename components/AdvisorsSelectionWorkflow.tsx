@@ -69,60 +69,197 @@ function ArtworkImage({ work, className = "" }: { work: { image: string }; class
 }
 
 function SearchSelection() {
+  const artworkCards = [
+    {
+      title: "Amber Nocturne",
+      year: "2025",
+      price: "14 000 €",
+      status: "Sold",
+      image: "/artworks/painting-05.jpg",
+    },
+    {
+      title: "Crimson Field",
+      year: "2024",
+      price: "9 500 €",
+      status: "Sold",
+      image: "/artworks/painting-03.jpg",
+    },
+    {
+      title: "Sage Interval",
+      year: "2022",
+      price: "6 500 €",
+      status: "Available",
+      image: "/artworks/painting-04.jpg",
+    },
+    {
+      title: "Evening field",
+      year: "2023",
+      price: "10 000 €",
+      status: "Available",
+      image: "/artworks/painting-05.jpg",
+    },
+    {
+      title: "Dawn Study No. 7",
+      year: "2023",
+      price: "6 000 €",
+      status: "Available",
+      image: "/artworks/painting-07.jpg",
+    },
+  ];
+
   return (
-    <Workspace
-      active="artworks"
-      title="Artworks"
-      sub="Available works · 18 results"
-      action={<DarkAction>New artwork</DarkAction>}
-    >
-      <div className="rounded-[8px] border border-zinc-200 bg-white p-3">
-        <div className="flex h-9 items-center rounded-md border border-zinc-200 px-3 text-[11px] text-zinc-800">
-          <span className="mr-2 text-zinc-400">⌕</span>
-          Landscape works for Sophie Veil
-          <span className="ml-auto text-[9px] text-zinc-400">3 selected</span>
+    <div className="h-full w-full overflow-hidden bg-white font-sans text-zinc-900">
+      <div className="flex h-14 items-center justify-between px-5">
+        <div className="flex h-8 w-[48%] items-center rounded-md border border-zinc-200 px-3 text-[9.5px] text-zinc-400">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+            <path d="m16 16 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          <span className="ml-2">Find anything in your gallery...</span>
+          <span className="ml-auto rounded border border-zinc-200 px-1.5 py-0.5 text-[7px]">
+            ⌘K
+          </span>
         </div>
-        <div className="mt-2 flex flex-wrap gap-1.5">
-          {["Available", "Painting", "Under 15 000 €"].map((filter) => (
+        <div className="relative text-zinc-400">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="absolute -right-2.5 -top-2.5 rounded-full bg-emerald-600 px-1 text-[6.5px] font-semibold text-white">
+            9+
+          </span>
+        </div>
+      </div>
+
+      <div className="px-5 pb-4">
+        <div className="flex items-start justify-between gap-4 pt-1">
+          <div>
+            <h3 className="text-[15px] font-medium">Artworks</h3>
+            <p className="mt-1 text-[10px] text-zinc-600">6 total · 4 available · 2 sold</p>
+          </div>
+          <div className="flex gap-1.5">
+            <span className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md bg-zinc-900 px-2 text-[7.5px] font-medium text-white">
+              <span className="text-[10px] font-light">+</span> Add artwork
+            </span>
+            <span className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md border border-zinc-200 bg-white px-2 text-[7.5px] font-medium text-zinc-700">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 16V4m0 0 4 4m-4-4L8 8M5 14v5h14v-5"
+                  stroke="currentColor"
+                  strokeWidth="1.7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              Import a CSV
+            </span>
+          </div>
+        </div>
+
+        <div className="relative mt-5 max-w-[56%]">
+          <svg
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+            <path d="m16 16 4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+          </svg>
+          <div className="flex h-8 items-center rounded-md border border-zinc-200 pl-9 text-[9.5px] text-zinc-400">
+            Filter artworks in this view...
+          </div>
+        </div>
+
+        <div className="mt-2.5 flex items-center gap-1.5 overflow-hidden">
+          {[
+            "Available",
+            "Reserved",
+            "Sold",
+            "Consignment",
+            "On loan",
+            "Not for sale",
+            "Withdrawn",
+          ].map((filter) => (
             <span
               key={filter}
-              className="rounded-full border border-zinc-200 bg-zinc-50 px-2 py-1 text-[9px] text-zinc-700"
+              className="shrink-0 rounded-full border border-zinc-200 bg-white px-2 py-1 text-[8px] text-zinc-700"
             >
               {filter}
             </span>
           ))}
+          <span className="mx-0.5 h-4 w-px shrink-0 bg-zinc-200" />
+          <span className="shrink-0 rounded-full border border-zinc-200 bg-white px-2 py-1 text-[8px] text-zinc-700">
+            Sacha Elron
+          </span>
+        </div>
+
+        <div className="mt-2.5 flex items-center justify-between">
+          <span className="text-[8px] text-zinc-400">6 results</span>
+          <span className="inline-flex overflow-hidden rounded-md border border-zinc-200">
+            <span className="flex h-6 w-7 items-center justify-center bg-zinc-900 text-white">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <rect x="1.5" y="1.5" width="5" height="5" rx=".5" stroke="currentColor" />
+                <rect x="9.5" y="1.5" width="5" height="5" rx=".5" stroke="currentColor" />
+                <rect x="1.5" y="9.5" width="5" height="5" rx=".5" stroke="currentColor" />
+                <rect x="9.5" y="9.5" width="5" height="5" rx=".5" stroke="currentColor" />
+              </svg>
+            </span>
+            <span className="flex h-6 w-7 items-center justify-center border-l border-zinc-200 text-zinc-400">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M5 3h9M5 8h9M5 13h9" stroke="currentColor" strokeLinecap="round" />
+                <circle cx="2" cy="3" r=".8" fill="currentColor" />
+                <circle cx="2" cy="8" r=".8" fill="currentColor" />
+                <circle cx="2" cy="13" r=".8" fill="currentColor" />
+              </svg>
+            </span>
+          </span>
+        </div>
+
+        <div className="mt-2.5 grid grid-cols-5 gap-2.5">
+          {artworkCards.map((artwork) => (
+            <article
+              key={artwork.title}
+              className="overflow-hidden rounded-[7px] border border-zinc-200 bg-white"
+            >
+              <img
+                src={artwork.image}
+                alt=""
+                aria-hidden="true"
+                className="aspect-square w-full object-cover"
+              />
+              <div className="p-2">
+                <p className="truncate text-[7.5px] text-zinc-400">Sacha Elron</p>
+                <p className="mt-0.5 truncate text-[9px] font-medium text-zinc-900">
+                  {artwork.title}
+                  <span className="font-normal text-zinc-400">, {artwork.year}</span>
+                </p>
+                <div className="mt-2 flex items-center justify-between gap-1">
+                  <span className="truncate text-[8px] tabular-nums text-zinc-700">
+                    {artwork.price}
+                  </span>
+                  <span
+                    className={`shrink-0 rounded-full border px-1.5 py-0.5 text-[7px] ${
+                      artwork.status === "Available"
+                        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+                        : "border-zinc-200 bg-zinc-50 text-zinc-500"
+                    }`}
+                  >
+                    {artwork.status}
+                  </span>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
-
-      <div className="mt-3 grid grid-cols-3 gap-2.5">
-        {works.map((work) => (
-          <article
-            key={work.title}
-            className="relative overflow-hidden rounded-[8px] border border-zinc-900 bg-white ring-1 ring-zinc-900"
-          >
-            <ArtworkImage work={work} className="aspect-[4/3]" />
-            <span className="absolute right-2 top-2 flex h-4 w-4 items-center justify-center rounded-full bg-zinc-900 text-[8px] text-white">
-              ✓
-            </span>
-            <div className="p-2.5">
-              <p className="truncate text-[10px] font-medium">{work.title}</p>
-              <p className="mt-0.5 truncate text-[8.5px] text-zinc-500">
-                {work.artist} · {work.year}
-              </p>
-              <div className="mt-2 flex items-center justify-between gap-2">
-                <span className="text-[9px] text-zinc-800">{work.price}</span>
-                <span className="text-[8px] font-medium text-emerald-700">Available</span>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div className="mt-3 flex items-center justify-between border-t border-zinc-100 pt-3">
-        <span className="text-[10px] text-zinc-500">3 works selected</span>
-        <DarkAction>Add to private selection</DarkAction>
-      </div>
-    </Workspace>
+    </div>
   );
 }
 
@@ -532,38 +669,43 @@ function ShareSelection() {
   );
 }
 
-function FolderIcon() {
+const CALM_EASE = [0.16, 1, 0.3, 1] as const;
+
+function TypingDots() {
   return (
-    <svg
-      viewBox="0 0 16 16"
-      fill="none"
-      className="h-3 w-3 shrink-0 text-zinc-400 lg:h-[15px] lg:w-[15px]"
-      aria-hidden="true"
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.3, ease: CALM_EASE }}
+      className="absolute left-0 top-0 inline-flex items-center gap-1 rounded-[8px] border border-zinc-200 bg-white px-3 py-2.5 shadow-[0_1px_2px_rgba(0,0,0,0.03)] lg:rounded-[10px] lg:px-4 lg:py-3"
     >
-      <path
-        d="M1.75 4.5A1.5 1.5 0 0 1 3.25 3h2.6l1.2 1.4h5.7A1.5 1.5 0 0 1 14.25 6v5.5a1.5 1.5 0 0 1-1.5 1.5H3.25a1.5 1.5 0 0 1-1.5-1.5v-7Z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-    </svg>
+      {[0, 1, 2].map((dot) => (
+        <motion.span
+          key={dot}
+          className="h-1 w-1 rounded-full bg-zinc-400 lg:h-[5px] lg:w-[5px]"
+          animate={{ opacity: [0.25, 1, 0.25] }}
+          transition={{ duration: 1, repeat: Infinity, delay: dot * 0.16, ease: "easeInOut" }}
+        />
+      ))}
+    </motion.div>
   );
 }
 
-const CALM_EASE = [0.16, 1, 0.3, 1] as const;
-
 /*
- * Vignette minimale du step « Keep the conversation connected » :
- * une seule micro-action, réponse client → œuvre + sélection reliées,
- * en boucle calme. Pas de chrome dashboard ni de panneau réponse.
+ * Vignette du step « Keep the conversation connected », rejouant la séquence
+ * réelle de Gallery OS : le client répond depuis une sélection privée (frappe →
+ * bulle), et l’inquiry arrive déjà rattachée à son contexte — vignette œuvre,
+ * disponibilité/prix, et sélection d’origine en sous-titre, comme dans la liste
+ * d’inquiries du dashboard (CompactInquiryRow : artwork + ovrTitle).
  */
 function ConnectedInquiry() {
   const reduceMotion = useReducedMotion();
-  const [stage, setStage] = useState(reduceMotion ? 3 : 0);
+  const [stage, setStage] = useState(reduceMotion ? 4 : 0);
 
   useEffect(() => {
     if (reduceMotion) {
-      setStage(3);
+      setStage(4);
       return;
     }
 
@@ -573,15 +715,16 @@ function ConnectedInquiry() {
     const play = () => {
       setStage(0);
       timers = [
-        setTimeout(() => setStage(1), 500),
-        setTimeout(() => setStage(2), 1300),
-        setTimeout(() => setStage(3), 2100),
-        setTimeout(() => setStage(0), 5100),
+        setTimeout(() => setStage(1), 700), // frappe
+        setTimeout(() => setStage(2), 1600), // le message arrive
+        setTimeout(() => setStage(3), 2500), // le contexte est déjà rattaché
+        setTimeout(() => setStage(4), 3300), // record connecté
+        setTimeout(() => setStage(0), 6500),
       ];
     };
 
     play();
-    loopTimer = setInterval(play, 6200);
+    loopTimer = setInterval(play, 7400);
 
     return () => {
       timers.forEach(clearTimeout);
@@ -596,40 +739,56 @@ function ConnectedInquiry() {
   });
 
   return (
-    <div className="flex h-full w-full items-center justify-center bg-[#F8F8F6] px-6 font-sans text-zinc-900">
-      <div className="w-full max-w-[320px] lg:max-w-[440px]">
-        {/* 1 — client reply */}
-        <motion.div
-          {...reveal(stage >= 1)}
-          className="rounded-[8px] border border-zinc-200 bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.03)] lg:rounded-[10px] lg:p-4"
-        >
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-[10px] font-medium lg:text-[13px]">Sophie Veil</p>
-            <span className="text-[8px] text-zinc-400 lg:text-[10px]">Today · 10:42</span>
-          </div>
-          <p className="mt-1.5 text-[10px] leading-[1.5] text-zinc-700 lg:mt-2 lg:text-[13px]">
-            Is Dawn Study No. 7 still available?
+    <div className="flex h-full w-full flex-col overflow-hidden bg-white font-sans text-zinc-900">
+      {/* header d’écran, comme les autres visuels Gallery OS (cf. SearchSelection) */}
+      <div className="flex h-14 shrink-0 items-center justify-between border-b border-zinc-100 px-5 lg:h-[62px] lg:px-7">
+        <div>
+          <h3 className="text-[13px] font-medium text-zinc-900 lg:text-[15px]">Inquiries</h3>
+          <p className="mt-0.5 text-[9px] text-zinc-400 lg:text-[10px]">
+            Gallery OS · Collector inbox
           </p>
-        </motion.div>
+        </div>
+        <span className="rounded-full border border-zinc-200 px-2.5 py-1 text-[9px] text-zinc-500 lg:px-3 lg:py-1.5 lg:text-[10px]">
+          1 new
+        </span>
+      </div>
 
-        {/* 2 — context attaches under the reply, linked by a thread line */}
-        <div className="relative mt-2 pl-4 lg:mt-3 lg:pl-5">
-          <motion.span
-            initial={false}
-            animate={stage >= 2 ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: CALM_EASE }}
-            className="absolute bottom-1 left-[6px] top-1 w-px origin-top bg-zinc-200 lg:left-[7px]"
-            aria-hidden="true"
-          />
-
-          <div className="space-y-1.5 lg:space-y-2">
+      <div className="flex min-h-0 flex-1 items-center justify-center px-6 lg:px-10">
+        <div className="w-full max-w-[340px] lg:max-w-[460px]">
+          {/* 1 — le client écrit, puis le message arrive */}
+          <div className="relative">
+            <AnimatePresence>{stage === 1 ? <TypingDots /> : null}</AnimatePresence>
             <motion.div
-              {...reveal(stage >= 2, 0)}
+              {...reveal(stage >= 2)}
+              className="rounded-[8px] border border-zinc-200 bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.03)] lg:rounded-[10px] lg:p-4"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[10px] font-medium lg:text-[13px]">Sophie Veil</p>
+                <span className="text-[8px] text-zinc-400 lg:text-[10px]">Today · 10:42</span>
+              </div>
+              <p className="mt-1.5 text-[10px] leading-[1.5] text-zinc-700 lg:mt-2 lg:text-[13px]">
+                Is Dawn Study No. 7 still available?
+              </p>
+            </motion.div>
+          </div>
+
+          {/* 2 — context attaches under the reply, linked by a thread line */}
+          <div className="relative mt-2 pl-4 lg:mt-3 lg:pl-5">
+            <motion.span
+              initial={false}
+              animate={stage >= 3 ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: CALM_EASE }}
+              className="absolute bottom-1 left-[6px] top-1 w-px origin-top bg-zinc-200 lg:left-[7px]"
+              aria-hidden="true"
+            />
+
+            <motion.div
+              {...reveal(stage >= 3, 0.1)}
               className="flex items-center gap-2.5 rounded-[7px] border border-zinc-200 bg-white p-2 lg:gap-3 lg:rounded-[9px] lg:p-2.5"
             >
               <ArtworkImage
                 work={works[0]}
-                className="h-9 w-10 shrink-0 rounded-[5px] lg:h-12 lg:w-[52px] lg:rounded-[6px]"
+                className="h-10 w-11 shrink-0 rounded-[5px] lg:h-[52px] lg:w-14 lg:rounded-[6px]"
               />
               <div className="min-w-0">
                 <p className="truncate text-[9.5px] font-medium text-zinc-900 lg:text-[12px]">
@@ -639,29 +798,22 @@ function ConnectedInquiry() {
                   <span className="font-medium text-emerald-700">Available</span>
                   <span className="text-zinc-400"> · {works[0].price}</span>
                 </p>
+                <p className="mt-0.5 truncate text-[8px] text-zinc-400 lg:text-[10.5px]">
+                  Shared in Landscape selection — Sophie Veil
+                </p>
               </div>
             </motion.div>
-
-            <motion.div
-              {...reveal(stage >= 2, 0.15)}
-              className="inline-flex items-center gap-1.5 rounded-[7px] border border-zinc-200 bg-white px-2 py-1.5 lg:gap-2 lg:rounded-[9px] lg:px-3 lg:py-2"
-            >
-              <FolderIcon />
-              <span className="text-[8.5px] text-zinc-600 lg:text-[11px]">
-                Selection — Sophie Veil · June 2026
-              </span>
-            </motion.div>
           </div>
-        </div>
 
-        {/* 3 — signature status line */}
-        <motion.div
-          {...reveal(stage >= 3, 0.1)}
-          className="mt-3 flex items-center gap-1.5 text-[8.5px] font-medium text-emerald-700 lg:mt-4 lg:gap-2 lg:text-[11px]"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 lg:h-2 lg:w-2" />
-          Artwork record connected
-        </motion.div>
+          {/* 3 — signature status line */}
+          <motion.div
+            {...reveal(stage >= 4, 0.1)}
+            className="mt-3 flex items-center gap-1.5 text-[8.5px] font-medium text-emerald-700 lg:mt-4 lg:gap-2 lg:text-[11px]"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 lg:h-2 lg:w-2" />
+            Artwork record connected
+          </motion.div>
+        </div>
       </div>
     </div>
   );

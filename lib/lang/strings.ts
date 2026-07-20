@@ -1681,8 +1681,8 @@ export const translations = {
       },
     },
     ctaBand: {
-      title: "Start with your current workflow",
-      subtitle: "Add the tools your gallery needs",
+      title: "Give your gallery a new dimension",
+      subtitle: "Let’s talk about your project — no commitment",
       cta: "Talk about your gallery",
     },
     footer: {

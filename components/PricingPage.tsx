@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Nav from "@/components/Nav";
-import CtaBand from "@/components/CtaBand";
 import Footer from "@/components/Footer";
+import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
 import { useLang } from "@/lib/lang";
 
