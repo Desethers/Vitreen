@@ -34,106 +34,27 @@ const detailItem = {
   },
 };
 
-type Detail =
-  | {
-      type: "source";
-      items: Array<{
-        label: string;
-        active?: boolean;
-        icon: "archive" | "sheet" | "folder" | "library" | "mail";
-      }>;
-    }
-  | {
-      type: "checks";
-      items: Array<{ label: string; icon: "file" | "alert" | "check" }>;
-    }
-  | {
-      type: "delivery";
-      items: Array<{
-        label: string;
-        icon: "gmail" | "whatsapp" | "views" | "inquiries";
-      }>;
-    }
-  | {
-      type: "dashboard";
-      items: Array<{
-        strong: string;
-        label: string;
-        icon: "file" | "reply" | "people";
-      }>;
-    };
-
-const details: Record<"fr" | "en", Detail[]> = {
-  fr: [
-    {
-      type: "source",
-      items: [
-        { label: "Dossiers", icon: "folder" },
-        { label: "Archives", icon: "library" },
-        { label: "Canaux d’échange", icon: "mail" },
-        { label: "PDF & fiches", icon: "archive" },
-      ],
-    },
-    {
-      type: "checks",
-      items: [
-        { label: "Légendes, dimensions et prix préparés.", icon: "check" },
-        { label: "Identité galerie appliquée aux supports.", icon: "file" },
-        {
-          label: "Viewing room, PDF et email prêts à partager.",
-          icon: "alert",
-        },
-      ],
-    },
-    {
-      type: "delivery",
-      items: [
-        { label: "Gmail", icon: "gmail" },
-        { label: "WhatsApp", icon: "whatsapp" },
-        { label: "Vues PDF", icon: "views" },
-        { label: "Demandes", icon: "inquiries" },
-      ],
-    },
-  ],
-  en: [
-    {
-      type: "source",
-      items: [
-        { label: "Folders", icon: "folder" },
-        { label: "Archives", icon: "library" },
-        { label: "Communication channels", icon: "mail" },
-        { label: "PDFs & sheets", icon: "archive" },
-      ],
-    },
-    {
-      type: "checks",
-      items: [
-        { label: "Captions, dimensions and prices prepared.", icon: "check" },
-        { label: "Gallery identity applied to each material.", icon: "file" },
-        { label: "Viewing room, PDF and email ready to share.", icon: "alert" },
-      ],
-    },
-    {
-      type: "delivery",
-      items: [
-        { label: "Gmail", icon: "gmail" },
-        { label: "WhatsApp", icon: "whatsapp" },
-        { label: "PDF views", icon: "views" },
-        { label: "Inquiries", icon: "inquiries" },
-      ],
-    },
-  ],
+type SourceItem = {
+  label: string;
+  active?: boolean;
+  icon: "archive" | "sheet" | "folder" | "library" | "mail";
 };
 
-const flowVisualCopy = {
-  fr: {
-    title: "Le même flux, en mouvement.",
-    body: "Les œuvres partent de vos sources et deviennent des supports prêts à partager.",
-  },
-  en: {
-    title: "The same flow, in motion.",
-    body: "Artworks move from your sources into material ready to share.",
-  },
+// Detail shown under the "Audit" step — the only step that reads from this
+// data (Connect and Ready render their own hardcoded visuals below).
+const sourceDetails: Record<"fr" | "en", SourceItem[]> = {
+  fr: [
+    { label: "Dossiers", icon: "folder" },
+    { label: "Archives", icon: "library" },
+    { label: "Canaux d’échange", icon: "mail" },
+    { label: "PDF & fiches", icon: "archive" },
+  ],
+  en: [
+    { label: "Folders", icon: "folder" },
+    { label: "Archives", icon: "library" },
+    { label: "Communication channels", icon: "mail" },
+    { label: "PDFs & sheets", icon: "archive" },
+  ],
 };
 
 const horizontalDisplaySteps = {
@@ -169,67 +90,16 @@ const horizontalDisplaySteps = {
 
 export default function ProcessFlow() {
   const { lang, t } = useLang();
-  const steps = t.processFlow.steps;
   const storySteps = horizontalDisplaySteps[lang];
-  const ref = useRef<HTMLDivElement>(null);
-  const visualRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "0px", amount: 0.35 });
-  const visualIsInView = useInView(visualRef, {
-    once: false,
-    margin: "0px",
-    amount: 0.35,
-  });
   const horizontalIsInView = useInView(horizontalRef, {
     once: false,
     margin: "0px",
     amount: 0.35,
   });
-  const [activeStep, setActiveStep] = useState(-1);
-  const [visualActiveStep, setVisualActiveStep] = useState(-1);
   const [horizontalActiveStep, setHorizontalActiveStep] = useState(-1);
   // Circles whose incoming progress line has finished travelling — these fill black.
   const [filledCircles, setFilledCircles] = useState<Set<number>>(new Set());
-
-  useEffect(() => {
-    if (!isInView) {
-      setActiveStep(-1);
-      return;
-    }
-
-    const timers = steps.map((_, index) =>
-      setTimeout(() => setActiveStep(index), 180 + index * STEP_DELAY)
-    );
-    const reset = setTimeout(
-      () => setActiveStep(steps.length - 1),
-      steps.length * STEP_DELAY + LOOP_PAUSE
-    );
-
-    return () => {
-      timers.forEach(clearTimeout);
-      clearTimeout(reset);
-    };
-  }, [isInView, steps.length]);
-
-  useEffect(() => {
-    if (!visualIsInView) {
-      setVisualActiveStep(-1);
-      return;
-    }
-
-    const timers = steps.map((_, index) =>
-      setTimeout(() => setVisualActiveStep(index), 180 + index * STEP_DELAY)
-    );
-    const reset = setTimeout(
-      () => setVisualActiveStep(steps.length - 1),
-      steps.length * STEP_DELAY + LOOP_PAUSE
-    );
-
-    return () => {
-      timers.forEach(clearTimeout);
-      clearTimeout(reset);
-    };
-  }, [visualIsInView, steps.length]);
 
   useEffect(() => {
     if (!horizontalIsInView) {
@@ -434,7 +304,7 @@ export default function ProcessFlow() {
                       >
                         {index === 0 ? (
                           <div className="mt-2 md:mt-4">
-                            <StepDetail detail={details[lang][0]} active compact />
+                            <StepDetail items={sourceDetails[lang]} compact />
                             <HorizontalSourceNotes lang={lang} active />
                           </div>
                         ) : null}
@@ -450,52 +320,6 @@ export default function ProcessFlow() {
         </motion.div>
       </div>
     </section>
-  );
-}
-
-function VisualSelectionDetail({ lang, active }: { lang: "fr" | "en"; active: boolean }) {
-  const items = {
-    fr: [
-      { label: "Viewing rooms", icon: "layout" },
-      { label: "PDFs", icon: "views" },
-      { label: "Liens privés", icon: "link" },
-      { label: "Emails collector", icon: "mail" },
-    ],
-    en: [
-      { label: "Viewing rooms", icon: "layout" },
-      { label: "PDFs", icon: "views" },
-      { label: "Private links", icon: "link" },
-      { label: "Collector emails", icon: "mail" },
-    ],
-  }[lang];
-
-  return (
-    <motion.div
-      className="mt-2"
-      variants={detailContainer}
-      initial="hidden"
-      animate={active ? "visible" : "hidden"}
-    >
-      <p className="max-w-[360px] text-[12px] leading-[1.35] tracking-[-0.01em] text-[#6B6A67]">
-        {lang === "fr"
-          ? "Transformez votre sélection en belles présentations et partagez-la avec les collectionneurs."
-          : "Turn your selection into beautiful presentations and share with collectors."}
-      </p>
-      <div className="mt-3 grid max-w-[360px] grid-cols-2 gap-2 sm:grid-cols-4">
-        {items.map((item) => (
-          <motion.div
-            key={item.label}
-            variants={detailItem}
-            className="flex h-[64px] flex-col items-center justify-center gap-1.5 rounded-[8px] border border-[#E1E1DE] bg-white px-2 text-center"
-          >
-            <Icon name={item.icon} tone={item.icon === "mail" ? "blue" : undefined} />
-            <span className="text-[10px] font-medium leading-[1.15] tracking-[-0.01em] text-[#111110]">
-              {item.label}
-            </span>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
   );
 }
 
@@ -578,61 +402,6 @@ function HorizontalConnectDetail() {
         ))}
       </div>
     </div>
-  );
-}
-
-function HorizontalSelectionDetail({ lang, active }: { lang: "fr" | "en"; active: boolean }) {
-  const formats = {
-    fr: [
-      { label: "Excel", brand: "excel" as const },
-      { label: "WhatsApp", brand: "whatsapp" as const },
-      { label: "Outlook", brand: "outlook" as const },
-      { label: "PDF", brand: "pdf" as const },
-      { label: "Word", brand: "word" as const },
-      { label: "Notion", brand: "notion" as const },
-    ],
-    en: [
-      { label: "Excel", brand: "excel" as const },
-      { label: "WhatsApp", brand: "whatsapp" as const },
-      { label: "Outlook", brand: "outlook" as const },
-      { label: "PDF", brand: "pdf" as const },
-      { label: "Word", brand: "word" as const },
-      { label: "Notion", brand: "notion" as const },
-    ],
-  }[lang];
-
-  return (
-    <motion.div
-      className="mt-2 md:mt-5"
-      variants={detailContainer}
-      initial="hidden"
-      animate={active ? "visible" : "hidden"}
-    >
-      <div
-        className="relative w-full max-w-[360px] overflow-hidden"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-        }}
-      >
-        <div className="flex items-center justify-between py-2">
-          {formats.map((item) => (
-            <motion.div
-              key={item.label}
-              variants={detailItem}
-              className="flex shrink-0 flex-col items-center gap-1.5"
-            >
-              <FormatLogo name={item.brand} />
-              <span className="text-[10px] font-medium leading-none tracking-[-0.01em] text-[#6B6A67]">
-                {item.label}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
@@ -857,32 +626,39 @@ function HorizontalSourceNotes({ lang, active }: { lang: "fr" | "en"; active: bo
   );
 }
 
-function CompactVisualDetail({ detail, active }: { detail?: Detail; active: boolean }) {
-  if (!detail) return null;
-
-  const items =
-    detail.type === "dashboard"
-      ? detail.items.map((item) => ({ label: item.strong, icon: item.icon }))
-      : detail.items.map((item) => ({
-          label: item.label,
-          icon: item.icon,
-          active: "active" in item ? item.active : false,
-        }));
-
+function StepDetail({ items, compact = false }: { items: SourceItem[]; compact?: boolean }) {
   return (
     <motion.div
-      className="mt-3 flex flex-wrap gap-1.5"
+      className={
+        compact
+          ? "mt-0 flex flex-nowrap gap-1 md:flex-wrap md:gap-1.5"
+          : "mt-5 flex flex-wrap gap-2.5"
+      }
       variants={detailContainer}
       initial="hidden"
-      animate={active ? "visible" : "hidden"}
+      animate="visible"
     >
       {items.map((item) => (
         <motion.span
           key={item.label}
           variants={detailItem}
-          className="inline-flex min-h-6 items-center gap-1.5 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-medium leading-none text-[#111110]"
+          className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full border font-medium leading-none ${
+            compact
+              ? "min-h-6 gap-1.5 px-2 py-0.5 text-[11px] md:px-2.5"
+              : "min-h-7 gap-2 px-3.5 py-1 text-[14px]"
+          } ${
+            item.active
+              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+              : "border-[#E1E1DE] bg-white text-[#111110]"
+          }`}
         >
-          <Icon name={item.icon} active={"active" in item ? item.active : false} />
+          {compact ? (
+            <span className="hidden shrink-0 md:inline-flex">
+              <Icon name={item.icon} active={item.active} />
+            </span>
+          ) : (
+            <Icon name={item.icon} active={item.active} />
+          )}
           {item.label}
         </motion.span>
       ))}
@@ -890,608 +666,40 @@ function CompactVisualDetail({ detail, active }: { detail?: Detail; active: bool
   );
 }
 
-function StepDetail({
-  detail,
-  active,
-  compact = false,
-}: {
-  detail?: Detail;
-  active: boolean;
-  compact?: boolean;
-}) {
-  if (!detail) return null;
+// Path data for every icon this component still renders. Names outside this
+// map (e.g. "archive") fall back to the generic file glyph — same behaviour
+// as before this table replaced a 25-branch if-chain.
+const ICON_PATHS: Record<string, string[]> = {
+  checkCircle: ["M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z", "m8.2 12.2 2.4 2.4 5.2-5.2"],
+  shield: ["M12 3 20 6v6c0 4.8-3.2 7.8-8 9-4.8-1.2-8-4.2-8-9V6l8-3Z", "M9.2 12.2 11 14l3.8-4"],
+  folder: ["M3 6h7l2 2h9v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"],
+  library: [
+    "M4 19.5A2.5 2.5 0 0 1 6.5 17H20",
+    "M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z",
+  ],
+  mail: ["M4 6h16v12H4z", "m4 7 8 6 8-6"],
+  sheet: [
+    "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z",
+    "M14 2v6h6",
+    "M8 13h8",
+    "M8 17h5",
+  ],
+};
 
-  if (detail.type === "source") {
-    return (
-      <motion.div
-        className={
-          compact
-            ? "mt-0 flex flex-nowrap gap-1 md:flex-wrap md:gap-1.5"
-            : "mt-5 flex flex-wrap gap-2.5"
-        }
-        variants={detailContainer}
-        initial="hidden"
-        animate={active ? "visible" : "hidden"}
-      >
-        {detail.items.map((item) => (
-          <motion.span
-            key={item.label}
-            variants={detailItem}
-            className={`inline-flex shrink-0 items-center whitespace-nowrap rounded-full border font-medium leading-none ${
-              compact
-                ? "min-h-6 gap-1.5 px-2 py-0.5 text-[11px] md:px-2.5"
-                : "min-h-7 gap-2 px-3.5 py-1 text-[14px]"
-            } ${
-              item.active
-                ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-                : "border-[#E1E1DE] bg-white text-[#111110]"
-            }`}
-          >
-            {compact ? (
-              <span className="hidden shrink-0 md:inline-flex">
-                <Icon name={item.icon} active={item.active} />
-              </span>
-            ) : (
-              <Icon name={item.icon} active={item.active} />
-            )}
-            {item.label}
-          </motion.span>
-        ))}
-      </motion.div>
-    );
-  }
+const FALLBACK_ICON_PATHS = [
+  "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z",
+  "M14 2v6h6",
+];
 
-  if (detail.type === "checks") {
-    return (
-      <motion.div
-        className={compact ? "mt-4 space-y-2" : "mt-5 space-y-3.5"}
-        variants={detailContainer}
-        initial="hidden"
-        animate={active ? "visible" : "hidden"}
-      >
-        {detail.items.map((item) => (
-          <motion.div
-            key={item.label}
-            className={compact ? "flex items-start gap-3" : "flex items-start gap-4"}
-            variants={detailItem}
-          >
-            <span className="mt-0.5 shrink-0">
-              <Icon name={item.icon} />
-            </span>
-            <p
-              className={
-                compact
-                  ? "text-[14px] leading-[1.35] tracking-[-0.01em] text-[#111110]"
-                  : "text-[14px] leading-[1.5] tracking-[-0.01em] text-[#111110]"
-              }
-            >
-              {item.label}
-            </p>
-          </motion.div>
-        ))}
-      </motion.div>
-    );
-  }
-
-  if (detail.type === "delivery") {
-    return (
-      <motion.div
-        className="mt-5 flex flex-col gap-2.5"
-        variants={detailContainer}
-        initial="hidden"
-        animate={active ? "visible" : "hidden"}
-      >
-        {detail.items.map((item) => (
-          <motion.div
-            key={item.label}
-            variants={detailItem}
-            className="inline-flex w-full max-w-[360px] items-center gap-3 rounded-[10px] border border-[#E1E1DE] bg-[#FAFAF8] px-3.5 py-2 text-[14px] font-medium text-[#111110]"
-          >
-            <Icon name={item.icon} />
-            {item.label}
-          </motion.div>
-        ))}
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div
-      className="mt-5 space-y-3"
-      variants={detailContainer}
-      initial="hidden"
-      animate={active ? "visible" : "hidden"}
-    >
-      {detail.items.map((item) => (
-        <motion.div key={item.strong} className="flex items-start gap-4" variants={detailItem}>
-          <span className="mt-0.5 shrink-0">
-            <Icon name={item.icon} />
-          </span>
-          <p className="text-[14px] leading-[1.5] tracking-[-0.01em] text-[#111110]">
-            <span className="font-semibold">{item.strong}</span> {item.label}
-          </p>
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-}
-
-function GoogleGLogo() {
-  return (
-    <svg width="17" height="17" viewBox="0 0 48 48" aria-hidden>
-      <path
-        fill="#4285F4"
-        d="M44.5 20H24v8.5h11.8C34.7 34 30 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.2 0 6.2 1.2 8.4 3.2l6-6C34.6 4.9 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.9 0 20.5-7.9 20.5-21 0-1.4-.1-2.7-.3-4Z"
-      />
-      <path
-        fill="#34A853"
-        d="M6.1 14.1 13.1 19.2C14.9 14.4 19.1 11 24 11c3.2 0 6.2 1.2 8.4 3.2l6-6C34.6 4.9 29.6 3 24 3 16.1 3 9.3 7.5 6.1 14.1Z"
-      />
-      <path
-        fill="#FBBC05"
-        d="M24 45c5.5 0 10.2-1.8 13.8-4.9l-6.4-5.2C29.4 36.3 26.9 37 24 37c-5.9 0-10.9-3.9-12.7-9.3l-7 5.4C7.5 40.2 15 45 24 45Z"
-      />
-      <path
-        fill="#EA4335"
-        d="M11.3 27.7A13.3 13.3 0 0 1 11 24c0-1.3.2-2.6.6-3.8l-7-5.4A21 21 0 0 0 3 24c0 3.3.8 6.4 2.1 9.1l6.2-5.4Z"
-      />
-    </svg>
-  );
-}
-
-function Icon({
-  name,
-  active = false,
-  tone,
-}: {
-  name: string;
-  active?: boolean;
-  tone?: "blue" | "green" | "purple";
-}) {
+function Icon({ name, active = false }: { name: string; active?: boolean }) {
   const stroke =
-    tone === "blue"
-      ? "#2563EB"
-      : tone === "purple"
-        ? "#6D5BD0"
-        : tone === "green"
+    name === "shield"
+      ? "#111110"
+      : name === "mail"
+        ? "#EA4335"
+        : name === "checkCircle" || active
           ? "#10B981"
-          : name === "alert" || name === "inbox" || name === "inquiries"
-            ? "#F59E0B"
-            : name === "shield"
-              ? "#111110"
-              : name === "mail" || name === "gmail"
-                ? "#EA4335"
-                : name === "link" ||
-                    name === "check" ||
-                    name === "checkCircle" ||
-                    name === "spark" ||
-                    name === "whatsapp" ||
-                    active
-                  ? "#10B981"
-                  : name === "views"
-                    ? "#EA4335"
-                    : "#9CA3AF";
-
-  if (name === "spark") {
-    return (
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M12 3l1.6 5.2L19 10l-5.4 1.8L12 17l-1.6-5.2L5 10l5.4-1.8L12 3Z" />
-        <path d="M19 15l.8 2.6L22 18l-2.2.4L19 21l-.8-2.6L16 18l2.2-.4L19 15Z" />
-      </svg>
-    );
-  }
-
-  if (name === "plus") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M12 5v14" />
-        <path d="M5 12h14" />
-      </svg>
-    );
-  }
-
-  if (name === "lock") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M6 10h12v10H6z" />
-        <path d="M8 10V8a4 4 0 0 1 8 0v2" />
-      </svg>
-    );
-  }
-
-  if (name === "chart") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M5 20V10" />
-        <path d="M12 20V4" />
-        <path d="M19 20v-7" />
-      </svg>
-    );
-  }
-
-  if (name === "clock") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        <path d="M12 7v5l3 2" />
-      </svg>
-    );
-  }
-
-  if (name === "palette") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M12 3a9 9 0 0 0 0 18h1.5a2 2 0 0 0 1.2-3.6 1.8 1.8 0 0 1 1.1-3.2H18a3 3 0 0 0 3-3C21 6.6 17 3 12 3Z" />
-        <path d="M7.5 10h.01" />
-        <path d="M10 7h.01" />
-        <path d="M14 7h.01" />
-      </svg>
-    );
-  }
-
-  if (name === "instagram") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <rect x="5" y="5" width="14" height="14" rx="4" />
-        <path d="M15 11.4a3 3 0 1 1-5.9 1.2 3 3 0 0 1 5.9-1.2Z" />
-        <path d="M16.5 7.5h.01" />
-      </svg>
-    );
-  }
-
-  if (name === "check") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="2"
-        aria-hidden
-      >
-        <path d="M20 6 9 17l-5-5" />
-      </svg>
-    );
-  }
-
-  if (name === "checkCircle") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.9"
-        aria-hidden
-      >
-        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        <path d="m8.2 12.2 2.4 2.4 5.2-5.2" />
-      </svg>
-    );
-  }
-
-  if (name === "alert") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.9"
-        aria-hidden
-      >
-        <path d="m12 3 10 18H2L12 3Z" />
-        <path d="M12 9v5" />
-        <path d="M12 17h.01" />
-      </svg>
-    );
-  }
-
-  if (name === "mail") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M4 6h16v12H4z" />
-        <path d="m4 7 8 6 8-6" />
-      </svg>
-    );
-  }
-
-  if (name === "gmail") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M4 6h16v12H4z" />
-        <path d="M4 7l8 6 8-6" />
-        <path d="M4 18V8l8 6 8-6v10" />
-      </svg>
-    );
-  }
-
-  if (name === "whatsapp") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z" />
-        <path d="M9.5 8.5c.2 3 2.1 5 5 5.8l1.2-1.2" />
-        <path d="M8.7 8.4l.8-.7 1.2 2-.7.8" />
-      </svg>
-    );
-  }
-
-  if (name === "views") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
-        <path d="M14 2v6h6" />
-        <path d="M7 15h2.2a1.4 1.4 0 0 0 0-2.8H7v5.6" />
-        <path d="M12 17.8v-5.6h1.4a2.8 2.8 0 0 1 0 5.6H12Z" />
-        <path d="M17 12.2h3" />
-        <path d="M17 15h2.4" />
-      </svg>
-    );
-  }
-
-  if (name === "inquiries") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-        <path d="M9 10h6" />
-        <path d="M9 14h4" />
-      </svg>
-    );
-  }
-
-  if (name === "link") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.9"
-        aria-hidden
-      >
-        <path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1" />
-        <path d="M14 11a5 5 0 0 0-7.1 0l-2 2A5 5 0 0 0 12 20.1l1.1-1.1" />
-      </svg>
-    );
-  }
-
-  if (name === "inbox") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M4 13 6.5 5h11L20 13v6H4z" />
-        <path d="M4 13h5l1.5 2h3L15 13h5" />
-      </svg>
-    );
-  }
-
-  if (name === "people") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
-        <path d="M9.5 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.8" />
-        <path d="M16 3.2a4 4 0 0 1 0 7.6" />
-      </svg>
-    );
-  }
-
-  if (name === "reply") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-      </svg>
-    );
-  }
-
-  if (name === "sheet") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
-        <path d="M14 2v6h6" />
-        <path d="M8 13h8" />
-        <path d="M8 17h5" />
-      </svg>
-    );
-  }
-
-  if (name === "folder") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M3 6h7l2 2h9v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
-      </svg>
-    );
-  }
-
-  if (name === "shield") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M12 3 20 6v6c0 4.8-3.2 7.8-8 9-4.8-1.2-8-4.2-8-9V6l8-3Z" />
-        <path d="M9.2 12.2 11 14l3.8-4" />
-      </svg>
-    );
-  }
-
-  if (name === "layout") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M4 5h16v14H4z" />
-        <path d="M12 5v14" />
-      </svg>
-    );
-  }
-
-  if (name === "library") {
-    return (
-      <svg
-        width="17"
-        height="17"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="1.8"
-        aria-hidden
-      >
-        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z" />
-      </svg>
-    );
-  }
+          : "#9CA3AF";
 
   return (
     <svg
@@ -1500,11 +708,12 @@ function Icon({
       viewBox="0 0 24 24"
       fill="none"
       stroke={stroke}
-      strokeWidth="1.8"
+      strokeWidth={name === "checkCircle" ? "1.9" : "1.8"}
       aria-hidden
     >
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
-      <path d="M14 2v6h6" />
+      {(ICON_PATHS[name] ?? FALLBACK_ICON_PATHS).map((d) => (
+        <path key={d} d={d} />
+      ))}
     </svg>
   );
 }
