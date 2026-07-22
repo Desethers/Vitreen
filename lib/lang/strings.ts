@@ -428,8 +428,8 @@ export const translations = {
       base: {
         title: "Gallery OS",
         description: "Votre système complet, construit autour de votre galerie.",
-        price: "5 000 € + 400 €/mois",
-        priceDetail: "installation unique, puis engagement 12 mois",
+        price: "5 000 €",
+        priceDetail: "Installation unique, incluant la mise en œuvre et la première année de support.",
         features: [
           "Dashboard des œuvres, artistes et expositions",
           "Site connecté à vos fiches d’œuvres",
@@ -445,7 +445,7 @@ export const translations = {
         title: "Option Partner",
         description: "Pour les galeries qui préfèrent déléguer le quotidien.",
         price: "+350 €/mois",
-        priceDetail: "en complément des 400 €/mois Gallery OS",
+        priceDetail: "Accompagnement continu pour faire vivre et améliorer votre Gallery OS.",
         features: [
           "Un point mensuel avec votre interlocuteur dédié",
           "Mises à jour de contenu faites pour vous",
@@ -467,8 +467,6 @@ export const translations = {
         description: "Votre système complet, construit autour de votre galerie.",
         price: "5 000 €",
         priceDetail: "installation, paiement unique",
-        subscriptionPrice: "400 €/mois",
-        subscriptionDetail: "abonnement, engagement 12 mois",
         features: [
           "Dashboard des œuvres, artistes et expositions",
           "Site connecté à vos fiches d’œuvres",
@@ -486,7 +484,8 @@ export const translations = {
         title: "Partner",
         description: "Pour les galeries qui préfèrent déléguer le quotidien.",
         price: "+350 €/mois",
-        qualifier: "en complément de l’abonnement",
+        qualifier: "en complément de votre Gallery OS",
+        cta: "Ajouter l’option Partner",
         features: [
           "Un point mensuel avec votre interlocuteur dédié",
           "Mises à jour de contenu faites pour vous",
@@ -1274,7 +1273,7 @@ export const translations = {
       partner: {
         title: "Partner option",
         description: "For galleries that would rather delegate the day-to-day.",
-        price: "€400/month",
+        price: "+€350/month",
         priceDetail: "Ongoing support to operate and improve your Gallery OS.",
         features: [
           "Website and content updates done for you",
@@ -1297,8 +1296,6 @@ export const translations = {
         description: "Your complete system, built around your gallery.",
         price: "€5,000",
         priceDetail: "one-time setup",
-        subscriptionPrice: "€400/month",
-        subscriptionDetail: "subscription, 12-month engagement",
         features: [
           "Dashboard for artworks, artists and exhibitions",
           "Website connected to your artwork records",
@@ -1316,7 +1313,8 @@ export const translations = {
         title: "Partner",
         description: "For galleries that would rather delegate the day-to-day.",
         price: "+€350/month",
-        qualifier: "on top of the subscription",
+        qualifier: "on top of your Gallery OS",
+        cta: "Add the Partner option",
         features: [
           "A monthly call with your dedicated contact",
           "Content updates done for you",
@@ -1616,9 +1614,8 @@ export const translations = {
       },
       artists: {
         eyebrow: "Solutions · Artists",
-        title: "Artist archive, artwork inventory and portfolio website in one place.",
-        subtitle:
-          "Organise your artworks, update your website without code and create private presentations for galleries, curators and collectors.",
+        title: "Artist website and artwork inventory in one place.",
+        subtitle: "Organise your work, update your website and share private presentations.",
         body:
           "For artists and studios, structure the body of work — series, mediums, years, provenance — and present a selection to galleries, curators or collectors through private links.",
         features: [
