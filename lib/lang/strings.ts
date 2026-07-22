@@ -463,32 +463,21 @@ export const translations = {
       },
       offer: {
         eyebrow: "Une offre unique",
-        cards: [
-          {
-            title: "Installation",
-            price: "À partir de 5 000 €",
-            qualifier: "paiement unique",
-            features: [
-              "Audit du fonctionnement de la galerie",
-              "Migration de vos œuvres — Excel, CSV ou système existant",
-              "Site connecté aux fiches d’œuvres",
-              "Tableau de bord des œuvres",
-              "Extensions Gmail et WhatsApp",
-              "Formation de l’équipe",
-            ],
-          },
-          {
-            title: "Abonnement",
-            price: "400 €/mois",
-            qualifier: "engagement 12 mois",
-            features: [
-              "Hébergement et maintenance",
-              "Mises à jour du site et du dashboard",
-              "Vos contenus, publiés en autonomie",
-              "Support par email",
-            ],
-          },
+        title: "Gallery OS",
+        description: "Votre système complet, construit autour de votre galerie.",
+        price: "5 000 €",
+        priceDetail: "installation, paiement unique",
+        subscriptionPrice: "400 €/mois",
+        subscriptionDetail: "abonnement, engagement 12 mois",
+        features: [
+          "Dashboard des œuvres, artistes et expositions",
+          "Site connecté à vos fiches d’œuvres",
+          "Extensions Gmail et WhatsApp",
+          "Exports PDF et sélections privées",
+          "Migration de vos données incluse",
+          "Hébergement, mises à jour et support",
         ],
+        deliveryNote: "Livré en ~3 semaines",
         note:
           "Le périmètre exact se définit lors d’un premier échange — c’est lui qui précise le devis.",
       },
@@ -1304,32 +1293,21 @@ export const translations = {
       },
       offer: {
         eyebrow: "One offer",
-        cards: [
-          {
-            title: "Setup",
-            price: "From €5,000",
-            qualifier: "one-time payment",
-            features: [
-              "Gallery workflow audit",
-              "Artwork migration — Excel, CSV or existing system",
-              "Website connected to artwork records",
-              "Artwork dashboard",
-              "Gmail and WhatsApp add-ins",
-              "Team training",
-            ],
-          },
-          {
-            title: "Subscription",
-            price: "€400/month",
-            qualifier: "12-month engagement",
-            features: [
-              "Hosting and maintenance",
-              "Website and dashboard updates",
-              "Your content, published independently",
-              "Email support",
-            ],
-          },
+        title: "Gallery OS",
+        description: "Your complete system, built around your gallery.",
+        price: "€5,000",
+        priceDetail: "one-time setup",
+        subscriptionPrice: "€400/month",
+        subscriptionDetail: "subscription, 12-month engagement",
+        features: [
+          "Dashboard for artworks, artists and exhibitions",
+          "Website connected to your artwork records",
+          "Gmail and WhatsApp add-ins",
+          "PDF exports and private selections",
+          "Data migration included",
+          "Hosting, updates and support",
         ],
+        deliveryNote: "Delivered in ~3 weeks",
         note:
           "The exact scope is defined during a first conversation — that scope determines the final quote.",
       },
