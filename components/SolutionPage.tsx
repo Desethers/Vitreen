@@ -579,6 +579,57 @@ function AdvisorsWorkflow({ lang }: { lang: "fr" | "en" }) {
   );
 }
 
+/*
+ * Structure sticky-cards pour la page Artists — même squelette qu'AdvisorsWorkflow.
+ * Le texte des steps réutilise les `features` déjà traduites (fr/en).
+ * Les mockups ne sont pas codés : chaque carte sticky reste volontairement VIDE,
+ * à remplir plus tard (renderVisual renvoie un placeholder blanc).
+ */
+function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "fr" | "en" }) {
+  // 3 checks par step, alignés sur les 4 features artists (ordre identique).
+  const bulletsByStep =
+    lang === "fr"
+      ? [
+          [
+            "Import depuis Excel ou CSV",
+            "Repartez de votre système actuel",
+            "Sans reconstruire votre archive",
+          ],
+          ["Provenance et acquéreurs", "Historique d’expositions", "Documents et certificats"],
+          [
+            "Sélection privée par lien",
+            "Pour galeries et commissaires",
+            "Prix visibles ou masqués",
+          ],
+          ["Nouvelles œuvres et séries", "Actualités du studio", "Vers galeries et commissaires"],
+        ]
+      : [
+          [
+            "Import from Excel or CSV",
+            "Continue from your current system",
+            "No need to rebuild your archive",
+          ],
+          ["Provenance and owners", "Exhibition history", "Documents and certificates"],
+          ["Private selection by link", "For galleries and curators", "Show or hide prices"],
+          ["New works and series", "Studio updates", "To galleries and curators"],
+        ];
+
+  const steps: ScrollStoryStep[] = content.features.map((feature, index) => ({
+    title: feature,
+    subtitle: "",
+    bullets: bulletsByStep[index],
+  }));
+
+  return (
+    <ScrollStory
+      title={content.subtitle}
+      subtitle=""
+      steps={steps}
+      renderVisual={() => <div className="h-full w-full" aria-hidden="true" />}
+    />
+  );
+}
+
 export default function SolutionPage({ slug }: { slug: RoleSlug }) {
   const { lang, t } = useLang();
   const solutions = t.solutions as unknown as Record<RoleSlug, SolutionContent> & {
@@ -646,7 +697,9 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
 
       {slug === "advisors" ? <AdvisorsWorkflow lang={lang} /> : null}
 
-      {slug !== "advisors" ? <CtaBand /> : null}
+      {slug === "artists" ? <ArtistsWorkflow content={content} lang={lang} /> : null}
+
+      <CtaBand />
       <Footer />
     </main>
   );
