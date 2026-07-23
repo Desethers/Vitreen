@@ -66,6 +66,57 @@ function ImagesIcon() {
   );
 }
 
+function DocumentsIcon() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+      <path d="M14 3v5h5" />
+    </svg>
+  );
+}
+
+function DocumentsPanel() {
+  const docs = [
+    { name: "Certificate of authenticity.pdf", size: "412 KB" },
+    { name: "Condition report.pdf", size: "1.2 MB" },
+  ];
+  return (
+    <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white">
+      <div className="flex items-center gap-2 border-b border-zinc-100 px-3 py-2">
+        <span className="text-zinc-400">
+          <DocumentsIcon />
+        </span>
+        <h3 className="text-[11px] font-medium text-zinc-800">Documents</h3>
+        <span className="ml-auto text-[11px] tabular-nums text-zinc-400">{docs.length}</span>
+      </div>
+      <div className="space-y-1.5 p-2.5">
+        {docs.map((d) => (
+          <div
+            key={d.name}
+            className="flex items-center gap-2 rounded-md border border-zinc-100 bg-zinc-50/60 px-2 py-1.5"
+          >
+            <span className="text-zinc-400">
+              <DocumentsIcon />
+            </span>
+            <span className="min-w-0 flex-1 truncate text-[10px] text-zinc-700">{d.name}</span>
+            <span className="shrink-0 text-[9px] tabular-nums text-zinc-400">{d.size}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Spinner() {
   return (
     <motion.svg
@@ -289,12 +340,13 @@ export function ArtworkFormMock() {
             </div>
           </div>
 
-          <div>
-            <Label>Price</Label>
-            <div className="space-y-2">
-              <span className="inline-flex rounded-full border border-zinc-200 bg-white px-2.5 py-[3px] text-[10.5px] text-zinc-600">
-                Price on request
-              </span>
+          <div className="flex gap-3">
+            <div className="w-[120px] shrink-0">
+              <Label>Location</Label>
+              <div className={inputCls}>Studio</div>
+            </div>
+            <div className="min-w-0 flex-1">
+              <Label>Price</Label>
               <div className="flex items-stretch overflow-hidden rounded-md border border-zinc-200 bg-white">
                 <span className="border-r border-zinc-200 bg-zinc-50 px-2.5 py-1 text-[11px] text-zinc-600">
                   EUR
@@ -327,8 +379,9 @@ export function ArtworkFormMock() {
         </div>
 
         {/* Right — media */}
-        <div className="self-start">
+        <div className="flex flex-col gap-2.5 self-start">
           <ImagesPanel />
+          <DocumentsPanel />
         </div>
       </div>
     </div>

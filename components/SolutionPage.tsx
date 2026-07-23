@@ -15,6 +15,7 @@ import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
 import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
 import { InquiryDraftsFrame } from "@/components/GalleryAssistantProductPage";
 import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
+import ArtistWebsiteSyncVisual from "@/components/ArtistWebsiteSyncVisual";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -591,27 +592,47 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
     lang === "fr"
       ? [
           [
-            "Import depuis Excel ou CSV",
-            "Repartez de votre système actuel",
-            "Sans reconstruire votre archive",
+            "Une fiche claire pour chaque œuvre",
+            "Statut, localisation et dimensions au même endroit",
+            "Images et documents rattachés à chaque œuvre",
           ],
-          ["Provenance et acquéreurs", "Historique d’expositions", "Documents et certificats"],
           [
-            "Sélection privée par lien",
-            "Pour galeries et commissaires",
-            "Prix visibles ou masqués",
+            "Publiez depuis la même fiche que vous tenez déjà à jour",
+            "Gardez une cohérence entre anciennes et nouvelles œuvres dans le temps",
+            "Mettez à jour sans dépendre d’un développeur",
           ],
-          ["Nouvelles œuvres et séries", "Actualités du studio", "Vers galeries et commissaires"],
+          [
+            "Retrouvez les bonnes œuvres pour une demande précise",
+            "Composez une présentation sur mesure sans repartir de zéro",
+            "Envoyez-la par lien, PDF ou email",
+          ],
+          [
+            "Rédigez des emails et des textes d’œuvres",
+            "Préparez du matériel à partir de votre archive",
+            "Facilitez vos réponses et vos relances",
+          ],
         ]
       : [
           [
-            "Import from Excel or CSV",
-            "Continue from your current system",
-            "No need to rebuild your archive",
+            "One clear record for every artwork",
+            "Status, location and dimensions in one place",
+            "Images and documents attached to each work",
           ],
-          ["Provenance and owners", "Exhibition history", "Documents and certificates"],
-          ["Private selection by link", "For galleries and curators", "Show or hide prices"],
-          ["New works and series", "Studio updates", "To galleries and curators"],
+          [
+            "Publish from the same record you already maintain",
+            "Keep old and new work coherent over time",
+            "Update without depending on a developer",
+          ],
+          [
+            "Find the right works for a specific request",
+            "Build a tailored presentation without starting over",
+            "Send it by link, PDF or email",
+          ],
+          [
+            "Draft emails and artwork texts",
+            "Prepare material from your archive",
+            "Help you reply and follow up",
+          ],
         ];
 
   const steps: ScrollStoryStep[] = content.features.map((feature, index) => ({
@@ -620,12 +641,32 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
     bullets: bulletsByStep[index],
   }));
 
+  const heading =
+    lang === "fr"
+      ? {
+          title: "De votre atelier à vos collectionneurs.",
+          subtitle:
+            "Organisez votre travail, mettez à jour votre site et partagez des présentations privées.",
+        }
+      : {
+          title: "From your studio to your collectors.",
+          subtitle: "Organise your work, update your website and share private presentations.",
+        };
+
   return (
     <ScrollStory
-      title={content.subtitle}
-      subtitle=""
+      title={heading.title}
+      subtitle={heading.subtitle}
       steps={steps}
-      renderVisual={() => <div className="h-full w-full" aria-hidden="true" />}
+      renderVisual={(index) =>
+        index === 0 ? (
+          <ArtworkFormMock />
+        ) : index === 1 ? (
+          <ArtistWebsiteSyncVisual />
+        ) : (
+          <div className="h-full w-full" aria-hidden="true" />
+        )
+      }
     />
   );
 }
@@ -699,7 +740,22 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
 
       {slug === "artists" ? <ArtistsWorkflow content={content} lang={lang} /> : null}
 
-      <CtaBand />
+      {slug === "artists" ? (
+        <CtaBand
+          title={
+            lang === "fr"
+              ? "Construisez le système derrière votre pratique"
+              : "Build the system behind your practice"
+          }
+          subtitle={
+            lang === "fr"
+              ? "Les outils pour faire avancer votre pratique."
+              : "The tools to move your practice forward."
+          }
+        />
+      ) : (
+        <CtaBand />
+      )}
       <Footer />
     </main>
   );

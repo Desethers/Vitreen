@@ -6,8 +6,19 @@ import { Button } from "@/components/ui/Button";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export default function CtaBand() {
+export default function CtaBand({
+  title,
+  subtitle,
+  cta,
+}: {
+  title?: string;
+  subtitle?: string;
+  cta?: string;
+} = {}) {
   const { t } = useLang();
+  const heading = title ?? t.ctaBand.title;
+  const sub = subtitle ?? t.ctaBand.subtitle;
+  const button = cta ?? t.ctaBand.cta;
   return (
     <section className="relative pt-14 pb-14 md:pt-[72px] md:pb-[72px] px-4 md:px-6 overflow-hidden bg-[var(--background)]">
       <div className="max-w-7xl mx-auto">
@@ -19,12 +30,16 @@ export default function CtaBand() {
           className="px-6 py-12 md:px-12 md:py-20 lg:py-24"
         >
           <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
-            <h2 className="font-display font-normal text-[#111110] text-[30px] md:text-[44px] leading-[1.15] tracking-[-0.03em] mb-0 max-w-[22ch] md:max-w-none md:whitespace-nowrap">
-              {t.ctaBand.title}
+            <h2
+              className={`font-display font-normal text-[#111110] text-[30px] md:text-[44px] leading-[1.15] tracking-[-0.03em] mb-0 max-w-[22ch] md:max-w-none ${
+                title ? "md:max-w-4xl" : "md:whitespace-nowrap"
+              }`}
+            >
+              {heading}
             </h2>
 
             <p className="font-normal text-[#6B6A67] text-[30px] md:text-[44px] leading-[1.15] tracking-[-0.03em] max-w-3xl mt-0 mb-10 md:mb-12">
-              {t.ctaBand.subtitle}
+              {sub}
             </p>
 
             <Button
@@ -32,7 +47,7 @@ export default function CtaBand() {
               variant="primary"
               onClick={() => window.dispatchEvent(new CustomEvent("open-contact-modal"))}
             >
-              {t.ctaBand.cta}
+              {button}
             </Button>
           </div>
         </motion.div>

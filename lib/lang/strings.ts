@@ -784,10 +784,10 @@ export const translations = {
         body:
           "Pour les artistes et les studios, structurez le corpus — séries, médiums, années, provenance — et présentez une sélection aux galeries, commissaires ou collectionneurs via des liens privés.",
         features: [
-          "Structuration des séries, médiums et années",
-          "Provenance et historique d’expositions conservés",
-          "Présentation d’une sélection via liens privés",
-          "Partage des actualités du studio avec galeries et commissaires",
+          "Gardez votre travail organisé",
+          "Faites en sorte que votre site reflète votre pratique actuelle",
+          "Soyez prêt quand une opportunité se présente",
+          "Votre assistant d’atelier",
         ],
         cta: "Structurer votre archive",
       },
@@ -1619,10 +1619,10 @@ export const translations = {
         body:
           "For artists and studios, structure the body of work — series, mediums, years, provenance — and present a selection to galleries, curators or collectors through private links.",
         features: [
-          "Structure series, mediums and years",
-          "Preserve provenance and exhibition history",
-          "Present a selection through private links",
-          "Share studio updates with galleries and curators",
+          "Keep your work organised",
+          "Make your website reflect your current practice",
+          "Be ready when an opportunity appears",
+          "Your studio assistant",
         ],
         cta: "Structure your archive",
       },
