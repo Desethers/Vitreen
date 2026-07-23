@@ -659,7 +659,7 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
       title={heading.title}
       subtitle={heading.subtitle}
       steps={steps}
-      isVisualBare={(index) => index === 1 || index === 2}
+      isVisualBare={(index) => index === 1 || index === 2 || index === 3}
       renderVisual={(index) =>
         index === 0 ? (
           <ArtworkFormMock />
@@ -667,6 +667,8 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
           <ArtistWebsiteSyncVisual />
         ) : index === 2 ? (
           <ArtistSelectionActionVisual />
+        ) : index === 3 ? (
+          <InquiryDraftsFrame animatePipeline />
         ) : (
           <div className="h-full w-full" aria-hidden="true" />
         )
