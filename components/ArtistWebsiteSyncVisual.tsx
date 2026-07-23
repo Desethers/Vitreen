@@ -91,25 +91,6 @@ function SpinnerIcon() {
   );
 }
 
-function MonitorIcon() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <rect width="20" height="14" x="2" y="3" rx="2" />
-      <path d="M8 21h8M12 17v4" />
-    </svg>
-  );
-}
-
 function ChevronIcon({ direction }: { direction: "up" | "down" }) {
   return (
     <svg
@@ -133,16 +114,8 @@ function GalleryOsEditor({ status }: { status: "published" | "changes" | "publis
 
   return (
     <section className="h-full min-w-0 overflow-hidden rounded-[12px] border border-zinc-200 bg-white">
-      <div className="flex items-start justify-between gap-2 border-b border-zinc-100 px-3 py-2.5">
-        <div className="min-w-0">
-          <h3 className="truncate text-[10px] font-medium text-zinc-900 sm:text-[11px]">
-            Sacha Elron — page content
-          </h3>
-          <p className="mt-0.5 hidden text-[8px] leading-snug text-zinc-400 sm:block">
-            Changes appear on the site after you publish.
-          </p>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-1.5 sm:flex-row sm:items-center sm:gap-2">
+      <div className="flex min-h-11 items-center justify-end border-b border-zinc-100 px-3 py-2">
+        <div className="flex shrink-0 items-center gap-2">
           <span className="inline-flex items-center gap-1 text-[8px] text-zinc-500">
             <span
               className={`h-1.5 w-1.5 rounded-full ${
@@ -233,11 +206,13 @@ function GalleryOsEditor({ status }: { status: "published" | "changes" | "publis
 function PublicPreview({ showNewWork }: { showNewWork: boolean }) {
   return (
     <section className="h-full min-w-0 overflow-hidden rounded-[12px] border border-zinc-200 bg-white">
-      <div className="flex h-9 items-center gap-2 border-b border-zinc-200 px-3">
-        <span className="text-zinc-400">
-          <MonitorIcon />
+      <div className="flex h-9 items-center gap-1.5 border-b border-zinc-200 px-3">
+        <span className="h-2 w-2 shrink-0 rounded-full bg-zinc-200" />
+        <span className="h-2 w-2 shrink-0 rounded-full bg-zinc-200" />
+        <span className="h-2 w-2 shrink-0 rounded-full bg-zinc-200" />
+        <span className="ml-1 min-w-0 truncate rounded-full bg-zinc-100 px-3 py-1 text-[8px] text-zinc-500 sm:text-[9px]">
+          sachaelron.com
         </span>
-        <span className="text-[9px] text-zinc-600 sm:text-[10px]">Public preview</span>
       </div>
 
       <div className="px-3 pb-3 pt-3 sm:px-4 sm:pb-4">
@@ -330,9 +305,9 @@ export default function ArtistWebsiteSyncVisual() {
       aria-label="Three artworks selected in the real Gallery OS editor are published to the Selected Works grid of the gallery website."
       animate={{ opacity: currentPhase === LAST_PHASE ? 0 : 1 }}
       transition={{ duration: 0.38, ease }}
-      className="flex h-full w-full items-center justify-center bg-[#F7F7F5] p-3"
+      className="flex h-full w-full items-center justify-center"
     >
-      <div className="grid h-[122%] w-[122%] origin-center scale-[0.82] grid-rows-[1.2fr_0.8fr] gap-2.5 sm:h-full sm:w-full sm:scale-100 sm:grid-cols-[0.92fr_1.08fr] sm:grid-rows-1 sm:items-stretch sm:gap-3">
+      <div className="grid h-[122%] w-[122%] origin-center scale-[0.82] grid-rows-[1.2fr_0.8fr] gap-2 sm:h-full sm:w-full sm:scale-100 sm:grid-cols-[0.92fr_1.08fr] sm:grid-rows-1 sm:items-stretch">
         <GalleryOsEditor status={status} />
         <PublicPreview showNewWork={showNewWork} />
       </div>

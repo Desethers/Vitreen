@@ -1621,7 +1621,7 @@ export const translations = {
         features: [
           "Keep your work organised",
           "Make your website reflect your current practice",
-          "Be ready when an opportunity appears",
+          "Prepare work for each gallery or curator",
           "Your studio assistant",
         ],
         cta: "Structure your archive",

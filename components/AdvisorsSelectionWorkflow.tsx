@@ -403,7 +403,7 @@ function ArtworkPicker({ dawnSelected }: { dawnSelected: boolean }) {
   );
 }
 
-function BuildSelection() {
+export function BuildSelection({ fullBleed = false }: { fullBleed?: boolean } = {}) {
   const reduceMotion = useReducedMotion();
   const [stage, setStage] = useState(reduceMotion ? 5 : 0);
 
@@ -437,7 +437,7 @@ function BuildSelection() {
   }, [reduceMotion]);
 
   return (
-    <div className="relative h-full bg-zinc-50/60 p-4">
+    <div className={`relative h-full ${fullBleed ? "" : "bg-zinc-50/60 p-4"}`}>
       <section className="flex h-full flex-col overflow-hidden rounded-[8px] border border-zinc-200 bg-white">
         <div className="shrink-0 border-b border-zinc-100 px-4 py-2.5">
           <h3 className="text-[12px] font-medium text-zinc-900">Selection blocks</h3>

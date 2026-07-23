@@ -16,6 +16,7 @@ import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
 import { InquiryDraftsFrame } from "@/components/GalleryAssistantProductPage";
 import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
 import ArtistWebsiteSyncVisual from "@/components/ArtistWebsiteSyncVisual";
+import ArtistSelectionActionVisual from "@/components/ArtistSelectionActionVisual";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -624,9 +625,9 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
             "Update without depending on a developer",
           ],
           [
-            "Find the right works for a specific request",
-            "Build a tailored presentation without starting over",
-            "Send it by link, PDF or email",
+            "Choose the most relevant works",
+            "Create a presentation for that contact",
+            "Send it directly from your archive",
           ],
           [
             "Draft emails and artwork texts",
@@ -658,11 +659,14 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
       title={heading.title}
       subtitle={heading.subtitle}
       steps={steps}
+      isVisualBare={(index) => index === 1 || index === 2}
       renderVisual={(index) =>
         index === 0 ? (
           <ArtworkFormMock />
         ) : index === 1 ? (
           <ArtistWebsiteSyncVisual />
+        ) : index === 2 ? (
+          <ArtistSelectionActionVisual />
         ) : (
           <div className="h-full w-full" aria-hidden="true" />
         )
