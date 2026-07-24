@@ -732,7 +732,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
               slug === "galleries" ? "" : "bg-[#F5F5F3]"
             }`}
             style={
-              slug === "galleries" ? { backgroundImage: "url('/Gallery-screen.png')" } : undefined
+              slug === "galleries" ? { backgroundImage: "url('/Gallery-screen.jpg')" } : undefined
             }
           >
             <div
