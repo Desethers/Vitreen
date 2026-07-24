@@ -8,7 +8,10 @@ import { Button } from "@/components/ui/Button";
 import { useLang } from "@/lib/lang";
 import { type RoleSlug } from "@/lib/solutions";
 import { ArchiveMock } from "@/components/showcase/PillarMocks";
-import { ArtistWebsitePage } from "@/components/WebsitePublisherProductPage";
+import {
+  ArtistWebsitePage,
+  GalleryWebsitePublishVisual,
+} from "@/components/WebsitePublisherProductPage";
 import { SyncVisual } from "@/components/ViewingRoomsScrollStory";
 import { ExhibitionPageMock } from "@/components/showcase/ExhibitionPageMock";
 import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
@@ -122,7 +125,7 @@ function WhatsAppShareWorksMock() {
   return (
     <div
       aria-hidden="true"
-      className="flex h-full w-full items-center justify-center overflow-hidden bg-[#EFEFF4] px-4 md:px-6"
+      className="flex h-full w-full items-center justify-center overflow-hidden bg-[#F5F5F3] px-4 md:px-6"
     >
       <div className="flex h-full w-full max-w-[420px] flex-col">
         <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden py-2">
@@ -437,6 +440,8 @@ function GalleriesStickyWorkflow() {
       renderVisual={(index) =>
         index === 0 ? (
           <ArtworkFormMock />
+        ) : index === 1 ? (
+          <GalleryWebsitePublishVisual />
         ) : index === 2 ? (
           <WhatsAppShareWorksMock />
         ) : index === 3 ? (
@@ -492,7 +497,7 @@ function GalleriesBuiltAroundSection() {
             <motion.article
               key={column.title}
               {...fadeUp(columnIndex * 0.06)}
-              className="py-10 first:pt-0 last:pb-0 md:min-h-[330px] md:py-0"
+              className="py-10 first:pt-0 last:pb-0 md:py-0"
             >
               <h3 className="font-display text-[18px] font-normal leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[20px]">
                 {column.title}
@@ -723,9 +728,18 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
 
           <motion.div
             {...fadeUp(0.08)}
-            className="relative mt-14 h-[420px] overflow-hidden rounded-xl bg-[#F5F5F3] md:mt-20 md:h-[640px]"
+            className={`relative mt-14 h-[620px] overflow-hidden rounded-xl bg-cover bg-center md:mt-20 md:h-[720px] ${
+              slug === "galleries" ? "" : "bg-[#F5F5F3]"
+            }`}
+            style={
+              slug === "galleries" ? { backgroundImage: "url('/Gallery-screen.png')" } : undefined
+            }
           >
-            <div className="absolute inset-6 overflow-hidden rounded-lg border border-[#E8E8E6] bg-white md:inset-10">
+            <div
+              className={`absolute inset-6 overflow-hidden bg-white md:inset-10 ${
+                slug === "galleries" ? "rounded-[12px]" : "rounded-lg border border-[#E8E8E6]"
+              }`}
+            >
               <div className="relative h-full">
                 <Visual />
               </div>

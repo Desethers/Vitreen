@@ -71,18 +71,25 @@ export default function PricingBand() {
             {...fadeUp(0.05)}
             className="flex flex-col rounded-[12px] bg-[#F5F5F3] p-6 md:p-10"
           >
-            <div className="flex flex-col gap-3 md:min-h-[81px] md:flex-row md:items-start md:justify-between md:gap-6">
-              <div className="min-w-0">
+            <div className="flex flex-col gap-3 md:block md:min-h-[81px]">
+              <div className="flex items-start justify-between gap-6">
                 <h3 className="font-display text-[20px] font-normal leading-snug tracking-[-0.01em] text-[#111110] md:text-[22px]">
                   {band.base.title}
                 </h3>
-                <p className="mt-1.5 text-[14px] leading-[1.5] text-[#6B6A67] md:text-[15px]">
-                  {band.base.description}
-                </p>
+                <a
+                  href="/pricing#pilot"
+                  className="hidden w-fit shrink-0 items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-normal leading-none text-[#6B6A67] transition-colors hover:border-[#ADADAA] hover:text-[#111110] md:inline-flex"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#168044]" aria-hidden />
+                  50% off for early galleries
+                </a>
               </div>
+              <p className="mt-1.5 text-[14px] leading-[1.5] text-[#6B6A67] md:text-[15px]">
+                {band.base.description}
+              </p>
               <a
                 href="/pricing#pilot"
-                className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-normal leading-none text-[#6B6A67] transition-colors hover:border-[#ADADAA] hover:text-[#111110]"
+                className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-normal leading-none text-[#6B6A67] transition-colors hover:border-[#ADADAA] hover:text-[#111110] md:hidden"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#168044]" aria-hidden />
                 50% off for early galleries

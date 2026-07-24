@@ -289,6 +289,27 @@ function PagesFrame({ page, reduceMotion }: { page: WebsitePreview; reduceMotion
   );
 }
 
+/* Standalone visual: the gallery website going live, cycling through its
+ * exhibition, artist and news pages. Reuses the product page's PagesFrame
+ * and the same auto-cycle used by WebsitePublisherProductPage. */
+export function GalleryWebsitePublishVisual() {
+  const reduceMotion = useReducedMotion() ?? false;
+  const [websitePage, setWebsitePage] = useState<WebsitePreview>("exhibition");
+
+  useEffect(() => {
+    if (reduceMotion) return;
+
+    const order: WebsitePreview[] = ["exhibition", "artist", "news"];
+    const interval = window.setInterval(() => {
+      setWebsitePage((current) => order[(order.indexOf(current) + 1) % order.length]);
+    }, 4200);
+
+    return () => window.clearInterval(interval);
+  }, [reduceMotion]);
+
+  return <PagesFrame page={websitePage} reduceMotion={reduceMotion} />;
+}
+
 const CONNECTED_SECTIONS = [
   {
     label: "Artists",

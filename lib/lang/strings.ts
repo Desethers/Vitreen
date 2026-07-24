@@ -1287,8 +1287,8 @@ export const translations = {
     },
     pricing: {
       hero: {
-        title: "A clear price, a scope defined together.",
-        subtitle: "One offer: your Gallery OS installed, then a simple subscription.",
+        title: "Clear costs, no surprise.",
+        subtitle: "A fixed setup price and a monthly subscription.",
       },
       offer: {
         eyebrow: "One offer",
