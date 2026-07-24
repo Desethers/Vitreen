@@ -165,7 +165,7 @@ export default function PricingPage() {
                   size="lg"
                   variant="inverse"
                   onClick={openContact}
-                  className="w-full border border-[#C4C4C0] !bg-transparent hover:!border-[#6B6A67] hover:!bg-[#6B6A67] hover:!text-white"
+                  className="w-full border border-[#C4C4C0] !bg-transparent hover:!border-[#C4C4C0] hover:!bg-[#E5E5E2] hover:!text-black"
                 >
                   {t.pricing.cta}
                 </Button>

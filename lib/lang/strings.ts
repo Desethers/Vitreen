@@ -36,7 +36,7 @@ export const translations = {
           eyebrow: "À la une",
           title: "Composer une sélection privée",
           cta: "Découvrir les viewing rooms",
-          image: "/krea/frieze-newyork-booth.png",
+          image: "/gallery-screen2.png",
           href: "/products/viewing-rooms",
         },
         columns: [
@@ -863,7 +863,7 @@ export const translations = {
           eyebrow: "Featured",
           title: "Build a private selection",
           cta: "Explore viewing rooms",
-          image: "/krea/frieze-newyork-booth.png",
+          image: "/gallery-screen2.png",
           href: "/products/viewing-rooms",
         },
         columns: [
