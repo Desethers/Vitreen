@@ -169,8 +169,8 @@ function OverviewCard({
 }) {
   return (
     <div
-      className={`overflow-hidden rounded-lg border border-zinc-200 ${
-        glass ? "bg-transparent" : "bg-white"
+      className={`overflow-hidden rounded-lg border ${
+        glass ? "border-white/45 bg-transparent" : "border-zinc-200 bg-white"
       } ${className}`}
     >
       {children}
@@ -191,8 +191,8 @@ function QueueHeader({
 }) {
   return (
     <div
-      className={`flex items-center justify-between border-y border-zinc-100 px-4 py-2 first:border-t-0 ${
-        glass ? "bg-transparent" : "bg-zinc-50/60"
+      className={`flex items-center justify-between border-y px-4 py-2 first:border-t-0 ${
+        glass ? "border-white/35 bg-transparent" : "border-zinc-100 bg-zinc-50/60"
       }`}
     >
       <span className="flex items-center gap-2 text-[10px] font-semibold text-zinc-600">
@@ -262,8 +262,8 @@ export function GalleryOsOverviewMock({ glass = false }: { glass?: boolean }) {
         <div className={`min-w-0 flex-1 overflow-hidden ${glass ? "bg-white/28" : "bg-white"}`}>
           <header className="flex h-[72px] items-center gap-3 px-7">
             <div
-              className={`relative flex max-w-[460px] flex-1 items-center gap-2 rounded-md border border-zinc-200 py-2 pl-9 pr-3 text-[11px] text-zinc-400 ${
-                glass ? "bg-transparent" : "bg-white"
+              className={`relative flex max-w-[460px] flex-1 items-center gap-2 rounded-md border py-2 pl-9 pr-3 text-[11px] text-zinc-400 ${
+                glass ? "border-white/45 bg-transparent" : "border-zinc-200 bg-white"
               }`}
             >
               <Search
@@ -272,7 +272,11 @@ export function GalleryOsOverviewMock({ glass = false }: { glass?: boolean }) {
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
               />
               <span className="flex-1 truncate">Find anything in your gallery...</span>
-              <kbd className="inline-flex items-center rounded border border-zinc-200 bg-zinc-50 px-1.5 py-0.5 text-[9px] text-zinc-400">
+              <kbd
+                className={`inline-flex items-center rounded border px-1.5 py-0.5 text-[9px] text-zinc-400 ${
+                  glass ? "border-white/45 bg-white/15" : "border-zinc-200 bg-zinc-50"
+                }`}
+              >
                 ⌘K
               </kbd>
             </div>

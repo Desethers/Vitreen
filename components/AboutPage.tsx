@@ -70,9 +70,13 @@ export default function AboutPage() {
       {/* Two audiences, side by side */}
       <section className="px-4 pb-14 md:px-6 md:pb-[72px]">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 border-t border-[#E8E8E6] pt-10 md:grid-cols-2 md:gap-12 md:pt-12">
+          <div className="grid gap-3 md:grid-cols-2 md:gap-4">
             {about.audiences.map((audience, index) => (
-              <motion.div key={audience.title} {...fadeUp(index * 0.06)}>
+              <motion.div
+                key={audience.title}
+                {...fadeUp(index * 0.06)}
+                className="rounded-[12px] bg-[#F5F5F3] px-6 py-7 md:px-7 md:py-8"
+              >
                 <h2 className="font-display text-[18px] font-normal leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[20px]">
                   {audience.title}
                 </h2>

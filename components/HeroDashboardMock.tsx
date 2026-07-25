@@ -348,126 +348,82 @@ function HeroWorkflowAnimation() {
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease, delay: 0.38 }}
-        className="absolute cursor-grab overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white pb-1 shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
-        style={{ bottom: "8%", right: "2%", width: "29%", zIndex: 20 }}
+        className="absolute cursor-grab overflow-hidden rounded-[8px] border border-[#DADCE0] bg-white shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
+        style={{ bottom: "7%", right: "2%", width: "27%", zIndex: 20 }}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#EDEDEA] px-4 pb-1.5 pt-2.5">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-[#8A8A86]">Vitreen</p>
-          <span className="text-[14px] leading-none text-[#ADADAA]">×</span>
+        {/* Native Google Workspace add-on card header */}
+        <div className="border-b border-[#DADCE0] px-4 py-3">
+          <p className="text-[12px] font-medium text-[#202124]">Insérer une œuvre</p>
+          <p className="mt-0.5 text-[9px] text-[#5F6368]">Recherche dans Gallery OS</p>
         </div>
 
-        {/* Search */}
-        <div className="flex items-center border-b border-[#EDEDEA] px-4 py-1.5 text-[12px] text-[#111110]">
-          {typed.length === 0 && step === 0 ? (
-            <span className="text-[#ADADAA]">Rechercher une œuvre…</span>
-          ) : (
-            <span>{typed}</span>
-          )}
-          {step < 1 && (
-            <motion.span
-              className="ml-px inline-block h-[14px] w-px bg-[#111110]"
-              animate={{ opacity: [1, 1, 0, 0] }}
-              transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
-            />
-          )}
+        {/* CardService TextInput + ButtonSet */}
+        <div className="border-b border-[#E8EAED] px-4 py-3">
+          <div className="flex h-8 items-center rounded-[3px] border border-[#9AA0A6] px-2.5 text-[10px] text-[#202124]">
+            {typed.length === 0 && step === 0 ? (
+              <span className="text-[#80868B]">Titre ou nom d&apos;artiste</span>
+            ) : (
+              <span>{typed}</span>
+            )}
+            {step < 1 && (
+              <motion.span
+                className="ml-px inline-block h-3 w-px bg-[#202124]"
+                animate={{ opacity: [1, 1, 0, 0] }}
+                transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+              />
+            )}
+          </div>
+          <p className="mt-1 text-[8px] text-[#80868B]">
+            Titre ou nom d&apos;artiste · appuie sur Chercher
+          </p>
+          <div className="mt-2 flex items-center gap-2">
+            <button className="rounded-[3px] bg-[#1A73E8] px-3 py-1.5 text-[9px] font-medium text-white">
+              Chercher
+            </button>
+            <button className="rounded-[3px] px-2 py-1.5 text-[9px] font-medium text-[#1A73E8]">
+              Vue galerie
+            </button>
+          </div>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-1.5 px-4 pt-2">
-          {["Tout", "Disponibles", "Réservées", "Vendues", "NFS"].map((tag, i) => (
-            <span
-              key={tag}
-              className={`rounded-full border px-2.5 py-[3px] text-[8.5px] ${
-                i === 0
-                  ? "border-[#111110] bg-[#111110] text-white"
-                  : "border-[#E2E2DF] text-[#5F5E5B]"
-              }`}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Result card */}
+        {/* Native gallery result: image and caption are both insertion targets */}
         {step >= 1 && (
           <motion.div
-            className="mx-4 mt-2 rounded-[10px] border border-[#6DA1FF] bg-[#F3F7FF] p-2"
-            initial={{ opacity: 0, y: 6, boxShadow: "0 0 0 0 rgba(109,161,255,0)" }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              boxShadow: [
-                "0 0 0 0 rgba(109,161,255,0)",
-                "0 0 0 6px rgba(109,161,255,0.14)",
-                "0 0 0 0 rgba(109,161,255,0)",
-              ],
-            }}
+            className="px-4 pb-3 pt-2.5"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease }}
           >
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px] bg-[#2F6FE4] text-[8px] leading-none text-white">
-                ✓
-              </div>
-              <div className="h-9 w-10 shrink-0 overflow-hidden rounded-[3px] border border-[#E2E2DF] bg-white p-[3px]">
+            <p className="mb-2 text-[9px] font-medium text-[#5F6368]">1 résultat</p>
+            <motion.div
+              className="overflow-hidden rounded-[3px] border border-[#DADCE0]"
+              animate={
+                step >= 2
+                  ? {
+                      scale: [1, 0.98, 1],
+                      backgroundColor: ["#FFFFFF", "#E8F0FE", "#FFFFFF"],
+                    }
+                  : {}
+              }
+              transition={{ duration: 0.55, ease }}
+            >
+              <div className="relative aspect-[16/8] w-full overflow-hidden bg-[#F8F9FA]">
                 <img
                   src="/artworks/painting-05.jpg"
                   alt="Evening field"
-                  className="h-full w-full rounded-[1px] object-cover"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[8.5px] font-semibold uppercase tracking-[0.12em] text-[#8A8A86]">
-                  Sun Dog
-                </p>
-                <p className="truncate text-[11px] font-medium italic leading-tight text-[#111110]">
+              <div className="border-t border-[#E8EAED] px-3 py-2.5">
+                <p className="text-[8px] uppercase tracking-[0.08em] text-[#5F6368]">Sacha Elron</p>
+                <p className="mt-0.5 text-[11px] italic leading-tight text-[#202124]">
                   Evening field, 2023
                 </p>
-                <p className="mt-0.5 text-[9px] leading-tight text-[#3D3D3A]">8 000 €</p>
+                <p className="mt-1 text-[9px] text-[#5F6368]">
+                  8 000 € · <span className="font-medium text-[#188038]">AVAILABLE</span>
+                </p>
               </div>
-              <span className="shrink-0 rounded-full border border-[#A8DDB5] bg-[#EAF8EE] px-2 py-0.5 text-[7.5px] uppercase tracking-[0.08em] text-[#4FA766]">
-                Available
-              </span>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Footer */}
-        {step >= 1 && (
-          <motion.div
-            className="mt-2 flex items-center justify-between border-t border-[#EDEDEA] px-4 py-1.5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, ease, delay: 0.1 }}
-          >
-            <span className="text-[9px] text-[#6B6A67]">1 œuvre sélectionnée</span>
-            <div className="flex items-center gap-2">
-              <button
-                aria-label="Réinitialiser"
-                className="flex h-6 w-6 items-center justify-center rounded-full border border-[#E2E2DF] text-[11px] leading-none text-[#6B6A67]"
-              >
-                ↺
-              </button>
-              <motion.button
-                className="rounded-full bg-[#111110] px-3.5 py-1.5 text-[10px] font-medium text-white"
-                initial={{ boxShadow: "0 0 0 0 rgba(17,17,16,0)" }}
-                animate={
-                  step >= 2
-                    ? {
-                        scale: [1, 0.94, 1.05, 1],
-                        boxShadow: [
-                          "0 0 0 0 rgba(17,17,16,0)",
-                          "0 0 0 5px rgba(17,17,16,0.16)",
-                          "0 0 0 0 rgba(17,17,16,0)",
-                        ],
-                      }
-                    : {}
-                }
-                transition={{ duration: 0.6, ease }}
-              >
-                Insérer
-              </motion.button>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </motion.div>
