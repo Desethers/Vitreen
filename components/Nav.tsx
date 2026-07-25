@@ -321,30 +321,32 @@ export default function Nav() {
                     <a
                       href={href(solutionsMenu.featured.href)}
                       onClick={() => setSolutionsOpen(false)}
-                      className="flex flex-col"
+                      className="group block"
                     >
-                      <div
-                        className="aspect-[16/10] w-full overflow-hidden rounded-md bg-[#F5F5F3] bg-cover bg-center"
-                        style={{ backgroundImage: `url(${solutionsMenu.featured.image})` }}
-                      />
-                      <p className="mt-3 text-[10px] text-[#ADADAA]">
-                        {solutionsMenu.featured.eyebrow}
-                      </p>
-                      <h4 className="mt-1 font-display text-[15px] leading-tight text-[#111110]">
-                        {solutionsMenu.featured.title}
-                      </h4>
-                      <p className="mt-1 text-[12px] text-[#111110] underline-offset-4 hover:underline">
-                        {solutionsMenu.featured.cta}
-                      </p>
-                    </a>
-                  </div>
-                  <div className="mx-auto flex max-w-7xl items-center justify-end py-0 pt-4">
-                    <a
-                      href={href(solutionsMenu.ctaAllHref)}
-                      onClick={() => setSolutionsOpen(false)}
-                      className="text-[12px] font-medium text-[#111110] hover:underline underline-offset-4"
-                    >
-                      {solutionsMenu.ctaAll}
+                      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-[#111110]">
+                        <div
+                          className="absolute inset-0 bg-cover bg-center"
+                          style={{ backgroundImage: `url(${solutionsMenu.featured.image})` }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
+                        <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+                          <h4 className="font-display text-[17px]">
+                            {solutionsMenu.featured.title}
+                          </h4>
+                          <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
+                            {solutionsMenu.featured.desc}
+                          </p>
+                          <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
+                            {solutionsMenu.featured.cta}
+                            <span
+                              aria-hidden="true"
+                              className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
+                            >
+                              →
+                            </span>
+                          </p>
+                        </div>
+                      </div>
                     </a>
                   </div>
                 </div>

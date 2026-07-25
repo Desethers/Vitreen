@@ -1,35 +1,43 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { localeHref, stripLocale, useLang } from "@/lib/lang";
+import { localeHref, stripLocale, translations, useLang, type Lang } from "@/lib/lang";
 
-const footerColumns = [
-  {
-    title: "Platform",
-    links: [
-      { label: "Gallery OS", href: "/products/overview" },
-      { label: "Artwork Management", href: "/products/archive" },
-      { label: "Gallery Websites", href: "/products/publishing" },
-      { label: "Private Viewing Rooms", href: "/products/viewing-rooms" },
-      { label: "Gallery Assistant", href: "/products/custom-operations" },
-    ],
-  },
-  {
-    title: "Solutions",
-    links: [
-      { label: "For Art Galleries", href: "/solutions/galleries" },
-      { label: "For Artists", href: "/solutions/artists" },
-      { label: "For Art Advisors & Dealers", href: "/solutions/advisors" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "Pricing", href: "/pricing" },
-      { label: "Contact", href: "#contact", opensContact: true },
-    ],
-  },
-] as const;
+/* `translations` is `as const`, so index by Lang to accept either language
+ * rather than pinning the literal English strings. */
+type FooterCopy = (typeof translations)[Lang]["footer"];
+
+/* Structure is shared; only the labels come from the active language. */
+function buildColumns(footer: FooterCopy) {
+  const { columns, links } = footer;
+  return [
+    {
+      title: columns.platform,
+      links: [
+        { label: links.galleryOs, href: "/products/overview" },
+        { label: links.artworkManagement, href: "/products/archive" },
+        { label: links.galleryWebsites, href: "/products/publishing" },
+        { label: links.viewingRooms, href: "/products/viewing-rooms" },
+        { label: links.galleryAssistant, href: "/products/custom-operations" },
+      ],
+    },
+    {
+      title: columns.solutions,
+      links: [
+        { label: links.forGalleries, href: "/solutions/galleries" },
+        { label: links.forArtists, href: "/solutions/artists" },
+        { label: links.forAdvisors, href: "/solutions/advisors" },
+      ],
+    },
+    {
+      title: columns.company,
+      links: [
+        { label: links.pricing, href: "/pricing" },
+        { label: links.contact, href: "#contact", opensContact: true },
+      ],
+    },
+  ];
+}
 
 function openContact() {
   window.dispatchEvent(new CustomEvent("open-contact-modal"));
@@ -72,7 +80,8 @@ function LanguageSwitch() {
 }
 
 export default function Footer() {
-  const { href } = useLang();
+  const { t, href } = useLang();
+  const footerColumns = buildColumns(t.footer);
 
   return (
     <footer id="contact" className="bg-[#111110] text-white">
@@ -87,7 +96,7 @@ export default function Footer() {
                 Vitreen
               </a>
               <p className="mt-5 max-w-[23rem] text-[14px] leading-[1.65] text-[#ADADAA]">
-                Connected websites and sales tools for art galleries, artists and advisors.
+                {t.footer.tagline}
               </p>
             </div>
 
@@ -119,7 +128,7 @@ export default function Footer() {
             <p>© 2026 Vitreen</p>
             <div className="flex items-center gap-4">
               <LanguageSwitch />
-              <p>Paris, France</p>
+              <p>{t.footer.location}</p>
             </div>
           </div>
         </div>

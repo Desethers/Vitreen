@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import { faqJsonLd } from "@/lib/seo";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -55,6 +56,10 @@ export default function Faq() {
   const { t } = useLang();
   return (
     <section id="faq" className="bg-white px-4 pt-14 pb-20 md:px-6 md:pt-[72px] md:pb-[96px]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(t.faq.items)) }}
+      />
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

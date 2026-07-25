@@ -104,6 +104,22 @@ export const SOLUTION_SEO: Record<Lang, Record<string, { title: string; descript
   },
 };
 
+/**
+ * FAQPage schema built from the FAQ already rendered on the homepage, so the
+ * markup can never drift from the visible answers.
+ */
+export function faqJsonLd(items: readonly { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}
+
 /** Page-level metadata shared by both languages. */
 export function pageMetadata({
   lang,
