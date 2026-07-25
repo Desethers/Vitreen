@@ -828,21 +828,22 @@ export const translations = {
       eyebrow: "À propos de Vitreen",
       title: "Aider les galeries à construire des opérations plus solides.",
       lead: "La prochaine génération de galeries devra faire plus que bien présenter l’art.",
-      body: [
-        "Elle devra rester organisée, répondre plus vite et entretenir des relations plus fortes avec ses artistes et ses collectionneurs — souvent avec une petite équipe.",
-        "Vitreen donne aux galeries un site connecté, des fiches d’œuvres structurées et un assistant numérique pour leur travail quotidien.",
-        "Il aide à préparer les sélections, mettre à jour les contenus et garder l’information prête pour chaque conversation avec un collectionneur.",
-      ],
-      audiences: [
-        {
-          title: "Pour les galeries établies",
-          text: "Vitreen renforce les opérations existantes.",
-        },
-        {
-          title: "Pour les galeristes qui débutent",
-          text: "Il apporte l’infrastructure pour démarrer professionnellement sans constituer une grande équipe dès le premier jour.",
-        },
-      ],
+      letter: {
+        title: "Un mot du fondateur",
+        paragraphs: [
+          "Le marché de l’art repose encore sur les relations, le jugement et la confiance. Cela ne devrait pas changer.",
+          "Mais le travail opérationnel derrière ces relations devient plus lourd.",
+          "On attend des petites galeries qu’elles tiennent des fiches d’œuvres justes, un site à jour, une communication soignée avec leurs collectionneurs et du matériel privé irréprochable — souvent avec une équipe très réduite.",
+          "Vitreen a été créé pour leur donner une meilleure infrastructure.",
+          "Nous relions l’information des œuvres aux endroits où la galerie travaille déjà : son site, ses emails, ses PDFs, ses sélections privées et ses conversations avec les collectionneurs.",
+          "L’objectif n’est pas de remplacer la part humaine de la galerie. C’est de la soutenir.",
+          "Quand l’information est organisée et prête à l’emploi, l’équipe répond plus vite, relance plus régulièrement et passe plus de temps à construire des relations.",
+          "Pour les galeries établies, Vitreen renforce les opérations existantes.",
+          "Pour une nouvelle génération de galeristes, il offre un moyen de démarrer avec les capacités d’une structure plus grande, sans en porter les coûts.",
+          "Nous pensons que les galeries qui resteront compétitives ne seront pas celles qui utilisent le plus de technologie. Ce seront celles qui l’utilisent avec le plus de clarté.",
+        ],
+        signature: { name: "Raphaël Rossi", role: "Fondateur, Vitreen" },
+      },
       cta: "Parler de votre galerie",
     },
     footer: {
@@ -1699,21 +1700,22 @@ export const translations = {
       eyebrow: "About Vitreen",
       title: "Helping galleries build stronger operations.",
       lead: "The next generation of galleries will need to do more than present good art.",
-      body: [
-        "They will need to stay organised, respond faster and maintain stronger relationships with artists and collectors — often with a small team.",
-        "Vitreen gives galleries a connected website, structured artwork records and a digital assistant for their daily work.",
-        "It helps prepare selections, update content and keep information ready for every collector conversation.",
-      ],
-      audiences: [
-        {
-          title: "For established galleries",
-          text: "Vitreen strengthens existing operations.",
-        },
-        {
-          title: "For new gallerists",
-          text: "It provides the infrastructure to start professionally without building a large team from day one.",
-        },
-      ],
+      letter: {
+        title: "A note from the founder",
+        paragraphs: [
+          "The art market still runs on relationships, judgment and trust. That should not change.",
+          "But the operational work behind those relationships is becoming harder.",
+          "Small galleries are expected to maintain accurate artwork records, a current website, strong collector communication and polished private material — often with a very limited team.",
+          "Vitreen was created to give them better infrastructure.",
+          "We connect artwork information to the places where the gallery already works: its website, emails, PDFs, private selections and collector conversations.",
+          "The aim is not to replace the human side of the gallery. It is to support it.",
+          "When information is organised and ready to use, the team can respond faster, follow up more consistently and spend more time building relationships.",
+          "For established galleries, Vitreen strengthens existing operations.",
+          "For a new generation of gallerists, it provides a way to start with the capabilities of a larger organisation without carrying the same cost structure.",
+          "We believe the galleries that remain competitive will not be the ones using the most technology. They will be the ones using it with the most clarity.",
+        ],
+        signature: { name: "Rapha\u00ebl Rossi", role: "Founder, Vitreen" },
+      },
       cta: "Talk about your gallery",
     },
     footer: {
