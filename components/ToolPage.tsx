@@ -86,7 +86,7 @@ function CheckIcon() {
 }
 
 export default function ToolPage({ slug }: { slug: ToolSlug }) {
-  const { t } = useLang();
+  const { t, href } = useLang();
   const tools = t.tools as unknown as Record<ToolSlug, ToolContent> & {
     sectionLabel: string;
     backToHome: string;
@@ -112,7 +112,7 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
             <Link
-              href="/"
+              href={href("/")}
               className="mb-8 inline-block text-[12px] text-[#ADADAA] transition-colors hover:text-[#6B6A67]"
             >
               ← {tools.backToHome}
@@ -206,7 +206,7 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
                   return (
                     <Link
                       key={pillarSlug}
-                      href={PILLAR_HREF[pillarSlug]}
+                      href={href(PILLAR_HREF[pillarSlug])}
                       aria-current={active ? "page" : undefined}
                       className={`group rounded-lg border px-4 py-4 transition-all ${
                         active

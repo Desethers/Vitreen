@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ROLE_SLUGS } from "@/lib/solutions";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vitreen.art";
+import { SITE_URL, localeUrls } from "@/lib/seo";
 
 /* Only the product pages we actually link to and want indexed. The templated
  * offshoots (inquiries, mobile, previews) stay out until they carry a subject
@@ -14,31 +13,38 @@ const toolSlugs = [
   "custom-operations",
 ] as const;
 
-const staticRoutes = ["/", "/pricing"] as const;
+/** Every indexable path, unprefixed. English is served here, French under /fr. */
+const paths: string[] = [
+  "/",
+  "/pricing",
+  ...toolSlugs.map((slug) => `/products/${slug}`),
+  ...ROLE_SLUGS.map((role) => `/solutions/${role}`),
+];
+
+function priorityFor(path: string) {
+  if (path === "/") return 1;
+  if (path === "/products/overview") return 0.8;
+  return 0.7;
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const routes: MetadataRoute.Sitemap = staticRoutes.map((path) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: path === "/" ? 1 : 0.7,
-  }));
+  /* Each entry declares both languages so the two versions are paired rather
+   * than read as duplicates. */
+  return paths.flatMap((path) => {
+    const urls = localeUrls(path);
+    const languages = {
+      "en-GB": `${SITE_URL}${urls.en}`,
+      "fr-FR": `${SITE_URL}${urls.fr}`,
+    };
 
-  const toolRoutes: MetadataRoute.Sitemap = toolSlugs.map((slug) => ({
-    url: `${SITE_URL}/products/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: slug === "overview" ? 0.8 : 0.7,
-  }));
-
-  const solutionRoutes: MetadataRoute.Sitemap = ROLE_SLUGS.map((role) => ({
-    url: `${SITE_URL}/solutions/${role}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
-
-  return [...routes, ...toolRoutes, ...solutionRoutes];
+    return (["en", "fr"] as const).map((lang) => ({
+      url: `${SITE_URL}${urls[lang]}`,
+      lastModified: now,
+      changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
+      priority: priorityFor(path),
+      alternates: { languages },
+    }));
+  });
 }

@@ -339,7 +339,7 @@ function ConnectedProductsVisual() {
       detail: "Private collector selections",
       preview: (
         <img
-          src="/screenshot-viewingroom.png"
+          src="/screenshot-viewingroom.jpg"
           alt=""
           aria-hidden="true"
           className="h-12 w-full rounded-sm object-cover object-top"

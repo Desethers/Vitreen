@@ -47,7 +47,7 @@ export default function PrivateSelections() {
             style={{ maxWidth: 520 }}
           >
             <Image
-              src="/screenshot-viewingroom.png"
+              src="/screenshot-viewingroom.jpg"
               alt=""
               fill
               quality={92}

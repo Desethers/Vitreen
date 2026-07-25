@@ -48,7 +48,7 @@ function FeatureList({ items }: { items: readonly string[] }) {
 }
 
 export default function PricingBand() {
-  const { t } = useLang();
+  const { t, href } = useLang();
   const band = t.pricingBand;
 
   const openContact = () => window.dispatchEvent(new CustomEvent("open-contact-modal"));
@@ -77,7 +77,7 @@ export default function PricingBand() {
                   {band.base.title}
                 </h3>
                 <a
-                  href="/pricing#pilot"
+                  href={href("/pricing#pilot")}
                   className="hidden w-fit shrink-0 items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-normal leading-none text-[#6B6A67] transition-colors hover:border-[#ADADAA] hover:text-[#111110] md:inline-flex"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-[#168044]" aria-hidden />
@@ -88,7 +88,7 @@ export default function PricingBand() {
                 {band.base.description}
               </p>
               <a
-                href="/pricing#pilot"
+                href={href("/pricing#pilot")}
                 className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-normal leading-none text-[#6B6A67] transition-colors hover:border-[#ADADAA] hover:text-[#111110] md:hidden"
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-[#168044]" aria-hidden />
@@ -138,7 +138,7 @@ export default function PricingBand() {
 
             <p className="mt-6">
               <a
-                href="/pricing"
+                href={href("/pricing")}
                 className="text-[13px] text-[#6B6A67] underline-offset-4 transition-colors hover:text-[#111110] hover:underline"
               >
                 {band.pricingLink}

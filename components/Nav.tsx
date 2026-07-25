@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Nav() {
-  const { t } = useLang();
+  const { t, href } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [productOpen, setProductOpen] = useState(false);
@@ -120,7 +120,7 @@ export default function Nav() {
               />
             </button>
             <a
-              href="/"
+              href={href("/")}
               className="w-32 shrink-0 font-display text-[15px] tracking-tight text-[#111110] md:text-base"
             >
               Vitreen
@@ -176,7 +176,7 @@ export default function Nav() {
               return (
                 <a
                   key={link.label}
-                  href={link.href}
+                  href={href(link.href)}
                   className="flex items-center gap-1.5 text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
                 >
                   {inner}
@@ -205,7 +205,7 @@ export default function Nav() {
                         {productMenu.items.map((item, index) => (
                           <a
                             key={item.title}
-                            href={item.href}
+                            href={href(item.href)}
                             onClick={() => setProductOpen(false)}
                             onMouseEnter={() => setActiveProductIndex(index)}
                             onFocus={() => setActiveProductIndex(index)}
@@ -236,7 +236,7 @@ export default function Nav() {
                       </div>
                     </div>
                     <a
-                      href={productMenu.featured.href}
+                      href={href(productMenu.featured.href)}
                       onClick={() => setProductOpen(false)}
                       className="group block"
                     >
@@ -297,7 +297,7 @@ export default function Nav() {
                               .map((item) => (
                                 <li key={item.title}>
                                   <a
-                                    href={item.href}
+                                    href={href(item.href)}
                                     onClick={() => setSolutionsOpen(false)}
                                     className="group -mx-4 block w-[calc(100%+32px)] rounded px-4 py-2 transition-colors duration-200 hover:bg-[#F8F8F6]"
                                   >
@@ -319,7 +319,7 @@ export default function Nav() {
                       );
                     })()}
                     <a
-                      href={solutionsMenu.featured.href}
+                      href={href(solutionsMenu.featured.href)}
                       onClick={() => setSolutionsOpen(false)}
                       className="flex flex-col"
                     >
@@ -340,7 +340,7 @@ export default function Nav() {
                   </div>
                   <div className="mx-auto flex max-w-7xl items-center justify-end py-0 pt-4">
                     <a
-                      href={solutionsMenu.ctaAllHref}
+                      href={href(solutionsMenu.ctaAllHref)}
                       onClick={() => setSolutionsOpen(false)}
                       className="text-[12px] font-medium text-[#111110] hover:underline underline-offset-4"
                     >
@@ -378,7 +378,7 @@ export default function Nav() {
               return (
                 <a
                   key={link.label}
-                  href={link.href}
+                  href={href(link.href)}
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 text-base text-[#111110]"
                 >

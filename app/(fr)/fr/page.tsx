@@ -12,18 +12,18 @@ import Faq from "@/components/Faq";
 import CtaBand from "@/components/CtaBand";
 import Footer from "@/components/Footer";
 
+import { alternates } from "@/lib/seo";
+
 export const metadata: Metadata = {
-  title: {
-    absolute: "Vitreen — Gallery OS for contemporary art galleries",
-  },
+  title: { absolute: "Vitreen — Gallery OS pour galeries d’art contemporain" },
   description:
-    "Organise artworks, publish your gallery website and share private collector presentations from one set of artwork records.",
-  alternates: { canonical: "/" },
+    "Organisez vos œuvres, publiez le site de votre galerie et partagez des présentations privées depuis les mêmes fiches d’œuvres.",
+  alternates: alternates("fr", "/"),
   openGraph: {
-    url: "/",
-    title: "Vitreen — Gallery OS for contemporary art galleries",
+    url: "/fr",
+    title: "Vitreen — Gallery OS pour galeries d’art contemporain",
     description:
-      "Organise artworks, publish your gallery website and share private collector presentations from one set of artwork records.",
+      "Organisez vos œuvres, publiez le site de votre galerie et partagez des présentations privées depuis les mêmes fiches d’œuvres.",
   },
 };
 

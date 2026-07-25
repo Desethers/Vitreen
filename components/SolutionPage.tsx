@@ -29,7 +29,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 function CollectorRoomVisual() {
   return (
     <img
-      src="/screenshot-viewingroom.png"
+      src="/screenshot-viewingroom.jpg"
       alt=""
       aria-hidden="true"
       className="h-full w-full object-cover object-top"
