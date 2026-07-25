@@ -99,8 +99,8 @@ export const translations = {
       title: "Votre galerie, là où vous travaillez déjà.",
       subtitle:
         "Gérez vos œuvres, mettez votre site à jour et simplifiez vos ventes aux collectionneurs.",
-      ctaPrimary: "Parlons-en",
-      ctaSecondary: "Comment ça marche",
+      ctaPrimary: "Parler de votre galerie",
+      ctaSecondary: "Découvrir Gallery OS",
     },
     privateSelections: {
       title: "Viewing Rooms",
@@ -974,8 +974,8 @@ export const translations = {
       title: "Your gallery, wherever you already work.",
       subtitle:
         "Connect your artwork records to your website, private selections and collector conversations.",
-      ctaPrimary: "Talk to us",
-      ctaSecondary: "How it works",
+      ctaPrimary: "Discuss your gallery",
+      ctaSecondary: "Explore Gallery OS",
     },
     privateSelections: {
       title: "Viewing Rooms",
