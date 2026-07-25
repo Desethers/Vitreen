@@ -297,9 +297,9 @@ function HomeView({
           >
             Paris · Feb 12 — Mar 22, 2026
           </p>
-          <h1 className="font-normal text-[#111110] leading-[1.05]" style={{ fontSize: "1rem" }}>
+          <div className="font-normal text-[#111110] leading-[1.05]" style={{ fontSize: "1rem" }}>
             Sacha Elron
-          </h1>
+          </div>
           <p className="italic text-[#555] leading-[1.2] mt-0.5" style={{ fontSize: "0.72rem" }}>
             Your friends
           </p>
@@ -503,9 +503,9 @@ function HomeView({
           >
             Paris
           </p>
-          <h1 className="font-normal text-white leading-[1.05]" style={{ fontSize: "1.5rem" }}>
+          <div className="font-normal text-white leading-[1.05]" style={{ fontSize: "1.5rem" }}>
             Sacha Elron
-          </h1>
+          </div>
           <p className="text-white/90 leading-[1.15] -mt-0.5" style={{ fontSize: "1.1rem" }}>
             Your friends
           </p>

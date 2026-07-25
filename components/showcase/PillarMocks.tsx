@@ -487,9 +487,9 @@ export function PageHeader({
   return (
     <div className="flex items-start justify-between gap-3 px-4 md:px-5 pt-4 pb-3">
       <div className="min-w-0">
-        <h1 className="text-[13px] md:text-[14px] font-medium text-zinc-900 tracking-tight truncate">
+        <div className="text-[13px] md:text-[14px] font-medium text-zinc-900 tracking-tight truncate">
           {title}
-        </h1>
+        </div>
         <p className="text-[9.5px] text-zinc-700 mt-0.5">{sub}</p>
       </div>
       {action}

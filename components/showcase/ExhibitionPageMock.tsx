@@ -90,9 +90,9 @@ export function ExhibitionPageMock({
               <span className="text-[#555] underline underline-offset-2">Exhibitions</span>
               {" — "}Your friends
             </p>
-            <h1 className="text-[17px] font-normal tracking-[-0.03em] leading-[1.1] mb-6">
+            <div className="text-[17px] font-normal tracking-[-0.03em] leading-[1.1] mb-6">
               Sacha Elron — <em>Your friends</em>
-            </h1>
+            </div>
             <div
               className="flex flex-col gap-3 mb-6 pb-6"
               style={{ borderBottom: "0.5px solid rgba(0,0,0,0.08)" }}
@@ -337,9 +337,9 @@ export function ExhibitionPageMock({
 
           {/* Main */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-[28px] font-normal tracking-[-0.03em] leading-[1.1] mb-5">
+            <div className="text-[28px] font-normal tracking-[-0.03em] leading-[1.1] mb-5">
               Sacha Elron — <em>Your friends</em>
-            </h1>
+            </div>
             <p className="text-[14px] text-[#333] leading-[1.7] max-w-[560px] mb-3">
               A presentation of recent paintings and works on paper exploring friendship, memory,
               and shared light. The exhibition brings together a focused selection of pieces

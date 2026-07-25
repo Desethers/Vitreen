@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import HeroDashboardMock from "@/components/HeroDashboardMock";
@@ -10,6 +11,21 @@ import PricingBand from "@/components/PricingBand";
 import Faq from "@/components/Faq";
 import CtaBand from "@/components/CtaBand";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "Vitreen — Gallery OS for contemporary art galleries",
+  },
+  description:
+    "Organise artworks, publish your gallery website and share private collector presentations from one set of artwork records.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    url: "/",
+    title: "Vitreen — Gallery OS for contemporary art galleries",
+    description:
+      "Organise artworks, publish your gallery website and share private collector presentations from one set of artwork records.",
+  },
+};
 
 export default function Home() {
   return (

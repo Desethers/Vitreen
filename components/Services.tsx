@@ -299,7 +299,7 @@ function PrivateSelectionPageMock() {
         <header className="px-6">
           <div className="mx-auto max-w-3xl py-10">
             <p className="mb-3 text-xs uppercase tracking-widest text-gray-400">Sélection privée</p>
-            <h1 className="mb-6 text-2xl font-light text-gray-900">Selection — Sacha Elron</h1>
+            <div className="mb-6 text-2xl font-light text-gray-900">Selection — Sacha Elron</div>
             <p className="mb-2 text-sm text-gray-500">Pour Marie Beaumont</p>
             <p className="mt-4 text-xs text-gray-400">
               Cette sélection est disponible jusqu&apos;au 24 juillet 2026

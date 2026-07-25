@@ -1,15 +1,15 @@
 import WebsitePublisherProductPage from "@/components/WebsitePublisherProductPage";
 
 export const metadata = {
-  title: "Publishing",
+  title: "Gallery website publishing",
   description:
-    "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
+    "Publish artists, exhibitions and available works to your gallery website from the same artwork records.",
   alternates: { canonical: "/products/publishing" },
   openGraph: {
     url: "/products/publishing",
-    title: "Publishing — Vitreen",
+    title: "Gallery website publishing — Vitreen",
     description:
-      "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
+      "Publish artists, exhibitions and available works to your gallery website from the same artwork records.",
   },
 };
 

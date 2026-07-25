@@ -12,9 +12,9 @@ const inter = Inter({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://vitreen.art";
 const siteName = "Vitreen";
-const siteTitle = "Vitreen — Outils pour galeries d’art contemporain";
+const siteTitle = "Vitreen — Gallery OS for contemporary art galleries";
 const siteDescription =
-  "Vitreen est un partenaire numérique pour galeries d’art : viewing rooms privées, publication d’œuvres, suivi des demandes collectionneurs et workflows sur mesure.";
+  "Vitreen organises artworks, publishes your gallery website and prepares private collector presentations from the same artwork records.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -24,26 +24,16 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: siteName,
-  keywords: [
-    "galerie d’art",
-    "viewing room",
-    "site web galerie",
-    "art contemporain",
-    "CRM galerie",
-    "collectionneurs",
-    "Vitreen",
-  ],
   authors: [{ name: "Vitreen" }],
   creator: "Vitreen",
   publisher: "Vitreen",
   formatDetection: { email: false, address: false, telephone: false },
   alternates: {
-    languages: { fr: "/", en: "/" },
+    canonical: "/",
   },
   openGraph: {
     type: "website",
-    locale: "fr_FR",
-    alternateLocale: ["en_US"],
+    locale: "en_GB",
     url: "/",
     siteName,
     title: siteTitle,
@@ -53,7 +43,7 @@ export const metadata: Metadata = {
         url: "/paula-cooper-background.jpg",
         width: 1600,
         height: 1000,
-        alt: "Vitreen — Outils pour galeries d’art contemporain",
+        alt: "Vitreen — Gallery OS for contemporary art galleries",
       },
     ],
   },
@@ -95,7 +85,22 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: siteName,
   url: siteUrl,
-  inLanguage: ["fr-FR", "en-US"],
+  inLanguage: "en-GB",
+};
+
+const softwareJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Vitreen Gallery OS",
+  url: siteUrl,
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  description: siteDescription,
+  audience: {
+    "@type": "Audience",
+    audienceType: "Art galleries, artists, art advisors and dealers",
+  },
+  provider: { "@type": "Organization", name: siteName, url: siteUrl },
 };
 
 export default function RootLayout({
@@ -104,7 +109,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`bg-white ${inter.variable}`}>
+    <html lang="en-GB" className={`bg-white ${inter.variable}`}>
       <head>
         <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" fetchPriority="high" />
         {/* Marque le document quand le site est embarqué dans une iframe
@@ -123,6 +128,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
         />
       </head>
       <body className="antialiased bg-white font-sans">

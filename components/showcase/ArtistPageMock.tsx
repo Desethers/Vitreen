@@ -108,9 +108,9 @@ export function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
           </div>
           {/* Body */}
           <div className="px-5 pt-5 pb-10">
-            <h1 className="text-[28px] font-normal tracking-[-0.03em] leading-[1.1] mb-1">
+            <div className="text-[28px] font-normal tracking-[-0.03em] leading-[1.1] mb-1">
               Sacha Elron
-            </h1>
+            </div>
             <p className="text-[12px] text-[#888] mb-4">
               Born 1960, Oklahoma, USA — Lives and works in New York
             </p>
@@ -389,9 +389,9 @@ export function ArtistPageMock({ isMobile = false }: { isMobile?: boolean }) {
             />
           </div>
           <div className="flex flex-col gap-3 pt-2 min-w-0">
-            <h1 className="text-[38px] font-normal tracking-[-0.03em] leading-[1.1]">
+            <div className="text-[38px] font-normal tracking-[-0.03em] leading-[1.1]">
               Sacha Elron
-            </h1>
+            </div>
             <p className="text-[13px] text-[#888]">
               Born 1960, Oklahoma, USA — Lives and works in New York
             </p>

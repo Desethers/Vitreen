@@ -1,13 +1,15 @@
 import ToolPage from "@/components/ToolPage";
 
 export const metadata = {
-  title: "Overview",
-  description: "Outils connectés pour expositions, publication et communication collectionneurs.",
+  title: "Gallery OS",
+  description:
+    "The connected system behind a gallery: artwork records, website publishing, private selections and collector follow-up.",
   alternates: { canonical: "/products/overview" },
   openGraph: {
     url: "/products/overview",
-    title: "Overview — Vitreen",
-    description: "Outils connectés pour expositions, publication et communication collectionneurs.",
+    title: "Gallery OS — Vitreen",
+    description:
+      "The connected system behind a gallery: artwork records, website publishing, private selections and collector follow-up.",
   },
 };
 

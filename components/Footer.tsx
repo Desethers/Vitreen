@@ -21,7 +21,10 @@ const footerColumns = [
   },
   {
     title: "Company",
-    links: [{ label: "Contact", href: "#contact", opensContact: true }],
+    links: [
+      { label: "Pricing", href: "/pricing" },
+      { label: "Contact", href: "#contact", opensContact: true },
+    ],
   },
 ] as const;
 

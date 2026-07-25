@@ -1,13 +1,15 @@
 import ArchiveProductPage from "@/components/ArchiveProductPage";
 
 export const metadata = {
-  title: "Artworks Management",
-  description: "Œuvres, artistes et expositions organisés autour de votre workflow.",
+  title: "Artwork management",
+  description:
+    "Keep artworks, artists and exhibitions in one record — images, dimensions, availability, location and documents.",
   alternates: { canonical: "/products/archive" },
   openGraph: {
     url: "/products/archive",
-    title: "Artworks Management — Vitreen",
-    description: "Œuvres, artistes et expositions organisés autour de votre workflow.",
+    title: "Artwork management — Vitreen",
+    description:
+      "Keep artworks, artists and exhibitions in one record — images, dimensions, availability, location and documents.",
   },
 };
 
