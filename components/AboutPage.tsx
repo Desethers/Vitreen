@@ -59,7 +59,7 @@ export default function AboutPage() {
               {letter.title}
             </h2>
 
-            <div className="mt-7 space-y-5">
+            <div className="mt-7 space-y-3">
               {letter.paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}

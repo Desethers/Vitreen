@@ -9,7 +9,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 function HeroWorkflowAnimation() {
   const [dashboardWidth, setDashboardWidth] = useState(82);
-  const [dashboardPosition, setDashboardPosition] = useState({ x: 50, y: 52 });
+  const [dashboardPosition, setDashboardPosition] = useState({ x: 50, y: 50 });
   // Half the dashboard height expressed as % of the stage — measured at
   // runtime so vertical clamping accounts for the real card height.
   const [dashboardHalfHeight, setDashboardHalfHeight] = useState(40);
@@ -245,7 +245,12 @@ function HeroWorkflowAnimation() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease, delay: 0.22 }}
         className="absolute cursor-grab overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.14)]"
-        style={{ bottom: "4%", right: "8%", width: "30%", zIndex: 10 }}
+        style={{
+          bottom: "4%",
+          right: "calc(2% + 27% + 2px)",
+          width: "30%",
+          zIndex: 10,
+        }}
       >
         <div className="flex items-center justify-between bg-[#F0F4F9] px-3 py-2">
           <span className="text-[11px] font-semibold text-[#202124]">New Message</span>
@@ -349,7 +354,7 @@ function HeroWorkflowAnimation() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, ease, delay: 0.38 }}
         className="absolute cursor-grab overflow-hidden rounded-[8px] border border-[#DADCE0] bg-white shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
-        style={{ bottom: "7%", right: "2%", width: "27%", zIndex: 20 }}
+        style={{ bottom: "4%", right: "2%", width: "27%", zIndex: 20 }}
       >
         {/* Native Google Workspace add-on card header */}
         <div className="border-b border-[#DADCE0] px-4 py-3">
