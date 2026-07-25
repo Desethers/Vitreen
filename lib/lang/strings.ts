@@ -96,7 +96,7 @@ export const translations = {
       },
     },
     hero: {
-      title: "Votre galerie, là où vous travaillez déjà.",
+      title: "Votre galerie, là où vous travaillez déjà",
       subtitle:
         "Gérez vos œuvres, mettez votre site à jour et simplifiez vos ventes aux collectionneurs.",
       ctaPrimary: "Parler de votre galerie",
@@ -120,7 +120,7 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Couche opérationnelle",
-      title: "A gallery infrastructure, not another platform.",
+      title: "A gallery infrastructure, not another platform",
       body:
         "Chaque galerie gère ses œuvres, collectionneurs et ventes différemment. Vitreen s’adapte à vos sources existantes, vos habitudes de communication et vos workflows relationnels — et les transforme en une couche opérationnelle plus claire.",
       connectedLabel: "Côté archive",
@@ -172,7 +172,7 @@ export const translations = {
       soon: "Soon",
       items: [
         {
-          title: "Une vitrine à la hauteur de votre programme.",
+          title: "Une vitrine à la hauteur de votre programme",
           description:
             "Présentez vos artistes, archivez vos expositions, gérez votre catalogue en ligne — sans compétences techniques.",
           features: [
@@ -183,7 +183,7 @@ export const translations = {
           ],
         },
         {
-          title: "Votre œuvre mérite un espace à elle.",
+          title: "Votre œuvre mérite un espace à elle",
           description:
             "Un portfolio conçu pour vous — biographie, CV d\u2019exposition, séries d\u2019œuvres — mis à jour par vous, sans intermédiaire.",
           features: [
@@ -194,7 +194,7 @@ export const translations = {
           ],
         },
         {
-          title: "Partagez des sélections, pas des fichiers.",
+          title: "Partagez des sélections, pas des fichiers",
           description:
             "Présentez vos recommandations à vos clients dans un espace professionnel, confidentiel et facile à naviguer.",
           features: [
@@ -205,7 +205,7 @@ export const translations = {
           ],
         },
         {
-          title: "Votre collection, organisée et accessible.",
+          title: "Votre collection, organisée et accessible",
           description:
             "Centralisez l\u2019ensemble de vos œuvres dans un espace privé : fiches, documents, historique — tout en un lieu.",
           features: [
@@ -218,20 +218,20 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "Et en coulisses, un espace de travail connecté aux galeries.",
+      title: "Et en coulisses, un espace de travail connecté aux galeries",
       subtitle:
         "Demandes, expositions, œuvres. Le nécessaire pour publier, partager et suivre.",
       cards: [
         {
-          title: "Les demandes, reliées aux œuvres.",
+          title: "Les demandes, reliées aux œuvres",
           desc: "Chaque demande arrive avec le contexte utile : artiste, œuvre, sélection privée ou viewing room.",
         },
         {
-          title: "Préparez les expositions une seule fois.",
+          title: "Préparez les expositions une seule fois",
           desc: "Les œuvres sélectionnées alimentent les pages, les viewing rooms et les présentations collectionneurs.",
         },
         {
-          title: "Des données prêtes à circuler.",
+          title: "Des données prêtes à circuler",
           desc: "Prix, statut, médium et informations artistes restent disponibles pour les surfaces collector-facing.",
         },
       ],
@@ -245,7 +245,7 @@ export const translations = {
       readBio: "Lire la biographie complète",
     },
     solution: {
-      title: "Chaque œuvre, partout où elle compte.",
+      title: "Chaque œuvre, partout où elle compte",
       subtitle:
         "Mettez à jour votre site, vos sélections privées et les demandes des collectionneurs depuis un seul endroit.",
       cards: [
@@ -272,7 +272,7 @@ export const translations = {
       },
     },
     homeAddIns: {
-      title: "Répondre, partager, envoyer.",
+      title: "Répondre, partager, envoyer",
       subtitle:
         "Utilisez les mêmes informations d’œuvres dans Gmail, WhatsApp et vos PDF.",
       cards: {
@@ -294,7 +294,7 @@ export const translations = {
       },
     },
     signatureDemo: {
-      title: "Une œuvre, partagée sur chaque surface de la galerie.",
+      title: "Une œuvre, partagée sur chaque surface de la galerie",
       subtitle:
         "Changez son prix une fois et le site, le PDF et la viewing room se mettent à jour avec elle.",
       sourceLabel: "Gallery OS",
@@ -309,7 +309,7 @@ export const translations = {
       ],
     },
     processFlow: {
-      title: "On part de votre galerie existante.",
+      title: "On part de votre galerie existante",
       subtitle: "On adapte Vitreen à la façon dont votre équipe travaille.",
       steps: [
         {
@@ -395,9 +395,9 @@ export const translations = {
         website: { label: "Site connecté", title: "Site web" },
         dashboard: { label: "Œuvres", title: "Base de données" },
         pdf: { label: "Supports collectionneurs", title: "Éditeur de sélections privées" },
-        addins: { label: "Extensions", title: "Gallery OS dans Gmail et WhatsApp." },
-        gmail: { label: "Gmail", title: "Vos œuvres dans vos emails." },
-        whatsapp: { label: "WhatsApp", title: "Vos sélections prêtes à envoyer." },
+        addins: { label: "Extensions", title: "Gallery OS dans Gmail et WhatsApp" },
+        gmail: { label: "Gmail", title: "Vos œuvres dans vos emails" },
+        whatsapp: { label: "WhatsApp", title: "Vos sélections prêtes à envoyer" },
       },
       items: [
         {
@@ -421,7 +421,7 @@ export const translations = {
       ],
     },
     pricingBand: {
-      title: "Un prix clair.",
+      title: "Un prix clair",
       subtitle: "Une seule offre, tout compris.",
       pilotPill: "Programme pilote — 3 places · installation à −50 %",
       base: {
@@ -457,7 +457,7 @@ export const translations = {
     },
     pricing: {
       hero: {
-        title: "Un prix clair, un périmètre défini ensemble.",
+        title: "Un prix clair, un périmètre défini ensemble",
         subtitle: "Une seule offre : votre Gallery OS installé, puis un abonnement simple.",
       },
       offer: {
@@ -630,7 +630,7 @@ export const translations = {
       featuresLabel: "Inclus",
       overview: {
         eyebrow: "Outils · Overview",
-        title: "Une vue connectée des outils Vitreen.",
+        title: "Une vue connectée des outils Vitreen",
         subtitle: "Outils connectés pour expositions, publication et communication collectionneurs.",
         body:
           "Vitreen rassemble les outils dont une galerie a besoin pour publier des œuvres, préparer des présentations privées, partager des sélections et suivre les demandes — sans changer les habitudes de l’équipe.",
@@ -658,7 +658,7 @@ export const translations = {
       },
       "viewing-rooms": {
         eyebrow: "Outils · Viewing Rooms",
-        title: "Présentations privées pour collectionneurs.",
+        title: "Présentations privées pour collectionneurs",
         subtitle: "Présentations privées pour collectionneurs et expositions.",
         body:
           "Préparez une sélection d’œuvres dans un espace privé : contexte d’exposition, fiches détaillées et lien partageable. Les viewing rooms s’ouvrent sur invitation, dans une interface lisible et confidentielle.",
@@ -673,7 +673,7 @@ export const translations = {
       },
       previews: {
         eyebrow: "Outils · Previews",
-        title: "Présentations privées d’œuvres.",
+        title: "Présentations privées d’œuvres",
         subtitle: "Présentations privées d’œuvres pour collectionneurs.",
         body:
           "Composez rapidement un aperçu d’œuvres à envoyer avant une foire, une exposition ou une rencontre. Une mise en page sobre, partagée par lien privé, email ou WhatsApp.",
@@ -687,7 +687,7 @@ export const translations = {
       },
       publishing: {
         eyebrow: "Outils · Publishing",
-        title: "Publier depuis une seule source.",
+        title: "Publier depuis une seule source",
         subtitle: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
         body:
           "Publishing transforme les données d’œuvres en pages publiques, archives d’expositions, PDFs et emails envoyés aux collectionneurs — sans saisir les informations deux fois.",
@@ -701,7 +701,7 @@ export const translations = {
       },
       inquiries: {
         eyebrow: "Outils · Inquiries",
-        title: "Suivre l’intérêt collectionneur.",
+        title: "Suivre l’intérêt collectionneur",
         subtitle: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.",
         body:
           "Inquiries rattache chaque demande à une œuvre, une viewing room ou une sélection privée. La galerie garde le contexte utile pour répondre : qui, sur quoi, depuis quel partage.",
@@ -715,7 +715,7 @@ export const translations = {
       },
       mobile: {
         eyebrow: "Outils · Mobile",
-        title: "La galerie publie depuis son téléphone.",
+        title: "La galerie publie depuis son téléphone",
         subtitle: "Publication galerie, même en déplacement.",
         body:
           "Mobile permet à la galerie de publier une œuvre, mettre à jour une fiche ou préparer un partage privé depuis son téléphone — sur un stand, en transit ou pendant un accrochage.",
@@ -729,7 +729,7 @@ export const translations = {
       },
       "custom-operations": {
         eyebrow: "Outils · Custom Operations",
-        title: "Adapter Vitreen au workflow de la galerie.",
+        title: "Adapter Vitreen au workflow de la galerie",
         subtitle: "Workflows sur mesure adaptés à votre galerie.",
         body:
           "Custom Operations permet d’ajuster Vitreen aux opérations propres à la galerie : champs spécifiques, intégrations à des outils existants, automatisations internes ou modèles de partage propres au programme.",
@@ -750,7 +750,7 @@ export const translations = {
       mockCaption: "Aperçu",
       galleries: {
         eyebrow: "Galeries",
-        title: "Pensé autour de la façon dont votre galerie travaille déjà.",
+        title: "Pensé autour de la façon dont votre galerie travaille déjà",
         subtitle: "Œuvres, expositions et demandes réunies dans une couche opérationnelle connectée.",
         body:
           "Vitreen connecte les archives, inventaires ou bases de données existants de la galerie, puis transforme les œuvres en matériel collector prêt à partager — viewing rooms, sélections privées, PDFs — sans remplacer vos outils.",
@@ -764,7 +764,7 @@ export const translations = {
       },
       advisors: {
         eyebrow: "Conseillers & marchands",
-        title: "Présentez les bonnes œuvres à chaque client.",
+        title: "Présentez les bonnes œuvres à chaque client",
         subtitle:
           "Créez des sélections privées depuis vos fiches œuvres, partagez-les par lien ou PDF et gardez chaque échange relié aux œuvres.",
         body: "",
@@ -778,7 +778,7 @@ export const translations = {
       },
       artists: {
         eyebrow: "Artistes",
-        title: "Une archive qui présente votre travail clairement.",
+        title: "Une archive qui présente votre travail clairement",
         subtitle: "Archive, séries et présentation, structurées autour de votre œuvre.",
         body:
           "Pour les artistes et les studios, structurez le corpus — séries, médiums, années, provenance — et présentez une sélection aux galeries, commissaires ou collectionneurs via des liens privés.",
@@ -792,7 +792,7 @@ export const translations = {
       },
       collectors: {
         eyebrow: "Solutions · Collectionneurs",
-        title: "Votre collection, documentée et à portée de main.",
+        title: "Votre collection, documentée et à portée de main",
         subtitle: "Acquisitions et documents réunis, viewing rooms reçues des galeries.",
         body:
           "Pour les collectionneurs, gardez acquisitions, documents et informations d’état au même endroit, et recevez des viewing rooms privées des galeries avec lesquelles vous travaillez.",
@@ -806,7 +806,7 @@ export const translations = {
       },
       estates: {
         eyebrow: "Successions d’artistes",
-        title: "La gestion d’un corpus complet d’œuvres.",
+        title: "La gestion d’un corpus complet d’œuvres",
         subtitle: "Corpus, provenance et transmission, sous votre contrôle.",
         body:
           "Pour les successions d’artistes et fondations, structurez l’ensemble du corpus, préservez la provenance et l’historique d’expositions, et maîtrisez la façon dont les œuvres sont présentées aux institutions et collectionneurs.",
@@ -826,7 +826,7 @@ export const translations = {
     },
     about: {
       eyebrow: "À propos de Vitreen",
-      title: "Aider les galeries à construire des opérations plus solides.",
+      title: "Aider les galeries à construire des opérations plus solides",
       lead: "La prochaine génération de galeries devra faire plus que bien présenter l’art.",
       letter: {
         title: "Un mot du fondateur",
@@ -971,7 +971,7 @@ export const translations = {
       },
     },
     hero: {
-      title: "Your gallery, wherever you already work.",
+      title: "Your gallery, wherever you already work",
       subtitle:
         "Connect your artwork records to your website, private selections and collector conversations.",
       ctaPrimary: "Request a demo",
@@ -995,7 +995,7 @@ export const translations = {
     },
     artworkSource: {
       kicker: "Operational layer",
-      title: "A gallery infrastructure, not another platform.",
+      title: "A gallery infrastructure, not another platform",
       body:
         "Every gallery handles artworks, collectors and sales differently. Vitreen adapts to your existing sources, communication habits and relationship-driven workflows — then turns them into a clearer operating layer.",
       connectedLabel: "Archive side",
@@ -1047,7 +1047,7 @@ export const translations = {
       soon: "Soon",
       items: [
         {
-          title: "A showcase worthy of your programme.",
+          title: "A showcase worthy of your programme",
           description:
             "Present your artists, archive your exhibitions, manage your online catalogue — no technical skills required.",
           features: [
@@ -1058,7 +1058,7 @@ export const translations = {
           ],
         },
         {
-          title: "Your work deserves its own space.",
+          title: "Your work deserves its own space",
           description:
             "A portfolio built for you — biography, exhibition CV, work series — updated by you, without any intermediary.",
           features: [
@@ -1069,7 +1069,7 @@ export const translations = {
           ],
         },
         {
-          title: "Share selections, not files.",
+          title: "Share selections, not files",
           description:
             "Present your recommendations to clients in a professional, confidential and easy-to-navigate space.",
           features: [
@@ -1080,7 +1080,7 @@ export const translations = {
           ],
         },
         {
-          title: "Your collection, organised and accessible.",
+          title: "Your collection, organised and accessible",
           description:
             "Centralise all your works in a private space — records, documents, history — everything in one place.",
           features: [
@@ -1093,20 +1093,20 @@ export const translations = {
       ],
     },
     showcase: {
-      title: "And behind the scenes, a workspace connected to galleries.",
+      title: "And behind the scenes, a workspace connected to galleries",
       subtitle:
         "Inquiries, exhibitions, artworks. The tools needed to publish, share and follow up.",
       cards: [
         {
-          title: "Inquiries linked to artworks.",
+          title: "Inquiries linked to artworks",
           desc: "Every inquiry arrives with useful context: artist, artwork, private selection or viewing room.",
         },
         {
-          title: "Prepare exhibitions once.",
+          title: "Prepare exhibitions once",
           desc: "Selected artworks feed pages, viewing rooms and collector presentations.",
         },
         {
-          title: "Artwork data ready to move.",
+          title: "Artwork data ready to move",
           desc: "Price, status, medium and artist information stay available for collector-facing surfaces.",
         },
       ],
@@ -1120,7 +1120,7 @@ export const translations = {
       readBio: "Read full biography",
     },
     solution: {
-      title: "Every artwork. Everywhere it matters.",
+      title: "Every artwork. Everywhere it matters",
       subtitle:
         "Update your website, private selections and collector inquiries from one place.",
       cards: [
@@ -1147,7 +1147,7 @@ export const translations = {
       },
     },
     homeAddIns: {
-      title: "Reply, share, send.",
+      title: "Reply, share, send",
       subtitle: "Use the same artwork information across Gmail, WhatsApp and PDF.",
       cards: {
         gmail: {
@@ -1168,7 +1168,7 @@ export const translations = {
       },
     },
     signatureDemo: {
-      title: "One artwork, shared across every gallery surface.",
+      title: "One artwork, shared across every gallery surface",
       subtitle:
         "Change its price once and the website, PDF and viewing room update with it.",
       sourceLabel: "Gallery OS",
@@ -1273,8 +1273,8 @@ export const translations = {
         dashboard: { label: "Artworks", title: "Database" },
         pdf: { label: "Collector material", title: "Private Selection editor" },
         addins: { label: "Add-ins", title: "Add-ins" },
-        gmail: { label: "Gmail", title: "Your artworks inside email." },
-        whatsapp: { label: "WhatsApp", title: "Selections ready to send." },
+        gmail: { label: "Gmail", title: "Your artworks inside email" },
+        whatsapp: { label: "WhatsApp", title: "Selections ready to send" },
       },
       items: [
         {
@@ -1298,7 +1298,7 @@ export const translations = {
       ],
     },
     pricingBand: {
-      title: "A clear price.",
+      title: "A clear price",
       subtitle: "One offer, everything included.",
       pilotPill: "Pilot programme — 3 places · setup at −50%",
       base: {
@@ -1334,7 +1334,7 @@ export const translations = {
     },
     pricing: {
       hero: {
-        title: "Clear costs, no surprise.",
+        title: "Clear costs, no surprise",
         subtitle: "A fixed setup price and a monthly subscription.",
       },
       offer: {
@@ -1512,7 +1512,7 @@ export const translations = {
       featuresLabel: "Included",
       overview: {
         eyebrow: "Tools · Overview",
-        title: "A connected view of Vitreen tools.",
+        title: "A connected view of Vitreen tools",
         subtitle: "Connected tools for exhibitions, publishing and collector communication.",
         body:
           "Vitreen brings together the tools a gallery needs to publish artworks, prepare private presentations, share selections and follow inquiries — without changing how the team already works.",
@@ -1540,7 +1540,7 @@ export const translations = {
       },
       "viewing-rooms": {
         eyebrow: "Tools · Viewing Rooms",
-        title: "Private presentations for collectors.",
+        title: "Private presentations for collectors",
         subtitle: "Private presentations for collectors and exhibitions.",
         body:
           "Prepare a selection of artworks in a private space: exhibition context, detailed records and a shareable link. Viewing rooms open by invitation, in a readable and confidential interface.",
@@ -1555,7 +1555,7 @@ export const translations = {
       },
       previews: {
         eyebrow: "Tools · Previews",
-        title: "Private artwork presentations.",
+        title: "Private artwork presentations",
         subtitle: "Private artwork presentations for collectors.",
         body:
           "Quickly assemble a preview of artworks to send ahead of a fair, an exhibition or a meeting. A calm layout, shared by private link, email or WhatsApp.",
@@ -1569,7 +1569,7 @@ export const translations = {
       },
       publishing: {
         eyebrow: "Tools · Publishing",
-        title: "Publish from a single source.",
+        title: "Publish from a single source",
         subtitle: "Website pages, PDFs and collector communication from the same artwork structure.",
         body:
           "Publishing turns artwork data into public pages, exhibition archives, PDFs and emails sent to collectors — without entering the information twice.",
@@ -1583,7 +1583,7 @@ export const translations = {
       },
       inquiries: {
         eyebrow: "Tools · Inquiries",
-        title: "Track collector interest.",
+        title: "Track collector interest",
         subtitle: "Track collector interest across artworks and private sharing.",
         body:
           "Inquiries attaches each request to an artwork, a viewing room or a private selection. The gallery keeps the context needed to respond: who, on what, from which share.",
@@ -1597,7 +1597,7 @@ export const translations = {
       },
       mobile: {
         eyebrow: "Tools · Mobile",
-        title: "The gallery publishes from its phone.",
+        title: "The gallery publishes from its phone",
         subtitle: "Gallery publishing, on the go.",
         body:
           "Mobile lets the gallery publish an artwork, update a record or prepare a private share from a phone — on a booth, in transit or during a hang.",
@@ -1611,7 +1611,7 @@ export const translations = {
       },
       "custom-operations": {
         eyebrow: "Tools · Custom Operations",
-        title: "Adapt Vitreen to the gallery's workflow.",
+        title: "Adapt Vitreen to the gallery's workflow",
         subtitle: "Tailored workflows adapted to your gallery.",
         body:
           "Custom Operations adjusts Vitreen to a gallery's specific operations: dedicated fields, integrations with existing tools, internal automations or sharing templates tied to the programme.",
@@ -1632,7 +1632,7 @@ export const translations = {
       mockCaption: "Preview",
       galleries: {
         eyebrow: "Galleries",
-        title: "A connected operating system and website for contemporary galleries.",
+        title: "A connected operating system and website for contemporary galleries",
         subtitle:
           "A custom Gallery OS and website built around your artworks, exhibitions and collector relationships.",
         body:
@@ -1647,7 +1647,7 @@ export const translations = {
       },
       advisors: {
         eyebrow: "Advisors & dealers",
-        title: "Present the right works to every client.",
+        title: "Present the right works to every client",
         subtitle: "Create artwork selections for each client and share them by link or PDF.",
         body: "",
         features: [
@@ -1660,7 +1660,7 @@ export const translations = {
       },
       artists: {
         eyebrow: "Artists",
-        title: "Artist website and artwork inventory in one place.",
+        title: "Artist website and artwork inventory in one place",
         subtitle: "Organise your work, update your website and share private presentations.",
         body:
           "For artists and studios, structure the body of work — series, mediums, years, provenance — and present a selection to galleries, curators or collectors through private links.",
@@ -1674,7 +1674,7 @@ export const translations = {
       },
       collectors: {
         eyebrow: "Solutions · Collectors",
-        title: "Your collection, documented and at hand.",
+        title: "Your collection, documented and at hand",
         subtitle: "Acquisitions and documents in one place, viewing rooms received from galleries.",
         body:
           "For collectors, keep acquisitions, documents and condition information in one place, and receive private viewing rooms from the galleries you work with.",
@@ -1688,7 +1688,7 @@ export const translations = {
       },
       estates: {
         eyebrow: "Artist Estates",
-        title: "Stewardship of a complete body of work.",
+        title: "Stewardship of a complete body of work",
         subtitle: "Corpus, provenance and transmission, under your control.",
         body:
           "For artist estates and foundations, structure the full corpus, preserve provenance and exhibition history, and control how works are presented to institutions and collectors.",
@@ -1711,7 +1711,7 @@ export const translations = {
       title: "Build the gallery you want to run",
       lead: "Better systems for your artists, collectors and daily work.",
       letter: {
-        title: "The next generation of galleries will be built differently.",
+        title: "The next generation of galleries will be built differently",
         paragraphs: [
           "Galleries have always been built on artists, judgment and relationships.",
           "That should not change.",
