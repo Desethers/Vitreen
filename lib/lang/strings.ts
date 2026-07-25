@@ -24,7 +24,7 @@ export const translations = {
           eyebrow: "Sélections privées",
           title: "Viewing Rooms",
           desc: "Créez et partagez des viewing rooms privées à partir de vos fiches d'œuvres.",
-          cta: "Découvrir les viewing rooms",
+          cta: "En savoir plus",
           image: "/screenshot-viewingroom.jpg",
           href: "/products/viewing-rooms",
         },
@@ -34,7 +34,7 @@ export const translations = {
           eyebrow: "À la une",
           title: "Pour les galeries",
           desc: "Un système d’exploitation et un site web connectés pour les galeries d’art contemporain.",
-          cta: "Découvrir la solution",
+          cta: "En savoir plus",
           image: "/gallery-screen2.png",
           href: "/solutions/galleries",
         },
@@ -76,7 +76,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Parler de votre galerie",
+      cta: "Parlons-en",
       modal: {
         title: "Nous contacter",
         subtitle: "Décrivez votre projet. Réponse sous 48 h.",
@@ -99,15 +99,15 @@ export const translations = {
       title: "Votre galerie, là où vous travaillez déjà.",
       subtitle:
         "Gérez vos œuvres, mettez votre site à jour et simplifiez vos ventes aux collectionneurs.",
-      ctaPrimary: "Parler de votre galerie",
-      ctaSecondary: "Voir les outils",
+      ctaPrimary: "Parlons-en",
+      ctaSecondary: "Comment ça marche",
     },
     privateSelections: {
       title: "Viewing Rooms",
       subtitle: "Présentations privées d’œuvres pour les galeries.",
       body:
         "Composez des sélections prêtes à partager à partir de vos fiches d’œuvres, générez des liens privés, exportez en PDF et diffusez vos présentations par email ou WhatsApp.",
-      cta: "Découvrir les viewing rooms",
+      cta: "En savoir plus",
       mock: {
         label: "Sélection privée",
         artist: "Sacha Elron",
@@ -415,7 +415,7 @@ export const translations = {
             "Sélections privées pour collectionneurs",
           ],
           delivery: undefined as string | undefined,
-          cta: "Parler de votre galerie",
+          cta: "Parlons-en",
           highlight: false as const,
         },
       ],
@@ -438,7 +438,7 @@ export const translations = {
           "Hébergement, mises à jour et support",
         ],
         note: "Livré en ~3 semaines",
-        cta: "Parler de votre galerie",
+        cta: "Parlons-en",
       },
       partner: {
         title: "Option Partner",
@@ -484,7 +484,7 @@ export const translations = {
         description: "Pour les galeries qui préfèrent déléguer le quotidien.",
         price: "+350 €/mois",
         qualifier: "en complément de votre Gallery OS",
-        cta: "Ajouter l’option Partner",
+        cta: "Ajouter Partner",
         features: [
           "Un point mensuel avec votre interlocuteur dédié",
           "Mises à jour de contenu faites pour vous",
@@ -502,7 +502,7 @@ export const translations = {
         discount: "−50 %",
         price: "2 500 €",
         availability: "3 places — premier arrivé, premier servi.",
-        cta: "Parler de votre galerie",
+        cta: "Parlons-en",
       },
       costAnchor: {
         title: "Ce que remplace Vitreen",
@@ -550,7 +550,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Parler de votre galerie",
+      cta: "Parlons-en",
     },
     statementSplit: {
       statTitle: "L\u2019art en ligne red\u00e9finit l\u2019\u00e9conomie du march\u00e9 de l\u2019art",
@@ -640,7 +640,7 @@ export const translations = {
           "Partage privé pour collectionneurs",
           "Suivi des demandes par œuvre",
         ],
-        cta: "Discuter de votre setup",
+        cta: "Parlons-en",
       },
       archive: {
         eyebrow: "Outils · Artworks Management",
@@ -654,7 +654,7 @@ export const translations = {
           "Médiums, dimensions et provenance",
           "Connexion possible à un inventaire existant",
         ],
-        cta: "Structurer l’archive",
+        cta: "Parlons-en",
       },
       "viewing-rooms": {
         eyebrow: "Outils · Viewing Rooms",
@@ -668,7 +668,7 @@ export const translations = {
           "Lien à durée et accès limités",
           "Demande directe depuis chaque œuvre",
         ],
-        cta: "Découvrir les viewing rooms",
+        cta: "En savoir plus",
         badge: "Bientôt",
       },
       previews: {
@@ -683,7 +683,7 @@ export const translations = {
           "Partage par lien, email ou WhatsApp",
           "Export PDF prêt à envoyer",
         ],
-        cta: "Préparer une preview",
+        cta: "Parlons-en",
       },
       publishing: {
         eyebrow: "Outils · Publishing",
@@ -697,7 +697,7 @@ export const translations = {
           "Exports PDF et présentations imprimables",
           "Emails collectionneurs construits depuis les œuvres",
         ],
-        cta: "Voir le publishing",
+        cta: "Parlons-en",
       },
       inquiries: {
         eyebrow: "Outils · Inquiries",
@@ -711,7 +711,7 @@ export const translations = {
           "Statut, suivi et notes internes",
           "Compatible avec les outils clients existants",
         ],
-        cta: "Activer les demandes",
+        cta: "Parlons-en",
       },
       mobile: {
         eyebrow: "Outils · Mobile",
@@ -725,7 +725,7 @@ export const translations = {
           "Partage privé en quelques pressions",
           "Suivi des demandes en mobilité",
         ],
-        cta: "Essayer Mobile",
+        cta: "Parlons-en",
       },
       "custom-operations": {
         eyebrow: "Outils · Custom Operations",
@@ -739,7 +739,7 @@ export const translations = {
           "Automatisations internes",
           "Modèles de partage propres à la galerie",
         ],
-        cta: "Discuter du workflow",
+        cta: "Parlons-en",
       },
     },
     solutions: {
@@ -760,7 +760,7 @@ export const translations = {
           "Demandes rattachées aux bonnes œuvres",
           "Passage fluide entre publication publique et partage privé",
         ],
-        cta: "Discuter de votre setup",
+        cta: "Parlons-en",
       },
       advisors: {
         eyebrow: "Conseillers & marchands",
@@ -774,7 +774,7 @@ export const translations = {
           "Suivi rattaché à chaque œuvre",
           "Présentation des œuvres sans révéler vos sources",
         ],
-        cta: "Discuter de votre setup",
+        cta: "Parlons-en",
       },
       artists: {
         eyebrow: "Artistes",
@@ -788,7 +788,7 @@ export const translations = {
           "Soyez prêt quand une opportunité se présente",
           "Votre assistant d’atelier",
         ],
-        cta: "Structurer votre archive",
+        cta: "Parlons-en",
       },
       collectors: {
         eyebrow: "Solutions · Collectionneurs",
@@ -802,7 +802,7 @@ export const translations = {
           "Réception de viewing rooms privées des galeries",
           "Examen des œuvres proposées avant acquisition",
         ],
-        cta: "Discuter de votre setup",
+        cta: "Parlons-en",
       },
       estates: {
         eyebrow: "Successions d’artistes",
@@ -816,13 +816,13 @@ export const translations = {
           "Contrôle de la présentation des œuvres",
           "Préparation des prêts, ventes et demandes institutionnelles",
         ],
-        cta: "Discuter de votre setup",
+        cta: "Parlons-en",
       },
     },
     ctaBand: {
       title: "Commencez avec votre fonctionnement actuel",
       subtitle: "Ajoutez les outils dont votre galerie a besoin",
-      cta: "Parler de votre galerie",
+      cta: "Parler à Vitreen",
     },
     about: {
       eyebrow: "À propos de Vitreen",
@@ -844,7 +844,17 @@ export const translations = {
         ],
         signature: { name: "Raphaël Rossi", role: "Fondateur, Vitreen" },
       },
-      cta: "Parler de votre galerie",
+      audiences: [
+        {
+          title: "Pour les galeries établies",
+          text: "Vitreen renforce les opérations existantes.",
+        },
+        {
+          title: "Pour les galeristes qui débutent",
+          text: "Il apporte l’infrastructure pour démarrer professionnellement sans constituer une grande équipe dès le premier jour.",
+        },
+      ],
+      cta: "Parlons-en",
     },
     footer: {
       tagline: "Sites connectés et outils de vente pour galeries d’art, artistes et conseillers.",
@@ -889,7 +899,7 @@ export const translations = {
           eyebrow: "Private selections",
           title: "Viewing Rooms",
           desc: "Build and share private viewing rooms from your artwork records.",
-          cta: "See viewing rooms",
+          cta: "See more",
           image: "/screenshot-viewingroom.jpg",
           href: "/products/viewing-rooms",
         },
@@ -899,7 +909,7 @@ export const translations = {
           eyebrow: "Featured",
           title: "For Art Galleries",
           desc: "A connected operating system and website for contemporary galleries.",
-          cta: "Explore the gallery solution",
+          cta: "See more",
           image: "/gallery-screen2.png",
           href: "/solutions/galleries",
         },
@@ -941,7 +951,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Talk about your gallery",
+      cta: "Talk to us",
       modal: {
         title: "Get in touch",
         subtitle:
@@ -964,15 +974,15 @@ export const translations = {
       title: "Your gallery, wherever you already work.",
       subtitle:
         "Connect your artwork records to your website, private selections and collector conversations.",
-      ctaPrimary: "Talk about your gallery",
-      ctaSecondary: "See how it works",
+      ctaPrimary: "Talk to us",
+      ctaSecondary: "How it works",
     },
     privateSelections: {
       title: "Viewing Rooms",
       subtitle: "Private artwork presentations for galleries.",
       body:
         "Create collector-ready selections from your artwork records, generate private links, export PDFs and distribute presentations instantly by email or WhatsApp.",
-      cta: "See viewing rooms",
+      cta: "See more",
       mock: {
         label: "Private selection",
         artist: "Sacha Elron",
@@ -1282,7 +1292,7 @@ export const translations = {
             "Private collector selections",
           ],
           delivery: undefined as string | undefined,
-          cta: "Talk about your gallery",
+          cta: "Talk to us",
           highlight: false as const,
         },
       ],
@@ -1305,7 +1315,7 @@ export const translations = {
           "Hosting, updates and support for 12 months",
         ],
         note: "Delivered in ~3 weeks",
-        cta: "Talk about your gallery",
+        cta: "Talk to us",
       },
       partner: {
         title: "Partner option",
@@ -1351,7 +1361,7 @@ export const translations = {
         description: "For galleries that would rather delegate the day-to-day.",
         price: "+€350/month",
         qualifier: "on top of your Gallery OS",
-        cta: "Add the Partner option",
+        cta: "Add Partner",
         features: [
           "A monthly call with your dedicated contact",
           "Content updates done for you",
@@ -1369,7 +1379,7 @@ export const translations = {
         discount: "−50%",
         price: "€2,500",
         availability: "3 places — first come, first served.",
-        cta: "Talk about your gallery",
+        cta: "Talk to us",
       },
       costAnchor: {
         title: "What Vitreen replaces",
@@ -1418,7 +1428,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Talk about your gallery",
+      cta: "Talk to us",
     },
     statementSplit: {
       statTitle: "Online art is redefining the economics of the art market",
@@ -1512,7 +1522,7 @@ export const translations = {
           "Private sharing for collectors",
           "Inquiry tracking per artwork",
         ],
-        cta: "Discuss your setup",
+        cta: "Talk to us",
       },
       archive: {
         eyebrow: "Tools · Artworks Management",
@@ -1526,7 +1536,7 @@ export const translations = {
           "Mediums, dimensions and provenance",
           "Connects to an existing inventory",
         ],
-        cta: "Structure the archive",
+        cta: "Talk to us",
       },
       "viewing-rooms": {
         eyebrow: "Tools · Viewing Rooms",
@@ -1540,7 +1550,7 @@ export const translations = {
           "Time-limited and access-limited links",
           "Direct inquiry from each artwork",
         ],
-        cta: "Explore viewing rooms",
+        cta: "Talk to us",
         badge: "Soon",
       },
       previews: {
@@ -1555,7 +1565,7 @@ export const translations = {
           "Sharing by link, email or WhatsApp",
           "PDF export ready to send",
         ],
-        cta: "Prepare a preview",
+        cta: "Talk to us",
       },
       publishing: {
         eyebrow: "Tools · Publishing",
@@ -1569,7 +1579,7 @@ export const translations = {
           "PDF exports and printable presentations",
           "Collector emails built from artworks",
         ],
-        cta: "See publishing",
+        cta: "Talk to us",
       },
       inquiries: {
         eyebrow: "Tools · Inquiries",
@@ -1583,7 +1593,7 @@ export const translations = {
           "Status, follow-up and internal notes",
           "Works with existing client tools",
         ],
-        cta: "Activate inquiries",
+        cta: "Talk to us",
       },
       mobile: {
         eyebrow: "Tools · Mobile",
@@ -1597,7 +1607,7 @@ export const translations = {
           "Private sharing in a few taps",
           "Inquiry follow-up on the move",
         ],
-        cta: "Try Mobile",
+        cta: "Talk to us",
       },
       "custom-operations": {
         eyebrow: "Tools · Custom Operations",
@@ -1611,7 +1621,7 @@ export const translations = {
           "Internal automations",
           "Sharing templates tied to the gallery",
         ],
-        cta: "Discuss the workflow",
+        cta: "Talk to us",
       },
     },
     solutions: {
@@ -1633,7 +1643,7 @@ export const translations = {
           "Keep inquiries connected to the right works",
           "Move smoothly between public publishing and private sharing",
         ],
-        cta: "Discuss your setup",
+        cta: "Talk to us",
       },
       advisors: {
         eyebrow: "Advisors & dealers",
@@ -1646,7 +1656,7 @@ export const translations = {
           "Keep follow-up tied to each artwork",
           "Present works without revealing your sources",
         ],
-        cta: "Discuss your setup",
+        cta: "Talk to us",
       },
       artists: {
         eyebrow: "Artists",
@@ -1660,7 +1670,7 @@ export const translations = {
           "Prepare work for each gallery or curator",
           "Your studio assistant",
         ],
-        cta: "Structure your archive",
+        cta: "Talk to us",
       },
       collectors: {
         eyebrow: "Solutions · Collectors",
@@ -1674,7 +1684,7 @@ export const translations = {
           "Receive private viewing rooms from galleries",
           "Review proposed works before acquiring",
         ],
-        cta: "Discuss your setup",
+        cta: "Talk to us",
       },
       estates: {
         eyebrow: "Artist Estates",
@@ -1688,35 +1698,50 @@ export const translations = {
           "Control how works are presented",
           "Prepare loans, sales and institutional requests",
         ],
-        cta: "Discuss your setup",
+        cta: "Talk to us",
       },
     },
     ctaBand: {
       title: "Give your gallery a new dimension",
       subtitle: "Let’s talk about your project — no commitment",
-      cta: "Talk about your gallery",
+      cta: "Talk to Vitreen",
     },
     about: {
       eyebrow: "About Vitreen",
-      title: "Helping galleries build stronger operations.",
-      lead: "The next generation of galleries will need to do more than present good art.",
+      title: "Build the gallery you want to run",
+      lead: "Better systems for your artists, collectors and daily work.",
       letter: {
-        title: "A note from the founder",
+        title: "The next generation of galleries will be built differently.",
         paragraphs: [
-          "The art market still runs on relationships, judgment and trust. That should not change.",
-          "But the operational work behind those relationships is becoming harder.",
-          "Small galleries are expected to maintain accurate artwork records, a current website, strong collector communication and polished private material — often with a very limited team.",
-          "Vitreen was created to give them better infrastructure.",
-          "We connect artwork information to the places where the gallery already works: its website, emails, PDFs, private selections and collector conversations.",
-          "The aim is not to replace the human side of the gallery. It is to support it.",
-          "When information is organised and ready to use, the team can respond faster, follow up more consistently and spend more time building relationships.",
-          "For established galleries, Vitreen strengthens existing operations.",
-          "For a new generation of gallerists, it provides a way to start with the capabilities of a larger organisation without carrying the same cost structure.",
-          "We believe the galleries that remain competitive will not be the ones using the most technology. They will be the ones using it with the most clarity.",
+          "Galleries have always been built on artists, judgment and relationships.",
+          "That should not change.",
+          "But the work required to sustain a gallery has changed considerably. Even a small team is now expected to maintain accurate artwork records, keep a website current, prepare private material, respond across multiple channels and follow every collector conversation carefully.",
+          "The visible work remains cultural and relational. Behind it, the operational burden keeps growing.",
+          "Most galleries respond by adding more tools, more manual processes or more external providers. Information becomes scattered across folders, spreadsheets, emails, PDFs and website systems. Each new request creates another task. Each update depends on someone knowing where the right information is stored.",
+          "Vitreen was created around a different idea.",
+          "A gallery should be able to operate professionally without becoming larger, heavier or more technical.",
+          "Artwork information should be entered once, structured properly and reused wherever the gallery works: on the website, in private selections, in emails, in PDFs and throughout collector conversations.",
+          "Technology should not replace the gallery’s judgment or relationships. It should support them.",
+          "A stronger operational system allows a gallery to respond faster, follow up more consistently and spend less time rebuilding the same material. It gives the team more capacity for artists, exhibitions and collectors.",
+          "For established galleries, this means more control and less dependency.",
+          "For younger gallerists, it means being able to start with professional infrastructure before having the resources to build a large team.",
+          "We believe the galleries that remain competitive will not be those using the most technology.",
+          "They will be those using it with the most clarity — to preserve their knowledge, strengthen their relationships and make better use of every opportunity.",
+          "Vitreen is being built for them.",
         ],
         signature: { name: "Rapha\u00ebl Rossi", role: "Founder, Vitreen" },
       },
-      cta: "Talk about your gallery",
+      audiences: [
+        {
+          title: "For established galleries",
+          text: "Vitreen strengthens existing operations.",
+        },
+        {
+          title: "For new gallerists",
+          text: "It provides the infrastructure to start professionally without building a large team from day one.",
+        },
+      ],
+      cta: "Talk to us",
     },
     footer: {
       tagline: "Connected websites and sales tools for art galleries, artists and advisors.",
