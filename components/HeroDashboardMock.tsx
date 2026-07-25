@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { GalleryOsDashboard } from "@/components/ConnectedTools";
+import { GalleryOsOverviewMock } from "@/components/GalleryOsOverviewMock";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -191,7 +191,7 @@ function HeroWorkflowAnimation() {
               marginLeft: `${(-curtainLeft / (100 - curtain - curtainLeft)) * 100}%`,
             }}
           >
-            <GalleryOsDashboard glass />
+            <GalleryOsOverviewMock glass />
           </div>
         </div>
         <div
@@ -496,7 +496,7 @@ export default function HeroDashboardMock() {
             className="object-cover object-[25%_center]"
           />
           <div className="absolute bottom-[15px] left-[15px] w-[680px] max-w-none origin-bottom-left scale-[0.98]">
-            <GalleryOsDashboard glass maxRows={7} wideTitle />
+            <GalleryOsOverviewMock glass />
           </div>
         </motion.div>
 

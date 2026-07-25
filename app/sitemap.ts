@@ -16,6 +16,7 @@ const toolSlugs = [
 /** Every indexable path, unprefixed. English is served here, French under /fr. */
 const paths: string[] = [
   "/",
+  "/about",
   "/pricing",
   ...toolSlugs.map((slug) => `/products/${slug}`),
   ...ROLE_SLUGS.map((role) => `/solutions/${role}`),

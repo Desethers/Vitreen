@@ -32,6 +32,7 @@ function buildColumns(footer: FooterCopy) {
     {
       title: columns.company,
       links: [
+        { label: links.about, href: "/about" },
         { label: links.pricing, href: "/pricing" },
         { label: links.contact, href: "#contact", opensContact: true },
       ],

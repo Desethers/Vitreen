@@ -10,7 +10,7 @@ export const translations = {
         { label: "Gallery OS", href: "#solutions", menu: "product" as const },
         { label: "Solutions", href: "#solutions", menu: "solutions" as const },
         { label: "Tarifs", href: "/pricing" },
-        { label: "À propos", href: "#faq" },
+        { label: "À propos", href: "/about" },
       ],
       productMenu: {
         sectionLabel: "Produits",
@@ -824,6 +824,27 @@ export const translations = {
       subtitle: "Ajoutez les outils dont votre galerie a besoin",
       cta: "Parler de votre galerie",
     },
+    about: {
+      eyebrow: "À propos de Vitreen",
+      title: "Aider les galeries à construire des opérations plus solides.",
+      lead: "La prochaine génération de galeries devra faire plus que bien présenter l’art.",
+      body: [
+        "Elle devra rester organisée, répondre plus vite et entretenir des relations plus fortes avec ses artistes et ses collectionneurs — souvent avec une petite équipe.",
+        "Vitreen donne aux galeries un site connecté, des fiches d’œuvres structurées et un assistant numérique pour leur travail quotidien.",
+        "Il aide à préparer les sélections, mettre à jour les contenus et garder l’information prête pour chaque conversation avec un collectionneur.",
+      ],
+      audiences: [
+        {
+          title: "Pour les galeries établies",
+          text: "Vitreen renforce les opérations existantes.",
+        },
+        {
+          title: "Pour les galeristes qui débutent",
+          text: "Il apporte l’infrastructure pour démarrer professionnellement sans constituer une grande équipe dès le premier jour.",
+        },
+      ],
+      cta: "Parler de votre galerie",
+    },
     footer: {
       tagline: "Sites connectés et outils de vente pour galeries d’art, artistes et conseillers.",
       columns: {
@@ -840,6 +861,7 @@ export const translations = {
         forGalleries: "Pour les galeries",
         forArtists: "Pour les artistes",
         forAdvisors: "Pour les conseillers et marchands",
+        about: "À propos",
         pricing: "Tarifs",
         contact: "Contact",
       },
@@ -852,7 +874,7 @@ export const translations = {
         { label: "Gallery OS", href: "#solutions", menu: "product" as const },
         { label: "Solutions", href: "#solutions", menu: "solutions" as const },
         { label: "Pricing", href: "/pricing" },
-        { label: "About", href: "#faq" },
+        { label: "About", href: "/about" },
       ],
       productMenu: {
         sectionLabel: "Products",
@@ -1673,6 +1695,27 @@ export const translations = {
       subtitle: "Let’s talk about your project — no commitment",
       cta: "Talk about your gallery",
     },
+    about: {
+      eyebrow: "About Vitreen",
+      title: "Helping galleries build stronger operations.",
+      lead: "The next generation of galleries will need to do more than present good art.",
+      body: [
+        "They will need to stay organised, respond faster and maintain stronger relationships with artists and collectors — often with a small team.",
+        "Vitreen gives galleries a connected website, structured artwork records and a digital assistant for their daily work.",
+        "It helps prepare selections, update content and keep information ready for every collector conversation.",
+      ],
+      audiences: [
+        {
+          title: "For established galleries",
+          text: "Vitreen strengthens existing operations.",
+        },
+        {
+          title: "For new gallerists",
+          text: "It provides the infrastructure to start professionally without building a large team from day one.",
+        },
+      ],
+      cta: "Talk about your gallery",
+    },
     footer: {
       tagline: "Connected websites and sales tools for art galleries, artists and advisors.",
       columns: {
@@ -1689,6 +1732,7 @@ export const translations = {
         forGalleries: "For Art Galleries",
         forArtists: "For Artists",
         forAdvisors: "For Art Advisors & Dealers",
+        about: "About",
         pricing: "Pricing",
         contact: "Contact",
       },
