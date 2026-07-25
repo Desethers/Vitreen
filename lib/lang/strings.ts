@@ -951,7 +951,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Start a project",
+      cta: "Request a demo",
       modal: {
         title: "Get in touch",
         subtitle:

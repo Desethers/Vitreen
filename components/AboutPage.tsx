@@ -33,9 +33,6 @@ export default function AboutPage() {
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <p className="mb-5 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
-              {about.eyebrow}
-            </p>
             <h1 className="font-display text-[30px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110]">
               {about.title}
             </h1>
