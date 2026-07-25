@@ -76,7 +76,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Parlons-en",
+      cta: "Démarrer un projet",
       modal: {
         title: "Nous contacter",
         subtitle: "Décrivez votre projet. Réponse sous 48 h.",
@@ -951,7 +951,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Talk to us",
+      cta: "Start a project",
       modal: {
         title: "Get in touch",
         subtitle:
