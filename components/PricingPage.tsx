@@ -133,7 +133,7 @@ export default function PricingPage() {
           Partner en option secondaire (bordure fine). Nom, prix, description,
           éléments inclus, CTA — dans cet ordre, par carte. */}
       <section className="px-6 pb-16 md:px-12 md:pb-24 lg:px-16">
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-5xl">
           <div className="grid gap-4 md:grid-cols-2 md:gap-6">
             <motion.article
               {...fadeUp(0.05)}

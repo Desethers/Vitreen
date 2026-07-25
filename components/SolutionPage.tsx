@@ -703,7 +703,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            {slug === "advisors" ? (
+            {["advisors", "artists", "galleries", "estates"].includes(slug) ? (
               <p className="mb-5 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
                 {content.eyebrow}
               </p>
@@ -714,7 +714,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
             <p className="mt-2 max-w-4xl text-[30px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
               {content.subtitle}
             </p>
-            {slug !== "galleries" && slug !== "artists" && slug !== "advisors" ? (
+            {slug === "collectors" ? (
               <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
                 {content.body}
               </p>

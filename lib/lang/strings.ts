@@ -750,7 +750,7 @@ export const translations = {
       relatedLabel: "Par profil",
       mockCaption: "Aperçu",
       galleries: {
-        eyebrow: "Solutions · Galeries",
+        eyebrow: "Galeries",
         title: "Pensé autour de la façon dont votre galerie travaille déjà.",
         subtitle: "Œuvres, expositions et demandes réunies dans une couche opérationnelle connectée.",
         body:
@@ -778,7 +778,7 @@ export const translations = {
         cta: "Discuter de votre setup",
       },
       artists: {
-        eyebrow: "Solutions · Artistes",
+        eyebrow: "Artistes",
         title: "Une archive qui présente votre travail clairement.",
         subtitle: "Archive, séries et présentation, structurées autour de votre œuvre.",
         body:
@@ -806,7 +806,7 @@ export const translations = {
         cta: "Discuter de votre setup",
       },
       estates: {
-        eyebrow: "Solutions · Successions d’artistes",
+        eyebrow: "Successions d’artistes",
         title: "La gestion d’un corpus complet d’œuvres.",
         subtitle: "Corpus, provenance et transmission, sous votre contrôle.",
         body:
@@ -1584,7 +1584,7 @@ export const translations = {
       relatedLabel: "By role",
       mockCaption: "Preview",
       galleries: {
-        eyebrow: "Solutions · Galleries",
+        eyebrow: "Galleries",
         title: "A connected operating system and website for contemporary galleries.",
         subtitle:
           "A custom Gallery OS and website built around your artworks, exhibitions and collector relationships.",
@@ -1601,8 +1601,7 @@ export const translations = {
       advisors: {
         eyebrow: "Advisors & dealers",
         title: "Present the right works to every client.",
-        subtitle:
-          "Build private selections from your artwork records, share them by link or PDF, and keep each conversation connected to the works.",
+        subtitle: "Create artwork selections for each client and share them by link or PDF.",
         body: "",
         features: [
           "Compose a private selection per client",
@@ -1613,7 +1612,7 @@ export const translations = {
         cta: "Discuss your setup",
       },
       artists: {
-        eyebrow: "Solutions · Artists",
+        eyebrow: "Artists",
         title: "Artist website and artwork inventory in one place.",
         subtitle: "Organise your work, update your website and share private presentations.",
         body:
@@ -1641,7 +1640,7 @@ export const translations = {
         cta: "Discuss your setup",
       },
       estates: {
-        eyebrow: "Solutions · Artist Estates",
+        eyebrow: "Artist Estates",
         title: "Stewardship of a complete body of work.",
         subtitle: "Corpus, provenance and transmission, under your control.",
         body:
