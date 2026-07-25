@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
+import PageStructuredData from "@/components/PageStructuredData";
 import ToolPage from "@/components/ToolPage";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
+const seo = {
   lang: "en",
   path: "/products/overview",
   title: "Gallery OS",
   description:
     "The connected system behind a gallery: artwork records, website publishing, private selections and collector follow-up.",
-});
+} as const;
+
+export const metadata: Metadata = pageMetadata(seo);
 
 export default function Page() {
-  return <ToolPage slug="overview" />;
+  return (
+    <>
+      <PageStructuredData {...seo} />
+      <ToolPage slug="overview" />
+    </>
+  );
 }

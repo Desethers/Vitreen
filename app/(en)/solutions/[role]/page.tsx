@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import PageStructuredData from "@/components/PageStructuredData";
 import SolutionPage from "@/components/SolutionPage";
 import { ROLE_SLUGS, type RoleSlug } from "@/lib/solutions";
 import { SOLUTION_SEO, pageMetadata } from "@/lib/seo";
@@ -28,5 +29,16 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { role } = await params;
   if (!isRoleSlug(role)) notFound();
-  return <SolutionPage slug={role} />;
+  const seo = SOLUTION_SEO.en[role];
+  return (
+    <>
+      <PageStructuredData
+        lang="en"
+        path={`/solutions/${role}`}
+        title={seo.title}
+        description={seo.description}
+      />
+      <SolutionPage slug={role} />
+    </>
+  );
 }

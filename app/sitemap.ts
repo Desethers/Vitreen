@@ -29,8 +29,6 @@ function priorityFor(path: string) {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
   /* Each entry declares both languages so the two versions are paired rather
    * than read as duplicates. */
   return paths.flatMap((path) => {
@@ -38,11 +36,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const languages = {
       "en-GB": `${SITE_URL}${urls.en}`,
       "fr-FR": `${SITE_URL}${urls.fr}`,
+      "x-default": `${SITE_URL}${urls.en}`,
     };
 
     return (["en", "fr"] as const).map((lang) => ({
       url: `${SITE_URL}${urls[lang]}`,
-      lastModified: now,
       changeFrequency: path === "/" ? ("weekly" as const) : ("monthly" as const),
       priority: priorityFor(path),
       alternates: { languages },

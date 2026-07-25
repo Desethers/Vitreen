@@ -19,6 +19,7 @@ export default function SiteLayout({ lang, children }: { lang: Lang; children: R
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/icon.png`,
@@ -28,9 +29,11 @@ export default function SiteLayout({ lang, children }: { lang: Lang; children: R
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
     url: SITE_URL,
     inLanguage: HTML_LANG[lang],
+    publisher: { "@id": `${SITE_URL}/#organization` },
   };
 
   const softwareJsonLd = {
@@ -48,11 +51,11 @@ export default function SiteLayout({ lang, children }: { lang: Lang; children: R
           ? "Galeries d’art, artistes, conseillers en art et marchands"
           : "Art galleries, artists, art advisors and dealers",
     },
-    provider: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    provider: { "@id": `${SITE_URL}/#organization` },
   };
 
   return (
-    <html lang={HTML_LANG[lang]} className={`bg-white ${inter.variable}`}>
+    <html lang={HTML_LANG[lang]} className={inter.variable}>
       <head>
         <link rel="preload" as="image" href="/allen14.jpg-preview3.jpg" fetchPriority="high" />
         {/* Marque le document quand le site est embarqué dans une iframe
