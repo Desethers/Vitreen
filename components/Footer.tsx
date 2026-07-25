@@ -45,7 +45,9 @@ function openContact() {
 }
 
 /* The two language versions are separate URLs, so this is a plain link to the
- * counterpart page rather than a client-side toggle. */
+ * counterpart page rather than a client-side toggle. Picking one writes the
+ * same cookie the geo-redirect middleware reads, so a manual choice sticks
+ * instead of being overridden by geo on the next visit. */
 function LanguageSwitch() {
   const { lang } = useLang();
   const pathname = usePathname();
@@ -69,6 +71,9 @@ function LanguageSwitch() {
             <a
               href={option.url}
               hrefLang={option.hrefLang}
+              onClick={() => {
+                document.cookie = `vitreen-lang=${option.code}; path=/; max-age=31536000`;
+              }}
               className="transition-colors duration-200 hover:text-white"
             >
               {option.label}
