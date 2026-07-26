@@ -123,7 +123,7 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
             </p>
 
             <div className="flex flex-wrap items-center gap-2.5">
-              <h1 className="font-display text-[32px] font-normal leading-[1.06] tracking-[-0.04em] text-[#111110] md:text-[48px]">
+              <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[48px] md:leading-[1.06]">
                 {content.title}
               </h1>
               {content.badge ? (
@@ -132,7 +132,7 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
                 </span>
               ) : null}
             </div>
-            <p className="mt-5 max-w-3xl font-display text-[20px] font-normal leading-[1.3] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
+            <p className="mt-5 max-w-3xl font-display text-[22px] font-normal leading-[1.3] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
               {content.subtitle}
             </p>
             <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">

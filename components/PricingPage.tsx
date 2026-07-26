@@ -120,10 +120,10 @@ export default function PricingPage() {
       {/* Hero — minimal et espacé (inspiré de x.ai/pricing), titre/sous-titre Vitreen inchangés */}
       <section className="overflow-hidden px-4 pb-16 pt-32 md:px-6 md:pb-24 md:pt-44">
         <motion.div {...fadeUp(0)} className="mx-auto max-w-7xl">
-          <h1 className="font-display text-[30px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110]">
+          <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[30px]">
             {t.pricing.hero.title}
           </h1>
-          <p className="mt-2 max-w-4xl text-[30px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
+          <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
             {t.pricing.hero.subtitle}
           </p>
         </motion.div>
