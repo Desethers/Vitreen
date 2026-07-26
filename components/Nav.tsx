@@ -385,55 +385,52 @@ export default function Nav() {
 
         <AnimatePresence>
           {menuOpen && (
-            <>
-              <motion.div
-                key="mobile-menu-backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2, ease }}
-                onClick={closeMobileMenu}
-                className="fixed inset-0 z-30 bg-black/20 md:hidden"
-                aria-hidden="true"
-              />
-              <motion.div
-                key="mobile-menu-panel"
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2, ease }}
-                className="absolute left-0 right-0 top-full z-40 mx-4 mt-2 flex max-h-[calc(100vh-80px)] flex-col gap-1 overflow-y-auto rounded border border-[#E8E8E6] bg-white px-6 py-6 shadow-sm md:hidden"
-              >
+            <motion.div
+              key="mobile-menu-panel"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease }}
+              className="fixed inset-0 z-[60] flex flex-col bg-white md:hidden"
+            >
+              <div className="flex shrink-0 items-center justify-end px-4 pt-4">
+                <button
+                  type="button"
+                  onClick={closeMobileMenu}
+                  aria-label={t.nav.modal.close}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E8E8E6] text-[#111110]"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 3l10 10M13 3L3 13"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <nav className="mt-2 flex flex-1 flex-col overflow-y-auto px-6">
                 {navLinks.map((link) => {
-                  const badge = "badge" in link && (link as { badge: string }).badge;
                   const linkMenu = "menu" in link ? (link as { menu?: string }).menu : undefined;
-                  const inner = (
-                    <>
-                      {link.label}
-                      {badge && (
-                        <span className="rounded-full bg-[#111110] px-1.5 py-0.5 text-[10px] font-medium leading-none text-white">
-                          {badge}
-                        </span>
-                      )}
-                    </>
-                  );
 
                   if (linkMenu === "product" || linkMenu === "solutions") {
                     const isProduct = linkMenu === "product";
                     const items = isProduct ? productMenu.items : solutionsMenu.columns[0].items;
                     const expanded = mobileSection === linkMenu;
                     return (
-                      <div key={link.label} className="border-b border-[#F0F0EE] py-3 first:pt-0">
+                      <div key={link.label} className="border-b border-[#E8E8E6] py-4">
                         <button
                           type="button"
                           onClick={() => setMobileSection(expanded ? null : linkMenu)}
                           aria-expanded={expanded}
-                          className="flex w-full items-center justify-between gap-2 text-base text-[#111110]"
+                          className="flex w-full items-center justify-between gap-2 font-display text-[22px] text-[#111110]"
                         >
-                          {inner}
+                          {link.label}
                           <svg
-                            width="14"
-                            height="14"
+                            width="16"
+                            height="16"
                             viewBox="0 0 16 16"
                             fill="none"
                             className={`shrink-0 text-[#ADADAA] transition-transform duration-200 ${
@@ -465,7 +462,7 @@ export default function Nav() {
                                     key={item.title}
                                     href={href(item.href)}
                                     onClick={closeMobileMenu}
-                                    className="text-[14px] text-[#6B6A67]"
+                                    className="text-[15px] text-[#6B6A67]"
                                   >
                                     {item.title}
                                   </a>
@@ -483,24 +480,27 @@ export default function Nav() {
                       key={link.label}
                       href={href(link.href)}
                       onClick={closeMobileMenu}
-                      className="flex items-center gap-2 border-b border-[#F0F0EE] py-3 text-base text-[#111110] last:border-b-0"
+                      className="border-b border-[#E8E8E6] py-4 font-display text-[22px] text-[#6B6A67] last:border-b-0"
                     >
-                      {inner}
+                      {link.label}
                     </a>
                   );
                 })}
+              </nav>
+
+              <div className="shrink-0 px-6 pb-8 pt-6">
                 <button
                   type="button"
                   onClick={() => {
                     closeMobileMenu();
                     setContactModalOpen(true);
                   }}
-                  className="mt-4 rounded-full bg-[#111110] px-4 py-2.5 text-center text-sm text-white"
+                  className="w-full rounded-full bg-[#111110] px-4 py-3.5 text-center text-[15px] text-white"
                 >
                   {t.nav.cta}
                 </button>
-              </motion.div>
-            </>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
       </header>
