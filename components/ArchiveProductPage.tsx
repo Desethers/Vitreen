@@ -21,7 +21,7 @@ const fadeUp = (delay = 0) => ({
 
 function HeroArchiveMock() {
   return (
-    <HeroCurtainMock>
+    <HeroCurtainMock cropFromBottomOnMobile>
       <ArchiveMock interactive />
     </HeroCurtainMock>
   );
@@ -35,7 +35,7 @@ function ArtworkMetricsStrip() {
   ];
 
   return (
-    <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
+    <section className="bg-white px-4 py-10 md:px-6 md:py-[72px]">
       <div className="mx-auto max-w-7xl">
         <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-4">
           {metrics.map((item, index) => (
@@ -115,7 +115,7 @@ function DataAssuranceSection() {
   ];
 
   return (
-    <section className="mt-14 bg-white px-4 py-14 md:mt-[72px] md:px-6 md:py-[72px]">
+    <section className="bg-white px-4 py-10 md:mt-[72px] md:px-6 md:py-[72px]">
       <div className="mx-auto max-w-7xl">
         <motion.h2
           {...fadeUp(0)}
@@ -170,7 +170,7 @@ export default function ArchiveProductPage() {
 
           <motion.div
             {...fadeUp(0.08)}
-            className="relative mt-14 h-[420px] overflow-hidden rounded-xl bg-[#D8D2C8] md:mt-20 md:h-[720px]"
+            className="relative -mr-4 mt-14 h-[620px] overflow-hidden rounded-[5px] bg-[#D8D2C8] md:mr-0 md:mt-20 md:h-[720px] md:rounded-xl"
             style={{ isolation: "isolate", willChange: "transform" }}
           >
             <div

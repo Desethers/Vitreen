@@ -456,7 +456,7 @@ export default function HeroDashboardMock() {
             sizes="100vw"
             className="object-cover object-[25%_center]"
           />
-          <div className="absolute bottom-[15px] left-[15px] w-[680px] max-w-none origin-bottom-left scale-[0.98]">
+          <div className="absolute left-[15px] top-[15px] w-[680px] max-w-none origin-top-left scale-[0.98]">
             <GalleryOsOverviewMock glass />
           </div>
         </motion.div>

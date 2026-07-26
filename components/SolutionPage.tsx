@@ -436,6 +436,7 @@ function GalleriesStickyWorkflow() {
       title="From inventory to collector follow-up."
       subtitle="The same artwork records keep each step connected."
       steps={steps}
+      compactMobileVisual
       isVisualBare={(index) => index === 3}
       renderVisual={(index) =>
         index === 0 ? (
@@ -581,6 +582,7 @@ function AdvisorsWorkflow({ lang }: { lang: "fr" | "en" }) {
       title={copy.title}
       subtitle={copy.subtitle}
       steps={copy.steps}
+      compactMobileVisual
       renderVisual={(index) => <AdvisorsSelectionWorkflowVisual step={index} />}
     />
   );
@@ -664,6 +666,7 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
       title={heading.title}
       subtitle={heading.subtitle}
       steps={steps}
+      compactMobileVisual
       isVisualBare={(index) => index === 1 || index === 2 || index === 3}
       renderVisual={(index) =>
         index === 0 ? (

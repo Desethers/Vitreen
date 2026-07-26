@@ -1,11 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { motion } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export default function HeroCurtainMock({ children }: { children: ReactNode }) {
+export default function HeroCurtainMock({
+  children,
+  cropFromBottomOnMobile = false,
+}: {
+  children: ReactNode;
+  cropFromBottomOnMobile?: boolean;
+}) {
   const [dashboardWidth] = useState(82);
   const [dashboardPosition, setDashboardPosition] = useState({ x: 50, y: 50 });
   const [dashboardHalfHeight, setDashboardHalfHeight] = useState(40);
@@ -100,18 +106,23 @@ export default function HeroCurtainMock({ children }: { children: ReactNode }) {
     >
       <motion.div
         ref={dashboardRef}
-        className="absolute"
+        className={`absolute ${
+          cropFromBottomOnMobile
+            ? "left-[15px] top-[15px] w-[680px] translate-x-0 translate-y-0 md:left-[var(--dashboard-left)] md:top-[var(--dashboard-top)] md:w-[var(--dashboard-width)] md:-translate-x-1/2 md:-translate-y-1/2"
+            : "left-[var(--dashboard-left)] top-[var(--dashboard-top)] w-[var(--dashboard-width)] -translate-x-1/2 -translate-y-1/2"
+        }`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease, delay: 0.05 }}
-        style={{
-          top: `${dashboardPosition.y}%`,
-          left: `${dashboardPosition.x}%`,
-          width: `${dashboardWidth}%`,
-          transform: "translate(-50%, -50%)",
-          transformOrigin: "center",
-          zIndex: 1,
-        }}
+        style={
+          {
+            "--dashboard-top": `${dashboardPosition.y}%`,
+            "--dashboard-left": `${dashboardPosition.x}%`,
+            "--dashboard-width": `${dashboardWidth}%`,
+            transformOrigin: "center",
+            zIndex: 1,
+          } as CSSProperties
+        }
       >
         {/* Curtain clip wrapper */}
         <div

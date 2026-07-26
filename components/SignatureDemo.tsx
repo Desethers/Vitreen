@@ -52,9 +52,9 @@ function ArtworkCaption({ synced, delay }: { synced: boolean; delay: number }) {
 }
 
 // Surfaces de sortie : en-tête à hauteur fixe + image à hauteur fixe → alignement
-const OUTPUT_INTRO = "flex h-[64px] shrink-0";
-const OUTPUT_BODY = "flex flex-1 flex-col px-5 pt-3";
-const OUTPUT_IMG = "h-[128px] w-full object-cover";
+const OUTPUT_INTRO = "flex h-[52px] shrink-0 md:h-[64px]";
+const OUTPUT_BODY = "flex flex-1 flex-col px-3 pt-2 md:px-5 md:pt-3";
+const OUTPUT_IMG = "h-[96px] w-full object-cover md:h-[128px]";
 
 function BleedPanel({ children, address }: { children: ReactNode; address: string }) {
   return (
@@ -353,8 +353,8 @@ export default function SignatureDemo() {
           {t.signatureDemo.subtitle}
         </p>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <article className="relative flex h-[480px] flex-col overflow-hidden rounded-[12px] bg-[#F8F8F6] pt-6">
+        <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-2 md:overflow-visible lg:grid-cols-4">
+          <article className="relative flex h-[400px] w-[70vw] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] bg-[#F8F8F6] pt-6 md:h-[480px] md:w-auto">
             <div className="h-10 shrink-0 px-6">
               <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">
                 {t.signatureDemo.sourceLabel}
@@ -375,7 +375,7 @@ export default function SignatureDemo() {
             return (
               <article
                 key={output.label}
-                className="relative flex h-[480px] flex-col overflow-hidden rounded-[12px] bg-[#F8F8F6] pt-6"
+                className="relative flex h-[400px] w-[70vw] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] bg-[#F8F8F6] pt-6 md:h-[480px] md:w-auto"
               >
                 <div className="h-10 shrink-0 px-6">
                   <h3 className="font-display text-[16px] font-medium tracking-[-0.01em] text-[#111110]">

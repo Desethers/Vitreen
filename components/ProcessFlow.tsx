@@ -174,7 +174,7 @@ export default function ProcessFlow() {
                     {/* Mobile vertical connector */}
                     {index < storySteps.length - 1 && (
                       <div
-                        className="absolute -bottom-6 left-5 top-10 w-px -translate-x-1/2 md:hidden"
+                        className="absolute -bottom-6 left-[18px] top-9 w-px -translate-x-1/2 md:hidden"
                         aria-hidden
                       >
                         <div className="absolute inset-0 bg-[#111110]/12" />
@@ -193,7 +193,7 @@ export default function ProcessFlow() {
                     {/* Mobile vertical fade-out connector from the last step */}
                     {index === storySteps.length - 1 && (
                       <div
-                        className="absolute left-5 top-10 h-20 w-px -translate-x-1/2 md:hidden"
+                        className="absolute left-[18px] top-9 h-20 w-px -translate-x-1/2 md:hidden"
                         style={{
                           background:
                             "linear-gradient(to bottom, rgba(17,17,16,0.12), rgba(17,17,16,0))",
@@ -275,7 +275,7 @@ export default function ProcessFlow() {
                       </div>
                     )}
                     <motion.div
-                      className="relative z-10 mb-0 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border bg-white text-[13px] font-normal leading-none tracking-[-0.02em] text-[#111110] md:mb-6"
+                      className="relative z-10 mb-0 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border bg-white text-[12px] font-normal leading-none tracking-[-0.02em] text-[#111110] md:mb-6 md:h-10 md:w-10 md:text-[13px]"
                       animate={{
                         borderColor: filled || active ? "#111110" : "#D8D8D2",
                         backgroundColor: filled ? "#111110" : "#ffffff",

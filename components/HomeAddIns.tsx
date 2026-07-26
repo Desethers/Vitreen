@@ -37,7 +37,7 @@ export default function HomeAddIns() {
   ] as const;
 
   return (
-    <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
+    <section className="bg-white px-4 py-10 md:px-6 md:py-[72px]">
       <div className="mx-auto max-w-7xl">
         <h2 className="max-w-3xl font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
           {t.homeAddIns.title}

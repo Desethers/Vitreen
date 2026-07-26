@@ -481,7 +481,7 @@ function WhatsAppPdfFrame() {
     <div className="absolute inset-0 grid grid-cols-2 gap-[5px]">
       <section className="relative h-full min-h-0 overflow-hidden rounded-[18px] border border-[#E2E2DF] bg-white">
         <video
-          className="h-full w-full scale-[1.196] object-contain"
+          className="h-full w-full scale-[1.58] object-contain sm:scale-[1.196]"
           src="/WhatsApp.mp4"
           autoPlay
           muted
@@ -716,17 +716,26 @@ const FRAMES = [InquiryDraftsFrame, IntegrationsFrame, WhatsAppPdfFrame, FollowU
 
 function AssistantVisual({ index }: { index: number }) {
   const Frame = FRAMES[index] ?? FRAMES[0];
+  const needsMobileScale = index === 0 || index === 1;
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={index}
-        className="h-full w-full"
+        className="h-full w-full overflow-hidden rounded-[12px]"
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.3, ease }}
       >
-        <Frame />
+        <div
+          className={
+            needsMobileScale
+              ? "h-[142.857%] w-[142.857%] origin-top-left scale-[0.7] sm:h-full sm:w-full sm:scale-100"
+              : "h-full w-full"
+          }
+        >
+          <Frame />
+        </div>
       </motion.div>
     </AnimatePresence>
   );
@@ -759,7 +768,7 @@ export default function GalleryAssistantProductPage() {
 
           <motion.div
             {...fadeUp(0.08)}
-            className="relative mt-14 h-[420px] overflow-hidden rounded-xl bg-[#D8D2C8] md:mt-20 md:h-[720px]"
+            className="relative -mr-4 mt-14 h-[620px] overflow-hidden rounded-[5px] bg-[#D8D2C8] md:mr-0 md:mt-20 md:h-[720px] md:rounded-xl"
             style={{ isolation: "isolate", willChange: "transform" }}
           >
             <div
@@ -767,7 +776,7 @@ export default function GalleryAssistantProductPage() {
               style={{ backgroundImage: "url('/paula-cooper-background.jpg')" }}
             />
 
-            <HeroCurtainMock>
+            <HeroCurtainMock cropFromBottomOnMobile>
               <AssistantMock />
             </HeroCurtainMock>
           </motion.div>
@@ -778,6 +787,7 @@ export default function GalleryAssistantProductPage() {
         title="Vitreen adapts to the gallery."
         subtitle="Not the other way around."
         steps={STEPS}
+        compactMobileVisual
         renderVisual={(index) => <AssistantVisual index={index} />}
         isVisualBare={() => true}
       />

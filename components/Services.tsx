@@ -404,7 +404,7 @@ export default function Services() {
             href="/products/archive"
             className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
-            <div className="pointer-events-none h-[300px] overflow-hidden bg-[#F8F8F6]">
+            <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
               <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
                 <GalleryOsArtistMock />
               </div>
@@ -421,7 +421,7 @@ export default function Services() {
             href="/products/publishing"
             className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
-            <div className="pointer-events-none h-[300px] overflow-hidden bg-[#F8F8F6]">
+            <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
               <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
                 <ArtistWebsitePage />
               </div>
@@ -439,7 +439,7 @@ export default function Services() {
             href="/products/viewing-rooms"
             className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
           >
-            <div className="h-[300px] overflow-hidden">
+            <div className="h-[240px] overflow-hidden md:h-[300px]">
               <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
                 <PrivateSelectionPageMock />
               </div>
@@ -455,7 +455,7 @@ export default function Services() {
           <motion.a
             {...fadeUp(0.16)}
             href="/products/custom-operations"
-            className="group relative grid h-[300px] grid-cols-2 gap-[6px] overflow-hidden rounded-[12px] border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+            className="group relative grid h-[240px] grid-cols-2 gap-[6px] overflow-hidden rounded-[12px] border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3 md:h-[300px]"
           >
             {addInCards.map((card) => (
               <article

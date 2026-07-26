@@ -349,7 +349,7 @@ function ConnectedSectionsFrame({ reduceMotion }: { reduceMotion: boolean }) {
 
   return (
     <div className="absolute inset-0">
-      <div className="grid h-full w-full grid-cols-1 gap-[5px] sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div className="grid h-full w-full grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-[5px]">
         <section className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[18px] border border-[#E2E2DF] bg-white">
           <div className="flex h-10 shrink-0 items-center gap-2 border-b border-[#ECECEA] px-3 sm:h-14 sm:gap-3 sm:px-5">
             <span className="flex h-6 w-6 items-center justify-center rounded-md bg-[#181818] text-[8px] text-white sm:h-7 sm:w-7 sm:text-[9px]">
@@ -642,7 +642,11 @@ function PublishingVisual({
   reduceMotion: boolean;
 }) {
   if (index === 0) {
-    return <PagesFrame page={websitePage} reduceMotion={reduceMotion} />;
+    return (
+      <div className="h-[166.667%] w-[166.667%] origin-top-left scale-[0.6] sm:h-full sm:w-full sm:scale-100">
+        <PagesFrame page={websitePage} reduceMotion={reduceMotion} />
+      </div>
+    );
   }
 
   if (index === 1) {
@@ -650,7 +654,11 @@ function PublishingVisual({
   }
 
   if (index === 2) {
-    return <NoCmsFrame reduceMotion={reduceMotion} />;
+    return (
+      <div className="h-[166.667%] w-[166.667%] origin-top-left scale-[0.6] sm:h-full sm:w-full sm:scale-100">
+        <NoCmsFrame reduceMotion={reduceMotion} />
+      </div>
+    );
   }
 
   const Frame = EmailFrame;
@@ -748,7 +756,7 @@ export default function WebsitePublisherProductPage() {
 
           <motion.div
             {...fadeUp(0.08)}
-            className="relative mt-14 h-[420px] overflow-hidden rounded-xl bg-[#D8D2C8] md:mt-20 md:h-[720px]"
+            className="relative -mr-4 mt-14 h-[620px] overflow-hidden rounded-[5px] bg-[#D8D2C8] md:mr-0 md:mt-20 md:h-[720px] md:rounded-xl"
             style={{ isolation: "isolate", willChange: "transform" }}
           >
             <div
@@ -756,7 +764,7 @@ export default function WebsitePublisherProductPage() {
               style={{ backgroundImage: "url('/paula-cooper-background.jpg')" }}
             />
 
-            <HeroCurtainMock>
+            <HeroCurtainMock cropFromBottomOnMobile>
               <PublishingMock />
             </HeroCurtainMock>
           </motion.div>
@@ -767,6 +775,7 @@ export default function WebsitePublisherProductPage() {
         title="Publish once, everywhere it needs to be."
         subtitle="Website, archive, PDF and email — all from one record."
         steps={STEPS}
+        compactMobileVisual
         renderVisual={(index) => (
           <PublishingVisual
             index={index}

@@ -472,9 +472,9 @@ function CompletionField({
 }) {
   return (
     <div className={className}>
-      <p className="mb-0.5 text-[8px] font-medium text-zinc-600">{label}</p>
+      <p className="mb-0.5 text-[7px] font-medium text-zinc-600 sm:text-[8px]">{label}</p>
       <motion.div
-        className="flex h-6 items-center rounded-md border bg-white px-2.5 text-[10px]"
+        className="flex h-5 items-center rounded-md border bg-white px-2 text-[8px] sm:h-6 sm:px-2.5 sm:text-[10px]"
         animate={{
           borderColor: active ? "#d4d4d8" : "#e4e4e7",
           color: active ? "#18181b" : "#d4d4d8",
@@ -515,18 +515,20 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
 
   return (
     <motion.div
-      className="absolute bottom-0 left-[22%] right-0 top-0 z-20 overflow-hidden bg-white"
+      className="absolute inset-0 z-20 overflow-hidden bg-white sm:left-[22%]"
       initial={{ opacity: 0, x: 12 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 8 }}
       transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
     >
-      <div className="px-5 py-3">
+      <div className="px-3 py-2 sm:px-5 sm:py-3">
         <div>
-          <p className="text-[8px] text-zinc-400">← Artworks</p>
-          <div className="mt-1 flex items-start justify-between">
+          <p className="hidden text-[8px] text-zinc-400 sm:block">← Artworks</p>
+          <div className="flex items-start justify-between sm:mt-1">
             <div>
-              <h3 className="text-[14px] font-medium text-zinc-900">Evening Field</h3>
+              <h3 className="text-[13px] font-medium text-zinc-900 sm:text-[14px]">
+                Evening Field
+              </h3>
               <p className="mt-0.5 text-[9px] text-zinc-500">Sacha Elron, 2023</p>
             </div>
             <span className="rounded-md border border-zinc-200 px-2 py-1 text-[8px] text-zinc-600">
@@ -535,7 +537,7 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
           </div>
         </div>
 
-        <div className="mt-2 flex items-center justify-between border-y border-zinc-200 py-1.5">
+        <div className="mt-1 flex items-center justify-between border-y border-zinc-200 py-1 sm:mt-2 sm:py-1.5">
           <div className="flex items-start gap-2">
             <motion.span
               className="mt-1 h-1.5 w-1.5 rounded-full"
@@ -558,8 +560,8 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
           <span className="text-[8px] text-zinc-400">Website ↗</span>
         </div>
 
-        <div className="mt-3 grid grid-cols-[1fr_172px] gap-4">
-          <div className="grid grid-cols-2 gap-x-3 gap-y-1.5">
+        <div className="mt-2 grid grid-cols-[minmax(0,1fr)_minmax(112px,.68fr)] gap-2 sm:mt-3 sm:grid-cols-[1fr_172px] sm:gap-4">
+          <div className="grid min-w-0 grid-cols-2 gap-x-2 gap-y-1 sm:gap-x-3 sm:gap-y-1.5">
             <CompletionField
               label="Title"
               value="Evening Field"
@@ -582,7 +584,7 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
               className="col-span-2"
             />
             <div className="col-span-2">
-              <p className="mb-0.5 text-[8px] font-medium text-zinc-600">Status</p>
+              <p className="mb-0.5 text-[7px] font-medium text-zinc-600 sm:text-[8px]">Status</p>
               <div className="flex flex-wrap gap-1">
                 {["Available", "Reserved", "Sold", "NFS", "Consignment", "On loan"].map(
                   (status) => {
@@ -591,7 +593,7 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
                     return (
                       <motion.span
                         key={status}
-                        className="inline-flex h-5 items-center rounded-full border px-2 text-[7px]"
+                        className="inline-flex h-4 items-center rounded-full border px-1.5 text-[6px] sm:h-5 sm:px-2 sm:text-[7px]"
                         animate={{
                           opacity: 1,
                           borderColor: selected ? "#18181b" : "#e4e4e7",
@@ -611,9 +613,9 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
           </div>
 
           <div>
-            <p className="mb-0.5 text-[8px] font-medium text-zinc-600">Main image</p>
+            <p className="mb-0.5 text-[7px] font-medium text-zinc-600 sm:text-[8px]">Main image</p>
             <motion.div
-              className="aspect-square overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50"
+              className="aspect-[4/3] overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 sm:aspect-square"
               initial={false}
               animate={{ opacity: imageReady ? 1 : 0.16, scale: imageReady ? 1 : 0.985 }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -626,7 +628,7 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
               />
             </motion.div>
 
-            <div className="mt-2 overflow-hidden rounded-lg border border-zinc-200 bg-white">
+            <div className="mt-1.5 overflow-hidden rounded-lg border border-zinc-200 bg-white sm:mt-2">
               <div className="flex items-center justify-between border-b border-zinc-100 px-2.5 py-1.5">
                 <p className="text-[9px] font-medium text-zinc-700">Used in</p>
                 <span className="text-[8px] text-zinc-400">
@@ -636,7 +638,7 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
               {usage.map(([title, detail, threshold]) => (
                 <motion.div
                   key={`${title}-${detail}`}
-                  className="border-b border-zinc-100 px-2.5 py-1.5 last:border-b-0"
+                  className="border-b border-zinc-100 px-2 py-1 last:border-b-0 sm:px-2.5 sm:py-1.5"
                   animate={{ opacity: phase >= threshold ? 1 : 0 }}
                   transition={{ duration: 0.35 }}
                 >
@@ -697,18 +699,18 @@ function SearchSession({ phase }: { phase: number }) {
 
   return (
     <motion.div
-      className="absolute bottom-0 left-[22%] right-0 top-0 z-20 overflow-hidden bg-white"
+      className="absolute inset-0 z-20 overflow-hidden bg-white sm:left-[22%]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="px-5 py-4">
+      <div className="px-3 py-3 sm:px-5 sm:py-4">
         <div>
           <h3 className="text-[13px] font-medium text-[#111110]">Artworks</h3>
           <p className="mt-0.5 text-[9.5px] text-[#6B6A67]">6 total · 4 available · 2 sold</p>
         </div>
 
-        <div className="mt-4 flex h-8 items-center rounded-md border border-[#D8D8D5] px-3 text-[10px] text-[#111110]">
+        <div className="mt-3 flex h-7 items-center rounded-md border border-[#D8D8D5] px-3 text-[9px] text-[#111110] sm:mt-4 sm:h-8 sm:text-[10px]">
           <span className="mr-2 text-[#ADADAA]">⌕</span>
           <span>sacha Elron</span>
           <span className="ml-auto rounded border border-[#E4E4E7] px-1.5 py-0.5 text-[7px] text-[#ADADAA]">
@@ -716,7 +718,7 @@ function SearchSession({ phase }: { phase: number }) {
           </span>
         </div>
 
-        <div className="mt-2 flex items-center gap-1">
+        <div className="scrollbar-none mt-2 flex items-center gap-1 overflow-x-auto pb-1">
           {["Available", "Reserved", "Sold", "Consignment", "On loan", "Not for sale"].map(
             (filter) => {
               const selected =
@@ -754,9 +756,9 @@ function SearchSession({ phase }: { phase: number }) {
         </div>
 
         <div className="mt-2 overflow-hidden border-y border-[#E4E4E7]">
-          <div className="grid grid-cols-[minmax(0,1.45fr)_minmax(0,.85fr)_48px_78px_68px] gap-x-3 border-b border-[#E4E4E7] bg-white px-3 py-2 text-center text-[8px] font-medium text-[#18181B]">
-            <span>Title</span>
-            <span>Artist</span>
+          <div className="grid grid-cols-[minmax(0,1fr)_42px_64px_58px] gap-x-2 border-b border-[#E4E4E7] bg-white px-2 py-2 text-center text-[8px] font-medium text-[#18181B] sm:grid-cols-[minmax(0,1.45fr)_minmax(0,.85fr)_48px_78px_68px] sm:gap-x-3 sm:px-3">
+            <span className="text-left sm:text-center">Title</span>
+            <span className="hidden sm:block">Artist</span>
             <span>Year</span>
             <span>Price</span>
             <span>Status</span>
@@ -772,7 +774,7 @@ function SearchSession({ phase }: { phase: number }) {
               {rows.map(([title, artist, year, price, status, image]) => (
                 <div
                   key={title}
-                  className="grid h-12 grid-cols-[minmax(0,1.45fr)_minmax(0,.85fr)_48px_78px_68px] items-center gap-x-3 border-t border-[#EFEFED] px-3 text-[9px] text-[#111110] first:border-t-0"
+                  className="grid h-11 grid-cols-[minmax(0,1fr)_42px_64px_58px] items-center gap-x-2 border-t border-[#EFEFED] px-2 text-[8px] text-[#111110] first:border-t-0 sm:h-12 sm:grid-cols-[minmax(0,1.45fr)_minmax(0,.85fr)_48px_78px_68px] sm:gap-x-3 sm:px-3 sm:text-[9px]"
                 >
                   <div className="flex min-w-0 items-center gap-2">
                     <span className="h-7 w-7 shrink-0 overflow-hidden rounded-sm border border-[#E4E4E7] bg-[#F7F7F5]">
@@ -785,7 +787,7 @@ function SearchSession({ phase }: { phase: number }) {
                     </span>
                     <span className="truncate font-medium">{title}</span>
                   </div>
-                  <span className="truncate text-[#6B6A67]">{artist}</span>
+                  <span className="hidden truncate text-[#6B6A67] sm:block">{artist}</span>
                   <span className="text-center text-[#6B6A67]">{year}</span>
                   <span className="text-center">{price}</span>
                   <span
@@ -870,12 +872,12 @@ function AvailabilitySession({ phase }: { phase: number }) {
 
   return (
     <motion.div
-      className="absolute bottom-0 left-[22%] right-0 top-0 z-20 overflow-hidden bg-white"
+      className="absolute inset-0 z-20 overflow-hidden bg-white sm:left-[22%]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="px-5 py-4">
+      <div className="px-3 py-3 sm:px-5 sm:py-4">
         <div className="flex items-start justify-between">
           <div>
             <h3 className="text-[13px] font-medium text-[#111110]">Artworks</h3>
@@ -895,7 +897,7 @@ function AvailabilitySession({ phase }: { phase: number }) {
           </span>
         </div>
 
-        <div className="mt-4 flex h-8 items-center rounded-md border border-[#D8D8D5] px-3 text-[9px] text-[#ADADAA]">
+        <div className="mt-3 flex h-7 items-center rounded-md border border-[#D8D8D5] px-3 text-[8px] text-[#ADADAA] sm:mt-4 sm:h-8 sm:text-[9px]">
           <span className="mr-2">⌕</span>
           Search title, artist, year, medium…
           <span className="ml-auto rounded border border-[#E4E4E7] px-1.5 py-0.5 text-[7px]">
@@ -903,7 +905,7 @@ function AvailabilitySession({ phase }: { phase: number }) {
           </span>
         </div>
 
-        <div className="mt-2 flex items-center gap-1">
+        <div className="scrollbar-none mt-2 flex items-center gap-1 overflow-x-auto pb-1">
           {["Available", "Reserved", "Sold", "Consignment", "On loan", "Not for sale"].map(
             (filter) => {
               const selected =
@@ -938,7 +940,10 @@ function AvailabilitySession({ phase }: { phase: number }) {
           {visibleWorks.length} {visibleWorks.length === 1 ? "result" : "results"} · 7 total
         </motion.p>
 
-        <motion.div className="mt-3 grid grid-cols-4 gap-2" layout>
+        <motion.div
+          className="scrollbar-none mt-2 flex gap-2 overflow-x-auto pb-2 sm:mt-3 sm:grid sm:grid-cols-4 sm:overflow-visible sm:pb-0"
+          layout
+        >
           <AnimatePresence initial={false}>
             {visibleWorks.slice(0, 8).map((work) => {
               const workReserved = work.target && reserved;
@@ -947,13 +952,13 @@ function AvailabilitySession({ phase }: { phase: number }) {
                 <motion.div
                   layout
                   key={work.title}
-                  className="relative overflow-visible rounded-md border border-[#E4E4E7] bg-white"
+                  className="relative min-w-[126px] overflow-visible rounded-md border border-[#E4E4E7] bg-white sm:min-w-0"
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  <div className="h-[82px] overflow-hidden rounded-t-md bg-[#F7F7F5]">
+                  <div className="h-[64px] overflow-hidden rounded-t-md bg-[#F7F7F5] sm:h-[82px]">
                     <img
                       src={work.image}
                       alt=""
@@ -1094,7 +1099,7 @@ function GalleryOSContinuousDemo({ step }: { step: number }) {
             />
             <motion.div
               key="import-dialog"
-              className="absolute inset-x-[21%] bottom-10 top-10 z-20 overflow-hidden rounded-[16px] border border-[#E4E4E7] bg-white shadow-[0_22px_70px_rgba(17,17,16,0.2)] sm:bottom-20 sm:top-20"
+              className="absolute inset-x-3 bottom-3 top-3 z-20 overflow-hidden rounded-[14px] border border-[#E4E4E7] bg-white shadow-[0_22px_70px_rgba(17,17,16,0.2)] sm:inset-x-[21%] sm:bottom-20 sm:top-20 sm:rounded-[16px]"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
@@ -1133,6 +1138,7 @@ export default function ArtworkScrollStory() {
       subtitle="Every artwork, ready when it matters."
       steps={STEPS}
       renderVisual={(index) => <GalleryOSContinuousDemo step={index} />}
+      compactMobileVisual
     />
   );
 }

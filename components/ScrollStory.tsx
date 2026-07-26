@@ -42,6 +42,7 @@ export default function ScrollStory({
   renderVisual,
   renderVisualFooter,
   isVisualBare,
+  compactMobileVisual = false,
 }: {
   title: string;
   subtitle: string;
@@ -49,6 +50,7 @@ export default function ScrollStory({
   renderVisual: (activeIndex: number) => ReactNode;
   renderVisualFooter?: (activeIndex: number) => ReactNode;
   isVisualBare?: (activeIndex: number) => boolean;
+  compactMobileVisual?: boolean;
 }) {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
@@ -81,9 +83,13 @@ export default function ScrollStory({
   }, []);
 
   return (
-    <section className="bg-white px-5 pt-14 md:px-10 md:pt-[72px] xl:px-14">
+    <section
+      className={`bg-white px-5 md:px-10 md:pt-[72px] xl:px-14 ${
+        compactMobileVisual ? "pt-10" : "pt-14"
+      }`}
+    >
       <div className="mx-auto max-w-7xl">
-        <div className="pb-12 md:pb-10">
+        <div className={compactMobileVisual ? "pb-8 md:pb-10" : "pb-12 md:pb-10"}>
           <h2 className="font-display text-[26px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110]">
             {title}
           </h2>
@@ -124,12 +130,16 @@ export default function ScrollStory({
           </div>
         </div>
 
-        <div className="space-y-20 py-16 lg:hidden">
+        <div
+          className={`lg:hidden ${compactMobileVisual ? "space-y-16 py-8" : "space-y-20 py-16"}`}
+        >
           {steps.map((step, index) => (
             <article key={step.title}>
               <StepCopy step={step} active />
               <div
-                className={`mt-8 h-[420px] sm:h-[520px] ${
+                className={`relative ${compactMobileVisual ? "mt-6" : "mt-8"} sm:h-[520px] ${
+                  compactMobileVisual ? "h-[300px]" : "h-[420px]"
+                } ${
                   isVisualBare?.(index)
                     ? "overflow-visible bg-transparent"
                     : "overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F8F8F6]"

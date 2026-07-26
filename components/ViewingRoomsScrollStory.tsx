@@ -42,7 +42,7 @@ const COMPOSE_SELECTED = new Set([0, 2, 3, 4]);
 
 function Panel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-full items-center justify-center p-5 md:p-8">
+    <div className="flex h-full items-center justify-center p-3 sm:p-5 md:p-8">
       <div className="w-full max-w-[420px] overflow-hidden rounded-xl border border-[#E4E4E7] bg-white shadow-[0_18px_48px_rgba(17,17,16,0.08)]">
         {children}
       </div>
@@ -52,7 +52,7 @@ function Panel({ children }: { children: React.ReactNode }) {
 
 function PanelHeader({ title, sub }: { title: string; sub: string }) {
   return (
-    <div className="border-b border-zinc-100 px-5 py-3.5">
+    <div className="border-b border-zinc-100 px-4 py-2.5 sm:px-5 sm:py-3.5">
       <p className="text-[13px] font-medium text-zinc-900">{title}</p>
       <p className="mt-0.5 text-[11px] text-zinc-400">{sub}</p>
     </div>
@@ -184,8 +184,8 @@ export function SyncVisual() {
           Exhibition Selection · For Jean Dupont
         </p>
       </div>
-      <div className="p-5">
-        <Thumb image={WORKS[3].image} className="h-40 w-full" />
+      <div className="p-4 sm:p-5">
+        <Thumb image={WORKS[3].image} className="h-24 w-full sm:h-40" />
         <div className="mt-3 flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="truncate text-[12px] font-medium text-zinc-900">
@@ -217,6 +217,7 @@ export default function ViewingRoomsScrollStory() {
       title="From inventory to a private viewing room."
       subtitle="Compose, control, share — and it stays in sync."
       steps={STEPS}
+      compactMobileVisual
       renderVisual={(index) => {
         const Visual = STEP_VISUALS[index] ?? ComposeVisual;
         return <Visual />;

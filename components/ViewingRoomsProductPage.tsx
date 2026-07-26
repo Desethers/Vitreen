@@ -45,7 +45,7 @@ export default function ViewingRoomsProductPage() {
 
           <motion.div
             {...fadeUp(0.08)}
-            className="relative mt-14 h-[420px] overflow-hidden rounded-xl bg-[#D8D2C8] md:mt-20 md:h-[720px]"
+            className="relative -mr-4 mt-14 h-[620px] overflow-hidden rounded-[5px] bg-[#D8D2C8] md:mr-0 md:mt-20 md:h-[720px] md:rounded-xl"
             style={{ isolation: "isolate", willChange: "transform" }}
           >
             <div
@@ -53,7 +53,7 @@ export default function ViewingRoomsProductPage() {
               style={{ backgroundImage: "url('/paula-cooper-background.jpg')" }}
             />
 
-            <HeroCurtainMock>
+            <HeroCurtainMock cropFromBottomOnMobile>
               <PublishingMock />
             </HeroCurtainMock>
           </motion.div>
