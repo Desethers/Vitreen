@@ -757,7 +757,7 @@ export default function GalleryAssistantProductPage() {
               Gallery Assistant
             </h1>
             <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
-              Collector-ready artwork material in a few clicks.
+              Reply to collectors faster, with every artwork detail already in place.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" onClick={openContact}>
