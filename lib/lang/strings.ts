@@ -421,8 +421,8 @@ export const translations = {
       ],
     },
     pricingBand: {
-      title: "Un prix clair",
-      subtitle: "Une seule offre, tout compris.",
+      title: "Deux offres, sans frais cachés",
+      subtitle: "Gallery OS seul ou avec un Partner dédié.",
       pilotPill: "Programme pilote — 3 places · installation à −50 %",
       base: {
         title: "Gallery OS",
@@ -1298,8 +1298,8 @@ export const translations = {
       ],
     },
     pricingBand: {
-      title: "A clear price",
-      subtitle: "One offer, everything included.",
+      title: "Choose your plan",
+      subtitle: "Gallery OS, with or without a dedicated Partner.",
       pilotPill: "Pilot programme — 3 places · setup at −50%",
       base: {
         title: "Gallery OS",
