@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
     const { error } = await resend.emails.send({
       from: "Vitreen Contact <onboarding@resend.dev>",
-      to: "vitreen@proton.me",
+      to: "raphael.vitreen@gmail.com",
       replyTo: email,
       subject: `Nouveau message de ${nom} — ${galerie}`,
       html: `
