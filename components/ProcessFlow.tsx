@@ -167,7 +167,7 @@ export default function ProcessFlow() {
                 return (
                   <li
                     key={`horizontal-story-step-${step.title}`}
-                    className={`relative flex gap-4 md:block md:min-h-0 ${
+                    className={`relative flex min-w-0 gap-4 md:block md:min-h-0 ${
                       index < storySteps.length - 1 ? "min-h-[128px]" : ""
                     }`}
                   >
@@ -603,7 +603,7 @@ function HorizontalSourceNotes({ lang, active }: { lang: "fr" | "en"; active: bo
 
   return (
     <motion.div
-      className="mt-5 flex flex-nowrap items-center gap-x-3 md:flex-wrap md:gap-x-4 md:gap-y-2"
+      className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 md:gap-x-4"
       variants={detailContainer}
       initial="hidden"
       animate={active ? "visible" : "hidden"}
@@ -629,11 +629,7 @@ function HorizontalSourceNotes({ lang, active }: { lang: "fr" | "en"; active: bo
 function StepDetail({ items, compact = false }: { items: SourceItem[]; compact?: boolean }) {
   return (
     <motion.div
-      className={
-        compact
-          ? "mt-0 flex flex-nowrap gap-1 md:flex-wrap md:gap-1.5"
-          : "mt-5 flex flex-wrap gap-2.5"
-      }
+      className={compact ? "mt-0 flex flex-wrap gap-1 md:gap-1.5" : "mt-5 flex flex-wrap gap-2.5"}
       variants={detailContainer}
       initial="hidden"
       animate="visible"
