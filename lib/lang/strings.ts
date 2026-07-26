@@ -96,7 +96,7 @@ export const translations = {
       },
     },
     hero: {
-      title: "Votre galerie, là où vous travaillez déjà",
+      title: "Tous les outils de votre galerie, enfin connectés",
       subtitle:
         "Gérez vos œuvres, mettez votre site à jour et simplifiez vos ventes aux collectionneurs.",
       ctaPrimary: "Demander une démo",
