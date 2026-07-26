@@ -96,9 +96,9 @@ export const translations = {
       },
     },
     hero: {
-      title: "Tous les outils de votre galerie, enfin connectés",
+      title: "Nous construisons de meilleurs systèmes pour vendre l’art",
       subtitle:
-        "Gérez vos œuvres, mettez votre site à jour et simplifiez vos ventes aux collectionneurs.",
+        "Vitreen conçoit des sites connectés, des fiches d’œuvres structurées et des outils collectionneurs pour les galeries d’art contemporain.",
       ctaPrimary: "Demander une démo",
       ctaSecondary: "Découvrir Gallery OS",
     },
