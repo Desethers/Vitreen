@@ -43,7 +43,7 @@ export const translations = {
             label: "Pour qui",
             items: [
               { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "/solutions/galleries" },
-              { title: "Conseillers & Marchands", desc: "Sélections privées et suivi client", href: "/solutions/advisors" },
+              { title: "Advisors and dealers", desc: "Sélections privées et suivi client", href: "/solutions/advisors" },
               { title: "Artistes", desc: "Archive, séries, présentation", href: "/solutions/artists" },
               { title: "Collectionneurs", desc: "Acquisitions et documents", href: "/solutions/collectors" },
               { title: "Successions d’artistes", desc: "Corpus, provenance, transmission", href: "/solutions/estates" },
