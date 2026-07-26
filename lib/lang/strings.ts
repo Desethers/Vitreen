@@ -971,9 +971,9 @@ export const translations = {
       },
     },
     hero: {
-      title: "Your gallery, wherever you already work",
+      title: "We build better systems for selling art",
       subtitle:
-        "Connect your artwork records to your website, private selections and collector conversations.",
+        "Vitreen builds connected websites, artwork systems and collector tools for contemporary galleries.",
       ctaPrimary: "Request a demo",
       ctaSecondary: "Explore Gallery OS",
     },
