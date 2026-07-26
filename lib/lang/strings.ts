@@ -76,7 +76,7 @@ export const translations = {
           },
         ],
       },
-      cta: "Démarrer un projet",
+      cta: "Demander une démo",
       modal: {
         title: "Nous contacter",
         subtitle: "Décrivez votre projet. Réponse sous 48 h.",
@@ -99,7 +99,7 @@ export const translations = {
       title: "Votre galerie, là où vous travaillez déjà",
       subtitle:
         "Gérez vos œuvres, mettez votre site à jour et simplifiez vos ventes aux collectionneurs.",
-      ctaPrimary: "Parler de votre galerie",
+      ctaPrimary: "Demander une démo",
       ctaSecondary: "Découvrir Gallery OS",
     },
     privateSelections: {
