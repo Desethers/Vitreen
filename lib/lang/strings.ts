@@ -422,7 +422,7 @@ export const translations = {
     },
     pricingBand: {
       title: "Deux offres, sans frais cachés",
-      subtitle: "Gallery OS seul ou avec un Partner dédié.",
+      subtitle: "Gallery OS, avec ou sans Vitreen Partner.",
       pilotPill: "Programme pilote — 3 places · installation à −50 %",
       base: {
         title: "Gallery OS",
@@ -1299,7 +1299,7 @@ export const translations = {
     },
     pricingBand: {
       title: "Choose your plan",
-      subtitle: "Gallery OS, with or without a dedicated Partner.",
+      subtitle: "Gallery OS, with or without Vitreen Partner.",
       pilotPill: "Pilot programme — 3 places · setup at −50%",
       base: {
         title: "Gallery OS",
