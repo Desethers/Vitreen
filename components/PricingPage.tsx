@@ -325,32 +325,34 @@ export default function PricingPage() {
       <section id="pilot" className="px-4 pb-16 md:px-6 md:pb-24">
         <motion.div
           {...fadeUp(0)}
-          className="mx-auto grid max-w-7xl gap-8 rounded-[12px] bg-[#F5F5F3] p-6 md:grid-cols-[1fr_auto] md:items-end md:p-10"
+          className="mx-auto grid max-w-7xl gap-6 rounded-[12px] bg-[#F5F5F3] px-5 py-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-10"
         >
           <div>
-            <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
+            <p className="text-[10px] uppercase tracking-[0.14em] text-[#ADADAA] md:text-[11px] md:tracking-[0.12em]">
               {t.pricing.pilot.eyebrow}
             </p>
-            <h2 className="mt-3 font-display text-[26px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110]">
+            <h2 className="mt-2.5 font-display text-[25px] font-normal leading-[1.15] tracking-[-0.025em] text-[#111110] md:mt-3 md:text-[26px] md:leading-[1.2] md:tracking-[-0.02em]">
               {t.pricing.pilot.title}
             </h2>
-            <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-[#6B6A67]">
+            <p className="mt-3 max-w-2xl text-[13px] leading-[1.55] text-[#6B6A67] md:text-[14px] md:leading-relaxed">
               {t.pricing.pilot.body}
             </p>
-            <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <span className="text-[14px] text-[#ADADAA] line-through">
-                {t.pricing.pilot.referencePrice}
-              </span>
-              <span className="rounded-full border border-[#E8E8E6] bg-white px-2.5 py-1 text-[11px] font-medium text-[#111110]">
-                {t.pricing.pilot.discount}
-              </span>
-              <span className="font-display text-[30px] tracking-[-0.03em] text-[#111110]">
+            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 md:mt-8 md:items-baseline">
+              <span className="order-1 font-display text-[32px] leading-none tracking-[-0.035em] text-[#111110] md:order-3 md:text-[30px] md:leading-normal md:tracking-[-0.03em]">
                 {t.pricing.pilot.price}
               </span>
+              <span className="order-2 rounded-full border border-[#DEDEDA] bg-white px-2.5 py-1 text-[11px] font-medium text-[#111110]">
+                {t.pricing.pilot.discount}
+              </span>
+              <span className="order-3 w-full text-[12px] text-[#ADADAA] line-through md:order-1 md:w-auto md:text-[14px]">
+                {t.pricing.pilot.referencePrice}
+              </span>
             </div>
-            <p className="mt-3 text-[12px] text-[#6B6A67]">{t.pricing.pilot.availability}</p>
+            <p className="mt-2 text-[12px] text-[#6B6A67] md:mt-3">
+              {t.pricing.pilot.availability}
+            </p>
           </div>
-          <Button size="md" onClick={openContact} className="w-fit">
+          <Button size="md" onClick={openContact} className="w-full justify-center md:w-fit">
             {t.pricing.pilot.cta}
           </Button>
         </motion.div>
