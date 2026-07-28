@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
-import { Button } from "@/components/ui/Button";
 import { useLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -21,10 +20,6 @@ export default function AboutPage() {
   const about = t.about;
   const letter = about.letter;
 
-  const openContact = () => {
-    window.dispatchEvent(new CustomEvent("open-contact-modal"));
-  };
-
   return (
     <main className="relative bg-white">
       <Nav />
@@ -39,11 +34,6 @@ export default function AboutPage() {
             <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
               {about.lead}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button size="lg" onClick={openContact}>
-                {about.cta}
-              </Button>
-            </div>
           </motion.div>
         </div>
       </section>

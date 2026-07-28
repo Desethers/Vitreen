@@ -42,7 +42,7 @@ function ArtworkMetricsStrip() {
             <motion.div
               key={item.metric}
               {...fadeUp(index * 0.06)}
-              className="w-[72vw] shrink-0 snap-start rounded-[12px] bg-[#F5F5F3] px-5 py-5 sm:w-[42vw] md:w-auto"
+              className="w-[72vw] shrink-0 snap-start rounded-[12px] bg-[#F5F5F3] px-5 py-5 max-md:!transform-none max-md:!opacity-100 sm:w-[42vw] md:w-auto"
             >
               <span className="font-display text-[32px] font-normal leading-none tracking-[-0.02em] text-[#111110] md:text-[36px]">
                 {item.metric}

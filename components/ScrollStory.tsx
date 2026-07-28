@@ -15,7 +15,7 @@ function StepCopy({ step, active }: { step: ScrollStoryStep; active: boolean }) 
         active ? "opacity-100" : "opacity-35"
       }`}
     >
-      <h2 className="font-display text-[26px] font-normal leading-[1.15] tracking-[-0.025em] text-[#111110]">
+      <h2 className="font-display text-[22px] font-normal leading-[1.15] tracking-[-0.025em] text-[#111110] md:text-[26px]">
         {step.title}
       </h2>
       <p className="mt-2 text-[16px] leading-[1.45] text-[#6B6A67]">{step.subtitle}</p>
@@ -89,11 +89,11 @@ export default function ScrollStory({
       }`}
     >
       <div className="mx-auto max-w-7xl">
-        <div className={compactMobileVisual ? "pb-8 md:pb-10" : "pb-12 md:pb-10"}>
-          <h2 className="font-display text-[26px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110]">
+        <div className={compactMobileVisual ? "pb-4 md:pb-10" : "pb-12 md:pb-10"}>
+          <h2 className="font-display text-[22px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
             {title}
           </h2>
-          <p className="mt-1.5 text-[26px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
+          <p className="mt-1.5 text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
             {subtitle}
           </p>
         </div>
@@ -131,7 +131,9 @@ export default function ScrollStory({
         </div>
 
         <div
-          className={`lg:hidden ${compactMobileVisual ? "space-y-16 py-8" : "space-y-20 py-16"}`}
+          className={`lg:hidden ${
+            compactMobileVisual ? "space-y-16 pb-8 pt-3" : "space-y-20 py-16"
+          }`}
         >
           {steps.map((step, index) => (
             <article key={step.title}>

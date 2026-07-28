@@ -498,7 +498,7 @@ function GalleriesBuiltAroundSection() {
             <motion.article
               key={column.title}
               {...fadeUp(columnIndex * 0.06)}
-              className="py-10 first:pt-0 last:pb-0 md:py-0"
+              className="py-6 first:pt-0 last:pb-0 md:py-0"
             >
               <h3 className="font-display text-[18px] font-normal leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[20px]">
                 {column.title}
@@ -507,7 +507,7 @@ function GalleriesBuiltAroundSection() {
                 {column.description}
               </p>
 
-              <ul className="mt-8 flex list-none flex-col gap-3 p-0">
+              <ul className="mt-3 flex list-none flex-col gap-3 p-0 md:mt-8">
                 {column.points.map((point) => (
                   <li key={point} className="flex items-start gap-3">
                     <CheckIcon />

@@ -471,20 +471,22 @@ function CompletionField({
   className?: string;
 }) {
   return (
-    <div className={className}>
+    <div className={`min-w-0 ${className}`}>
       <p className="mb-0.5 text-[7px] font-medium text-zinc-600 sm:text-[8px]">{label}</p>
       <motion.div
-        className="flex h-5 items-center rounded-md border bg-white px-2 text-[8px] sm:h-6 sm:px-2.5 sm:text-[10px]"
+        className="flex h-5 min-w-0 items-center gap-1 rounded-md border bg-white px-2 text-[8px] sm:h-6 sm:px-2.5 sm:text-[10px]"
         animate={{
           borderColor: active ? "#d4d4d8" : "#e4e4e7",
           color: active ? "#18181b" : "#d4d4d8",
         }}
         transition={{ duration: 0.35 }}
       >
-        <motion.span animate={{ opacity: active ? 1 : 0.22 }}>{value}</motion.span>
+        <motion.span className="min-w-0 truncate" animate={{ opacity: active ? 1 : 0.22 }}>
+          {value}
+        </motion.span>
         {linked && active ? (
           <motion.span
-            className="ml-auto text-[8px] text-emerald-600"
+            className="ml-auto shrink-0 text-[8px] text-emerald-600"
             initial={{ opacity: 0, y: 3 }}
             animate={{ opacity: 1, y: 0 }}
           >
@@ -492,7 +494,7 @@ function CompletionField({
           </motion.span>
         ) : active ? (
           <motion.span
-            className="ml-auto text-[8px] text-emerald-600"
+            className="ml-auto shrink-0 text-[8px] text-emerald-600"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
@@ -576,7 +578,12 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
               className="col-span-2"
             />
             <CompletionField label="Year" value="2023" active={phase >= 4} />
-            <CompletionField label="Medium" value="Acrylic on canvas" active={phase >= 5} />
+            <CompletionField
+              label="Medium"
+              value="Acrylic on canvas"
+              active={phase >= 5}
+              className="col-span-2 sm:col-span-1"
+            />
             <CompletionField
               label="Dimensions"
               value="120 × 120 × 4 cm"

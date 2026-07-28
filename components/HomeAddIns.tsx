@@ -45,13 +45,13 @@ export default function HomeAddIns() {
         <p className="mt-0 max-w-xl text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
           {t.homeAddIns.subtitle}
         </p>
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible md:pb-0">
           {cards.map((card) => {
             const copy = t.homeAddIns.cards[card.key];
             return (
               <article
                 key={card.key}
-                className="relative grid min-h-[520px] grid-rows-[42px_minmax(0,1fr)_auto] overflow-hidden rounded-[12px] p-8"
+                className="relative grid min-h-[520px] w-[82vw] shrink-0 snap-start grid-rows-[42px_minmax(0,1fr)_auto] overflow-hidden rounded-[12px] p-8 md:w-auto"
                 style={{ background: card.background }}
               >
                 <img src={card.logo} alt="" className={`object-contain ${card.logoClassName}`} />

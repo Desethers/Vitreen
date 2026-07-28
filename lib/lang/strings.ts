@@ -826,10 +826,10 @@ export const translations = {
     },
     about: {
       eyebrow: "À propos de Vitreen",
-      title: "Aider les galeries à construire des opérations plus solides",
-      lead: "La prochaine génération de galeries devra faire plus que bien présenter l’art.",
+      title: "Construisez la galerie que vous voulez diriger",
+      lead: "Des outils mieux pensés pour vos artistes, vos collectionneurs et votre quotidien.",
       letter: {
-        title: "Un mot du fondateur",
+        title: "Les galeries de demain se construiront autrement",
         paragraphs: [
           "Le marché de l’art repose encore sur les relations, le jugement et la confiance. Cela ne devrait pas changer.",
           "Mais le travail opérationnel derrière ces relations devient plus lourd.",

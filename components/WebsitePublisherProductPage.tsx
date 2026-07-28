@@ -765,7 +765,9 @@ export default function WebsitePublisherProductPage() {
             />
 
             <HeroCurtainMock cropFromBottomOnMobile>
-              <PublishingMock />
+              <div className="h-full w-[74.1%] origin-top-left scale-[1.35] md:w-full md:scale-100">
+                <PublishingMock />
+              </div>
             </HeroCurtainMock>
           </motion.div>
         </div>

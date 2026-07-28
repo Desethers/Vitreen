@@ -91,25 +91,27 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
 
   return (
     <div className="absolute inset-0">
-      <div className="grid h-full w-full grid-cols-[0.84fr_1.16fr] gap-[5px]">
+      <div className="grid h-full w-full grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)] gap-[5px] md:grid-cols-[0.84fr_1.16fr]">
         <motion.section
           initial={shouldAnimate ? { opacity: 0, y: 10 } : false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease, delay: shouldAnimate ? 0.1 : 0 }}
           className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] border border-[#E2E2DF] bg-white"
         >
-          <div className="flex items-center justify-between gap-3 border-b border-zinc-100 px-4 py-3">
-            <div>
-              <h3 className="text-[13px] font-semibold text-zinc-900">Collector inquiry</h3>
+          <div className="flex items-center justify-between gap-2 border-b border-zinc-100 px-3 py-2.5 md:gap-3 md:px-4 md:py-3">
+            <div className="min-w-0">
+              <h3 className="text-[12px] font-semibold text-zinc-900 md:text-[13px]">
+                Collector inquiry
+              </h3>
               <p className="mt-0.5 text-[10px] text-zinc-400">Received just now</p>
             </div>
-            <span className="inline-flex shrink-0 items-center rounded-full border border-zinc-900 bg-zinc-900 px-2.5 py-1 text-[10px] font-medium text-white">
+            <span className="hidden shrink-0 items-center rounded-full border border-zinc-900 bg-zinc-900 px-2.5 py-1 text-[10px] font-medium text-white md:inline-flex">
               Inquire button
             </span>
           </div>
 
-          <div className="flex flex-1 flex-col px-4 py-4">
-            <dl className="space-y-3">
+          <div className="flex min-h-0 flex-1 flex-col px-3 py-3 md:px-4 md:py-4">
+            <dl className="space-y-2.5 md:space-y-3">
               <div>
                 <dt className="text-[10px] text-zinc-400">Collector</dt>
                 <dd className="mt-0.5 text-[12px] font-medium text-zinc-900">
@@ -132,7 +134,7 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
               </div>
             </dl>
 
-            <div className="mt-4 rounded-xl border border-zinc-100 bg-zinc-50 p-3">
+            <div className="mt-3 min-h-0 overflow-hidden rounded-xl border border-zinc-100 bg-zinc-50 p-2.5 md:mt-4 md:p-3">
               <p className="text-[10px] text-zinc-400">Message</p>
               <p className="mt-1.5 text-[11px] leading-[1.55] text-zinc-700">
                 “Could you share the price and availability of Evening field? I would also be
@@ -140,7 +142,7 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
               </p>
             </div>
 
-            <div className="mt-auto flex items-center gap-2 pt-4 text-[10px] text-zinc-500">
+            <div className="mt-auto flex items-center gap-2 pt-3 text-[10px] text-zinc-500 md:pt-4">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
               Inquiry received
             </div>
@@ -153,9 +155,11 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
           transition={{ duration: 0.5, ease, delay: shouldAnimate ? 0.85 : 0 }}
           className="flex h-full min-h-0 min-w-0 flex-col overflow-hidden rounded-[12px] border border-[#E2E2DF] bg-white"
         >
-          <div className="flex items-center justify-between gap-3 border-b border-zinc-100 px-4 py-3">
-            <div>
-              <h3 className="text-[13px] font-semibold text-zinc-900">Prepared reply</h3>
+          <div className="flex items-center justify-between gap-2 border-b border-zinc-100 px-3 py-2.5 md:gap-3 md:px-4 md:py-3">
+            <div className="min-w-0">
+              <h3 className="text-[12px] font-semibold text-zinc-900 md:text-[13px]">
+                Prepared reply
+              </h3>
               <p className="mt-0.5 text-[10px] text-zinc-400">Review before sending</p>
             </div>
             <span className="inline-flex shrink-0 items-center rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[10px] font-medium text-amber-700">
@@ -163,14 +167,14 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
             </span>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col px-4 py-3">
+          <div className="flex min-h-0 flex-1 flex-col px-3 py-2.5 md:px-4 md:py-3">
             <label className="text-[10px] text-zinc-500">Subject</label>
             <div className="mt-1 rounded-lg border border-zinc-200 px-3 py-2 text-[11px] text-zinc-900">
               Re: Evening field
             </div>
 
             <label className="mt-2.5 text-[10px] text-zinc-500">Editable draft</label>
-            <div className="mt-1 min-h-0 flex-1 rounded-lg border border-zinc-200 px-3 py-2 text-[10px] leading-[1.45] text-zinc-700">
+            <div className="mt-1 min-h-0 flex-1 overflow-hidden rounded-lg border border-zinc-200 px-3 py-2 text-[10px] leading-[1.45] text-zinc-700">
               <p>Bonjour Jean,</p>
               <p className="mt-1.5">Thank you for your interest in Evening field.</p>
               <p className="mt-1.5">
@@ -180,20 +184,20 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
               <p className="mt-1.5">Best regards,</p>
             </div>
 
-            <div className="mt-2.5 flex items-end justify-between gap-3">
-              <p className="max-w-[190px] text-[9px] leading-[1.35] text-zinc-500">
+            <div className="mt-2 flex min-w-0 flex-col gap-2 md:mt-2.5 md:flex-row md:items-end md:justify-between md:gap-3">
+              <p className="hidden max-w-[190px] text-[9px] leading-[1.35] text-zinc-500 md:block">
                 Nothing is sent without gallery approval.
               </p>
-              <div className="flex shrink-0 gap-1.5">
+              <div className="grid min-w-0 grid-cols-2 gap-1.5 md:flex md:shrink-0">
                 <button
                   type="button"
-                  className="rounded-xl border border-zinc-200 bg-white px-3 py-2 text-[10px] font-medium text-zinc-700"
+                  className="min-w-0 truncate rounded-xl border border-zinc-200 bg-white px-2 py-2 text-[10px] font-medium text-zinc-700 md:px-3"
                 >
                   Edit draft
                 </button>
                 <button
                   type="button"
-                  className="rounded-xl bg-zinc-900 px-3 py-2 text-[10px] font-medium text-white"
+                  className="min-w-0 truncate rounded-xl bg-zinc-900 px-2 py-2 text-[10px] font-medium text-white md:px-3"
                 >
                   Send reply
                 </button>
