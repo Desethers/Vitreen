@@ -37,10 +37,8 @@ export default function LandingAiFr() {
   return (
     <section className={`${SECTION} border-t border-[#E8E8E6] bg-white`}>
       <div className={CONTAINER}>
-        <p className={EYEBROW}>Vitreen AI</p>
-        <h2 className={`${H2} mt-4 max-w-2xl`}>
-          Derrière chaque réponse, une IA qui a lu tout votre inventaire.
-        </h2>
+        <p className={EYEBROW}>Vitreen Agent</p>
+        <h2 className={`${H2} mt-4 max-w-2xl`}>Un agent qui a lu tout votre inventaire.</h2>
         <p className={`${H2_SUB} max-w-2xl`}>
           Quand un collectionneur écrit, Vitreen a déjà préparé le brouillon : les bonnes œuvres, le
           bon prix, la bonne langue. Elle ne peut répondre que depuis vos fiches — et rien ne part

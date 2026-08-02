@@ -164,45 +164,97 @@ failed.
 
 ---
 
-# 5. Offer & packaging
+# 5. Offer & packaging — one ladder, two rungs
 
-## One SKU
+The offer is a **vertical ladder**, not a catalogue. Same product, same
+inventory, two levels of help. This is what keeps it undilutable: a ladder
+cannot spread sideways the way a list of bricks can.
 
-**Vitreen Conversations** — subscription.
+```text
+Inventory → Conversation.
+Send: you write, faster.    Agent: it writes, you approve.
+```
 
-Currently displayed on the site: **€950/month + €4,500 one-time onboarding**,
-12-month partnership, hosting and support included. A pilot discount mechanic
-exists for early galleries.
+## Rung 1 — Vitreen Send · €450/month
+
+> Your artworks, ready to send from Gmail and WhatsApp.
+
+- Gmail and WhatsApp add-ins
+- Natural-language search across the inventory
+- Private selections and PDF export
+- Artwork data connected (Artlogic exports, spreadsheets, existing database)
+
+## Rung 2 — Vitreen Agent · €950/month
+
+> The reply is already drafted when you open the email.
+
+Everything in Send, plus:
+
+- Collector replies drafted from the incoming email
+- Alternatives proposed when a work is sold
+- Price-on-request discretion handled automatically
+- Answers in the collector's language
+- Nothing sends without a human click
+
+**Both include a €4,500 one-time onboarding** — structuring the inventory. It is
+the same work either way, and it is mandatory: the add-ins are only as precise
+as the records behind them. 12-month partnership, hosting and support included.
 
 > These figures are what the marketing site shows today. They still need a final
 > business validation — treat them as the current public numbers, not as a
 > settled decision.
 
-Included:
+## Why Send must not look crippled
 
-- AI-drafted collector replies, grounded in the inventory, always sent by the team
-- Gmail and WhatsApp add-ins
-- Artwork data connected (Artlogic exports, spreadsheets, existing database)
-- Private selections and PDF export
+In 2026, a tier advertised as "the one without AI" reads as the crippled
+version, and everyone waits for the other. So **both rungs carry AI** —
+natural-language search and generated material are in Send. The gap is not
+intelligence versus none; it is:
 
-## Two paid extensions
+> "It helps me" versus "it works for me."
 
-Sold separately, never bundled into the SKU, never presented as equal to it:
+Never describe Send as the manual, basic or limited plan.
 
-- **Connected Website** — a site built on the same artwork records, for
-  galleries that need one. Fixed scope, quoted after a first conversation.
-  Always paired with the de-escalation line: "Already have a site? Vitreen works
-  alongside it."
-- **AI Coaching** — hands-on sessions bringing AI into daily gallery work.
-  From €400 per session. Its credibility comes from the product: _taught by the
-  team that builds AI for galleries_. It is not generic consulting, and it must
-  never develop an autonomous "AI transformation" discourse — that would
-  cannibalise the brand.
+## Services, below the ladder
+
+Sold separately, listed small, never given a card that competes with the rungs:
+
+- **Connected Website** — a site built on the same inventory, for galleries that
+  need one. Fixed scope, quoted after a first conversation. Always paired with
+  the de-escalation line: "Already have a site? Vitreen works alongside it."
+- **AI Coaching** — hands-on sessions bringing AI into daily gallery work. From
+  €400 per session. Its credibility comes from the product: _taught by the team
+  that builds AI for galleries_. Not generic consulting, and it must never
+  develop an autonomous "AI transformation" discourse — that would cannibalise
+  the brand.
 
 ## Hierarchy rule
 
-One product, one engine, two extensions. Never a grid of four equal cards —
-that pattern recreates the SaaS look the repositioning exists to escape.
+Two rungs, then services. Never four equal cards, never a grid that lets the
+website or coaching sit at the same weight as the ladder.
+
+---
+
+# 5b. AI positioning
+
+> **Vitreen builds AI agents for art sales — grounded in the gallery's own
+> inventory, working inside Gmail and WhatsApp, and never sending anything on
+> their own.**
+
+Three pillars. Each one is a differentiator no one in the art market can copy
+without building the same data layer first:
+
+**Grounded, not generative.** The agent answers only from the gallery's records.
+It never invents a price, an availability or a provenance. Use the contrast:
+most AI knows everything about the world and nothing about you; this one knows
+only your works — which is exactly the point.
+
+**Embedded, not another app.** It works inside Gmail and WhatsApp. No gallery
+wants one more chat window to open.
+
+**Assisted, not autonomous.** Nothing reaches a collector without a human click.
+This is not a technical limitation, it is the promise: the gallery keeps its own
+voice with its collectors.
 
 ---
 

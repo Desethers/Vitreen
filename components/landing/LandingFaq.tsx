@@ -8,6 +8,10 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const ITEMS = [
   {
+    q: "What is the difference between Send and Agent?",
+    a: "Both start from the same connected inventory and both work in Gmail and WhatsApp. With Send, you search and compose — it is just much faster. With Agent, the reply is already drafted when you open the email, and you review it before sending.",
+  },
+  {
     q: "Does Vitreen replace Artlogic?",
     a: "No. Vitreen connects to it — or to spreadsheets, folders or another existing system — and makes that information usable in Gmail and WhatsApp.",
   },

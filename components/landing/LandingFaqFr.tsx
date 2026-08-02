@@ -8,6 +8,10 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const ITEMS = [
   {
+    q: "Quelle est la différence entre Send et Agent ?",
+    a: "Les deux partent du même inventaire connecté et fonctionnent dans Gmail et WhatsApp. Avec Send, vous cherchez et vous rédigez — simplement beaucoup plus vite. Avec Agent, la réponse est déjà rédigée quand vous ouvrez l’email, et vous la relisez avant de l’envoyer.",
+  },
+  {
     q: "Vitreen remplace-t-il Artlogic ?",
     a: "Non. Vitreen s’y connecte — ou à vos tableurs, dossiers ou tout autre système existant — et rend ces informations utilisables dans Gmail et WhatsApp.",
   },

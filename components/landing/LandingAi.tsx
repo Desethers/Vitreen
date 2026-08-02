@@ -38,10 +38,8 @@ export default function LandingAi() {
   return (
     <section className={`${SECTION} border-t border-[#E8E8E6] bg-white`}>
       <div className={CONTAINER}>
-        <p className={EYEBROW}>Vitreen AI</p>
-        <h2 className={`${H2} mt-4 max-w-2xl`}>
-          Behind every reply, an AI that has read your entire inventory.
-        </h2>
+        <p className={EYEBROW}>Vitreen Agent</p>
+        <h2 className={`${H2} mt-4 max-w-2xl`}>An agent that has read your entire inventory.</h2>
         <p className={`${H2_SUB} max-w-2xl`}>
           When a collector writes, Vitreen already has a draft ready: the right works, the right
           price, the right language. It can only answer from your records — and nothing is sent

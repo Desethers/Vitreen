@@ -41,15 +41,40 @@ fait circuler dans vos conversations de vente. » Tant qu'aucune synchro native
 n'existe, écrire « à partir de vos exports Artlogic », jamais « intégration
 Artlogic ».
 
-### Packaging
+### Packaging — une échelle, deux barreaux
 
-- **Un seul SKU** : Vitreen Conversations (abonnement). Le site affiche
-  aujourd'hui 950 €/mois + 4 500 € d'onboarding — chiffres publics actuels,
-  validation business encore à faire.
-- **Deux extensions payantes**, visiblement subordonnées : Site connecté
-  (projet à périmètre fixe) et Coaching IA (à partir de 400 €/session,
-  crédibilisé par le produit : « avec l'équipe qui construit l'IA des
-  galeries »).
+L'offre est **verticale**, pas un catalogue. Même produit, même inventaire, deux
+niveaux d'aide — c'est ce qui la rend indiluable.
+
+| Barreau           | Prix       | Promesse                                              |
+| ----------------- | ---------- | ----------------------------------------------------- |
+| **Vitreen Send**  | 450 €/mois | Vos œuvres, prêtes à partir depuis Gmail et WhatsApp  |
+| **Vitreen Agent** | 950 €/mois | La réponse est déjà rédigée quand vous ouvrez l'email |
+
+Les deux incluent un **onboarding unique de 4 500 €** (structuration de
+l'inventaire — obligatoire, les add-ins ne valent que ce que valent les fiches).
+Chiffres publics actuels, validation business encore à faire.
+
+**Règle** : les deux barreaux portent de l'IA. Send a la recherche en langage
+naturel et la génération de matériel. L'écart n'est pas « avec ou sans
+intelligence » mais **« ça m'aide » contre « ça travaille pour moi »**. Ne jamais
+décrire Send comme la version manuelle, basique ou limitée.
+
+**Sous l'échelle**, en services discrets — jamais une carte qui rivalise avec les
+barreaux : Site connecté (projet à périmètre fixe) et Coaching IA (à partir de
+400 €/session, crédibilisé par le produit : « avec l'équipe qui construit l'IA
+des galeries »).
+
+### Positionnement IA
+
+> Vitreen construit des agents IA pour la vente d'art — groundés sur
+> l'inventaire de la galerie, installés dans Gmail et WhatsApp, et qui n'envoient
+> jamais rien tout seuls.
+
+Trois piliers : **groundé, pas génératif** (ne répond que depuis vos fiches) ·
+**installé, pas une app de plus** (dans Gmail et WhatsApp) · **assisté, pas
+autonome** (rien ne part sans un clic humain — c'est la promesse, pas une
+limite).
 
 Ancienne source Notion _Idées à developper_ (`33f0b73f1fb780ee9f7be92f1e430f79`)
 — décrit encore l'architecture Gallery OS, à relire avec prudence.
@@ -146,18 +171,18 @@ public/
 
 Ordre des sections, identique EN et FR :
 
-| #   | Composant        | Rôle                                                           |
-| --- | ---------------- | -------------------------------------------------------------- |
-| 1   | `LandingNav`     | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**               |
-| 2   | `LandingHero`    | Promesse + collage produit (Gmail + WhatsApp)                  |
-| 3   | `LandingProblem` | Le problème, puis « votre base stocke, Vitreen fait circuler » |
-| 4   | `LandingProduct` | Gmail et WhatsApp, en rangées image/texte alternées            |
-| 5   | `LandingAi`      | **Le moteur** : garanties de grounding + brouillon à valider   |
-| 6   | `LandingSystem`  | Une source → toutes les sorties (socle discret)                |
-| 7   | `LandingOffers`  | Conversations (carte pleine) + 2 extensions subordonnées       |
-| 8   | `LandingMethod`  | Audit / Connexion / Configuration / Amélioration               |
-| 9   | `LandingFaq`     | Objections : Artlogic, migration, envoi auto, site             |
-| 10  | `LandingCta`     | CTA final + footer léger                                       |
+| #   | Composant        | Rôle                                                             |
+| --- | ---------------- | ---------------------------------------------------------------- |
+| 1   | `LandingNav`     | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**                 |
+| 2   | `LandingHero`    | Promesse + collage produit (Gmail + WhatsApp)                    |
+| 3   | `LandingProblem` | Le problème, puis « votre base stocke, Vitreen fait circuler »   |
+| 4   | `LandingProduct` | Gmail et WhatsApp, en rangées image/texte alternées              |
+| 5   | `LandingAi`      | **Vitreen Agent** : garanties de grounding + brouillon à valider |
+| 6   | `LandingSystem`  | Une source → toutes les sorties (socle discret)                  |
+| 7   | `LandingOffers`  | Échelle Send / Agent, puis services en dessous                   |
+| 8   | `LandingMethod`  | Audit / Connexion / Configuration / Amélioration                 |
+| 9   | `LandingFaq`     | Objections : Artlogic, migration, envoi auto, site               |
+| 10  | `LandingCta`     | CTA final + footer léger                                         |
 
 Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
 
@@ -169,9 +194,12 @@ Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
   l'autre, avec `border-t border-[#E8E8E6]`. Vérifier l'alternance après tout
   ajout ou déplacement de section.
 - `LandingAi` doit rester **visuellement plus sobre** que les sections
-  Gmail/WhatsApp : c'est le moteur, pas le produit. Pas d'ombre, pas de couleur.
-- Jamais de grille de 4 cartes égales pour présenter l'offre — ce motif recrée
-  le look SaaS que le recentrage cherche à quitter.
+  Gmail/WhatsApp : c'est la démonstration de l'Agent, pas une vitrine de plus.
+  Pas d'ombre, pas de couleur.
+- `LandingOffers` = **deux barreaux d'une échelle**, mêmes dimensions, Send en
+  carte blanche bordée et Agent en carte pleine avec le badge « Recommandé ».
+  Site et Coaching passent dessous en services discrets. Jamais quatre cartes
+  égales — ce motif recrée le look SaaS que le recentrage cherche à quitter.
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
