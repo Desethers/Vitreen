@@ -5,10 +5,10 @@ import { openContact } from "@/components/landing/LandingNav";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const CONVERSATIONS_FEATURES = [
+  "Réponses collectionneurs préparées par IA — groundées sur votre inventaire, toujours envoyées par votre équipe",
   "Modules Gmail et WhatsApp",
   "Vos données d’œuvres connectées — Artlogic, tableurs ou base existante",
   "Sélections privées et export PDF",
-  "Réponses préparées par IA, toujours envoyées par votre équipe",
 ];
 
 /**
@@ -104,9 +104,9 @@ export default function LandingOffersFr() {
                 Coaching IA
               </h3>
               <p className={`${BODY_SM} mt-1.5 max-w-sm`}>
-                Un programme court et pratique pour intégrer l’IA au travail quotidien de la galerie
-                — ni un cours, ni du conseil. À partir de 400 € la session, définie lors d’un
-                premier échange.
+                Intégrez l’IA au travail quotidien de votre galerie — avec l’équipe qui construit
+                l’IA des galeries. Des sessions pratiques sur vos vrais workflows, pas un cours. À
+                partir de 400 € la session.
               </p>
             </div>
 

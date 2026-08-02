@@ -20,6 +20,10 @@ const ITEMS = [
     a: "No. Vitreen prepares replies and material from your artwork records. A person on your team always reviews and sends.",
   },
   {
+    q: "Where does the AI get its answers?",
+    a: "Only from your own records: artworks, prices, availability, contacts. It cannot invent information, and every draft is reviewed by your team before sending.",
+  },
+  {
     q: "Do I need a new website?",
     a: "No. Connected Website is a separate option for galleries that want one, built on the same records. Most galleries start with Conversations alone.",
   },

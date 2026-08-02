@@ -20,6 +20,10 @@ const ITEMS = [
     a: "Non. Vitreen prépare les réponses et le support à partir de vos fiches d’œuvres. Une personne de votre équipe vérifie et envoie toujours.",
   },
   {
+    q: "D’où l’IA tire-t-elle ses réponses ?",
+    a: "Uniquement de vos propres fiches : œuvres, prix, disponibilités, contacts. Elle ne peut pas inventer d’information, et chaque brouillon est relu par votre équipe avant envoi.",
+  },
+  {
     q: "Ai-je besoin d’un nouveau site ?",
     a: "Non. Le Site connecté est une option séparée pour les galeries qui le souhaitent, construite sur les mêmes fiches. La plupart des galeries démarrent avec Conversations seul.",
   },

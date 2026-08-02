@@ -26,8 +26,8 @@ export default function LandingHero() {
           </h1>
 
           <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-lg leading-[inherit] tracking-[-0.02em] text-[#6B6A67]">
-            Vitreen connects your artwork data to Gmail and WhatsApp, so your team can find works,
-            prepare presentations and respond to collectors without leaving the conversation.
+            Vitreen connects your artwork data to Gmail and WhatsApp — with an AI that knows your
+            inventory and prepares replies, selections and PDFs in seconds. Approved by you, always.
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center gap-3 md:mt-[22px]">

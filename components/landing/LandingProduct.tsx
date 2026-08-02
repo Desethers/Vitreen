@@ -61,6 +61,10 @@ export default function LandingProduct() {
                   </li>
                 ))}
               </ul>
+
+              <p className={`${LINE_INK} mt-6 max-w-md`}>
+                Or let Vitreen draft the full reply from the incoming email.
+              </p>
             </div>
 
             <div className="relative mx-auto flex w-full max-w-sm items-center justify-center overflow-hidden rounded-[16px] bg-[#F5F5F3] px-6 py-10 md:max-w-none md:px-10 md:py-16">
@@ -83,7 +87,7 @@ export default function LandingProduct() {
             </div>
 
             <div className="order-1 md:order-2">
-              <p className={EYEBROW}>Vitreen for WhatsApp</p>
+              <p className={EYEBROW}>Vitreen for WhatsApp · AI assistant</p>
               <h2 className={`${H2} mt-4 max-w-sm`}>Turn a message into a presentation.</h2>
               <p className={`${H2_SUB} max-w-sm`}>
                 Find matching works, control what the collector sees and share a clean private link

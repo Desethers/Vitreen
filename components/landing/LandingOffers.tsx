@@ -5,10 +5,10 @@ import { openContact } from "@/components/landing/LandingNav";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const CONVERSATIONS_FEATURES = [
+  "AI-drafted collector replies — grounded in your inventory, always sent by your team",
   "Gmail and WhatsApp add-ins",
   "Your artwork data connected — Artlogic, spreadsheets or existing database",
   "Private selections and PDF export",
-  "AI-prepared replies, always sent by your team",
 ];
 
 /**
@@ -105,8 +105,9 @@ export default function LandingOffers() {
                 AI Coaching
               </h3>
               <p className={`${BODY_SM} mt-1.5 max-w-sm`}>
-                A short, hands-on program to bring AI into daily gallery work — not a course, not
-                consulting. From €400 per session, scoped in a first call.
+                Bring AI into your gallery’s daily work — taught by the team that builds AI for
+                galleries. Hands-on sessions on your real workflows, not a course. From €400 per
+                session.
               </p>
             </div>
 

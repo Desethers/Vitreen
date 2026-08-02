@@ -21,9 +21,9 @@ export default function LandingHeroFr() {
           </h1>
 
           <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-lg leading-[inherit] tracking-[-0.02em] text-[#6B6A67]">
-            Vitreen connecte vos données d’œuvres à Gmail et WhatsApp : votre équipe retrouve les
-            œuvres, prépare des présentations et répond aux collectionneurs sans quitter la
-            conversation.
+            Vitreen connecte vos données d’œuvres à Gmail et WhatsApp — avec une IA qui connaît
+            votre inventaire et prépare réponses, sélections et PDF en secondes. Validés par vous,
+            toujours.
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center gap-3 md:mt-[22px]">

@@ -3,6 +3,7 @@ import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
 import LandingProblem from "@/components/landing/LandingProblem";
 import LandingProduct from "@/components/landing/LandingProduct";
+import LandingAi from "@/components/landing/LandingAi";
 import LandingSystem from "@/components/landing/LandingSystem";
 import LandingOffers from "@/components/landing/LandingOffers";
 import LandingMethod from "@/components/landing/LandingMethod";
@@ -31,6 +32,7 @@ export default function Home() {
       <LandingHero />
       <LandingProblem />
       <LandingProduct />
+      <LandingAi />
       <LandingSystem />
       <LandingOffers />
       <LandingMethod />

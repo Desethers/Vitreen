@@ -60,6 +60,10 @@ export default function LandingProductFr() {
                   </li>
                 ))}
               </ul>
+
+              <p className={`${LINE_INK} mt-6 max-w-md`}>
+                Ou laissez Vitreen préparer le brouillon complet à partir de l’email reçu.
+              </p>
             </div>
 
             <div className="relative mx-auto flex w-full max-w-sm items-center justify-center overflow-hidden rounded-[16px] bg-[#F5F5F3] px-6 py-10 md:max-w-none md:px-10 md:py-16">
@@ -90,7 +94,7 @@ export default function LandingProductFr() {
             </div>
 
             <div className="order-1 md:order-2">
-              <p className={EYEBROW}>Vitreen pour WhatsApp</p>
+              <p className={EYEBROW}>Vitreen pour WhatsApp · assistant IA</p>
               <h2 className={`${H2} mt-4 max-w-sm`}>Transformez un message en présentation.</h2>
               <p className={`${H2_SUB} max-w-sm`}>
                 Retrouvez les œuvres correspondantes, contrôlez ce que voit le collectionneur et
