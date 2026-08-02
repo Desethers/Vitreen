@@ -1,13 +1,19 @@
 "use client";
 
-import { GalleryOsSearchWidget, WhatsAppPdfMockup } from "@/components/shared/ArtworkAddInMocks";
+import AskAgentPanel from "@/components/shared/AskAgentPanel";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 
+const WORKS = [
+  { title: "Evening Field", meta: "2023 · €18,000", image: "/artworks/painting-03.jpg" },
+  { title: "Low Tide", meta: "2024 · €16,500", image: "/artworks/painting-06.png" },
+];
+
 /**
- * Asymmetric hero: copy on the left, a real product collage on the right —
- * the same Gmail search widget and WhatsApp PDF mockups used in Product,
- * shown up front instead of after a page of text.
+ * Asymmetric hero: copy on the left, the ask-agent panel on the right — one
+ * question in, works from the inventory and a drafted reply out. The panel is
+ * the whole product in a single artifact, so the hero never has to show two
+ * competing integrations.
  */
 export default function LandingHero() {
   return (
@@ -49,14 +55,20 @@ export default function LandingHero() {
           </p>
         </div>
 
-        <div className="relative mx-auto h-[340px] w-full max-w-md md:h-[420px] md:max-w-none">
-          <div className="absolute inset-x-4 bottom-0 top-6 rounded-[16px] bg-[#F5F5F3] md:inset-x-10" />
-          <div className="absolute right-0 top-0 w-[220px] rounded-[12px] border border-[#E8E8E6] bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,0.08)] md:w-[240px] md:p-5">
-            <GalleryOsSearchWidget />
-          </div>
-          <div className="absolute bottom-0 left-0 w-[230px] rounded-[16px] border border-[#E8E8E6] bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,0.08)] md:w-[260px] md:p-5">
-            <WhatsAppPdfMockup />
-          </div>
+        <div className="flex flex-col items-center">
+          <AskAgentPanel
+            channelLabel="Gmail"
+            question="Available works by Marina Perez under €20,000"
+            resultsLabel="2 works · from your inventory"
+            works={WORKS}
+            draftLabel="Drafted reply"
+            draftText="Dear Marie, two works by Marina Perez are currently available in that range. I’ve included both below — happy to arrange a viewing this week."
+            footnote="Nothing sends without you"
+            ctaLabel="Review & send"
+          />
+          <p className="mt-4 text-[12px] leading-[1.5] text-[#ADADAA]">
+            Works in Gmail and WhatsApp Business
+          </p>
         </div>
       </div>
     </section>

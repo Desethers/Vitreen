@@ -1,8 +1,13 @@
 "use client";
 
-import { GalleryOsSearchWidget, WhatsAppPdfMockup } from "@/components/shared/ArtworkAddInMocks";
+import AskAgentPanel from "@/components/shared/AskAgentPanel";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
+
+const WORKS = [
+  { title: "Evening Field", meta: "2023 · 18 000 €", image: "/artworks/painting-03.jpg" },
+  { title: "Low Tide", meta: "2024 · 16 500 €", image: "/artworks/painting-06.png" },
+];
 
 export default function LandingHeroFr() {
   return (
@@ -45,22 +50,20 @@ export default function LandingHeroFr() {
           </p>
         </div>
 
-        <div className="relative mx-auto h-[340px] w-full max-w-md md:h-[420px] md:max-w-none">
-          <div className="absolute inset-x-4 bottom-0 top-6 rounded-[16px] bg-[#F5F5F3] md:inset-x-10" />
-          <div className="absolute right-0 top-0 w-[220px] rounded-[12px] border border-[#E8E8E6] bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,0.08)] md:w-[240px] md:p-5">
-            <GalleryOsSearchWidget
-              insertLabel="Insérer une œuvre"
-              searchLabel="Recherche Vitreen"
-              searchCta="Chercher"
-              galleryViewCta="Vue galerie"
-            />
-          </div>
-          <div className="absolute bottom-0 left-0 w-[230px] rounded-[16px] border border-[#E8E8E6] bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,0.08)] md:w-[260px] md:p-5">
-            <WhatsAppPdfMockup
-              incomingLabel="Constitution de votre sélection..."
-              readyLabel="Sélection prête · 1 page"
-            />
-          </div>
+        <div className="flex flex-col items-center">
+          <AskAgentPanel
+            channelLabel="Gmail"
+            question="Œuvres disponibles de Marina Perez à moins de 20 000 €"
+            resultsLabel="2 œuvres · depuis votre inventaire"
+            works={WORKS}
+            draftLabel="Brouillon de réponse"
+            draftText="Chère Marie, deux œuvres de Marina Perez sont actuellement disponibles dans cette gamme. Je vous les présente ci-dessous — je peux organiser une visite cette semaine."
+            footnote="Rien ne part sans vous"
+            ctaLabel="Relire et envoyer"
+          />
+          <p className="mt-4 text-[12px] leading-[1.5] text-[#ADADAA]">
+            Fonctionne dans Gmail et WhatsApp Business
+          </p>
         </div>
       </div>
     </section>
