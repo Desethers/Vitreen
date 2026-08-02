@@ -11,15 +11,25 @@ positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 
 ## 1. Positionnement (la vision)
 
-Vitreen connecte des **agents IA** à l'inventaire d'œuvres d'une galerie et
-transforme ces données existantes en emails, sélections et PDF prêts pour les
-collectionneurs — **dans Gmail et WhatsApp**, là où les échanges ont déjà lieu.
+**Vitreen est un founder-led productized service pour galeries contemporaines**
+(décidé 2026-08). Ce n'est ni un SaaS low-cost face à Artlogic, ni une agence
+généraliste, ni du conseil IA abstrait, ni du développement custom par galerie.
+
+> Un système commercial assisté par IA, installé personnellement avec chaque
+> galerie, à partir d'un socle produit commun.
+
+Ce qui est personnel, c'est l'installation — un fondateur solo, assis avec la
+galerie, qui structure l'inventaire, configure Gmail et WhatsApp, forme
+l'équipe. Ce qui est partagé, c'est le produit derrière. Sans le socle commun,
+c'est de l'agence ; sans l'installation personnelle, c'est un SaaS de plus.
 
 Ligne de marque actuellement sur le site :
 
 > **Give your gallery superpowers.**
-> Connect AI agents to your artwork inventory and turn existing data into
-> collector-ready emails, selections and PDFs for Gmail and WhatsApp.
+> We turn your artwork inventory into a practical sales system for Gmail and
+> WhatsApp — with AI-assisted replies, selections and PDFs built around the
+> way your team works.
+> Built personally with each gallery. Powered by a shared Vitreen system.
 
 ### L'inversion à retenir
 
@@ -41,29 +51,44 @@ fait circuler dans vos conversations de vente. » Tant qu'aucune synchro native
 n'existe, écrire « à partir de vos exports Artlogic », jamais « intégration
 Artlogic ».
 
-### Packaging — une échelle, deux barreaux
+L'installation personnelle sert aussi à éviter une comparaison de prix perdue
+d'avance : une galerie ne compare pas une heure passée avec le fondateur à une
+ligne SaaS. Ne jamais présenter l'offre d'une façon qui invite à comparer
+Vitreen à Artlogic sur le prix.
 
-L'offre est **verticale**, pas un catalogue. Même produit, même inventaire, deux
-niveaux d'aide — c'est ce qui la rend indiluable.
+### Offre — Vitreen Partner
 
-| Barreau           | Prix       | Promesse                                              |
-| ----------------- | ---------- | ----------------------------------------------------- |
-| **Vitreen Send**  | 450 €/mois | Vos œuvres, prêtes à partir depuis Gmail et WhatsApp  |
-| **Vitreen Agent** | 950 €/mois | La réponse est déjà rédigée quand vous ouvrez l'email |
+**Une seule offre**, pas une échelle de plans. Un accompagnement de six mois :
+structuration de l'inventaire, installation, configuration Gmail/WhatsApp,
+formats email/sélections/PDF, formation de l'équipe, ajustements sur des
+demandes réelles, réunion mensuelle, support défini, amélioration continue dans
+un périmètre standardisé.
 
-Les deux incluent un **onboarding unique de 4 500 €** (structuration de
-l'inventaire — obligatoire, les add-ins ne valent que ce que valent les fiches).
-Chiffres publics actuels, validation business encore à faire.
+> À partir de 950 €/mois pendant 6 mois, puis logiciel et support à partir de
+> 250 €/mois.
 
-**Règle** : les deux barreaux portent de l'IA. Send a la recherche en langage
-naturel et la génération de matériel. L'écart n'est pas « avec ou sans
-intelligence » mais **« ça m'aide » contre « ça travaille pour moi »**. Ne jamais
-décrire Send comme la version manuelle, basique ou limitée.
+Chiffres actuels, validation business encore à faire. Le prix doit visiblement
+baisser une fois l'installation terminée — une galerie qui paie encore 950 €
+en mois 8 sans rien d'actif en cours d'installation est surfacturée.
 
-**Sous l'échelle**, en services discrets — jamais une carte qui rivalise avec les
-barreaux : Site connecté (projet à périmètre fixe) et Coaching IA (à partir de
-400 €/session, crédibilisé par le produit : « avec l'équipe qui construit l'IA
-des galeries »).
+**Principe économique** (à ne jamais perdre de vue) : le service finance le
+produit · le produit empêche Vitreen de devenir une agence · l'accompagnement
+personnel évite la comparaison directe avec Artlogic · le périmètre
+standardisé protège le temps du solo founder. Les quatre tiennent ensemble —
+affaiblir l'un fait céder les trois autres.
+
+**Frontière de personnalisation** — personnalisable : imports, champs
+commerciaux, modèles, ton, règles de visibilité, workflows Gmail/WhatsApp.
+Jamais personnalisable : l'architecture centrale, le produit entier, la
+roadmap pour un seul client, des outils sans rapport avec l'inventaire et les
+conversations commerciales. Une demande hors périmètre est un signal pour
+refuser le client, pas pour l'accepter.
+
+**Statut à trancher** : l'ancienne offre portait Site connecté et Coaching IA
+en extensions séparées. Partner inclut désormais la formation d'équipe, ce qui
+rend le coaching autonome redondant. Le sort de Site connecté (extension à
+part vs absorbé dans « ce qu'on personnalise ») n'est pas décidé — ne pas le
+refaire apparaître comme article facturé sans trancher.
 
 ### Positionnement IA
 
@@ -171,18 +196,18 @@ public/
 
 Ordre des sections, identique EN et FR :
 
-| #   | Composant        | Rôle                                                             |
-| --- | ---------------- | ---------------------------------------------------------------- |
-| 1   | `LandingNav`     | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**                 |
-| 2   | `LandingHero`    | Promesse + collage produit (Gmail + WhatsApp)                    |
-| 3   | `LandingProblem` | Le problème, puis « votre base stocke, Vitreen fait circuler »   |
-| 4   | `LandingProduct` | Gmail et WhatsApp, en rangées image/texte alternées              |
-| 5   | `LandingAi`      | **Vitreen Agent** : garanties de grounding + brouillon à valider |
-| 6   | `LandingSystem`  | Une source → toutes les sorties (socle discret)                  |
-| 7   | `LandingOffers`  | Échelle Send / Agent, puis services en dessous                   |
-| 8   | `LandingMethod`  | Audit / Connexion / Configuration / Amélioration                 |
-| 9   | `LandingFaq`     | Objections : Artlogic, migration, envoi auto, site               |
-| 10  | `LandingCta`     | CTA final + footer léger                                         |
+| #   | Composant        | Rôle                                                                                                                                  |
+| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | `LandingNav`     | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**                                                                                      |
+| 2   | `LandingHero`    | Promesse + collage produit (Gmail + WhatsApp)                                                                                         |
+| 3   | `LandingProblem` | Le problème, puis « votre base stocke, Vitreen fait circuler »                                                                        |
+| 4   | `LandingProduct` | Gmail et WhatsApp, en rangées image/texte alternées                                                                                   |
+| 5   | `LandingAi`      | Démo de l'agent : garanties de grounding + brouillon à valider (l'eyebrow affiche « Vitreen Agent », nom de tier périmé — à renommer) |
+| 6   | `LandingSystem`  | Une source → toutes les sorties (socle discret)                                                                                       |
+| 7   | `LandingOffers`  | ⚠️ Échelle Send / Agent (**périmée**, voir note ci-dessous)                                                                           |
+| 8   | `LandingMethod`  | Audit / Connexion / Configuration / Amélioration                                                                                      |
+| 9   | `LandingFaq`     | Objections : Artlogic, migration, envoi auto, site                                                                                    |
+| 10  | `LandingCta`     | CTA final + footer léger                                                                                                              |
 
 Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
 
@@ -196,10 +221,12 @@ Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
 - `LandingAi` doit rester **visuellement plus sobre** que les sections
   Gmail/WhatsApp : c'est la démonstration de l'Agent, pas une vitrine de plus.
   Pas d'ombre, pas de couleur.
-- `LandingOffers` = **deux barreaux d'une échelle**, mêmes dimensions, Send en
-  carte blanche bordée et Agent en carte pleine avec le badge « Recommandé ».
-  Site et Coaching passent dessous en services discrets. Jamais quatre cartes
-  égales — ce motif recrée le look SaaS que le recentrage cherche à quitter.
+- `LandingOffers` implémente encore l'échelle Send (450 €/mois) / Agent
+  (950 €/mois) — **cette structure est périmée** depuis le pivot vers Vitreen
+  Partner (playbook §5). Le code n'a pas encore été mis à jour ; ne pas s'y
+  fier comme référence de pricing, et ne pas la recopier ailleurs. Prochaine
+  session de code sur la landing : refaire cette section en une seule offre
+  Partner (voir playbook §5 et §6).
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
@@ -273,7 +300,7 @@ absent de ce workspace.
   d'accueil (« Inbox »).
 
 **Chantier ouvert, non démarré** — spécifié en détail dans `vitreen-playbook.md`
-§9 (phases, garde-fous, definition of done) : nav réduite à Inbox / Artworks /
+§15 (phases, garde-fous, definition of done) : nav réduite à Inbox / Artworks /
 Connections / Settings, modules publisher et viewing rooms masqués par feature
 flags (**jamais de fork, rien de supprimé**), onboarding inversé avec aha en J1,
 métriques d'usage.
@@ -286,21 +313,22 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 
 ## 11. Roadmap
 
-| Brique                                                | Statut                      |
-| ----------------------------------------------------- | --------------------------- |
-| Add-in Gmail                                          | ✅ Fonctionnel              |
-| WhatsApp Business                                     | ✅ Fonctionnel              |
-| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                     |
-| Sélections privées + export PDF                       | ✅ Existant                 |
-| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                 |
-| Inbox comme écran d'accueil                           | 🔴 Phase 1                  |
-| Masquage des modules par feature flags                | 🔴 Phase 1                  |
-| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                  |
-| WhatsApp Business self-service                        | 🔴 Phase 2                  |
-| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                  |
-| Site connecté                                         | 🟡 Extension, vendue à part |
-| Coaching IA                                           | 🟡 Extension, vendue à part |
-| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais            |
+| Brique                                                | Statut                                        |
+| ----------------------------------------------------- | --------------------------------------------- |
+| Add-in Gmail                                          | ✅ Fonctionnel                                |
+| WhatsApp Business                                     | ✅ Fonctionnel                                |
+| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                                       |
+| Sélections privées + export PDF                       | ✅ Existant                                   |
+| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                                   |
+| Inbox comme écran d'accueil                           | 🔴 Phase 1                                    |
+| Masquage des modules par feature flags                | 🔴 Phase 1                                    |
+| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                                    |
+| WhatsApp Business self-service                        | 🔴 Phase 2                                    |
+| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                    |
+| Landing recentrée sur l'offre Vitreen Partner         | 🔴 À faire (code périmé, voir §5)             |
+| Site connecté                                         | 🟠 Statut à trancher (playbook §13)           |
+| Coaching IA autonome                                  | ⛔ Redondant avec Partner (formation incluse) |
+| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                              |
 
 ---
 
@@ -323,4 +351,7 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter l'API contact (`/api/contact`)
 - [ ] Trancher le sort des anciennes pages (`/pricing`, `/about`, `/products/*`)
-- [ ] Valider définitivement les montants du SKU Conversations
+- [ ] Valider définitivement les montants de l'offre Vitreen Partner
+- [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Partner (le code
+      montre encore l'ancienne échelle Send/Agent, périmée)
+- [ ] Trancher le sort de l'extension Site connecté (playbook §13)

@@ -8,9 +8,10 @@ Read it at the beginning of every Claude, ChatGPT or Codex session before making
 product, UX, copywriting or implementation decisions.
 
 It replaces the previous "Gallery OS" playbook. If you find older material
-describing Vitreen as a Gallery OS, a four-pillar platform, or a
-website-and-dashboard delivery service, that material is obsolete — this
-document overrides it.
+describing Vitreen as a Gallery OS, a four-pillar platform, a
+website-and-dashboard delivery service, or a self-serve SaaS ladder (Vitreen
+Send / Vitreen Agent priced as separate monthly tiers), that material is
+obsolete — this document overrides it.
 
 ---
 
@@ -47,17 +48,40 @@ is the whole strategy:
 
 ---
 
-# 2. Positioning
+# 2. What Vitreen is — a founder-led productized service
 
-## Main positioning
+**Status: current positioning, decided 2026-08.** This section supersedes any
+earlier framing of Vitreen as a self-serve SaaS with priced tiers.
 
-> Vitreen connects AI agents to a gallery's artwork inventory and turns existing
-> data into collector-ready emails, selections and PDFs, inside Gmail and
-> WhatsApp.
+## What it is not
 
-Brand line (currently on the site):
+- A low-cost SaaS competing head-on with Artlogic or Arternal.
+- A generalist digital agency.
+- Abstract AI consulting.
+- A fully custom forward-deployed-engineering shop, rebuilding software per
+  client.
+- A different piece of software for every gallery.
+
+## What it is
+
+> An AI-assisted commercial system, installed personally with each gallery,
+> from a shared product base.
+
+Every gallery gets the same underlying system. What is personal is the
+installation — a solo founder sitting with the gallery, structuring their
+inventory, configuring their Gmail and WhatsApp, training their team. What is
+shared is the product underneath. Neither half works without the other: pure
+software without the personal install is another SaaS a gallery won't trust
+with their collector relationships; pure service without the shared product
+is an agency, and agencies don't scale to one founder.
+
+## Promise
 
 > **Give your gallery superpowers.**
+> We turn your artwork inventory into a practical sales system for Gmail and
+> WhatsApp — with AI-assisted replies, selections and PDFs built around the
+> way your team works.
+> Built personally with each gallery. Powered by a shared Vitreen system.
 
 ## Relationship to Artlogic and other incumbents
 
@@ -74,18 +98,24 @@ Artlogic exports", never "Artlogic integration". A complementarity claim that
 collapses on the first technical question in a demo destroys more trust than it
 creates.
 
+The personal installation is also what keeps Vitreen out of a price war it
+cannot win: a gallery does not compare an hour spent with the founder to a
+self-serve SaaS line item. Comparing Vitreen to Artlogic on price is the wrong
+comparison, and the offer should never invite it.
+
 ## Preferred language
 
 Use:
 
-- AI agents for gallery sales
+- founder-led, installed personally with your gallery
+- AI-assisted sales system
 - your artwork inventory, connected
 - collector-ready emails, selections and PDFs
 - inside Gmail and WhatsApp
 - grounded in your records
 - prepared by AI, sent by your team
 - works alongside Artlogic
-- the commercial layer of the gallery
+- built personally, powered by a shared system
 
 Avoid:
 
@@ -96,12 +126,14 @@ Avoid:
 - AI-powered everything, autopilot, autonomous outreach
 - marketplace, CRM replacement
 - "Artlogic alternative" as the primary framing
+- "SaaS", "plan", "tier" as the language of the offer (see §5 — it is one
+  engagement, not a subscription ladder)
 
 ---
 
 # 3. The three visible surfaces
 
-What a customer sees, uses, and pays for is exactly three things:
+What a gallery sees and uses, once installed, is exactly three things:
 
 ### 1. The Gmail add-in
 
@@ -141,7 +173,7 @@ functional, unnamed.
 ## Hidden by default
 
 Website publisher, viewing rooms, exhibition modules: hidden behind feature
-flags. Enabled for existing clients and for the Connected Website extension.
+flags. Enabled only where the installation calls for them.
 
 **Nothing is deleted. Nothing is forked.** Modules are hidden by configuration —
 one shared codebase, always. A separate "agent-only" build would be a
@@ -164,78 +196,83 @@ failed.
 
 ---
 
-# 5. Offer & packaging — one ladder, two rungs
+# 5. The offer — Vitreen Partner
 
-The offer is a **vertical ladder**, not a catalogue. Same product, same
-inventory, two levels of help. This is what keeps it undilutable: a ladder
-cannot spread sideways the way a list of bricks can.
+**Status: current pricing doctrine, decided 2026-08.** This replaces the earlier
+Send / Agent ladder (€450 and €950 per month as separate SaaS-style tiers).
+There is now **one engagement**, not a choice between products.
 
-```text
-Inventory → Conversation.
-Send: you write, faster.    Agent: it writes, you approve.
-```
+## Vitreen Partner — a six-month installation
 
-## Rung 1 — Vitreen Send · €450/month
+One offer. Everything is included from day one — there is no "which tier"
+question in a sales call:
 
-> Your artworks, ready to send from Gmail and WhatsApp.
+- structuring the artwork inventory
+- installing Vitreen
+- configuring Gmail and WhatsApp
+- building the gallery's own email, selection and PDF formats
+- training the team
+- adjusting the system against real collector requests as they come in
+- a monthly working session
+- defined support
+- continuous improvement, inside a standardized scope (see §10)
 
-- Gmail and WhatsApp add-ins
-- Natural-language search across the inventory
-- Private selections and PDF export
-- Artwork data connected (Artlogic exports, spreadsheets, existing database)
+## Reference pricing
 
-## Rung 2 — Vitreen Agent · €950/month
+> From €950/month for 6 months, then software and support from €250/month.
 
-> The reply is already drafted when you open the email.
+> These figures are the current reference. They still need final business
+> validation — treat them as the working numbers, not as settled.
 
-Everything in Send, plus:
+Read the shape of this, not just the total: the first six months fund the
+personal installation work; what remains afterward is a much lighter software
+and support fee. The price should visibly step down once the founder's
+hands-on time drops — a gallery paying €950/month in month eight, with nothing
+being actively installed, is being overcharged, and pricing that behaves that
+way will eventually break trust.
 
-- Collector replies drafted from the incoming email
-- Alternatives proposed when a work is sold
-- Price-on-request discretion handled automatically
-- Answers in the collector's language
-- Nothing sends without a human click
+## Why one engagement, not a ladder
 
-**Both include a €4,500 one-time onboarding** — structuring the inventory. It is
-the same work either way, and it is mandatory: the add-ins are only as precise
-as the records behind them. 12-month partnership, hosting and support included.
-
-> These figures are what the marketing site shows today. They still need a final
-> business validation — treat them as the current public numbers, not as a
-> settled decision.
-
-## Why Send must not look crippled
-
-In 2026, a tier advertised as "the one without AI" reads as the crippled
-version, and everyone waits for the other. So **both rungs carry AI** —
-natural-language search and generated material are in Send. The gap is not
-intelligence versus none; it is:
-
-> "It helps me" versus "it works for me."
-
-Never describe Send as the manual, basic or limited plan.
-
-## Services, below the ladder
-
-Sold separately, listed small, never given a card that competes with the rungs:
-
-- **Connected Website** — a site built on the same inventory, for galleries that
-  need one. Fixed scope, quoted after a first conversation. Always paired with
-  the de-escalation line: "Already have a site? Vitreen works alongside it."
-- **AI Coaching** — hands-on sessions bringing AI into daily gallery work. From
-  €400 per session. Its credibility comes from the product: _taught by the team
-  that builds AI for galleries_. Not generic consulting, and it must never
-  develop an autonomous "AI transformation" discourse — that would cannibalise
-  the brand.
-
-## Hierarchy rule
-
-Two rungs, then services. Never four equal cards, never a grid that lets the
-website or coaching sit at the same weight as the ladder.
+A ladder invites the question "which tier should I get" — exactly the SaaS
+shopping behaviour Vitreen exists to avoid. One engagement, one price, one
+conversation: the gallery is deciding whether to work with Vitreen, not which
+plan to pick.
 
 ---
 
-# 5b. AI positioning
+# 6. Economics of the solo-founder model
+
+This is the reasoning behind §5, kept explicit because every future pricing or
+scoping decision should be checked against it.
+
+**The service funds the product.** The six-month engagement price covers the
+founder's real installation time. Without it, the product alone (at a SaaS
+price) would not cover the hours a gallery actually needs to get set up.
+
+**The product prevents Vitreen from becoming an agency.** Every gallery
+installs the same underlying system. The founder's time goes into
+configuration, not into building bespoke software per client. Without this, six
+months of hands-on work per gallery would just be freelance dev work with
+extra steps.
+
+**Personal accompaniment avoids direct comparison with Artlogic.** A relationship
+with a founder is not a line item next to a competitor's monthly price. Pure
+software pricing invites that comparison; installed, personal, hands-on work
+does not.
+
+**Standardized scope protects the founder's time.** See §10. Without a firm
+boundary on what gets customized, "personal installation" quietly turns into
+unlimited bespoke consulting, and a solo founder cannot serve more than one or
+two galleries that way.
+
+Every one of these four points is load-bearing. Weaken one (drop the
+installation price to compete on SaaS terms, customize past the boundary for a
+demanding client, let the product diverge per client) and the other three stop
+holding.
+
+---
+
+# 6b. AI positioning
 
 > **Vitreen builds AI agents for art sales — grounded in the gallery's own
 > inventory, working inside Gmail and WhatsApp, and never sending anything on
@@ -258,22 +295,28 @@ voice with its collectors.
 
 ---
 
-# 6. Onboarding — inverted
+# 7. The six-month arc
 
-The old onboarding said "we build your system". The new one delivers the agent.
+What "installed personally" means in practice, in order:
 
-1. **Connect the inventory** — CSV, Excel, Artlogic export, or build the base.
-2. **Install the Gmail add-in.**
-3. **Connect WhatsApp Business.**
-4. **First draft generated on a real email.**
+1. **Connect the inventory** — CSV, Excel, Artlogic export, or build the base
+   from scratch. This is the first month of the engagement, not a
+   self-service step a gallery does alone.
+2. **Install the Gmail add-in and connect WhatsApp Business.**
+3. **Build the gallery's own formats** — email templates, selection layouts,
+   PDF formats, tone.
+4. **Train the team.**
+5. **First draft generated on a real, live collector email.** This is the aha
+   moment. It should land early in the engagement, not at the end.
+6. **Adjust against real requests** as they come in, through the monthly
+   working session, for the rest of the six months.
 
-Step 4 is the aha moment. It must happen on **day one**, not in week three.
-
-The database appears only as step 1 of a setup. It is never a destination.
+The database and the formats exist to make step 5 possible. They are never the
+deliverable a gallery is shown as the finish line.
 
 ---
 
-# 7. The Sales Agent — what actually runs
+# 8. The Sales Agent — what actually runs
 
 Built and working (`gallery-OS/dashboard/src/lib/sales-agent/`):
 
@@ -294,7 +337,7 @@ pages cannot show anything.
 
 ---
 
-# 8. Claims discipline
+# 9. Claims discipline
 
 Non-negotiable:
 
@@ -313,97 +356,35 @@ Non-negotiable:
 
 ---
 
-# 9. Open workstream — turning the dashboard into the engine room
+# 10. The customization boundary
 
-**Status: planned, not started.** The marketing site already tells the new
-story; the product does not yet. Until this workstream ships, a prospect who
-sees a demo still meets "Gallery OS". Closing that gap is the priority.
+This is what "standardized scope" (§6) means concretely. It replaces any
+earlier vague "20% of delivery time" rule with a direct list.
 
-**Where:** `gallery-OS/dashboard/` — a separate repository, not present in the
-marketing workspace. This work must be done in a session opened on that repo.
+## You customize
 
-## Guardrails (apply to every phase)
+- imports (whatever spreadsheet, export or database a gallery already has)
+- the commercial fields that matter to that gallery
+- templates (email, selection, PDF)
+- tone
+- visibility rules (what a collector sees, what stays internal)
+- Gmail and WhatsApp workflows
 
-- **Never fork.** No "agent-only" build, no per-client branch. Everything is
-  feature flags and configuration on one shared codebase. A fork would be a
-  maintenance disaster and is forbidden.
-- **Delete nothing.** Modules are hidden, not removed. Existing clients keep
-  what they have; the Connected Website extension re-enables the publisher.
-- **No schema change in phase 1.** If a task seems to require one, it belongs to
-  phase 2.
-- Keep the human validation step visible everywhere the agent appears.
+## You do not customize
 
-## Phase 1 — configuration (days)
+- the core architecture
+- the product as a whole
+- the roadmap, for a single client
+- tools unrelated to the inventory and to sales conversations
 
-1. **Inbox as home screen.** The drafts queue (`/dashboard/sales-drafts`)
-   becomes the landing route after login, renamed Inbox (or Drafts).
-2. **Reduce the navigation** to four entries: Inbox, Artworks, Connections,
-   Settings. Artworks is presented as "your data", never as an inventory
-   product.
-3. **Hide behind flags:** website publisher, viewing rooms, exhibition modules.
-   Default off for new clients, on for existing ones and for the Connected
-   Website extension.
-4. **Retire the name.** "Gallery OS" disappears from the dashboard, the add-ins,
-   the docs and the onboarding emails. (Already done on the marketing site — the
-   Gmail widget displays "Vitreen"; note the function is still named
-   `GalleryOsSearchWidget` in `components/shared/ArtworkAddInMocks.tsx` and
-   should be renamed on the next pass.)
-
-Definition of done: a new client logging in sees a queue of drafts to review and
-nothing that looks like an operating system.
-
-## Phase 2 — product
-
-1. **Invert the onboarding:** connect the inventory (CSV, Excel, Artlogic
-   export) → install the Gmail add-in → connect WhatsApp Business → **first
-   draft generated on a real email**. That last step is the aha moment and must
-   land on day one, not in week three. A `ConnectInventoryMockup` already exists
-   on the marketing side as a visual reference for step 1.
-2. **Self-service WhatsApp Business connection**, so onboarding no longer
-   depends on us.
-3. **Usage metrics:** drafts generated, drafts validated, artworks shared,
-   time-to-first-reply. These are the product's health signals _and_ the ARR
-   narrative for any future acquisition conversation — instrument them early.
-4. **Rework the home screen** so it answers "how many conversations did the
-   agent prepare this week?" rather than "how many artworks are in my base?".
-
-## Phase 3 — offer
-
-Migrate the commercial discourse and the pilot clients onto the single SKU. The
-publisher is only ever sold as an extension from that point on. Retire or
-recentre the remaining marketing pages still written in the old frame
-(`/pricing`, `/about`, `/products/*`, `/solutions/*`).
+If a client's request falls in the second list, that is a signal to say no, not
+a signal to scope a special build. **One shared codebase, no per-client forks,
+ever.** A request outside the boundary is a sign to decline the client, not to
+expand the boundary.
 
 ---
 
-# 10. Target customer
-
-Small contemporary galleries.
-
-They have limited technical capacity, fragmented artwork information, strong
-sensitivity to image and wording, small teams, and little time for software
-setup.
-
-They do not want a database. They want to answer a collector faster, with the
-right work, the right price and material that looks like their gallery.
-
-Speak gallery, not software.
-
----
-
-# 11. Delivery discipline
-
-- **One shared codebase. No per-client forks, ever.** Differences are
-  configuration, not code.
-- Customization budget: max 20% of delivery time per gallery (theme, visible
-  fields, PDF formats). Core schema, agent grounding logic and relationships are
-  never customized.
-- If a client's custom demands exceed the budget, that is a signal to refuse the
-  client, not to work more.
-
----
-
-# 12. Design principles
+# 11. Design principles
 
 1. **Simple before powerful.** The interface must feel simple to a
    non-technical gallery user.
@@ -421,14 +402,17 @@ Speak gallery, not software.
 
 ---
 
-# 13. Copywriting rules
+# 12. Copywriting rules
 
-Tone: clear, concrete, gallery-native. No abstract SaaS language.
+Tone: clear, concrete, gallery-native. No abstract SaaS language — Vitreen is
+not sold like a SaaS (see §2), so it should not read like one either.
 
 Good:
 
 - Give your gallery superpowers.
-- Connect AI agents to your artwork inventory.
+- We turn your artwork inventory into a practical sales system for Gmail and
+  WhatsApp.
+- Built personally with each gallery. Powered by a shared Vitreen system.
 - Prepare the reply without leaving the email.
 - Turn a message into a presentation.
 - Grounded in your records. Sent by your team.
@@ -440,12 +424,13 @@ Avoid:
 - AI-powered platform, next-generation CMS, all-in-one solution
 - seamless end-to-end anything
 - any headline whose subject is the database
+- "plan", "tier", "subscribe" — this is an engagement, not a subscription pick
 
 Headline logic: concrete over visionary.
 
 ---
 
-# 14. Product boundaries
+# 13. Product boundaries
 
 ## Vitreen does
 
@@ -454,24 +439,34 @@ Headline logic: concrete over visionary.
 - deliver inside Gmail and WhatsApp
 - prepare collector replies, private selections and PDFs
 - keep a human validation step on everything that reaches a collector
-- sell a connected website and AI coaching as separate extensions
+- install personally with each gallery, on a shared product base
 
 ## Vitreen does not
 
 - present itself as an operating system, platform or suite
 - sell the dashboard as a product
 - become a CRM, a marketplace, an accounting system or a website builder
+- become a generalist digital agency or an abstract AI consultancy
 - send anything to a collector without an explicit human click
 - fork the codebase per client or per offer
+- customize the roadmap for a single client
 - launch standalone self-serve products beside the main offer
 - claim sales impact before it is measured
 
 Frozen until an explicit strategic decision: autopilot (never), standalone
 self-serve viewing room studio, assistant capabilities beyond sales drafts.
 
+**Open question, not yet decided:** the previous packaging carried a Connected
+Website extension and standalone AI Coaching sessions alongside the Send/Agent
+ladder. Vitreen Partner now includes team training directly, which makes
+standalone coaching sessions redundant with the core offer. Whether Connected
+Website survives as a separate, quoted-after-conversation add-on — or folds
+into "what you customize" — has not been decided. Do not silently resurrect
+either as a priced item until this is settled.
+
 ---
 
-# 15. Where things live
+# 14. Where things live
 
 - **Marketing site** — this repository (`Vitreen`). Next.js App Router, EN at
   `app/(en)`, FR at `app/(fr)/fr`, landing components in `components/landing/`.
@@ -482,18 +477,97 @@ self-serve viewing room studio, assistant capabilities beyond sales drafts.
 Work on the product (navigation flags, renaming, onboarding) must be done in a
 session opened on that repository.
 
+**Known gap (2026-08):** the marketing site's pricing section still implements
+the retired Send/Agent ladder (`components/landing/LandingOffers.tsx` and its
+French twin), not the Vitreen Partner offer in this document. The doctrine has
+moved; the landing has not yet been rebuilt to match. Do not treat the current
+landing pricing UI as authoritative — this document is.
+
 ---
 
-# 16. Session checklist
+# 15. Open workstream — turning the dashboard into the engine room
+
+**Status: planned, not started.** The marketing site is mid-transition (see
+§14); the product has not moved at all yet. Until this workstream ships, a
+prospect who sees a demo still meets "Gallery OS". Closing that gap is the
+priority.
+
+**Where:** `gallery-OS/dashboard/` — a separate repository, not present in the
+marketing workspace. This work must be done in a session opened on that repo.
+
+## Guardrails (apply to every phase)
+
+- **Never fork.** No "agent-only" build, no per-client branch. Everything is
+  feature flags and configuration on one shared codebase.
+- **Delete nothing.** Modules are hidden, not removed.
+- **No schema change in phase 1.** If a task seems to require one, it belongs to
+  phase 2.
+- Keep the human validation step visible everywhere the agent appears.
+
+## Phase 1 — configuration (days)
+
+1. **Inbox as home screen.** The drafts queue (`/dashboard/sales-drafts`)
+   becomes the landing route after login, renamed Inbox (or Drafts).
+2. **Reduce the navigation** to four entries: Inbox, Artworks, Connections,
+   Settings. Artworks is presented as "your data", never as an inventory
+   product.
+3. **Hide behind flags:** website publisher, viewing rooms, exhibition modules.
+   Default off; enabled per installation where it fits.
+4. **Retire the name.** "Gallery OS" disappears from the dashboard, the add-ins,
+   the docs and the onboarding emails. (Already done on the marketing site — the
+   Gmail widget displays "Vitreen"; note the function is still named
+   `GalleryOsSearchWidget` in `components/shared/ArtworkAddInMocks.tsx` and
+   should be renamed on the next pass.)
+
+Definition of done: a new client logging in sees a queue of drafts to review and
+nothing that looks like an operating system.
+
+## Phase 2 — product
+
+1. **Support the six-month arc (§7)** in-product: a visible path from inventory
+   connection through formats and training to the first live draft.
+2. **Usage metrics:** drafts generated, drafts validated, artworks shared,
+   time-to-first-reply. These are the product's health signals _and_ the
+   evidence a founder needs in the monthly working session — instrument them
+   early.
+3. **Rework the home screen** so it answers "how many conversations did the
+   agent prepare this week?" rather than "how many artworks are in my base?".
+
+## Phase 3 — offer
+
+Migrate the commercial discourse and the pilot clients onto Vitreen Partner
+pricing (§5). Retire or recentre the remaining marketing pages still written in
+the old frame (`/pricing`, `/about`, `/products/*`, `/solutions/*`).
+
+---
+
+# 16. Target customer
+
+Small contemporary galleries.
+
+They have limited technical capacity, fragmented artwork information, strong
+sensitivity to image and wording, small teams, and little time for software
+setup.
+
+They do not want a database. They want to answer a collector faster, with the
+right work, the right price and material that looks like their gallery. Many
+would also rather have someone install this with them than configure it
+themselves — that is precisely what the founder-led model sells.
+
+Speak gallery, not software.
+
+---
+
+# 17. Session checklist
 
 1. Does this strengthen the agent, or does it re-expose the dashboard?
 2. Does it happen inside Gmail, WhatsApp or the drafts inbox?
 3. Is it grounded in the gallery's own records?
 4. Does the human validation step remain visible and mandatory?
 5. Does it keep the artwork base as infrastructure, not as a promise?
-6. Is it one codebase, one SKU, configuration over forks?
-7. Are the extensions still visibly subordinate?
-8. Are we avoiding SaaS language and the word "Gallery OS"?
+6. Is it one codebase, one engagement, configuration over forks?
+7. Does it stay inside the customization boundary (§10)?
+8. Are we avoiding SaaS language ("plan", "tier") and the word "Gallery OS"?
 9. Can we demonstrate this claim live today?
 
 If any answer is unclear, stop and clarify the product logic before designing or
@@ -501,8 +575,9 @@ coding.
 
 ---
 
-# 17. North Star
+# 18. North Star
 
-> A small gallery connects its artwork inventory once, then answers every
-> collector from Gmail or WhatsApp with the right work, the right price and
-> material that looks like the gallery — prepared by an agent, sent by a person.
+> A small gallery is installed once, personally, onto a shared Vitreen system —
+> then answers every collector from Gmail or WhatsApp with the right work, the
+> right price and material that looks like the gallery, prepared by an agent
+> and sent by a person.
