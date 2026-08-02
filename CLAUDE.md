@@ -64,12 +64,18 @@ formats email/sélections/PDF, formation de l'équipe, ajustements sur des
 demandes réelles, réunion mensuelle, support défini, amélioration continue dans
 un périmètre standardisé.
 
-> À partir de 950 €/mois pendant 6 mois, puis logiciel et support à partir de
-> 250 €/mois.
+> À partir de 950 €/mois pendant 6 mois, puis logiciel et partenariat continué
+> à partir de 250 €/mois.
 
 Chiffres actuels, validation business encore à faire. Le prix doit visiblement
 baisser une fois l'installation terminée — une galerie qui paie encore 950 €
 en mois 8 sans rien d'actif en cours d'installation est surfacturée.
+
+**Après le mois 6, la relation continue** (décidé 2026-08) : la session de
+travail mensuelle se poursuit à rythme réduit, les 250 € couvrent le logiciel
+et cet accompagnement allégé. Conséquence à assumer : chaque galerie installée
+consomme du temps fondateur **en permanence**, donc plafonne le nombre total de
+galeries servables (voir playbook §6).
 
 **Principe économique** (à ne jamais perdre de vue) : le service finance le
 produit · le produit empêche Vitreen de devenir une agence · l'accompagnement
@@ -83,6 +89,20 @@ Jamais personnalisable : l'architecture centrale, le produit entier, la
 roadmap pour un seul client, des outils sans rapport avec l'inventaire et les
 conversations commerciales. Une demande hors périmètre est un signal pour
 refuser le client, pas pour l'accepter.
+
+**Budget temps** : la session mensuelle **est** le budget de personnalisation.
+Ce qui tient dedans est dans le périmètre ; ce qui déborde est hors périmètre
+ou devient un nouveau cycle — jamais un dépassement non facturé.
+
+**Vocabulaire du récurrent** : dire le prix mensuel est normal. Ce qui est
+interdit, c'est le vocabulaire d'achat SaaS — pas de « plan », « tier »,
+« s'abonner », pas de tableau comparatif à colonnes. Acceptable : « mensuel »,
+« partenariat continué », « logiciel et support ».
+
+**Plafond de capacité — inconnu, à mesurer.** Combien de galeries en parallèle ?
+Personne ne le sait encore, et c'est le chiffre qui décide si Vitreen est une
+entreprise ou un emploi. Logger les jours réels passés sur la première galerie
+(installation vs partenariat continué), puis appliquer la formule du playbook §6.
 
 **Statut à trancher** : l'ancienne offre portait Site connecté et Coaching IA
 en extensions séparées. Partner inclut désormais la formation d'équipe, ce qui
@@ -119,7 +139,7 @@ Ancienne source Notion _Idées à developper_ (`33f0b73f1fb780ee9f7be92f1e430f79
 
 **Éviter**
 
-- **« Gallery OS »** (retiré du discours — voir playbook §4)
+- **« Gallery OS »** (retiré du discours — voir playbook §12)
 - « plateforme tout-en-un », « operating system », « suite »
 - « CMS », « site web pour galeries », « logiciel d'inventaire »
 - la base de données en promesse principale
@@ -300,7 +320,7 @@ absent de ce workspace.
   d'accueil (« Inbox »).
 
 **Chantier ouvert, non démarré** — spécifié en détail dans `vitreen-playbook.md`
-§15 (phases, garde-fous, definition of done) : nav réduite à Inbox / Artworks /
+§17 (phases, garde-fous, definition of done) : nav réduite à Inbox / Artworks /
 Connections / Settings, modules publisher et viewing rooms masqués par feature
 flags (**jamais de fork, rien de supprimé**), onboarding inversé avec aha en J1,
 métriques d'usage.
@@ -326,7 +346,7 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 | WhatsApp Business self-service                        | 🔴 Phase 2                                    |
 | Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                    |
 | Landing recentrée sur l'offre Vitreen Partner         | 🔴 À faire (code périmé, voir §5)             |
-| Site connecté                                         | 🟠 Statut à trancher (playbook §13)           |
+| Site connecté                                         | 🟠 Statut à trancher (playbook §15)           |
 | Coaching IA autonome                                  | ⛔ Redondant avec Partner (formation incluse) |
 | Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                              |
 
@@ -354,4 +374,5 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Valider définitivement les montants de l'offre Vitreen Partner
 - [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Partner (le code
       montre encore l'ancienne échelle Send/Agent, périmée)
-- [ ] Trancher le sort de l'extension Site connecté (playbook §13)
+- [ ] Trancher le sort de l'extension Site connecté (playbook §15)
+- [ ] Mesurer le plafond de capacité sur la première galerie (playbook §6)
