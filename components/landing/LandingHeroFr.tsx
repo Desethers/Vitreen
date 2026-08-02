@@ -17,13 +17,13 @@ export default function LandingHeroFr() {
             className="hero-fade-up m-0 max-w-xl text-balance leading-[inherit] tracking-[-0.04em] font-display"
             style={{ color: "#111110" }}
           >
-            Nous construisons de meilleurs outils pour vendre en galerie.
+            Donnez des superpouvoirs à votre galerie.
           </h1>
 
           <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-lg leading-[inherit] tracking-[-0.02em] text-[#6B6A67]">
-            Vitreen connecte vos données d’œuvres à Gmail et WhatsApp — avec une IA qui connaît
-            votre inventaire et prépare réponses, sélections et PDF en secondes. Validés par vous,
-            toujours.
+            Connectez des agents IA à votre inventaire d’œuvres et transformez vos données
+            existantes en emails, sélections et PDF prêts pour vos collectionneurs, dans Gmail et
+            WhatsApp.
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center gap-3 md:mt-[22px]">
