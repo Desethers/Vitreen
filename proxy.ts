@@ -19,6 +19,14 @@ function toFrench(request: NextRequest) {
 }
 
 export function proxy(request: NextRequest) {
+  /* Geo/cookie redirect is a production-only concern (it relies on Vercel's
+   * x-vercel-ip-country header, which is absent locally). In dev it only
+   * causes confusion: whichever URL you type stays stuck once a stray
+   * vitreen-lang cookie is set, since every "/" request bounces to "/fr". */
+  if (process.env.NODE_ENV !== "production") {
+    return NextResponse.next();
+  }
+
   const { pathname } = request.nextUrl;
 
   const isFrenchPath = pathname === "/fr" || pathname.startsWith("/fr/");

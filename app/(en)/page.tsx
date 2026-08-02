@@ -1,47 +1,39 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import HeroDashboardMock from "@/components/HeroDashboardMock";
-import ProcessFlow from "@/components/ProcessFlow";
-import SignatureDemo from "@/components/SignatureDemo";
-import QuoteSection from "@/components/QuoteSection";
-import StatementSplit from "@/components/StatementSplit";
-import Services from "@/components/Services";
-import PricingBand from "@/components/PricingBand";
-import Faq from "@/components/Faq";
-import CtaBand from "@/components/CtaBand";
-import Footer from "@/components/Footer";
+import LandingNav from "@/components/landing/LandingNav";
+import LandingHero from "@/components/landing/LandingHero";
+import LandingProblem from "@/components/landing/LandingProblem";
+import LandingProduct from "@/components/landing/LandingProduct";
+import LandingSystem from "@/components/landing/LandingSystem";
+import LandingOffers from "@/components/landing/LandingOffers";
+import LandingMethod from "@/components/landing/LandingMethod";
+import LandingCta from "@/components/landing/LandingCta";
 
 import { alternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: { absolute: "Vitreen — Gallery OS for contemporary art galleries" },
+  title: { absolute: "Vitreen — Sales tools for contemporary galleries" },
   description:
-    "Organise artworks, publish your gallery website and share private collector presentations from one set of artwork records.",
+    "Vitreen connects your artwork data to Gmail and WhatsApp, so your team can find works, prepare presentations and respond to collectors without leaving the conversation.",
   alternates: alternates("en", "/"),
   openGraph: {
     url: "/",
-    title: "Vitreen — Gallery OS for contemporary art galleries",
+    title: "Vitreen — Sales tools for contemporary galleries",
     description:
-      "Organise artworks, publish your gallery website and share private collector presentations from one set of artwork records.",
+      "Vitreen connects your artwork data to Gmail and WhatsApp, so your team can find works, prepare presentations and respond to collectors without leaving the conversation.",
   },
 };
 
 export default function Home() {
   return (
-    <main className="relative">
-      <Nav />
-      <Hero />
-      <HeroDashboardMock />
-      <ProcessFlow />
-      <Services />
-      <SignatureDemo />
-      <QuoteSection />
-      <PricingBand />
-      <Faq />
-      <StatementSplit />
-      <CtaBand />
-      <Footer />
+    <main className="relative bg-white">
+      <LandingNav />
+      <LandingHero />
+      <LandingProblem />
+      <LandingProduct />
+      <LandingSystem />
+      <LandingOffers />
+      <LandingMethod />
+      <LandingCta />
     </main>
   );
 }
