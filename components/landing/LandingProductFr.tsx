@@ -12,38 +12,37 @@ import {
 } from "@/components/landing/styles";
 
 const GMAIL_FLOW = [
-  { step: "Search", text: "Find works by artist, title, year, availability or price." },
-  { step: "Select", text: "Choose the works and information appropriate for the collector." },
-  { step: "Insert", text: "Add artwork cards, a private link or a PDF to the email." },
+  {
+    step: "Rechercher",
+    text: "Retrouvez les œuvres par artiste, titre, année, disponibilité ou prix.",
+  },
+  {
+    step: "Sélectionner",
+    text: "Choisissez les œuvres et les informations adaptées au collectionneur.",
+  },
+  { step: "Insérer", text: "Ajoutez des fiches d’œuvres, un lien privé ou un PDF à l’email." },
 ];
 
 const WHATSAPP_QUERIES = [
-  "Available works by Marina Perez under €20,000",
-  "Create a selection with these four works",
-  "Prepare a PDF without visible prices",
+  "Œuvres disponibles de Marina Perez à moins de 20 000 €",
+  "Créer une sélection avec ces quatre œuvres",
+  "Préparer un PDF sans les prix visibles",
 ];
 
-/**
- * Two alternating image+text rows — the real Gmail and WhatsApp mockups
- * from ArtworkAddInMocks, not a numbered list. Row 1 puts the mockup on the
- * right, row 2 flips it to the left, so the section reads as a demonstration
- * rather than a stacked description.
- */
-export default function LandingProduct() {
+export default function LandingProductFr() {
   return (
     <div id="product">
-      {/* Gmail add-in */}
+      {/* Add-in Gmail */}
       <section className={`${SECTION} border-t border-[#E8E8E6] bg-white`}>
         <div className={CONTAINER}>
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
             <div>
-              <p className={EYEBROW}>Vitreen for Gmail</p>
-              <h2 className={`${H2} mt-4 max-w-md`}>
-                Prepare the reply without leaving the email.
-              </h2>
+              <p className={EYEBROW}>Vitreen pour Gmail</p>
+              <h2 className={`${H2} mt-4 max-w-md`}>Préparez la réponse sans quitter l’email.</h2>
               <p className={`${H2_SUB} max-w-md`}>
-                Search artworks, verify availability and insert images, details, prices, documents
-                or a private selection directly into the message you are writing.
+                Recherchez des œuvres, vérifiez la disponibilité et insérez images, informations,
+                prix, documents ou une sélection privée directement dans le message en cours
+                d’écriture.
               </p>
 
               <ul className="mt-8 flex list-none flex-col gap-5 p-0">
@@ -65,29 +64,38 @@ export default function LandingProduct() {
 
             <div className="relative mx-auto flex w-full max-w-sm items-center justify-center overflow-hidden rounded-[16px] bg-[#F5F5F3] px-6 py-10 md:max-w-none md:px-10 md:py-16">
               <div className="w-full max-w-[280px] rounded-[12px] border border-[#E8E8E6] bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
-                <GalleryOsSearchWidget />
+                <GalleryOsSearchWidget
+                  insertLabel="Insérer une œuvre"
+                  searchLabel="Recherche Vitreen"
+                  searchCta="Chercher"
+                  galleryViewCta="Vue galerie"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* WhatsApp assistant */}
+      {/* Assistant WhatsApp */}
       <section className={`${SECTION} border-t border-[#E8E8E6] bg-[#F5F5F3]`}>
         <div className={CONTAINER}>
           <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
             <div className="order-2 relative mx-auto flex w-full max-w-sm items-center justify-center overflow-hidden rounded-[16px] bg-white px-6 py-10 md:order-1 md:max-w-none md:px-10 md:py-16">
               <div className="w-full max-w-[280px] rounded-[16px] border border-[#E8E8E6] bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
-                <WhatsAppPdfMockup />
+                <WhatsAppPdfMockup
+                  incomingLabel="Constitution de votre sélection..."
+                  readyLabel="Sélection prête · 1 page"
+                />
               </div>
             </div>
 
             <div className="order-1 md:order-2">
-              <p className={EYEBROW}>Vitreen for WhatsApp</p>
-              <h2 className={`${H2} mt-4 max-w-sm`}>Turn a message into a presentation.</h2>
+              <p className={EYEBROW}>Vitreen pour WhatsApp</p>
+              <h2 className={`${H2} mt-4 max-w-sm`}>Transformez un message en présentation.</h2>
               <p className={`${H2_SUB} max-w-sm`}>
-                Find matching works, control what the collector sees and share a clean private link
-                or PDF without downloading images or rebuilding a document.
+                Retrouvez les œuvres correspondantes, contrôlez ce que voit le collectionneur et
+                partagez un lien privé ou un PDF propre, sans télécharger d’images ni refaire un
+                document.
               </p>
 
               <ul className="mt-8 flex list-none flex-col gap-2 p-0">
@@ -96,13 +104,13 @@ export default function LandingProduct() {
                     key={query}
                     className="rounded-[8px] border border-[#DCDCD8] bg-white px-4 py-3 text-[13px] leading-[1.45] tracking-[-0.01em] text-[#111110] md:text-[14px]"
                   >
-                    “{query}”
+                    « {query} »
                   </li>
                 ))}
               </ul>
 
               <p className={`${LINE_INK} mt-8 max-w-md`}>
-                Vitreen prepares the material. Your gallery reviews and sends it.
+                Vitreen prépare le support. Votre galerie vérifie et l’envoie.
               </p>
             </div>
           </div>

@@ -73,13 +73,23 @@ export function ConnectInventoryMockup() {
   );
 }
 
-export function GalleryOsSearchWidget() {
+export function GalleryOsSearchWidget({
+  insertLabel = "Insert an artwork",
+  searchLabel = "Search Vitreen",
+  searchCta = "Search",
+  galleryViewCta = "Gallery view",
+}: {
+  insertLabel?: string;
+  searchLabel?: string;
+  searchCta?: string;
+  galleryViewCta?: string;
+}) {
   return (
     <div className="mx-auto w-full max-w-[266px] overflow-hidden rounded-[8px] border border-[#E8E8E6] bg-white">
-      <div className="bg-[#424242] px-4 py-3 text-[12px] font-semibold text-white">Gallery OS</div>
+      <div className="bg-[#424242] px-4 py-3 text-[12px] font-semibold text-white">Vitreen</div>
       <div className="space-y-1 px-4 pt-4">
-        <p className="text-[12px] text-[#111110]">Insérer une œuvre</p>
-        <p className="text-[12px] text-[#6B6A67]">Recherche dans Gallery OS</p>
+        <p className="text-[12px] text-[#111110]">{insertLabel}</p>
+        <p className="text-[12px] text-[#6B6A67]">{searchLabel}</p>
       </div>
       <div className="mt-4 border-t border-[#E8E8E6] px-4 py-4">
         <div className="rounded-[4px] border border-[#6B6A67] px-4 py-2.5 text-[12px] text-[#111110]">
@@ -87,10 +97,10 @@ export function GalleryOsSearchWidget() {
         </div>
         <div className="mt-4 flex gap-2">
           <span className="rounded-full bg-[#0059D8] px-5 py-1.5 text-[11px] text-white">
-            Chercher
+            {searchCta}
           </span>
           <span className="rounded-full border border-[#6B6A67] px-5 py-1.5 text-[11px] text-[#0059D8]">
-            Vue galerie
+            {galleryViewCta}
           </span>
         </div>
       </div>
@@ -98,7 +108,13 @@ export function GalleryOsSearchWidget() {
   );
 }
 
-export function WhatsAppPdfMockup() {
+export function WhatsAppPdfMockup({
+  incomingLabel = "Building your selection...",
+  readyLabel = "Selection ready · 1 page",
+}: {
+  incomingLabel?: string;
+  readyLabel?: string;
+}) {
   return (
     <div
       className="relative mx-auto h-[230px] w-[262px]"
@@ -124,9 +140,7 @@ export function WhatsAppPdfMockup() {
           aria-hidden="true"
           className="absolute inset-0 h-full w-full -scale-x-100"
         />
-        <p className="absolute left-2 top-[7px] z-10 text-[14px] text-black">
-          Constitution de votre sélection...
-        </p>
+        <p className="absolute left-2 top-[7px] z-10 text-[14px] text-black">{incomingLabel}</p>
         <p className="absolute bottom-1 right-2 z-10 text-[9px] text-black/30">11:45</p>
       </div>
 
@@ -151,7 +165,7 @@ export function WhatsAppPdfMockup() {
           </div>
         </div>
         <p className="absolute bottom-[7px] left-[17px] z-10 text-[11px] text-black">
-          Sélection prête · 1 page
+          {readyLabel}
         </p>
       </div>
     </div>

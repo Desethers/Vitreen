@@ -6,6 +6,7 @@ import LandingProduct from "@/components/landing/LandingProduct";
 import LandingSystem from "@/components/landing/LandingSystem";
 import LandingOffers from "@/components/landing/LandingOffers";
 import LandingMethod from "@/components/landing/LandingMethod";
+import LandingFaq from "@/components/landing/LandingFaq";
 import LandingCta from "@/components/landing/LandingCta";
 
 import { alternates } from "@/lib/seo";
@@ -33,6 +34,7 @@ export default function Home() {
       <LandingSystem />
       <LandingOffers />
       <LandingMethod />
+      <LandingFaq />
       <LandingCta />
     </main>
   );

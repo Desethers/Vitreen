@@ -3,34 +3,35 @@
 import { BODY, CONTAINER, H2, H3, LINE_INK, SECTION } from "@/components/landing/styles";
 
 const BENEFITS = [
-  "Find the right work faster.",
-  "Check accurate price and availability.",
-  "Share collector-ready material immediately.",
+  "Retrouvez la bonne œuvre plus vite.",
+  "Vérifiez le prix et la disponibilité exacts.",
+  "Partagez un support prêt pour le collectionneur, immédiatement.",
 ];
 
 const LIMITS = [
-  "No full database replacement.",
-  "No second sales platform.",
-  "No presentation rebuilt from scratch.",
+  "Pas de remplacement de votre base existante.",
+  "Pas de seconde plateforme de vente.",
+  "Pas de présentation à refaire de zéro.",
 ];
 
-export default function LandingProblem() {
+export default function LandingProblemFr() {
   return (
     <>
       <section className={`${SECTION} bg-white`}>
         <div className={CONTAINER}>
           <h2 className={`${H2} max-w-3xl`}>
-            Your artwork information and your collector conversations live in different places.
+            Les informations de vos œuvres et vos conversations collectionneurs vivent dans des
+            endroits différents.
           </h2>
 
           <div className="mt-10 grid gap-10 md:mt-14 md:grid-cols-[1.1fr_1fr] md:gap-16">
             <div className="max-w-xl space-y-4">
-              <p className={BODY}>A collector asks for available works.</p>
+              <p className={BODY}>Un collectionneur demande les œuvres disponibles.</p>
               <p className={BODY}>
-                The email stays open while someone checks the database, searches image folders,
-                confirms the price and rebuilds a presentation.
+                L’email reste ouvert pendant qu’on vérifie la base, cherche les images, confirme le
+                prix et refait une présentation.
               </p>
-              <p className={`${LINE_INK} pt-1`}>Vitreen connects those steps.</p>
+              <p className={`${LINE_INK} pt-1`}>Vitreen relie ces étapes.</p>
             </div>
 
             <ul className="flex list-none flex-col gap-0 p-0">
@@ -49,15 +50,16 @@ export default function LandingProblem() {
           <div className="grid gap-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
             <div>
               <h2 className={`${H2} max-w-2xl`}>
-                Your database stores the work. Vitreen helps you use it.
+                Votre base stocke les œuvres. Vitreen vous aide à vous en servir.
               </h2>
               <div className="mt-6 max-w-xl space-y-4 md:mt-8">
                 <p className={BODY}>
-                  Vitreen adds a practical sales layer to the systems your gallery already uses.
+                  Vitreen ajoute une couche commerciale pratique aux outils que votre galerie
+                  utilise déjà.
                 </p>
                 <p className={BODY}>
-                  We connect the artwork information required for collector conversations, then make
-                  it available from Gmail and WhatsApp.
+                  Nous connectons les informations d’œuvres nécessaires aux conversations avec les
+                  collectionneurs, puis les rendons disponibles depuis Gmail et WhatsApp.
                 </p>
               </div>
             </div>

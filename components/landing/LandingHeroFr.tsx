@@ -4,35 +4,31 @@ import { GalleryOsSearchWidget, WhatsAppPdfMockup } from "@/components/shared/Ar
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 
-/**
- * Asymmetric hero: copy on the left, a real product collage on the right —
- * the same Gmail search widget and WhatsApp PDF mockups used in Product,
- * shown up front instead of after a page of text.
- */
-export default function LandingHero() {
+export default function LandingHeroFr() {
   return (
     <section className="relative flex flex-col overflow-hidden bg-white px-4 pb-14 pt-36 md:px-6 md:pb-20 md:pt-44">
       <div className="relative mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-12">
         <div className="text-[22px] leading-[1.3] md:text-[30px]">
           <p className="hero-fade-up mb-3 text-[12px] font-medium uppercase tracking-[0.14em] text-[#ADADAA] md:mb-4">
-            Sales tools for contemporary galleries
+            Outils de vente pour galeries d’art contemporain
           </p>
 
           <h1
             className="hero-fade-up m-0 max-w-xl text-balance leading-[inherit] tracking-[-0.04em] font-display"
             style={{ color: "#111110" }}
           >
-            We build better tools for gallery sales.
+            Nous construisons de meilleurs outils pour vendre en galerie.
           </h1>
 
           <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-lg leading-[inherit] tracking-[-0.02em] text-[#6B6A67]">
-            Vitreen connects your artwork data to Gmail and WhatsApp, so your team can find works,
-            prepare presentations and respond to collectors without leaving the conversation.
+            Vitreen connecte vos données d’œuvres à Gmail et WhatsApp : votre équipe retrouve les
+            œuvres, prépare des présentations et répond aux collectionneurs sans quitter la
+            conversation.
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center gap-3 md:mt-[22px]">
             <Button size="lg" onClick={openContact}>
-              Book a demo
+              Réserver une démo
             </Button>
             <Button
               size="lg"
@@ -40,22 +36,30 @@ export default function LandingHero() {
               variant="inverse"
               className="border border-[#E8E8E6]"
             >
-              See how it works
+              Voir comment ça marche
             </Button>
           </div>
 
           <p className="hero-fade-up hero-fade-up-delay mt-5 text-[13px] leading-[1.5] tracking-[-0.01em] text-[#ADADAA] md:text-[14px]">
-            Works with Artlogic, spreadsheets and existing artwork databases.
+            Fonctionne avec Artlogic, vos tableurs et vos bases d’œuvres existantes.
           </p>
         </div>
 
         <div className="relative mx-auto h-[340px] w-full max-w-md md:h-[420px] md:max-w-none">
           <div className="absolute inset-x-4 bottom-0 top-6 rounded-[16px] bg-[#F5F5F3] md:inset-x-10" />
           <div className="absolute right-0 top-0 w-[220px] rounded-[12px] border border-[#E8E8E6] bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,0.08)] md:w-[240px] md:p-5">
-            <GalleryOsSearchWidget />
+            <GalleryOsSearchWidget
+              insertLabel="Insérer une œuvre"
+              searchLabel="Recherche Vitreen"
+              searchCta="Chercher"
+              galleryViewCta="Vue galerie"
+            />
           </div>
           <div className="absolute bottom-0 left-0 w-[230px] rounded-[16px] border border-[#E8E8E6] bg-white p-4 shadow-[0_24px_60px_rgba(0,0,0,0.08)] md:w-[260px] md:p-5">
-            <WhatsAppPdfMockup />
+            <WhatsAppPdfMockup
+              incomingLabel="Constitution de votre sélection..."
+              readyLabel="Sélection prête · 1 page"
+            />
           </div>
         </div>
       </div>

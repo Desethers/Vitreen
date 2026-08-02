@@ -22,7 +22,7 @@ export default function LandingSystem() {
   return (
     <>
       {/* One source, many outputs */}
-      <section className={`${SECTION} bg-white`}>
+      <section className={`${SECTION} border-t border-[#E8E8E6] bg-[#F5F5F3]`}>
         <div className={CONTAINER}>
           <h2 className={`${H2} max-w-2xl`}>One artwork source. Every collector output.</h2>
 

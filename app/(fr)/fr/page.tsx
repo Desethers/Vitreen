@@ -1,47 +1,41 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import HeroDashboardMock from "@/components/HeroDashboardMock";
-import ProcessFlow from "@/components/ProcessFlow";
-import SignatureDemo from "@/components/SignatureDemo";
-import QuoteSection from "@/components/QuoteSection";
-import StatementSplit from "@/components/StatementSplit";
-import Services from "@/components/Services";
-import PricingBand from "@/components/PricingBand";
-import Faq from "@/components/Faq";
-import CtaBand from "@/components/CtaBand";
-import Footer from "@/components/Footer";
+import LandingNavFr from "@/components/landing/LandingNavFr";
+import LandingHeroFr from "@/components/landing/LandingHeroFr";
+import LandingProblemFr from "@/components/landing/LandingProblemFr";
+import LandingProductFr from "@/components/landing/LandingProductFr";
+import LandingSystemFr from "@/components/landing/LandingSystemFr";
+import LandingOffersFr from "@/components/landing/LandingOffersFr";
+import LandingMethodFr from "@/components/landing/LandingMethodFr";
+import LandingFaqFr from "@/components/landing/LandingFaqFr";
+import LandingCtaFr from "@/components/landing/LandingCtaFr";
 
 import { alternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: { absolute: "Vitreen — Gallery OS pour galeries d’art contemporain" },
+  title: { absolute: "Vitreen — Outils de vente pour galeries d’art contemporain" },
   description:
-    "Organisez vos œuvres, publiez le site de votre galerie et partagez des présentations privées depuis les mêmes fiches d’œuvres.",
+    "Vitreen connecte vos données d’œuvres à Gmail et WhatsApp : votre équipe retrouve les œuvres, prépare des présentations et répond aux collectionneurs sans quitter la conversation.",
   alternates: alternates("fr", "/"),
   openGraph: {
     url: "/fr",
-    title: "Vitreen — Gallery OS pour galeries d’art contemporain",
+    title: "Vitreen — Outils de vente pour galeries d’art contemporain",
     description:
-      "Organisez vos œuvres, publiez le site de votre galerie et partagez des présentations privées depuis les mêmes fiches d’œuvres.",
+      "Vitreen connecte vos données d’œuvres à Gmail et WhatsApp : votre équipe retrouve les œuvres, prépare des présentations et répond aux collectionneurs sans quitter la conversation.",
   },
 };
 
 export default function Home() {
   return (
-    <main className="relative">
-      <Nav />
-      <Hero />
-      <HeroDashboardMock />
-      <ProcessFlow />
-      <Services />
-      <SignatureDemo />
-      <QuoteSection />
-      <PricingBand />
-      <Faq />
-      <StatementSplit />
-      <CtaBand />
-      <Footer />
+    <main className="relative bg-white">
+      <LandingNavFr />
+      <LandingHeroFr />
+      <LandingProblemFr />
+      <LandingProductFr />
+      <LandingSystemFr />
+      <LandingOffersFr />
+      <LandingMethodFr />
+      <LandingFaqFr />
+      <LandingCtaFr />
     </main>
   );
 }
