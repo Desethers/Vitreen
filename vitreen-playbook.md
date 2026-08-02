@@ -2,57 +2,48 @@
 
 ## Purpose
 
-This document is the strategic and product context for Vitreen / Gallery OS.
+This document is the strategic and product context for Vitreen.
 
-Read this file at the beginning of every ChatGPT, Claude or Codex session before making product, UX, copywriting or implementation decisions.
+Read it at the beginning of every Claude, ChatGPT or Codex session before making
+product, UX, copywriting or implementation decisions.
 
-The goal is to keep Vitreen coherent.
-
-Vitreen is not a generic SaaS, not a simple CMS, not a website template and not an Artlogic clone.
-
-Vitreen is a forward-deployed gallery infrastructure service: we audit how a gallery works, understand what it needs, connect to its existing tools, then build a custom dashboard and connected website around the team’s real workflow.
+It replaces the previous "Gallery OS" playbook. If you find older material
+describing Vitreen as a Gallery OS, a four-pillar platform, or a
+website-and-dashboard delivery service, that material is obsolete — this
+document overrides it.
 
 ---
 
-# 1. Product Thesis
+# 1. Product Thesis — the inversion
 
-Galleries should not recreate the same artwork information in different places.
+Vitreen sells **AI agents connected to a gallery's artwork inventory**, working
+inside the tools where collector conversations already happen: Gmail and
+WhatsApp.
 
-Most gallery work depends on the same core data:
-
-- artwork details
-- artist information
-- images
-- prices
-- availability
-- documents
-- exhibition history
-- collector-facing material
-- private notes
-
-But this information is usually scattered across folders, spreadsheets, PDFs, emails, CMS tools, InDesign files, WhatsApp messages and external providers.
-
-Vitreen turns artwork information into reusable infrastructure.
-
-One structured artwork record should be usable across:
-
-- the gallery dashboard
-- the public website
-- artist pages
-- exhibition pages
-- emails
-- PDFs
-- private selections
-- collector follow-ups
-- internal operations
-
-Core logic:
+The single most important idea in this document:
 
 ```text
-Enter artwork information once.
-Structure it properly.
-Reuse it everywhere the gallery works.
+Yesterday: the dashboard was the product, the agent was a feature.
+Today:     the agent is the product, the dashboard is its engine room.
 ```
+
+This inversion is commercial, not technical. The artwork database still exists,
+still matters, and still has to be excellent — but it is no longer what we sell,
+show, or name.
+
+## Why the data layer cannot be removed
+
+The agent is only worth something because it is grounded on a clean artwork
+base. It answers from real records: real prices, real availability, real
+provenance, real images.
+
+Remove that layer and Vitreen becomes a GPT wrapper that anyone can copy in a
+weekend.
+
+Keep it invisible in the pitch, keep it excellent in the product. That tension
+is the whole strategy:
+
+> The database is our moat, not our promise.
 
 ---
 
@@ -60,856 +51,406 @@ Reuse it everywhere the gallery works.
 
 ## Main positioning
 
-Vitreen is a Gallery OS built and configured around each gallery.
+> Vitreen connects AI agents to a gallery's artwork inventory and turns existing
+> data into collector-ready emails, selections and PDFs, inside Gmail and
+> WhatsApp.
 
-It combines product, design engineering and done-for-you service.
+Brand line (currently on the site):
 
-Vitreen should be framed as:
+> **Give your gallery superpowers.**
 
-> A custom Gallery OS for contemporary galleries: audit, connect, build and operate.
+## Relationship to Artlogic and other incumbents
 
-## Strategic posture
+Vitreen is **complementary**, not a replacement:
 
-Vitreen is not trying to sell another generic tool to galleries.
+> Artlogic stores your works. Vitreen makes them circulate in your sales
+> conversations.
 
-Vitreen enters through the real workflow of the gallery:
+Vitreen connects to whatever exists — Artlogic exports, spreadsheets, folders,
+an existing database — or builds the artwork base when a gallery has none.
 
-1. Audit how the gallery currently works.
-2. Identify where artwork data is duplicated, lost or blocked.
-3. Connect to existing tools and habits where possible.
-4. Build a dashboard and website that match the gallery’s operations.
-5. Stay as a long-term partner for updates, improvements and support.
+Honesty rule: as long as no native Artlogic sync exists, write "from your
+Artlogic exports", never "Artlogic integration". A complementarity claim that
+collapses on the first technical question in a demo destroys more trust than it
+creates.
 
 ## Preferred language
 
 Use:
 
-- Gallery OS
-- Gallery infrastructure
-- custom dashboard
-- connected website
-- artwork source of truth
-- private selections
-- gallery workflow
-- built around your gallery
-- audit, connect, build, operate
-- done-for-you partner
-- website powered by artwork records
-- collector-facing sales material
+- AI agents for gallery sales
+- your artwork inventory, connected
+- collector-ready emails, selections and PDFs
+- inside Gmail and WhatsApp
+- grounded in your records
+- prepared by AI, sent by your team
+- works alongside Artlogic
+- the commercial layer of the gallery
 
 Avoid:
 
-- generic SaaS
-- all-in-one platform
-- marketplace
-- CRM replacement
-- website template
-- no-code tool
-- AI-powered everything
-- automation for everything
-- Artlogic alternative as the primary framing
-
-Vitreen can compete with gallery software, but it should not sound like a feature-by-feature Artlogic clone.
-
-The stronger angle is:
-
-> Vitreen reduces switching cost by building around the way the gallery already works.
+- **Gallery OS** (retired — see §4)
+- all-in-one platform, operating system, suite
+- CMS, website builder, inventory software
+- database as a headline promise
+- AI-powered everything, autopilot, autonomous outreach
+- marketplace, CRM replacement
+- "Artlogic alternative" as the primary framing
 
 ---
 
-# 3. Offer Model
+# 3. The three visible surfaces
 
-Vitreen is not pure self-serve SaaS at the beginning.
+What a customer sees, uses, and pays for is exactly three things:
 
-The offer is closer to a forward-deployed design engineering service for galleries.
+### 1. The Gmail add-in
 
-## Service structure
+Search the inventory from inside an email. Insert artwork cards, a private link
+or a PDF into the message being written. Or let the agent draft the full reply
+from the incoming email.
 
-### 1. Audit
+### 2. WhatsApp Business
 
-Understand the gallery’s current workflow:
+Natural-language requests turned into material: "available works by Marina Perez
+under €20,000", "create a selection with these four works", "prepare a PDF
+without visible prices" — answered with a clean private link or PDF.
 
-- how artworks are stored
-- how images are managed
-- how prices and availability are tracked
-- how the website is updated
-- how collector requests are handled
-- how PDFs and selections are prepared
-- which tools are already used
-- where the team loses time
-- where sales opportunities are blocked
+### 3. The validation inbox
 
-### 2. Connect
+The drafts queue (`/dashboard/sales-drafts` today) becomes the **home screen of
+the app**, renamed Inbox or Drafts. It is where the gallery reviews what the
+agent prepared and clicks send.
 
-Map and connect existing systems where useful:
-
-- spreadsheets
-- folders
-- image libraries
-- website content
-- email workflows
-- existing databases
-- manual processes
-- internal conventions
-
-The goal is not to force the gallery into a completely new system.
-
-The goal is to create a connected operating layer around what already works.
-
-### 3. Build
-
-Build a custom Gallery OS:
-
-- artwork management dashboard
-- artist records
-- exhibition records
-- connected website
-- publishing workflows
-- private selections
-- sales material preparation
-- gallery-specific content structure
-
-The product should be custom enough to fit the gallery, but structured enough to become repeatable across galleries.
-
-### 4. Operate
-
-Vitreen can remain as a partner:
-
-- maintain the website
-- improve the dashboard
-- adapt workflows
-- prepare new sections
-- support publishing
-- help with artwork data structure
-- reduce technical dependency for the gallery team
-
-This is a done-for-you service layer, not just software access.
+Everything else in the product sits behind these three surfaces.
 
 ---
 
-# 3b. Strategic Decisions — July 2026 audit
+# 4. The engine room
 
-These arbitrages were made after a full product/GTM/business audit. They override anything contradictory elsewhere in this document.
+The dashboard formerly known as Gallery OS becomes a console: minimal,
+functional, unnamed.
 
-## Entry offer
+## Visible navigation
 
-One offer, fixed scope, sold first:
+1. **Inbox** — AI drafts waiting for validation. This is the landing screen.
+2. **Artworks** — the base, presented as "your data", never as an inventory
+   product.
+3. **Connections** — CSV/Excel import, Artlogic exports, add-in status.
+4. **Settings**
 
-> Connected website + artwork core (dashboard) + Gmail/WhatsApp add-ins + simple PDF export. Delivered in ~3 weeks.
+## Hidden by default
 
-Viewing rooms are included as a capability. The Sales Agent (AI-prepared draft replies, always human-validated) is live and demonstrable — see Pillar 3 for what may and may not be claimed.
+Website publisher, viewing rooms, exhibition modules: hidden behind feature
+flags. Enabled for existing clients and for the Connected Website extension.
 
-## Pricing posture
+**Nothing is deleted. Nothing is forked.** Modules are hidden by configuration —
+one shared codebase, always. A separate "agent-only" build would be a
+maintenance disaster and is forbidden.
 
-- Setup: 4 000–6 000 € (target 5 000 €). The old 2 000 € figure is underpriced: real delivery is 15–25 days of work — do not anchor there.
-- Subscription: 350–500 €/month (target 400 €), 12-month commitment, includes hosting, updates and ~2h of operate per month.
-- First 3 pilot clients: 2 500 € setup displayed as an explicit −50% pilot discount (never as the normal price), in exchange for a case study, metrics access and 2 qualified introductions.
+A new client must never see something that looks like an OS.
 
-## Delivery discipline
+## The home screen test
 
-- Customization budget: max 20% of delivery time per gallery (theme, page structures, visible fields, PDF formats). Core schema, publishing logic and relationships are never customized.
-- One shared codebase. No per-client forks, ever.
-- If a client's custom demands exceed the budget, that is a signal to refuse the client, not to work more.
+The dashboard home must answer:
 
-## Claims discipline
+> How many conversations did the agent prepare for me this week?
 
-- Sell **autonomy** first (verifiable at delivery), accuracy as daily proof, time saved as support.
-- Never claim "better sales" until measured across pilots (inquiry response time, site update frequency, PDF prep time — before/after).
+Not:
 
-## Frozen until further notice
+> How many artworks are in my base?
 
-- Autonomous sending of AI replies (autopilot) — never. Drafts exist and work (see Pillar 3), but nothing reaches a collector without an explicit human click.
-- Assistant capabilities beyond sales drafts (long-term follow-up memory, proactive outreach) — announced as roadmap only.
-- Standalone self-serve Viewing Room Studio (removed from site) — see Pillar 4.
-- Marketing site refinements beyond what the entry offer needs.
+If the first screen counts records instead of conversations, the inversion has
+failed.
 
 ---
 
-# 4. Target Customer
+# 5. Offer & packaging
 
-## Primary target
+## One SKU
+
+**Vitreen Conversations** — subscription.
+
+Currently displayed on the site: **€950/month + €4,500 one-time onboarding**,
+12-month partnership, hosting and support included. A pilot discount mechanic
+exists for early galleries.
+
+> These figures are what the marketing site shows today. They still need a final
+> business validation — treat them as the current public numbers, not as a
+> settled decision.
+
+Included:
+
+- AI-drafted collector replies, grounded in the inventory, always sent by the team
+- Gmail and WhatsApp add-ins
+- Artwork data connected (Artlogic exports, spreadsheets, existing database)
+- Private selections and PDF export
+
+## Two paid extensions
+
+Sold separately, never bundled into the SKU, never presented as equal to it:
+
+- **Connected Website** — a site built on the same artwork records, for
+  galleries that need one. Fixed scope, quoted after a first conversation.
+  Always paired with the de-escalation line: "Already have a site? Vitreen works
+  alongside it."
+- **AI Coaching** — hands-on sessions bringing AI into daily gallery work.
+  From €400 per session. Its credibility comes from the product: _taught by the
+  team that builds AI for galleries_. It is not generic consulting, and it must
+  never develop an autonomous "AI transformation" discourse — that would
+  cannibalise the brand.
+
+## Hierarchy rule
+
+One product, one engine, two extensions. Never a grid of four equal cards —
+that pattern recreates the SaaS look the repositioning exists to escape.
+
+---
+
+# 6. Onboarding — inverted
+
+The old onboarding said "we build your system". The new one delivers the agent.
+
+1. **Connect the inventory** — CSV, Excel, Artlogic export, or build the base.
+2. **Install the Gmail add-in.**
+3. **Connect WhatsApp Business.**
+4. **First draft generated on a real email.**
+
+Step 4 is the aha moment. It must happen on **day one**, not in week three.
+
+The database appears only as step 1 of a setup. It is never a destination.
+
+---
+
+# 7. The Sales Agent — what actually runs
+
+Built and working (`gallery-OS/dashboard/src/lib/sales-agent/`):
+
+- **Trigger** — an incoming collector email (add-in webhook or manual
+  generation) passes a purchase-intent filter before anything runs.
+- **Grounded generation** — a Groq-powered agent (`openai/gpt-oss-120b`, tool
+  loop) works exclusively from gallery data through tools: contact lookup,
+  artwork details, search, similar works, recent inquiries, gallery settings. It
+  never invents a price, an availability or an artwork.
+- **Output** — a typed draft reply in the sender's language (fr/en/de/es/it/zh),
+  with VIP tone handling, sold-work alternatives and price-on-request
+  discretion, queued in the drafts inbox.
+- **Human validation, always** — a draft becomes `sent` only after an explicit
+  human click (delivery via Resend). There is no autopilot, by design.
+
+This is demonstrable live. It is the strongest asset we have: most AI landing
+pages cannot show anything.
+
+---
+
+# 8. Claims discipline
+
+Non-negotiable:
+
+- **Never** claim autonomous sending, autopilot, or proactive outreach. The
+  agent prepares, a human sends. Frame this as a **selling point** — the gallery
+  keeps control of its collector voice — never as a limitation.
+- **Never** claim the AI knows anything beyond the gallery's own records.
+  "It can only answer from your records" is the central argument, not model
+  power.
+- **Never** claim "better sales" or conversion impact before it is measured
+  across pilots. Sell **autonomy** (verifiable at delivery), **accuracy** (daily
+  proof) and **speed of reply** (observable). Time saved is support, not
+  headline.
+- Roadmap capabilities (long-term follow-up memory, proactive outreach) are
+  announced as roadmap or not at all.
+
+---
+
+# 9. Open workstream — turning the dashboard into the engine room
+
+**Status: planned, not started.** The marketing site already tells the new
+story; the product does not yet. Until this workstream ships, a prospect who
+sees a demo still meets "Gallery OS". Closing that gap is the priority.
+
+**Where:** `gallery-OS/dashboard/` — a separate repository, not present in the
+marketing workspace. This work must be done in a session opened on that repo.
+
+## Guardrails (apply to every phase)
+
+- **Never fork.** No "agent-only" build, no per-client branch. Everything is
+  feature flags and configuration on one shared codebase. A fork would be a
+  maintenance disaster and is forbidden.
+- **Delete nothing.** Modules are hidden, not removed. Existing clients keep
+  what they have; the Connected Website extension re-enables the publisher.
+- **No schema change in phase 1.** If a task seems to require one, it belongs to
+  phase 2.
+- Keep the human validation step visible everywhere the agent appears.
+
+## Phase 1 — configuration (days)
+
+1. **Inbox as home screen.** The drafts queue (`/dashboard/sales-drafts`)
+   becomes the landing route after login, renamed Inbox (or Drafts).
+2. **Reduce the navigation** to four entries: Inbox, Artworks, Connections,
+   Settings. Artworks is presented as "your data", never as an inventory
+   product.
+3. **Hide behind flags:** website publisher, viewing rooms, exhibition modules.
+   Default off for new clients, on for existing ones and for the Connected
+   Website extension.
+4. **Retire the name.** "Gallery OS" disappears from the dashboard, the add-ins,
+   the docs and the onboarding emails. (Already done on the marketing site — the
+   Gmail widget displays "Vitreen"; note the function is still named
+   `GalleryOsSearchWidget` in `components/shared/ArtworkAddInMocks.tsx` and
+   should be renamed on the next pass.)
+
+Definition of done: a new client logging in sees a queue of drafts to review and
+nothing that looks like an operating system.
+
+## Phase 2 — product
+
+1. **Invert the onboarding:** connect the inventory (CSV, Excel, Artlogic
+   export) → install the Gmail add-in → connect WhatsApp Business → **first
+   draft generated on a real email**. That last step is the aha moment and must
+   land on day one, not in week three. A `ConnectInventoryMockup` already exists
+   on the marketing side as a visual reference for step 1.
+2. **Self-service WhatsApp Business connection**, so onboarding no longer
+   depends on us.
+3. **Usage metrics:** drafts generated, drafts validated, artworks shared,
+   time-to-first-reply. These are the product's health signals _and_ the ARR
+   narrative for any future acquisition conversation — instrument them early.
+4. **Rework the home screen** so it answers "how many conversations did the
+   agent prepare this week?" rather than "how many artworks are in my base?".
+
+## Phase 3 — offer
+
+Migrate the commercial discourse and the pilot clients onto the single SKU. The
+publisher is only ever sold as an extension from that point on. Retire or
+recentre the remaining marketing pages still written in the old frame
+(`/pricing`, `/about`, `/products/*`, `/solutions/*`).
+
+---
+
+# 10. Target customer
 
 Small contemporary galleries.
 
-These galleries often have:
+They have limited technical capacity, fragmented artwork information, strong
+sensitivity to image and wording, small teams, and little time for software
+setup.
 
-- limited internal technical capacity
-- strong need for presentation quality
-- fragmented artwork information
-- dependency on external web providers
-- manual sales material workflows
-- small teams or solo founders
-- limited time for software setup
-- high sensitivity to image, wording and collector communication
+They do not want a database. They want to answer a collector faster, with the
+right work, the right price and material that looks like their gallery.
 
-## User psychology
-
-The target user does not want “a database”.
-
-They want:
-
-- a cleaner website
-- less dependency on a web provider
-- faster updates
-- fewer errors
-- better private material for collectors
-- more control over artworks, artists and exhibitions
-- a system that fits how the gallery already works
-
-The product should translate technical architecture into gallery-native language.
-
-Do not make the gallery feel like it has to become technical.
+Speak gallery, not software.
 
 ---
 
-# 5. Business Promise
+# 11. Delivery discipline
 
-The primary business promise is not just “save time”.
-
-The strongest promise is:
-
-## Autonomy without external dependency
-
-The gallery can update key content and manage artwork information without waiting for an external provider every time.
-
-This matters because gallery websites and sales material need frequent, precise and contextual updates.
-
-## Better collector conversion
-
-Collector-facing material becomes faster, cleaner and more accurate.
-
-Vitreen helps the gallery respond with the right artwork, the right information and the right presentation at the right moment.
-
-This supports sales by reducing friction in the private conversation between gallery and collector.
-
-## Core business message
-
-Vitreen gives small contemporary galleries a more autonomous and sales-ready operating system.
+- **One shared codebase. No per-client forks, ever.** Differences are
+  configuration, not code.
+- Customization budget: max 20% of delivery time per gallery (theme, visible
+  fields, PDF formats). Core schema, agent grounding logic and relationships are
+  never customized.
+- If a client's custom demands exceed the budget, that is a signal to refuse the
+  client, not to work more.
 
 ---
 
-# 6. MVP / Current Product Focus
+# 12. Design principles
 
-The first real product focus is:
-
-> Artwork dashboard + connected gallery website + Gmail/WhatsApp add-ins.
-
-This is the foundation — and the entry offer sold to galleries.
-
-The Gmail and WhatsApp add-ins are working and easy to deploy. They are part of the entry bundle because they are the most differentiating, most demonstrable features: no agency and no incumbent can replicate "search an artwork inside Gmail" or "send a clean PDF from WhatsApp" in a 5-minute demo.
-
-Everything else depends on the quality of the artwork records and the connection between internal data and public website output.
-
-## MVP foundation
-
-The core system should include:
-
-- artwork records
-- artist records
-- exhibition records
-- image and document management
-- prices and availability
-- publishing status
-- website connection
-- basic content update workflows
-- reusable data structure
-
-## Why this first
-
-The dashboard + website connection creates the clearest immediate value:
-
-- galleries understand the website problem
-- the output is visible
-- the workflow is concrete
-- autonomy is easy to explain
-- it creates the base for future assistant and private sales features
+1. **Simple before powerful.** The interface must feel simple to a
+   non-technical gallery user.
+2. **Database without database anxiety.** Structured data, no enterprise
+   database feel.
+3. **Work with existing habits.** Email, WhatsApp, PDFs, spreadsheets — connect
+   to them instead of replacing them.
+4. **Controlled outputs.** Galleries care about discretion: what is visible,
+   which price shows, whether availability appears, public or private.
+5. **Gallery-native, editorial, calm.** White space, restrained typography,
+   clear hierarchy, subtle interactions. No gradients, no fake complexity, no
+   decorative bento sections.
+6. **Show the human checkpoint.** Wherever the agent appears, the review-and-send
+   step should be visible, not merely claimed.
 
 ---
 
-# 7. Product Pillars
+# 13. Copywriting rules
 
-Vitreen / Gallery OS is organized around four pillars.
+Tone: clear, concrete, gallery-native. No abstract SaaS language.
 
-These pillars are not separate products. They are connected surfaces built on the same artwork data.
+Good:
 
-Product navigation labels:
-
-- Artworks Management
-- Website Publisher
-- Gallery Assistant
-- Private Selections
-
-Strategic roles:
-
-- Source of truth
-- Public website output
-- Daily gallery work
-- Private sales material
-
----
-
-## Pillar 1 — Artworks Management
-
-### Role
-
-Artworks Management is the source of truth of the Gallery OS.
-
-It gives the gallery one structured place to manage artworks, artists, images, prices, availability, documents, exhibition history and internal notes.
-
-### Core idea
-
-> Every artwork record should be complete enough to support publishing, sales, communication and internal operations.
-
-### User value
-
-The gallery can keep artwork information clean, complete and reusable.
-
-### What it replaces
-
-- scattered folders
-- repeated spreadsheets
-- manual artwork lists
-- inconsistent prices
-- outdated availability
-- lost images and documents
-- duplicated captions
-
-### Product principle
-
-Do not make this feel like heavy inventory software.
-
-It should feel like a clear, elegant and operational artwork workspace.
-
----
-
-## Pillar 2 — Website Publisher
-
-### Role
-
-Website Publisher connects the gallery database to the public gallery website.
-
-The gallery can publish artworks, artists and exhibitions online without using a separate website admin or asking a developer for every update.
-
-### Core idea
-
-> The website should be an output of the artwork database, not a separate place where content is recreated manually.
-
-### User value
-
-The gallery keeps its website aligned with internal records.
-
-### What it replaces
-
-- separate CMS
-- manual website updates
-- duplicated artist pages
-- outdated exhibition pages
-- dependency on external providers for small content changes
-
-### Product principle
-
-Do not frame this as “build a website”.
-
-Frame it as:
-
-> The gallery website stays connected to the gallery’s artwork records.
-
----
-
-## Pillar 3 — Gallery Assistant
-
-### Role
-
-Gallery Assistant turns structured gallery data into daily working material.
-
-It helps prepare emails, captions, artwork lists, PDFs, collector replies, follow-ups and internal documents from existing artwork records.
-
-### Core idea
-
-> The gallery should work from its existing records instead of recreating the same material for every message, document or request.
-
-### User value
-
-The gallery saves time on repetitive but sensitive work.
-
-### What it replaces
-
-- copy-pasting artwork information
-- rewriting captions manually
-- downloading images one by one
-- rebuilding PDFs
-- checking availability in another tab
-- preparing collector replies from scratch
-
-### Product principle
-
-Do not present the assistant as magic AI.
-
-Present it as a practical gallery assistant that uses reliable artwork records to prepare useful outputs.
-
-The assistant supports the gallery team. It does not replace its judgment.
-
-### Status — Sales Agent v1 is live (July 2026)
-
-The first AI capability is built and working in Gallery OS (`gallery-OS/dashboard/src/lib/sales-agent/`):
-
-- **Trigger** — an incoming collector email (add-in sidebar webhook or manual generation) passes a purchase-intent filter before anything runs.
-- **Grounded generation** — a Groq-powered agent (`openai/gpt-oss-120b`, tool loop) works exclusively from gallery data via tools: contact lookup, artwork details, search, similar works, recent inquiries, gallery settings. It never invents a price, an availability or an artwork.
-- **Output** — a typed draft reply in the sender's language (fr/en/de/es/it/zh), with VIP tone handling, sold-work alternatives and price-on-request discretion, queued in `/dashboard/sales-drafts`.
-- **Human validation, always** — a draft only becomes `sent` after an explicit human click (delivery via Resend). There is no autopilot, by design.
-
-### Claims discipline for the assistant
-
-- Sell what runs: AI-prepared sales drafts, reviewed and sent by the gallery. This is demonstrable live.
-- Do not promise autonomous sending, proactive outreach or long-term follow-up memory — those remain roadmap and must be announced as such.
-- The human-in-the-loop design is a selling point, not a limitation: galleries keep full control of their collector voice.
-
----
-
-## Pillar 4 — Private Selections
-
-### Role
-
-Viewing Rooms let galleries create and share private artwork selections directly from their inventory.
-
-The gallery can select works, control visible information, share a private link and keep the selection updated when availability changes.
-
-### Status decision (July 2026)
-
-Viewing Rooms are a **capability of the Gallery OS**, not a standalone product.
-
-The self-serve standalone product (public pricing, Stripe checkout, sign-up at /viewingroom-studio) has been removed from the site: a self-serve SaaS inside a done-for-you premium brand weakens both. The editor and dashboard remain as the delivery tool used within the Gallery OS offer.
-
-Do not reintroduce a standalone self-serve viewing room product without an explicit strategic decision.
-
-### Core idea
-
-> Private sales material should be fast to prepare, elegant to share and connected to inventory.
-
-### User value
-
-The gallery can create collector-facing selections without rebuilding PDFs or sending scattered attachments.
-
-### What it replaces
-
-- static PDF selections
-- manual image folders
-- long email threads
-- outdated collector material
-- repeated private selections rebuilt from scratch
-
-### Product principle
-
-Do not frame this as a public platform.
-
-Frame it as a private sales workspace for galleries.
-
----
-
-# 8. System Logic
-
-The strength of Vitreen is not each feature in isolation.
-
-The strength is the connection between surfaces.
-
-A single artwork record can become:
-
-- a website artwork page
-- an artist page entry
-- an exhibition page item
-- a sales email
-- a PDF selection
-- a private viewing room
-- a collector follow-up
-- an internal note
-
-Core formula:
-
-```text
-One artwork record.
-Multiple gallery outputs.
-```
-
-This is the core value of Vitreen.
-
----
-
-# 9. Customization Principle
-
-Each gallery gets a configured version of the system.
-
-Vitreen should not force every gallery into the same rigid structure.
-
-But customization should be controlled.
-
-## Customizable
-
-- website layout
-- artist page structure
-- exhibition page structure
-- artwork fields
-- visibility rules
-- sales material formats
-- private selection templates
-- dashboard priorities
-- content workflow
-
-## Should remain standardized
-
-- core artwork record logic
-- artist / artwork / exhibition relationships
-- publishing status
-- availability logic
-- image/document handling
-- reuse of artwork data across outputs
-- four product pillars
-- visual clarity
-- navigation logic
-
-The product should become repeatable through a shared core and configurable surfaces.
-
----
-
-# 10. Design Principles
-
-## 1. Simple before powerful
-
-The interface should feel simple to a non-technical gallery user.
-
-Do not expose complexity too early.
-
-## 2. Database without database anxiety
-
-Vitreen contains structured data, but it should not feel like enterprise database software.
-
-Avoid dense tables when a more visual or guided structure is better.
-
-Use hierarchy and progressive disclosure.
-
-## 3. Work with existing habits
-
-Galleries already use email, folders, PDFs, WhatsApp, websites and spreadsheets.
-
-Vitreen should connect to these habits instead of pretending they do not exist.
-
-## 4. Reuse is the product
-
-The UX should constantly reinforce that artwork information can be reused across surfaces.
-
-The user should feel:
-
-> I already entered this once. Now I can use it everywhere.
-
-## 5. Controlled outputs
-
-Galleries care about presentation, discretion and accuracy.
-
-Every output should feel controlled:
-
-- what information is visible
-- what price is shown
-- whether availability appears
-- which images are used
-- whether the selection is private or public
-
-## 6. Gallery-native interface
-
-Avoid generic SaaS dashboards.
-
-Vitreen should feel calm, precise, editorial and gallery-native.
-
-Preferred qualities:
-
-- white space
-- restrained typography
-- simple cards
-- clear hierarchy
-- subtle interactions
-- visual confidence
-- no excessive gradients
-- no fake complexity
-- no decorative bento sections without product meaning
-
----
-
-# 11. UX Rules
-
-## Navigation
-
-The product navigation should reflect the four pillars:
-
-- Artworks Management
-- Website Publisher
-- Gallery Assistant
-- Viewing Room Studio
-
-These should feel like parts of one system, not disconnected apps.
-
-## Search
-
-Search is a core interaction.
-
-The user should be able to find artworks, artists, exhibitions and records quickly.
-
-Search should support:
-
-- artwork title
-- artist name
-- availability
-- price
-- medium
-- year
-- exhibition
-- collector context when relevant
-
-Search should not feel hidden or secondary.
-
-## Artwork record
-
-The artwork record is the central object of Vitreen.
-
-A strong artwork record should include:
-
-- title
-- artist
-- year
-- medium
-- dimensions
-- images
-- price
-- availability
-- documents
-- exhibition history
-- publication status
-- private notes
-- sales context
-
-## Publishing
-
-Publishing should feel like selecting where the artwork data goes.
-
-Do not create a separate CMS mental model.
-
-Use language like:
-
-- publish to website
-- update artist page
-- add to exhibition page
-- hide from public website
-- include in private selection
-
-## Assistant
-
-The assistant should always be grounded in gallery data.
-
-It should not generate unsupported content.
-
-It should prepare drafts, selections and outputs that the gallery can review.
-
-## Viewing rooms
-
-Viewing rooms should be private, controlled and elegant.
-
-The gallery should be able to decide:
-
-- visible price or hidden price
-- availability visible or hidden
-- selected images
-- order of works
-- collector-facing notes
-- expiration or access control if needed
-
----
-
-# 12. Copywriting Rules
-
-## Tone
-
-Use clear, simple, gallery-native language.
-
-The copy should sound like it understands gallery operations.
-
-Avoid abstract SaaS language.
-
-## Good wording
-
-Use:
-
-- Keep artwork records complete and organised.
-- Update your website from your artwork database.
-- Prepare collector replies from existing artwork records.
-- Create private selections directly from your inventory.
-- One artwork record, reused across the gallery.
-- Your website stays aligned with your gallery data.
-- Built around the way your gallery already works.
-- Audit your workflow, connect your tools, build your Gallery OS.
-
-## Avoid
+- Give your gallery superpowers.
+- Connect AI agents to your artwork inventory.
+- Prepare the reply without leaving the email.
+- Turn a message into a presentation.
+- Grounded in your records. Sent by your team.
+- Artlogic stores your works. Vitreen makes them circulate.
 
 Avoid:
 
-- revolutionize your workflow
-- supercharge your gallery
-- AI-powered everything
-- seamless end-to-end platform
-- unlock growth
-- automate your gallery
-- next-generation CMS
-- scale your operations
-- all-in-one solution
+- revolutionize / supercharge / unlock growth / scale your operations
+- AI-powered platform, next-generation CMS, all-in-one solution
+- seamless end-to-end anything
+- any headline whose subject is the database
 
-## Preferred headline logic
-
-Headlines should be concrete.
-
-Bad:
-
-> The future of gallery management.
-
-Better:
-
-> Manage artwork information once. Use it everywhere.
-
-Bad:
-
-> An AI-powered platform for modern galleries.
-
-Better:
-
-> Turn artwork records into website pages, emails, PDFs and private selections.
+Headline logic: concrete over visionary.
 
 ---
 
-# 13. Implementation Rules for Codex
+# 14. Product boundaries
 
-When working on the codebase, preserve the strategic structure of Vitreen.
+## Vitreen does
 
-Before implementing a feature, identify which pillar it belongs to:
+- connect artwork data from existing sources, or build the base when needed
+- run grounded AI agents over that data
+- deliver inside Gmail and WhatsApp
+- prepare collector replies, private selections and PDFs
+- keep a human validation step on everything that reaches a collector
+- sell a connected website and AI coaching as separate extensions
 
-- Artworks Management
-- Website Publisher
-- Gallery Assistant
-- Viewing Room Studio
+## Vitreen does not
 
-Do not create new product categories unless explicitly requested.
+- present itself as an operating system, platform or suite
+- sell the dashboard as a product
+- become a CRM, a marketplace, an accounting system or a website builder
+- send anything to a collector without an explicit human click
+- fork the codebase per client or per offer
+- launch standalone self-serve products beside the main offer
+- claim sales impact before it is measured
 
-Do not introduce a new design system if existing components already exist.
-
-Work with the existing UI language.
-
-Prefer improving:
-
-- hierarchy
-- spacing
-- copy
-- state clarity
-- interaction logic
-- responsiveness
-- data structure
-- reuse between components
-
-Avoid:
-
-- decorative redesigns
-- unnecessary modals
-- fake dashboards
-- generic SaaS layouts
-- duplicate components
-- large architecture changes without reason
-- changing card dimensions unless explicitly requested
-- breaking existing visual consistency
-
-Every implementation should reinforce:
-
-> One artwork record reused across multiple gallery outputs.
+Frozen until an explicit strategic decision: autopilot (never), standalone
+self-serve viewing room studio, assistant capabilities beyond sales drafts.
 
 ---
 
-# 14. Product Boundaries
+# 15. Where things live
 
-## Vitreen should do
+- **Marketing site** — this repository (`Vitreen`). Next.js App Router, EN at
+  `app/(en)`, FR at `app/(fr)/fr`, landing components in `components/landing/`.
+- **Product** — `gallery-OS/dashboard/` (separate repository, not in this
+  workspace). Sales agent at `src/lib/sales-agent/`, drafts queue at
+  `/dashboard/sales-drafts`.
 
-- audit gallery workflows
-- centralize artwork records
-- configure a dashboard around the gallery
-- connect artwork data to the website
-- give the gallery autonomy over key updates
-- prepare sales and communication material
-- create private collector selections
-- reduce duplicated data entry
-- improve accuracy across outputs
-- support existing gallery workflows
-- remain as a done-for-you partner
-
-## Vitreen should not do initially
-
-- become a full CRM
-- become a marketplace
-- replace every existing gallery tool
-- become a generic website builder
-- become an accounting system
-- become a complex enterprise inventory suite
-- overpromise automation
-- use AI without reliable artwork data
-- compete only by copying Artlogic feature by feature
-- launch standalone self-serve products next to the done-for-you offer
-- claim "better sales" or conversion impact before it is measured with real clients (sell autonomy and accuracy instead)
+Work on the product (navigation flags, renaming, onboarding) must be done in a
+session opened on that repository.
 
 ---
 
-# 15. Session Checklist
+# 16. Session checklist
 
-At the beginning of every session, check:
+1. Does this strengthen the agent, or does it re-expose the dashboard?
+2. Does it happen inside Gmail, WhatsApp or the drafts inbox?
+3. Is it grounded in the gallery's own records?
+4. Does the human validation step remain visible and mandatory?
+5. Does it keep the artwork base as infrastructure, not as a promise?
+6. Is it one codebase, one SKU, configuration over forks?
+7. Are the extensions still visibly subordinate?
+8. Are we avoiding SaaS language and the word "Gallery OS"?
+9. Can we demonstrate this claim live today?
 
-1. Which pillar are we working on?
-2. What gallery workflow does this improve?
-3. Is this connected to artwork records?
-4. Does this reduce duplicated work?
-5. Does this increase gallery autonomy?
-6. Does this improve collector-facing sales material?
-7. Does this make the product clearer for a non-technical gallery user?
-8. Are we avoiding generic SaaS language?
-9. Are we preserving the existing visual system?
-10. Does this strengthen the Gallery OS positioning?
-
-If the answer is unclear, stop and clarify the product logic before designing or coding.
-
----
-
-# 16. Current Product Summary
-
-## Artworks Management
-
-Keep every artwork record complete and organised.
-
-Manage artworks, artists, images, prices, availability and documents from one central place.
-
-## Website Publisher
-
-Update the gallery website from the artwork database.
-
-Publish artworks, artists and exhibitions online without using a separate CMS.
-
-## Gallery Assistant
-
-Turn gallery data into daily working material.
-
-Prepare emails, captions, lists, PDFs and follow-ups faster from existing artwork records.
-
-## Private Selections
-
-Create private selections for collectors.
-
-Build, share and update curated viewing rooms directly from the gallery inventory.
+If any answer is unclear, stop and clarify the product logic before designing or
+coding.
 
 ---
 
 # 17. North Star
 
-Vitreen exists to make gallery information circulate better.
-
-The long-term product vision:
-
-> A small contemporary gallery enters artwork information once, then uses it across every important surface of its work: website, sales, communication, private selections and collector follow-up.
-
-This is the Gallery OS.
+> A small gallery connects its artwork inventory once, then answers every
+> collector from Gmail or WhatsApp with the right work, the right price and
+> material that looks like the gallery — prepared by an agent, sent by a person.

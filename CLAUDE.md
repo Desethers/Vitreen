@@ -1,38 +1,58 @@
 # Vitreen — guide de collaboration
 
-Ce fichier est lu à chaque session. Il sert de mémoire stable du projet : positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
+Ce fichier est lu à chaque session. Il sert de mémoire stable du projet :
+positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 
-> **Mandatory:** read `vitreen-playbook.md` in full at the beginning of every session, before making product, UX, copywriting, design or implementation decisions.
+> **Obligatoire :** lire `vitreen-playbook.md` en entier au début de chaque
+> session, avant toute décision produit, UX, copywriting, design ou
+> implémentation.
 
 ---
 
 ## 1. Positionnement (la vision)
 
-Every gallery develops its own way of working — across artworks, publishing, collector relationships and internal coordination. Vitreen helps connect these fragmented activities into a more coherent working environment without forcing galleries into rigid software workflows.
+Vitreen connecte des **agents IA** à l'inventaire d'œuvres d'une galerie et
+transforme ces données existantes en emails, sélections et PDF prêts pour les
+collectionneurs — **dans Gmail et WhatsApp**, là où les échanges ont déjà lieu.
 
-### Pitch de vente
+Ligne de marque actuellement sur le site :
 
-Vitreen aide les galeries d’art à faire circuler leurs œuvres plus rapidement et plus simplement auprès de leurs collectionneurs.
+> **Give your gallery superpowers.**
+> Connect AI agents to your artwork inventory and turn existing data into
+> collector-ready emails, selections and PDFs for Gmail and WhatsApp.
 
-Concrètement, on connecte les archives, inventaires ou bases de données existantes de la galerie, puis on transforme ces œuvres en matériel collector prêt à être partagé : viewing rooms, sélections privées, PDFs, pages web ou échanges WhatsApp.
+### L'inversion à retenir
 
-L’idée n’est pas de remplacer les habitudes de travail des galeries avec une nouvelle plateforme lourde, mais plutôt de construire une couche opérationnelle discrète autour de leurs outils existants pour fluidifier la diffusion des œuvres et les conversations de vente.
+```text
+Hier        : le dashboard était le produit, l'agent une fonctionnalité.
+Aujourd'hui : l'agent est le produit, le dashboard est sa salle des machines.
+```
 
-### 4 piliers
+L'inversion est **commerciale, pas technique**. La base d'œuvres reste
+indispensable — sans elle l'agent n'est qu'un wrapper GPT copiable en un
+week-end — mais elle n'est plus ce qu'on vend, montre ou nomme.
 
-**1. Artworks & Archives**
-Organise artworks, exhibitions and archives across existing gallery systems. Vitreen structures artwork information, exhibition history, inventory and archival material from spreadsheets, legacy CMSs, PDFs or gallery databases — without replacing existing tools.
+> La base de données est notre moat, pas notre promesse.
 
-**2. Public & Private Publishing**
-Publish artworks across websites, viewing rooms, collector PDFs and private sharing channels. Vitreen helps galleries move seamlessly between public presentation and private distribution while maintaining consistency around artworks and exhibitions.
+### Face à Artlogic
 
-**3. Collector Relationships**
-Keep collector inquiries, follow-ups and sales conversations connected to the right artworks. Vitreen helps galleries preserve continuity across collector interactions and sales preparation without introducing unnecessary CRM complexity.
+Complémentaire, jamais remplaçant : « Artlogic stocke vos œuvres. Vitreen les
+fait circuler dans vos conversations de vente. » Tant qu'aucune synchro native
+n'existe, écrire « à partir de vos exports Artlogic », jamais « intégration
+Artlogic ».
 
-**4. Gallery Assistants**
-Assist galleries across publishing, collector communication and operational preparation using gallery-specific context. The goal is not to automate relationships, but to give galleries more time to focus on artists, exhibitions and collectors.
+### Packaging
 
-Source détaillée (idées, pricing, killer features) : page Notion _Idées à developper_ (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
+- **Un seul SKU** : Vitreen Conversations (abonnement). Le site affiche
+  aujourd'hui 950 €/mois + 4 500 € d'onboarding — chiffres publics actuels,
+  validation business encore à faire.
+- **Deux extensions payantes**, visiblement subordonnées : Site connecté
+  (projet à périmètre fixe) et Coaching IA (à partir de 400 €/session,
+  crédibilisé par le produit : « avec l'équipe qui construit l'IA des
+  galeries »).
+
+Ancienne source Notion _Idées à developper_ (`33f0b73f1fb780ee9f7be92f1e430f79`)
+— décrit encore l'architecture Gallery OS, à relire avec prudence.
 
 ---
 
@@ -40,155 +60,239 @@ Source détaillée (idées, pricing, killer features) : page Notion _Idées à d
 
 **Préférer**
 
-- "Sales Journey", "Collector Engagement"
-- "Distribute" (le bouton magique)
-- "Viewing Room", "Private Viewing"
-- "Partner", "Digital Sales Partner"
+- « agents IA », « votre inventaire connecté »
+- « emails, sélections et PDF prêts pour vos collectionneurs »
+- « dans Gmail et WhatsApp »
+- « groundé sur vos fiches », « préparé par l'IA, envoyé par votre équipe »
+- « fonctionne à côté d'Artlogic »
+- « couche commerciale de la galerie »
 
 **Éviter**
 
-- "CMS", "Responsive", "Sites web pour galeries"
-- "Studio de création de sites"
-- Jargon technique côté client
+- **« Gallery OS »** (retiré du discours — voir playbook §4)
+- « plateforme tout-en-un », « operating system », « suite »
+- « CMS », « site web pour galeries », « logiciel d'inventaire »
+- la base de données en promesse principale
+- « autopilot », « envoi automatique », « AI-powered everything »
+- jargon technique côté client
+
+### Discipline de claims (non négociable)
+
+- L'agent **prépare**, l'humain **envoie**. Jamais d'envoi autonome. C'est un
+  argument de vente, pas une limitation.
+- L'IA ne répond que depuis les fiches de la galerie. Jamais un prix inventé.
+- Pas de claim « vendez plus » tant que ce n'est pas mesuré sur des pilotes.
+  Vendre l'autonomie, la précision et la rapidité de réponse.
 
 ---
 
 ## 3. Stack & commandes
 
 - **Framework :** Next.js (App Router) + React + TypeScript
-- **Bundler dev :** **webpack** (pas Turbopack — incompatible avec le setup actuel)
+- **Bundler dev :** **webpack** (pas Turbopack — incompatible avec le setup)
 - **Styling :** Tailwind CSS
 - **Animation :** framer-motion
-- **i18n :** `lib/lang.tsx` (FR/EN, contexte React custom)
-
-Dev server (port 3001 par défaut) :
+- **i18n :** deux systèmes coexistent, voir §6
 
 ```bash
-npm run dev          # webpack
+npm run dev
 ```
 
-Le port est défini dans `.claude/launch.json` (chaque worktree a le sien — ne pas commiter).
+Port défini dans `.claude/launch.json` (3000 par défaut, une entrée 3001 existe
+aussi).
+
+Un hook pre-commit lance **Prettier en mode check** : lancer
+`npx prettier --write` sur les fichiers touchés avant de committer, sinon le
+commit est rejeté.
 
 ---
 
 ## 4. Arborescence
 
 ```
-app/                    # Routes Next.js (App Router)
-components/             # Composants React
-  ui/                   # Primitives (Button, etc.)
-  ovr/                  # Viewing Room app
-  Nav.tsx               # Navbar + mega-menus Product & Solutions
-  Audiences.tsx, Showcase.tsx, ...
+app/
+  (en)/page.tsx           # Home EN — composée de components/landing/*
+  (fr)/fr/page.tsx        # Home FR — composée de components/landing/*Fr
+  (en)/pricing, about, products/*, solutions/[role]    # anciennes pages
+  (fr)/fr/...                                           # idem FR
+components/
+  landing/                # LA landing actuelle (voir §5)
+  shared/ArtworkAddInMocks.tsx   # mockups Gmail / WhatsApp / import
+  ui/Button.tsx
+  ContactModal.tsx        # modale contact, i18n via useLang
+  Nav.tsx, Hero.tsx, Services.tsx, ...   # anciens composants (legacy)
 lib/
-  lang.tsx              # i18n FR/EN — source unique de vérité texte
-public/                 # Images, fonts, vidéos
-  paula-cooper-background.jpg
-  gallery hero mock/, krea/, artworks/, ...
+  lang/strings.ts         # i18n des anciennes pages uniquement
+  seo.ts
+public/
+  logos/, mockups/whatsapp-figma/, artworks/, ...
 ```
+
+### Dette connue
+
+- Les pages `/pricing`, `/about`, `/products/*`, `/solutions/*` tournent encore
+  sur l'ancien discours Gallery OS (mega-menus, 4 piliers, personas). Aucun lien
+  de la home n'y pointe, mais elles restent à recentrer ou supprimer.
+- `GalleryOsSearchWidget` dans `ArtworkAddInMocks.tsx` : le texte affiché dit
+  bien « Vitreen », mais le **nom de la fonction** garde l'ancien nom. À
+  renommer lors d'un prochain passage dans ce fichier.
+- `.claude/launch.json` est **actuellement suivi par git** alors que la règle
+  était de ne pas le committer (port local, propre à chaque worktree). À retirer
+  du suivi si la règle tient.
 
 ---
 
-## 5. Tokens de design
+## 5. La landing (`components/landing/`)
 
-Couleurs :
-| Usage | Hex |
-| --- | --- |
-| Texte principal | `#111110` |
-| Texte secondaire | `#6B6A67` |
-| Texte tertiaire / placeholder | `#ADADAA` |
-| Bordure / séparateur | `#E8E8E6` |
-| Fond doux | `#F5F5F3` |
-| Fond | `#FFFFFF` |
+Ordre des sections, identique EN et FR :
 
-Typographie :
+| #   | Composant        | Rôle                                                           |
+| --- | ---------------- | -------------------------------------------------------------- |
+| 1   | `LandingNav`     | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**               |
+| 2   | `LandingHero`    | Promesse + collage produit (Gmail + WhatsApp)                  |
+| 3   | `LandingProblem` | Le problème, puis « votre base stocke, Vitreen fait circuler » |
+| 4   | `LandingProduct` | Gmail et WhatsApp, en rangées image/texte alternées            |
+| 5   | `LandingAi`      | **Le moteur** : garanties de grounding + brouillon à valider   |
+| 6   | `LandingSystem`  | Une source → toutes les sorties (socle discret)                |
+| 7   | `LandingOffers`  | Conversations (carte pleine) + 2 extensions subordonnées       |
+| 8   | `LandingMethod`  | Audit / Connexion / Configuration / Amélioration               |
+| 9   | `LandingFaq`     | Objections : Artlogic, migration, envoi auto, site             |
+| 10  | `LandingCta`     | CTA final + footer léger                                       |
 
-- `font-display` pour les titres (cf. `app/layout.tsx`)
-- Sans-serif système pour le reste
+Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
 
-Tailles courantes dans la nav et menus :
+**Règles de composition**
 
-- Eyebrows / labels gris : `text-[10px]` ou `text-[11px]` (pas d'uppercase par défaut)
-- Items menu : `text-[14px]` (`font-display`)
-- Descriptions : `text-[11px]` à `text-[12px]`
-
-Radius :
-
-- Cartes / dropdowns : `rounded-lg`
-- Pills / badges : `rounded-full`
-- Images dans dropdowns : `rounded-md`
-
-Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
+- Le texte est **inline dans les composants**, pas dans `lib/lang/strings.ts`.
+  Toute modification doit être portée dans le composant EN **et** son jumeau FR.
+- Rythme des fonds : alternance `bg-white` / `bg-[#F5F5F3]` d'une section à
+  l'autre, avec `border-t border-[#E8E8E6]`. Vérifier l'alternance après tout
+  ajout ou déplacement de section.
+- `LandingAi` doit rester **visuellement plus sobre** que les sections
+  Gmail/WhatsApp : c'est le moteur, pas le produit. Pas d'ombre, pas de couleur.
+- Jamais de grille de 4 cartes égales pour présenter l'offre — ce motif recrée
+  le look SaaS que le recentrage cherche à quitter.
+- `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
+  pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
 ---
 
 ## 6. Règles i18n
 
-- **Toujours mettre à jour FR ET EN** dans `lib/lang.tsx`. Jamais l'un sans l'autre.
-- Caractères spéciaux français : utiliser `’` pour apostrophes courbes, `—` pour tirets cadratins (le fichier les utilise en escape).
-- Quand on ajoute un menu/section, ajouter la structure complète dans les deux blocs `fr` et `en`.
+Deux systèmes coexistent :
+
+1. **Landing (`components/landing/`)** — texte inline, un composant par langue.
+   Modifier toujours la paire (`X.tsx` **et** `XFr.tsx`).
+2. **Anciennes pages** — `lib/lang/strings.ts`, blocs `fr` et `en`. Toujours
+   mettre à jour les deux.
+
+Français : apostrophes courbes `’`, tirets cadratins `—`, guillemets `« »`.
+Les mockups partagés acceptent des props de libellés pour rester dans la bonne
+langue (`GalleryOsSearchWidget`, `WhatsAppPdfMockup`) — les passer côté FR.
 
 ---
 
 ## 7. Workflow Git & worktrees
 
-- Worktrees vivent dans `.claude/worktrees/`
-- Chaque worktree a son propre `node_modules` — il faut faire `npm install` après création.
-- **Ne jamais commiter** `.claude/launch.json` (port local, propre à chaque worktree).
-- Branches actives : `main` (prod), `V2` (refonte en cours).
+- Branches : `main` (prod), `Tugan` (travail en cours sur le recentrage).
+- Worktrees dans `.claude/worktrees/`, `npm install` après création.
+- Prettier avant commit (voir §3).
+- Commits en anglais, impératif, sujet court + corps explicatif.
 
 ---
 
 ## 8. Conventions UI / produit
 
-- **Mega-menus** (Product, Solutions) : trigger sur hover ET clic, panneau positionné `absolute top-full left-1/2 -translate-x-1/2`. Animation `framer-motion` (`opacity` + `y`).
-- **Bordure header** s'active quand : page scrollée OU mega-menu ouvert (`scrolled || megaMenuOpen`).
-- **Pas d'icônes décoratives** dans les menus (on a explicitement écarté les avatars-lettres style Legora).
+- **Pas de mega-menu.** La nav est plate — c'est le signal le plus visible du
+  changement de catégorie.
+- Bordure du header : s'active au scroll uniquement.
+- Pas d'icônes décoratives, pas de gradients, pas de faux dashboards.
+- Partout où l'agent apparaît, l'étape de validation humaine doit être
+  **visible** (bouton « Relire et envoyer »), pas seulement affirmée.
 
 ---
 
-## 9. Roadmap produit (état actuel)
+## 9. Tokens de design
 
-| Brique                       | Statut                             |
-| ---------------------------- | ---------------------------------- |
-| CRM / Inventaire             | ✅ Existant                        |
-| Site galerie / Vitrine       | ✅ Existant                        |
-| Pages artistes / expositions | ✅ Existant                        |
-| Private Selections           | ✅ Intégré à Gallery OS            |
-| Distribute (bouton magique)  | 🔴 À développer — _killer feature_ |
-| Generate Private Room        | 🔴 À développer                    |
-| Export to Story (9:16 IG)    | 🔴 À développer                    |
-| AI Copywriter                | 🔴 À développer                    |
-| Private Selection analytics  | 🔴 À développer                    |
-| Dashboard / Slack Partner    | 🔴 À développer                    |
+| Usage                         | Hex                                        |
+| ----------------------------- | ------------------------------------------ |
+| Texte principal               | `#111110`                                  |
+| Texte secondaire              | `#6B6A67`                                  |
+| Texte tertiaire / placeholder | `#ADADAA`                                  |
+| Bordure / séparateur          | `#E8E8E6` (variantes `#DCDCD8`, `#E1E1DE`) |
+| Fond doux                     | `#F5F5F3`                                  |
+| Fond                          | `#FFFFFF`                                  |
 
----
+Classes partagées dans `components/landing/styles.ts` : `SECTION`, `CONTAINER`,
+`EYEBROW`, `H2`, `H2_SUB`, `H3`, `BODY`, `BODY_SM`, `LINE_INK`. Les réutiliser
+plutôt que de recréer des échelles typographiques.
 
-## 10. Pricing (en réflexion)
-
-- Pivot vers du **récurrent (SaaS + Service)** plutôt que one-shot
-- Setup : ~2 000€
-- Monthly Partnership : 300-800€/mois
-- Argument : _"Artlogic = 200€/mois pour stocker. Vitreen = 500€/mois pour vendre."_
-
-Détails dans la page Notion.
+- `font-display` pour les titres (cf. `app/layout.tsx`)
+- Radius : `rounded-[12px]` cartes, `rounded-full` pills
+- Ombre panneaux flottants : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]`
 
 ---
 
-## 11. Social content
+## 10. Produit (hors de ce repo)
+
+Le dashboard et l'agent vivent dans **`gallery-OS/dashboard/`** — dépôt séparé,
+absent de ce workspace.
+
+- Sales agent : `src/lib/sales-agent/` (Groq `openai/gpt-oss-120b`, tool loop,
+  groundé sur les données galerie, 6 langues, validation humaine obligatoire,
+  envoi via Resend).
+- File de brouillons : `/dashboard/sales-drafts` → destinée à devenir l'écran
+  d'accueil (« Inbox »).
+
+**Chantier ouvert, non démarré** — spécifié en détail dans `vitreen-playbook.md`
+§9 (phases, garde-fous, definition of done) : nav réduite à Inbox / Artworks /
+Connections / Settings, modules publisher et viewing rooms masqués par feature
+flags (**jamais de fork, rien de supprimé**), onboarding inversé avec aha en J1,
+métriques d'usage.
+
+Tant que ce chantier n'est pas livré, le site raconte la nouvelle histoire mais
+la démo montre encore l'ancienne. C'est l'écart prioritaire à combler. Le
+chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
+
+---
+
+## 11. Roadmap
+
+| Brique                                                | Statut                      |
+| ----------------------------------------------------- | --------------------------- |
+| Add-in Gmail                                          | ✅ Fonctionnel              |
+| WhatsApp Business                                     | ✅ Fonctionnel              |
+| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                     |
+| Sélections privées + export PDF                       | ✅ Existant                 |
+| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                 |
+| Inbox comme écran d'accueil                           | 🔴 Phase 1                  |
+| Masquage des modules par feature flags                | 🔴 Phase 1                  |
+| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                  |
+| WhatsApp Business self-service                        | 🔴 Phase 2                  |
+| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                  |
+| Site connecté                                         | 🟡 Extension, vendue à part |
+| Coaching IA                                           | 🟡 Extension, vendue à part |
+| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais            |
+
+---
+
+## 12. Social content
 
 Guides de rédaction par réseau dans `.claude/social/` :
 
 - `README.md` — voix globale + matrice IG vs X
-- `instagram.md` — ton "luxe calme", carrousels, stories
+- `instagram.md` — ton « luxe calme », carrousels, stories
 - `twitter.md` — voix founder, threads, building in public
 - `references.md` — chiffres marché, comptes inspirants, glossaire
 
-Quand on me demande "écris un post IG sur X", je lis le fichier concerné avant de rédiger.
+Lire le fichier concerné avant de rédiger un post.
 
-## 12. À faire évoluer dans ce CLAUDE.md
+---
 
-- [ ] Ajouter les commandes lint / test / build une fois stabilisées
+## 13. À faire évoluer dans ce fichier
+
+- [ ] Commandes lint / test / build une fois stabilisées
 - [ ] Documenter `components/ovr/` (Viewing Room app)
-- [ ] Documenter le contact API (`/api/contact`)
-- [ ] Ajouter exemples de "bonnes" vs "mauvaises" formulations marketing
+- [ ] Documenter l'API contact (`/api/contact`)
+- [ ] Trancher le sort des anciennes pages (`/pricing`, `/about`, `/products/*`)
+- [ ] Valider définitivement les montants du SKU Conversations
