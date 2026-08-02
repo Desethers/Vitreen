@@ -79,12 +79,12 @@ right work, the right price and material that looks like their gallery. Many
 would also rather have someone install this with them than configure it
 themselves — that is precisely what the founder-led model sells.
 
-**On affordability.** A six-month engagement is roughly €5,700 — real money for
-a small gallery. Spreading it is not an accounting detail, it is part of the
-offer: a gallery that cannot write a €5,000 cheque upfront can absorb €950 a
-month while watching the work happen. Payment tracks visible progress, which is
-also what makes it defensible in a sales conversation. Say this plainly rather
-than hiding the total.
+**On affordability.** This is real money for a small gallery either way: €3,000
+once for Setup, or roughly €5,700 across a six-month Partner minimum. The two
+shapes suit different situations, and that is much of the point — a gallery
+with a one-off budget line can take Setup, a gallery that would rather spread
+the cost while watching the work happen takes Partner. In both cases payment
+tracks visible progress. Say the totals plainly rather than hiding them.
 
 Speak gallery, not software.
 
@@ -110,12 +110,13 @@ cannot win: a gallery does not compare an hour spent with the founder to a
 self-serve SaaS line item. Comparing Vitreen to Artlogic on price is the wrong
 comparison, and the offer should never invite it.
 
-> **Watch this after month six.** The comparison protection comes from the
-> founder's presence, not from the software. Once the installation is done and
-> the monthly rhythm lightens, a gallery starts seeing a monthly software line
-> and will compare it to what it pays elsewhere. That is why the relationship
-> continues rather than stopping (see §5) — but it means the continued value has
-> to stay visible, not assumed.
+> **The protection is uneven across the two offers.** It comes from the
+> founder's presence, not from the software. Partner keeps that presence, so it
+> keeps the protection. A delivered Setup client has no founder in the picture
+> — only a system that works — and will eventually compare it to what else it
+> pays for. That is not a flaw in Setup, but it means Setup has to be sold on
+> the quality of the delivered result, never on an ongoing relationship it does
+> not include.
 
 ## Preferred language
 
@@ -141,13 +142,15 @@ Avoid:
 - marketplace, CRM replacement
 - "Artlogic alternative" as the primary framing
 
-**On naming the recurring part.** The engagement has a monthly price, and after
-month six a lighter monthly fee continues. That is a fact, and it can be stated
-plainly. What is banned is the _shopping_ vocabulary that turns Vitreen into a
-SaaS purchase: no "plan", no "tier", no "subscribe", no "upgrade", no pricing
-table with columns to compare. Acceptable: "monthly", "ongoing", "continued
-partnership", "software and support". The gallery is deciding whether to work
-with Vitreen — not which product to buy.
+**On naming the offers.** Prices can be stated plainly — €3,000 once, or
+€950/month with a six-month minimum. What is banned is the _shopping_
+vocabulary that turns Vitreen into a SaaS purchase: no "plan", no "tier", no
+"subscribe", no "upgrade", no feature-comparison table with checkmark columns.
+Acceptable: "one-time", "monthly", "ongoing", "partnership", "maintenance".
+
+Setup and Partner are presented as **two ways of working together**, not as a
+small and a large version of the same thing. If a page ever renders them as
+two columns of features to scan, the framing has failed.
 
 ---
 
@@ -184,59 +187,120 @@ Everything else in the product sits behind these surfaces.
 
 ---
 
-# 5. The offer — Vitreen Partner
+# 5. The offer — Setup or Partner
 
-**Status: current pricing doctrine, decided 2026-08.** This replaces the earlier
-Send / Agent ladder (€450 and €950 per month as separate SaaS-style tiers).
-There is **one engagement**, not a choice between products.
+**Status: current pricing doctrine, decided 2026-08.** This replaces both the
+Send / Agent ladder and the earlier single six-month engagement at €950/month
+with a €250/month tail.
 
-## The six-month installation
+Two offers. They are **not two tiers of the same product** — they are two
+different relationships with the same system:
 
-One offer. Everything is included from day one — there is no "which tier"
-question in a sales call:
+```text
+Setup    → a finished project.    The system is installed and stays stable.
+Partner  → an ongoing relationship. The system keeps improving with the gallery.
+```
 
-- structuring the artwork inventory
-- installing Vitreen
-- configuring Gmail and WhatsApp
-- building the gallery's own email, selection and PDF formats
-- training the team
-- adjusting the system against real collector requests as they come in
-- a monthly working session
-- defined support
-- continuous improvement, inside a standardized scope (see §11)
+That distinction is what keeps this from being SaaS tier-shopping. A gallery is
+not picking a feature level; it is deciding whether it wants a delivery or a
+partner.
 
-## Reference pricing
+## Vitreen Setup — €3,000 one-time
 
-> From €950/month for 6 months, then software and continued partnership from
-> €250/month.
+> Your gallery system, installed and complete.
+> We structure your artwork inventory and configure the Gmail and WhatsApp
+> workflows your team needs.
+
+Includes:
+
+- artwork inventory import and setup
+- Gmail and WhatsApp configuration
+- email, selection and PDF formats
+- team training
+- final documentation
+- 12 months of technical maintenance
+
+After delivery, the system remains stable. It does not include new features,
+new workflows or ongoing product improvements.
+
+### What maintenance means — the boundary that protects the offer
+
+This list is doctrine, not fine print. It is the single most important scope
+protection in the whole offer, because "maintenance" is the word every client
+will try to stretch.
+
+Maintenance covers **only**:
+
+- bug fixes
+- keeping existing functionality working
+- security updates
+- reasonable technical compatibility
+- restoration in case of a technical problem
+
+Maintenance does **not** cover:
+
+- new features
+- new integrations
+- new templates
+- changes to data structure
+- workflow evolution
+- specific requests
+
+Anything in the second list is a Partner conversation or a new Setup scope —
+never an unbilled favour. Saying yes once here reopens the boundary
+permanently.
+
+## Vitreen Partner — €950/month, 6-month minimum
+
+> A system that keeps improving with your gallery.
+> We install Vitreen, work directly with your team and continue improving the
+> system around real collector conversations.
+
+Includes:
+
+- complete setup
+- software and maintenance
+- monthly working session
+- direct founder support
+- workflow improvements
+- new email, selection and PDF formats
+- preparation for fairs and exhibitions
+- priority access to new Vitreen features
 
 > These figures are the current reference. They still need final business
 > validation — treat them as the working numbers, not as settled.
 
-Read the shape, not just the total: the first six months fund the personal
-installation work; what follows is lighter. The price should visibly step down
-once the founder's hands-on time drops — a gallery paying €950/month in month
-eight, with nothing being actively installed, is being overcharged, and pricing
-that behaves that way will eventually break trust.
+## How to sell the difference
 
-## After month six — the partnership continues
+Setup is the right answer for a gallery whose workflow is stable and who wants
+a thing that works. Partner is the right answer for a gallery whose programme
+moves — fairs, new artists, changing team — and who wants someone iterating
+with them.
 
-**Decided 2026-08.** The relationship does not stop at the end of the
-installation. The gallery stays on as a partner: the monthly working session
-continues at a reduced rhythm, and the €250/month covers the software plus that
-lighter accompaniment.
+Do not sell Partner as "Setup plus extras". Sell it as the difference between
+owning a finished installation and having someone alongside you. The feature
+lists differ, but the real difference is the relationship.
 
-This is a deliberate choice with a real cost attached — see the capacity
-warning in §6. Every gallery installed keeps consuming a slice of founder time
-permanently, so this decision caps how many galleries Vitreen can ever serve.
-It is defensible because it is also what keeps the relationship out of a pure
-software comparison (§3), but the trade must stay conscious.
+**Watch the arithmetic.** Setup at €3,000 is roughly half of Partner's
+six-month minimum (€5,700), and both include the complete installation. A
+prospect will do that maths in the first minute. The answer has to be ready and
+honest: the extra buys continued improvement, founder access and fair
+preparation — not a better system on day one. If Setup starts absorbing every
+prospect, that is information about what galleries actually want, not a pricing
+bug to patch.
 
-## Why one engagement, not a ladder
+## Open questions, not yet decided
 
-A ladder invites "which tier should I get" — exactly the SaaS shopping
-behaviour Vitreen exists to avoid. One engagement, one price, one conversation:
-the gallery is deciding whether to work with Vitreen, not which plan to pick.
+**Month 13 of a Setup client.** The €3,000 includes twelve months of technical
+maintenance. What happens after is undefined: does maintenance simply lapse,
+is there a renewal, and who covers hosting and model inference costs from that
+point? The first Setup client will reach month thirteen; decide before then,
+not during.
+
+**Ongoing running costs inside a one-time price.** A Setup client runs the
+agent — which means inference and hosting costs — for twelve months against a
+single payment. That is fine at small volumes and worth watching as a real
+margin question rather than an accounting detail.
 
 ---
 
@@ -245,13 +309,14 @@ the gallery is deciding whether to work with Vitreen, not which plan to pick.
 This is the reasoning behind §5, kept explicit because every future pricing or
 scoping decision should be checked against it.
 
-**The service funds the product.** The six-month engagement price covers the
-founder's real installation time. Without it, the product alone (at a SaaS
-price) would not cover the hours a gallery actually needs to get set up.
+**The service funds the product.** Both offers price the founder's real
+installation time — as a one-time fee in Setup, as a monthly one in Partner.
+Without it, the product alone (at a SaaS price) would not cover the hours a
+gallery actually needs to get set up.
 
 **The product prevents Vitreen from becoming an agency.** Every gallery
 installs the same underlying system. The founder's time goes into
-configuration, not into building bespoke software per client. Without this, six
+configuration, not into building bespoke software per client. Without this,
 months of hands-on work per gallery would just be freelance dev work with
 extra steps.
 
@@ -270,37 +335,53 @@ installation price to compete on SaaS terms, customize past the boundary for a
 demanding client, let the product diverge per client — and the other three stop
 holding.
 
+## Why the two-offer structure protects capacity
+
+The Setup / Partner split is not only a commercial choice — it is the thing
+that makes a solo founder viable, and this is worth understanding before anyone
+is tempted to blur the two.
+
+**Setup clients have a bounded tail.** Once delivered, a Setup gallery consumes
+only maintenance — bug fixes and security updates, which batch across all
+clients and do not require a scheduled monthly presence. Ten Setup galleries do
+not mean ten recurring meetings.
+
+**Partner clients consume permanent monthly time.** A monthly working session
+per Partner gallery, forever, is a standing commitment. Capacity for new
+installations shrinks as the Partner base grows: ten Partner galleries at half
+a day each is five days gone before a single new installation starts.
+
+The practical consequence:
+
+> **Partner count is the real capacity constraint. Setup count is not.**
+
+Which also means the two offers should never be quietly merged — "a bit of
+ongoing help" added to a Setup client is exactly how the bounded tail becomes
+an unbounded one, one favour at a time. That is what the maintenance boundary
+in §5 exists to prevent.
+
 ## The capacity ceiling — open question, must be measured
 
-**Not yet known. This is the single number that decides whether Vitreen is a
-business or a job, and it is currently unwritten.**
-
-The structure to measure it:
+**Not yet known. This is the number that decides whether Vitreen is a business
+or a job, and it is currently unwritten.**
 
 ```text
 concurrent installations  =  (founder days available per month
-                              −  days consumed by continuing partnerships)
+                              −  days consumed by Partner sessions
+                              −  days consumed by Setup maintenance)
                              ÷  days per gallery in installation
 ```
 
-Two things make this urgent rather than academic:
-
-**The tail accumulates.** Because the partnership continues after month six
-(§5), every gallery ever installed keeps taking founder days, forever. Capacity
-for _new_ installations therefore **shrinks as the client base grows**. Ten
-galleries each taking half a day a month is five days gone before a single new
-installation starts. There is a saturation point, and the model reaches it
-silently unless the number is tracked.
-
-**It sets the price floor.** If an installation consumes four days a month,
-€950 is roughly €240 a day of founder time before any cost. Whether that is
+It also sets the price floor. If an installation consumes four days a month,
+€950 is roughly €240 a day of founder time before any cost; a €3,000 Setup
+spread over an eight-day delivery is €375 a day, once. Whether either is
 acceptable is a decision — but it cannot be made without the measurement.
 
-**What to do on the first gallery:** log actual days spent, separately for
-installation work and for the continued monthly session. After one full
-engagement, fill in the formula above and write the resulting ceiling into this
-document. Until then, treat every "can we take another client" question as
-unanswered.
+**What to do on the first clients:** log actual days spent, split three ways —
+installation work, Partner monthly sessions, and Setup maintenance. After one
+full delivery of each kind, fill in the formula and write the resulting ceiling
+into this document. Until then, treat every "can we take another client"
+question as unanswered.
 
 ---
 
@@ -320,8 +401,14 @@ the aha moment is deliberately placed third, before the deep work.**
 4. **Deepen the inventory and build the gallery's own formats** — email
    templates, selection layouts, PDF formats, tone.
 5. **Train the team.**
-6. **Adjust against real requests** as they come in, through the monthly
-   working session, for the rest of the engagement and beyond (§5).
+6. **Hand over, or keep going.** For a Setup client, steps 1–5 are the whole
+   delivery: documentation is handed over and the system enters maintenance
+   (§5). For a Partner client, step 6 is the monthly working session, adjusting
+   the system against real collector requests for as long as the partnership
+   runs.
+
+Steps 1 to 5 are identical in both offers — the installation does not differ.
+What differs is what happens after step 5.
 
 The temptation is to structure the inventory perfectly before showing anything.
 Resist it: a gallery that has seen its own works come back inside a real reply
@@ -417,23 +504,30 @@ If a request falls in the second list, that is a signal to say no. **One shared
 codebase, no per-client forks, ever.** A request outside the boundary is a sign
 to decline the client, not to expand the boundary.
 
-## The time budget — the monthly session is the container
+## The time budget — different container per offer
 
 The list above says _what kind_ of thing gets customized. It does not, on its
 own, cap _how much_ — and a category boundary is not protection: a gallery can
 ask for fifteen template variants, every one of them legitimately inside "you
 customize templates", and consume a founder entirely.
 
-So the rule is structural rather than a percentage:
+Each offer carries its own container, and neither is a percentage:
 
-> **The monthly working session is the customization budget.** Work that fits
-> inside it is in scope. Work that does not fit is either out of scope, or it
-> is a new engagement cycle — never an unbilled overflow.
+> **Partner: the monthly working session is the customization budget.** Work
+> that fits inside it is in scope. Work that does not fit is either out of
+> scope or a new cycle — never an unbilled overflow.
 
-This is why the monthly session exists as a fixed ritual and not as
-"availability". It is the mechanism that makes §6's fourth point true. If
-requests routinely spill past the session, the scope is wrong or the client is
-wrong — fix one of those, do not absorb the overflow.
+> **Setup: the delivery is the budget, and maintenance is not a second one.**
+> Once handed over, customization stops. The maintenance list in §5 is
+> exhaustive by design — new templates, new workflows and structure changes sit
+> outside it, deliberately.
+
+This is why the monthly session exists as a fixed ritual rather than as
+"availability", and why the Setup maintenance boundary is written as a closed
+list rather than a description. Together they are the mechanism that makes
+§6's fourth point true. If requests routinely spill past either container, the
+scope is wrong or the client is wrong — fix one of those, do not absorb the
+overflow.
 
 ---
 
@@ -661,7 +755,7 @@ remaining marketing pages still written in the old frame (`/pricing`, `/about`,
 3. Is it grounded in the gallery's own records?
 4. Does the human validation step remain visible and mandatory?
 5. Does it keep the artwork base as infrastructure, not as a promise?
-6. Is it one codebase, one engagement, configuration over forks?
+6. Is it one codebase, configuration over forks?
 7. Does it stay inside the customization boundary, and fit the monthly session
    (§11)?
 8. Are we avoiding SaaS shopping language and the word "Gallery OS"?

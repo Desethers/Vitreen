@@ -56,26 +56,46 @@ d'avance : une galerie ne compare pas une heure passée avec le fondateur à une
 ligne SaaS. Ne jamais présenter l'offre d'une façon qui invite à comparer
 Vitreen à Artlogic sur le prix.
 
-### Offre — Vitreen Partner
+### Offre — Setup ou Partner
 
-**Une seule offre**, pas une échelle de plans. Un accompagnement de six mois :
-structuration de l'inventaire, installation, configuration Gmail/WhatsApp,
-formats email/sélections/PDF, formation de l'équipe, ajustements sur des
-demandes réelles, réunion mensuelle, support défini, amélioration continue dans
-un périmètre standardisé.
+**Deux offres**, qui ne sont pas deux niveaux du même produit mais **deux
+relations différentes** avec le même système :
 
-> À partir de 950 €/mois pendant 6 mois, puis logiciel et partenariat continué
-> à partir de 250 €/mois.
+```text
+Setup    → un projet fini.       Le système est installé et reste stable.
+Partner  → une relation suivie.  Le système évolue avec la galerie.
+```
 
-Chiffres actuels, validation business encore à faire. Le prix doit visiblement
-baisser une fois l'installation terminée — une galerie qui paie encore 950 €
-en mois 8 sans rien d'actif en cours d'installation est surfacturée.
+| Offre               | Prix                       | Promesse                                    |
+| ------------------- | -------------------------- | ------------------------------------------- |
+| **Vitreen Setup**   | 3 000 € une fois           | Votre système, installé et complet          |
+| **Vitreen Partner** | 950 €/mois, minimum 6 mois | Un système qui continue d'évoluer avec vous |
 
-**Après le mois 6, la relation continue** (décidé 2026-08) : la session de
-travail mensuelle se poursuit à rythme réduit, les 250 € couvrent le logiciel
-et cet accompagnement allégé. Conséquence à assumer : chaque galerie installée
-consomme du temps fondateur **en permanence**, donc plafonne le nombre total de
-galeries servables (voir playbook §6).
+**Setup** inclut : import et structuration de l'inventaire, configuration
+Gmail/WhatsApp, formats email/sélections/PDF, formation de l'équipe,
+documentation finale, 12 mois de maintenance technique. Après livraison, le
+système reste stable — pas de nouvelles fonctionnalités ni d'évolution.
+
+**La maintenance Setup est une liste fermée**, et c'est la protection de
+périmètre la plus importante de toute l'offre. Elle couvre uniquement :
+correction de bugs, maintien du fonctionnement existant, mises à jour de
+sécurité, compatibilité technique raisonnable, restauration en cas de problème.
+Elle ne couvre pas : nouvelles fonctionnalités, nouvelles intégrations,
+nouveaux templates, changement de structure de données, évolution de workflow,
+demandes spécifiques. Dire oui une fois rouvre la frontière définitivement.
+
+**Partner** inclut : setup complet, logiciel et maintenance, session de travail
+mensuelle, accès direct au fondateur, améliorations de workflow, nouveaux
+formats, préparation des foires et expositions, accès prioritaire aux nouvelles
+fonctionnalités.
+
+Chiffres actuels, validation business encore à faire.
+
+**Ne jamais vendre Partner comme « Setup + options »** — c'est la différence
+entre posséder une installation finie et avoir quelqu'un à ses côtés. Et
+surveiller l'arithmétique : Setup à 3 000 € vaut environ la moitié du minimum
+Partner (5 700 €), les deux incluant l'installation complète. Le prospect fera
+ce calcul en une minute ; la réponse doit être prête et honnête.
 
 **Principe économique** (à ne jamais perdre de vue) : le service finance le
 produit · le produit empêche Vitreen de devenir une agence · l'accompagnement
@@ -83,26 +103,31 @@ personnel évite la comparaison directe avec Artlogic · le périmètre
 standardisé protège le temps du solo founder. Les quatre tiennent ensemble —
 affaiblir l'un fait céder les trois autres.
 
+**Capacité** : c'est le **nombre de clients Partner** qui contraint, pas le
+nombre de Setup. Un Setup livré ne consomme que de la maintenance, qui se
+groupe entre clients ; un Partner consomme une session mensuelle à vie. D'où
+l'interdiction de mélanger les deux — « un peu de suivi » ajouté à un client
+Setup transforme une queue bornée en queue infinie. Plafond exact encore
+inconnu : logger les jours réels (installation / sessions Partner / maintenance
+Setup) puis appliquer la formule du playbook §6.
+
 **Frontière de personnalisation** — personnalisable : imports, champs
 commerciaux, modèles, ton, règles de visibilité, workflows Gmail/WhatsApp.
 Jamais personnalisable : l'architecture centrale, le produit entier, la
 roadmap pour un seul client, des outils sans rapport avec l'inventaire et les
-conversations commerciales. Une demande hors périmètre est un signal pour
-refuser le client, pas pour l'accepter.
+conversations commerciales.
 
-**Budget temps** : la session mensuelle **est** le budget de personnalisation.
-Ce qui tient dedans est dans le périmètre ; ce qui déborde est hors périmètre
-ou devient un nouveau cycle — jamais un dépassement non facturé.
+**Budget temps** : côté Partner, la session mensuelle **est** le budget ; côté
+Setup, la livraison est le budget et la maintenance n'en est pas un second.
 
-**Vocabulaire du récurrent** : dire le prix mensuel est normal. Ce qui est
-interdit, c'est le vocabulaire d'achat SaaS — pas de « plan », « tier »,
-« s'abonner », pas de tableau comparatif à colonnes. Acceptable : « mensuel »,
-« partenariat continué », « logiciel et support ».
+**Vocabulaire** : dire les prix est normal. Interdit : « plan », « tier »,
+« s'abonner », « upgrade », et tout tableau comparatif à colonnes de features.
+Acceptable : « une fois », « mensuel », « partenariat », « maintenance ».
 
-**Plafond de capacité — inconnu, à mesurer.** Combien de galeries en parallèle ?
-Personne ne le sait encore, et c'est le chiffre qui décide si Vitreen est une
-entreprise ou un emploi. Logger les jours réels passés sur la première galerie
-(installation vs partenariat continué), puis appliquer la formule du playbook §6.
+**Questions ouvertes** (playbook §5) : que devient un client Setup au mois 13,
+quand les 12 mois de maintenance expirent — et qui porte les coûts
+d'hébergement et d'inférence pendant ces 12 mois financés par un paiement
+unique ?
 
 **Statut à trancher** : l'ancienne offre portait Site connecté et Coaching IA
 en extensions séparées. Partner inclut désormais la formation d'équipe, ce qui
@@ -242,11 +267,13 @@ Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
   Gmail/WhatsApp : c'est la démonstration de l'Agent, pas une vitrine de plus.
   Pas d'ombre, pas de couleur.
 - `LandingOffers` implémente encore l'échelle Send (450 €/mois) / Agent
-  (950 €/mois) — **cette structure est périmée** depuis le pivot vers Vitreen
+  (950 €/mois) — **cette structure est périmée** depuis le pivot vers Setup /
   Partner (playbook §5). Le code n'a pas encore été mis à jour ; ne pas s'y
   fier comme référence de pricing, et ne pas la recopier ailleurs. Prochaine
-  session de code sur la landing : refaire cette section en une seule offre
-  Partner (voir playbook §5 et §6).
+  session de code sur la landing : refaire cette section en deux offres, Setup
+  (3 000 € une fois) et Partner (950 €/mois), présentées comme deux façons de
+  travailler ensemble et **non** comme deux colonnes de features à comparer
+  (voir playbook §3 et §5).
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
@@ -333,22 +360,23 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 
 ## 11. Roadmap
 
-| Brique                                                | Statut                                        |
-| ----------------------------------------------------- | --------------------------------------------- |
-| Add-in Gmail                                          | ✅ Fonctionnel                                |
-| WhatsApp Business                                     | ✅ Fonctionnel                                |
-| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                                       |
-| Sélections privées + export PDF                       | ✅ Existant                                   |
-| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                                   |
-| Inbox comme écran d'accueil                           | 🔴 Phase 1                                    |
-| Masquage des modules par feature flags                | 🔴 Phase 1                                    |
-| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                                    |
-| WhatsApp Business self-service                        | 🔴 Phase 2                                    |
-| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                    |
-| Landing recentrée sur l'offre Vitreen Partner         | 🔴 À faire (code périmé, voir §5)             |
-| Site connecté                                         | 🟠 Statut à trancher (playbook §15)           |
-| Coaching IA autonome                                  | ⛔ Redondant avec Partner (formation incluse) |
-| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                              |
+| Brique                                                | Statut                                                |
+| ----------------------------------------------------- | ----------------------------------------------------- |
+| Add-in Gmail                                          | ✅ Fonctionnel                                        |
+| WhatsApp Business                                     | ✅ Fonctionnel                                        |
+| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                                               |
+| Sélections privées + export PDF                       | ✅ Existant                                           |
+| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                                           |
+| Inbox comme écran d'accueil                           | 🔴 Phase 1                                            |
+| Masquage des modules par feature flags                | 🔴 Phase 1                                            |
+| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                                            |
+| WhatsApp Business self-service                        | 🔴 Phase 2                                            |
+| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                            |
+| Landing recentrée sur Setup / Partner                 | 🔴 À faire (code périmé, voir §5)                     |
+| Sort d'un client Setup au mois 13                     | 🟠 À trancher (playbook §5)                           |
+| Site connecté                                         | 🟠 Statut à trancher (playbook §15)                   |
+| Coaching IA autonome                                  | ⛔ Redondant (formation incluse dans les deux offres) |
+| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                                      |
 
 ---
 
@@ -371,8 +399,9 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter l'API contact (`/api/contact`)
 - [ ] Trancher le sort des anciennes pages (`/pricing`, `/about`, `/products/*`)
-- [ ] Valider définitivement les montants de l'offre Vitreen Partner
-- [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Partner (le code
-      montre encore l'ancienne échelle Send/Agent, périmée)
+- [ ] Valider définitivement les montants Setup (3 000 €) et Partner (950 €/mois)
+- [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Setup / Partner
+      (le code montre encore l'ancienne échelle Send/Agent, périmée)
 - [ ] Trancher le sort de l'extension Site connecté (playbook §15)
-- [ ] Mesurer le plafond de capacité sur la première galerie (playbook §6)
+- [ ] Trancher ce que devient un client Setup au mois 13 (playbook §5)
+- [ ] Mesurer le plafond de capacité sur les premiers clients (playbook §6)
