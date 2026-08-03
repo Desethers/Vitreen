@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLang } from "@/lib/lang";
-import { ArtistWebsitePage } from "@/components/WebsitePublisherProductPage";
+import { WhatsAppShareWorksMock } from "@/components/SolutionPage";
+import { IntegrationsFrame } from "@/components/GalleryAssistantProductPage";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -343,48 +344,82 @@ function PrivateSelectionPageMock() {
   );
 }
 
-const addInCards = [
-  {
-    type: "gmail",
-    label: "Gmail",
-    src: "/logos/icon-gmail-96.png",
-    className: "h-[42px] w-[42px]",
-  },
-  {
-    type: "whatsapp",
-    label: "WhatsApp",
-    src: "/logos/whatsapp.svg",
-    className: "h-[42px] w-[42px]",
-  },
-] as const satisfies readonly {
-  type: string;
-  label: string;
-  src: string;
-  className: string;
-}[];
+export function ServicesGrid() {
+  const { t } = useLang();
+  const cards = t.services.cards;
 
-function AddInMiniMock({
-  src,
-  label,
-  className,
-}: {
-  src: string;
-  label: string;
-  className: string;
-}) {
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-3 bg-[#F8F8F6] p-6 text-center">
-      <img src={src} alt="" aria-hidden="true" className={`${className} object-contain`} />
-      <p className="max-w-full truncate text-[15px] font-medium leading-none tracking-[-0.01em] text-[#111110]">
-        {label}
-      </p>
+    <div className="grid gap-4 md:grid-cols-6">
+      <motion.a
+        {...fadeUp(0.05)}
+        href="/products/archive"
+        className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+      >
+        <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
+          <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
+            <GalleryOsArtistMock />
+          </div>
+        </div>
+        <CardCaption label={cards.dashboard.label} title={cards.dashboard.title} action="Explore" />
+      </motion.a>
+
+      <motion.a
+        {...fadeUp(0.1)}
+        href="/products/custom-operations"
+        className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+      >
+        <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
+          <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
+            <div className="relative h-full">
+              <IntegrationsFrame />
+            </div>
+          </div>
+        </div>
+        <CardCaption
+          label={cards.website.label}
+          title="Gmail Side Panel"
+          action="Explore"
+          actionHover="dark"
+        />
+      </motion.a>
+
+      <motion.a
+        {...fadeUp(0.12)}
+        href="/products/viewing-rooms"
+        className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
+      >
+        <div className="h-[240px] overflow-hidden md:h-[300px]">
+          <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
+            <PrivateSelectionPageMock />
+          </div>
+        </div>
+        <CardCaption
+          label={cards.pdf.label}
+          title={cards.pdf.title}
+          action="Explore"
+          actionHover="dark"
+        />
+      </motion.a>
+
+      <motion.a
+        {...fadeUp(0.16)}
+        href="/products/custom-operations"
+        className="group relative grid h-[240px] overflow-hidden rounded-[12px] border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3 md:h-[300px]"
+      >
+        <WhatsAppShareWorksMock />
+        <CardCaption
+          label={cards.addins.label}
+          title={cards.addins.title}
+          action="Explore"
+          actionHover="dark"
+        />
+      </motion.a>
     </div>
   );
 }
 
 export default function Services() {
   const { t } = useLang();
-  const cards = t.services.cards;
 
   return (
     <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
@@ -397,82 +432,7 @@ export default function Services() {
             {t.services.subtitle}
           </p>
         </motion.div>
-
-        <div className="grid gap-4 md:grid-cols-6">
-          <motion.a
-            {...fadeUp(0.05)}
-            href="/products/archive"
-            className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
-          >
-            <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
-              <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
-                <GalleryOsArtistMock />
-              </div>
-            </div>
-            <CardCaption
-              label={cards.dashboard.label}
-              title={cards.dashboard.title}
-              action="Explore"
-            />
-          </motion.a>
-
-          <motion.a
-            {...fadeUp(0.1)}
-            href="/products/publishing"
-            className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
-          >
-            <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
-              <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
-                <ArtistWebsitePage />
-              </div>
-            </div>
-            <CardCaption
-              label={cards.website.label}
-              title={cards.website.title}
-              action="Explore"
-              actionHover="dark"
-            />
-          </motion.a>
-
-          <motion.a
-            {...fadeUp(0.12)}
-            href="/products/viewing-rooms"
-            className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
-          >
-            <div className="h-[240px] overflow-hidden md:h-[300px]">
-              <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
-                <PrivateSelectionPageMock />
-              </div>
-            </div>
-            <CardCaption
-              label={cards.pdf.label}
-              title={cards.pdf.title}
-              action="Explore"
-              actionHover="dark"
-            />
-          </motion.a>
-
-          <motion.a
-            {...fadeUp(0.16)}
-            href="/products/custom-operations"
-            className="group relative grid h-[240px] grid-cols-2 gap-[6px] overflow-hidden rounded-[12px] border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3 md:h-[300px]"
-          >
-            {addInCards.map((card) => (
-              <article
-                key={card.type}
-                className="group relative overflow-hidden rounded-[8px] bg-[#F8F8F6]"
-              >
-                <AddInMiniMock src={card.src} label={card.label} className={card.className} />
-              </article>
-            ))}
-            <CardCaption
-              label={cards.addins.label}
-              title={cards.addins.title}
-              action="Explore"
-              actionHover="dark"
-            />
-          </motion.a>
-        </div>
+        <ServicesGrid />
       </div>
     </section>
   );

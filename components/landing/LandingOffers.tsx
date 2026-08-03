@@ -4,18 +4,22 @@ import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
-const SEND_FEATURES = [
-  "Gmail and WhatsApp add-ins",
-  "Natural-language search across your inventory",
-  "Private selections and PDF export",
-  "Your artwork data connected — Artlogic exports, spreadsheets or existing database",
+const SETUP = [
+  "Inventory import",
+  "AI assistant setup",
+  "Gmail and WhatsApp configuration",
+  "Email and PDF formats",
+  "Team training",
+  "Technical maintenance",
 ];
 
-const AGENT_FEATURES = [
-  "Collector replies drafted from the incoming email",
-  "Alternatives proposed when a work is sold",
-  "Price-on-request discretion handled for you",
-  "Answers in the collector’s language",
+const PARTNER = [
+  "Everything in Setup",
+  "Monthly working session",
+  "Direct founder support",
+  "Workflow improvements",
+  "New formats and use cases",
+  "Ongoing product evolution",
 ];
 
 function CheckIcon() {
@@ -37,126 +41,110 @@ function CheckIcon() {
   );
 }
 
-function FeatureList({ items }: { items: readonly string[] }) {
+function OfferCard({
+  label,
+  title,
+  price,
+  subline,
+  description,
+  items,
+  clarification,
+  cta,
+  featured = false,
+}: {
+  label: string;
+  title: string;
+  price: string;
+  subline?: string;
+  description: string;
+  items: readonly string[];
+  clarification?: string;
+  cta: string;
+  featured?: boolean;
+}) {
   return (
-    <ul className="m-0 flex list-none flex-col gap-3 p-0">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-3">
-          <CheckIcon />
-          <span className="text-[14px] leading-[1.45] tracking-[-0.01em] text-[#111110]">
+    <article
+      className={`flex flex-col rounded-[12px] border bg-white p-6 md:p-8 ${featured ? "border-[#111110]/20" : "border-[#E8E8E6]"}`}
+    >
+      <p className={EYEBROW}>{label}</p>
+      <h3 className="mt-4 font-display text-[22px] font-normal tracking-[-0.02em] text-[#111110] md:text-[26px]">
+        {title}
+      </h3>
+      <p className="mt-3 font-display text-[18px] tracking-[-0.01em] text-[#111110] md:text-[20px]">
+        {price}
+      </p>
+      {subline ? <p className="mt-1 text-[13px] text-[#6B6A67]">{subline}</p> : null}
+      <p className={`${BODY_SM} mt-5 max-w-md`}>{description}</p>
+
+      <ul className="my-6 flex list-none flex-col gap-3 border-y border-[#E1E1DE] py-6 pl-0">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="flex items-start gap-3 text-[14px] leading-[1.45] tracking-[-0.01em] text-[#111110]"
+          >
+            <CheckIcon />
             {item}
-          </span>
-        </li>
-      ))}
-    </ul>
+          </li>
+        ))}
+      </ul>
+
+      {clarification ? (
+        <p className="text-[12px] leading-[1.5] text-[#6B6A67]">{clarification}</p>
+      ) : null}
+      <Button
+        size="md"
+        variant={featured ? "primary" : "inverse"}
+        onClick={openContact}
+        className="mt-6 w-full border border-[#E8E8E6]"
+      >
+        {cta}
+      </Button>
+    </article>
   );
 }
 
-/**
- * Two rungs of one ladder, not a catalogue: Send is the base (open card),
- * Agent is the same product with the AI doing the writing (filled card,
- * recommended). Website and Coaching sit below as services — deliberately
- * small, so they never compete with the ladder for attention.
- */
 export default function LandingOffers() {
   return (
-    <section id="services" className={`${SECTION} border-t border-[#E8E8E6] bg-white`}>
+    <section id="services" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
-        <h2 className={`${H2} max-w-2xl`}>One inventory, two levels of help.</h2>
-        <p className={`${H2_SUB} max-w-2xl`}>One helps you work faster. The other does the work.</p>
+        <h2 className={`${H2} max-w-2xl`}>Choose how you want to work with Vitreen.</h2>
 
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
-          {/* Send — the base rung */}
-          <div className="flex flex-col rounded-[12px] border border-[#E8E8E6] bg-white p-6 md:p-8">
-            <h3 className="font-display text-[20px] font-normal leading-snug tracking-[-0.01em] text-[#111110] md:text-[22px]">
-              Vitreen Send
-            </h3>
-            <p className="mt-1.5 max-w-sm text-[14px] leading-[1.5] text-[#6B6A67] md:text-[15px]">
-              Your artworks, ready to send from Gmail and WhatsApp.
-            </p>
-
-            <div className="mt-6">
-              <p className="font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110] md:text-[20px]">
-                €450/month
-              </p>
-            </div>
-
-            <div className="my-6 border-t border-dashed border-[#E1E1DE]" aria-hidden />
-
-            <FeatureList items={SEND_FEATURES} />
-
-            <Button
-              size="md"
-              variant="inverse"
-              onClick={openContact}
-              className="mt-6 w-full border border-[#E8E8E6]"
-            >
-              Book a demo
-            </Button>
-          </div>
-
-          {/* Agent — the recommended rung */}
-          <div className="flex flex-col rounded-[12px] bg-[#F5F5F3] p-6 md:p-8">
-            <div className="flex items-start justify-between gap-4">
-              <h3 className="font-display text-[20px] font-normal leading-snug tracking-[-0.01em] text-[#111110] md:text-[22px]">
-                Vitreen Agent
-              </h3>
-              <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#E1E1DE] bg-white px-2.5 py-1 text-[11px] font-normal leading-none text-[#6B6A67]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#168044]" aria-hidden />
-                Recommended
-              </span>
-            </div>
-            <p className="mt-1.5 max-w-sm text-[14px] leading-[1.5] text-[#6B6A67] md:text-[15px]">
-              The reply is already drafted when you open the email.
-            </p>
-
-            <div className="mt-6">
-              <p className="font-display text-[18px] font-normal tracking-[-0.01em] text-[#111110] md:text-[20px]">
-                €950/month
-              </p>
-            </div>
-
-            <div className="my-6 border-t border-dashed border-[#E1E1DE]" aria-hidden />
-
-            <p className="mb-3 text-[13px] text-[#6B6A67]">Everything in Send, plus:</p>
-            <FeatureList items={AGENT_FEATURES} />
-
-            <p className="mt-5 text-[12px] text-[#ADADAA]">Nothing sends without your click.</p>
-
-            <Button size="md" variant="primary" onClick={openContact} className="mt-6 w-full">
-              Book a demo
-            </Button>
-          </div>
+          <OfferCard
+            label="ONE-TIME PROJECT"
+            title="Vitreen Setup"
+            price="€3,000 one-time"
+            description="A complete, stable Vitreen system installed for your gallery."
+            items={SETUP}
+            clarification="The delivered system remains stable. New features and workflow changes are not included."
+            cta="Choose Setup"
+          />
+          <OfferCard
+            label="ONGOING PARTNERSHIP"
+            title="Vitreen Partner"
+            price="€950/month"
+            subline="6-month minimum"
+            description="Vitreen stays involved to support your team and improve the system over time."
+            items={PARTNER}
+            cta="Choose Partner"
+            featured
+          />
         </div>
 
-        <p className="mt-6 text-[13px] leading-[1.5] text-[#6B6A67]">
-          Both include a €4,500 one-time onboarding — we structure your inventory so everything else
-          stays accurate. 12-month partnership, hosting and support included.
-        </p>
-
-        {/* Services — below the ladder, deliberately small */}
-        <div className="mt-12 border-t border-[#E8E8E6] pt-8 md:mt-16 md:pt-10">
-          <p className={EYEBROW}>Also available</p>
-          <div className="mt-4 grid gap-6 md:grid-cols-2 md:gap-10">
-            <div>
-              <h3 className="font-display text-[16px] font-normal tracking-[-0.01em] text-[#111110] md:text-[17px]">
-                Connected Website
-              </h3>
-              <p className={`${BODY_SM} mt-1 max-w-sm`}>
-                A website built on the same inventory, for galleries that need one. Fixed scope,
-                quoted after a first conversation. Already have a site? Vitreen works alongside it.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-display text-[16px] font-normal tracking-[-0.01em] text-[#111110] md:text-[17px]">
-                AI Coaching
-              </h3>
-              <p className={`${BODY_SM} mt-1 max-w-sm`}>
-                Hands-on sessions bringing AI into your gallery’s daily work — taught by the team
-                that builds AI for galleries. From €400 per session.
-              </p>
-            </div>
-          </div>
+        <div className="mt-14 border-t border-[#E8E8E6] pt-14 text-center md:mt-20 md:pt-20">
+          <h2 className="mx-auto max-w-3xl font-display text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#111110] md:text-[44px]">
+            Improve the way your gallery responds to collectors.
+          </h2>
+          <p className={`${H2_SUB} mx-auto max-w-3xl`}>
+            See how Vitreen can turn your artwork inventory into practical sales workflows for Gmail
+            and WhatsApp.
+          </p>
+          <Button size="lg" onClick={openContact} className="mt-8">
+            Book a demo
+          </Button>
+          <p className="mt-4 text-[13px] leading-[1.5] text-[#ADADAA] md:text-[14px]">
+            A 30-minute walkthrough based on your current workflow.
+          </p>
         </div>
       </div>
     </section>

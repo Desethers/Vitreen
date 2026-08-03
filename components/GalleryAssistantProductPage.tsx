@@ -210,7 +210,7 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
   );
 }
 
-function IntegrationsFrame() {
+export function IntegrationsFrame() {
   const reduceMotion = useReducedMotion();
   const [query, setQuery] = useState(reduceMotion ? "Elron" : "");
   const [showResults, setShowResults] = useState(false);

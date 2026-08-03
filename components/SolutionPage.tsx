@@ -121,7 +121,7 @@ function WhatsAppReadCheck({ className }: { className: string }) {
   );
 }
 
-function WhatsAppShareWorksMock() {
+export function WhatsAppShareWorksMock() {
   return (
     <div
       aria-hidden="true"
@@ -129,108 +129,119 @@ function WhatsAppShareWorksMock() {
     >
       <div className="flex h-full w-full max-w-[420px] flex-col">
         <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden py-2">
-          <div className="flex w-[340px] origin-center -translate-y-4 scale-[0.8] flex-col gap-[6px] md:w-[400px] md:-translate-y-5 md:scale-[0.92]">
-            {/* 1 — Outgoing: artwork photo + caption */}
-            <motion.div {...chatMessage(0.1)} className="relative h-[208px] w-[280px] self-end">
-              <img
-                src={`${WA}/shape-incoming1b.svg`}
-                alt=""
-                className="absolute inset-0 h-full w-full"
-              />
-              <img
-                src={`${WA}/artwork-photo.png`}
-                alt=""
-                className="absolute left-[4px] top-[3px] h-[128px] w-[260px] rounded-[6px] object-cover"
-              />
-              <p className="absolute left-[11px] right-[20px] top-[138px] text-[12.5px] leading-[1.32] tracking-[-0.3px] text-black">
-                Sacha Elron - Evening Field - 2026 -
-                <br />
-                Acrylic on canvas - 180 × 180 cm -
-                <br />
-                $10,000
-              </p>
-              <p className="absolute bottom-[9px] right-[27px] text-[9px] tracking-[0.5px] text-black/25">
-                10:15
-              </p>
-              <WhatsAppReadCheck className="absolute bottom-[10px] right-[9px] h-[8px] w-[14px]" />
-            </motion.div>
-
-            {/* 2 — Incoming: added to selection */}
-            <motion.div {...chatMessage(0.75)} className="relative h-[50px] w-[276px] self-start">
-              <img
-                src={`${WA}/shape-incoming2b.svg`}
-                alt=""
-                className="absolute inset-0 h-full w-full -scale-x-100"
-              />
-              <p className="absolute left-[16px] top-[7px] text-[12.5px] leading-[1.3] tracking-[-0.3px] text-black">
-                Received. “Evening Field” added
-                <br />
-                to your selection
-              </p>
-              <p className="absolute bottom-[5px] right-[13px] text-[9px] tracking-[0.5px] text-black/25">
-                11:40
-              </p>
-            </motion.div>
-
-            {/* 3 — Outgoing: /pdf command */}
+          <div className="w-[340px] origin-center scale-[0.8] md:w-[400px] md:scale-[0.92]">
             <motion.div
-              {...chatMessage(pdfMessageDelay, 0.25)}
-              className="relative h-[30px] w-[102px] self-end"
+              initial={{ y: 120 }}
+              animate={{ y: [120, 120, 120, -40, -150] }}
+              transition={{
+                duration: 4.8,
+                times: [0, 0.18, 0.58, 0.78, 1],
+                ease,
+              }}
+              className="flex flex-col gap-[6px]"
             >
-              <img
-                src={`${WA}/shape-outgoing2.svg`}
-                alt=""
-                className="absolute inset-0 h-full w-full"
-              />
-              <p className="absolute left-[10px] top-[7px] text-[12.5px] leading-none tracking-[-0.3px] text-black">
-                /pdf
-              </p>
-              <p className="absolute bottom-[8px] right-[26px] text-[8px] tracking-[0.5px] text-black/25">
-                11:43
-              </p>
-              <WhatsAppReadCheck className="absolute bottom-[8px] right-[10px] h-[7px] w-[12px]" />
-            </motion.div>
-
-            {/* 4 — Incoming: building the selection */}
-            <motion.div {...chatMessage(3.4)} className="relative h-[41px] w-[255px] self-start">
-              <img
-                src={`${WA}/shape-incoming3.svg`}
-                alt=""
-                className="absolute inset-0 h-full w-full -scale-x-100"
-              />
-              <p className="absolute left-[16px] top-[9px] text-[12.5px] leading-none tracking-[-0.3px] text-black">
-                Building your selection…
-              </p>
-              <p className="absolute bottom-[6px] right-[13px] text-[9px] tracking-[0.5px] text-black/25">
-                11:45
-              </p>
-            </motion.div>
-
-            {/* 5 — Incoming: PDF ready */}
-            <motion.div {...chatMessage(4)} className="relative h-[107px] w-[262px] self-start">
-              <img
-                src={`${WA}/add-plus.svg`}
-                alt=""
-                className="absolute inset-0 h-full w-full -scale-x-100"
-              />
-              <div className="absolute left-[17px] top-[3px] h-[74px] w-[242px] rounded-[7px] bg-[#F3F0F0]">
+              {/* 1 — Outgoing: artwork photo + caption */}
+              <motion.div {...chatMessage(0.1)} className="relative h-[208px] w-[280px] self-end">
                 <img
-                  src={`${WA}/pdf-thumb.png`}
+                  src={`${WA}/shape-incoming1b.svg`}
                   alt=""
-                  className="absolute left-[14px] top-[13px] h-[24px] w-[20px] object-cover"
+                  className="absolute inset-0 h-full w-full"
                 />
-                <p className="absolute left-[42px] top-[9px] text-[12.5px] leading-[1.3] tracking-[-0.3px] text-black">
-                  spring_selection_2026_
+                <img
+                  src={`${WA}/artwork-photo.png`}
+                  alt=""
+                  className="absolute left-[4px] top-[3px] h-[128px] w-[260px] rounded-[6px] object-cover"
+                />
+                <p className="absolute left-[11px] right-[20px] top-[138px] text-[12.5px] leading-[1.32] tracking-[-0.3px] text-black">
+                  Sacha Elron - Evening Field - 2026 -
                   <br />
-                  Marie_Beaumont.pdf
+                  Acrylic on canvas - 180 × 180 cm -
+                  <br />
+                  $10,000
                 </p>
-                <p className="absolute bottom-[8px] left-[42px] text-[9px] tracking-[0.1px] text-black/40">
-                  2.8 MB · PDF
+                <p className="absolute bottom-[9px] right-[27px] text-[9px] tracking-[0.5px] text-black/25">
+                  10:15
                 </p>
-              </div>
-              <p className="absolute bottom-[9px] left-[17px] text-[10px] tracking-[-0.3px] text-black">
-                Selection ready · 1 page
-              </p>
+                <WhatsAppReadCheck className="absolute bottom-[10px] right-[9px] h-[8px] w-[14px]" />
+              </motion.div>
+
+              {/* 2 — Incoming: added to selection */}
+              <motion.div {...chatMessage(0.75)} className="relative h-[50px] w-[276px] self-start">
+                <img
+                  src={`${WA}/shape-incoming2b.svg`}
+                  alt=""
+                  className="absolute inset-0 h-full w-full -scale-x-100"
+                />
+                <p className="absolute left-[16px] top-[7px] text-[12.5px] leading-[1.3] tracking-[-0.3px] text-black">
+                  Received. “Evening Field” added
+                  <br />
+                  to your selection
+                </p>
+                <p className="absolute bottom-[5px] right-[13px] text-[9px] tracking-[0.5px] text-black/25">
+                  11:40
+                </p>
+              </motion.div>
+
+              {/* 3 — Outgoing: /pdf command */}
+              <motion.div
+                {...chatMessage(pdfMessageDelay, 0.25)}
+                className="relative h-[30px] w-[102px] self-end"
+              >
+                <img
+                  src={`${WA}/shape-outgoing2.svg`}
+                  alt=""
+                  className="absolute inset-0 h-full w-full"
+                />
+                <p className="absolute left-[10px] top-[7px] text-[12.5px] leading-none tracking-[-0.3px] text-black">
+                  /pdf
+                </p>
+                <p className="absolute bottom-[8px] right-[26px] text-[8px] tracking-[0.5px] text-black/25">
+                  11:43
+                </p>
+                <WhatsAppReadCheck className="absolute bottom-[8px] right-[10px] h-[7px] w-[12px]" />
+              </motion.div>
+
+              {/* 4 — Incoming: building the selection */}
+              <motion.div {...chatMessage(3.4)} className="relative h-[41px] w-[255px] self-start">
+                <img
+                  src={`${WA}/shape-incoming3.svg`}
+                  alt=""
+                  className="absolute inset-0 h-full w-full -scale-x-100"
+                />
+                <p className="absolute left-[16px] top-[9px] text-[12.5px] leading-none tracking-[-0.3px] text-black">
+                  Building your selection…
+                </p>
+                <p className="absolute bottom-[6px] right-[13px] text-[9px] tracking-[0.5px] text-black/25">
+                  11:45
+                </p>
+              </motion.div>
+
+              {/* 5 — Incoming: PDF ready */}
+              <motion.div {...chatMessage(4)} className="relative h-[107px] w-[262px] self-start">
+                <img
+                  src={`${WA}/add-plus.svg`}
+                  alt=""
+                  className="absolute inset-0 h-full w-full -scale-x-100"
+                />
+                <div className="absolute left-[17px] top-[3px] h-[74px] w-[242px] rounded-[7px] bg-[#F3F0F0]">
+                  <img
+                    src={`${WA}/pdf-thumb.png`}
+                    alt=""
+                    className="absolute left-[14px] top-[13px] h-[24px] w-[20px] object-cover"
+                  />
+                  <p className="absolute left-[42px] top-[9px] text-[12.5px] leading-[1.3] tracking-[-0.3px] text-black">
+                    spring_selection_2026_
+                    <br />
+                    Marie_Beaumont.pdf
+                  </p>
+                  <p className="absolute bottom-[8px] left-[42px] text-[9px] tracking-[0.1px] text-black/40">
+                    2.8 MB · PDF
+                  </p>
+                </div>
+                <p className="absolute bottom-[9px] left-[17px] text-[10px] tracking-[-0.3px] text-black">
+                  Selection ready · 1 page
+                </p>
+              </motion.div>
             </motion.div>
           </div>
         </div>

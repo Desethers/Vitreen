@@ -1,68 +1,89 @@
 "use client";
 
-import { ConnectedFlowDiagram } from "@/components/landing/LandingMockups";
-import { BODY, BODY_SM, CONTAINER, H2, H3, SECTION } from "@/components/landing/styles";
+import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, H3, SECTION } from "@/components/landing/styles";
 
 const BENEFITS = [
   {
-    title: "Respond while the interest is active.",
-    text: "Prepare complete collector material without moving between your database, folders and presentation files.",
+    title: "Import your inventory",
+    text: "CSV, Excel or Artlogic.",
   },
   {
-    title: "Keep every presentation accurate.",
-    text: "Prices, availability, images and artwork details come from the same connected source.",
+    title: "Organise each artwork",
+    text: "Images, details, prices and availability in one reusable card.",
   },
   {
-    title: "Stop rebuilding the same material.",
-    text: "Reuse artwork information across emails, WhatsApp, private links and PDFs.",
+    title: "Use it everywhere",
+    text: "Email, WhatsApp and collector PDFs.",
   },
 ];
 
+function SourceNotes() {
+  return (
+    <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 md:gap-x-4">
+      <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
+        <svg
+          width="17"
+          height="17"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#111110"
+          strokeWidth="1.9"
+          aria-hidden="true"
+        >
+          <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          <path d="m8.2 12.2 2.4 2.4 5.2-5.2" />
+        </svg>
+        <p className="whitespace-nowrap text-[10px] font-normal leading-[1.25] tracking-[-0.01em] text-[#111110] md:text-[12px]">
+          Migration included
+        </p>
+      </div>
+      <div className="flex shrink-0 items-center gap-1.5 md:gap-2">
+        <svg
+          width="17"
+          height="17"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#111110"
+          strokeWidth="1.8"
+          aria-hidden="true"
+        >
+          <path d="M12 3 20 6v6c0 4.8-3.2 7.8-8 9-4.8-1.2-8-4.2-8-9V6l8-3Z" />
+          <path d="M9.2 12.2 11 14l3.8-4" />
+        </svg>
+        <p className="whitespace-nowrap text-[10px] font-normal leading-[1.25] tracking-[-0.01em] text-[#111110] md:text-[12px]">
+          Your data stays confidential
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function LandingSystem() {
   return (
-    <>
-      {/* One source, many outputs */}
-      <section className={`${SECTION} border-t border-[#E8E8E6] bg-[#F5F5F3]`}>
-        <div className={CONTAINER}>
-          <h2 className={`${H2} max-w-2xl`}>One artwork source. Every collector output.</h2>
+    <section className={`${SECTION} bg-white`}>
+      <div className={CONTAINER}>
+        <p className={EYEBROW}>THE SYSTEM</p>
+        <h2 className={`${H2} mt-4 max-w-3xl`}>Bring your artwork inventory into Vitreen.</h2>
 
-          <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-[1fr_1fr] md:items-center md:gap-20">
-            <div className="mx-auto w-full max-w-lg">
-              <ConnectedFlowDiagram />
-            </div>
+        <p className={`${BODY} mt-5 max-w-2xl`}>
+          Import from CSV, Excel or Artlogic. Vitreen organises each work into a reusable artwork
+          card with its images, details, price, availability and documents.
+        </p>
+        <SourceNotes />
 
-            <div className="max-w-xl space-y-4">
-              <p className={BODY}>
-                Vitreen connects the information your team already maintains: artworks, artists,
-                images, dimensions, prices, availability and documents.
-              </p>
-              <p className={BODY}>
-                The same reliable information can then be reused wherever the collector conversation
-                happens.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className={`${SECTION} bg-white pt-0 md:pt-0`}>
-        <div className={CONTAINER}>
-          <h2 className={`${H2} max-w-2xl`}>Less preparation between interest and reply.</h2>
-
-          <div className="mt-8 grid gap-0 md:mt-12 md:grid-cols-3 md:gap-10">
-            {BENEFITS.map((benefit) => (
-              <div
-                key={benefit.title}
-                className="border-t border-[#E8E8E6] py-5 last:border-b md:border-b-0 md:py-0 md:pt-6 md:last:border-b-0"
-              >
-                <h3 className={H3}>{benefit.title}</h3>
-                <p className={`${BODY_SM} mt-2.5 max-w-sm`}>{benefit.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+        <ol className="mt-10 grid list-none gap-4 p-0 md:mt-12 md:grid-cols-3 md:gap-5">
+          {BENEFITS.map((benefit, index) => (
+            <li
+              key={benefit.title}
+              className="min-h-[150px] rounded-[12px] border border-[#E8E8E6] bg-white p-5 md:min-h-[170px] md:py-6 md:pl-6 md:pr-4"
+            >
+              <span className="text-[14px] tabular-nums text-[#D0D0CD]">0{index + 1}</span>
+              <h3 className={`${H3} mt-6`}>{benefit.title}</h3>
+              <p className={`${BODY_SM} mt-3`}>{benefit.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 }

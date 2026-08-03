@@ -1,18 +1,13 @@
 "use client";
 
-import AskAgentPanel from "@/components/shared/AskAgentPanel";
+import { ServicesGrid } from "@/components/Services";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-
-const WORKS = [
-  { title: "Evening Field", meta: "2023 · 18 000 €", image: "/artworks/painting-03.jpg" },
-  { title: "Low Tide", meta: "2024 · 16 500 €", image: "/artworks/painting-06.png" },
-];
 
 export default function LandingHeroFr() {
   return (
     <section className="relative flex flex-col overflow-hidden bg-white px-4 pb-14 pt-36 md:px-6 md:pb-20 md:pt-44">
-      <div className="relative mx-auto grid w-full max-w-7xl gap-10 md:grid-cols-[1.05fr_1fr] md:items-center md:gap-12">
+      <div className="relative mx-auto w-full max-w-7xl">
         <div className="text-[22px] leading-[1.3] md:text-[30px]">
           <p className="hero-fade-up mb-3 text-[12px] font-medium uppercase tracking-[0.14em] text-[#ADADAA] md:mb-4">
             Outils de vente pour galeries d’art contemporain
@@ -50,20 +45,8 @@ export default function LandingHeroFr() {
           </p>
         </div>
 
-        <div className="flex flex-col items-center">
-          <AskAgentPanel
-            channelLabel="Gmail"
-            question="Œuvres disponibles de Marina Perez à moins de 20 000 €"
-            resultsLabel="2 œuvres · depuis votre inventaire"
-            works={WORKS}
-            draftLabel="Brouillon de réponse"
-            draftText="Chère Marie, deux œuvres de Marina Perez sont actuellement disponibles dans cette gamme. Je vous les présente ci-dessous — je peux organiser une visite cette semaine."
-            footnote="Rien ne part sans vous"
-            ctaLabel="Relire et envoyer"
-          />
-          <p className="mt-4 text-[12px] leading-[1.5] text-[#ADADAA]">
-            Fonctionne dans Gmail et WhatsApp Business
-          </p>
+        <div className="hero-fade-up hero-fade-up-delay mt-10 md:mt-14">
+          <ServicesGrid />
         </div>
       </div>
     </section>
