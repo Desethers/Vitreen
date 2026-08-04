@@ -6,6 +6,7 @@ import { IntegrationsFrame } from "@/components/GalleryAssistantProductPage";
 import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
 import { WhatsAppShareWorksMock } from "@/components/SolutionPage";
 import { WhatsAppPdfMockup } from "@/components/shared/ArtworkAddInMocks";
+import { SourceNotes } from "@/components/landing/LandingSystem";
 import { H2, H2_SUB } from "@/components/landing/styles";
 
 type DeliveryChannel = "gmail" | "whatsapp" | "pdf";
@@ -19,6 +20,7 @@ const STEPS: ScrollStoryStep[] = [
       "Continue from your current system",
       "No need to rebuild your archive",
     ],
+    footer: <SourceNotes />,
   },
   {
     title: "Organise every artwork",

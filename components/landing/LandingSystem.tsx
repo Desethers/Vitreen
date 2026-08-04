@@ -17,7 +17,7 @@ const BENEFITS = [
   },
 ];
 
-function SourceNotes() {
+export function SourceNotes() {
   return (
     <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 md:gap-x-4">
       <div className="flex shrink-0 items-center gap-1.5 md:gap-2">

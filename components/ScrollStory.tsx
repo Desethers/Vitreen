@@ -6,6 +6,7 @@ export type ScrollStoryStep = {
   title: string;
   subtitle: string;
   bullets?: string[];
+  footer?: ReactNode;
 };
 
 function StepCopy({ step, active }: { step: ScrollStoryStep; active: boolean }) {
@@ -31,6 +32,7 @@ function StepCopy({ step, active }: { step: ScrollStoryStep; active: boolean }) 
           ))}
         </ul>
       ) : null}
+      {step.footer}
     </div>
   );
 }
