@@ -16,13 +16,12 @@ export default function LandingHero() {
             className="hero-fade-up m-0 max-w-xl text-balance leading-[inherit] tracking-[-0.04em] font-display"
             style={{ color: "#111110" }}
           >
-            A better way to sell art.
+            We build better systems for selling art.
           </h1>
 
           <p className="hero-fade-up hero-fade-up-delay mt-[16px] max-w-4xl leading-[inherit] tracking-[-0.02em] text-[#6B6A67]">
-            Bring gallery-quality sales material to every collector conversation —
-            <br />
-            across email, WhatsApp and PDF.
+            Vitreen connects artwork information to collector conversations, from first interest to
+            sale.
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center gap-3 md:mt-[22px]">

@@ -1017,7 +1017,7 @@ function AvailabilitySession({ phase }: { phase: number }) {
   );
 }
 
-function GalleryOSContinuousDemo({ step }: { step: number }) {
+export function GalleryOSContinuousDemo({ step }: { step: number }) {
   const [phase, setPhase] = useState(0);
   const reduceMotion = useReducedMotion();
 

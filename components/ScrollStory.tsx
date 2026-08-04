@@ -43,6 +43,7 @@ export default function ScrollStory({
   renderVisualFooter,
   isVisualBare,
   compactMobileVisual = false,
+  renderHeader,
 }: {
   title: string;
   subtitle: string;
@@ -51,6 +52,7 @@ export default function ScrollStory({
   renderVisualFooter?: (activeIndex: number) => ReactNode;
   isVisualBare?: (activeIndex: number) => boolean;
   compactMobileVisual?: boolean;
+  renderHeader?: ReactNode;
 }) {
   const [activeStep, setActiveStep] = useState(0);
   const stepRefs = useRef<Array<HTMLElement | null>>([]);
@@ -90,12 +92,16 @@ export default function ScrollStory({
     >
       <div className="mx-auto max-w-7xl">
         <div className={compactMobileVisual ? "pb-4 md:pb-10" : "pb-12 md:pb-10"}>
-          <h2 className="font-display text-[22px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
-            {title}
-          </h2>
-          <p className="mt-1.5 text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
-            {subtitle}
-          </p>
+          {renderHeader ?? (
+            <>
+              <h2 className="font-display text-[22px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
+                {title}
+              </h2>
+              <p className="mt-1.5 text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
+                {subtitle}
+              </p>
+            </>
+          )}
         </div>
 
         <div className="hidden lg:grid lg:grid-cols-[0.54fr_1fr] lg:gap-8 xl:gap-10">
