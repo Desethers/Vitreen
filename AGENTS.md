@@ -1,5 +1,3 @@
 # Vitreen agent instructions
 
-Before making any product, UX, copywriting, design or implementation decision, read `vitreen-playbook.md` in full.
-
-Treat `vitreen-playbook.md` as the primary strategic context for this repository.
+Use `vitreen-playbook.md` as strategic context when it is relevant. Do not require repeated full reads for routine implementation work.

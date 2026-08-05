@@ -50,6 +50,33 @@ founder.
 > way your team works.
 > Built personally with each gallery. Powered by a shared Vitreen system.
 
+## The mechanism — how a card circulates
+
+**Status: current framing, decided 2026-08.** This is the concrete loop
+underneath every claim in this document, and the thing a first-time visitor
+needs to _see_, not just read about:
+
+```text
+Artwork record (the base)
+   → packaged into a private selection / viewing room
+   → delivered as a Gmail reply, a WhatsApp message, or a PDF
+```
+
+A single artwork card, once correct in the base, leaves the gallery in three
+shapes without ever being re-typed: inline in an email, as a link to a private
+selection a collector opens and browses, or as a PDF attached to either
+channel. "Private selection" and "viewing room" name the same object — a
+curated, permissioned set of cards, generated on demand from a real
+conversation. That is different from a standalone, self-service viewing-room
+microsite a gallery would build and maintain itself — that product stays
+frozen (§15).
+
+This loop is the actual product. The founder-led installation, the agent, the
+pricing all exist to make this loop trustworthy and fast. Any explanation of
+Vitreen that cannot be drawn as this three-step diagram has drifted from what
+the product does. It is also the spine the marketing site should be built
+around — see §17.
+
 ## Why the artwork base cannot be removed
 
 The agent is only worth something because it is grounded on a clean artwork
@@ -177,7 +204,16 @@ Natural-language requests turned into material: "available works by Marina Perez
 under €20,000", "create a selection with these four works", "prepare a PDF
 without visible prices" — answered with a clean private link or PDF.
 
-### 4. The validation inbox
+### 4. Private selections & viewing rooms
+
+The packaging step shared by the Gmail add-in and WhatsApp: a curated,
+permissioned set of artwork cards, generated from a request in either channel,
+opened by the collector as a clean link, exportable as a PDF. This is where
+visibility rules live — which price shows, whether availability appears,
+public or private (§13). It is the object at the centre of the mechanism in
+§1, not a side feature of either channel.
+
+### 5. The validation inbox
 
 The drafts queue (`/dashboard/sales-drafts` today) becomes the **home screen of
 the app**, renamed Inbox or Drafts. It is where the gallery reviews what the
@@ -555,13 +591,19 @@ still has to be excellent. It is simply never what we show or name.
 1. **Inbox** — AI drafts waiting for validation. This is the landing screen.
 2. **Artworks** — the base, presented as "your data", never as an inventory
    product.
-3. **Connections** — CSV/Excel import, Artlogic exports, add-in status.
-4. **Settings**
+3. **Selections** — private selections and viewing rooms generated from Gmail
+   or WhatsApp requests: the packaging step of the circulation loop (§1). This
+   is no longer a hidden module — it is one of the three surfaces a gallery
+   touches every week, alongside Inbox and Artworks.
+4. **Connections** — CSV/Excel import, Artlogic exports, add-in status.
+5. **Settings**
 
 ## Hidden by default
 
-Website publisher, viewing rooms, exhibition modules: hidden behind feature
-flags. Enabled only where the installation calls for them.
+Website publisher, exhibition modules: hidden behind feature flags. Enabled
+only where the installation calls for them. Unlike Selections, these sit
+outside the weekly circulation loop, so they stay optional per installation
+rather than part of the default experience.
 
 **Nothing is deleted. Nothing is forked.** Modules are hidden by configuration —
 one shared codebase, always. A separate "agent-only" build would be a
@@ -637,8 +679,8 @@ Headline logic: concrete over visionary.
 
 - connect artwork data from existing sources, or build the base when needed
 - run grounded AI agents over that data
-- deliver inside Gmail and WhatsApp
-- prepare collector replies, private selections and PDFs
+- package artwork cards into private selections and viewing rooms (§1, §4)
+- deliver that material as Gmail replies, WhatsApp messages or PDFs
 - keep a human validation step on everything that reaches a collector
 - install personally with each gallery, on a shared product base
 
@@ -654,8 +696,11 @@ Headline logic: concrete over visionary.
 - launch standalone self-serve products beside the main offer
 - claim sales impact before it is measured
 
-Frozen until an explicit strategic decision: autopilot (never), standalone
-self-serve viewing room studio, assistant capabilities beyond sales drafts.
+Frozen until an explicit strategic decision: autopilot (never), a standalone
+self-serve viewing room studio (a public, gallery-branded microsite a gallery
+would build and maintain itself — distinct from the private selections
+generated inside the circulation loop, which are core, see §1 and §4),
+assistant capabilities beyond sales drafts.
 
 **Open question, not yet decided:** the previous packaging carried a Connected
 Website extension and standalone AI Coaching sessions alongside the Send/Agent
@@ -688,11 +733,76 @@ opened on that second repository.
   was a tier name in the old packaging. Rename when the pricing section is
   rebuilt.
 - **The product has not moved at all.** A prospect who sees a demo today still
-  meets Gallery OS. See §17.
+  meets Gallery OS. See §18.
+- **The homepage is mid-rewrite toward the funnel below (§17), and currently
+  inconsistent.** As of 2026-08, uncommitted changes on `Tugan` add a new
+  `LandingRecognition.tsx` (a good recognition-step draft, see §17) but also
+  reintroduce the legacy `ServicesGrid` product-card grid — the exact
+  feature-grid pattern §17 retires — into `LandingHero` and `LandingProduct`,
+  pointing at old `/products/*` routes. Treat that grid as regression, not
+  reference, the next time this file is touched.
 
 ---
 
-# 17. Open workstream — turning the dashboard into the engine room
+# 17. The marketing site: a funnel, not a SaaS homepage
+
+**Status: current decision, decided 2026-08.**
+
+Nobody arriving on vitreen.co has heard of Vitreen. A classic SaaS homepage —
+hero, feature grid, pricing table, FAQ, all competing for attention on one
+screen — assumes visitors already understand the category and are comparing
+named options. Ours don't have a category to place this in yet; they need to
+be walked through what actually happens, in order, before being asked to
+compare or buy anything.
+
+So the site is built as a **funnel**: one linear narrative, each step revealing
+only what makes the next step meaningful, ending in exactly one action. Not a
+set of sections a visitor can jump into in any order and leave with a partial
+picture.
+
+## The order
+
+Mirrors the mechanism (§1) and the engagement arc (§7):
+
+1. **Recognition** — name the moment a gallery already lives: a collector
+   asks, the right images/price/dimensions/availability are scattered across a
+   database, folders, old PDFs, someone has to rebuild it by hand before
+   replying. (This is what `LandingRecognition.tsx` is for — keep it as the
+   opening beat, not a features section further down.)
+2. **The mechanism, shown** — the loop from §1, made visible: a card, packaged
+   into a selection, arriving in Gmail, WhatsApp or as a PDF. This has to be
+   _seen_ — a real screen or a faithful mock walking through the three steps —
+   never summarized as a bullet list of four product pillars.
+3. **The agent, demonstrated** — a real draft, grounded, waiting for a human
+   click to send (§8, §9). The strongest asset we have: most AI landing pages
+   can't show anything running.
+4. **How it gets installed** — the founder-led arc (§7): first import, add-ins
+   connected, first live draft, team trained.
+5. **The offer** — Setup or Partner, presented as two ways of working
+   together (§5), never as a comparison table.
+6. **One call to action** — book time with the founder. Repeated at the end of
+   each major step if needed, never varied in wording or destination.
+
+## Rules
+
+- **No feature grid that tries to summarize the whole product on one screen.**
+  If a section lists three or four "pillars" side by side with an icon each,
+  it has reverted to SaaS-homepage logic — cut it or fold it into step 2.
+- **No pricing table with checkmark columns** (already banned in §3 — this is
+  the same rule stated as information architecture, not just copy).
+- **Each step must earn the next one.** A visitor should not be able to make
+  sense of step 4 or 5 without having scrolled through 1–3 first — that
+  ordering is the point, not an aesthetic preference.
+- **Objections and FAQ (Artlogic, migration, "why not just email PDFs
+  myself") come late**, after the mechanism has been shown — never before
+  step 2, where they'd be answering a question the visitor hasn't asked yet.
+- This applies first to the EN/FR home (`app/(en)/page.tsx`,
+  `app/(fr)/fr/page.tsx`). Legacy pages (`/pricing`, `/about`, `/products/*`)
+  stay out of scope until Phase 3 of §18.
+
+---
+
+# 18. Open workstream — turning the dashboard into the engine room
 
 **Status: planned, not started.** Closing the gap between the story and the demo
 is the priority.
@@ -713,10 +823,11 @@ done in a session opened on that repo.
 
 1. **Inbox as home screen.** The drafts queue (`/dashboard/sales-drafts`)
    becomes the landing route after login, renamed Inbox (or Drafts).
-2. **Reduce the navigation** to four entries: Inbox, Artworks, Connections,
-   Settings.
-3. **Hide behind flags:** website publisher, viewing rooms, exhibition modules.
-   Default off; enabled per installation where it fits.
+2. **Reduce the navigation** to five entries: Inbox, Artworks, Selections,
+   Connections, Settings (§12).
+3. **Hide behind flags:** website publisher, exhibition modules. Default off;
+   enabled per installation where it fits. Selections stays visible by
+   default — it is part of the circulation loop, not an optional module.
 4. **Retire the name.** "Gallery OS" disappears from the dashboard, the add-ins,
    the docs and the onboarding emails. (Already done on the marketing site's
    Gmail widget, though the function is still named `GalleryOsSearchWidget` in
@@ -748,7 +859,7 @@ remaining marketing pages still written in the old frame (`/pricing`, `/about`,
 
 ---
 
-# 18. Session checklist
+# 19. Session checklist
 
 1. Does this strengthen the agent, or does it re-expose the dashboard?
 2. Does it happen inside Gmail, WhatsApp or the drafts inbox?
@@ -762,13 +873,16 @@ remaining marketing pages still written in the old frame (`/pricing`, `/about`,
 9. Can we demonstrate this claim live today?
 10. Does it respect the founder's capacity, or does it quietly add permanent
     monthly load (§6)?
+11. On the marketing site: does this respect the funnel order — recognition,
+    then the mechanism, then the agent, then the offer — or does it dump
+    everything on one screen (§17)?
 
 If any answer is unclear, stop and clarify the product logic before designing or
 coding.
 
 ---
 
-# 19. North Star
+# 20. North Star
 
 > A small gallery is installed once, personally, onto a shared Vitreen system —
 > then answers every collector from Gmail or WhatsApp with the right work, the

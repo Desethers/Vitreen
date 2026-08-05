@@ -44,6 +44,22 @@ week-end — mais elle n'est plus ce qu'on vend, montre ou nomme.
 
 > La base de données est notre moat, pas notre promesse.
 
+### Le mécanisme — comment une fiche circule (décidé 2026-08, playbook §1)
+
+```text
+Fiche œuvre (la base)
+   → packagée en sélection privée / viewing room
+   → livrée en réponse Gmail, message WhatsApp, ou PDF
+```
+
+C'est la boucle concrète que tout le reste sert à rendre fiable et rapide.
+« Sélection privée » et « viewing room » désignent le **même objet** : un
+ensemble d'œuvres curaté et permissionné, généré à la demande depuis une
+vraie conversation — à ne pas confondre avec un studio de viewing rooms
+en self-service qu'une galerie construirait et maintiendrait elle-même
+(ce produit-là reste gelé, playbook §15). Toute explication de Vitreen qui
+ne se dessine pas comme ce schéma en trois étapes a dérivé du produit réel.
+
 ### Face à Artlogic
 
 Complémentaire, jamais remplaçant : « Artlogic stocke vos œuvres. Vitreen les
@@ -239,22 +255,50 @@ public/
 
 ## 5. La landing (`components/landing/`)
 
-Ordre des sections, identique EN et FR :
+**Doctrine (décidée 2026-08, playbook §17) : la home est un funnel, pas une
+home SaaS.** Personne ne connaît Vitreen — un visiteur n'a pas de catégorie où
+ranger le produit. Donc pas de hero + grille de features + tableau de prix
+qui se disputent l'écran : un récit linéaire, où chaque section ne se comprend
+qu'après avoir vu la précédente, qui se termine sur **une seule** action
+(prendre rendez-vous). L'ordre voulu : reconnaissance du problème → le
+mécanisme montré concrètement (fiche → sélection/viewing room → Gmail/
+WhatsApp/PDF, cf. §1 ci-dessus) → l'agent démontré en direct → comment
+l'installation se déroule → l'offre (jamais en tableau comparatif) → CTA.
+Interdit : toute section qui résume le produit en 3-4 « piliers » avec icône —
+c'est un retour au réflexe SaaS, pas une étape de funnel.
 
-| #   | Composant        | Rôle                                                                                                                                  |
-| --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | `LandingNav`     | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**                                                                                      |
-| 2   | `LandingHero`    | Promesse + collage produit (Gmail + WhatsApp)                                                                                         |
-| 3   | `LandingProblem` | Le problème, puis « votre base stocke, Vitreen fait circuler »                                                                        |
-| 4   | `LandingProduct` | Gmail et WhatsApp, en rangées image/texte alternées                                                                                   |
-| 5   | `LandingAi`      | Démo de l'agent : garanties de grounding + brouillon à valider (l'eyebrow affiche « Vitreen Agent », nom de tier périmé — à renommer) |
-| 6   | `LandingSystem`  | Une source → toutes les sorties (socle discret)                                                                                       |
-| 7   | `LandingOffers`  | ⚠️ Échelle Send / Agent (**périmée**, voir note ci-dessous)                                                                           |
-| 8   | `LandingMethod`  | Audit / Connexion / Configuration / Amélioration                                                                                      |
-| 9   | `LandingFaq`     | Objections : Artlogic, migration, envoi auto, site                                                                                    |
-| 10  | `LandingCta`     | CTA final + footer léger                                                                                                              |
+Ordre des sections **tel que documenté historiquement** — attention, ne
+reflète plus `app/(en)/page.tsx` réel (voir écart signalé plus bas) :
+
+| #   | Composant            | Rôle                                                                                                                                  |
+| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | `LandingNav`         | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**                                                                                      |
+| 2   | `LandingHero`        | Promesse (le collage produit historique en a été retiré, voir note ci-dessous)                                                        |
+| 2b  | `LandingRecognition` | ⚠️ Nouveau, non commité — bonne ébauche de l'étape « reconnaissance » du funnel : le moment vécu par la galerie avant Vitreen         |
+| 3   | `LandingProblem`     | Le problème, puis « votre base stocke, Vitreen fait circuler »                                                                        |
+| 4   | `LandingProduct`     | Gmail et WhatsApp, en rangées image/texte alternées (voir régression ci-dessous)                                                      |
+| 5   | `LandingAi`          | Démo de l'agent : garanties de grounding + brouillon à valider (l'eyebrow affiche « Vitreen Agent », nom de tier périmé — à renommer) |
+| 6   | `LandingSystem`      | Une source → toutes les sorties (socle discret)                                                                                       |
+| 7   | `LandingOffers`      | ⚠️ Échelle Send / Agent (**périmée**, voir note ci-dessous)                                                                           |
+| 8   | `LandingMethod`      | Audit / Connexion / Configuration / Amélioration                                                                                      |
+| 9   | `LandingFaq`         | Objections : Artlogic, migration, envoi auto, site — doivent arriver **après** le mécanisme montré, pas avant                         |
+| 10  | `LandingCta`         | CTA final + footer léger                                                                                                              |
 
 Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
+
+**⚠️ État réel de `app/(en)/page.tsx` au 2026-08-05 :** la page ne monte que
+`LandingNav`, `LandingHero`, `HeroDashboardMock`, `LandingRecognition`,
+`LandingProblem`, `LandingProduct`, `LandingMethod`, `LandingOffers` — dans cet
+ordre. **`LandingAi`, `LandingSystem`, `LandingFaq`, `LandingCta` existent en
+code mais ne sont montés nulle part**, même avant les changements non commités
+actuels — la table ci-dessus décrit une intention documentée, pas l'état réel
+du fichier. En plus de ça, un passage récent non commité sur `Tugan` a ajouté
+`LandingRecognition.tsx` (bonne base pour l'étape « reconnaissance ») mais a
+aussi **réintroduit `ServicesGrid`** (la grille de cartes produit de l'ancien
+Gallery OS, pointant vers `/products/archive`, `/products/viewing-rooms`,
+`/products/custom-operations`) dans `LandingHero` et `LandingProduct` — le
+pattern « grille de features » que la doctrine funnel interdit. Les deux sont
+à traiter comme un chantier à reprendre, pas comme une référence.
 
 **Règles de composition**
 
@@ -273,7 +317,8 @@ Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
   session de code sur la landing : refaire cette section en deux offres, Setup
   (3 000 € une fois) et Partner (950 €/mois), présentées comme deux façons de
   travailler ensemble et **non** comme deux colonnes de features à comparer
-  (voir playbook §3 et §5).
+  (voir playbook §3 et §5), et réordonner l'ensemble de la page selon la
+  doctrine funnel (playbook §17).
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
@@ -347,10 +392,12 @@ absent de ce workspace.
   d'accueil (« Inbox »).
 
 **Chantier ouvert, non démarré** — spécifié en détail dans `vitreen-playbook.md`
-§17 (phases, garde-fous, definition of done) : nav réduite à Inbox / Artworks /
-Connections / Settings, modules publisher et viewing rooms masqués par feature
-flags (**jamais de fork, rien de supprimé**), onboarding inversé avec aha en J1,
-métriques d'usage.
+§18 (phases, garde-fous, definition of done) : nav réduite à cinq entrées —
+Inbox / Artworks / **Selections** (sélections privées et viewing rooms,
+désormais surface visible du produit, pas un module masqué — playbook §12) /
+Connections / Settings. Seuls le publisher de site et les modules d'exposition
+restent masqués par feature flags (**jamais de fork, rien de supprimé**).
+Onboarding inversé avec aha en J1, métriques d'usage.
 
 Tant que ce chantier n'est pas livré, le site raconte la nouvelle histoire mais
 la démo montre encore l'ancienne. C'est l'écart prioritaire à combler. Le
@@ -365,14 +412,15 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 | Add-in Gmail                                          | ✅ Fonctionnel                                        |
 | WhatsApp Business                                     | ✅ Fonctionnel                                        |
 | Sales Agent (brouillons groundés, validation humaine) | ✅ Live                                               |
-| Sélections privées + export PDF                       | ✅ Existant                                           |
+| Sélections privées + export PDF (viewing rooms)       | ✅ Existant — surface centrale du mécanisme (§1)      |
 | Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                                           |
 | Inbox comme écran d'accueil                           | 🔴 Phase 1                                            |
-| Masquage des modules par feature flags                | 🔴 Phase 1                                            |
+| Nav produit : ajouter Selections en 3ᵉ entrée visible | 🔴 Phase 1 (playbook §12, §18)                        |
+| Masquage des modules restants par feature flags       | 🔴 Phase 1                                            |
 | Onboarding inversé (aha en J1)                        | 🔴 Phase 2                                            |
 | WhatsApp Business self-service                        | 🔴 Phase 2                                            |
 | Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                            |
-| Landing recentrée sur Setup / Partner                 | 🔴 À faire (code périmé, voir §5)                     |
+| Landing recentrée en funnel Setup / Partner           | 🔴 À faire (code périmé et incohérent, voir §5)       |
 | Sort d'un client Setup au mois 13                     | 🟠 À trancher (playbook §5)                           |
 | Site connecté                                         | 🟠 Statut à trancher (playbook §15)                   |
 | Coaching IA autonome                                  | ⛔ Redondant (formation incluse dans les deux offres) |
@@ -402,6 +450,15 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Valider définitivement les montants Setup (3 000 €) et Partner (950 €/mois)
 - [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Setup / Partner
       (le code montre encore l'ancienne échelle Send/Agent, périmée)
+- [ ] Réordonner la home EN/FR selon la doctrine funnel (playbook §17) :
+      reconnaissance → mécanisme montré → agent démontré → installation →
+      offre → CTA
+- [ ] Retirer `ServicesGrid` (grille produit legacy) de `LandingHero` et
+      `LandingProduct` — réintroduit par erreur, incompatible avec la
+      doctrine funnel (voir §5)
+- [ ] Décider si/où le mécanisme (fiche → sélection/viewing room →
+      Gmail/WhatsApp/PDF) est montré visuellement sur la home — c'est l'étape
+      2 du funnel et elle n'existe pas encore en composant dédié
 - [ ] Trancher le sort de l'extension Site connecté (playbook §15)
 - [ ] Trancher ce que devient un client Setup au mois 13 (playbook §5)
 - [ ] Mesurer le plafond de capacité sur les premiers clients (playbook §6)
