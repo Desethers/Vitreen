@@ -15,11 +15,8 @@ positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 (décidé 2026-08). Ce n'est ni un SaaS low-cost face à Artlogic, ni une agence
 généraliste, ni du conseil IA abstrait, ni du développement custom par galerie.
 
-> Un système commercial assisté par IA, installé personnellement avec chaque
-> galerie, à partir d'un socle produit commun.
-
 Ce qui est personnel, c'est l'installation — un fondateur solo, assis avec la
-galerie, qui structure l'inventaire, configure Gmail et WhatsApp, forme
+galerie, qui structure l'inventaire, configure Gmail et WhatsApp, forme le solo galeriste ou
 l'équipe. Ce qui est partagé, c'est le produit derrière. Sans le socle commun,
 c'est de l'agence ; sans l'installation personnelle, c'est un SaaS de plus.
 
