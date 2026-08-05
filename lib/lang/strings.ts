@@ -98,7 +98,7 @@ export const translations = {
     hero: {
       title: "Nous construisons de meilleurs systèmes pour vendre l’art",
       subtitle:
-        "Vitreen conçoit des sites connectés, des fiches d’œuvres structurées et des outils collectionneurs pour les galeries d’art contemporain.",
+        "Vitreen combine expertise et technologie pour améliorer les workflows de vente des galeries, avec des outils IA connectés à leur inventaire dans Gmail et WhatsApp.",
       ctaPrimary: "Demander une démo",
       ctaSecondary: "Découvrir Gallery OS",
     },
@@ -973,7 +973,7 @@ export const translations = {
     hero: {
       title: "We build better systems for selling art",
       subtitle:
-        "Vitreen builds connected websites, artwork systems and collector tools for contemporary galleries.",
+        "Vitreen is a tech-enabled service that improves how galleries sell, using AI tools connected to their artwork inventory in Gmail and WhatsApp.",
       ctaPrimary: "Request a demo",
       ctaSecondary: "Explore Gallery OS",
     },
