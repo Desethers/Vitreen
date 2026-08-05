@@ -1,13 +1,12 @@
 "use client";
 
-import { ServicesGrid } from "@/components/Services";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 export default function LandingHero() {
   return (
     <section className="relative flex flex-col overflow-hidden bg-white px-4 pb-14 pt-36 md:px-6 md:pb-20 md:pt-44">
       <div className="relative mx-auto w-full max-w-7xl">
-        <div className="text-[22px] leading-[1.3] md:text-[30px]">
+        <div className="text-[30px] leading-[1.3]">
           <p className="hero-fade-up mb-3 text-[12px] font-medium tracking-[0.14em] text-[#ADADAA] md:mb-4">
             Sales tools for contemporary galleries
           </p>
@@ -41,10 +40,6 @@ export default function LandingHero() {
           <p className="hero-fade-up hero-fade-up-delay mt-5 text-[13px] leading-[1.5] tracking-[-0.01em] text-[#ADADAA] md:text-[14px]">
             Works with Artlogic, spreadsheets and existing artwork databases.
           </p>
-        </div>
-
-        <div className="hero-fade-up hero-fade-up-delay mt-10 md:mt-14">
-          <ServicesGrid />
         </div>
       </div>
     </section>

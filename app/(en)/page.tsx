@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
+import HeroDashboardMock from "@/components/HeroDashboardMock";
+import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingProblem from "@/components/landing/LandingProblem";
-import LandingProduct from "@/components/landing/LandingProduct";
-import LandingOffers from "@/components/landing/LandingOffers";
+import LandingAi from "@/components/landing/LandingAi";
 import LandingMethod from "@/components/landing/LandingMethod";
+import LandingOffers from "@/components/landing/LandingOffers";
+import LandingFaq from "@/components/landing/LandingFaq";
+import LandingCta from "@/components/landing/LandingCta";
 
 import { alternates } from "@/lib/seo";
 
@@ -26,10 +30,14 @@ export default function Home() {
     <main className="relative bg-white">
       <LandingNav />
       <LandingHero />
+      <HeroDashboardMock />
+      <LandingRecognition />
       <LandingProblem />
-      <LandingProduct />
+      <LandingAi />
       <LandingMethod />
       <LandingOffers />
+      <LandingFaq />
+      <LandingCta />
     </main>
   );
 }

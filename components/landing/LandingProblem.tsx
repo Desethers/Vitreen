@@ -31,6 +31,11 @@ const STEPS: ScrollStoryStep[] = [
     title: "Reply to collectors",
     subtitle:
       "Use your artwork cards in Gmail and WhatsApp, or send them as PDFs and private selections.",
+    bullets: [
+      "Reply while collector interest is active",
+      "Choose the right format for every conversation",
+      "Send accurate artwork information every time",
+    ],
   },
 ];
 
