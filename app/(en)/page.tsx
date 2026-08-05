@@ -4,7 +4,6 @@ import LandingHero from "@/components/landing/LandingHero";
 import HeroDashboardMock from "@/components/HeroDashboardMock";
 import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingProblem from "@/components/landing/LandingProblem";
-import LandingAi from "@/components/landing/LandingAi";
 import LandingMethod from "@/components/landing/LandingMethod";
 import LandingOffers from "@/components/landing/LandingOffers";
 import LandingFaq from "@/components/landing/LandingFaq";
@@ -33,7 +32,6 @@ export default function Home() {
       <HeroDashboardMock />
       <LandingRecognition />
       <LandingProblem />
-      <LandingAi />
       <LandingMethod />
       <LandingOffers />
       <LandingFaq />
