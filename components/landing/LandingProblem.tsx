@@ -60,7 +60,7 @@ function DeliveryScreens() {
         ) : null}
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap items-center gap-1">
         {DELIVERY_CHANNELS.map(({ id, label, icon }) => {
           const selected = channel === id;
           return (
@@ -68,10 +68,10 @@ function DeliveryScreens() {
               key={id}
               type="button"
               onClick={() => setChannel(id)}
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[12px] transition-colors ${
+              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[13px] transition-colors ${
                 selected
-                  ? "border-[#111110] bg-[#111110] text-white"
-                  : "border-[#E8E8E6] bg-[#F4F4F2] text-[#111110]"
+                  ? "bg-[#F5F5F3] text-[#111110]"
+                  : "bg-transparent text-[#6B6A67] hover:text-[#111110]"
               }`}
             >
               {icon ? (
@@ -112,11 +112,8 @@ export default function LandingProblem() {
       isVisualBare={(index) => index === 2}
       renderHeader={
         <div>
-          <h2 className={`${H2} max-w-3xl`}>Turn your inventory into collector-ready replies.</h2>
-          <p className={`${H2_SUB} max-w-4xl`}>
-            Import and organise your works, then share them through Gmail, WhatsApp, PDF or private
-            selections.
-          </p>
+          <h2 className={`${H2} max-w-3xl`}>Bring your artwork inventory into Vitreen.</h2>
+          <p className={`${H2_SUB} max-w-4xl`}>Turn your inventory into collector-ready replies.</p>
         </div>
       }
       renderVisual={(index) => <StepVisual index={index} />}
