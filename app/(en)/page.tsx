@@ -4,8 +4,11 @@ import LandingHero from "@/components/landing/LandingHero";
 import HeroDashboardMock from "@/components/HeroDashboardMock";
 import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingProblem from "@/components/landing/LandingProblem";
+import LandingProduct from "@/components/landing/LandingProduct";
+import Difference from "@/components/Difference";
 import LandingMethod from "@/components/landing/LandingMethod";
 import LandingOffers from "@/components/landing/LandingOffers";
+import StatementSplit from "@/components/StatementSplit";
 import LandingFaq from "@/components/landing/LandingFaq";
 import LandingCta from "@/components/landing/LandingCta";
 
@@ -31,9 +34,12 @@ export default function Home() {
       <LandingHero />
       <HeroDashboardMock />
       <LandingRecognition />
-      <LandingProblem />
       <LandingMethod />
+      <LandingProblem />
+      <LandingProduct />
+      <Difference />
       <LandingOffers />
+      <StatementSplit />
       <LandingFaq />
       <LandingCta />
     </main>
