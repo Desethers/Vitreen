@@ -13,7 +13,7 @@ export default function Difference() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease }}
-          className="font-display text-2xl md:text-3xl lg:text-4xl text-[#111110] leading-relaxed tracking-tight"
+          className="font-display text-[20px] md:text-[26px] text-[#111110] leading-relaxed tracking-tight"
         >
           "The digital space is a natural extension of the gallery's storefront.{" "}
           <span>
