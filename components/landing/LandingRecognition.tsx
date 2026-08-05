@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 import { BODY, CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
@@ -113,7 +114,7 @@ export default function LandingRecognition() {
   return (
     <section className={`${SECTION} bg-white`}>
       <div
-        className={`${CONTAINER} grid gap-10 md:grid-cols-[0.85fr_1fr] md:items-center md:gap-16`}
+        className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-center md:gap-16`}
       >
         <div className="max-w-xl">
           <h2 className={H2}>Every sale starts with a conversation.</h2>
@@ -135,12 +136,25 @@ export default function LandingRecognition() {
           </div>
         </div>
 
-        <div className="mx-auto w-full max-w-[340px]">
-          <div className="relative h-[178px]" style={{ perspective: 900 }}>
-            {MESSAGES.map((message, index) => {
-              const position = (index - active + MESSAGES.length) % MESSAGES.length;
-              return <GmailCard key={message.name} message={message} position={position} />;
-            })}
+        <div className="ml-auto w-full">
+          <div
+            className="relative flex h-[420px] items-center justify-center overflow-hidden rounded-[12px]"
+            style={{ border: "0.1px solid #D4D4D0" }}
+          >
+            <Image
+              src="/modernize_the_reference_image_subtly_without_changing_its_original_composition_or_atmosphere_preser_w3lsj3fu9hejewoam93p_1.png"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 60vw, 100vw"
+              className="object-cover"
+            />
+
+            <div className="relative h-[178px] w-[340px]" style={{ perspective: 900 }}>
+              {MESSAGES.map((message, index) => {
+                const position = (index - active + MESSAGES.length) % MESSAGES.length;
+                return <GmailCard key={message.name} message={message} position={position} />;
+              })}
+            </div>
           </div>
         </div>
       </div>
