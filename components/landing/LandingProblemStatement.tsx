@@ -22,9 +22,9 @@ export default function LandingProblemStatement() {
     <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
       <div className="mx-auto w-full max-w-7xl">
         <div className="rounded-[20px] bg-[#F5F5F3] p-8 md:p-14">
-          <div className="grid gap-10 md:grid-cols-2 md:items-start md:gap-16">
+          <div className="grid gap-10 md:grid-cols-2 md:items-start md:gap-24">
             <div>
-              <p className={EYEBROW}>The Problems</p>
+              <p className={`${EYEBROW} normal-case`}>The Problems</p>
               <h2 className="mt-4 max-w-lg text-balance font-display text-[26px] font-normal leading-[1.2] tracking-[-0.04em] text-[#111110] md:text-[30px]">
                 Selling art still means rebuilding the same material again and again.
               </h2>
@@ -41,7 +41,7 @@ export default function LandingProblemStatement() {
               {PROBLEMS.map((item, index) => (
                 <div
                   key={item.title}
-                  className={`border-t border-[#DCDCD8] py-6 first:pt-0 ${
+                  className={`border-t border-[#DCDCD8] py-6 ${
                     index === PROBLEMS.length - 1 ? "border-b" : ""
                   }`}
                 >
