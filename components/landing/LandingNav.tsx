@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/Button";
 import ContactModal from "@/components/ContactModal";
 
 const LINKS = [
-  { label: "Product", href: "#product" },
-  { label: "Services", href: "#services" },
   { label: "How it works", href: "#how-it-works" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
 ];
 
 export const openContact = () => window.dispatchEvent(new Event("open-contact-modal"));

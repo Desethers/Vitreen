@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
 import HeroDashboardMock from "@/components/HeroDashboardMock";
+import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
 import LandingRecognition from "@/components/landing/LandingRecognition";
-import LandingProblem from "@/components/landing/LandingProblem";
-import LandingProduct from "@/components/landing/LandingProduct";
+import LandingProblemStatement from "@/components/landing/LandingProblemStatement";
+import LandingInventorySetup from "@/components/landing/LandingInventorySetup";
+import LandingOutputs from "@/components/landing/LandingOutputs";
+import LandingWhereYouSell from "@/components/landing/LandingWhereYouSell";
 import Difference from "@/components/Difference";
-import LandingMethod from "@/components/landing/LandingMethod";
 import LandingOffers from "@/components/landing/LandingOffers";
 import StatementSplit from "@/components/StatementSplit";
 import LandingFaq from "@/components/landing/LandingFaq";
@@ -33,10 +35,12 @@ export default function Home() {
       <LandingNav />
       <LandingHero />
       <HeroDashboardMock />
+      <LandingHowItWorks />
       <LandingRecognition />
-      <LandingMethod />
-      <LandingProblem />
-      <LandingProduct />
+      <LandingProblemStatement />
+      <LandingInventorySetup />
+      <LandingOutputs />
+      <LandingWhereYouSell />
       <Difference />
       <LandingOffers />
       <StatementSplit />

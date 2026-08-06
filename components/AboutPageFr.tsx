@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import LandingNav from "@/components/landing/LandingNav";
-import LandingCta from "@/components/landing/LandingCta";
+import LandingNavFr from "@/components/landing/LandingNavFr";
+import LandingCtaFr from "@/components/landing/LandingCtaFr";
 import { BODY, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -15,45 +15,46 @@ const fadeUp = (delay = 0) => ({
 });
 
 const LETTER = {
-  title: "The next generation of galleries will be built differently",
+  title: "Les galeries de demain se construiront autrement",
   paragraphs: [
-    "Galleries have always been built on artists, judgment and relationships.",
-    "That should not change.",
-    "But the work behind a gallery has become more demanding. Even small teams must now manage artwork records, keep a website current, prepare private material and follow collector conversations across multiple channels.",
-    "The cultural work remains visible. Behind it, the operational burden keeps growing.",
-    "Vitreen was created around a simple idea: galleries should be able to operate professionally without becoming larger, heavier or more technical.",
-    "Artwork information should be entered once and reused across the website, private selections, emails and PDFs.",
-    "Technology should not replace judgment or relationships. It should support them.",
-    "A stronger operational system helps galleries respond faster, follow up more consistently and spend more time with artists, exhibitions and collectors.",
-    "For established galleries, this means more control and less dependency.",
-    "For younger gallerists, it means starting with professional foundations before building a larger team.",
-    "Vitreen is being built for both.",
+    "Le marché de l’art repose encore sur les relations, le jugement et la confiance. Cela ne devrait pas changer.",
+    "Mais le travail opérationnel derrière ces relations devient plus lourd.",
+    "On attend des petites galeries qu’elles tiennent des fiches d’œuvres justes, un site à jour, une communication soignée avec leurs collectionneurs et du matériel privé irréprochable — souvent avec une équipe très réduite.",
+    "Vitreen a été créé pour leur donner une meilleure infrastructure.",
+    "Nous relions l’information des œuvres aux endroits où la galerie travaille déjà : son site, ses emails, ses PDFs, ses sélections privées et ses conversations avec les collectionneurs.",
+    "L’objectif n’est pas de remplacer la part humaine de la galerie. C’est de la soutenir.",
+    "Quand l’information est organisée et prête à l’emploi, l’équipe répond plus vite, relance plus régulièrement et passe plus de temps à construire des relations.",
+    "Pour les galeries établies, Vitreen renforce les opérations existantes.",
+    "Pour une nouvelle génération de galeristes, il offre un moyen de démarrer avec les capacités d’une structure plus grande, sans en porter les coûts.",
+    "Nous pensons que les galeries qui resteront compétitives ne seront pas celles qui utilisent le plus de technologie. Ce seront celles qui l’utilisent avec le plus de clarté.",
   ],
-  signature: { name: "Raphaël Rossi", role: "Founder, Vitreen" },
+  signature: { name: "Raphaël Rossi", role: "Fondateur, Vitreen" },
 };
 
 const AUDIENCES = [
   {
-    title: "For established galleries",
-    text: "Vitreen strengthens existing operations.",
+    title: "Pour les galeries établies",
+    text: "Vitreen renforce les opérations existantes.",
   },
   {
-    title: "For new gallerists",
-    text: "It provides the infrastructure to start professionally without building a large team from day one.",
+    title: "Pour les galeristes qui débutent",
+    text: "Il apporte l’infrastructure pour démarrer professionnellement sans constituer une grande équipe dès le premier jour.",
   },
 ];
 
-export default function AboutPage() {
+export default function AboutPageFr() {
   return (
     <main className="relative bg-white">
-      <LandingNav />
+      <LandingNavFr />
 
       <section className={`${SECTION} pt-32 md:pt-40`}>
         <div className={CONTAINER}>
-          <p className={EYEBROW}>About Vitreen</p>
-          <h1 className={`${H2} mt-4 max-w-2xl`}>Build the gallery you want to run.</h1>
+          <p className={EYEBROW}>À propos de Vitreen</p>
+          <h1 className={`${H2} mt-4 max-w-2xl`}>
+            Construisez la galerie que vous voulez diriger.
+          </h1>
           <p className={`${BODY} mt-5 max-w-2xl`}>
-            Better systems for your artists, collectors and daily work.
+            Des outils mieux pensés pour vos artistes, vos collectionneurs et votre quotidien.
           </p>
         </div>
       </section>
@@ -109,7 +110,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <LandingCta />
+      <LandingCtaFr />
     </main>
   );
 }

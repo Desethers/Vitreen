@@ -45,9 +45,7 @@ export function ConnectInventoryMockup() {
   return (
     <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-[16px] border border-[#E4E4E7] bg-white p-5">
       <h3 className="text-[14px] font-semibold text-[#18181B]">Connect your inventory</h3>
-      <p className="mt-1 text-[11px] text-[#3F3F46]">
-        Choose how to bring your works into Gallery OS
-      </p>
+      <p className="mt-1 text-[11px] text-[#3F3F46]">Choose how to bring your works into Vitreen</p>
       <div className="mt-3.5 flex items-center gap-3 rounded-[10px] border border-[#E4E4E7] px-3.5 py-3">
         <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#FAFAFA] text-[#71717A]">
           <FileSpreadsheetIcon size={16} />

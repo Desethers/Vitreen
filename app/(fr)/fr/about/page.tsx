@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import AboutPage from "@/components/AboutPage";
+import AboutPageFr from "@/components/AboutPageFr";
 import PageStructuredData from "@/components/PageStructuredData";
 import { pageMetadata } from "@/lib/seo";
 
@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <AboutPage />
+      <AboutPageFr />
     </>
   );
 }

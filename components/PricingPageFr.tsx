@@ -1,7 +1,7 @@
 "use client";
 
-import LandingNav from "@/components/landing/LandingNav";
-import LandingCta from "@/components/landing/LandingCta";
+import LandingNavFr from "@/components/landing/LandingNavFr";
+import LandingCtaFr from "@/components/landing/LandingCtaFr";
 import { OfferCard } from "@/components/landing/OfferCard";
 import { PricingFaqItem } from "@/components/landing/PricingFaqItem";
 import { Button } from "@/components/ui/Button";
@@ -9,70 +9,70 @@ import { openContact } from "@/components/landing/LandingNav";
 import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 
 const SETUP = [
-  "Inventory import",
-  "AI assistant setup",
-  "Gmail and WhatsApp configuration",
-  "Email and PDF formats",
-  "Team training",
-  "Technical maintenance",
+  "Import de l’inventaire",
+  "Configuration de l’assistant IA",
+  "Configuration Gmail et WhatsApp",
+  "Formats email et PDF",
+  "Formation de l’équipe",
+  "Maintenance technique",
 ];
 
 const PARTNER = [
-  "Everything in Setup",
-  "Monthly working session",
-  "Direct founder support",
-  "Workflow improvements",
-  "New formats and use cases",
-  "Ongoing product evolution",
+  "Tout Setup inclus",
+  "Session de travail mensuelle",
+  "Accès direct au fondateur",
+  "Améliorations de workflow",
+  "Nouveaux formats et cas d’usage",
+  "Évolution continue du produit",
 ];
 
 const REPLACES = [
   {
-    title: "Inventory tool",
-    cost: "Around €200–300/month",
-    description: "To store and maintain artwork records.",
+    title: "Outil d’inventaire",
+    cost: "Environ 200–300 €/mois",
+    description: "Pour stocker et maintenir les fiches d’œuvres.",
   },
   {
-    title: "Team data entry",
-    cost: "Several hours every week",
-    description: "To copy the same information into PDFs and collector emails.",
+    title: "Ressaisie par l’équipe",
+    cost: "Plusieurs heures chaque semaine",
+    description: "Pour recopier les mêmes informations dans les PDF et les emails.",
   },
 ];
 
 const FAQ = [
   {
-    q: "Who owns my data?",
-    a: "You do. A complete export is available at any time.",
+    q: "À qui appartiennent mes données ?",
+    a: "À vous. Un export complet est possible à tout moment.",
   },
   {
-    q: "Why a 6-month minimum on Partner?",
-    a: "Partner is a working relationship, not a plan — six months is enough time to see real improvements to your workflow, not just a one-off tweak.",
+    q: "Pourquoi un minimum de 6 mois sur Partner ?",
+    a: "Partner est une relation de travail, pas un forfait — six mois suffisent pour voir de vraies améliorations dans votre workflow, pas juste un ajustement ponctuel.",
   },
   {
-    q: "What happens if I stop?",
-    a: "You keep your data and your Vitreen system. A complete export is available at any time.",
+    q: "Que se passe-t-il si j’arrête ?",
+    a: "Vous gardez vos données et votre système Vitreen. Un export complet est possible à tout moment.",
   },
   {
-    q: "How long does setup take?",
-    a: "Around three weeks, from the first conversation to your team using the Gmail and WhatsApp add-ins.",
+    q: "Combien de temps dure l’installation ?",
+    a: "Environ trois semaines, du premier échange à l’utilisation des extensions Gmail et WhatsApp par votre équipe.",
   },
   {
-    q: "Who keeps the system running day to day?",
-    a: "Your team, using Vitreen independently. If you'd rather have hands-on support, Partner includes a monthly working session and direct access to the founder.",
+    q: "Qui fait fonctionner le système au quotidien ?",
+    a: "Votre équipe, en autonomie avec Vitreen. Si vous préférez un accompagnement plus direct, Partner inclut une session de travail mensuelle et un accès direct au fondateur.",
   },
 ];
 
-export default function PricingPage() {
+export default function PricingPageFr() {
   return (
     <main className="relative bg-white">
-      <LandingNav />
+      <LandingNavFr />
 
       <section className={`${SECTION} pt-32 md:pt-40`}>
         <div className={CONTAINER}>
-          <p className={EYEBROW}>Pricing</p>
-          <h1 className={`${H2} mt-4 max-w-2xl`}>Clear costs, no surprise.</h1>
+          <p className={EYEBROW}>Tarifs</p>
+          <h1 className={`${H2} mt-4 max-w-2xl`}>Un prix clair, aucune surprise.</h1>
           <p className={`${BODY} mt-5 max-w-2xl`}>
-            A one-time setup, or an ongoing partnership — whichever way you want to work with
+            Une installation unique, ou un partenariat suivi — deux façons de travailler avec
             Vitreen.
           </p>
         </div>
@@ -82,35 +82,35 @@ export default function PricingPage() {
         <div className={CONTAINER}>
           <div className="grid gap-6 md:grid-cols-2 md:gap-8">
             <OfferCard
-              label="ONE-TIME PROJECT"
+              label="PROJET UNIQUE"
               title="Vitreen Setup"
-              price="€3,000 one-time"
-              description="A complete, stable Vitreen system installed for your gallery."
+              price="3 000 € une fois"
+              description="Un système Vitreen complet et stable, installé pour votre galerie."
               items={SETUP}
-              clarification="The delivered system remains stable. New features and workflow changes are not included."
-              cta="Choose Setup"
+              clarification="Le système livré reste stable. Les nouvelles fonctionnalités et évolutions de workflow ne sont pas incluses."
+              cta="Choisir Setup"
             />
             <OfferCard
-              label="ONGOING PARTNERSHIP"
+              label="PARTENARIAT SUIVI"
               title="Vitreen Partner"
-              price="€950/month"
-              subline="6-month minimum"
-              description="Vitreen stays involved to support your team and improve the system over time."
+              price="950 €/mois"
+              subline="Minimum 6 mois"
+              description="Vitreen reste à vos côtés pour accompagner votre équipe et faire évoluer le système dans le temps."
               items={PARTNER}
-              cta="Choose Partner"
+              cta="Choisir Partner"
               featured
             />
           </div>
           <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
-            The exact scope is defined during a first conversation — that scope determines the final
-            quote.
+            Le périmètre exact se définit lors d’un premier échange — c’est lui qui précise le devis
+            final.
           </p>
         </div>
       </section>
 
       <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
         <div className={CONTAINER}>
-          <h2 className={`${H2} max-w-2xl`}>What Vitreen replaces</h2>
+          <h2 className={`${H2} max-w-2xl`}>Ce que remplace Vitreen</h2>
           <div className="mt-8 border-t border-[#E8E8E6]">
             {REPLACES.map((item) => (
               <div
@@ -124,7 +124,7 @@ export default function PricingPage() {
             ))}
           </div>
           <p className="mt-6 font-display text-[20px] text-[#111110]">
-            One system, one point of contact.
+            Un système, un interlocuteur.
           </p>
         </div>
       </section>
@@ -134,38 +134,38 @@ export default function PricingPage() {
           className={`${CONTAINER} grid gap-6 rounded-[12px] bg-[#F5F5F3] px-5 py-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-10`}
         >
           <div>
-            <p className={EYEBROW}>Pilot programme</p>
+            <p className={EYEBROW}>Programme pilote</p>
             <h2 className="mt-2.5 font-display text-[25px] font-normal leading-[1.15] tracking-[-0.025em] text-[#111110] md:mt-3 md:text-[26px] md:leading-[1.2] md:tracking-[-0.02em]">
-              Three pilot galleries
+              Trois galeries pilotes
             </h2>
             <p className="mt-3 max-w-2xl text-[13px] leading-[1.55] text-[#6B6A67] md:text-[14px] md:leading-relaxed">
-              The first three galleries receive pilot Setup pricing in exchange for a published case
-              study.
+              Les trois premières galeries bénéficient d’une installation Setup à tarif pilote, en
+              échange d’une étude de cas publiée.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 md:mt-8 md:items-baseline">
               <span className="order-1 font-display text-[32px] leading-none tracking-[-0.035em] text-[#111110] md:order-3 md:text-[30px] md:leading-normal md:tracking-[-0.03em]">
-                €1,500
+                1 500 €
               </span>
               <span className="order-2 rounded-full border border-[#DEDEDA] bg-white px-2.5 py-1 text-[11px] font-medium text-[#111110]">
-                −50%
+                −50 %
               </span>
               <span className="order-3 w-full text-[12px] text-[#ADADAA] line-through md:order-1 md:w-auto md:text-[14px]">
-                €3,000
+                3 000 €
               </span>
             </div>
             <p className="mt-2 text-[12px] text-[#6B6A67] md:mt-3">
-              3 places — first come, first served.
+              3 places — premier arrivé, premier servi.
             </p>
           </div>
           <Button size="md" onClick={openContact} className="w-full justify-center md:w-fit">
-            Talk to us
+            Parlons-en
           </Button>
         </div>
       </section>
 
       <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
         <div className={CONTAINER}>
-          <h2 className={`${H2} max-w-2xl`}>Questions about the offer</h2>
+          <h2 className={`${H2} max-w-2xl`}>Questions sur l’offre</h2>
           <div className="mt-8">
             {FAQ.map((item) => (
               <PricingFaqItem key={item.q} question={item.q} answer={item.a} />
@@ -174,7 +174,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <LandingCta />
+      <LandingCtaFr />
     </main>
   );
 }

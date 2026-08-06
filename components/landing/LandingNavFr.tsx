@@ -6,9 +6,9 @@ import ContactModal from "@/components/ContactModal";
 import { openContact } from "@/components/landing/LandingNav";
 
 const LINKS = [
-  { label: "Produit", href: "#product" },
-  { label: "Offres", href: "#services" },
   { label: "Méthode", href: "#how-it-works" },
+  { label: "Tarifs", href: "/fr/pricing" },
+  { label: "À propos", href: "/fr/about" },
 ];
 
 /**
