@@ -4,6 +4,37 @@ import { IntegrationsFrame } from "@/components/GalleryAssistantProductPage";
 import { WhatsAppPdfMockup } from "@/components/shared/ArtworkAddInMocks";
 import { BODY, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 
+/* Same card-caption pattern as ServicesGrid (components/Services.tsx on main):
+ * bottom gradient bar, title + "Explore" with an arrow that darkens on hover. */
+function CardCaption({ title, action = "Explore" }: { title: string; action?: string }) {
+  return (
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/75 via-white/20 to-transparent px-4 pb-1.5 pt-1.5 backdrop-blur-[2px]">
+      <div className="flex items-center justify-between gap-4">
+        <h3 className="truncate font-display text-[13px] font-normal leading-none tracking-[-0.01em] text-[#111110]">
+          {title}
+        </h3>
+        <span className="inline-flex shrink-0 items-center gap-1 text-[13px] font-normal leading-none tracking-[-0.01em] text-[#ADADAA] transition-colors duration-200 group-hover:text-[#111110]">
+          {action}
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M2.5 6.5h8" />
+            <path d="m7.25 3.25 3.25 3.25-3.25 3.25" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function ArtworkPageMockup() {
   return (
     <div className="h-full w-full bg-white p-5 text-left">
@@ -143,10 +174,14 @@ export default function LandingOutputs() {
           {OUTPUTS.map((item) => (
             <article
               key={item.label}
-              aria-label={item.label}
-              className="relative h-[300px] overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F8F8F6] md:h-[360px]"
+              className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20"
             >
-              <div className="absolute inset-0 overflow-hidden">{item.node}</div>
+              <div className="pointer-events-none relative h-[300px] overflow-hidden bg-[#F8F8F6] md:h-[360px]">
+                <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
+                  {item.node}
+                </div>
+              </div>
+              <CardCaption title={item.label} />
             </article>
           ))}
         </div>
