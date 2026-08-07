@@ -24,7 +24,7 @@ export default function LandingHowItWorks() {
   return (
     <section id="how-it-works" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
-        <p className={EYEBROW}>How It Work</p>
+        <p className={EYEBROW}>How it works</p>
         <h2 className={`${H2} mt-4 max-w-2xl`}>From artwork inventory to collector reply.</h2>
 
         <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3">

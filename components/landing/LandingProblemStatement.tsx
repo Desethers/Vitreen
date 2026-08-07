@@ -24,7 +24,7 @@ export default function LandingProblemStatement() {
         <div className="rounded-[20px] bg-[#F5F5F3] p-8 md:p-14">
           <div className="grid gap-10 md:grid-cols-2 md:items-start md:gap-24">
             <div>
-              <p className={`${EYEBROW} normal-case`}>The Problems</p>
+              <p className={EYEBROW}>The problem</p>
               <h2 className="mt-4 max-w-lg text-balance font-display text-[26px] font-normal leading-[1.2] tracking-[-0.04em] text-[#111110] md:text-[30px]">
                 Selling art still means rebuilding the same material again and again.
               </h2>

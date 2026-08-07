@@ -29,7 +29,7 @@ export default function LandingOffers() {
 
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
           <OfferCard
-            label="ONE-TIME PROJECT"
+            label="One-time project"
             title="Vitreen Setup"
             price="€3,000 one-time"
             description="A complete, stable Vitreen system installed for your gallery."
@@ -38,7 +38,7 @@ export default function LandingOffers() {
             cta="Choose Setup"
           />
           <OfferCard
-            label="ONGOING PARTNERSHIP"
+            label="Ongoing partnership"
             title="Vitreen Partner"
             price="€950/month"
             subline="6-month minimum"

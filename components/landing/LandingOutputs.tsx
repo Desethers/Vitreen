@@ -60,7 +60,7 @@ function ArtworkPageMockup() {
 
       <div className="mt-3 grid grid-cols-[1fr_1fr] gap-4 border-t border-[#E8E8E6] pt-3">
         <div>
-          <p className="text-[8px] uppercase tracking-[0.1em] text-[#ADADAA]">Details</p>
+          <p className="text-[8px] tracking-[0.1em] text-[#ADADAA]">Details</p>
           <div className="mt-2 space-y-2">
             <label className="block">
               <span className="mb-1 block text-[8px] text-[#6B6A67]">Title</span>
@@ -77,9 +77,7 @@ function ArtworkPageMockup() {
             </label>
           </div>
 
-          <p className="mt-4 text-[8px] uppercase tracking-[0.1em] text-[#ADADAA]">
-            Dimensions &amp; status
-          </p>
+          <p className="mt-4 text-[8px] tracking-[0.1em] text-[#ADADAA]">Dimensions &amp; status</p>
           <div className="mt-2 grid grid-cols-[1fr_auto_1fr_0.7fr] items-center gap-1.5">
             <span className="rounded-[5px] border border-[#D8D8D5] py-1.5 text-center text-[9px] text-[#111110]">
               120
@@ -135,7 +133,7 @@ function PrivateSelectionMockup() {
       />
       <div className="absolute inset-0 bg-white/55" />
       <div className="relative p-4 text-left">
-        <p className="text-[9px] uppercase tracking-[0.1em] text-[#6B6A67]">Selection privée</p>
+        <p className="text-[9px] tracking-[0.1em] text-[#6B6A67]">Selection privée</p>
         <h4 className="mt-1 text-[13px] font-medium text-[#111110]">Selection — Sacha Elron</h4>
         <p className="mt-0.5 text-[9px] text-[#6B6A67]">Pour Marie Beaumont</p>
         <p className="mt-0.5 text-[8px] text-[#ADADAA]">

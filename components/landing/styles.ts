@@ -8,7 +8,7 @@
 export const SECTION = "px-4 py-14 md:px-6 md:py-[72px]";
 export const CONTAINER = "mx-auto w-full max-w-7xl";
 
-export const EYEBROW = "text-[11px] uppercase tracking-[0.14em] text-[#ADADAA]";
+export const EYEBROW = "text-[11px] tracking-[0.14em] text-[#ADADAA]";
 
 /** Same scale as every section H2 on main (ProcessFlow, Services, ...). */
 export const H2 =

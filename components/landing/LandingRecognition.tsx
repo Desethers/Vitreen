@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-import { BODY, CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
+import { BODY, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const MESSAGES = [
   {
@@ -117,7 +117,8 @@ export default function LandingRecognition() {
         className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-center md:gap-16`}
       >
         <div className="max-w-xl">
-          <h2 className={H2}>Every sale starts with a conversation.</h2>
+          <p className={EYEBROW}>Every conversation</p>
+          <h2 className={`${H2} mt-4`}>Every sale starts with a conversation.</h2>
           <p className={H2_SUB}>Vitreen brings everything into the conversation, ready to send.</p>
 
           <p className={`${BODY} mt-6`}>

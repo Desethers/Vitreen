@@ -2,14 +2,15 @@
 
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-import { BODY, CONTAINER, H2, SECTION } from "@/components/landing/styles";
+import { BODY, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 
 export default function LandingWhereYouSell() {
   return (
     <section className={`${SECTION} bg-white`}>
       <div className={`${CONTAINER} grid gap-10 md:grid-cols-2 md:items-center md:gap-16`}>
         <div>
-          <h2 className={`${H2} max-w-lg`}>
+          <p className={EYEBROW}>Where you sell</p>
+          <h2 className={`${H2} mt-4 max-w-lg`}>
             Finally, your artwork inventory where you actually sell.
           </h2>
           <p className={`${BODY} mt-5 max-w-lg`}>
