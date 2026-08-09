@@ -6,24 +6,25 @@ import { OfferCard } from "@/components/landing/OfferCard";
 import { PricingFaqItem } from "@/components/landing/PricingFaqItem";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
+import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB } from "@/components/landing/styles";
 
 const SETUP = [
-  "Import de l’inventaire",
-  "Configuration de l’assistant IA",
+  "Structuration de la base d’œuvres ou connexion à votre inventaire existant",
+  "Add-in Gmail",
+  "Outils de vente WhatsApp",
   "Configuration Gmail et WhatsApp",
-  "Formats email et PDF",
-  "Formation de l’équipe",
-  "Maintenance technique",
+  "Configuration de l’assistant IA",
+  "Éditeur de sélections et suivi",
+  "Prise en main de l’équipe",
 ];
 
 const PARTNER = [
-  "Tout Setup inclus",
-  "Session de travail mensuelle",
-  "Accès direct au fondateur",
-  "Améliorations de workflow",
-  "Nouveaux formats et cas d’usage",
-  "Évolution continue du produit",
+  "Formation de l’équipe",
+  "Formats email et PDF",
+  "Maintenance technique",
+  "Configuration Gmail et WhatsApp",
+  "Configuration de l’assistant IA",
+  "Import de l’inventaire",
 ];
 
 const REPLACES = [
@@ -33,11 +34,63 @@ const REPLACES = [
     description: "Pour stocker et maintenir les fiches d’œuvres.",
   },
   {
+    title: "Agence ou prestataire web",
+    cost: "Environ 4 000–8 000 € + frais par modification",
+    description: "Pour construire le site puis intervenir à chaque changement.",
+  },
+  {
     title: "Ressaisie par l’équipe",
     cost: "Plusieurs heures chaque semaine",
-    description: "Pour recopier les mêmes informations dans les PDF et les emails.",
+    description: "Pour recopier les mêmes informations dans le site, les PDF et les emails.",
   },
 ];
+
+const WEBSITE_FEATURES = [
+  {
+    title: "Toujours à jour",
+    description: "Depuis votre inventaire.",
+  },
+  {
+    title: "Sans développeur",
+    description: "Modifiable à tout moment.",
+  },
+  {
+    title: "Votre propre design",
+    description: "Pas un modèle générique.",
+  },
+  {
+    title: "En tête sur Google",
+    description: "Faites pour être trouvées.",
+  },
+  {
+    title: "Demandes dans Gmail",
+    description: "Aucun outil supplémentaire.",
+  },
+  {
+    title: "Dès 4 500 €",
+    description: "Un projet après Setup.",
+    dark: true,
+  },
+];
+
+function CheckIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ADADAA"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="mt-[3px] shrink-0"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
 
 const FAQ = [
   {
@@ -45,8 +98,8 @@ const FAQ = [
     a: "À vous. Un export complet est possible à tout moment.",
   },
   {
-    q: "Pourquoi un minimum de 6 mois sur Partner ?",
-    a: "Partner est une relation de travail, pas un forfait — six mois suffisent pour voir de vraies améliorations dans votre workflow, pas juste un ajustement ponctuel.",
+    q: "Puis-je démarrer directement avec Partner ?",
+    a: "Non. Partner est disponible une fois Setup livré — c'est ce qui garde Vitreen impliqué ensuite.",
   },
   {
     q: "Que se passe-t-il si j’arrête ?",
@@ -67,48 +120,100 @@ export default function PricingPageFr() {
     <main className="relative bg-white">
       <LandingNavFr />
 
-      <section className={`${SECTION} pt-32 md:pt-40`}>
+      <section className="px-4 pt-32 md:px-6 md:pt-40">
         <div className={CONTAINER}>
-          <p className={EYEBROW}>Tarifs</p>
-          <h1 className={`${H2} mt-4 max-w-2xl`}>Un prix clair, aucune surprise.</h1>
-          <p className={`${BODY} mt-5 max-w-2xl`}>
-            Une installation unique, ou un partenariat suivi — deux façons de travailler avec
-            Vitreen.
-          </p>
-        </div>
-      </section>
-
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 pt-0 md:px-6 md:pb-[72px]">
-        <div className={CONTAINER}>
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <OfferCard
-              label="PROJET UNIQUE"
-              title="Vitreen Setup"
-              price="3 000 € une fois"
-              description="Un système Vitreen complet et stable, installé pour votre galerie."
-              items={SETUP}
-              clarification="Le système livré reste stable. Les nouvelles fonctionnalités et évolutions de workflow ne sont pas incluses."
-              cta="Choisir Setup"
-            />
-            <OfferCard
-              label="PARTENARIAT SUIVI"
-              title="Vitreen Partner"
-              price="950 €/mois"
-              subline="Minimum 6 mois"
-              description="Vitreen reste à vos côtés pour accompagner votre équipe et faire évoluer le système dans le temps."
-              items={PARTNER}
-              cta="Choisir Partner"
-              featured
-            />
+          <div className="mx-auto max-w-2xl text-center">
+            <p className={EYEBROW}>Tarifs</p>
+            <h1 className={`${H2} mt-4`}>Un prix clair, aucune surprise.</h1>
+            <p className={H2_SUB}>
+              Commencez avec le système dont votre galerie a besoin aujourd’hui.
+            </p>
           </div>
-          <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
-            Le périmètre exact se définit lors d’un premier échange — c’est lui qui précise le devis
-            final.
-          </p>
         </div>
       </section>
 
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
+        <div className={CONTAINER}>
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+              <OfferCard
+                title="Vitreen Setup"
+                price="Dès 2 500 €"
+                subline="Projet unique · périmètre final confirmé après échange"
+                description="Nous installons le système dont votre galerie a besoin aujourd’hui : base d’œuvres et outils de vente pour vos collectionneurs."
+                items={SETUP}
+                clarification="Livré en ~3 semaines."
+                cta="Démarrer avec Vitreen"
+              />
+              <OfferCard
+                title="Vitreen Partner"
+                price="+ 350 €/mois"
+                subline="Disponible après Setup"
+                description="Gardez Vitreen impliqué pour faire évoluer le système à mesure que votre galerie, votre équipe et vos workflows collectionneurs évoluent."
+                items={PARTNER}
+                cta="Travailler avec Vitreen"
+                featured
+              />
+            </div>
+
+            <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
+              Le périmètre exact se définit lors d’un premier échange — c’est lui qui précise le
+              devis final.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
+        <div className={CONTAINER}>
+          <div className="grid gap-8 md:grid-cols-[5fr_7fr] md:items-start md:gap-12">
+            <div>
+              <p className={EYEBROW}>Étendre Vitreen</p>
+              <h3 className="mt-3 font-display text-[24px] leading-[1.2] tracking-[-0.01em] text-[#111110] md:text-[28px]">
+                Pourquoi attendre un développeur
+                <br className="hidden md:block" />
+                pour mettre à jour le site de la galerie ?
+              </h3>
+              <p className={`${BODY_SM} mt-4 max-w-sm`}>
+                Mettez à jour le site de la galerie directement depuis votre base d’œuvres. Gardez
+                artistes, expositions et œuvres à jour sans dépendre d’un développeur.
+              </p>
+              <Button
+                size="md"
+                onClick={openContact}
+                className="mt-6 w-full border border-[#E8E8E6] md:w-fit"
+              >
+                Discuter du projet de site
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {WEBSITE_FEATURES.map((item) => (
+                <div
+                  key={item.title}
+                  className={`flex items-start gap-3 rounded-[12px] p-5 ${item.dark ? "bg-[#111110]" : "bg-[#F5F5F3]"}`}
+                >
+                  <CheckIcon />
+                  <div>
+                    <h4
+                      className={`font-display text-[15px] ${item.dark ? "text-white" : "text-[#111110]"}`}
+                    >
+                      {item.title}
+                    </h4>
+                    <p
+                      className={`mt-1.5 text-[13px] leading-[1.5] ${item.dark ? "text-[#ADADAA]" : "text-[#6B6A67]"}`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
         <div className={CONTAINER}>
           <h2 className={`${H2} max-w-2xl`}>Ce que remplace Vitreen</h2>
           <div className="mt-8 border-t border-[#E8E8E6]">
@@ -129,41 +234,7 @@ export default function PricingPageFr() {
         </div>
       </section>
 
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
-        <div
-          className={`${CONTAINER} grid gap-6 rounded-[12px] bg-[#F5F5F3] px-5 py-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-10`}
-        >
-          <div>
-            <p className={EYEBROW}>Programme pilote</p>
-            <h2 className="mt-2.5 font-display text-[25px] font-normal leading-[1.15] tracking-[-0.025em] text-[#111110] md:mt-3 md:text-[26px] md:leading-[1.2] md:tracking-[-0.02em]">
-              Trois galeries pilotes
-            </h2>
-            <p className="mt-3 max-w-2xl text-[13px] leading-[1.55] text-[#6B6A67] md:text-[14px] md:leading-relaxed">
-              Les trois premières galeries bénéficient d’une installation Setup à tarif pilote, en
-              échange d’une étude de cas publiée.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 md:mt-8 md:items-baseline">
-              <span className="order-1 font-display text-[32px] leading-none tracking-[-0.035em] text-[#111110] md:order-3 md:text-[30px] md:leading-normal md:tracking-[-0.03em]">
-                1 500 €
-              </span>
-              <span className="order-2 rounded-full border border-[#DEDEDA] bg-white px-2.5 py-1 text-[11px] font-medium text-[#111110]">
-                −50 %
-              </span>
-              <span className="order-3 w-full text-[12px] text-[#ADADAA] line-through md:order-1 md:w-auto md:text-[14px]">
-                3 000 €
-              </span>
-            </div>
-            <p className="mt-2 text-[12px] text-[#6B6A67] md:mt-3">
-              3 places — premier arrivé, premier servi.
-            </p>
-          </div>
-          <Button size="md" onClick={openContact} className="w-full justify-center md:w-fit">
-            Parlons-en
-          </Button>
-        </div>
-      </section>
-
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
         <div className={CONTAINER}>
           <h2 className={`${H2} max-w-2xl`}>Questions sur l’offre</h2>
           <div className="mt-8">

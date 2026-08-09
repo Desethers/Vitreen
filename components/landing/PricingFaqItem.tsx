@@ -9,7 +9,7 @@ export function PricingFaqItem({ question, answer }: { question: string; answer:
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-[#E8E8E6]">
+    <div className="border-b border-[#E8E8E6] last:border-b-0">
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}

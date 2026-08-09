@@ -1,29 +1,29 @@
 "use client";
 
-import LandingNav from "@/components/landing/LandingNav";
+import LandingNav, { openContact } from "@/components/landing/LandingNav";
 import LandingCta from "@/components/landing/LandingCta";
 import { OfferCard } from "@/components/landing/OfferCard";
 import { PricingFaqItem } from "@/components/landing/PricingFaqItem";
 import { Button } from "@/components/ui/Button";
-import { openContact } from "@/components/landing/LandingNav";
-import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
+import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB } from "@/components/landing/styles";
 
 const SETUP = [
-  "Inventory import",
-  "AI assistant setup",
+  "Artwork database setup or connection to your existing inventory",
+  "Gmail add-in",
+  "WhatsApp sales tools",
   "Gmail and WhatsApp configuration",
-  "Email and PDF formats",
-  "Team training",
-  "Technical maintenance",
+  "AI assistant setup",
+  "Viewing room editor and follow-up",
+  "Team onboarding",
 ];
 
 const PARTNER = [
-  "Everything in Setup",
-  "Monthly working session",
-  "Direct founder support",
-  "Workflow improvements",
-  "New formats and use cases",
-  "Ongoing product evolution",
+  "Team training",
+  "Email and PDF formats",
+  "Technical maintenance",
+  "Gmail and WhatsApp configuration",
+  "AI assistant setup",
+  "Inventory import",
 ];
 
 const REPLACES = [
@@ -33,11 +33,63 @@ const REPLACES = [
     description: "To store and maintain artwork records.",
   },
   {
+    title: "Website agency or provider",
+    cost: "Around €4,000–8,000 + fees for each change",
+    description: "To build the website, then intervene whenever content changes.",
+  },
+  {
     title: "Team data entry",
     cost: "Several hours every week",
-    description: "To copy the same information into PDFs and collector emails.",
+    description: "To copy the same information into the website, PDFs and collector emails.",
   },
 ];
+
+const WEBSITE_FEATURES = [
+  {
+    title: "Always in sync",
+    description: "Straight from your inventory.",
+  },
+  {
+    title: "No developer needed",
+    description: "Update it yourself, anytime.",
+  },
+  {
+    title: "Your own design",
+    description: "Not a generic template.",
+  },
+  {
+    title: "Ranks on Google",
+    description: "Built to be found.",
+  },
+  {
+    title: "Inquiries in Gmail",
+    description: "No extra tool needed.",
+  },
+  {
+    title: "From €4,500",
+    description: "A project after Setup.",
+    dark: true,
+  },
+];
+
+function CheckIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ADADAA"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="mt-[3px] shrink-0"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
 
 const FAQ = [
   {
@@ -45,8 +97,8 @@ const FAQ = [
     a: "You do. A complete export is available at any time.",
   },
   {
-    q: "Why a 6-month minimum on Partner?",
-    a: "Partner is a working relationship, not a plan — six months is enough time to see real improvements to your workflow, not just a one-off tweak.",
+    q: "Can I start with Partner directly?",
+    a: "No. Partner is available once Setup is delivered — it's what keeps Vitreen involved afterward.",
   },
   {
     q: "What happens if I stop?",
@@ -67,48 +119,98 @@ export default function PricingPage() {
     <main className="relative bg-white">
       <LandingNav />
 
-      <section className={`${SECTION} pt-32 md:pt-40`}>
+      <section className="px-4 pt-32 md:px-6 md:pt-40">
         <div className={CONTAINER}>
-          <p className={EYEBROW}>Pricing</p>
-          <h1 className={`${H2} mt-4 max-w-2xl`}>Clear costs, no surprise.</h1>
-          <p className={`${BODY} mt-5 max-w-2xl`}>
-            A one-time setup, or an ongoing partnership — whichever way you want to work with
-            Vitreen.
-          </p>
-        </div>
-      </section>
-
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 pt-0 md:px-6 md:pb-[72px]">
-        <div className={CONTAINER}>
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            <OfferCard
-              label="ONE-TIME PROJECT"
-              title="Vitreen Setup"
-              price="€3,000 one-time"
-              description="A complete, stable Vitreen system installed for your gallery."
-              items={SETUP}
-              clarification="The delivered system remains stable. New features and workflow changes are not included."
-              cta="Choose Setup"
-            />
-            <OfferCard
-              label="ONGOING PARTNERSHIP"
-              title="Vitreen Partner"
-              price="€950/month"
-              subline="6-month minimum"
-              description="Vitreen stays involved to support your team and improve the system over time."
-              items={PARTNER}
-              cta="Choose Partner"
-              featured
-            />
+          <div className="mx-auto max-w-2xl text-center">
+            <p className={EYEBROW}>Pricing</p>
+            <h1 className={`${H2} mt-4`}>Clear costs, no surprise.</h1>
+            <p className={H2_SUB}>Start with the system your gallery needs today.</p>
           </div>
-          <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
-            The exact scope is defined during a first conversation — that scope determines the final
-            quote.
-          </p>
         </div>
       </section>
 
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
+        <div className={CONTAINER}>
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+              <OfferCard
+                title="Vitreen Setup"
+                price="From €2,500"
+                subline="One-time project · final scope confirmed after review"
+                description="We install the system your gallery needs today with artwork database and collector sales tools."
+                items={SETUP}
+                clarification="Delivered in ~3 weeks."
+                cta="Start with Vitreen"
+              />
+              <OfferCard
+                title="Vitreen Partner"
+                price="+ €350/month"
+                subline="Available after Setup"
+                description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
+                items={PARTNER}
+                cta="Work with Vitreen"
+                featured
+              />
+            </div>
+
+            <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
+              The exact scope is defined during a first conversation — that scope determines the
+              final quote.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
+        <div className={CONTAINER}>
+          <div className="grid gap-8 md:grid-cols-[5fr_7fr] md:items-start md:gap-12">
+            <div>
+              <p className={EYEBROW}>Expand Vitreen</p>
+              <h3 className="mt-3 font-display text-[24px] leading-[1.2] tracking-[-0.01em] text-[#111110] md:text-[28px]">
+                Why wait for a developer to
+                <br className="hidden md:block" />
+                update your gallery website?
+              </h3>
+              <p className={`${BODY_SM} mt-4 max-w-sm`}>
+                Update your gallery website directly from your artwork database. Keep artists,
+                exhibitions and artworks current without developer dependency.
+              </p>
+              <Button
+                size="md"
+                onClick={openContact}
+                className="mt-6 w-full border border-[#E8E8E6] md:w-fit"
+              >
+                Discuss website project
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {WEBSITE_FEATURES.map((item) => (
+                <div
+                  key={item.title}
+                  className={`flex items-start gap-3 rounded-[12px] p-5 ${item.dark ? "bg-[#111110]" : "bg-[#F5F5F3]"}`}
+                >
+                  <CheckIcon />
+                  <div>
+                    <h4
+                      className={`font-display text-[15px] ${item.dark ? "text-white" : "text-[#111110]"}`}
+                    >
+                      {item.title}
+                    </h4>
+                    <p
+                      className={`mt-1.5 text-[13px] leading-[1.5] ${item.dark ? "text-[#ADADAA]" : "text-[#6B6A67]"}`}
+                    >
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
         <div className={CONTAINER}>
           <h2 className={`${H2} max-w-2xl`}>What Vitreen replaces</h2>
           <div className="mt-8 border-t border-[#E8E8E6]">
@@ -129,41 +231,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
-        <div
-          className={`${CONTAINER} grid gap-6 rounded-[12px] bg-[#F5F5F3] px-5 py-6 md:grid-cols-[1fr_auto] md:items-end md:gap-8 md:p-10`}
-        >
-          <div>
-            <p className={EYEBROW}>Pilot programme</p>
-            <h2 className="mt-2.5 font-display text-[25px] font-normal leading-[1.15] tracking-[-0.025em] text-[#111110] md:mt-3 md:text-[26px] md:leading-[1.2] md:tracking-[-0.02em]">
-              Three pilot galleries
-            </h2>
-            <p className="mt-3 max-w-2xl text-[13px] leading-[1.55] text-[#6B6A67] md:text-[14px] md:leading-relaxed">
-              The first three galleries receive pilot Setup pricing in exchange for a published case
-              study.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 md:mt-8 md:items-baseline">
-              <span className="order-1 font-display text-[32px] leading-none tracking-[-0.035em] text-[#111110] md:order-3 md:text-[30px] md:leading-normal md:tracking-[-0.03em]">
-                €1,500
-              </span>
-              <span className="order-2 rounded-full border border-[#DEDEDA] bg-white px-2.5 py-1 text-[11px] font-medium text-[#111110]">
-                −50%
-              </span>
-              <span className="order-3 w-full text-[12px] text-[#ADADAA] line-through md:order-1 md:w-auto md:text-[14px]">
-                €3,000
-              </span>
-            </div>
-            <p className="mt-2 text-[12px] text-[#6B6A67] md:mt-3">
-              3 places — first come, first served.
-            </p>
-          </div>
-          <Button size="md" onClick={openContact} className="w-full justify-center md:w-fit">
-            Talk to us
-          </Button>
-        </div>
-      </section>
-
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
+      <section className="bg-white px-4 pt-[120px] md:px-6 md:pt-[120px]">
         <div className={CONTAINER}>
           <h2 className={`${H2} max-w-2xl`}>Questions about the offer</h2>
           <div className="mt-8">

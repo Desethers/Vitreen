@@ -71,18 +71,21 @@ Vitreen à Artlogic sur le prix.
 
 ### Offre — Setup ou Partner
 
-**Deux offres**, qui ne sont pas deux niveaux du même produit mais **deux
-relations différentes** avec le même système :
+**Pivot de prix (décidé 2026-08-08)** : Partner n'est plus une relation
+alternative au même niveau que Setup, mais une **option mensuelle qui
+s'ajoute à Setup, disponible seulement une fois Setup livré**. Setup reste le
+projet fini ; Partner est ce qu'on active ensuite si la galerie veut garder
+Vitreen impliqué.
 
 ```text
-Setup    → un projet fini.       Le système est installé et reste stable.
-Partner  → une relation suivie.  Le système évolue avec la galerie.
+Setup    → un projet fini.               Le système est installé et reste stable.
+Partner  → une option mensuelle après.   Débloquée une fois Setup livré.
 ```
 
-| Offre               | Prix                       | Promesse                                    |
-| ------------------- | -------------------------- | ------------------------------------------- |
-| **Vitreen Setup**   | 3 000 € une fois           | Votre système, installé et complet          |
-| **Vitreen Partner** | 950 €/mois, minimum 6 mois | Un système qui continue d'évoluer avec vous |
+| Offre               | Prix                                 | Promesse                                    |
+| ------------------- | ------------------------------------ | ------------------------------------------- |
+| **Vitreen Setup**   | à partir de 2 500 € une fois         | Votre système, installé et complet          |
+| **Vitreen Partner** | + 350 €/mois, disponible après Setup | Un système qui continue d'évoluer avec vous |
 
 **Setup** inclut : import et structuration de l'inventaire, configuration
 Gmail/WhatsApp, formats email/sélections/PDF, formation de l'équipe,
@@ -104,11 +107,13 @@ fonctionnalités.
 
 Chiffres actuels, validation business encore à faire.
 
-**Ne jamais vendre Partner comme « Setup + options »** — c'est la différence
-entre posséder une installation finie et avoir quelqu'un à ses côtés. Et
-surveiller l'arithmétique : Setup à 3 000 € vaut environ la moitié du minimum
-Partner (5 700 €), les deux incluant l'installation complète. Le prospect fera
-ce calcul en une minute ; la réponse doit être prête et honnête.
+**Ancienne règle levée (2026-08-08) : « Ne jamais vendre Partner comme Setup +
+options »** ne tient plus littéralement — c'est désormais exactement le
+modèle : Partner est un module additionnel, débloqué après Setup, à 350 €/mois.
+Ce qui reste vrai et à préserver : ne pas présenter ce module en tableau
+comparatif à colonnes de features (voir Vocabulaire ci-dessous), et garder la
+différence de ton entre les deux — Setup se choisit, Partner se propose une
+fois le système en place, pas au même moment ni sur le même écran de décision.
 
 **Principe économique** (à ne jamais perdre de vue) : le service finance le
 produit · le produit empêche Vitreen de devenir une agence · l'accompagnement
@@ -142,11 +147,12 @@ quand les 12 mois de maintenance expirent — et qui porte les coûts
 d'hébergement et d'inférence pendant ces 12 mois financés par un paiement
 unique ?
 
-**Statut à trancher** : l'ancienne offre portait Site connecté et Coaching IA
-en extensions séparées. Partner inclut désormais la formation d'équipe, ce qui
-rend le coaching autonome redondant. Le sort de Site connecté (extension à
-part vs absorbé dans « ce qu'on personnalise ») n'est pas décidé — ne pas le
-refaire apparaître comme article facturé sans trancher.
+**Statut tranché (2026-08-08)** : Site connecté redevient un article facturé à
+part — « Site de galerie connecté, à partir de 4 500 €, devisé comme un projet
+séparé ». Présenté comme upsell sous les cartes Setup/Partner (« Expand
+Vitreen »), jamais comme une ligne de plus dans le tableau Setup/Partner
+lui-même. Coaching IA autonome reste redondant (formation d'équipe déjà
+incluse dans Setup et Partner).
 
 ### Positionnement IA
 
@@ -238,9 +244,12 @@ public/
 
 ### Dette connue
 
-- Les pages `/pricing`, `/about`, `/products/*`, `/solutions/*` tournent encore
-  sur l'ancien discours Gallery OS (mega-menus, 4 piliers, personas). Aucun lien
+- Les pages `/about`, `/products/*`, `/solutions/*` tournent encore sur
+  l'ancien discours Gallery OS (mega-menus, 4 piliers, personas). Aucun lien
   de la home n'y pointe, mais elles restent à recentrer ou supprimer.
+  **`/pricing` fait exception** : `components/PricingPage.tsx`/`PricingPageFr.tsx`
+  sont à jour sur Setup/Partner (pivot de prix du 2026-08-08, voir §1) et
+  liés depuis le footer (`LandingCta`/`LandingCtaFr`).
 - `GalleryOsSearchWidget` dans `ArtworkAddInMocks.tsx` : le texte affiché dit
   bien « Vitreen », mais le **nom de la fonction** garde l'ancien nom. À
   renommer lors d'un prochain passage dans ce fichier.
@@ -309,12 +318,14 @@ pattern « grille de features » que la doctrine funnel interdit. Les deux sont
   Pas d'ombre, pas de couleur.
 - `LandingOffers` implémente encore l'échelle Send (450 €/mois) / Agent
   (950 €/mois) — **cette structure est périmée** depuis le pivot vers Setup /
-  Partner (playbook §5). Le code n'a pas encore été mis à jour ; ne pas s'y
-  fier comme référence de pricing, et ne pas la recopier ailleurs. Prochaine
-  session de code sur la landing : refaire cette section en deux offres, Setup
-  (3 000 € une fois) et Partner (950 €/mois), présentées comme deux façons de
-  travailler ensemble et **non** comme deux colonnes de features à comparer
-  (voir playbook §3 et §5), et réordonner l'ensemble de la page selon la
+  Partner (playbook §5), et ses chiffres Setup/Partner internes (3 000 € /
+  950 €/mois) sont eux-mêmes dépassés depuis le pivot de prix du 2026-08-08
+  (voir §1 : Setup à partir de 2 500 € une fois, Partner + 350 €/mois débloqué
+  après Setup). Le code n'a pas encore été mis à jour ; ne pas s'y fier comme
+  référence de pricing, et ne pas la recopier ailleurs. `components/PricingPage.tsx`
+  (et son jumeau FR) est la seule référence de pricing à jour. Prochaine
+  session de code sur la landing : refaire cette section avec les chiffres et
+  cartes de `PricingPage.tsx`, et réordonner l'ensemble de la page selon la
   doctrine funnel (playbook §17).
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
@@ -419,7 +430,7 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 | Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                            |
 | Landing recentrée en funnel Setup / Partner           | 🔴 À faire (code périmé et incohérent, voir §5)       |
 | Sort d'un client Setup au mois 13                     | 🟠 À trancher (playbook §5)                           |
-| Site connecté                                         | 🟠 Statut à trancher (playbook §15)                   |
+| Site connecté                                         | ✅ Tranché — offre séparée, à partir de 4 500 € (§1)  |
 | Coaching IA autonome                                  | ⛔ Redondant (formation incluse dans les deux offres) |
 | Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                                      |
 
@@ -443,8 +454,10 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Commandes lint / test / build une fois stabilisées
 - [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter l'API contact (`/api/contact`)
-- [ ] Trancher le sort des anciennes pages (`/pricing`, `/about`, `/products/*`)
-- [ ] Valider définitivement les montants Setup (3 000 €) et Partner (950 €/mois)
+- [ ] Trancher le sort des anciennes pages (`/about`, `/products/*`)
+- [ ] Valider définitivement les montants Setup (2 500 €) et Partner (+350 €/mois)
+      et le module Site connecté (4 500 €) — pivot du 2026-08-08, encore non
+      validé côté business
 - [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Setup / Partner
       (le code montre encore l'ancienne échelle Send/Agent, périmée)
 - [ ] Réordonner la home EN/FR selon la doctrine funnel (playbook §17) :
@@ -456,6 +469,5 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Décider si/où le mécanisme (fiche → sélection/viewing room →
       Gmail/WhatsApp/PDF) est montré visuellement sur la home — c'est l'étape
       2 du funnel et elle n'existe pas encore en composant dédié
-- [ ] Trancher le sort de l'extension Site connecté (playbook §15)
 - [ ] Trancher ce que devient un client Setup au mois 13 (playbook §5)
 - [ ] Mesurer le plafond de capacité sur les premiers clients (playbook §6)
