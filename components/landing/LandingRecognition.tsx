@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-import { BODY, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
+import { CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const MESSAGES = [
   {
@@ -121,11 +121,11 @@ export default function LandingRecognition() {
           <h2 className={`${H2} mt-4`}>Every sale starts with a conversation.</h2>
           <p className={H2_SUB}>Vitreen brings everything into the conversation, ready to send.</p>
 
-          <p className={`${BODY} mt-6`}>
+          <p className="mt-6 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
             A collector asks for more works by an artist — in Gmail, WhatsApp, after a studio visit
             or on a call.
           </p>
-          <p className={`${BODY} mt-4`}>
+          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
             The images, prices, dimensions and availability needed to reply are often somewhere
             else. Someone has to find, check and rebuild the material before sending it.
           </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { BODY_SM, CONTAINER, EYEBROW, H2, H3, SECTION } from "@/components/landing/styles";
+import { CONTAINER, EYEBROW, H2, H3, SECTION } from "@/components/landing/styles";
 
 const STEPS = [
   {
@@ -35,7 +35,9 @@ export default function LandingHowItWorks() {
             >
               <p className="text-[13px] text-[#ADADAA]">{step.number}</p>
               <h3 className={`${H3} mt-3`}>{step.title}</h3>
-              <p className={`${BODY_SM} mt-2`}>{step.text}</p>
+              <p className="mt-2 text-[16px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67]">
+                {step.text}
+              </p>
             </article>
           ))}
         </div>

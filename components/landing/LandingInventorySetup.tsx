@@ -129,7 +129,7 @@ function ImportPreviewMockup() {
 
 export default function LandingInventorySetup() {
   return (
-    <section className="border-t border-[#E8E8E6] bg-white px-4 py-14 md:px-6 md:py-[72px]">
+    <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
       <div className="mx-auto w-full max-w-7xl text-center">
         <p className={`${EYEBROW} mx-auto`}>Your inventory</p>
         <h2 className={`${H2} mx-auto mt-4 max-w-2xl`}>

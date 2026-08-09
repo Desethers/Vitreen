@@ -28,10 +28,10 @@ export default function LandingProblemStatement() {
               <h2 className="mt-4 max-w-lg text-balance font-display text-[26px] font-normal leading-[1.2] tracking-[-0.04em] text-[#111110] md:text-[30px]">
                 Selling art still means rebuilding the same material again and again.
               </h2>
-              <p className="mt-6 max-w-md text-[15px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[17px]">
+              <p className="mt-6 max-w-md text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
                 Artwork information is spread across folders, spreadsheets and previous PDFs.
               </p>
-              <p className="mt-4 max-w-md text-[15px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[17px]">
+              <p className="mt-4 max-w-md text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
                 Every collector request means finding images, checking details and reopening
                 InDesign to prepare another document.
               </p>

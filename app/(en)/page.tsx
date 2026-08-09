@@ -38,8 +38,8 @@ export default function Home() {
       <LandingHowItWorks />
       <LandingRecognition />
       <LandingProblemStatement />
-      <LandingInventorySetup />
       <LandingOutputs />
+      <LandingInventorySetup />
       <LandingWhereYouSell />
       <Difference />
       <LandingOffers />

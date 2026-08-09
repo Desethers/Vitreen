@@ -432,7 +432,7 @@ export function GalleryOsSidebar({
             <Icon.Stack size={8} />
           </div>
           <span className="flex-1 text-[10px] font-semibold tracking-tight text-zinc-900">
-            Gallery OS
+            Vitreen
           </span>
           <Icon.Search size={9} className="text-zinc-500" />
           <Icon.Bell size={9} className="text-zinc-500" />
