@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -210,6 +210,13 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
   );
 }
 
+const RECIPIENT_TEXT = "mariebeaumont@gmail.com";
+const SUBJECT_TEXT = "Evening Field — Sacha Elron";
+const BODY_TEXT = "Hi Marie, here's the piece you asked about:";
+const BODY_TYPE_START = 150;
+const BODY_TYPE_STEP = 36;
+const BODY_TYPE_END = BODY_TYPE_START + BODY_TEXT.length * BODY_TYPE_STEP;
+
 export function IntegrationsFrame() {
   const reduceMotion = useReducedMotion();
   const [query, setQuery] = useState(reduceMotion ? "Elron" : "");
@@ -218,6 +225,9 @@ export function IntegrationsFrame() {
   const [showInsertedArtwork, setShowInsertedArtwork] = useState(Boolean(reduceMotion));
   const [panelOpen, setPanelOpen] = useState(false);
   const [logoBump, setLogoBump] = useState(false);
+  const [bodyChars, setBodyChars] = useState(reduceMotion ? BODY_TEXT.length : 0);
+  const panelScrollRef = useRef<HTMLDivElement>(null);
+  const resultsAnchorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (reduceMotion) {
@@ -227,6 +237,7 @@ export function IntegrationsFrame() {
       setShowInsertedArtwork(true);
       setPanelOpen(false);
       setLogoBump(false);
+      setBodyChars(BODY_TEXT.length);
       return;
     }
 
@@ -240,26 +251,42 @@ export function IntegrationsFrame() {
       setShowInsertedArtwork(false);
       setPanelOpen(false);
       setLogoBump(false);
+      setBodyChars(0);
+      panelScrollRef.current?.scrollTo({ top: 0 });
 
-      timers.push(window.setTimeout(() => setLogoBump(true), 180));
-      timers.push(window.setTimeout(() => setLogoBump(false), 600));
-      timers.push(window.setTimeout(() => setPanelOpen(true), 650));
+      for (let i = 1; i <= BODY_TEXT.length; i += 1) {
+        timers.push(window.setTimeout(() => setBodyChars(i), BODY_TYPE_START + i * BODY_TYPE_STEP));
+      }
 
+      timers.push(window.setTimeout(() => setLogoBump(true), BODY_TYPE_END + 250));
+      timers.push(window.setTimeout(() => setLogoBump(false), BODY_TYPE_END + 840));
+      timers.push(window.setTimeout(() => setPanelOpen(true), BODY_TYPE_END + 300));
+
+      const searchStart = BODY_TYPE_END + 700;
       word.split("").forEach((_, index) => {
         timers.push(
           window.setTimeout(
             () => {
               setQuery(word.slice(0, index + 1));
             },
-            950 + index * 230
+            searchStart + index * 320
           )
         );
       });
+      const searchEnd = searchStart + (word.length - 1) * 320;
 
-      timers.push(window.setTimeout(() => setShowResults(true), 2350));
-      timers.push(window.setTimeout(() => setSelectedArtwork(true), 4300));
-      timers.push(window.setTimeout(() => setShowInsertedArtwork(true), 5200));
-      timers.push(window.setTimeout(play, 9100));
+      timers.push(window.setTimeout(() => setShowResults(true), searchEnd + 350));
+      timers.push(
+        window.setTimeout(() => {
+          const el = panelScrollRef.current;
+          const anchor = resultsAnchorRef.current;
+          if (el && anchor)
+            el.scrollTo({ top: Math.max(0, anchor.offsetTop - 8), behavior: "smooth" });
+        }, searchEnd + 800)
+      );
+      timers.push(window.setTimeout(() => setSelectedArtwork(true), searchEnd + 2250));
+      timers.push(window.setTimeout(() => setShowInsertedArtwork(true), searchEnd + 3150));
+      timers.push(window.setTimeout(play, searchEnd + 9250));
     };
 
     play();
@@ -271,7 +298,7 @@ export function IntegrationsFrame() {
 
   return (
     <div className="absolute inset-0">
-      <div className="relative h-full w-[92%] overflow-hidden rounded-[18px] border border-[#E1E3E6] bg-white">
+      <div className="relative h-full w-full overflow-hidden bg-white">
         <div className="flex h-10 items-center justify-between bg-[#F0F4F9] px-4">
           <span className="text-[12px] font-semibold text-[#202124]">New Message</span>
           <div className="flex items-center gap-3 text-[12px] text-[#5F6368]">
@@ -281,45 +308,67 @@ export function IntegrationsFrame() {
           </div>
         </div>
 
-        <div className="border-b border-[#E8E8E6] px-4 py-2.5 text-[11px] text-[#6B6A67]">
-          Recipients
+        <div className="flex items-center border-b border-[#E8E8E6] px-4 py-2.5 text-[11px] text-[#202124]">
+          <span className="shrink-0 text-[#6B6A67]">Recipients&nbsp;</span>
+          <span>{RECIPIENT_TEXT}</span>
         </div>
-        <div className="border-b border-[#E8E8E6] px-4 py-2.5 text-[11px] text-[#6B6A67]">
-          Subject
+        <div className="flex items-center border-b border-[#E8E8E6] px-4 py-2.5 text-[11px] text-[#202124]">
+          <span className="shrink-0 text-[#6B6A67]">Subject&nbsp;</span>
+          <span className="font-medium">{SUBJECT_TEXT}</span>
         </div>
 
-        <AnimatePresence>
-          {showInsertedArtwork ? (
-            <motion.div
-              className="absolute inset-x-4 bottom-[96px] top-[104px] overflow-hidden px-3 py-3"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease }}
-            >
-              <div className="grid w-[54%] max-w-[460px] grid-rows-[auto_auto] overflow-hidden text-[#202124]">
-                <img
-                  src="/artworks/painting-05.jpg"
-                  alt="Evening field by Sacha Elron"
-                  className="aspect-[43/24] w-full object-cover"
-                />
-                <div className="relative pb-0.5 pt-2">
-                  <p className="text-[10px] font-medium">Sacha Elron</p>
-                  <p className="text-[10px] italic">Evening field, 2023</p>
-                  <p className="mt-0.5 text-[9px] text-[#8B93A1]">Acrylic on canvas</p>
-                  <p className="text-[9px] text-[#8B93A1]">120 × 120 cm</p>
-                  <p className="mt-0.5 text-[10px]">10 000 €</p>
-                  <button
-                    type="button"
-                    className="absolute right-0 top-2 border border-[#202124] bg-white px-3 py-1 text-[9px]"
-                  >
-                    Inquire
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
+        <div className="absolute inset-x-4 bottom-[88px] top-[112px] overflow-hidden px-1 py-1">
+          <p className="text-[10px] leading-snug text-[#3C4043]">
+            {BODY_TEXT.slice(0, bodyChars)}
+            {!reduceMotion && bodyChars > 0 && bodyChars < BODY_TEXT.length ? (
+              <motion.span
+                className="ml-px inline-block h-[1em] w-px translate-y-[2px] bg-[#3C4043]"
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+              />
+            ) : null}
+          </p>
+
+          <AnimatePresence>
+            {showInsertedArtwork ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4, ease }}
+              >
+                {/* Caption sits below the image, like a real reply — the block scrolls
+                 * itself up a little once the caption doesn't fit the frame's height. */}
+                <motion.div
+                  className="mt-2 w-[54%] max-w-[260px] text-[#202124]"
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, 0, -108] }}
+                  transition={{ duration: 1.8, times: [0, 0.4, 1], delay: 2.6, ease }}
+                >
+                  <img
+                    src="/artworks/painting-05.jpg"
+                    alt="Evening field by Sacha Elron"
+                    className="aspect-[43/24] w-full object-cover"
+                  />
+                  <div className="pt-2">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-[11px] font-medium">Sacha Elron</p>
+                        <p className="text-[10px] italic">Evening field, 2023</p>
+                      </div>
+                      <span className="shrink-0 border border-[#202124] px-3 py-1 text-[9px]">
+                        Inquire
+                      </span>
+                    </div>
+                    <p className="mt-1.5 text-[9px] text-[#8B93A1]">Acrylic on canvas</p>
+                    <p className="text-[9px] text-[#8B93A1]">120 × 120 cm</p>
+                    <p className="mt-1 text-[10px] font-medium">10 000 €</p>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
 
         <div className="absolute inset-x-4 bottom-[52px]">
           <div className="flex h-9 items-center gap-3 rounded-full bg-[#F0F4FA] px-4 text-[12px] font-medium text-[#4B4F52]">
@@ -387,7 +436,10 @@ export function IntegrationsFrame() {
               </div>
             </div>
 
-            <div className="flex min-h-0 flex-1 flex-col px-4 py-4">
+            <div
+              ref={panelScrollRef}
+              className="scroll-smooth flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-4"
+            >
               <h4 className="text-[13px] font-medium text-[#202124]">Insérer une œuvre</h4>
               <p className="mt-1 text-[12px] text-[#4A4A4A]">Recherche dans Gallery OS</p>
 
@@ -425,7 +477,8 @@ export function IntegrationsFrame() {
               <AnimatePresence>
                 {showResults ? (
                   <motion.div
-                    className="-mx-4 mt-4 min-h-0 flex-1 overflow-hidden border-t border-[#D5D5D2]"
+                    ref={resultsAnchorRef}
+                    className="-mx-4 mt-4 shrink-0 border-t border-[#D5D5D2]"
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
@@ -443,9 +496,13 @@ export function IntegrationsFrame() {
                           animate={{
                             opacity: 1,
                             y: 0,
-                            scale: selectedArtwork && index === 0 ? 0.99 : 1,
+                            scale: selectedArtwork && index === 0 ? [1, 0.95, 1] : 1,
                           }}
-                          transition={{ duration: 0.28, delay: index * 0.08, ease }}
+                          transition={
+                            selectedArtwork && index === 0
+                              ? { duration: 0.4, ease }
+                              : { duration: 0.28, delay: index * 0.08, ease }
+                          }
                         >
                           <img
                             src={result.image}
@@ -469,6 +526,9 @@ export function IntegrationsFrame() {
                         </motion.div>
                       ))}
                     </div>
+                    {/* Guarantees the panel always has room to scroll past, so the
+                     * reveal is visible even when the results would otherwise fit. */}
+                    <div className="h-16 shrink-0" aria-hidden="true" />
                   </motion.div>
                 ) : null}
               </AnimatePresence>

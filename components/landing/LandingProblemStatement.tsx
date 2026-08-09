@@ -2,16 +2,84 @@
 
 import { EYEBROW } from "@/components/landing/styles";
 
+function ScatteredFilesIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+      <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2z" />
+      <path d="M9 13h6" />
+      <path d="M9 17h4" />
+    </svg>
+  );
+}
+
+function RepeatSearchIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path d="M3 12a9 9 0 0 1 15.3-6.5L21 8" />
+      <path d="M21 3v5h-5" />
+      <path d="M21 12a9 9 0 0 1-15.3 6.5L3 16" />
+      <path d="M3 21v-5h5" />
+    </svg>
+  );
+}
+
+function RebuildDocumentIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+      <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2z" />
+      <path d="m9.5 18 1.2-3.6a2 2 0 0 1 .5-.8l4-4a1.5 1.5 0 0 1 2.1 2.1l-4 4a2 2 0 0 1-.8.5z" />
+    </svg>
+  );
+}
+
 const PROBLEMS = [
   {
+    icon: ScatteredFilesIcon,
     title: "Spread across files",
     text: "Artwork information lives in folders, spreadsheets and previous PDFs, never in one place.",
   },
   {
+    icon: RepeatSearchIcon,
     title: "Every request starts from scratch",
     text: "Each collector question means finding images and checking details again.",
   },
   {
+    icon: RebuildDocumentIcon,
     title: "Documents rebuilt by hand",
     text: "Reopening InDesign to prepare another PDF, every single time.",
   },
@@ -45,7 +113,8 @@ export default function LandingProblemStatement() {
                     index === PROBLEMS.length - 1 ? "border-b" : ""
                   }`}
                 >
-                  <h3 className="font-display text-[17px] font-normal tracking-[-0.02em] text-[#111110] md:text-[18px]">
+                  <h3 className="flex items-center gap-2.5 font-display text-[17px] font-normal tracking-[-0.02em] text-[#111110] md:text-[18px]">
+                    <item.icon />
                     {item.title}
                   </h3>
                   <p className="mt-2 text-[14px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">

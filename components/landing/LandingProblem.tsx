@@ -50,7 +50,7 @@ function DeliveryScreens() {
 
   return (
     <div>
-      <div className="relative h-[300px] overflow-hidden rounded-[12px] bg-white md:h-[380px]">
+      <div className="relative h-[300px] overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white md:h-[380px]">
         {channel === "gmail" ? <IntegrationsFrame /> : null}
         {channel === "whatsapp" ? <WhatsAppShareWorksMock /> : null}
         {channel === "pdf" ? (
