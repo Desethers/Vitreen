@@ -136,13 +136,14 @@ export default function PricingPage() {
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-6 md:grid-cols-2 md:gap-8">
               <OfferCard
-                title="Vitreen"
+                title="Vitreen Sales"
                 price="From €1,500 setup"
                 priceMonthly="+ €149/month"
                 description="We install the system your gallery needs today with artwork database and collector sales tools."
                 items={SETUP}
                 clarification="Delivered in ~3 weeks."
                 cta="Start with Vitreen"
+                featured
               />
               <OfferCard
                 title="Vitreen Partner"
@@ -151,7 +152,6 @@ export default function PricingPage() {
                 description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
                 items={PARTNER}
                 cta="Work with Vitreen"
-                featured
               />
             </div>
 

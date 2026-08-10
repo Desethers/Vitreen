@@ -5,7 +5,7 @@
  * container/spacing pattern (`px-4 md:px-6` + `mx-auto max-w-7xl`).
  */
 
-export const SECTION = "px-4 py-14 md:px-6 md:py-[72px]";
+export const SECTION = "px-4 py-16 md:px-6 md:py-20";
 export const CONTAINER = "mx-auto w-full max-w-7xl";
 
 export const EYEBROW = "text-[11px] tracking-[0.14em] text-[#ADADAA]";

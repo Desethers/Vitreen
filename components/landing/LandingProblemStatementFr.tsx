@@ -87,7 +87,7 @@ const PROBLEMS = [
 
 export default function LandingProblemStatementFr() {
   return (
-    <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
+    <section className="bg-white px-4 py-16 md:px-6 md:py-20">
       <div className="mx-auto w-full max-w-7xl">
         <div className="rounded-[20px] bg-[#F5F5F3] p-8 md:p-14">
           <div className="grid gap-10 md:grid-cols-2 md:items-start md:gap-24">

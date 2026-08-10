@@ -1,7 +1,7 @@
 "use client";
 
 import { OfferCard } from "@/components/landing/OfferCard";
-import { CONTAINER, H2, SECTION } from "@/components/landing/styles";
+import { CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const SETUP = [
   "Artwork database migration",
@@ -28,17 +28,21 @@ export default function LandingOffers() {
   return (
     <section id="services" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
-        <h2 className={`${H2} max-w-2xl`}>Choose how you want to work with Vitreen.</h2>
+        <h2 className={`${H2} max-w-2xl`}>Choose how to work with Vitreen.</h2>
+        <p className={`${H2_SUB} max-w-2xl`}>
+          A system installed today, and a partnership to keep it growing.
+        </p>
 
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
           <OfferCard
-            title="Vitreen"
+            title="Vitreen Sales"
             price="From €1,500 setup"
             priceMonthly="+ €149/month"
             description="We install the system your gallery needs today with artwork database and collector sales tools."
             items={SETUP}
             clarification="Delivered in ~3 weeks."
             cta="Start with Vitreen"
+            featured
           />
           <OfferCard
             title="Vitreen Partner"
@@ -47,7 +51,6 @@ export default function LandingOffers() {
             description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
             items={PARTNER}
             cta="Work with Vitreen"
-            featured
           />
         </div>
       </div>

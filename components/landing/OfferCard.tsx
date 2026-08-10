@@ -56,11 +56,11 @@ export function OfferCard({
       >
         {title}
       </h3>
-      <p className="mt-3 font-display text-[18px] tracking-[-0.01em] text-[#111110] md:text-[20px]">
+      <p className="mt-3 font-display text-[22px] tracking-[-0.01em] text-[#111110] md:text-[24px]">
         {price}
       </p>
       {priceMonthly ? (
-        <p className="mt-1 font-display text-[15px] tracking-[-0.01em] text-[#6B6A67] md:text-[16px]">
+        <p className="mt-1 font-display text-[17px] tracking-[-0.01em] text-[#6B6A67] md:text-[18px]">
           {priceMonthly}
         </p>
       ) : null}

@@ -81,7 +81,7 @@ export default function StatementSplit() {
   const { t } = useLang();
   return (
     <section
-      className="bg-cover bg-center px-4 py-14 md:px-6 md:py-[72px]"
+      className="bg-cover bg-center px-4 py-16 md:px-6 md:py-20"
       style={{
         background:
           "radial-gradient(circle at 82% 8%, rgba(235, 255, 114, 0.38) 0%, rgba(235, 255, 114, 0.18) 18%, rgba(235, 255, 114, 0.06) 36%, transparent 54%), radial-gradient(circle at 82% 6%, rgba(190, 255, 168, 0.18) 0%, rgba(190, 255, 168, 0.07) 30%, transparent 68%), radial-gradient(circle at 52% 12%, rgba(215, 255, 226, 0.24) 0%, rgba(215, 255, 226, 0.08) 38%, transparent 72%), radial-gradient(circle at 100% 88%, rgba(236, 255, 214, 0.12) 0%, transparent 62%), linear-gradient(135deg, #ffffff 0%, #fbfefb 56%, #f6fcf3 100%)",

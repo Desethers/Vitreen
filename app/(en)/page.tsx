@@ -7,8 +7,8 @@ import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingProblemStatement from "@/components/landing/LandingProblemStatement";
 import LandingInventorySetup from "@/components/landing/LandingInventorySetup";
 import LandingOutputs from "@/components/landing/LandingOutputs";
-import LandingWhereYouSell from "@/components/landing/LandingWhereYouSell";
 import Difference from "@/components/Difference";
+import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 import LandingOffers from "@/components/landing/LandingOffers";
 import StatementSplit from "@/components/StatementSplit";
 import LandingFaq from "@/components/landing/LandingFaq";
@@ -40,11 +40,11 @@ export default function Home() {
       <LandingProblemStatement />
       <LandingOutputs />
       <LandingInventorySetup />
-      <LandingWhereYouSell />
+      <WhoVitreenIsFor />
       <Difference />
       <LandingOffers />
-      <StatementSplit />
       <LandingFaq />
+      <StatementSplit />
       <LandingCta />
     </main>
   );

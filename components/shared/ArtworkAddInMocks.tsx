@@ -104,41 +104,54 @@ const CONNECT_OPTIONS = [
   },
 ] as const;
 
-export function ConnectInventoryMockup() {
+export function ConnectInventoryMockup({
+  activeTitle = null,
+  pressed = false,
+}: {
+  /** Title of the option row to render as hovered (black border). */
+  activeTitle?: string | null;
+  /** Applies a brief press/tap scale to the active row. */
+  pressed?: boolean;
+}) {
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-[16px] border border-[#E4E4E7] bg-white p-6">
       <h3 className="text-[14px] font-semibold text-[#18181B]">Connect your inventory</h3>
       <p className="mt-1 text-[11px] text-[#3F3F46]">Choose how to bring your works into Vitreen</p>
 
       <div className="mt-4 flex flex-1 flex-col justify-between gap-2.5">
-        {CONNECT_OPTIONS.map((option) => (
-          <div
-            key={option.title}
-            className="flex items-center gap-3 rounded-[10px] border border-[#E4E4E7] px-3.5 py-3"
-          >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#FAFAFA] text-[#71717A]">
-              <option.icon size={16} />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="flex flex-wrap items-center gap-2">
-                <span className="whitespace-nowrap text-[13px] font-semibold text-[#18181B]">
-                  {option.title}
-                </span>
-                {option.badge && (
-                  <span
-                    className={`rounded ${option.badge.bg} px-1.5 py-0.5 text-[9px] font-medium ${option.badge.text}`}
-                  >
-                    {option.badge.label}
-                  </span>
-                )}
+        {CONNECT_OPTIONS.map((option) => {
+          const isActive = option.title === activeTitle;
+          return (
+            <div
+              key={option.title}
+              className={`flex items-center gap-3 rounded-[10px] border px-3.5 py-3 transition-[border-color,transform] duration-300 ease-out ${
+                isActive ? "border-[#111110]" : "border-[#E4E4E7]"
+              } ${isActive && pressed ? "scale-[0.97]" : "scale-100"}`}
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#FAFAFA] text-[#71717A]">
+                <option.icon size={16} />
               </span>
-              <span className="mt-0.5 block text-[11px] text-[#71717A]">{option.text}</span>
-            </span>
-            <span className="shrink-0 text-[#D4D4D8]">
-              <ChevronRightIcon size={16} />
-            </span>
-          </div>
-        ))}
+              <span className="min-w-0 flex-1">
+                <span className="flex flex-wrap items-center gap-2">
+                  <span className="whitespace-nowrap text-[13px] font-semibold text-[#18181B]">
+                    {option.title}
+                  </span>
+                  {option.badge && (
+                    <span
+                      className={`rounded ${option.badge.bg} px-1.5 py-0.5 text-[9px] font-medium ${option.badge.text}`}
+                    >
+                      {option.badge.label}
+                    </span>
+                  )}
+                </span>
+                <span className="mt-0.5 block text-[11px] text-[#71717A]">{option.text}</span>
+              </span>
+              <span className="shrink-0 text-[#D4D4D8]">
+                <ChevronRightIcon size={16} />
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       <p className="mt-4 text-center text-[11px] text-[#A1A1AA]">I&rsquo;ll do this later</p>

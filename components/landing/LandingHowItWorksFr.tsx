@@ -37,7 +37,7 @@ export default function LandingHowItWorksFr() {
             >
               <p className="text-[13px] text-[#ADADAA]">{step.number}</p>
               <h3 className={`${H3} mt-3`}>{step.title}</h3>
-              <p className="mt-2 text-[16px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67]">
+              <p className="mt-2 text-[15px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67]">
                 {step.text}
               </p>
             </article>

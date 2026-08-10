@@ -192,8 +192,8 @@ export type OutputsCopy = {
 
 const EN_COPY: OutputsCopy = {
   eyebrow: "Ready to send",
-  title: "One inventory. Multiple ways to put it to work.",
-  subtitle: "Manage, reply, share and publish from one place.",
+  title: "From inventory to collector communication.",
+  subtitle: "Manage artworks, prepare replies, share selections and publish online.",
   labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
 };
 

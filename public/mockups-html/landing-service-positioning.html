@@ -1,0 +1,1681 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vitreen — Mockup: service positioning</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #111110;
+        --muted: #6b6a67;
+        --subtle: #adadaa;
+        --border: #e8e8e6;
+        --border-soft: #efefeb;
+        --surface-soft: #f5f5f3;
+        --white: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--white);
+        color: var(--ink);
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1180px;
+        padding: 0 16px;
+      }
+
+      .section {
+        padding: 56px 0;
+      }
+
+      @media (min-width: 768px) {
+        .section {
+          padding: 88px 0;
+        }
+      }
+
+      .bg-white {
+        background: var(--white);
+      }
+      .bg-soft {
+        background: var(--surface-soft);
+      }
+      .border-t {
+        border-top: 1px solid var(--border);
+      }
+
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--subtle);
+        margin: 0 0 14px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Inter", system-ui, sans-serif;
+        font-weight: 400;
+        margin: 0;
+        color: var(--ink);
+      }
+
+      h2 {
+        font-size: 24px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+      }
+
+      @media (min-width: 768px) {
+        h2 {
+          font-size: 32px;
+        }
+      }
+
+      .h2-sub {
+        margin-top: 10px;
+        font-size: 15px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+        max-width: 46ch;
+      }
+
+      @media (min-width: 768px) {
+        .h2-sub {
+          font-size: 17px;
+        }
+      }
+
+      .body-text {
+        font-size: 15px;
+        line-height: 1.65;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+      }
+
+      @media (min-width: 768px) {
+        .body-text {
+          font-size: 17px;
+        }
+      }
+
+      /* ---------- Nav ---------- */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: var(--white);
+        border-bottom: 0.5px solid transparent;
+        transition: border-color 0.2s ease;
+        padding: 8px 16px;
+      }
+      .nav.scrolled {
+        border-color: var(--border);
+      }
+      .nav-inner {
+        margin: 0 auto;
+        max-width: 1180px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .nav-logo {
+        font-size: 15px;
+        letter-spacing: -0.02em;
+      }
+      .nav-links {
+        display: none;
+        gap: 28px;
+        align-items: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      @media (min-width: 768px) {
+        .nav-links {
+          display: flex;
+        }
+      }
+      .nav-links a {
+        font-size: 14px;
+        color: var(--muted);
+        transition: color 0.2s ease;
+      }
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+      .badge {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        z-index: 60;
+        background: var(--ink);
+        color: var(--white);
+        font-size: 11px;
+        letter-spacing: 0.02em;
+        padding: 6px 12px;
+        border-radius: 999px;
+        opacity: 0.9;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      }
+
+      /* ---------- Buttons ---------- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        border: none;
+        font-family: inherit;
+      }
+      .btn-lg {
+        padding: 13px 28px;
+        font-size: 15px;
+      }
+      .btn-sm {
+        padding: 7px 14px;
+        font-size: 12px;
+      }
+      .btn-md {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .btn-primary:hover {
+        background: #2a2a28;
+      }
+      .btn-inverse {
+        background: var(--white);
+        color: var(--ink);
+        border: 1px solid var(--border);
+      }
+      .btn-inverse:hover {
+        background: var(--surface-soft);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        border-radius: 0;
+        padding: 0;
+        font-size: 14px;
+      }
+      .btn-ghost:hover {
+        color: var(--ink);
+      }
+
+      /* ---------- Hero ---------- */
+      .hero {
+        padding-top: 132px;
+        padding-bottom: 56px;
+      }
+      @media (min-width: 768px) {
+        .hero {
+          padding-top: 168px;
+          padding-bottom: 80px;
+        }
+      }
+      .hero h1 {
+        max-width: 20ch;
+        font-size: 32px;
+        line-height: 1.18;
+        letter-spacing: -0.03em;
+      }
+      @media (min-width: 768px) {
+        .hero h1 {
+          font-size: 50px;
+        }
+      }
+      .hero p.lead {
+        margin-top: 18px;
+        max-width: 46ch;
+        font-size: 17px;
+        line-height: 1.55;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+      }
+      @media (min-width: 768px) {
+        .hero p.lead {
+          font-size: 19px;
+        }
+      }
+      .hero-ctas {
+        margin-top: 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .hero-reassurance {
+        margin-top: 20px;
+        font-size: 13px;
+        letter-spacing: -0.01em;
+        color: var(--subtle);
+      }
+      .hero-visual {
+        margin-top: 48px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+      }
+      @media (min-width: 768px) {
+        .hero-visual {
+          margin-top: 64px;
+        }
+      }
+      .hero-visual img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* ---------- Identification (scenario cards) ---------- */
+      .scenario-grid {
+        margin-top: 40px;
+        display: grid;
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      @media (min-width: 768px) {
+        .scenario-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .scenario-card {
+        background: var(--white);
+        padding: 26px 24px;
+        position: relative;
+      }
+      .scenario-card .mark {
+        font-family: "Inter", serif;
+        font-size: 28px;
+        color: var(--border);
+        line-height: 1;
+        margin-bottom: 10px;
+        display: block;
+      }
+      .scenario-card p {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+        max-width: 42ch;
+      }
+      .scenario-card.wide {
+        grid-column: 1 / -1;
+      }
+
+      /* ---------- Flow ---------- */
+      .flow {
+        margin-top: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      @media (min-width: 900px) {
+        .flow {
+          flex-direction: row;
+          align-items: stretch;
+        }
+      }
+      .flow-node {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--white);
+      }
+      .flow-node .step-index {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: var(--subtle);
+      }
+      .flow-node .step-label {
+        font-size: 15px;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+      }
+      .flow-node-head {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .flow-preview {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .flow-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--subtle);
+        padding: 8px 0;
+      }
+      @media (min-width: 900px) {
+        .flow-arrow {
+          padding: 0 10px;
+          align-self: flex-start;
+          margin-top: 30px;
+        }
+      }
+      .flow-arrow svg {
+        transform: rotate(90deg);
+      }
+      @media (min-width: 900px) {
+        .flow-arrow svg {
+          transform: none;
+        }
+      }
+      .flow-caption {
+        margin-top: 22px;
+      }
+      .flow-note {
+        margin-top: 20px;
+        font-size: 13px;
+        letter-spacing: -0.01em;
+        color: var(--subtle);
+        text-align: center;
+      }
+
+      /* ---------- Real component previews (ported from tuganV2) ---------- */
+      .mockup-dropfile {
+        width: 100%;
+        max-width: 230px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #e4e4e7;
+        border-radius: 16px;
+        background: #fff;
+        padding: 16px;
+      }
+      .mockup-dropfile-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .mockup-dropfile-head h4 {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .mockup-dropfile-head span {
+        font-size: 9px;
+        color: var(--subtle);
+      }
+      .mockup-dropfile-sub {
+        margin: 4px 0 0;
+        font-size: 9px;
+        color: var(--subtle);
+      }
+      .mockup-dropfile-drop {
+        margin-top: 14px;
+        height: 84px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: 2px dashed #e4e4e7;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .mockup-dropfile-drop svg {
+        color: var(--subtle);
+      }
+      .mockup-dropfile-drop .drop-title {
+        margin: 6px 0 0;
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .mockup-dropfile-drop .drop-sub {
+        margin: 1px 0 0;
+        font-size: 9px;
+        color: var(--subtle);
+      }
+      .mockup-dropfile-link {
+        margin: 12px 0 0;
+        font-size: 9px;
+        color: var(--muted);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .mockup-dropfile-actions {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .mockup-dropfile-actions .finish-btn {
+        border-radius: 6px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 500;
+        padding: 7px 12px;
+      }
+      .mockup-dropfile-actions .skip {
+        font-size: 9px;
+        color: var(--subtle);
+      }
+
+      .mockup-gallery-os {
+        width: 100%;
+        max-width: 230px;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: #fff;
+      }
+      .mockup-gos-title {
+        background: #424242;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 10px 14px;
+      }
+      .mockup-gos-body {
+        padding: 12px 14px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+      .mockup-gos-body .insert {
+        margin: 0;
+        font-size: 11px;
+        color: var(--ink);
+      }
+      .mockup-gos-body .search {
+        margin: 0;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .mockup-gos-footer {
+        margin-top: 12px;
+        border-top: 1px solid var(--border);
+        padding: 12px 14px;
+      }
+      .mockup-gos-input {
+        border: 1px solid var(--muted);
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 11px;
+        color: var(--ink);
+      }
+      .mockup-gos-actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 6px;
+      }
+      .mockup-gos-actions .search-btn {
+        border-radius: 999px;
+        background: #0059d8;
+        color: #fff;
+        font-size: 10px;
+        padding: 5px 14px;
+      }
+      .mockup-gos-actions .gallery-btn {
+        border-radius: 999px;
+        border: 1px solid var(--muted);
+        color: #0059d8;
+        font-size: 10px;
+        padding: 5px 14px;
+      }
+
+      .mockup-wa-wrap {
+        width: 100%;
+        max-width: 230px;
+        border-radius: 12px;
+        background: var(--surface-soft);
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+      }
+      .mockup-wa-pdf {
+        position: relative;
+        width: 210px;
+        height: 190px;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+        transform: scale(0.98);
+      }
+      .mockup-wa-pdf .bubble-out {
+        position: absolute;
+        right: 0;
+        top: 4px;
+        height: 24px;
+        width: 84px;
+      }
+      .mockup-wa-pdf .bubble-out img,
+      .mockup-wa-pdf .bubble-in img,
+      .mockup-wa-pdf .bubble-pdf img {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        width: 100%;
+      }
+      .mockup-wa-pdf .bubble-in img,
+      .mockup-wa-pdf .bubble-pdf img {
+        transform: scaleX(-1);
+      }
+      .mockup-wa-pdf .bubble-out-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        gap: 6px;
+        padding: 0 10px;
+      }
+      .mockup-wa-pdf .bubble-out-inner span:first-child {
+        font-size: 11px;
+        color: #000;
+      }
+      .mockup-wa-pdf .bubble-out-inner span:last-child {
+        margin-left: auto;
+        font-size: 7px;
+        color: rgba(0, 0, 0, 0.3);
+      }
+      .mockup-wa-pdf .bubble-in {
+        position: absolute;
+        left: 4px;
+        top: 42px;
+        height: 36px;
+        width: 202px;
+      }
+      .mockup-wa-pdf .bubble-in-text {
+        position: absolute;
+        left: 8px;
+        top: 6px;
+        z-index: 1;
+        font-size: 11px;
+        color: #000;
+      }
+      .mockup-wa-pdf .bubble-in-time {
+        position: absolute;
+        bottom: 3px;
+        right: 7px;
+        z-index: 1;
+        font-size: 7px;
+        color: rgba(0, 0, 0, 0.3);
+      }
+      .mockup-wa-pdf .bubble-pdf {
+        position: absolute;
+        left: -6px;
+        top: 82px;
+        height: 86px;
+        width: 212px;
+      }
+      .mockup-wa-pdf .pdf-card {
+        position: absolute;
+        left: 14px;
+        top: 2px;
+        z-index: 1;
+        display: flex;
+        height: 60px;
+        width: 195px;
+        gap: 8px;
+        border-radius: 6px;
+        background: #f3f0f0;
+        padding: 8px;
+      }
+      .mockup-wa-pdf .pdf-badge {
+        flex-shrink: 0;
+        display: flex;
+        height: 20px;
+        width: 16px;
+        align-items: center;
+        justify-content: center;
+        background: #d90b2b;
+        font-size: 5px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .mockup-wa-pdf .pdf-name {
+        margin: 0;
+        font-size: 11px;
+        line-height: 1.2;
+        color: #000;
+      }
+      .mockup-wa-pdf .pdf-meta {
+        margin: 3px 0 0;
+        font-size: 8px;
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .mockup-wa-pdf .pdf-ready {
+        position: absolute;
+        bottom: 6px;
+        left: 14px;
+        z-index: 1;
+        font-size: 9px;
+        color: #000;
+      }
+
+      .mockup-collector {
+        width: 100%;
+        max-width: 230px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 190px;
+        border: 1px solid var(--border-soft);
+        border-radius: 12px;
+        background: var(--surface-soft);
+        padding: 20px;
+        text-align: center;
+      }
+      .mockup-collector .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background: var(--ink);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+      }
+      .mockup-collector .name {
+        margin: 0;
+        font-size: 13px;
+        color: var(--ink);
+      }
+      .mockup-collector .status {
+        margin: 0;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* ---------- Service layer ---------- */
+      .service-wrap {
+        margin-top: 40px;
+        display: grid;
+        gap: 40px;
+      }
+      @media (min-width: 900px) {
+        .service-wrap {
+          grid-template-columns: 1fr 1fr;
+          gap: 64px;
+        }
+      }
+      .checklist {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 15px;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      .checklist svg {
+        margin-top: 3px;
+        flex-shrink: 0;
+      }
+      .callout {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface-soft);
+        padding: 28px 26px;
+      }
+      .callout .label {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--subtle);
+        margin-bottom: 14px;
+      }
+      .callout blockquote {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.4;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+        font-style: italic;
+      }
+      @media (min-width: 768px) {
+        .callout blockquote {
+          font-size: 24px;
+        }
+      }
+
+      /* ---------- The offer (single) ---------- */
+      .offer-card {
+        margin: 40px auto 0;
+        max-width: 600px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--white);
+        padding: 32px 28px;
+      }
+      @media (min-width: 768px) {
+        .offer-card {
+          padding: 44px 48px;
+        }
+      }
+      .offer-card .offer-title {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .offer-price {
+        margin: 16px 0 0;
+        font-size: 30px;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      @media (min-width: 768px) {
+        .offer-price {
+          font-size: 34px;
+        }
+      }
+      .offer-then {
+        margin: 4px 0 0;
+        font-size: 18px;
+        letter-spacing: -0.015em;
+        color: var(--muted);
+      }
+      .offer-meta {
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: var(--subtle);
+      }
+      .offer-desc {
+        margin: 20px 0 0;
+        font-size: 15px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+        max-width: 44ch;
+      }
+      .offer-card .checklist {
+        margin-top: 24px;
+      }
+      .offer-cta {
+        margin-top: 28px;
+        width: 100%;
+      }
+      .offer-anystate {
+        margin: 28px auto 0;
+        max-width: 52ch;
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+      }
+
+      /* ---------- Fair Setup — the one dated moment, deliberately secondary ---------- */
+      .fair-strip {
+        margin: 48px auto 0;
+        max-width: 600px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface-soft);
+        padding: 26px 24px;
+      }
+      @media (min-width: 768px) {
+        .fair-strip {
+          padding: 30px 32px;
+        }
+      }
+      .fair-strip .fair-title {
+        margin: 6px 0 0;
+        font-size: 18px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .fair-strip .fair-price {
+        margin: 6px 0 0;
+        font-size: 20px;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+      .fair-strip .fair-price span {
+        font-size: 13px;
+        color: var(--subtle);
+      }
+      .fair-strip .fair-desc {
+        margin: 12px 0 0;
+        font-size: 14px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+        max-width: 46ch;
+      }
+      .fair-slot {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        border: 1px solid var(--border);
+        background: var(--white);
+        border-radius: 999px;
+        padding: 7px 14px;
+        width: fit-content;
+      }
+      .fair-slot .dot-live {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #168044;
+        flex-shrink: 0;
+      }
+      .fair-strip .fair-link {
+        display: inline-block;
+        margin-top: 16px;
+        font-size: 14px;
+        color: var(--ink);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      /* ---------- Not included — scope protection, kept as fine print ---------- */
+      .not-included {
+        margin: 48px auto 0;
+        max-width: 600px;
+        border-top: 1px solid var(--border);
+        padding-top: 24px;
+      }
+      .not-included h4 {
+        margin: 0;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 400;
+        color: var(--subtle);
+      }
+      .not-included p {
+        margin: 12px 0 0;
+        font-size: 14px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+      }
+
+      /* ---------- Expand Vitreen — website upsell, ported from PricingPage.tsx, no price ---------- */
+      .expand-vitreen {
+        margin-top: 72px;
+        padding-top: 56px;
+        border-top: 1px solid var(--border);
+      }
+      .expand-wrap {
+        display: grid;
+        gap: 32px;
+        align-items: start;
+      }
+      @media (min-width: 900px) {
+        .expand-wrap {
+          grid-template-columns: 5fr 7fr;
+          gap: 48px;
+        }
+      }
+      .expand-wrap h3 {
+        margin-top: 12px;
+        font-size: 24px;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      @media (min-width: 768px) {
+        .expand-wrap h3 {
+          font-size: 28px;
+        }
+      }
+      .expand-wrap .expand-body {
+        margin-top: 16px;
+        max-width: 34ch;
+        font-size: 14px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+      }
+      .expand-wrap .expand-cta {
+        margin-top: 24px;
+        width: 100%;
+      }
+      @media (min-width: 768px) {
+        .expand-wrap .expand-cta {
+          width: fit-content;
+        }
+      }
+      .expand-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .expand-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        border-radius: 12px;
+        padding: 20px;
+        background: var(--surface-soft);
+      }
+      .expand-card.dark {
+        background: var(--ink);
+      }
+      .expand-card svg {
+        margin-top: 3px;
+        flex-shrink: 0;
+      }
+      .expand-card h4 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 400;
+        color: var(--ink);
+      }
+      .expand-card.dark h4 {
+        color: #fff;
+      }
+      .expand-card p {
+        margin: 6px 0 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .expand-card.dark p {
+        color: var(--subtle);
+      }
+
+      /* ---------- Website ---------- */
+      .website-wrap {
+        margin-top: 40px;
+        display: grid;
+        gap: 40px;
+        align-items: center;
+      }
+      @media (min-width: 900px) {
+        .website-wrap {
+          grid-template-columns: 1fr 0.85fr;
+          gap: 64px;
+        }
+      }
+      .website-bullets {
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .website-bullets li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+      .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 999px;
+        background: var(--subtle);
+        flex-shrink: 0;
+      }
+      .website-visual {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.06);
+        max-width: 340px;
+        margin: 0 auto;
+      }
+
+      /* ---------- CTA + footer ---------- */
+      .cta-section {
+        text-align: center;
+      }
+      .cta-section h2 {
+        max-width: 22ch;
+        margin: 0 auto;
+        font-size: 30px;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+      }
+      @media (min-width: 768px) {
+        .cta-section h2 {
+          font-size: 42px;
+        }
+      }
+      .cta-section .lead {
+        margin: 14px auto 0;
+        max-width: 40ch;
+        font-size: 17px;
+        color: var(--muted);
+      }
+      .cta-actions {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .cta-secondary-links {
+        display: flex;
+        gap: 22px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .footer-inner {
+        padding: 56px 0;
+        display: grid;
+        gap: 40px;
+      }
+      @media (min-width: 768px) {
+        .footer-inner {
+          grid-template-columns: minmax(240px, 1fr) minmax(0, 1fr);
+          padding: 72px 0;
+        }
+      }
+      .footer-inner .wordmark {
+        font-size: 18px;
+        letter-spacing: -0.025em;
+      }
+      .footer-inner .tagline {
+        margin-top: 18px;
+        max-width: 34ch;
+        font-size: 14px;
+        line-height: 1.65;
+        color: var(--subtle);
+      }
+      .footer-cols {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer-cols h3 {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .footer-cols ul {
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .footer-cols a {
+        font-size: 14px;
+        color: #d5d5d2;
+      }
+      .footer-cols a:hover {
+        color: var(--white);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="badge">Mockup — service positioning</div>
+
+    <header class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#top" class="nav-logo">Vitreen</a>
+        <nav class="nav-links">
+          <a href="#flow">How it works</a>
+          <a href="#service-layer">Setup</a>
+          <a href="#offer">Pricing</a>
+        </nav>
+        <a href="#contact" class="btn btn-primary btn-sm">Book a demo</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- 1. HERO — repositionnement immédiat -->
+      <section class="hero">
+        <div class="container">
+          <p class="eyebrow">For small and mid-size contemporary galleries</p>
+          <h1>The system behind how galleries actually sell work.</h1>
+          <p class="lead">
+            Vitreen helps small contemporary galleries organize their inventory, conversations, and
+            sales material — and sets it up for you.
+          </p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary btn-lg">Book a demo</a>
+            <a href="#flow" class="btn btn-inverse btn-lg">See how it works</a>
+          </div>
+          <p class="hero-reassurance">
+            Built personally with each gallery. Powered by a shared Vitreen system.
+          </p>
+
+          <div class="hero-visual">
+            <img src="/Gallery-screen.jpg" alt="Vitreen system screen" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. IDENTIFICATION — self-recognition -->
+      <section class="section bg-soft border-t" id="identification">
+        <div class="container">
+          <p class="eyebrow">Sound familiar?</p>
+          <h2>If you run a gallery, this probably feels familiar.</h2>
+
+          <div class="scenario-grid">
+            <div class="scenario-card">
+              <span class="mark">”</span>
+              <p>You’re replying to a collector on WhatsApp and can’t find the right image.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="mark">”</span>
+              <p>You know the work is available, but you need to check Excel first.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="mark">”</span>
+              <p>You rebuild the same PDF for every conversation.</p>
+            </div>
+            <div class="scenario-card">
+              <span class="mark">”</span>
+              <p>Your website is always slightly out of sync with reality.</p>
+            </div>
+            <div class="scenario-card wide">
+              <span class="mark">”</span>
+              <p>Before a fair, everything is rebuilt manually.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. HOW IT WORKS (FLOW) — compréhension produit -->
+      <section class="section bg-white border-t" id="flow">
+        <div class="container">
+          <p class="eyebrow">How it works</p>
+          <h2>From artwork to collector in one flow.</h2>
+          <p class="h2-sub">
+            Vitreen connects the information behind your gallery to the conversations that actually
+            sell work.
+          </p>
+
+          <div class="flow">
+            <div class="flow-node">
+              <div class="flow-node-head">
+                <span class="step-index">01</span>
+                <span class="step-label">Artwork data</span>
+              </div>
+              <div class="flow-preview">
+                <!-- ported from components/landing/LandingInventorySetup.tsx — DropFileMockup -->
+                <div class="mockup-dropfile">
+                  <div class="mockup-dropfile-head">
+                    <h4>Import a file</h4>
+                    <span>← Back</span>
+                  </div>
+                  <p class="mockup-dropfile-sub">Bring your whole inventory from a CSV file</p>
+                  <div class="mockup-dropfile-drop">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M16 16l-4-4-4 4" />
+                      <path d="M12 12v9" />
+                      <path d="M20.4 17.5A5 5 0 0 0 18 8.2 7 7 0 0 0 4.3 10.6 4.5 4.5 0 0 0 5.5 19H7" />
+                    </svg>
+                    <p class="drop-title">Drop your CSV file</p>
+                    <p class="drop-sub">or click to browse</p>
+                  </div>
+                  <p class="mockup-dropfile-link">Download CSV template</p>
+                  <div class="mockup-dropfile-actions">
+                    <span class="finish-btn">Finish →</span>
+                    <span class="skip">Skip</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <div class="flow-node">
+              <div class="flow-node-head">
+                <span class="step-index">02</span>
+                <span class="step-label">Gmail / WhatsApp</span>
+              </div>
+              <div class="flow-preview">
+                <!-- ported from components/shared/ArtworkAddInMocks.tsx — GalleryOsSearchWidget -->
+                <div class="mockup-gallery-os">
+                  <div class="mockup-gos-title">Vitreen</div>
+                  <div class="mockup-gos-body">
+                    <p class="insert">Insert an artwork</p>
+                    <p class="search">Search Vitreen</p>
+                  </div>
+                  <div class="mockup-gos-footer">
+                    <div class="mockup-gos-input">Sacha Elron</div>
+                    <div class="mockup-gos-actions">
+                      <span class="search-btn">Search</span>
+                      <span class="gallery-btn">Gallery view</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <div class="flow-node">
+              <div class="flow-node-head">
+                <span class="step-index">03</span>
+                <span class="step-label">Selection / PDF</span>
+              </div>
+              <div class="flow-preview">
+                <!-- ported from components/shared/ArtworkAddInMocks.tsx — WhatsAppPdfMockup -->
+                <div class="mockup-wa-wrap">
+                  <div class="mockup-wa-pdf">
+                    <div class="bubble-out">
+                      <img src="/mockups/whatsapp-figma/outgoing-shape.svg" alt="" aria-hidden="true" />
+                      <div class="bubble-out-inner">
+                        <span>/pdf</span>
+                        <span>11:43</span>
+                      </div>
+                    </div>
+                    <div class="bubble-in">
+                      <img src="/mockups/whatsapp-figma/incoming-shape.svg" alt="" aria-hidden="true" />
+                      <p class="bubble-in-text">Building your selection...</p>
+                      <p class="bubble-in-time">11:45</p>
+                    </div>
+                    <div class="bubble-pdf">
+                      <img src="/mockups/whatsapp-figma/pdf-shape.svg" alt="" aria-hidden="true" />
+                      <div class="pdf-card">
+                        <span class="pdf-badge">PDF</span>
+                        <div>
+                          <p class="pdf-name">spring_selection_2026_<br />Marie_Beaumont.pdf</p>
+                          <p class="pdf-meta">2.8 MB · PDF</p>
+                        </div>
+                      </div>
+                      <p class="pdf-ready">Selection ready · 1 page</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flow-arrow" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 12h14M13 6l6 6-6 6"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <div class="flow-node">
+              <div class="flow-node-head">
+                <span class="step-index">04</span>
+                <span class="step-label">Collector</span>
+              </div>
+              <div class="flow-preview">
+                <div class="mockup-collector">
+                  <div class="avatar">JB</div>
+                  <p class="name">Jordan B.</p>
+                  <p class="status">✓ Selection received</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="flow-note">Same screens your team already uses in Gmail and WhatsApp.</p>
+        </div>
+      </section>
+
+      <!-- 4. SERVICE LAYER — différenciation clé -->
+      <section class="section bg-soft border-t" id="service-layer">
+        <div class="container">
+          <p class="eyebrow">The difference</p>
+          <h2>We don’t give you software. We set up your gallery system.</h2>
+
+          <div class="service-wrap">
+            <ul class="checklist">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Data structuring
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Migration — Excel, Artlogic, Drive
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Workflow setup
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Gmail + WhatsApp connection
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Team onboarding
+              </li>
+            </ul>
+
+            <div class="callout">
+              <p class="label">What setup should feel like</p>
+              <blockquote>“They set this up for us.”</blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. THE OFFER — one decision screen -->
+      <!--
+        One offer shown, deliberately. Rationale from the pricing thread:
+        · The €1,500 installation stays. It funds the ~3 weeks of setup work at the
+          moment the work happens, insures against early churn, and is what stops a
+          gallery comparing Vitreen to Artlogic monthly-vs-monthly.
+        · The monthly rises 149 → 290 because part of what Partner used to add is
+          folded into it.
+        · Partner is NOT on this page. It still exists — it is proposed in conversation
+          once the system is in place, never on the same decision screen (CLAUDE.md §1).
+        · Database Reset / Gallery Setup were never offers, they are reasons to call.
+          They are now one line under the card instead of priced cards.
+        · Fair Setup stays, visually secondary: different budget line, dated deadline.
+      -->
+      <section class="section bg-white border-t" id="offer">
+        <div class="container">
+          <p class="eyebrow">The offer</p>
+          <h2>One system, installed in your gallery.</h2>
+          <p class="h2-sub">One installation, one monthly — nothing to compare.</p>
+
+          <div class="offer-card">
+            <h3 class="offer-title">Vitreen</h3>
+            <p class="offer-price">€1,500 installation</p>
+            <p class="offer-then">then €290 / month</p>
+            <p class="offer-meta">No per-user pricing · Delivered in ~3 weeks</p>
+
+            <p class="offer-desc">
+              We install the system inside your gallery — your inventory, your Gmail, your
+              WhatsApp — and keep it running.
+            </p>
+
+            <ul class="checklist">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Your inventory structured and migrated — Artlogic, Excel or Drive
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Gmail and WhatsApp set up around how your team already works
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                An assistant grounded on your own records — nothing sends itself
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                PDFs and private selections from the same information
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Your team working on it before you go live
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                Hosting, maintenance and support
+              </li>
+            </ul>
+
+            <a href="#contact" class="btn btn-primary btn-lg offer-cta">Book a demo</a>
+          </div>
+
+          <p class="offer-anystate">
+            Scattered spreadsheets, an outdated database, a system you’re rebuilding from
+            scratch — the installation starts wherever you are today.
+          </p>
+
+          <div class="fair-strip">
+            <p class="eyebrow">For one specific moment</p>
+            <h3 class="fair-title">Fair Setup</h3>
+            <p class="fair-price">€490 <span>/ fair · one-time</span></p>
+            <p class="fair-desc">
+              A fair is the one deadline that can’t wait for an installation. Arrive with your
+              works, prices and collector material ready to send from your phone — wifi or none.
+            </p>
+            <div class="fair-slot">
+              <span class="dot-live" aria-hidden="true"></span>
+              Art Basel Paris — Oct 20 · 2 spots left
+            </div>
+            <a href="#contact" class="fair-link">Reserve a slot →</a>
+          </div>
+
+          <div class="not-included">
+            <h4>Not included</h4>
+            <p>
+              Website creation, major database cleanup and bespoke development are
+              <strong>projects</strong>, not Vitreen plans. Quoted separately, when they come up.
+            </p>
+          </div>
+
+          <!-- Expand Vitreen — ported from components/PricingPage.tsx (WEBSITE_FEATURES).
+               Same block as production, minus the €4,500 figure: still not validated as a
+               number to put in front of a prospect before a conversation happens. -->
+          <div class="expand-vitreen">
+            <div class="expand-wrap">
+              <div>
+                <p class="eyebrow">Expand Vitreen</p>
+                <h3>Why wait for a developer to update your gallery website?</h3>
+                <p class="expand-body">
+                  Update your gallery website directly from your artwork database. Keep artists,
+                  exhibitions and artworks current without developer dependency.
+                </p>
+                <a href="#contact" class="btn btn-inverse btn-md expand-cta">Discuss website project</a>
+              </div>
+
+              <div class="expand-grid">
+                <div class="expand-card">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <div>
+                    <h4>Always in sync</h4>
+                    <p>Straight from your inventory.</p>
+                  </div>
+                </div>
+                <div class="expand-card">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <div>
+                    <h4>No developer needed</h4>
+                    <p>Update it yourself, anytime.</p>
+                  </div>
+                </div>
+                <div class="expand-card">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <div>
+                    <h4>Your own design</h4>
+                    <p>Not a generic template.</p>
+                  </div>
+                </div>
+                <div class="expand-card">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <div>
+                    <h4>Ranks on Google</h4>
+                    <p>Built to be found.</p>
+                  </div>
+                </div>
+                <div class="expand-card">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <div>
+                    <h4>Inquiries in Gmail</h4>
+                    <p>No extra tool needed.</p>
+                  </div>
+                </div>
+                <div class="expand-card dark">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ADADAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                  <div>
+                    <h4>Quoted separately</h4>
+                    <p>A project after Setup.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. WEBSITE — clarification architecture -->
+      <section class="section bg-soft border-t" id="website">
+        <div class="container website-wrap">
+          <div>
+            <p class="eyebrow">Not a separate product</p>
+            <h2>Your website is just another view of your gallery data.</h2>
+            <ul class="website-bullets">
+              <li><span class="dot"></span>Same database</li>
+              <li><span class="dot"></span>Same inventory</li>
+              <li><span class="dot"></span>Same availability</li>
+              <li><span class="dot"></span>No duplication</li>
+            </ul>
+          </div>
+          <div class="website-visual">
+            <img src="/Viewing room-share.png" alt="Vitreen viewing room, generated from the same inventory" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. CLOSING CTA — conversion -->
+      <section class="section bg-white border-t cta-section" id="contact">
+        <div class="container">
+          <h2>See how this would work for your gallery.</h2>
+          <p class="lead">A 30-minute walkthrough based on your current setup — no prep needed.</p>
+          <div class="cta-actions">
+            <a href="#" class="btn btn-primary btn-lg">Book a demo</a>
+            <div class="cta-secondary-links">
+              <a href="#" class="btn-ghost">Show us your gallery setup</a>
+              <a href="#" class="btn-ghost">Talk to Vitreen</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div>
+          <a href="#top" class="wordmark">Vitreen</a>
+          <p class="tagline">
+            The system behind how contemporary galleries actually sell work — installed personally,
+            powered by a shared system.
+          </p>
+        </div>
+        <div class="footer-cols">
+          <div>
+            <h3>Product</h3>
+            <ul>
+              <li><a href="#flow">How it works</a></li>
+              <li><a href="#offer">Pricing</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Company</h3>
+            <ul>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      var nav = document.getElementById("nav");
+      function onScroll() {
+        if (window.scrollY > 2) {
+          nav.classList.add("scrolled");
+        } else {
+          nav.classList.remove("scrolled");
+        }
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    </script>
+  </body>
+</html>

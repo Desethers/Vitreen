@@ -1,7 +1,7 @@
 "use client";
 
 import { OfferCard } from "@/components/landing/OfferCard";
-import { CONTAINER, H2, SECTION } from "@/components/landing/styles";
+import { CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const SETUP = [
   "Migration de la base d’œuvres",
@@ -29,16 +29,20 @@ export default function LandingOffersFr() {
     <section id="services" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
         <h2 className={`${H2} max-w-2xl`}>Choisissez comment travailler avec Vitreen.</h2>
+        <p className={`${H2_SUB} max-w-2xl`}>
+          Un système installé aujourd’hui, un partenariat pour le faire grandir.
+        </p>
 
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
           <OfferCard
-            title="Vitreen"
+            title="Vitreen Sales"
             price="Dès 1 500 € d’installation"
             priceMonthly="+ 149 €/mois"
             description="Nous installons le système dont votre galerie a besoin aujourd’hui : base d’œuvres et outils de vente pour vos collectionneurs."
             items={SETUP}
             clarification="Livré en ~3 semaines."
             cta="Démarrer avec Vitreen"
+            featured
           />
           <OfferCard
             title="Vitreen Partner"
@@ -47,7 +51,6 @@ export default function LandingOffersFr() {
             description="Gardez Vitreen impliqué pour faire évoluer le système à mesure que votre galerie, votre équipe et vos workflows collectionneurs évoluent."
             items={PARTNER}
             cta="Travailler avec Vitreen"
-            featured
           />
         </div>
       </div>
