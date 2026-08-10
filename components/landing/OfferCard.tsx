@@ -27,6 +27,7 @@ export function OfferCard({
   label,
   title,
   price,
+  priceMonthly,
   subline,
   description,
   items,
@@ -37,6 +38,7 @@ export function OfferCard({
   label?: string;
   title: string;
   price: string;
+  priceMonthly?: string;
   subline?: string;
   description: string;
   items: readonly string[];
@@ -57,6 +59,11 @@ export function OfferCard({
       <p className="mt-3 font-display text-[18px] tracking-[-0.01em] text-[#111110] md:text-[20px]">
         {price}
       </p>
+      {priceMonthly ? (
+        <p className="mt-1 font-display text-[15px] tracking-[-0.01em] text-[#6B6A67] md:text-[16px]">
+          {priceMonthly}
+        </p>
+      ) : null}
       {subline ? <p className="mt-1 text-[13px] text-[#6B6A67]">{subline}</p> : null}
       <p className={`${BODY_SM} mt-5 max-w-md`}>{description}</p>
 

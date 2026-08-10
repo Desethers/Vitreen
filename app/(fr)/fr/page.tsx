@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import LandingNavFr from "@/components/landing/LandingNavFr";
 import LandingHeroFr from "@/components/landing/LandingHeroFr";
-import LandingProblemFr from "@/components/landing/LandingProblemFr";
-import LandingProductFr from "@/components/landing/LandingProductFr";
-import LandingAiFr from "@/components/landing/LandingAiFr";
-import LandingSystemFr from "@/components/landing/LandingSystemFr";
+import HeroDashboardMock from "@/components/HeroDashboardMock";
+import LandingHowItWorksFr from "@/components/landing/LandingHowItWorksFr";
+import LandingRecognitionFr from "@/components/landing/LandingRecognitionFr";
+import LandingProblemStatementFr from "@/components/landing/LandingProblemStatementFr";
+import LandingOutputsFr from "@/components/landing/LandingOutputsFr";
+import LandingInventorySetupFr from "@/components/landing/LandingInventorySetupFr";
+import LandingWhereYouSellFr from "@/components/landing/LandingWhereYouSellFr";
+import Difference from "@/components/Difference";
 import LandingOffersFr from "@/components/landing/LandingOffersFr";
-import LandingMethodFr from "@/components/landing/LandingMethodFr";
+import StatementSplit from "@/components/StatementSplit";
 import LandingFaqFr from "@/components/landing/LandingFaqFr";
 import LandingCtaFr from "@/components/landing/LandingCtaFr";
 
@@ -30,12 +34,16 @@ export default function Home() {
     <main className="relative bg-white">
       <LandingNavFr />
       <LandingHeroFr />
-      <LandingProblemFr />
-      <LandingProductFr />
-      <LandingAiFr />
-      <LandingSystemFr />
+      <HeroDashboardMock />
+      <LandingHowItWorksFr />
+      <LandingRecognitionFr />
+      <LandingProblemStatementFr />
+      <LandingOutputsFr />
+      <LandingInventorySetupFr />
+      <LandingWhereYouSellFr />
+      <Difference />
       <LandingOffersFr />
-      <LandingMethodFr />
+      <StatementSplit />
       <LandingFaqFr />
       <LandingCtaFr />
     </main>

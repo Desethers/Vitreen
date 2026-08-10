@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/Button";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB } from "@/components/landing/styles";
 
 const SETUP = [
-  "Artwork database setup or connection to your existing inventory",
+  "Artwork database migration",
+  "Artists, artworks, images, prices and availability",
   "Gmail add-in",
   "WhatsApp sales tools",
   "Gmail and WhatsApp configuration",
@@ -18,12 +19,13 @@ const SETUP = [
 ];
 
 const PARTNER = [
-  "Team training",
-  "Email and PDF formats",
-  "Technical maintenance",
-  "Gmail and WhatsApp configuration",
-  "AI assistant setup",
-  "Inventory import",
+  "Monthly working session",
+  "Workflow improvements",
+  "New email and PDF formats",
+  "Team training and support",
+  "AI assistant configuration",
+  "Inventory and data support",
+  "Priority technical assistance",
 ];
 
 const REPLACES = [
@@ -134,9 +136,9 @@ export default function PricingPage() {
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-6 md:grid-cols-2 md:gap-8">
               <OfferCard
-                title="Vitreen Setup"
-                price="From €2,500"
-                subline="One-time project · final scope confirmed after review"
+                title="Vitreen"
+                price="From €1,500 setup"
+                priceMonthly="+ €149/month"
                 description="We install the system your gallery needs today with artwork database and collector sales tools."
                 items={SETUP}
                 clarification="Delivered in ~3 weeks."
@@ -167,8 +169,7 @@ export default function PricingPage() {
             <div>
               <p className={EYEBROW}>Expand Vitreen</p>
               <h3 className="mt-3 font-display text-[24px] leading-[1.2] tracking-[-0.01em] text-[#111110] md:text-[28px]">
-                Why wait for a developer to
-                <br className="hidden md:block" />
+                Why wait for a developer to <br className="hidden md:block" />
                 update your gallery website?
               </h3>
               <p className={`${BODY_SM} mt-4 max-w-sm`}>

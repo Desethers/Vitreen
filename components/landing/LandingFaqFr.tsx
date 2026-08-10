@@ -90,7 +90,7 @@ function Item({ q, a }: { q: string; a: string }) {
 
 export default function LandingFaqFr() {
   return (
-    <section id="faq" className={`${SECTION} border-t border-[#E8E8E6] bg-white`}>
+    <section id="faq" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
         <h2 className={`${H2} max-w-2xl`}>Questions.</h2>
         <div className="mt-8 md:mt-10">

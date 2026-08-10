@@ -4,21 +4,24 @@ import { OfferCard } from "@/components/landing/OfferCard";
 import { CONTAINER, H2, SECTION } from "@/components/landing/styles";
 
 const SETUP = [
-  "Inventory import",
-  "AI assistant setup",
+  "Artwork database migration",
+  "Artists, artworks, images, prices and availability",
+  "Gmail add-in",
+  "WhatsApp sales tools",
   "Gmail and WhatsApp configuration",
-  "Email and PDF formats",
-  "Team training",
-  "Technical maintenance",
+  "AI assistant setup",
+  "Viewing room editor and follow-up",
+  "Team onboarding",
 ];
 
 const PARTNER = [
-  "Everything in Setup",
   "Monthly working session",
-  "Direct founder support",
   "Workflow improvements",
-  "New formats and use cases",
-  "Ongoing product evolution",
+  "New email and PDF formats",
+  "Team training and support",
+  "AI assistant configuration",
+  "Inventory and data support",
+  "Priority technical assistance",
 ];
 
 export default function LandingOffers() {
@@ -29,22 +32,21 @@ export default function LandingOffers() {
 
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
           <OfferCard
-            label="One-time project"
-            title="Vitreen Setup"
-            price="€3,000 one-time"
-            description="A complete, stable Vitreen system installed for your gallery."
+            title="Vitreen"
+            price="From €1,500 setup"
+            priceMonthly="+ €149/month"
+            description="We install the system your gallery needs today with artwork database and collector sales tools."
             items={SETUP}
-            clarification="The delivered system remains stable. New features and workflow changes are not included."
-            cta="Choose Setup"
+            clarification="Delivered in ~3 weeks."
+            cta="Start with Vitreen"
           />
           <OfferCard
-            label="Ongoing partnership"
             title="Vitreen Partner"
-            price="€950/month"
-            subline="6-month minimum"
-            description="Vitreen stays involved to support your team and improve the system over time."
+            price="+ €350/month"
+            subline="Available after Setup"
+            description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
             items={PARTNER}
-            cta="Choose Partner"
+            cta="Work with Vitreen"
             featured
           />
         </div>

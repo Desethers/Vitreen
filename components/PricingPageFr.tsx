@@ -9,7 +9,8 @@ import { openContact } from "@/components/landing/LandingNav";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB } from "@/components/landing/styles";
 
 const SETUP = [
-  "Structuration de la base d’œuvres ou connexion à votre inventaire existant",
+  "Migration de la base d’œuvres",
+  "Artistes, œuvres, images, prix et disponibilité",
   "Add-in Gmail",
   "Outils de vente WhatsApp",
   "Configuration Gmail et WhatsApp",
@@ -19,12 +20,13 @@ const SETUP = [
 ];
 
 const PARTNER = [
-  "Formation de l’équipe",
-  "Formats email et PDF",
-  "Maintenance technique",
-  "Configuration Gmail et WhatsApp",
+  "Session de travail mensuelle",
+  "Améliorations de workflow",
+  "Nouveaux formats email et PDF",
+  "Formation et accompagnement de l’équipe",
   "Configuration de l’assistant IA",
-  "Import de l’inventaire",
+  "Accompagnement inventaire et données",
+  "Assistance technique prioritaire",
 ];
 
 const REPLACES = [
@@ -137,9 +139,9 @@ export default function PricingPageFr() {
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-6 md:grid-cols-2 md:gap-8">
               <OfferCard
-                title="Vitreen Setup"
-                price="Dès 2 500 €"
-                subline="Projet unique · périmètre final confirmé après échange"
+                title="Vitreen"
+                price="Dès 1 500 € d’installation"
+                priceMonthly="+ 149 €/mois"
                 description="Nous installons le système dont votre galerie a besoin aujourd’hui : base d’œuvres et outils de vente pour vos collectionneurs."
                 items={SETUP}
                 clarification="Livré en ~3 semaines."
@@ -170,8 +172,7 @@ export default function PricingPageFr() {
             <div>
               <p className={EYEBROW}>Étendre Vitreen</p>
               <h3 className="mt-3 font-display text-[24px] leading-[1.2] tracking-[-0.01em] text-[#111110] md:text-[28px]">
-                Pourquoi attendre un développeur
-                <br className="hidden md:block" />
+                Pourquoi attendre un développeur <br className="hidden md:block" />
                 pour mettre à jour le site de la galerie ?
               </h3>
               <p className={`${BODY_SM} mt-4 max-w-sm`}>

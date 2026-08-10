@@ -173,40 +173,58 @@ function PrivateSelectionMockup() {
   );
 }
 
-const OUTPUTS = [
-  { label: "Database", node: <ArtworkPageMockup /> },
-  { label: "Gmail", node: <IntegrationsFrame /> },
-  {
-    label: "WhatsApp Add-ins",
-    node: <WhatsAppShareWorksMock />,
-  },
-  { label: "Private Selection editor", node: <PrivateSelectionMockup /> },
+/** Mockups partagés EN/FR — seuls les libellés changent, via `labels`. */
+const OUTPUT_NODES = [
+  <ArtworkPageMockup key="database" />,
+  <IntegrationsFrame key="gmail" />,
+  <WhatsAppShareWorksMock key="whatsapp" />,
+  <PrivateSelectionMockup key="selection" />,
 ];
 
-export default function LandingOutputs() {
+export type OutputsCopy = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  /** Un libellé par mockup, dans l'ordre : base, Gmail, WhatsApp, sélections. */
+  labels: readonly [string, string, string, string];
+  action?: string;
+};
+
+const EN_COPY: OutputsCopy = {
+  eyebrow: "Ready to send",
+  title: "One inventory. Multiple ways to put it to work.",
+  subtitle: "Manage, reply, share and publish from one place.",
+  labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
+};
+
+export function OutputsSection({ copy }: { copy: OutputsCopy }) {
   return (
     <section className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
-        <p className={EYEBROW}>Ready to send</p>
-        <h2 className={`${H2} mt-4 max-w-2xl`}>One inventory. Multiple ways to put it to work.</h2>
-        <p className={`${H2_SUB} max-w-2xl`}>Manage, reply, share and publish from one place.</p>
+        <p className={EYEBROW}>{copy.eyebrow}</p>
+        <h2 className={`${H2} mt-4 max-w-2xl`}>{copy.title}</h2>
+        <p className={`${H2_SUB} max-w-2xl`}>{copy.subtitle}</p>
 
         <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2">
-          {OUTPUTS.map((item) => (
+          {OUTPUT_NODES.map((node, index) => (
             <article
-              key={item.label}
+              key={copy.labels[index]}
               className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20"
             >
               <div className="pointer-events-none relative h-[300px] overflow-hidden bg-[#F8F8F6] md:h-[360px]">
                 <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
-                  {item.node}
+                  {node}
                 </div>
               </div>
-              <CardCaption title={item.label} />
+              <CardCaption title={copy.labels[index]} action={copy.action} />
             </article>
           ))}
         </div>
       </div>
     </section>
   );
+}
+
+export default function LandingOutputs() {
+  return <OutputsSection copy={EN_COPY} />;
 }

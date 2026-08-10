@@ -127,28 +127,36 @@ function ImportPreviewMockup() {
   );
 }
 
-export default function LandingInventorySetup() {
+export type InventorySetupCopy = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  /** Deux réassurances affichées sous le chapeau. */
+  reassurances: readonly [string, string];
+};
+
+const EN_COPY: InventorySetupCopy = {
+  eyebrow: "Your inventory",
+  title: "Bring your artwork inventory into Vitreen.",
+  body: "After auditing the way you work, we manage the migration of your data into Vitreen’s database to improve the circulation of images and information across the tool.",
+  reassurances: ["Migration included", "Your data stays confidential"],
+};
+
+export function InventorySetupSection({ copy }: { copy: InventorySetupCopy }) {
   return (
     <section className="bg-white px-4 py-14 md:px-6 md:py-[72px]">
       <div className="mx-auto w-full max-w-7xl text-center">
-        <p className={`${EYEBROW} mx-auto`}>Your inventory</p>
-        <h2 className={`${H2} mx-auto mt-4 max-w-2xl`}>
-          Bring your artwork inventory into Vitreen.
-        </h2>
-        <p className={`${BODY} mx-auto mt-5 max-w-2xl`}>
-          After auditing the way you work, we manage the migration of your data into Vitreen&rsquo;s
-          database to improve the circulation of images and information across the tool.
-        </p>
+        <p className={`${EYEBROW} mx-auto`}>{copy.eyebrow}</p>
+        <h2 className={`${H2} mx-auto mt-4 max-w-2xl`}>{copy.title}</h2>
+        <p className={`${BODY} mx-auto mt-5 max-w-2xl`}>{copy.body}</p>
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
-          <span className="flex items-center gap-2 text-[13px] text-[#6B6A67]">
-            <CheckIcon />
-            Migration included
-          </span>
-          <span className="flex items-center gap-2 text-[13px] text-[#6B6A67]">
-            <CheckIcon />
-            Your data stays confidential
-          </span>
+          {copy.reassurances.map((item) => (
+            <span key={item} className="flex items-center gap-2 text-[13px] text-[#6B6A67]">
+              <CheckIcon />
+              {item}
+            </span>
+          ))}
         </div>
 
         <div className="mt-10 grid gap-5 text-left md:mt-12 md:grid-cols-3">
@@ -159,4 +167,8 @@ export default function LandingInventorySetup() {
       </div>
     </section>
   );
+}
+
+export default function LandingInventorySetup() {
+  return <InventorySetupSection copy={EN_COPY} />;
 }

@@ -69,41 +69,44 @@ d'avance : une galerie ne compare pas une heure passée avec le fondateur à une
 ligne SaaS. Ne jamais présenter l'offre d'une façon qui invite à comparer
 Vitreen à Artlogic sur le prix.
 
-### Offre — Setup ou Partner
+### Offre — Vitreen ou Vitreen Partner
 
-**Pivot de prix (décidé 2026-08-08)** : Partner n'est plus une relation
-alternative au même niveau que Setup, mais une **option mensuelle qui
-s'ajoute à Setup, disponible seulement une fois Setup livré**. Setup reste le
-projet fini ; Partner est ce qu'on active ensuite si la galerie veut garder
-Vitreen impliqué.
+**Pivot de prix (décidé 2026-08-09, remplace celui du 2026-08-08)** : l'offre
+de base n'est plus un projet unique mais **une installation + un abonnement
+mensuel**. Elle s'appelle simplement **Vitreen** (plus « Vitreen Setup »).
+Partner reste une option mensuelle supplémentaire, activée après installation.
 
 ```text
-Setup    → un projet fini.               Le système est installé et reste stable.
-Partner  → une option mensuelle après.   Débloquée une fois Setup livré.
+Vitreen          → installation + mensuel.   Le système est installé, puis maintenu.
+Vitreen Partner  → un mensuel en plus.       Activé une fois le système en place.
 ```
 
-| Offre               | Prix                                 | Promesse                                    |
-| ------------------- | ------------------------------------ | ------------------------------------------- |
-| **Vitreen Setup**   | à partir de 2 500 € une fois         | Votre système, installé et complet          |
-| **Vitreen Partner** | + 350 €/mois, disponible après Setup | Un système qui continue d'évoluer avec vous |
+| Offre               | Prix                                    | Promesse                                    |
+| ------------------- | --------------------------------------- | ------------------------------------------- |
+| **Vitreen**         | dès 1 500 € d'installation + 149 €/mois | Votre système, installé et maintenu         |
+| **Vitreen Partner** | + 350 €/mois, disponible après Setup    | Un système qui continue d'évoluer avec vous |
 
-**Setup** inclut : import et structuration de l'inventaire, configuration
-Gmail/WhatsApp, formats email/sélections/PDF, formation de l'équipe,
-documentation finale, 12 mois de maintenance technique. Après livraison, le
-système reste stable — pas de nouvelles fonctionnalités ni d'évolution.
+**Vitreen** inclut : migration de la base d'œuvres (artistes, œuvres, images,
+prix, disponibilité), add-in Gmail, outils de vente WhatsApp, configuration
+Gmail/WhatsApp, configuration de l'assistant IA, éditeur de sélections et
+suivi, prise en main de l'équipe. Livré en ~3 semaines. Le mensuel de 149 €
+porte l'hébergement, l'inférence et la maintenance technique ; il ne finance
+pas de nouvelles fonctionnalités ni d'évolution de workflow — c'est ce que
+Partner ajoute.
 
-**La maintenance Setup est une liste fermée**, et c'est la protection de
-périmètre la plus importante de toute l'offre. Elle couvre uniquement :
+**La maintenance incluse dans le mensuel de base est une liste fermée**, et
+c'est la protection de périmètre la plus importante de toute l'offre. Elle
+couvre uniquement :
 correction de bugs, maintien du fonctionnement existant, mises à jour de
 sécurité, compatibilité technique raisonnable, restauration en cas de problème.
 Elle ne couvre pas : nouvelles fonctionnalités, nouvelles intégrations,
 nouveaux templates, changement de structure de données, évolution de workflow,
 demandes spécifiques. Dire oui une fois rouvre la frontière définitivement.
 
-**Partner** inclut : setup complet, logiciel et maintenance, session de travail
-mensuelle, accès direct au fondateur, améliorations de workflow, nouveaux
-formats, préparation des foires et expositions, accès prioritaire aux nouvelles
-fonctionnalités.
+**Partner** inclut : session de travail mensuelle, améliorations de workflow,
+nouveaux formats email et PDF, formation et accompagnement de l'équipe,
+configuration de l'assistant IA, accompagnement inventaire et données,
+assistance technique prioritaire.
 
 Chiffres actuels, validation business encore à faire.
 
@@ -139,13 +142,16 @@ conversations commerciales.
 Setup, la livraison est le budget et la maintenance n'en est pas un second.
 
 **Vocabulaire** : dire les prix est normal. Interdit : « plan », « tier »,
-« s'abonner », « upgrade », et tout tableau comparatif à colonnes de features.
-Acceptable : « une fois », « mensuel », « partenariat », « maintenance ».
+« upgrade », et tout tableau comparatif à colonnes de features. Acceptable :
+« installation », « mensuel », « partenariat », « maintenance ». Le mensuel
+existe désormais dans l'offre de base, mais on le nomme « mensuel », pas
+« abonnement » ni « souscription » — le registre reste celui d'un système
+installé et maintenu, pas d'un SaaS.
 
-**Questions ouvertes** (playbook §5) : que devient un client Setup au mois 13,
-quand les 12 mois de maintenance expirent — et qui porte les coûts
-d'hébergement et d'inférence pendant ces 12 mois financés par un paiement
-unique ?
+**Question tranchée par le pivot du 2026-08-09** : le sort d'un client au mois
+13 et la couverture des coûts d'hébergement/inférence ne sont plus des
+questions ouvertes — le mensuel de 149 € les porte en continu, au lieu des
+12 mois de maintenance financés par un paiement unique.
 
 **Statut tranché (2026-08-08)** : Site connecté redevient un article facturé à
 part — « Site de galerie connecté, à partir de 4 500 €, devisé comme un projet
@@ -285,7 +291,7 @@ reflète plus `app/(en)/page.tsx` réel (voir écart signalé plus bas) :
 | 4   | `LandingProduct`     | Gmail et WhatsApp, en rangées image/texte alternées (voir régression ci-dessous)                                                      |
 | 5   | `LandingAi`          | Démo de l'agent : garanties de grounding + brouillon à valider (l'eyebrow affiche « Vitreen Agent », nom de tier périmé — à renommer) |
 | 6   | `LandingSystem`      | Une source → toutes les sorties (socle discret)                                                                                       |
-| 7   | `LandingOffers`      | ⚠️ Échelle Send / Agent (**périmée**, voir note ci-dessous)                                                                           |
+| 7   | `LandingOffers`      | Cartes Vitreen / Vitreen Partner — mêmes `OfferCard` que `/pricing` (à jour 2026-08-09)                                               |
 | 8   | `LandingMethod`      | Audit / Connexion / Configuration / Amélioration                                                                                      |
 | 9   | `LandingFaq`         | Objections : Artlogic, migration, envoi auto, site — doivent arriver **après** le mécanisme montré, pas avant                         |
 | 10  | `LandingCta`         | CTA final + footer léger                                                                                                              |
@@ -316,17 +322,17 @@ pattern « grille de features » que la doctrine funnel interdit. Les deux sont
 - `LandingAi` doit rester **visuellement plus sobre** que les sections
   Gmail/WhatsApp : c'est la démonstration de l'Agent, pas une vitrine de plus.
   Pas d'ombre, pas de couleur.
-- `LandingOffers` implémente encore l'échelle Send (450 €/mois) / Agent
-  (950 €/mois) — **cette structure est périmée** depuis le pivot vers Setup /
-  Partner (playbook §5), et ses chiffres Setup/Partner internes (3 000 € /
-  950 €/mois) sont eux-mêmes dépassés depuis le pivot de prix du 2026-08-08
-  (voir §1 : Setup à partir de 2 500 € une fois, Partner + 350 €/mois débloqué
-  après Setup). Le code n'a pas encore été mis à jour ; ne pas s'y fier comme
-  référence de pricing, et ne pas la recopier ailleurs. `components/PricingPage.tsx`
-  (et son jumeau FR) est la seule référence de pricing à jour. Prochaine
-  session de code sur la landing : refaire cette section avec les chiffres et
-  cartes de `PricingPage.tsx`, et réordonner l'ensemble de la page selon la
-  doctrine funnel (playbook §17).
+- `LandingOffers`/`LandingOffersFr` sont **à jour** depuis le 2026-08-09 : les
+  deux montent les mêmes `OfferCard` que `components/PricingPage.tsx` (Vitreen
+  dès 1 500 € + 149 €/mois, Partner + 350 €/mois). La version FR portait encore
+  l'ancienne échelle Send (450 €/mois) / Agent (950 €/mois) et a été réécrite —
+  au passage ont disparu la mention « onboarding unique de 4 500 € » (qui
+  contredisait le nouveau prix) et le bloc « Également disponible » (Site
+  connecté sans prix + Coaching IA à 400 €/session, tous deux périmés).
+  **Toute modification de pricing doit être portée dans les quatre fichiers** :
+  `PricingPage.tsx`, `PricingPageFr.tsx`, `LandingOffers.tsx`,
+  `LandingOffersFr.tsx`. Reste à faire sur cette section : la réordonner selon
+  la doctrine funnel (playbook §17).
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
@@ -415,24 +421,25 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 
 ## 11. Roadmap
 
-| Brique                                                | Statut                                                |
-| ----------------------------------------------------- | ----------------------------------------------------- |
-| Add-in Gmail                                          | ✅ Fonctionnel                                        |
-| WhatsApp Business                                     | ✅ Fonctionnel                                        |
-| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                                               |
-| Sélections privées + export PDF (viewing rooms)       | ✅ Existant — surface centrale du mécanisme (§1)      |
-| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                                           |
-| Inbox comme écran d'accueil                           | 🔴 Phase 1                                            |
-| Nav produit : ajouter Selections en 3ᵉ entrée visible | 🔴 Phase 1 (playbook §12, §18)                        |
-| Masquage des modules restants par feature flags       | 🔴 Phase 1                                            |
-| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                                            |
-| WhatsApp Business self-service                        | 🔴 Phase 2                                            |
-| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                            |
-| Landing recentrée en funnel Setup / Partner           | 🔴 À faire (code périmé et incohérent, voir §5)       |
-| Sort d'un client Setup au mois 13                     | 🟠 À trancher (playbook §5)                           |
-| Site connecté                                         | ✅ Tranché — offre séparée, à partir de 4 500 € (§1)  |
-| Coaching IA autonome                                  | ⛔ Redondant (formation incluse dans les deux offres) |
-| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                                      |
+| Brique                                                | Statut                                                 |
+| ----------------------------------------------------- | ------------------------------------------------------ |
+| Add-in Gmail                                          | ✅ Fonctionnel                                         |
+| WhatsApp Business                                     | ✅ Fonctionnel                                         |
+| Sales Agent (brouillons groundés, validation humaine) | ✅ Live                                                |
+| Sélections privées + export PDF (viewing rooms)       | ✅ Existant — surface centrale du mécanisme (§1)       |
+| Base d'œuvres / connecteurs CSV-Excel                 | ✅ Existant                                            |
+| Inbox comme écran d'accueil                           | 🔴 Phase 1                                             |
+| Nav produit : ajouter Selections en 3ᵉ entrée visible | 🔴 Phase 1 (playbook §12, §18)                         |
+| Masquage des modules restants par feature flags       | 🔴 Phase 1                                             |
+| Onboarding inversé (aha en J1)                        | 🔴 Phase 2                                             |
+| WhatsApp Business self-service                        | 🔴 Phase 2                                             |
+| Métriques d'usage (brouillons générés / validés)      | 🔴 Phase 2                                             |
+| Cartes pricing alignées home + /pricing               | ✅ Fait 2026-08-09 (4 fichiers, voir §5)               |
+| Réordonner la home selon la doctrine funnel           | 🔴 À faire (playbook §17)                              |
+| Sort d'un client au mois 13                           | ✅ Tranché — le mensuel 149 € le porte en continu (§1) |
+| Site connecté                                         | ✅ Tranché — offre séparée, à partir de 4 500 € (§1)   |
+| Coaching IA autonome                                  | ⛔ Redondant (formation incluse dans les deux offres)  |
+| Envoi autonome (autopilot)                            | ⛔ Gelé — jamais                                       |
 
 ---
 
@@ -455,11 +462,9 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter l'API contact (`/api/contact`)
 - [ ] Trancher le sort des anciennes pages (`/about`, `/products/*`)
-- [ ] Valider définitivement les montants Setup (2 500 €) et Partner (+350 €/mois)
-      et le module Site connecté (4 500 €) — pivot du 2026-08-08, encore non
-      validé côté business
-- [ ] Reconstruire `LandingOffers`/`LandingOffersFr` autour de Setup / Partner
-      (le code montre encore l'ancienne échelle Send/Agent, périmée)
+- [ ] Valider définitivement les montants Vitreen (dès 1 500 € + 149 €/mois),
+      Partner (+350 €/mois) et le module Site connecté (4 500 €) — pivot du
+      2026-08-09, encore non validé côté business
 - [ ] Réordonner la home EN/FR selon la doctrine funnel (playbook §17) :
       reconnaissance → mécanisme montré → agent démontré → installation →
       offre → CTA
@@ -469,5 +474,4 @@ Lire le fichier concerné avant de rédiger un post.
 - [ ] Décider si/où le mécanisme (fiche → sélection/viewing room →
       Gmail/WhatsApp/PDF) est montré visuellement sur la home — c'est l'étape
       2 du funnel et elle n'existe pas encore en composant dédié
-- [ ] Trancher ce que devient un client Setup au mois 13 (playbook §5)
 - [ ] Mesurer le plafond de capacité sur les premiers clients (playbook §6)
