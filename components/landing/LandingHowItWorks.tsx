@@ -27,7 +27,7 @@ export default function LandingHowItWorks() {
         <p className={EYEBROW}>How it works</p>
         <h2 className={`${H2} mt-4 max-w-2xl`}>From artwork inventory to collector reply.</h2>
 
-        <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3">
+        <div className="mt-10 grid gap-10 md:mt-12 md:grid-cols-3">
           {STEPS.map((step) => (
             <article
               key={step.number}
@@ -35,7 +35,7 @@ export default function LandingHowItWorks() {
             >
               <p className="text-[13px] text-[#ADADAA]">{step.number}</p>
               <h3 className={`${H3} mt-3`}>{step.title}</h3>
-              <p className="mt-2 text-[15px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67]">
+              <p className="mt-2 text-[14px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67]">
                 {step.text}
               </p>
             </article>

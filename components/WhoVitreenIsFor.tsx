@@ -110,7 +110,7 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
               transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
               className="group relative flex min-h-[420px] flex-col overflow-hidden rounded-[12px] bg-[#f5f5f3] p-7 sm:min-h-[460px] xl:min-h-[480px]"
             >
-              <h3 className="font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110] md:text-[20px]">
+              <h3 className="font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110]">
                 {audience.title}
               </h3>
               <p className="mt-3 max-w-[220px] text-[14px] leading-[1.48] tracking-[-0.025em] text-[#6B6A67]">

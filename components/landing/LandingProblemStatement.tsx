@@ -113,11 +113,11 @@ export default function LandingProblemStatement() {
                     index === PROBLEMS.length - 1 ? "border-b" : ""
                   }`}
                 >
-                  <h3 className="flex items-center gap-2.5 font-display text-[17px] font-normal tracking-[-0.02em] text-[#111110] md:text-[18px]">
+                  <h3 className="flex items-center gap-2.5 font-display text-[18px] font-normal tracking-[-0.02em] text-[#111110]">
                     <item.icon />
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
+                  <p className="mt-2 text-[14px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67]">
                     {item.text}
                   </p>
                 </div>

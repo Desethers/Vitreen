@@ -19,7 +19,7 @@ export const H2_SUB =
   "mt-1 text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]";
 
 export const H3 =
-  "font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110] md:text-[20px]";
+  "font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110]";
 
 export const BODY = "text-[15px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[17px]";
 
