@@ -6,35 +6,27 @@ Ce fichier est lu à chaque session. Il sert de mémoire stable du projet : posi
 
 ## 1. Positionnement (la vision)
 
-Every gallery develops its own way of working — across artworks, publishing, collector relationships and internal coordination. Vitreen helps connect these fragmented activities into a more coherent working environment without forcing galleries into rigid software workflows.
+**Pivot 2026-08 : Vitreen n'est plus un produit unique, mais une société-mère avec 3 offres distinctes.** Toute décision produit, copywriting ou design doit d'abord identifier à quelle branche elle appartient — voir le [Vitreen Playbook](.claude/PLAYBOOK.md) (référence complète, en anglais) avant de trancher une ambiguïté de positionnement.
 
-### Pitch de vente
+### Les 3 branches
 
-Vitreen aide les galeries d’art à faire circuler leurs œuvres plus rapidement et plus simplement auprès de leurs collectionneurs.
+1. **Vitreen Layer** — _Software._ « Give the gallery better tools. » L'infrastructure logicielle : base d'œuvres, artistes, expositions, Gmail, WhatsApp, PDF, sélections privées, site web. Le client achète un accès logiciel. Modèle : abonnement.
+2. **Vitreen Studio** — _Service._ « Do the digital work for the gallery. » Studio de design digital pour galeries et artistes : sites, identités, lancements d'expositions, campagnes, maintenance. Le client achète un livrable, pas de la technologie. Modèle : projet / retainer.
+3. **Vitreen Gallery Assistant** — _AI._ « Help the gallery do its work. » Assistant IA qui cherche, prépare, rédige à partir des données de la galerie — il prépare, la galerie décide. Modèle : abonnement / add-on.
 
-Concrètement, on connecte les archives, inventaires ou bases de données existantes de la galerie, puis on transforme ces œuvres en matériel collector prêt à être partagé : viewing rooms, sélections privées, PDFs, pages web ou échanges WhatsApp.
+Ces 3 branches se renforcent (Layer ↔ Studio ↔ Gallery Assistant, cross-sell naturel) mais **ne doivent jamais être confondues** dans une même page, un même pitch ou une même feature. Avant d'ajouter quoi que ce soit, se poser la question du Playbook §13 : est-ce que ça stocke/connecte de la donnée (Layer) ? Est-ce que Vitreen est engagé pour produire un livrable (Studio) ? Est-ce que l'IA interprète ou prépare une action (Gallery Assistant) ?
 
-L’idée n’est pas de remplacer les habitudes de travail des galeries avec une nouvelle plateforme lourde, mais plutôt de construire une couche opérationnelle discrète autour de leurs outils existants pour fluidifier la diffusion des œuvres et les conversations de vente.
+### État de la migration
 
-### 4 piliers
+Le contenu ci-dessous (vocabulaire, roadmap, pricing) décrit encore largement l'ancien positionnement « produit unique » (pré-pivot) et correspond en pratique à **Vitreen Layer**. Il doit être relu et re-scopé par branche au fil des sessions plutôt que pris tel quel comme vérité pour Studio ou Gallery Assistant — ne pas halluciner de pricing/roadmap pour ces deux branches tant qu'ils n'ont pas été explicitement définis avec l'utilisateur.
 
-**1. Artworks & Archives**
-Organise artworks, exhibitions and archives across existing gallery systems. Vitreen structures artwork information, exhibition history, inventory and archival material from spreadsheets, legacy CMSs, PDFs or gallery databases — without replacing existing tools.
-
-**2. Public & Private Publishing**
-Publish artworks across websites, viewing rooms, collector PDFs and private sharing channels. Vitreen helps galleries move seamlessly between public presentation and private distribution while maintaining consistency around artworks and exhibitions.
-
-**3. Collector Relationships**
-Keep collector inquiries, follow-ups and sales conversations connected to the right artworks. Vitreen helps galleries preserve continuity across collector interactions and sales preparation without introducing unnecessary CRM complexity.
-
-**4. Gallery Assistants**
-Assist galleries across publishing, collector communication and operational preparation using gallery-specific context. The goal is not to automate relationships, but to give galleries more time to focus on artists, exhibitions and collectors.
-
-Source détaillée (idées, pricing, killer features) : page Notion _Idées à developper_ (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
+Source détaillée additionnelle (idées, pricing, killer features côté Layer) : page Notion _Idées à developper_ (ID `33f0b73f1fb780ee9f7be92f1e430f79`).
 
 ---
 
 ## 2. Vocabulaire
+
+_Ci-dessous : vocabulaire hérité pré-pivot (Layer). Pour le choix des mots par branche (Layer / Studio / Gallery Assistant), voir [Playbook §15](.claude/PLAYBOOK.md#15-copywriting-rules)._
 
 **Préférer**
 
@@ -145,7 +137,9 @@ Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
 
 ---
 
-## 9. Roadmap produit (état actuel)
+## 9. Roadmap produit (état actuel, scope Vitreen Layer)
+
+_Cette roadmap couvre Layer uniquement. Studio et Gallery Assistant n'ont pas encore de roadmap propre — ne pas en inventer._
 
 | Brique                            | Statut                             |
 | --------------------------------- | ---------------------------------- |
@@ -162,7 +156,9 @@ Ombres : `shadow-[0_24px_60px_rgba(0,0,0,0.08)]` pour les panneaux flottants.
 
 ---
 
-## 10. Pricing (en réflexion)
+## 10. Pricing (en réflexion, scope Vitreen Layer)
+
+_Ce pricing couvre Layer uniquement (modèle abonnement, cf. Playbook §10). Studio (projet/retainer) et Gallery Assistant (abonnement/add-on) ont des modèles distincts à définir._
 
 - Pivot vers du **récurrent (SaaS + Service)** plutôt que one-shot
 - Setup : ~2 000€
@@ -186,6 +182,7 @@ Quand on me demande "écris un post IG sur X", je lis le fichier concerné avant
 
 ## 12. À faire évoluer dans ce CLAUDE.md
 
+- [ ] Re-scoper vocabulaire / roadmap / pricing par branche (Layer / Studio / Gallery Assistant) suite au pivot 2026-08 — voir §1
 - [ ] Ajouter les commandes lint / test / build une fois stabilisées
 - [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter le contact API (`/api/contact`)
