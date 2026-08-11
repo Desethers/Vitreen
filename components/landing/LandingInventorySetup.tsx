@@ -339,8 +339,8 @@ const EN_COPY: InventorySetupCopy = {
 export function InventorySetupSection({ copy }: { copy: InventorySetupCopy }) {
   return (
     <section className="relative bg-white px-4 py-16 md:px-6 md:py-20">
-      <div className="absolute inset-x-6 top-0 border-t border-[#E8E8E6] md:inset-x-10" />
-      <div className="absolute inset-x-6 bottom-0 border-b border-[#E8E8E6] md:inset-x-10" />
+      <div className="absolute inset-x-7 top-0 border-t border-[#E8E8E6] md:inset-x-12" />
+      <div className="absolute inset-x-7 bottom-0 border-b border-[#E8E8E6] md:inset-x-12" />
       <div className="mx-auto w-full max-w-7xl text-center">
         <p className={`${EYEBROW} mx-auto`}>{copy.eyebrow}</p>
         <h2 className={`${H2} mx-auto mt-4 max-w-2xl`}>{copy.title}</h2>
