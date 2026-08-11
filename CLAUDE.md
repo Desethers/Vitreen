@@ -11,7 +11,19 @@ positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 
 ## 1. Positionnement (la vision)
 
-**Vitreen est un founder-led productized service pour galeries contemporaines**
+> **Pivot 2026-08-11 : Vitreen n'est plus un produit unique, mais une
+> société-mère avec 3 offres distinctes — Vitreen Layer, Vitreen Studio,
+> Vitreen Gallery Assistant.** Voir `vitreen-playbook.md` (réécrit à cette
+> date) pour l'architecture complète. Tout ce qui suit dans ce §1 (founder-led
+> productized service, mécanisme fiche→sélection→Gmail/WhatsApp/PDF, pricing
+> Setup/Partner) reste valide mais décrit désormais **Vitreen Layer**
+> spécifiquement, pas la société entière. Avant toute décision, identifier la
+> branche concernée (Playbook §17) — ne pas mélanger Layer, Studio et Gallery
+> Assistant dans une même page ou un même pitch.
+
+### Vitreen Layer — positionnement détaillé (hérité du pivot du 2026-08, toujours d'actualité pour cette branche)
+
+**Vitreen Layer est un founder-led productized service pour galeries contemporaines**
 (décidé 2026-08). Ce n'est ni un SaaS low-cost face à Artlogic, ni une agence
 généraliste, ni du conseil IA abstrait, ni du développement custom par galerie.
 
@@ -174,9 +186,28 @@ limite).
 Ancienne source Notion _Idées à developper_ (`33f0b73f1fb780ee9f7be92f1e430f79`)
 — décrit encore l'architecture Gallery OS, à relire avec prudence.
 
+### Vitreen Studio et Vitreen Gallery Assistant — pas encore travaillés dans ce repo
+
+Aucun positionnement détaillé, pricing ou structure de page n'a encore été
+défini pour ces deux branches au-delà de `vitreen-playbook.md`. Ne pas
+inventer de services, de tarifs ou de wording pour Studio/Gallery Assistant —
+clarifier avec l'utilisateur avant d'avancer. Repères rapides (Playbook §3-5) :
+
+- **Vitreen Studio** : « Do the digital work for the gallery. » Studio de
+  design digital (sites, identités, lancements d'expo, campagnes). Vend un
+  livrable, pas de la techno. Modèle projet/retainer.
+- **Vitreen Gallery Assistant** : « Help the gallery do its work. » Assistant
+  IA qui cherche/prépare/rédige à partir des données de la galerie — elle
+  prépare, la galerie décide. Recouvre probablement le Sales Agent existant
+  (§10 ci-dessous) plutôt que d'être un nouveau chantier séparé — à confirmer
+  avec l'utilisateur avant de traiter les deux comme indépendants.
+
 ---
 
 ## 2. Vocabulaire
+
+_Le vocabulaire ci-dessous est celui de **Vitreen Layer**. Pour Studio/Gallery
+Assistant, voir Playbook §15 (pas encore adapté au registre FR de ce repo)._
 
 **Préférer**
 
@@ -419,7 +450,9 @@ chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
 
 ---
 
-## 11. Roadmap
+## 11. Roadmap (scope Vitreen Layer)
+
+_Studio et Gallery Assistant n'ont pas de roadmap propre — ne pas en inventer._
 
 | Brique                                                | Statut                                                 |
 | ----------------------------------------------------- | ------------------------------------------------------ |
@@ -458,6 +491,12 @@ Lire le fichier concerné avant de rédiger un post.
 
 ## 13. À faire évoluer dans ce fichier
 
+- [ ] Repenser la home EN/FR selon l'architecture à 3 branches (Playbook §12) —
+      elle décrit aujourd'hui Layer seul, pas la société entière
+- [ ] Définir positionnement, services et pricing de Vitreen Studio et
+      Vitreen Gallery Assistant (rien de fait au-delà de `vitreen-playbook.md`)
+- [ ] Clarifier si Gallery Assistant = le Sales Agent existant (§10) renommé,
+      ou un chantier distinct
 - [ ] Commandes lint / test / build une fois stabilisées
 - [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter l'API contact (`/api/contact`)
