@@ -10,6 +10,7 @@ const NO_FRENCH_VERSION = [
   "/products/inquiries",
   "/products/mobile",
   "/products/previews",
+  "/studio",
 ];
 
 function toFrench(request: NextRequest) {
