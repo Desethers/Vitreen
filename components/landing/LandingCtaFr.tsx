@@ -27,10 +27,10 @@ export default function LandingCtaFr() {
       <section className="bg-white px-6 pb-12 pt-12 md:px-12 md:pb-20 md:pt-20 lg:pb-24 lg:pt-24">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <h2 className="mb-0 max-w-[22ch] font-display text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#111110] md:max-w-none md:text-[44px]">
-            Rendez vos informations d’œuvres plus faciles à utiliser.
+            Découvrez comment Vitreen s’adapte à votre façon de travailler
           </h2>
           <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            Découvrez comment Vitreen connecte vos fiches à Gmail et WhatsApp.
+            Une visite du logiciel autour de l’organisation actuelle de votre galerie.
           </p>
 
           <Button size="lg" onClick={openContact}>
