@@ -137,8 +137,8 @@ export default function PricingPage() {
             <div className="grid gap-6 md:grid-cols-2 md:gap-8">
               <OfferCard
                 title="Vitreen Sales"
-                price="From €1,500 setup"
-                priceMonthly="+ €149/month"
+                price="€390/month"
+                subline="12-month commitment · Setup included"
                 description="We install the system your gallery needs today with artwork database and collector sales tools."
                 items={SETUP}
                 clarification="Delivered in ~3 weeks."
@@ -147,8 +147,8 @@ export default function PricingPage() {
               />
               <OfferCard
                 title="Vitreen Partner"
-                price="+ €350/month"
-                subline="Available after Setup"
+                price="€590/month"
+                subline="12-month commitment · Ongoing guidance included"
                 description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
                 items={PARTNER}
                 cta="Work with Vitreen"

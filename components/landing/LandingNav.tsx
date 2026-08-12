@@ -8,6 +8,7 @@ const LINKS = [
   { label: "How it works", href: "#how-it-works" },
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
+  { label: "Studio", href: "/studio" },
 ];
 
 export const openContact = () => window.dispatchEvent(new Event("open-contact-modal"));

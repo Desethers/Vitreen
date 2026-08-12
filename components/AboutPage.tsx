@@ -58,7 +58,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
+      <section className="bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
         <div className={CONTAINER}>
           <motion.div {...fadeUp(0)} className="max-w-[36rem]">
             <h2 className="font-display text-[18px] font-normal leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[20px]">
@@ -88,7 +88,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-[#E8E8E6] bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
+      <section className="bg-white px-4 pb-14 md:px-6 md:pb-[72px]">
         <div className={CONTAINER}>
           <div className="grid gap-3 md:grid-cols-2 md:gap-4">
             {AUDIENCES.map((audience, index) => (

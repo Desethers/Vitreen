@@ -9,6 +9,7 @@ const LINKS = [
   { label: "Méthode", href: "#how-it-works" },
   { label: "Tarifs", href: "/fr/pricing" },
   { label: "À propos", href: "/fr/about" },
+  { label: "Studio", href: "/studio" },
 ];
 
 /**

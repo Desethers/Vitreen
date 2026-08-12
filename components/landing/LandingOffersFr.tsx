@@ -36,8 +36,8 @@ export default function LandingOffersFr() {
         <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
           <OfferCard
             title="Vitreen Sales"
-            price="Dès 1 500 € d’installation"
-            priceMonthly="+ 149 €/mois"
+            price="390 €/mois"
+            subline="Engagement 12 mois · Installation incluse"
             description="Nous installons le système dont votre galerie a besoin aujourd’hui : base d’œuvres et outils de vente pour vos collectionneurs."
             items={SETUP}
             clarification="Livré en ~3 semaines."
@@ -46,8 +46,8 @@ export default function LandingOffersFr() {
           />
           <OfferCard
             title="Vitreen Partner"
-            price="+ 350 €/mois"
-            subline="Disponible après Setup"
+            price="590 €/mois"
+            subline="Engagement 12 mois · Accompagnement continu inclus"
             description="Gardez Vitreen impliqué pour faire évoluer le système à mesure que votre galerie, votre équipe et vos workflows collectionneurs évoluent."
             items={PARTNER}
             cta="Travailler avec Vitreen"

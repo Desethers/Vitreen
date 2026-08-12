@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
     // produire du q=92 au lieu de retomber sur la valeur par défaut (75).
     qualities: [75, 92],
   },
+  async rewrites() {
+    return [
+      // Vitreen Studio (projet Vite séparé) est buildé statiquement dans
+      // public/studio/ — cette rewrite sert son index.html sur /studio.
+      { source: "/studio", destination: "/studio/index.html" },
+    ];
+  },
 };
 
 export default nextConfig;
