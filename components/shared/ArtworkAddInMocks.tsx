@@ -335,12 +335,12 @@ export function WhatsAppShareWorksMock() {
       aria-hidden="true"
       className="flex h-full w-full items-center justify-center overflow-hidden bg-[#F5F5F3] px-4 md:px-6"
     >
-      <div key={cycle} className="flex h-full w-full max-w-[420px] flex-col">
+      <div key={cycle} className="flex h-full w-full max-w-[420px] flex-col pb-6 md:pb-8">
         <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden py-2">
           <div className="w-[340px] origin-center scale-[0.8] md:w-[400px] md:scale-[0.92]">
             <motion.div
               initial={{ y: 120 }}
-              animate={{ y: [120, 120, 120, -40, -40] }}
+              animate={{ y: [120, 120, 120, -95, -95] }}
               transition={{
                 duration: scrollDuration,
                 times: [0, 0.2, 0.36, 0.69, 1],

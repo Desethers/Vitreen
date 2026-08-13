@@ -132,7 +132,7 @@ function PrivateSelectionMockup() {
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-left">
       <div>
-        <div className="px-4 pt-4">
+        <div className="px-12 pt-4">
           <p className="text-[8px] tracking-[0.1em] text-[#ADADAA]">Sélection privée</p>
           <h4 className="mt-1 text-[14px] font-medium text-[#111110]">
             Spring selection — Sacha Elron
@@ -146,7 +146,7 @@ function PrivateSelectionMockup() {
             Cette sélection est disponible jusqu&rsquo;au 24 août 2026
           </p>
         </div>
-        <div className="relative mt-3 px-4">
+        <div className="relative mt-3 px-12">
           <div className="relative h-[150px] w-full overflow-hidden bg-[#F5F5F3]">
             <img
               src="/artworks/painting-05.jpg"
@@ -156,7 +156,7 @@ function PrivateSelectionMockup() {
             />
           </div>
         </div>
-        <div className="flex items-start justify-between gap-3 px-4 py-3">
+        <div className="flex items-start justify-between gap-3 px-12 py-3">
           <div>
             <p className="text-[10px] font-medium text-[#111110]">Sacha Elron</p>
             <p className="text-[9px] italic text-[#111110]">Evening field, 2023</p>
