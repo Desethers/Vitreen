@@ -2,7 +2,7 @@
 
 import { IntegrationsFrame } from "@/components/GalleryAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
-import { CONTAINER, SECTION } from "@/components/landing/styles";
+import { CONTAINER } from "@/components/landing/styles";
 
 /* Same card-caption pattern as ServicesGrid (components/Services.tsx on main):
  * bottom gradient bar, title + "Explore" with an arrow that darkens on hover. */
@@ -193,7 +193,7 @@ const EN_COPY: OutputsCopy = {
 
 export function OutputsSection({ copy }: { copy: OutputsCopy }) {
   return (
-    <section className={`${SECTION} bg-white`}>
+    <section className="bg-white px-4 pb-16 pt-0 md:px-6 md:pb-20 md:pt-2">
       <div className={CONTAINER}>
         <div className="grid gap-4 md:grid-cols-2">
           {OUTPUT_NODES.map((node, index) => (

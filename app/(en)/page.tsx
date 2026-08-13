@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
-import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
 import LandingRecognition from "@/components/landing/LandingRecognition";
-import LandingProblemStatement from "@/components/landing/LandingProblemStatement";
-import LandingInventorySetup from "@/components/landing/LandingInventorySetup";
 import LandingOutputs from "@/components/landing/LandingOutputs";
-import Difference from "@/components/Difference";
 import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 import LandingOffers from "@/components/landing/LandingOffers";
 import StatementSplit from "@/components/StatementSplit";
@@ -34,12 +30,8 @@ export default function Home() {
       <LandingNav />
       <LandingHero />
       <LandingOutputs />
-      <LandingHowItWorks />
       <LandingRecognition />
-      <LandingProblemStatement />
-      <LandingInventorySetup />
       <WhoVitreenIsFor />
-      <Difference />
       <LandingOffers />
       <LandingFaq />
       <StatementSplit />

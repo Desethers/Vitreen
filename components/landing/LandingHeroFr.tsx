@@ -9,15 +9,16 @@ export default function LandingHeroFr() {
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="text-center">
           <h1
-            className="hero-fade-up m-0 mx-auto max-w-2xl text-balance text-[32px] leading-[1.2] tracking-[-0.04em] font-display md:text-[46px]"
+            className="hero-fade-up m-0 mx-auto max-w-2xl text-[36px] leading-[1.2] tracking-[-0.04em] font-display md:text-[52px]"
             style={{ color: "#111110" }}
           >
-            Nous construisons de meilleurs systèmes pour vendre l’art.
+            De meilleurs outils
+            <br />
+            pour chaque façon de vendre l’art.
           </h1>
 
-          <p className="hero-fade-up hero-fade-up-delay mx-auto mt-[16px] max-w-4xl text-[24px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
-            Vitreen connecte les informations de vos œuvres aux conversations avec vos
-            collectionneurs, du premier contact jusqu’à la vente.
+          <p className="hero-fade-up hero-fade-up-delay mx-auto mt-[16px] max-w-4xl text-balance text-[20px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
+            Votre inventaire, Gmail, WhatsApp et vos sélections privées, connectés.
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center justify-center gap-3 md:mt-[22px]">

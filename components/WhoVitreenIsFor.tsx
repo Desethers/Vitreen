@@ -18,6 +18,8 @@ const content = {
           "Manage artworks, collector conversations and sales material from one connected system.",
         href: "/solutions/galleries",
         image: "/gallery-screen2.png",
+        objectPosition: "55% 50%",
+        imageScale: "scale-110",
       },
       {
         title: "Design Galleries",
@@ -53,6 +55,8 @@ const content = {
           "Gérez les œuvres, les échanges avec les collectionneurs et les supports de vente depuis un seul système.",
         href: "/fr/solutions/galleries",
         image: "/gallery-screen2.png",
+        objectPosition: "55% 50%",
+        imageScale: "scale-110",
       },
       {
         title: "Galeries de design",
@@ -116,7 +120,9 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
               <p className="mt-3 max-w-[220px] text-[14px] leading-[1.48] tracking-[-0.025em] text-[#6B6A67]">
                 {audience.description}
               </p>
-              <div className="relative -mb-2 -mr-7 mt-auto aspect-[0.9] overflow-hidden rounded-l-[12px]">
+              <div
+                className={`relative -mb-2 -mr-7 mt-auto aspect-[0.9] overflow-hidden rounded-l-[12px] ${"imageScale" in audience ? audience.imageScale : ""}`}
+              >
                 <Image
                   src={audience.image}
                   alt=""
