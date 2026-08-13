@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
-import HeroDashboardMock from "@/components/HeroDashboardMock";
 import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
 import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingProblemStatement from "@/components/landing/LandingProblemStatement";
@@ -34,11 +33,10 @@ export default function Home() {
     <main className="relative bg-white">
       <LandingNav />
       <LandingHero />
-      <HeroDashboardMock />
+      <LandingOutputs />
       <LandingHowItWorks />
       <LandingRecognition />
       <LandingProblemStatement />
-      <LandingOutputs />
       <LandingInventorySetup />
       <WhoVitreenIsFor />
       <Difference />

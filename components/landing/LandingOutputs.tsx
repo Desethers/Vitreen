@@ -2,7 +2,7 @@
 
 import { IntegrationsFrame } from "@/components/GalleryAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
-import { CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
+import { CONTAINER, SECTION } from "@/components/landing/styles";
 
 /* Same card-caption pattern as ServicesGrid (components/Services.tsx on main):
  * bottom gradient bar, title + "Explore" with an arrow that darkens on hover. */
@@ -79,14 +79,14 @@ function ArtworkPageMockup() {
 
           <p className="mt-2 text-[8px] tracking-[0.1em] text-[#ADADAA]">Dimensions &amp; status</p>
           <div className="mt-2 grid grid-cols-[1fr_auto_1fr_0.7fr] items-center gap-1.5">
-            <span className="rounded-[5px] border border-[#D8D8D5] py-1.5 text-center text-[9px] text-[#111110]">
+            <span className="rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-center text-[9px] text-[#111110]">
               120
             </span>
             <span className="text-[#ADADAA]">×</span>
-            <span className="rounded-[5px] border border-[#D8D8D5] py-1.5 text-center text-[9px] text-[#111110]">
+            <span className="rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-center text-[9px] text-[#111110]">
               120
             </span>
-            <span className="rounded-[5px] border border-[#D8D8D5] py-1.5 text-center text-[9px] text-[#111110]">
+            <span className="rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-center text-[9px] text-[#111110]">
               cm
             </span>
           </div>
@@ -182,18 +182,12 @@ const OUTPUT_NODES = [
 ];
 
 export type OutputsCopy = {
-  eyebrow: string;
-  title: string;
-  subtitle: string;
   /** Un libellé par mockup, dans l'ordre : base, Gmail, WhatsApp, sélections. */
   labels: readonly [string, string, string, string];
   action?: string;
 };
 
 const EN_COPY: OutputsCopy = {
-  eyebrow: "Ready to send",
-  title: "From inventory to collector communication.",
-  subtitle: "Manage artworks, prepare replies, share selections and publish online.",
   labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
 };
 
@@ -201,11 +195,7 @@ export function OutputsSection({ copy }: { copy: OutputsCopy }) {
   return (
     <section className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
-        <p className={EYEBROW}>{copy.eyebrow}</p>
-        <h2 className={`${H2} mt-4 max-w-2xl`}>{copy.title}</h2>
-        <p className={`${H2_SUB} max-w-2xl`}>{copy.subtitle}</p>
-
-        <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           {OUTPUT_NODES.map((node, index) => (
             <article
               key={copy.labels[index]}
