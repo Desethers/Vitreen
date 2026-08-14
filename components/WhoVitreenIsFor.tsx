@@ -11,11 +11,11 @@ const content = {
     eyebrow: "Who it's for",
     title: "Who Vitreen is for?",
     subtitle: "Built for the people who present and sell art.",
+    exploreLabel: "For",
     audiences: [
       {
         title: "Art Galleries",
-        description:
-          "Manage artworks, collector conversations and sales material from one connected system.",
+        description: "Artwork inventory, collector replies and private selections.",
         href: "/solutions/galleries",
         image: "/gallery-screen2.png",
         objectPosition: "55% 50%",
@@ -23,21 +23,19 @@ const content = {
       },
       {
         title: "Design Galleries",
-        description:
-          "Organise collectible design, editions, availability and client presentations.",
+        description: "Pieces, availability and client presentations.",
         href: "/solutions/galleries",
         image: "/Design-gallery.png",
       },
       {
         title: "Art Advisors",
-        description: "Build tailored selections and share them privately with each client.",
+        description: "Private selections and client-ready artwork information.",
         href: "/solutions/advisors",
         image: "/artadvisor.png",
       },
       {
         title: "Artist Studios",
-        description:
-          "Keep the archive organised and prepare professional material for galleries and collectors.",
+        description: "Archive, artwork material and collector presentations.",
         href: "/solutions/artists",
         image: "/artiste-studio.png",
         objectPosition: "85% 50%",
@@ -48,11 +46,11 @@ const content = {
     eyebrow: "Pour qui",
     title: "À qui s’adresse Vitreen ?",
     subtitle: "Pensé pour celles et ceux qui présentent et vendent l’art.",
+    exploreLabel: "Pour",
     audiences: [
       {
         title: "Galeries d’art",
-        description:
-          "Gérez les œuvres, les échanges avec les collectionneurs et les supports de vente depuis un seul système.",
+        description: "Inventaire d’œuvres, réponses collectionneurs et sélections privées.",
         href: "/fr/solutions/galleries",
         image: "/gallery-screen2.png",
         objectPosition: "55% 50%",
@@ -60,22 +58,19 @@ const content = {
       },
       {
         title: "Galeries de design",
-        description:
-          "Organisez le design de collection, les éditions, les disponibilités et les présentations clients.",
+        description: "Pièces, disponibilités et présentations clients.",
         href: "/fr/solutions/galleries",
         image: "/Design-gallery.png",
       },
       {
         title: "Art advisors",
-        description:
-          "Composez des sélections sur mesure et partagez-les en privé avec chaque client.",
+        description: "Sélections privées et fiches d’œuvres prêtes pour vos clients.",
         href: "/fr/solutions/advisors",
         image: "/artadvisor.png",
       },
       {
         title: "Studios d’artistes",
-        description:
-          "Gardez les archives organisées et préparez des supports professionnels pour galeries et collectionneurs.",
+        description: "Archive, matériel d’œuvres et présentations collectionneurs.",
         href: "/fr/solutions/artists",
         image: "/artiste-studio.png",
         objectPosition: "85% 50%",
@@ -120,15 +115,16 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
               <p className="mt-3 max-w-[220px] text-[14px] leading-[1.48] tracking-[-0.025em] text-[#6B6A67]">
                 {audience.description}
               </p>
-              <div
-                className={`relative -mb-2 -mr-7 mt-auto aspect-[0.9] overflow-hidden rounded-l-[12px] ${"imageScale" in audience ? audience.imageScale : ""}`}
-              >
+              <p className="relative z-10 mt-3 text-[13px] tracking-[-0.01em] text-[#ADADAA] transition-colors duration-200 group-hover:text-[#111110]">
+                {section.exploreLabel} {audience.title} ↗
+              </p>
+              <div className="relative -mb-2 -mr-7 mt-auto aspect-[0.9] overflow-hidden rounded-l-[12px]">
                 <Image
                   src={audience.image}
                   alt=""
                   fill
                   sizes="(min-width: 1280px) 23vw, (min-width: 640px) 45vw, 90vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
+                  className={`object-cover transition-transform duration-500 group-hover:scale-[1.025] ${"imageScale" in audience ? audience.imageScale : ""}`}
                   style={{
                     objectPosition:
                       "objectPosition" in audience ? audience.objectPosition : "72% 50%",
