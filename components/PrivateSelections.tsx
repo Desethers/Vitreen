@@ -36,7 +36,7 @@ export default function PrivateSelections() {
               {content.body}
             </p>
             <div className="mt-6">
-              <Button size="md" href="/products/viewing-rooms">
+              <Button size="md" href="/tools/viewing-rooms">
                 {content.cta}
               </Button>
             </div>

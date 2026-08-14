@@ -14,11 +14,11 @@ function buildColumns(footer: FooterCopy) {
     {
       title: columns.platform,
       links: [
-        { label: links.galleryOs, href: "/products/overview" },
-        { label: links.artworkManagement, href: "/products/archive" },
-        { label: links.galleryWebsites, href: "/products/publishing" },
-        { label: links.viewingRooms, href: "/products/viewing-rooms" },
-        { label: links.galleryAssistant, href: "/products/custom-operations" },
+        { label: links.galleryOs, href: "/tools/overview" },
+        { label: links.artworkManagement, href: "/tools/archive" },
+        { label: links.galleryWebsites, href: "/tools/publishing" },
+        { label: links.viewingRooms, href: "/tools/viewing-rooms" },
+        { label: links.galleryAssistant, href: "/tools/custom-operations" },
       ],
     },
     {

@@ -1,20 +1,20 @@
 import ToolPage from "@/components/ToolPage";
 
 export const metadata = {
-  title: "Previews",
-  description: "Présentations privées d’œuvres pour collectionneurs.",
+  title: "Mobile",
+  description: "Publication galerie, même en déplacement.",
   /* Templated offshoot that restates viewing-rooms / publishing and is not
    * linked from the site. Keep it reachable but out of the index until it
    * carries a subject of its own. */
   robots: { index: false, follow: true },
-  alternates: { canonical: "/products/previews" },
+  alternates: { canonical: "/tools/mobile" },
   openGraph: {
-    url: "/products/previews",
-    title: "Previews — Vitreen",
-    description: "Présentations privées d’œuvres pour collectionneurs.",
+    url: "/tools/mobile",
+    title: "Mobile — Vitreen",
+    description: "Publication galerie, même en déplacement.",
   },
 };
 
 export default function Page() {
-  return <ToolPage slug="previews" />;
+  return <ToolPage slug="mobile" />;
 }

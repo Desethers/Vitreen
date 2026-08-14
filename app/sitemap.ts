@@ -18,13 +18,13 @@ const paths: string[] = [
   "/",
   "/about",
   "/pricing",
-  ...toolSlugs.map((slug) => `/products/${slug}`),
+  ...toolSlugs.map((slug) => `/tools/${slug}`),
   ...ROLE_SLUGS.map((role) => `/solutions/${role}`),
 ];
 
 function priorityFor(path: string) {
   if (path === "/") return 1;
-  if (path === "/products/overview") return 0.8;
+  if (path === "/tools/overview") return 0.8;
   return 0.7;
 }
 

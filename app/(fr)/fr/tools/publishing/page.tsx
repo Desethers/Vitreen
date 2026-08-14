@@ -5,11 +5,11 @@ import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "fr",
-  path: "/products/publishing",
+  path: "/tools/publishing",
   title: "Publication du site",
   description:
     "Publiez artistes, expositions et œuvres disponibles sur le site de votre galerie depuis les mêmes fiches d’œuvres.",
-  section: { name: "Gallery OS", path: "/products/overview" },
+  section: { name: "Gallery OS", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

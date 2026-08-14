@@ -21,6 +21,15 @@ const nextConfig: NextConfig = {
       { source: "/studio/fr/", destination: "/studio/fr/index.html" },
     ];
   },
+  async redirects() {
+    return [
+      // /products/* a été renommé /tools/* pour matcher le menu "Tools" de
+      // la nav. Redirection permanente au cas où un lien externe ou un
+      // favori pointe encore vers l'ancienne URL.
+      { source: "/products/:path*", destination: "/tools/:path*", permanent: true },
+      { source: "/fr/products/:path*", destination: "/fr/tools/:path*", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

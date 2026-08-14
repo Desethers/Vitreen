@@ -352,7 +352,7 @@ export function ServicesGrid() {
     <div className="grid gap-4 md:grid-cols-6">
       <motion.a
         {...fadeUp(0.05)}
-        href="/products/archive"
+        href="/tools/archive"
         className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
       >
         <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
@@ -365,7 +365,7 @@ export function ServicesGrid() {
 
       <motion.a
         {...fadeUp(0.1)}
-        href="/products/custom-operations"
+        href="/tools/custom-operations"
         className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
       >
         <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">
@@ -385,7 +385,7 @@ export function ServicesGrid() {
 
       <motion.a
         {...fadeUp(0.12)}
-        href="/products/viewing-rooms"
+        href="/tools/viewing-rooms"
         className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
       >
         <div className="h-[240px] overflow-hidden md:h-[300px]">
@@ -403,7 +403,7 @@ export function ServicesGrid() {
 
       <motion.a
         {...fadeUp(0.16)}
-        href="/products/custom-operations"
+        href="/tools/custom-operations"
         className="group relative grid h-[240px] overflow-hidden rounded-[12px] border border-transparent transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3 md:h-[300px]"
       >
         <WhatsAppShareWorksMock />

@@ -4,11 +4,11 @@ import ToolPage from "@/components/ToolPage";
 import { pageMetadata } from "@/lib/seo";
 
 const seo = {
-  lang: "fr",
-  path: "/products/overview",
+  lang: "en",
+  path: "/tools/overview",
   title: "Gallery OS",
   description:
-    "Le système connecté d’une galerie : fiches d’œuvres, publication du site, sélections privées et suivi des collectionneurs.",
+    "The connected system behind a gallery: artwork records, website publishing, private selections and collector follow-up.",
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

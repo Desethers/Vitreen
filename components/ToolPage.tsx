@@ -55,10 +55,10 @@ const PILLAR_MOCKS: Record<PillarSlug, React.ComponentType> = {
 };
 
 const PILLAR_HREF: Record<PillarSlug, string> = {
-  archive: "/products/archive",
-  publishing: "/products/publishing",
-  inquiries: "/products/inquiries",
-  "custom-operations": "/products/custom-operations",
+  archive: "/tools/archive",
+  publishing: "/tools/publishing",
+  inquiries: "/tools/inquiries",
+  "custom-operations": "/tools/custom-operations",
 };
 
 function isPillarSlug(slug: ToolSlug): slug is PillarSlug {

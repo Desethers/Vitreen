@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Nav from "@/components/Nav";
+import { useLang } from "@/lib/lang";
+import LandingNav from "@/components/landing/LandingNav";
+import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
@@ -144,13 +146,14 @@ function DataAssuranceSection() {
 }
 
 export default function ArchiveProductPage() {
+  const { lang } = useLang();
   const openContact = () => {
     window.dispatchEvent(new CustomEvent("open-contact-modal"));
   };
 
   return (
     <main className="relative bg-white">
-      <Nav />
+      {lang === "fr" ? <LandingNavFr /> : <LandingNav />}
 
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">

@@ -7,9 +7,9 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
  * never redirect these, or a French visitor would hit a 404 on /fr/... */
 const NO_FRENCH_VERSION = [
   "/portfolio-preview",
-  "/products/inquiries",
-  "/products/mobile",
-  "/products/previews",
+  "/tools/inquiries",
+  "/tools/mobile",
+  "/tools/previews",
   "/studio",
 ];
 

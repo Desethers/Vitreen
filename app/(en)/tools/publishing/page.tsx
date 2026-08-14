@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import PageStructuredData from "@/components/PageStructuredData";
-import ViewingRoomsProductPage from "@/components/ViewingRoomsProductPage";
+import WebsitePublisherProductPage from "@/components/WebsitePublisherProductPage";
 import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "en",
-  path: "/products/viewing-rooms",
-  title: "Viewing Rooms",
+  path: "/tools/publishing",
+  title: "Website Publisher",
   description:
-    "Share private artwork selections with collectors by link or PDF, prepared from your existing inventory.",
-  section: { name: "Gallery OS", path: "/products/overview" },
+    "Publish artists, exhibitions and available works to your gallery website from the same artwork records.",
+  section: { name: "Gallery OS", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);
@@ -18,7 +18,7 @@ export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <ViewingRoomsProductPage />
+      <WebsitePublisherProductPage />
     </>
   );
 }

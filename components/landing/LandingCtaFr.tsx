@@ -27,10 +27,10 @@ export default function LandingCtaFr() {
       <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:py-32">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <h2 className="mb-0 max-w-[22ch] font-display text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#111110] md:max-w-none md:text-[44px]">
-            Faites entrer Vitreen dans votre galerie
+            Découvrir Vitreen pour votre galerie
           </h2>
           <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            Construit autour du fonctionnement actuel de votre galerie.
+            30 minutes autour de vos outils et de votre façon de travailler.
           </p>
 
           <Button size="lg" onClick={openContact}>
@@ -38,7 +38,7 @@ export default function LandingCtaFr() {
           </Button>
 
           <p className="mt-4 text-[13px] leading-[1.5] text-[#ADADAA] md:text-[14px]">
-            Une présentation de 30 minutes basée sur le fonctionnement actuel de votre galerie.
+            Une démo de 30 minutes, sans engagement.
           </p>
         </div>
       </section>

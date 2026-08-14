@@ -5,11 +5,11 @@ import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "fr",
-  path: "/products/custom-operations",
+  path: "/tools/custom-operations",
   title: "Gallery Assistant",
   description:
     "Préparez réponses collectionneurs et matériel de vente depuis vos propres fiches, relus avant tout envoi.",
-  section: { name: "Gallery OS", path: "/products/overview" },
+  section: { name: "Gallery OS", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

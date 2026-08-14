@@ -6,7 +6,7 @@ import { OutputsSection, type OutputsCopy } from "@/components/landing/LandingOu
 const FR_COPY: OutputsCopy = {
   labels: ["Base d’œuvres", "Gmail", "Add-ins WhatsApp", "Éditeur de sélections"],
   action: "Découvrir",
-  hrefs: ["/fr/products/archive"],
+  hrefs: ["/fr/tools/archive"],
 };
 
 export default function LandingOutputsFr() {

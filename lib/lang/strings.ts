@@ -15,10 +15,10 @@ export const translations = {
       productMenu: {
         sectionLabel: "Produits",
         items: [
-          { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/products/archive" },
-          { title: "Website Publisher", desc: "Publiez les œuvres et les expositions sur votre site.", href: "/products/publishing" },
-          { title: "Gallery Assistant", desc: "Préparez vos contenus et le travail quotidien de la galerie.", href: "/products/custom-operations" },
-          { title: "Viewing Rooms", desc: "Créez et partagez des sélections privées.", href: "/products/viewing-rooms" },
+          { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/tools/archive" },
+          { title: "Website Publisher", desc: "Publiez les œuvres et les expositions sur votre site.", href: "/tools/publishing" },
+          { title: "Gallery Assistant", desc: "Préparez vos contenus et le travail quotidien de la galerie.", href: "/tools/custom-operations" },
+          { title: "Viewing Rooms", desc: "Créez et partagez des sélections privées.", href: "/tools/viewing-rooms" },
         ],
         featured: {
           eyebrow: "Sélections privées",
@@ -26,7 +26,7 @@ export const translations = {
           desc: "Créez et partagez des viewing rooms privées à partir de vos fiches d'œuvres.",
           cta: "En savoir plus",
           image: "/screenshot-viewingroom.jpg",
-          href: "/products/viewing-rooms",
+          href: "/tools/viewing-rooms",
         },
       },
       solutionsMenu: {
@@ -55,17 +55,17 @@ export const translations = {
               {
                 title: "Faire circuler les œuvres",
                 desc: "Site, PDF et liens privés",
-                href: "/products/publishing",
+                href: "/tools/publishing",
               },
               {
                 title: "Répondre aux collectionneurs",
                 desc: "Demandes, réponses et relances",
-                href: "/products/custom-operations",
+                href: "/tools/custom-operations",
               },
               {
                 title: "Préparer une exposition",
                 desc: "Œuvres, documents et aperçus",
-                href: "/products/viewing-rooms",
+                href: "/tools/viewing-rooms",
               },
               {
                 title: "Vos supports de vente",
@@ -890,10 +890,10 @@ export const translations = {
       productMenu: {
         sectionLabel: "Products",
         items: [
-          { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/products/archive" },
-          { title: "Website Publisher", desc: "Publish artworks and exhibitions online.", href: "/products/publishing" },
-          { title: "Gallery Assistant", desc: "Prepare content and daily gallery work.", href: "/products/custom-operations" },
-          { title: "Viewing Rooms", desc: "Create and share private selections.", href: "/products/viewing-rooms" },
+          { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/tools/archive" },
+          { title: "Website Publisher", desc: "Publish artworks and exhibitions online.", href: "/tools/publishing" },
+          { title: "Gallery Assistant", desc: "Prepare content and daily gallery work.", href: "/tools/custom-operations" },
+          { title: "Viewing Rooms", desc: "Create and share private selections.", href: "/tools/viewing-rooms" },
         ],
         featured: {
           eyebrow: "Private selections",
@@ -901,7 +901,7 @@ export const translations = {
           desc: "Build and share private viewing rooms from your artwork records.",
           cta: "See more",
           image: "/screenshot-viewingroom.jpg",
-          href: "/products/viewing-rooms",
+          href: "/tools/viewing-rooms",
         },
       },
       solutionsMenu: {
@@ -930,17 +930,17 @@ export const translations = {
               {
                 title: "Circulate artworks",
                 desc: "Website, PDFs and private links",
-                href: "/products/publishing",
+                href: "/tools/publishing",
               },
               {
                 title: "Reply to collectors",
                 desc: "Inquiries, replies and reminders",
-                href: "/products/custom-operations",
+                href: "/tools/custom-operations",
               },
               {
                 title: "Prepare an exhibition",
                 desc: "Works, documents and previews",
-                href: "/products/viewing-rooms",
+                href: "/tools/viewing-rooms",
               },
               {
                 title: "Sales materials",

@@ -4,12 +4,12 @@ import PageStructuredData from "@/components/PageStructuredData";
 import { pageMetadata } from "@/lib/seo";
 
 const seo = {
-  lang: "en",
-  path: "/products/archive",
-  title: "Artworks Management",
+  lang: "fr",
+  path: "/tools/archive",
+  title: "Gestion des œuvres",
   description:
-    "Keep artworks, artists and exhibitions in one record — images, dimensions, availability, location and documents.",
-  section: { name: "Gallery OS", path: "/products/overview" },
+    "Réunissez œuvres, artistes et expositions dans une même fiche : images, dimensions, disponibilité, localisation et documents.",
+  section: { name: "Gallery OS", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

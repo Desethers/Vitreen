@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import ArchiveProductPage from "@/components/ArchiveProductPage";
 import PageStructuredData from "@/components/PageStructuredData";
-import ToolPage from "@/components/ToolPage";
 import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "en",
-  path: "/products/overview",
-  title: "Gallery OS",
+  path: "/tools/archive",
+  title: "Artworks Management",
   description:
-    "The connected system behind a gallery: artwork records, website publishing, private selections and collector follow-up.",
+    "Keep artworks, artists and exhibitions in one record — images, dimensions, availability, location and documents.",
+  section: { name: "Gallery OS", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);
@@ -17,7 +18,7 @@ export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <ToolPage slug="overview" />
+      <ArchiveProductPage />
     </>
   );
 }

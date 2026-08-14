@@ -7,9 +7,9 @@ export const metadata = {
    * linked from the site. Keep it reachable but out of the index until it
    * carries a subject of its own. */
   robots: { index: false, follow: true },
-  alternates: { canonical: "/products/inquiries" },
+  alternates: { canonical: "/tools/inquiries" },
   openGraph: {
-    url: "/products/inquiries",
+    url: "/tools/inquiries",
     title: "Inquiries — Vitreen",
     description: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.",
   },
