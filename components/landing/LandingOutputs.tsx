@@ -37,64 +37,66 @@ function CardCaption({ title, action = "Explore" }: { title: string; action?: st
 
 function ArtworkPageMockup() {
   return (
-    <div className="h-full w-full bg-white p-4 text-left">
+    <div className="h-full w-full bg-white px-6 py-4 text-left">
       <p className="text-[9px] text-[#ADADAA]">‹ Artworks</p>
       <div className="mt-1.5">
-        <h4 className="text-[14px] font-medium text-[#111110]">Evening field</h4>
+        <h4 className="text-[13px] font-medium text-[#111110]">Evening field</h4>
         <p className="mt-0.5 text-[9px] text-[#ADADAA]">Sacha Elron, 2023</p>
       </div>
 
-      <div className="mt-2 grid grid-cols-[1fr_1fr] gap-4 border-t border-[#E8E8E6] pt-2">
+      <div className="mt-2 grid grid-cols-[1fr_1fr] gap-3 border-t border-[#E8E8E6] pt-1.5">
         <div>
           <p className="text-[8px] tracking-[0.1em] text-[#ADADAA]">Details</p>
-          <div className="mt-2 space-y-1.5">
+          <div className="mt-1.5 space-y-1">
             <label className="block">
-              <span className="mb-1 block text-[8px] text-[#6B6A67]">Title</span>
-              <span className="block rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-[9px] text-[#111110]">
+              <span className="mb-0.5 block text-[8px] text-[#6B6A67]">Title</span>
+              <span className="block rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-[9px] text-[#111110]">
                 Evening field
               </span>
             </label>
             <label className="block">
-              <span className="mb-1 block text-[8px] text-[#6B6A67]">Artist</span>
-              <span className="block rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-[9px] text-[#111110]">
+              <span className="mb-0.5 block text-[8px] text-[#6B6A67]">Artist</span>
+              <span className="block rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-[9px] text-[#111110]">
                 Sacha Elron
                 <span className="ml-1 text-[#168044]">✓ Linked</span>
               </span>
             </label>
             <div className="grid grid-cols-2 gap-1.5">
               <label className="block">
-                <span className="mb-1 block text-[8px] text-[#6B6A67]">Year</span>
-                <span className="block rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-[9px] text-[#111110]">
+                <span className="mb-0.5 block text-[8px] text-[#6B6A67]">Year</span>
+                <span className="block rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-[9px] text-[#111110]">
                   2023
                 </span>
               </label>
               <label className="block">
-                <span className="mb-1 block text-[8px] text-[#6B6A67]">Medium</span>
-                <span className="block truncate rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-[9px] text-[#111110]">
+                <span className="mb-0.5 block text-[8px] text-[#6B6A67]">Medium</span>
+                <span className="block truncate rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-[9px] text-[#111110]">
                   Acrylic
                 </span>
               </label>
             </div>
           </div>
 
-          <p className="mt-2 text-[8px] tracking-[0.1em] text-[#ADADAA]">Dimensions &amp; status</p>
-          <div className="mt-2 grid grid-cols-[1fr_auto_1fr_0.7fr] items-center gap-1.5">
-            <span className="rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-center text-[9px] text-[#111110]">
+          <p className="mt-1.5 text-[8px] tracking-[0.1em] text-[#ADADAA]">
+            Dimensions &amp; status
+          </p>
+          <div className="mt-1.5 grid w-fit grid-cols-[auto_auto_auto_auto] items-center gap-1.5">
+            <span className="rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-center text-[9px] text-[#111110]">
               120
             </span>
             <span className="text-[#ADADAA]">×</span>
-            <span className="rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-center text-[9px] text-[#111110]">
+            <span className="rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-center text-[9px] text-[#111110]">
               120
             </span>
-            <span className="rounded-[5px] border border-[#D8D8D5] px-2 py-1 text-center text-[9px] text-[#111110]">
+            <span className="rounded-[5px] border border-[#D8D8D5] px-1.5 py-0.5 text-center text-[9px] text-[#111110]">
               cm
             </span>
           </div>
-          <div className="mt-2 flex flex-wrap gap-1">
+          <div className="mt-1.5 flex flex-wrap gap-1">
             {["Available", "Reserved", "Sold", "NFS"].map((status) => (
               <span
                 key={status}
-                className={`rounded-full border px-2 py-1 text-[8px] ${
+                className={`rounded-full border px-1.5 py-0.5 text-[8px] ${
                   status === "Available"
                     ? "border-[#111110] bg-[#111110] text-white"
                     : "border-[#D8D8D5] text-[#6B6A67]"
@@ -111,7 +113,7 @@ function ArtworkPageMockup() {
             <p className="text-[8px] tracking-[0.1em] text-[#ADADAA]">Images</p>
             <span className="text-[8px] text-[#ADADAA]">1</span>
           </div>
-          <div className="relative mt-2 aspect-[4/5] overflow-hidden rounded-[6px] border border-[#D8D8D5] bg-[#F5F5F3]">
+          <div className="relative mx-auto mt-1.5 aspect-[4/5] w-[78%] overflow-hidden rounded-[6px] border border-[#D8D8D5] bg-[#F5F5F3]">
             <img
               src="/artworks/painting-05.jpg"
               alt=""
@@ -185,10 +187,13 @@ export type OutputsCopy = {
   /** Un libellé par mockup, dans l'ordre : base, Gmail, WhatsApp, sélections. */
   labels: readonly [string, string, string, string];
   action?: string;
+  /** Lien optionnel par carte, même ordre que `labels`. */
+  hrefs?: readonly [string?, string?, string?, string?];
 };
 
 const EN_COPY: OutputsCopy = {
   labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
+  hrefs: ["/products/archive"],
 };
 
 export function OutputsSection({ copy }: { copy: OutputsCopy }) {
@@ -196,19 +201,24 @@ export function OutputsSection({ copy }: { copy: OutputsCopy }) {
     <section className="bg-white px-4 pb-16 pt-0 md:px-6 md:pb-20 md:pt-2">
       <div className={CONTAINER}>
         <div className="grid gap-4 md:grid-cols-2">
-          {OUTPUT_NODES.map((node, index) => (
-            <article
-              key={copy.labels[index]}
-              className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20"
-            >
-              <div className="pointer-events-none relative h-[300px] overflow-hidden bg-[#F8F8F6] md:h-[360px]">
-                <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
-                  {node}
+          {OUTPUT_NODES.map((node, index) => {
+            const href = copy.hrefs?.[index];
+            const Wrapper = href ? "a" : "article";
+            return (
+              <Wrapper
+                key={copy.labels[index]}
+                {...(href ? { href } : {})}
+                className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20"
+              >
+                <div className="pointer-events-none relative h-[300px] overflow-hidden bg-[#F8F8F6] md:h-[360px]">
+                  <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
+                    {node}
+                  </div>
                 </div>
-              </div>
-              <CardCaption title={copy.labels[index]} action={copy.action} />
-            </article>
-          ))}
+                <CardCaption title={copy.labels[index]} action={copy.action} />
+              </Wrapper>
+            );
+          })}
         </div>
       </div>
     </section>

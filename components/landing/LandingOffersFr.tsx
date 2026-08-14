@@ -30,10 +30,10 @@ export default function LandingOffersFr() {
       <div className={CONTAINER}>
         <h2 className={`${H2} max-w-2xl`}>Choisissez comment travailler avec Vitreen.</h2>
         <p className={`${H2_SUB} max-w-2xl`}>
-          Un système installé aujourd’hui, un partenariat pour le faire grandir.
+          Utilisez nos outils seuls, ou faites-les évoluer avec nous chaque mois.
         </p>
 
-        <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
+        <div className="mt-10 grid gap-6 px-8 md:mt-14 md:grid-cols-2 md:gap-8 md:px-20">
           <OfferCard
             title="Vitreen Sales"
             price="390 €/mois"

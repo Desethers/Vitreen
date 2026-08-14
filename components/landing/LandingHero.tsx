@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 export default function LandingHero() {
   return (
-    <section className="relative flex flex-col overflow-hidden bg-white px-4 pb-14 pt-36 md:px-6 md:pb-20 md:pt-44">
+    <section className="relative flex flex-col overflow-hidden bg-white px-4 pb-14 pt-32 md:px-6 md:pb-20 md:pt-40">
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="text-center">
           <h1
@@ -16,7 +16,7 @@ export default function LandingHero() {
             for every way you sell art.
           </h1>
 
-          <p className="hero-fade-up hero-fade-up-delay mx-auto mt-[16px] max-w-4xl text-balance text-[20px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67]">
+          <p className="hero-fade-up hero-fade-up-delay mx-auto mt-[16px] max-w-4xl text-balance text-[20px] leading-[1.35] tracking-[0em] text-[#6B6A67]">
             Your inventory, Gmail, WhatsApp and private selections, connected.
           </p>
 

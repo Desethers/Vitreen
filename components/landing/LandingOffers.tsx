@@ -33,7 +33,7 @@ export default function LandingOffers() {
           A system installed today, and a partnership to keep it growing.
         </p>
 
-        <div className="mt-10 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
+        <div className="mt-10 grid gap-6 px-8 md:mt-14 md:grid-cols-2 md:gap-8 md:px-20">
           <OfferCard
             title="Vitreen Sales"
             price="€390/month"

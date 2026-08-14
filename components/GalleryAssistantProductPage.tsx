@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Nav from "@/components/Nav";
+import { useLang } from "@/lib/lang";
+import LandingNav from "@/components/landing/LandingNav";
+import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
@@ -298,8 +300,8 @@ export function IntegrationsFrame() {
 
   return (
     <div className="absolute inset-0">
-      <div className="relative h-full w-full overflow-hidden bg-white">
-        <div className="flex h-10 items-center justify-between bg-[#F0F4F9] px-4">
+      <div className="relative h-full w-full overflow-hidden bg-[#F5F5F3]">
+        <div className="flex h-10 items-center justify-between border-b border-[#E8E8E6] bg-[#F5F5F3] px-6">
           <span className="text-[12px] font-semibold text-[#202124]">New Message</span>
           <div className="flex items-center gap-3 text-[12px] text-[#5F6368]">
             <span aria-hidden="true">−</span>
@@ -308,16 +310,16 @@ export function IntegrationsFrame() {
           </div>
         </div>
 
-        <div className="flex items-center border-b border-[#E8E8E6] px-4 py-2.5 text-[11px] text-[#202124]">
+        <div className="flex items-center border-b border-[#E8E8E6] px-6 py-2 text-[11px] text-[#202124]">
           <span className="shrink-0 text-[#6B6A67]">Recipients&nbsp;</span>
           <span>{RECIPIENT_TEXT}</span>
         </div>
-        <div className="flex items-center border-b border-[#E8E8E6] px-4 py-2.5 text-[11px] text-[#202124]">
+        <div className="flex items-center border-b border-[#E8E8E6] px-6 py-2 text-[11px] text-[#202124]">
           <span className="shrink-0 text-[#6B6A67]">Subject&nbsp;</span>
           <span className="font-medium">{SUBJECT_TEXT}</span>
         </div>
 
-        <div className="absolute inset-x-4 bottom-[88px] top-[112px] overflow-hidden px-1 py-1">
+        <div className="absolute inset-x-6 bottom-[48px] top-[112px] overflow-hidden px-1 py-1">
           <p className="text-[10px] leading-snug text-[#3C4043]">
             {BODY_TEXT.slice(0, bodyChars)}
             {!reduceMotion && bodyChars > 0 && bodyChars < BODY_TEXT.length ? (
@@ -356,7 +358,7 @@ export function IntegrationsFrame() {
                         <p className="text-[11px] font-medium">Sacha Elron</p>
                         <p className="text-[10px] italic">Evening field, 2023</p>
                       </div>
-                      <span className="shrink-0 border border-[#202124] px-3 py-1 text-[9px]">
+                      <span className="shrink-0 border-[0.5px] border-[#202124] px-3 py-1 text-[9px]">
                         Inquire
                       </span>
                     </div>
@@ -370,25 +372,7 @@ export function IntegrationsFrame() {
           </AnimatePresence>
         </div>
 
-        <div className="absolute inset-x-4 bottom-[52px]">
-          <div className="flex h-9 items-center gap-3 rounded-full bg-[#F0F4FA] px-4 text-[12px] font-medium text-[#4B4F52]">
-            <span>↶</span>
-            <span>↷</span>
-            <span className="h-5 w-px bg-[#C9CDD2]" />
-            <span>Sans Serif</span>
-            <span className="text-[10px]">▾</span>
-            <span className="h-5 w-px bg-[#C9CDD2]" />
-            <span className="font-semibold">T</span>
-            <span className="font-semibold">B</span>
-            <span className="italic">I</span>
-            <span className="underline">U</span>
-            <span className="hidden sm:inline">A</span>
-            <span className="hidden sm:inline">≡</span>
-            <span className="hidden sm:inline">☷</span>
-          </div>
-        </div>
-
-        <div className="absolute inset-x-4 bottom-2 flex h-9 items-center gap-3">
+        <div className="absolute inset-x-6 bottom-2 flex h-9 items-center gap-3">
           <button
             type="button"
             className="flex h-8 items-center overflow-hidden rounded-full bg-[#0B57D0] text-[11px] font-medium text-white"
@@ -402,9 +386,6 @@ export function IntegrationsFrame() {
           <span className="text-[15px] text-[#5F6368]">☺</span>
 
           <div className="relative ml-2">
-            <span className="absolute bottom-9 right-0 w-max rounded-md bg-[#4A4A4A] px-2.5 py-1.5 text-[9px] text-white shadow-sm">
-              Insérer une œuvre Gallery OS
-            </span>
             <motion.span
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#E8EAED] shadow-[0_0_0_2px_rgba(17,17,16,0.05)]"
               animate={logoBump ? { scale: [1, 0.9, 1.08, 1] } : { scale: 1 }}
@@ -422,13 +403,13 @@ export function IntegrationsFrame() {
       <AnimatePresence>
         {!showInsertedArtwork && panelOpen ? (
           <motion.aside
-            className="absolute bottom-6 right-[10%] top-9 flex w-[44%] min-w-[300px] flex-col overflow-hidden rounded-[10px] border border-[#D8D8D5] bg-white shadow-[0_18px_48px_rgba(17,17,16,0.16)]"
+            className="absolute bottom-6 right-[10%] top-9 flex w-[44%] min-w-[300px] flex-col overflow-hidden rounded-[10px] border border-[#D8D8D5] bg-white"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
             transition={{ duration: 0.32, ease }}
           >
-            <div className="flex h-11 shrink-0 items-center justify-between bg-[#414141] px-4 text-white">
+            <div className="flex h-9 shrink-0 items-center justify-between bg-[#414141] px-5 text-white">
               <h3 className="text-[14px] font-semibold">Gallery OS</h3>
               <div className="flex items-center gap-3 text-[18px] leading-none">
                 <span aria-hidden="true">⋮</span>
@@ -438,7 +419,7 @@ export function IntegrationsFrame() {
 
             <div
               ref={panelScrollRef}
-              className="scroll-smooth flex min-h-0 flex-1 flex-col overflow-y-auto px-4 py-4"
+              className="scroll-smooth flex min-h-0 flex-1 flex-col overflow-y-auto px-5 py-4"
             >
               <h4 className="text-[13px] font-medium text-[#202124]">Insérer une œuvre</h4>
               <p className="mt-1 text-[12px] text-[#4A4A4A]">Recherche dans Gallery OS</p>
@@ -478,18 +459,18 @@ export function IntegrationsFrame() {
                 {showResults ? (
                   <motion.div
                     ref={resultsAnchorRef}
-                    className="-mx-4 mt-4 shrink-0 border-t border-[#D5D5D2]"
+                    className="-mx-5 mt-4 shrink-0 border-t border-[#D5D5D2]"
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.35, ease }}
                   >
-                    <p className="px-4 py-2.5 text-[12px] text-[#333331]">8 résultats</p>
+                    <p className="px-5 py-2.5 text-[12px] text-[#333331]">8 résultats</p>
                     <div className="divide-y divide-[#D5D5D2] border-t border-[#D5D5D2]">
                       {GMAIL_RESULTS.map((result, index) => (
                         <motion.div
                           key={result.title}
-                          className={`flex items-center gap-3 px-4 py-2.5 ${
+                          className={`flex items-center gap-3 px-5 py-2.5 ${
                             selectedArtwork && index === 0 ? "bg-[#EEF4FF]" : "bg-white"
                           }`}
                           initial={{ opacity: 0, y: 5 }}
@@ -806,13 +787,14 @@ function AssistantVisual({ index }: { index: number }) {
 }
 
 export default function GalleryAssistantProductPage() {
+  const { lang } = useLang();
   const openContact = () => {
     window.dispatchEvent(new CustomEvent("open-contact-modal"));
   };
 
   return (
     <main className="relative bg-white">
-      <Nav />
+      {lang === "fr" ? <LandingNavFr /> : <LandingNav />}
 
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
