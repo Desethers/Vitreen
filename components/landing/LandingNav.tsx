@@ -51,6 +51,11 @@ export default function LandingNav() {
                 className="text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
               >
                 {link.label}
+                {link.label === "Studio" ? (
+                  <span aria-hidden="true" className="ml-1">
+                    ↗
+                  </span>
+                ) : null}
               </a>
             ))}
           </nav>

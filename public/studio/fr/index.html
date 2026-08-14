@@ -1,29 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Done-for-you digital work for contemporary art galleries." />
-    <link rel="canonical" href="https://vitreen.studio/" />
+    <meta name="description" content="Le travail numérique clé en main pour les galeries d’art contemporain." />
+    <link rel="canonical" href="https://vitreen.studio/fr" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Vitreen Studio" />
-    <meta property="og:title" content="Vitreen Studio — Digital work for galleries" />
-    <meta property="og:description" content="Done-for-you digital work for contemporary art galleries. Fixed-price tasks for websites, databases, sales material and visibility." />
-    <meta property="og:url" content="https://vitreen.studio/" />
+    <meta property="og:title" content="Vitreen Studio — Le travail numérique pour les galeries" />
+    <meta property="og:description" content="Le travail numérique clé en main pour les galeries d’art contemporain. Tâches à prix fixe pour vos sites web, bases de données, supports de vente et visibilité." />
+    <meta property="og:url" content="https://vitreen.studio/fr" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-    <title>Vitreen — Digital work for galleries</title>
+    <title>Vitreen — Le travail numérique pour les galeries</title>
     <!-- Structured data for search engines and LLM answer engines (GEO). Purely
-         additive — no visual or behavioural effect on the page. -->
+         additive — no visual or behavioural effect on the page.
+         The offer catalog below stays in English: it mirrors the task grid,
+         which is re-rendered client-side by /studio/assets/index-C6ygI_Cx.js
+         (a compiled bundle from a separate source repo, not present here),
+         so translating just the JSON-LD would create a mismatch with what
+         actually renders on the page. See public/studio/index.html for the
+         same note. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ProfessionalService",
         "name": "Vitreen Studio",
-        "url": "https://vitreen.studio/",
+        "url": "https://vitreen.studio/fr",
         "email": "studio@vitreen.art",
-        "description": "Vitreen Studio does done-for-you digital work for contemporary art galleries: websites, collector databases, sales material and online visibility. Fixed price per task, no retainers, no hourly billing.",
+        "description": "Vitreen Studio réalise le travail numérique de vos galeries d’art contemporain : sites web, bases de données collectionneurs, supports de vente et visibilité en ligne. Prix fixe par tâche, sans abonnement, sans facturation horaire.",
         "areaServed": "Worldwide",
         "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" },
         "brand": { "@type": "Brand", "name": "Vitreen" },
@@ -56,23 +62,23 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "How do I send the material for a task?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Reply to the confirmation email with your text, images, links or access details. We'll tell you if anything else is needed." }
+            "name": "Comment envoyer le contenu d’une tâche ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Répondez à l’email de confirmation avec votre texte, vos images, vos liens ou vos accès. Nous vous dirons si autre chose est nécessaire." }
           },
           {
             "@type": "Question",
-            "name": "Can I request more than one task?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add the tasks you need and we'll confirm the scope and total before starting." }
+            "name": "Puis-je demander plusieurs tâches ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Oui. Ajoutez les tâches dont vous avez besoin et nous confirmons le périmètre et le total avant de commencer." }
           },
           {
             "@type": "Question",
-            "name": "Do I need to change my current tools?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. We work with the tools you already use, including your existing website, Artlogic exports and shared files." }
+            "name": "Dois-je changer mes outils actuels ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Non. Nous travaillons avec les outils que vous utilisez déjà, y compris votre site actuel, vos exports Artlogic et vos fichiers partagés." }
           },
           {
             "@type": "Question",
-            "name": "What if I'm not satisfied with the result?",
-            "acceptedAnswer": { "@type": "Answer", "text": "We'll make it right. If we can't deliver the agreed outcome, we'll refund the task." }
+            "name": "Que se passe-t-il si je ne suis pas satisfait du résultat ?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nous corrigeons le tir. Si nous ne pouvons pas livrer le résultat convenu, la tâche est remboursée." }
           }
         ]
       }
@@ -131,42 +137,46 @@
     <header class="header">
       <div class="header__inner">
         <a class="brand" href="#top">Vitreen <span>Studio</span></a>
-        <nav class="nav" aria-label="Main navigation">
-          <a href="#tasks">Tasks</a><a href="#how-it-works">How it works</a><a class="nav__external" href="https://vitreen.art" target="_blank" rel="noreferrer">Vitreen <span aria-hidden="true">↗</span></a>
+        <nav class="nav" aria-label="Navigation principale">
+          <a href="#tasks">Tâches</a><a href="#how-it-works">Comment ça marche</a><a class="nav__external" href="https://vitreen.art" target="_blank" rel="noreferrer">Vitreen <span aria-hidden="true">↗</span></a>
         </nav>
-        <a class="button" href="#tasks">Work with us</a>
+        <a class="button" href="#tasks">Travailler avec nous</a>
       </div>
     </header>
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero__layout">
           <div class="hero__content">
-            <p class="eyebrow">A digital studio for contemporary art.</p>
-            <h1 id="hero-title">Digital work<br>for galleries.</h1>
-            <p class="hero__copy">We handle your gallery’s digital day-to-day. Choose the work,<br class="desktop-break"> see the price, and send us what we need.</p>
-            <ul class="reassurances" aria-label="Service benefits"><li><i data-lucide="badge-euro" aria-hidden="true"></i>Clear prices</li><li><i data-lucide="badge-check" aria-hidden="true"></i>Human checked</li><li><i data-lucide="plug" aria-hidden="true"></i>Works with your current tools</li></ul>
+            <p class="eyebrow">Un studio design web pour les galeries.</p>
+            <h1 id="hero-title">Le savoir-faire digital<br>au service de l’art.</h1>
+            <p class="hero__copy">Nous gérons le quotidien numérique de votre galerie. Choisissez une tâche,<br class="desktop-break"> consultez le prix et envoyez-nous les éléments nécessaires.</p>
+            <ul class="reassurances" aria-label="Avantages du service"><li><i data-lucide="badge-euro" aria-hidden="true"></i>Prix clairs</li><li><i data-lucide="badge-check" aria-hidden="true"></i>Vérifié humainement</li><li><i data-lucide="plug" aria-hidden="true"></i>Fonctionne avec vos outils actuels</li></ul>
             <div class="hero__actions">
-              <a class="button" href="#tasks">Browse tasks <span aria-hidden="true">→</span></a>
-              <a class="outline-button" href="#projects">Larger project?</a>
+              <a class="button" href="#tasks">Voir les tâches <span aria-hidden="true">→</span></a>
+              <a class="outline-button" href="#projects">Un projet plus important ?</a>
             </div>
           </div>
-          <aside class="service-estimate" aria-label="Example service invoice">
-            <div class="invoice-top"><div><p class="invoice-brand">Vitreen</p><span>Digital work for galleries</span></div><div class="invoice-id"><strong>Invoice</strong><span>#VTR-0184</span></div></div>
-            <div class="invoice-meta"><div><span>Bill to</span><strong>Fields &amp; Rowe</strong><small>Paris, France</small></div><div><span>Issued</span><strong id="invoice-date"></strong><span>Due</span><strong>On completion</strong></div></div>
-            <div class="invoice-table"><div class="invoice-row invoice-row--head"><span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span></div><div class="invoice-items" id="invoice-items"></div></div>
-            <div class="invoice-totals"><div><span>Subtotal</span><strong id="invoice-subtotal">€0</strong></div><div><span>VAT</span><strong>—</strong></div><div class="invoice-total"><span>Total</span><strong id="invoice-total">€0</strong></div></div>
-            <div class="invoice-footer"><span>Payment after completion</span><strong>No subscription · No retainer</strong></div>
+          <aside class="service-estimate" aria-label="Exemple de facture de service">
+            <div class="invoice-top"><div><p class="invoice-brand">Vitreen</p><span>Travail numérique pour galeries</span></div><div class="invoice-id"><strong>Facture</strong><span>#VTR-0184</span></div></div>
+            <div class="invoice-meta"><div><span>Facturé à</span><strong>Fields &amp; Rowe</strong><small>Paris, France</small></div><div><span>Émise</span><strong id="invoice-date"></strong><span>Échéance</span><strong>À la livraison</strong></div></div>
+            <div class="invoice-table"><div class="invoice-row invoice-row--head"><span>Description</span><span>Qté</span><span>Tarif</span><span>Montant</span></div><div class="invoice-items" id="invoice-items"></div></div>
+            <div class="invoice-totals"><div><span>Sous-total</span><strong id="invoice-subtotal">€0</strong></div><div><span>TVA</span><strong>—</strong></div><div class="invoice-total"><span>Total</span><strong id="invoice-total">€0</strong></div></div>
+            <div class="invoice-footer"><span>Paiement après livraison</span><strong>Sans abonnement · Sans forfait</strong></div>
           </aside>
         </div>
       </section>
-      <section class="category-strip" aria-label="Service categories">
-        <div class="category-strip__heading"><p class="eyebrow">Our services</p><h2>Where we can help.</h2><p>Your website, your data, and how people find you.</p></div>
-        <a class="category-link" href="#tasks" data-category="website"><i data-lucide="monitor" aria-hidden="true"></i><div><strong>Website</strong><span>Keep your artists, exhibitions and artworks current without waiting for a developer.</span></div></a>
-        <a class="category-link" href="#tasks" data-category="database"><i data-lucide="database" aria-hidden="true"></i><div><strong>Database</strong><span>Clean, structure and import the records your gallery relies on every day.</span></div></a>
-        <a class="category-link" href="#tasks" data-category="visibility"><i data-lucide="search" aria-hidden="true"></i><div><strong>Visibility</strong><span>Make artist pages easier to find with clear, practical SEO improvements.</span></div></a>
+      <section class="category-strip" aria-label="Catégories de services">
+        <div class="category-strip__heading"><p class="eyebrow">Nos services</p><h2>Là où nous pouvons vous aider.</h2><p>Votre site web, vos données, et la façon dont on vous trouve.</p></div>
+        <a class="category-link" href="#tasks" data-category="website"><i data-lucide="monitor" aria-hidden="true"></i><div><strong>Site web</strong><span>Gardez vos artistes, expositions et œuvres à jour sans attendre un développeur.</span></div></a>
+        <a class="category-link" href="#tasks" data-category="database"><i data-lucide="database" aria-hidden="true"></i><div><strong>Base de données</strong><span>Nettoyez, structurez et importez les données dont votre galerie dépend chaque jour.</span></div></a>
+        <a class="category-link" href="#tasks" data-category="visibility"><i data-lucide="search" aria-hidden="true"></i><div><strong>Visibilité</strong><span>Rendez les pages artistes plus faciles à trouver grâce à des améliorations SEO claires et concrètes.</span></div></a>
       </section>
       <section class="tasks" id="tasks" aria-labelledby="tasks-title">
-        <div class="section-heading"><div class="section-heading__title"><p class="eyebrow">Pricing</p><h2 id="tasks-title">Choose the work.<br /><span>Pay per task.</span></h2></div><p class="section-heading__copy">You know what the work will cost before we start. No hourly rates, no surprises.</p></div>
+        <div class="section-heading"><div class="section-heading__title"><p class="eyebrow">Tarifs</p><h2 id="tasks-title">Choisissez la tâche.<br /><span>Payez à la tâche.</span></h2></div><p class="section-heading__copy">Vous connaissez le prix avant que nous commencions. Pas de tarif horaire, pas de surprise.</p></div>
+        <!-- Filter labels and the task grid below stay in English: both are
+             re-rendered client-side by /studio/assets/index-C6ygI_Cx.js, a
+             compiled bundle from a separate source repo not present here, so
+             translating this markup wouldn't stick past the first render. -->
         <div class="task-filters" role="tablist" aria-label="Task categories">
           <button class="filter is-active" type="button" data-filter="all">All</button><button class="filter" type="button" data-filter="website">Website</button><button class="filter" type="button" data-filter="database">Database</button><button class="filter" type="button" data-filter="sales-material">Sales material</button><button class="filter" type="button" data-filter="visibility">Visibility</button>
         </div>
@@ -226,24 +236,24 @@
         </div>
       </section>
       <section class="how-it-works" id="how-it-works" aria-labelledby="how-title">
-        <div class="section-heading"><p class="eyebrow">How it works</p><h2 id="how-title">Send the work.<br /><span>We handle it.</span></h2></div>
+        <div class="section-heading"><p class="eyebrow">Comment ça marche</p><h2 id="how-title">Envoyez le travail.<br /><span>Nous nous en occupons.</span></h2></div>
         <div class="process-cards">
           <article class="process-card">
-            <div class="process-card__copy"><p class="process-card__eyebrow">Send by email</p><h3>Choose a task and send what we need.</h3><p>Select a service, then email the text, images, links, exports or access details. We confirm the scope and price before starting.</p></div>
+            <div class="process-card__copy"><p class="process-card__eyebrow">Envoyez par email</p><h3>Choisissez une tâche et envoyez ce dont nous avons besoin.</h3><p>Sélectionnez un service, puis envoyez par email le texte, les images, les liens, les exports ou les accès nécessaires. Nous confirmons le périmètre et le prix avant de commencer.</p></div>
             <div class="email-mockup" aria-hidden="true">
-              <div class="mockup-bar"><i></i><i></i><i></i><span>New message</span></div>
-              <div class="email-field"><span>To</span><strong>studio@vitreen.art</strong></div>
-              <div class="email-field"><span>Subject</span><strong>Vitreen task request</strong></div>
-              <p>Hello Vitreen,<br>I would like to request:</p>
-              <div class="attachment-list"><span>Publish an exhibition (€120)</span></div>
-              <p>Estimated total: €120</p>
-              <button type="button" tabindex="-1">Send</button>
+              <div class="mockup-bar"><i></i><i></i><i></i><span>Nouveau message</span></div>
+              <div class="email-field"><span>À</span><strong>studio@vitreen.art</strong></div>
+              <div class="email-field"><span>Objet</span><strong>Demande de tâche Vitreen</strong></div>
+              <p>Bonjour Vitreen,<br>Je souhaiterais demander :</p>
+              <div class="attachment-list"><span>Publier une exposition (120 €)</span></div>
+              <p>Total estimé : 120 €</p>
+              <button type="button" tabindex="-1">Envoyer</button>
             </div>
           </article>
           <article class="process-card">
-            <div class="process-card__copy"><p class="process-card__eyebrow">Handled by Vitreen</p><h3>We confirm, produce and check.</h3><p>We reply with anything missing, complete the task and human-check every detail. You hear from us only when a decision is needed.</p></div>
+            <div class="process-card__copy"><p class="process-card__eyebrow">Pris en charge par Vitreen</p><h3>Nous confirmons, produisons et vérifions.</h3><p>Nous vous répondons si quelque chose manque, réalisons la tâche et vérifions chaque détail humainement. Vous n’entendez parler de nous que lorsqu’une décision est nécessaire.</p></div>
             <div class="work-mockup" aria-hidden="true">
-              <div class="proof-head"><span>Exhibition page</span><em>Proof</em></div>
+              <div class="proof-head"><span>Page d’exposition</span><em>Épreuve</em></div>
               <div class="proof-page">
                 <span class="proof-line proof-line--title"></span>
                 <span class="proof-line proof-line--sub"></span>
@@ -255,28 +265,28 @@
                 <i class="proof-pin proof-pin--c">3</i>
               </div>
               <ul class="proof-notes">
-                <li><i>1</i>Dates match the invitation</li>
-                <li><i>2</i>Images cropped and optimised</li>
-                <li><i>3</i>Links and mobile layout checked</li>
+                <li><i>1</i>Les dates correspondent au carton d’invitation</li>
+                <li><i>2</i>Images recadrées et optimisées</li>
+                <li><i>3</i>Liens et affichage mobile vérifiés</li>
               </ul>
             </div>
           </article>
           <article class="process-card">
-            <div class="process-card__copy"><p class="process-card__eyebrow">Approve before payment</p><h3>Review the delivery, then pay.</h3><p>We email the completed work. Approve it or request a correction, then pay after delivery. If we cannot make it right, we refund you.</p></div>
+            <div class="process-card__copy"><p class="process-card__eyebrow">Validez avant paiement</p><h3>Vérifiez la livraison, puis payez.</h3><p>Nous vous envoyons le travail terminé par email. Approuvez-le ou demandez une correction, puis payez après la livraison. Si nous ne pouvons pas corriger le tir, vous êtes remboursé.</p></div>
             <div class="delivery-mockup" aria-hidden="true">
               <div class="mockup-bar"><i></i><i></i><i></i><span>Vitreen Studio</span></div>
-              <div class="email-field"><span>From</span><strong>studio@vitreen.art</strong></div>
-              <div class="email-field"><span>Subject</span><strong>Delivered: Publish an exhibition</strong></div>
-              <p><strong>Your exhibition page is live.</strong><br>Everything has been published and checked. Reply to approve, or tell us what needs changing.</p>
-              <div class="delivery-reply"><span>You replied</span><p>“Approved, thank you!”</p></div>
-              <div class="delivery-summary"><span>Total after approval</span><strong>€90</strong></div>
+              <div class="email-field"><span>De</span><strong>studio@vitreen.art</strong></div>
+              <div class="email-field"><span>Objet</span><strong>Livré : Publier une exposition</strong></div>
+              <p><strong>Votre page d’exposition est en ligne.</strong><br>Tout a été publié et vérifié. Répondez pour approuver, ou dites-nous ce qu’il faut changer.</p>
+              <div class="delivery-reply"><span>Vous avez répondu</span><p>« Approuvé, merci ! »</p></div>
+              <div class="delivery-summary"><span>Total après validation</span><strong>€90</strong></div>
             </div>
           </article>
         </div>
       </section>
       <section class="quote" aria-labelledby="quote-text">
         <blockquote>
-          <p id="quote-text">&ldquo;The digital space is a natural extension of the gallery&rsquo;s storefront. In the current era, a robust online program and dedicated strategy is essential in the art world.&rdquo;</p>
+          <p id="quote-text">&laquo;&nbsp;L’espace numérique est une extension naturelle de la vitrine de la galerie. À l’heure actuelle, un programme en ligne solide et une stratégie dédiée sont essentiels dans le monde de l’art.&nbsp;&raquo;</p>
           <footer>
             <img src="https://res.cloudinary.com/dqzqcuqf9/image/upload/v1772530245/vip-benefits-images/bztubujvn9fb0hhxyaxh.png" alt="Elena Soboleva" />
             <div>
@@ -289,39 +299,39 @@
       <section class="software-promo" id="projects" aria-labelledby="software-promo-title">
         <div class="software-promo__intro">
           <p class="eyebrow">Vitreen Software</p>
-          <h2 id="software-promo-title">Ready to upgrade how your gallery works?</h2>
-          <div class="software-promo__description"><p>Make everyday gallery work simpler, faster and more independent.</p><p>Get a connected database, website and sales tools for Gmail and WhatsApp.</p></div>
-          <a class="button" href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Explore Vitreen Software <span aria-hidden="true">↗</span></a>
+          <h2 id="software-promo-title">Prêt à faire évoluer le fonctionnement de votre galerie ?</h2>
+          <div class="software-promo__description"><p>Simplifiez, accélérez et gagnez en indépendance sur le travail quotidien de votre galerie.</p><p>Obtenez une base de données, un site web et des outils de vente connectés pour Gmail et WhatsApp.</p></div>
+          <a class="button" href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Découvrir Vitreen Software <span aria-hidden="true">↗</span></a>
         </div>
         <div class="software-features">
-          <article><i aria-hidden="true">✓</i><div><h3>Artwork database</h3><p>Works, artists, prices and availability in one place.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Connected website</h3><p>Update your website from the same information.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Gmail sales tools</h3><p>Add artwork details directly to collector emails.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>WhatsApp sales tools</h3><p>Share works and selections straight from your phone.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Always in sync</h3><p>Update something once, and keep it current everywhere.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>More control</h3><p>Handle everyday updates without waiting for a developer.</p></div></article>
+          <article><i aria-hidden="true">✓</i><div><h3>Base d’œuvres</h3><p>Œuvres, artistes, prix et disponibilités au même endroit.</p></div></article>
+          <article><i aria-hidden="true">✓</i><div><h3>Site web connecté</h3><p>Mettez à jour votre site à partir des mêmes informations.</p></div></article>
+          <article><i aria-hidden="true">✓</i><div><h3>Outils de vente Gmail</h3><p>Ajoutez les détails d’une œuvre directement dans vos emails collectionneurs.</p></div></article>
+          <article><i aria-hidden="true">✓</i><div><h3>Outils de vente WhatsApp</h3><p>Partagez œuvres et sélections directement depuis votre téléphone.</p></div></article>
+          <article><i aria-hidden="true">✓</i><div><h3>Toujours synchronisé</h3><p>Mettez à jour une seule fois, et gardez tout à jour partout.</p></div></article>
+          <article><i aria-hidden="true">✓</i><div><h3>Plus de contrôle</h3><p>Gérez les mises à jour courantes sans attendre un développeur.</p></div></article>
         </div>
       </section>
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">Questions.</h2>
         <div class="faq__items">
-          <details><summary>How do I send the material for a task?</summary><p>Reply to the confirmation email with your text, images, links or access details. We’ll tell you if anything else is needed.</p></details>
-          <details><summary>Can I request more than one task?</summary><p>Yes. Add the tasks you need and we’ll confirm the scope and total before starting.</p></details>
-          <details><summary>Do I need to change my current tools?</summary><p>No. We work with the tools you already use, including your existing website, Artlogic exports and shared files.</p></details>
-          <details><summary>What if I’m not satisfied with the result?</summary><p>We’ll make it right. If we can’t deliver the agreed outcome, we’ll refund the task.</p></details>
+          <details><summary>Comment envoyer le contenu d’une tâche ?</summary><p>Répondez à l’email de confirmation avec votre texte, vos images, vos liens ou vos accès. Nous vous dirons si autre chose est nécessaire.</p></details>
+          <details><summary>Puis-je demander plusieurs tâches ?</summary><p>Oui. Ajoutez les tâches dont vous avez besoin et nous confirmons le périmètre et le total avant de commencer.</p></details>
+          <details><summary>Dois-je changer mes outils actuels ?</summary><p>Non. Nous travaillons avec les outils que vous utilisez déjà, y compris votre site actuel, vos exports Artlogic et vos fichiers partagés.</p></details>
+          <details><summary>Que se passe-t-il si je ne suis pas satisfait du résultat ?</summary><p>Nous corrigeons le tir. Si nous ne pouvons pas livrer le résultat convenu, la tâche est remboursée.</p></details>
         </div>
       </section>
       <section class="footer-cta" aria-labelledby="footer-cta-title">
-        <h2 id="footer-cta-title">What’s still on your gallery’s to-do list?</h2>
-        <p>Tell us what your gallery needs done today.</p>
-        <a class="button" href="mailto:studio@vitreen.art?subject=Vitreen%20demo">Book a call</a>
-        <small>A focused 30-minute conversation about your gallery workflow.</small>
+        <h2 id="footer-cta-title">De quoi votre galerie a-t-elle besoin aujourd’hui ?</h2>
+        <p>Dites-nous ce qui vous prend trop de temps.</p>
+        <a class="button" href="mailto:studio@vitreen.art?subject=Vitreen%20demo">Parlons-en</a>
+        <small>Un échange de 30 minutes centré sur le fonctionnement de votre galerie.</small>
       </section>
     </main>
     <footer class="site-footer">
-      <div class="site-footer__intro"><a class="site-footer__brand" href="#top">Vitreen <span>Studio</span></a><p>Done-for-you digital work for contemporary galleries. Clear scope, clear price, no retainers.</p></div>
-      <nav class="site-footer__nav" aria-label="Footer"><div><span>Product</span><a href="#how-it-works">How it works</a><a href="#tasks">Pricing</a></div><div><span>Company</span><a href="#projects">About</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
-      <div class="site-footer__bottom"><p>© 2026 Vitreen</p><div><span class="lang-current">EN</span><i aria-hidden="true">·</i><a href="/studio/fr/">FR</a><p>Paris, France</p></div></div>
+      <div class="site-footer__intro"><a class="site-footer__brand" href="#top">Vitreen <span>Studio</span></a><p>Le studio numérique des galeries d’art contemporain.<br>Des missions à la carte, des prix fixes, sans abonnement.</p></div>
+      <nav class="site-footer__nav" aria-label="Pied de page"><div><span>Produit</span><a href="#how-it-works">Comment ça marche</a><a href="#tasks">Tarifs</a></div><div><span>Entreprise</span><a href="#projects">À propos</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
+      <div class="site-footer__bottom"><p>© 2026 Vitreen</p><div><a href="/studio/">EN</a><i aria-hidden="true">·</i><span class="lang-current">FR</span><p>Paris, France</p></div></div>
     </footer>
     <aside class="request-summary" id="request-summary" hidden aria-live="polite" aria-label="Selected task estimate">
       <div class="request-summary__drag-zone">

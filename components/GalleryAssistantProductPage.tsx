@@ -470,9 +470,7 @@ export function IntegrationsFrame() {
                       {GMAIL_RESULTS.map((result, index) => (
                         <motion.div
                           key={result.title}
-                          className={`flex items-center gap-3 px-5 py-2.5 ${
-                            selectedArtwork && index === 0 ? "bg-[#EEF4FF]" : "bg-white"
-                          }`}
+                          className="flex items-center gap-3 bg-white px-5 py-2.5"
                           initial={{ opacity: 0, y: 5 }}
                           animate={{
                             opacity: 1,
