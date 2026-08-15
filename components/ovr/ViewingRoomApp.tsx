@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import dynamic from "next/dynamic";
-import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
+import { useOptionalUser } from "@/lib/useOptionalUser";
 import {
   DragDropContext,
   Droppable,
@@ -10,11 +9,6 @@ import {
   DragStart,
   DraggableProvidedDragHandleProps,
 } from "@hello-pangea/dnd";
-
-// Dynamically imported so @clerk/nextjs is never loaded when Clerk is disabled
-const UserButton = clerkEnabled
-  ? dynamic(() => import("@clerk/nextjs").then((m) => ({ default: m.UserButton })), { ssr: false })
-  : () => null;
 
 import ThemeToggle from "@/components/ovr/ThemeToggle";
 import type {
@@ -4640,16 +4634,11 @@ export function SubscriptionModal({
   onClose: () => void;
 }) {
   const [loading, setLoading] = useState(false);
-  const { isSignedIn } = useOptionalUser();
   const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === "true";
 
   const handleSubscribe = async () => {
     if (!stripeConfigured) {
       onClose();
-      return;
-    }
-    if (!isSignedIn) {
-      window.location.href = "/viewingroom-studio/sign-in";
       return;
     }
     setLoading(true);
@@ -4786,7 +4775,7 @@ const DEFAULT_SETUP: VrSetup = {
 };
 
 export default function ViewingRoomApp() {
-  const { isPro, isSignedIn } = useOptionalUser();
+  const { isPro } = useOptionalUser();
 
   const [setup, setSetup] = useState<VrSetup>(DEFAULT_SETUP);
   const [images, setImages] = useState<ImageItem[]>([]);
@@ -4855,22 +4844,6 @@ export default function ViewingRoomApp() {
 
   return (
     <div className="h-screen relative overflow-hidden bg-gray-50 dark:bg-[#111111]">
-      {/* ── Top-right auth button — desktop only ───────────────────────────── */}
-      {clerkEnabled && (
-        <div className="hidden lg:flex absolute top-4 right-5 z-20 items-center gap-2">
-          {isSignedIn ? (
-            <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
-          ) : (
-            <a
-              href="/viewingroom-studio/sign-in"
-              className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]"
-            >
-              Sign in
-            </a>
-          )}
-        </div>
-      )}
-
       {/* ── Preview — full screen background (desktop) / tab view (mobile) ── */}
       <main
         className={[
@@ -4905,21 +4878,6 @@ export default function ViewingRoomApp() {
             Viewing Room Studio
           </span>
           <div className="flex items-center gap-3">
-            {/* Mobile: auth button inline in header */}
-            {clerkEnabled && (
-              <div className="lg:hidden">
-                {isSignedIn ? (
-                  <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
-                ) : (
-                  <a
-                    href="/viewingroom-studio/sign-in"
-                    className="cursor-pointer text-xs text-white bg-gray-900 hover:bg-gray-700 transition-colors px-5 py-2.5 rounded-[5px]"
-                  >
-                    Sign in
-                  </a>
-                )}
-              </div>
-            )}
             <ThemeToggle />
           </div>
         </div>

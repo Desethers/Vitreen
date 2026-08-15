@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, type ReactNode } from "react";
-import { useOptionalUser, clerkEnabled } from "@/lib/useOptionalUser";
-import { useRouter, usePathname } from "next/navigation";
+import { useOptionalUser } from "@/lib/useOptionalUser";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
@@ -698,9 +697,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function OvrLandingPage() {
-  const { isSignedIn, isPro } = useOptionalUser();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { isPro } = useOptionalUser();
   const [loadingCheckout, setLoadingCheckout] = useState<false | "monthly" | "yearly">(false);
   const stripeConfigured = process.env.NEXT_PUBLIC_STRIPE_CONFIGURED === "true";
   const [yearlyError, setYearlyError] = useState<string | null>(null);
@@ -712,12 +709,6 @@ export default function OvrLandingPage() {
   const handleSubscribe = async (billing: "monthly" | "yearly") => {
     if (isPro) {
       goToEditor();
-      return;
-    }
-    if (clerkEnabled && !isSignedIn) {
-      router.push(
-        `/viewingroom-studio/sign-in?redirect_url=${encodeURIComponent(pathname || "/viewingroom-studio/room")}`
-      );
       return;
     }
     if (!stripeConfigured) {

@@ -1,7 +1,4 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-
-const clerkEnabled = process.env.NEXT_PUBLIC_CLERK_ENABLED === "true";
 
 // Routes that used to live at the root of vitreen.art (and on the old
 // room.vitreen.art subdomain). They are now nested under /viewingroom-studio/.
@@ -43,15 +40,9 @@ function applyHostRewrite(request: NextRequest): NextResponse | null {
   return null;
 }
 
-export const proxy = clerkEnabled
-  ? clerkMiddleware(async (_auth, request) => {
-      const rewrite = applyHostRewrite(request);
-      if (rewrite) return rewrite;
-      return NextResponse.next();
-    })
-  : function proxy(request: NextRequest) {
-      return applyHostRewrite(request) ?? NextResponse.next();
-    };
+export function proxy(request: NextRequest) {
+  return applyHostRewrite(request) ?? NextResponse.next();
+}
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico|icon.png).*)"],

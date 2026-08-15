@@ -73,7 +73,7 @@ async function getDashboardData(userId: string) {
 
 export default async function DashboardPage() {
   const gate = await requireDashboardUser();
-  if (!gate.ok) redirect("/viewingroom-studio/sign-in?redirect_url=/dashboard");
+  if (!gate.ok) redirect("/viewingroom-studio");
 
   const { rooms, inquiries } = await getDashboardData(gate.user.userId);
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "";
