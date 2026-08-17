@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingNavFr from "@/components/landing/LandingNavFr";
@@ -703,7 +704,7 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
 }
 
 export default function SolutionPage({ slug }: { slug: RoleSlug }) {
-  const { lang, t } = useLang();
+  const { lang, t, href } = useLang();
   const solutions = t.solutions as unknown as Record<RoleSlug, SolutionContent> & {
     sectionLabel: string;
     backToHome: string;
@@ -720,14 +721,20 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
       {lang === "fr" ? <LandingNavFr /> : <LandingNav />}
 
       {/* Hero */}
-      <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
+      <section className="px-4 pt-32 pb-10 md:px-6 md:pt-40 md:pb-14">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            {["advisors", "artists", "galleries", "estates"].includes(slug) ? (
-              <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
-                {content.eyebrow}
-              </p>
-            ) : null}
+            <Link
+              href={href("/")}
+              className="mb-8 inline-block text-[12px] text-[#ADADAA] transition-colors hover:text-[#6B6A67]"
+            >
+              ← {solutions.backToHome}
+            </Link>
+
+            <p className="mb-4 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
+              {content.eyebrow}
+            </p>
+
             <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[30px]">
               {content.title}
             </h1>
@@ -744,6 +751,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
                 {content.cta}
               </Button>
             </div>
+            <div className="border-t border-[#E8E8E6] mt-16 md:mt-[96px] -mx-4 md:-mx-6" />
           </motion.div>
 
           {["galleries", "advisors", "artists"].includes(slug) ? null : (
