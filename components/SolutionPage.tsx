@@ -727,10 +727,10 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
               {content.eyebrow}
             </p>
 
-            <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[30px]">
+            <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[48px] md:leading-[1.06]">
               {content.title}
             </h1>
-            <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
+            <p className="mt-5 max-w-3xl font-display text-[22px] font-normal leading-[1.3] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
               {content.subtitle}
             </p>
             {slug === "collectors" ? (
