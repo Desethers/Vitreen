@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "en",
-  path: "/tools/archive",
+  path: "/tools/artwork-inventory",
   title: "Artwork Inventory",
   description:
     "Keep artworks, artists and exhibitions in one record — images, dimensions, availability, location and documents.",

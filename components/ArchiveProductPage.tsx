@@ -19,37 +19,6 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, ease, delay },
 });
 
-function ArtworkMetricsStrip() {
-  const metrics = [
-    { metric: "×5", text: "surfaces served by one artwork record" },
-    { metric: "24/7", text: "website aligned with your records" },
-    { metric: "3 wks", text: "from your inventory to a working system" },
-  ];
-
-  return (
-    <section className="bg-white px-4 py-10 md:px-6 md:py-[72px]">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:gap-4">
-          {metrics.map((item, index) => (
-            <motion.div
-              key={item.metric}
-              {...fadeUp(index * 0.06)}
-              className="w-[72vw] shrink-0 snap-start rounded-[12px] bg-[#F5F5F3] px-5 py-5 max-md:!transform-none max-md:!opacity-100 sm:w-[42vw] md:w-auto"
-            >
-              <span className="font-display text-[32px] font-normal leading-none tracking-[-0.02em] text-[#111110] md:text-[36px]">
-                {item.metric}
-              </span>
-              <p className="mt-3 max-w-[220px] text-[14px] leading-[1.4] tracking-[-0.01em] text-[#6B6A67]">
-                {item.text}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function AssuranceIcon({ name }: { name: "lock" | "database" | "export" | "key" }) {
   const paths: Record<typeof name, React.ReactNode> = {
     lock: (
@@ -172,8 +141,6 @@ export default function ArchiveProductPage() {
       <DataAssuranceSection />
 
       <HomeAddIns />
-
-      <ArtworkMetricsStrip />
 
       <CtaBand />
       <Footer />

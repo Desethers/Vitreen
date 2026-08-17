@@ -19,7 +19,7 @@ const TOOLS_ITEMS = [
   {
     title: "Artwork Inventory",
     desc: "Vos œuvres, artistes et fiches, au même endroit.",
-    href: "/fr/tools/archive",
+    href: "/fr/tools/artwork-inventory",
   },
   {
     title: "Sales Assistant",

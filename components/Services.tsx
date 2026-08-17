@@ -352,7 +352,7 @@ export function ServicesGrid() {
     <div className="grid gap-4 md:grid-cols-6">
       <motion.a
         {...fadeUp(0.05)}
-        href="/tools/archive"
+        href="/tools/artwork-inventory"
         className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20 md:col-span-3"
       >
         <div className="pointer-events-none h-[240px] overflow-hidden bg-[#F8F8F6] md:h-[300px]">

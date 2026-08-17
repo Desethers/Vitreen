@@ -7,7 +7,7 @@ import { SITE_URL, localeUrls } from "@/lib/seo";
  * of their own — they currently restate viewing-rooms and publishing. */
 const toolSlugs = [
   "overview",
-  "archive",
+  "artwork-inventory",
   "publishing",
   "viewing-rooms",
   "custom-operations",

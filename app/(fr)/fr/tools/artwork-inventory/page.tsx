@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "fr",
-  path: "/tools/archive",
+  path: "/tools/artwork-inventory",
   title: "Gestion des œuvres",
   description:
     "Réunissez œuvres, artistes et expositions dans une même fiche : images, dimensions, disponibilité, localisation et documents.",

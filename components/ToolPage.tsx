@@ -27,7 +27,7 @@ const fadeUp = (delay = 0) => ({
 
 export type ToolSlug =
   | "overview"
-  | "archive"
+  | "artwork-inventory"
   | "viewing-rooms"
   | "previews"
   | "publishing"
@@ -45,18 +45,18 @@ type ToolContent = {
   badge?: string;
 };
 
-const PILLAR_SLUGS = ["archive", "publishing", "inquiries", "custom-operations"] as const;
+const PILLAR_SLUGS = ["artwork-inventory", "publishing", "inquiries", "custom-operations"] as const;
 type PillarSlug = (typeof PILLAR_SLUGS)[number];
 
 const PILLAR_MOCKS: Record<PillarSlug, React.ComponentType> = {
-  archive: ArchiveMock,
+  "artwork-inventory": ArchiveMock,
   publishing: PublishingMock,
   inquiries: CollectorsMock,
   "custom-operations": AssistantMock,
 };
 
 const PILLAR_HREF: Record<PillarSlug, string> = {
-  archive: "/tools/archive",
+  "artwork-inventory": "/tools/artwork-inventory",
   publishing: "/tools/publishing",
   inquiries: "/tools/inquiries",
   "custom-operations": "/tools/custom-operations",

@@ -15,7 +15,7 @@ export const translations = {
       productMenu: {
         sectionLabel: "Produits",
         items: [
-          { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/tools/archive" },
+          { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/tools/artwork-inventory" },
           { title: "Website Publisher", desc: "Publiez les œuvres et les expositions sur votre site.", href: "/tools/publishing" },
           { title: "Gallery Assistant", desc: "Préparez vos contenus et le travail quotidien de la galerie.", href: "/tools/custom-operations" },
           { title: "Viewing Rooms", desc: "Créez et partagez des sélections privées.", href: "/tools/viewing-rooms" },
@@ -642,7 +642,7 @@ export const translations = {
         ],
         cta: "Parlons-en",
       },
-      archive: {
+      "artwork-inventory": {
         eyebrow: "Outils · Artworks Management",
         title: "Artworks Management",
         subtitle: "Œuvres, artistes et expositions organisés autour de votre workflow.",
@@ -892,7 +892,7 @@ export const translations = {
       productMenu: {
         sectionLabel: "Products",
         items: [
-          { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/tools/archive" },
+          { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/tools/artwork-inventory" },
           { title: "Website Publisher", desc: "Publish artworks and exhibitions online.", href: "/tools/publishing" },
           { title: "Gallery Assistant", desc: "Prepare content and daily gallery work.", href: "/tools/custom-operations" },
           { title: "Viewing Rooms", desc: "Create and share private selections.", href: "/tools/viewing-rooms" },
@@ -1526,7 +1526,7 @@ export const translations = {
         ],
         cta: "Talk to us",
       },
-      archive: {
+      "artwork-inventory": {
         eyebrow: "Tools · Artworks Management",
         title: "Artworks Management",
         subtitle: "Artworks, artists and exhibitions organized around your workflow.",
