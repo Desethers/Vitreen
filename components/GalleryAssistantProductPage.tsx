@@ -799,10 +799,10 @@ export default function GalleryAssistantProductPage() {
               Sales Assistant
             </p>
             <h1 className="font-display text-[28px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[40px]">
-              For day-to-day collector work.
+              Bring Vitreen into every collector conversation.
             </h1>
             <p className="mt-1 max-w-4xl text-[26px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[36px]">
-              Prepare emails, selections and artwork material from the same inventory.
+              Access your inventory from Gmail and WhatsApp to share works, prices and images.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" onClick={openContact}>
