@@ -6,7 +6,7 @@ Vitreen Studio is a digital studio (an extension of Vitreen) that handles the di
 
 Contact: studio@vitreen.art
 Location: Paris, France
-Website: https://vitreen.studio/
+Website: https://vitreen.art/studio
 
 ## How it works
 

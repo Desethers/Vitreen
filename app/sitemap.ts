@@ -31,7 +31,7 @@ function priorityFor(path: string) {
 export default function sitemap(): MetadataRoute.Sitemap {
   /* Each entry declares both languages so the two versions are paired rather
    * than read as duplicates. */
-  return paths.flatMap((path) => {
+  const entries: MetadataRoute.Sitemap = paths.flatMap((path) => {
     const urls = localeUrls(path);
     const languages = {
       "en-GB": `${SITE_URL}${urls.en}`,
@@ -46,4 +46,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages },
     }));
   });
+
+  /* Vitreen Studio is a separate static build served under /studio, with its
+   * FR version at /studio/fr rather than the usual /fr prefix — it can't go
+   * through the paths/localeUrls machinery above. */
+  const studioLanguages = {
+    "en-GB": `${SITE_URL}/studio`,
+    "fr-FR": `${SITE_URL}/studio/fr`,
+    "x-default": `${SITE_URL}/studio`,
+  };
+  entries.push(
+    {
+      url: `${SITE_URL}/studio`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: { languages: studioLanguages },
+    },
+    {
+      url: `${SITE_URL}/studio/fr`,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: { languages: studioLanguages },
+    }
+  );
+
+  return entries;
 }

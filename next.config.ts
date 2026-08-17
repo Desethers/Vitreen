@@ -28,6 +28,14 @@ const nextConfig: NextConfig = {
       // favori pointe encore vers l'ancienne URL.
       { source: "/products/:path*", destination: "/tools/:path*", permanent: true },
       { source: "/fr/products/:path*", destination: "/fr/tools/:path*", permanent: true },
+      // /tools/archive a été renommé /tools/artwork-inventory pour un slug
+      // plus explicite. Redirection permanente pour préserver le référencement.
+      { source: "/tools/archive", destination: "/tools/artwork-inventory", permanent: true },
+      {
+        source: "/fr/tools/archive",
+        destination: "/fr/tools/artwork-inventory",
+        permanent: true,
+      },
     ];
   },
 };
