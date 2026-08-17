@@ -119,7 +119,7 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
               ← {tools.backToHome}
             </Link>
 
-            <p className="mb-4 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
+            <p className="mb-4 text-[14px] uppercase tracking-[0.12em] text-[#ADADAA]">
               {content.eyebrow}
             </p>
 

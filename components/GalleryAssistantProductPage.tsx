@@ -795,7 +795,7 @@ export default function GalleryAssistantProductPage() {
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+            <p className="mb-4 text-[14px] font-medium tracking-[-0.01em] text-[#858581]">
               Sales Assistant
             </p>
             <h1 className="font-display text-[28px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[40px]">

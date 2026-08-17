@@ -123,7 +123,7 @@ export default function LandingNavFr() {
                   setSolutionsOpen(false);
                 }}
                 aria-expanded={toolsOpen}
-                className="text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
+                className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
                 Outils
               </button>
@@ -142,7 +142,7 @@ export default function LandingNavFr() {
                   setToolsOpen(false);
                 }}
                 aria-expanded={solutionsOpen}
-                className="text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
+                className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
                 Solutions
               </button>
@@ -151,7 +151,7 @@ export default function LandingNavFr() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm text-[#6B6A67] transition-colors duration-200 hover:text-[#111110]"
+                className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
                 {link.label}
                 {link.label === "Studio" ? (

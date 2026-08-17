@@ -723,7 +723,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
       <section className="px-4 pt-32 pb-10 md:px-6 md:pt-40 md:pb-14">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <p className="mb-4 text-[13px] font-medium tracking-[-0.01em] text-[#858581]">
+            <p className="mb-4 text-[14px] font-medium tracking-[-0.01em] text-[#858581]">
               {content.eyebrow}
             </p>
 
