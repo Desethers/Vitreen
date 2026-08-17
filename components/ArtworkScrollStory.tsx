@@ -1142,6 +1142,9 @@ export default function ArtworkScrollStory() {
   return (
     <div className="-mt-10 md:-mt-16">
       <ScrollStory
+        title="Built for everyday gallery work"
+        subtitle="Every artwork, ready when it matters."
+        hideHeader
         steps={STEPS}
         renderVisual={(index) => <GalleryOSContinuousDemo step={index} />}
         compactMobileVisual

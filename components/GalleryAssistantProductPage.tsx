@@ -816,6 +816,9 @@ export default function GalleryAssistantProductPage() {
 
       <div className="-mt-10 md:-mt-16">
         <ScrollStory
+          title="Vitreen adapts to the gallery."
+          subtitle="Not the other way around."
+          hideHeader
           steps={STEPS}
           compactMobileVisual
           renderVisual={(index) => <AssistantVisual index={index} />}
