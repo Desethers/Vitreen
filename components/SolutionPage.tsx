@@ -728,10 +728,10 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
               href={href("/")}
               className="mb-8 inline-block text-[12px] text-[#ADADAA] transition-colors hover:text-[#6B6A67]"
             >
-              ← {solutions.backToHome}
+              {solutions.backToHome}
             </Link>
 
-            <p className="mb-4 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
+            <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
               {content.eyebrow}
             </p>
 
