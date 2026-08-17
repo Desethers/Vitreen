@@ -9,7 +9,7 @@ const seo = {
   title: "Gallery Assistant",
   description:
     "Préparez réponses collectionneurs et matériel de vente depuis vos propres fiches, relus avant tout envoi.",
-  section: { name: "Gallery OS", path: "/tools/overview" },
+  section: { name: "Outils", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

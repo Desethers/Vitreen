@@ -14,11 +14,9 @@ function buildColumns(footer: FooterCopy) {
     {
       title: columns.platform,
       links: [
-        { label: links.galleryOs, href: "/tools/overview" },
         { label: links.artworkManagement, href: "/tools/archive" },
-        { label: links.galleryWebsites, href: "/tools/publishing" },
-        { label: links.viewingRooms, href: "/tools/viewing-rooms" },
         { label: links.galleryAssistant, href: "/tools/custom-operations" },
+        { label: links.viewingRooms, href: "/tools/viewing-rooms" },
       ],
     },
     {
@@ -27,6 +25,7 @@ function buildColumns(footer: FooterCopy) {
         { label: links.forGalleries, href: "/solutions/galleries" },
         { label: links.forArtists, href: "/solutions/artists" },
         { label: links.forAdvisors, href: "/solutions/advisors" },
+        { label: links.forEstates, href: "/solutions/estates" },
       ],
     },
     {
@@ -35,6 +34,14 @@ function buildColumns(footer: FooterCopy) {
         { label: links.about, href: "/about" },
         { label: links.pricing, href: "/pricing" },
         { label: links.contact, href: "#contact", opensContact: true },
+      ],
+    },
+    {
+      title: columns.studio,
+      links: [
+        { label: links.studioHowItWorks, href: "/studio#how-it-works", external: true },
+        { label: links.studioTasks, href: "/studio#tasks", external: true },
+        { label: links.studioContact, href: "mailto:studio@vitreen.art", external: true },
       ],
     },
   ];
@@ -106,24 +113,32 @@ export default function Footer() {
               </p>
             </div>
 
-            <nav aria-label="Footer" className="grid gap-10 sm:grid-cols-3 sm:gap-8">
+            <nav aria-label="Footer" className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
               {footerColumns.map((column) => (
                 <div key={column.title}>
                   <h3 className="text-[12px] font-medium text-[#6B6A67]">{column.title}</h3>
                   <ul className="mt-5 space-y-3">
-                    {column.links.map((link) => (
-                      <li key={link.label}>
-                        <a
-                          href={href(link.href)}
-                          onClick={
-                            "opensContact" in link && link.opensContact ? openContact : undefined
-                          }
-                          className="text-[14px] leading-snug text-[#D5D5D2] transition-colors duration-200 hover:text-white"
-                        >
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
+                    {column.links.map((link) => {
+                      const isExternal = "external" in link && link.external;
+                      return (
+                        <li key={link.label}>
+                          <a
+                            href={isExternal ? link.href : href(link.href)}
+                            onClick={
+                              "opensContact" in link && link.opensContact ? openContact : undefined
+                            }
+                            className="text-[14px] leading-snug text-[#D5D5D2] transition-colors duration-200 hover:text-white"
+                          >
+                            {link.label}
+                            {isExternal ? (
+                              <span aria-hidden="true" className="ml-1">
+                                ↗
+                              </span>
+                            ) : null}
+                          </a>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}

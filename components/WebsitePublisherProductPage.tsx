@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import Nav from "@/components/Nav";
+import LandingNav from "@/components/landing/LandingNav";
+import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
+import { useLang } from "@/lib/lang";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
 import { PublishingMock } from "@/components/showcase/PillarMocks";
@@ -28,7 +30,7 @@ const STEPS = [
   },
   {
     title: "Connected Sections",
-    subtitle: "Artists, exhibitions and news on your website are updated from Gallery OS.",
+    subtitle: "Artists, exhibitions and news on your website are updated from your inventory.",
     bullets: ["Artist profiles", "Exhibition pages", "News posts"],
   },
   {
@@ -38,7 +40,7 @@ const STEPS = [
   },
   {
     title: "Live Publishing",
-    subtitle: "Make updates in Gallery OS and keep your website current.",
+    subtitle: "Make updates in Vitreen and keep your website current.",
     bullets: ["No code", "No separate CMS", "No back-and-forth for small edits"],
   },
 ];
@@ -356,7 +358,7 @@ function ConnectedSectionsFrame({ reduceMotion }: { reduceMotion: boolean }) {
               ◫
             </span>
             <div>
-              <h3 className="text-[14px] font-medium text-[#181818]">Gallery OS</h3>
+              <h3 className="text-[14px] font-medium text-[#181818]">Vitreen</h3>
               <p className="text-[9px] text-[#9A9A96]">Connected sections</p>
             </div>
           </div>
@@ -483,7 +485,7 @@ function NoCmsFrame({ reduceMotion }: { reduceMotion: boolean }) {
       <div className="flex h-[62px] items-center justify-between border-b border-[#E8E8E6] px-7">
         <div>
           <h3 className="text-[15px] font-medium text-[#181818]">Website content</h3>
-          <p className="mt-0.5 text-[10px] text-[#8A8A86]">Gallery OS · Website Publisher</p>
+          <p className="mt-0.5 text-[10px] text-[#8A8A86]">Vitreen · Website Publisher</p>
         </div>
         <span className="rounded-full border border-[#E1E1DE] px-3 py-1.5 text-[10px] text-[#6B6A67]">
           3 connected sections
@@ -730,21 +732,23 @@ export default function WebsitePublisherProductPage() {
     return () => window.clearInterval(interval);
   }, [reduceMotion]);
 
+  const { lang } = useLang();
+
   const openContact = () => {
     window.dispatchEvent(new CustomEvent("open-contact-modal"));
   };
 
   return (
     <main className="relative bg-white">
-      <Nav />
+      {lang === "fr" ? <LandingNavFr /> : <LandingNav />}
 
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[30px]">
+            <h1 className="font-display text-[28px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[40px]">
               Website Publisher
             </h1>
-            <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
+            <p className="mt-1 max-w-4xl text-[26px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[36px]">
               Update artworks once. Your website follows.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -752,6 +756,7 @@ export default function WebsitePublisherProductPage() {
                 Set up publishing
               </Button>
             </div>
+            <div className="border-t border-[#E8E8E6] mt-16 md:mt-[96px] -mx-4 md:-mx-6" />
           </motion.div>
 
           <motion.div
@@ -773,23 +778,27 @@ export default function WebsitePublisherProductPage() {
         </div>
       </section>
 
-      <ScrollStory
-        title="Publish once, everywhere it needs to be."
-        subtitle="Website, archive, PDF and email — all from one record."
-        steps={STEPS}
-        compactMobileVisual
-        renderVisual={(index) => (
-          <PublishingVisual
-            index={index}
-            websitePage={websitePage}
-            reduceMotion={Boolean(reduceMotion)}
-          />
-        )}
-        renderVisualFooter={(index) =>
-          index === 0 ? <WebsitePreviewTabs value={websitePage} onChange={setWebsitePage} /> : null
-        }
-        isVisualBare={(index) => index === 1}
-      />
+      <div className="-mt-10 md:-mt-16">
+        <ScrollStory
+          title="Publish once, everywhere it needs to be."
+          subtitle="Website, archive, PDF and email — all from one record."
+          steps={STEPS}
+          compactMobileVisual
+          renderVisual={(index) => (
+            <PublishingVisual
+              index={index}
+              websitePage={websitePage}
+              reduceMotion={Boolean(reduceMotion)}
+            />
+          )}
+          renderVisualFooter={(index) =>
+            index === 0 ? (
+              <WebsitePreviewTabs value={websitePage} onChange={setWebsitePage} />
+            ) : null
+          }
+          isVisualBare={(index) => index === 1}
+        />
+      </div>
 
       <CtaBand />
       <Footer />

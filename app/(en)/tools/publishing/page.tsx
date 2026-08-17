@@ -9,7 +9,7 @@ const seo = {
   title: "Website Publisher",
   description:
     "Publish artists, exhibitions and available works to your gallery website from the same artwork records.",
-  section: { name: "Gallery OS", path: "/tools/overview" },
+  section: { name: "Tools", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

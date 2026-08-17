@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Nav from "@/components/Nav";
+import LandingNav from "@/components/landing/LandingNav";
+import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
@@ -307,7 +308,7 @@ function GalleriesEditorialIntro({
           body: "Vitreen part de vos archives, de vos outils et de vos habitudes pour créer une infrastructure plus claire autour des œuvres.",
         }
       : {
-          label: "Who is it for?",
+          label: "Which galleries?",
           titleLines: [
             "Any gallery that wants an online presence",
             "without depending on a developer.",
@@ -319,82 +320,84 @@ function GalleriesEditorialIntro({
     lang === "fr"
       ? [
           {
-            title: "Connectez ce que vous utilisez déjà",
+            title: "Une base d’œuvres connectée",
             description:
-              "Réunissez archives, inventaires et bases de données dans une couche opérationnelle connectée.",
+              "Migrez vos archives et inventaires dans un système dont partent tous vos autres outils.",
           },
           {
-            title: "Réutilisez chaque fiche œuvre",
+            title: "Des outils de vente dans Gmail et WhatsApp",
             description:
-              "Préparez viewing rooms, PDFs et liens privés sans recréer les mêmes informations.",
+              "Brouillons IA, viewing rooms et PDF construits depuis les mêmes fiches œuvres.",
           },
           {
-            title: "Publiez et partagez depuis une seule source",
+            title: "Un site qui se met à jour tout seul",
             description:
-              "Passez de la publication publique au partage privé avec les mêmes fiches œuvres.",
+              "Publiez artistes, expositions et œuvres directement depuis votre base — sans développeur.",
           },
         ]
       : [
           {
-            title: "Connect what you already use",
+            title: "A connected artwork database",
             description:
-              "Bring archives, inventories and databases into one connected operating layer.",
+              "Migrate your archives and inventories into one system every other tool draws from.",
           },
           {
-            title: "Use artwork details everywhere",
+            title: "Sales tools in Gmail and WhatsApp",
             description:
-              "Turn one artwork record into website pages, PDFs, viewing rooms and collector replies.",
+              "AI-drafted replies, viewing rooms and PDFs built from the same artwork records.",
           },
           {
-            title: "Publish and share from one source",
+            title: "A website that updates itself",
             description:
-              "Move between public publishing and private sharing with the same artwork records.",
+              "Publish artists, exhibitions and artworks straight from your database — no developer needed.",
           },
         ];
 
   return (
-    <section className="bg-white px-4 py-16 md:px-6 md:py-24">
+    <section className="bg-white px-4 pb-8 pt-16 md:px-6 md:pb-12 md:pt-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-16 md:grid-cols-[1.08fr_0.92fr] md:gap-12 lg:gap-16">
-          <motion.div {...fadeUp(0)}>
-            <p className="text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
-              {editorial.label}
-            </p>
-            <h2 className="mt-6 font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
-              {editorial.titleLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h2>
-            <p className="mt-6 max-w-xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
-              {editorial.body}
-            </p>
-            <Button size="lg" onClick={onContact} className="mt-10">
-              {content.cta} <span aria-hidden="true">→</span>
-            </Button>
-          </motion.div>
+        <div className="-mx-3 border-t border-[#E8E8E6] px-3 pb-6 pt-10 md:-mx-4 md:px-4 md:pb-8 md:pt-14">
+          <div className="grid gap-16 md:grid-cols-[1.08fr_0.92fr] md:gap-12 lg:gap-16">
+            <motion.div {...fadeUp(0)}>
+              <p className="text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+                {editorial.label}
+              </p>
+              <h2 className="mt-6 font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
+                {editorial.titleLines.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </h2>
+              <p className="mt-6 max-w-xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
+                {editorial.body}
+              </p>
+              <Button size="lg" onClick={onContact} className="mt-10">
+                {content.cta} <span aria-hidden="true">→</span>
+              </Button>
+            </motion.div>
 
-          <motion.div {...fadeUp(0.08)}>
-            <ol className="flex list-none flex-col gap-3 p-0">
-              {highlights.map((highlight) => (
-                <li
-                  key={highlight.title}
-                  className="grid grid-cols-[1rem_1fr] items-start gap-4 rounded-[8px] bg-[#F7F7F5] px-6 py-7 md:px-7 md:py-8"
-                >
-                  <CheckIcon />
-                  <div>
-                    <h3 className="font-display text-[17px] font-normal leading-[1.35] tracking-[-0.02em] text-[#111110] md:text-[18px]">
-                      {highlight.title}
-                    </h3>
-                    <p className="mt-3 text-[14px] leading-[1.5] tracking-[-0.01em] text-[#9A9A96] md:text-[15px]">
-                      {highlight.description}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </motion.div>
+            <motion.div {...fadeUp(0.08)}>
+              <ol className="flex list-none flex-col gap-4 p-0">
+                {highlights.map((highlight) => (
+                  <li
+                    key={highlight.title}
+                    className="grid min-h-[84px] grid-cols-[1rem_1fr] items-start gap-3 rounded-[8px] bg-[#F7F7F5] px-5 py-4"
+                  >
+                    <CheckIcon />
+                    <div>
+                      <h3 className="font-display text-[15px] font-normal leading-[1.35] tracking-[-0.02em] text-[#111110]">
+                        {highlight.title}
+                      </h3>
+                      <p className="mt-1 text-[13px] leading-[1.45] tracking-[-0.01em] text-[#9A9A96]">
+                        {highlight.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -446,6 +449,7 @@ function GalleriesStickyWorkflow() {
     <ScrollStory
       title="From inventory to collector follow-up."
       subtitle="The same artwork records keep each step connected."
+      hideHeader
       steps={steps}
       compactMobileVisual
       isVisualBare={(index) => index === 3}
@@ -482,7 +486,7 @@ function GalleriesBuiltAroundSection() {
       description:
         "We organise your artwork information and create the dashboard and website your gallery needs.",
       points: [
-        "Configure the Gallery OS around your workflow",
+        "Configure the system around your workflow",
         "Connect artwork records to the website",
       ],
     },
@@ -504,21 +508,21 @@ function GalleriesBuiltAroundSection() {
           How we work with your gallery
         </motion.h2>
 
-        <div className="mt-12 md:mt-16 md:grid md:grid-cols-3 md:gap-10 lg:gap-12">
+        <div className="mt-12 flex flex-col gap-4 md:mt-16 md:grid md:grid-cols-3 md:gap-6 lg:gap-8">
           {columns.map((column, columnIndex) => (
             <motion.article
               key={column.title}
               {...fadeUp(columnIndex * 0.06)}
-              className="py-6 first:pt-0 last:pb-0 md:py-0"
+              className="rounded-[12px] bg-[#F5F5F3] p-6 md:p-7"
             >
               <h3 className="font-display text-[18px] font-normal leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[20px]">
                 {column.title}
               </h3>
-              <p className="mt-3 max-w-sm text-[14px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
+              <p className="mt-3 min-h-[72px] max-w-sm text-[14px] leading-[1.6] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
                 {column.description}
               </p>
 
-              <ul className="mt-3 flex list-none flex-col gap-3 p-0 md:mt-8">
+              <ul className="mt-3 flex list-none flex-col gap-3 p-0 md:mt-6">
                 {column.points.map((point) => (
                   <li key={point} className="flex items-start gap-3">
                     <CheckIcon />
@@ -592,6 +596,7 @@ function AdvisorsWorkflow({ lang }: { lang: "fr" | "en" }) {
     <ScrollStory
       title={copy.title}
       subtitle={copy.subtitle}
+      hideHeader
       steps={copy.steps}
       compactMobileVisual
       renderVisual={(index) => <AdvisorsSelectionWorkflowVisual step={index} />}
@@ -676,6 +681,7 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
     <ScrollStory
       title={heading.title}
       subtitle={heading.subtitle}
+      hideHeader
       steps={steps}
       compactMobileVisual
       isVisualBare={(index) => index === 1 || index === 2 || index === 3}
@@ -711,14 +717,14 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
 
   return (
     <main className="relative bg-white">
-      <Nav />
+      {lang === "fr" ? <LandingNavFr /> : <LandingNav />}
 
       {/* Hero */}
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
             {["advisors", "artists", "galleries", "estates"].includes(slug) ? (
-              <p className="mb-5 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+              <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
                 {content.eyebrow}
               </p>
             ) : null}
@@ -740,39 +746,32 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
             </div>
           </motion.div>
 
-          <motion.div
-            {...fadeUp(0.08)}
-            className={`relative mt-14 h-[620px] overflow-hidden rounded-xl bg-cover bg-center md:mt-20 md:h-[720px] ${
-              slug === "galleries" ? "" : "bg-[#F5F5F3]"
-            }`}
-            style={
-              slug === "galleries" ? { backgroundImage: "url('/Gallery-screen.jpg')" } : undefined
-            }
-          >
-            <div
-              className={`absolute inset-6 overflow-hidden bg-white md:inset-10 ${
-                slug === "galleries" ? "rounded-[12px]" : "rounded-lg border border-[#E8E8E6]"
-              }`}
+          {["galleries", "advisors", "artists"].includes(slug) ? null : (
+            <motion.div
+              {...fadeUp(0.08)}
+              className="relative mt-14 h-[620px] overflow-hidden rounded-xl bg-cover bg-center bg-[#F5F5F3] md:mt-20 md:h-[720px]"
             >
-              <div className="relative h-full">
-                <Visual />
+              <div className="absolute inset-6 overflow-hidden rounded-lg border border-[#E8E8E6] bg-white md:inset-10">
+                <div className="relative h-full">
+                  <Visual />
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          )}
         </div>
       </section>
-
-      {slug === "galleries" ? (
-        <>
-          <GalleriesEditorialIntro content={content} lang={lang} onContact={openContact} />
-          <GalleriesStickyWorkflow />
-          <GalleriesBuiltAroundSection />
-        </>
-      ) : null}
 
       {slug === "advisors" ? <AdvisorsWorkflow lang={lang} /> : null}
 
       {slug === "artists" ? <ArtistsWorkflow content={content} lang={lang} /> : null}
+
+      {slug === "galleries" ? (
+        <>
+          <GalleriesStickyWorkflow />
+          <GalleriesBuiltAroundSection />
+          <GalleriesEditorialIntro content={content} lang={lang} onContact={openContact} />
+        </>
+      ) : null}
 
       {slug === "artists" ? (
         <CtaBand

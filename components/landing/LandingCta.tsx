@@ -6,17 +6,36 @@ import LandingLanguageSwitch from "@/components/landing/LandingLanguageSwitch";
 
 const FOOTER_COLUMNS = [
   {
-    title: "Product",
+    title: "Tools",
     links: [
-      { label: "How it works", href: "/#how-it-works" },
-      { label: "Pricing", href: "/pricing" },
+      { label: "Artwork Inventory", href: "/tools/archive" },
+      { label: "Sales Assistant", href: "/tools/custom-operations" },
+      { label: "Viewing Rooms", href: "/tools/viewing-rooms" },
     ],
   },
   {
-    title: "Company",
+    title: "Solutions",
+    links: [
+      { label: "For Art Galleries", href: "/solutions/galleries" },
+      { label: "For Artists", href: "/solutions/artists" },
+      { label: "For Art Advisors & Dealers", href: "/solutions/advisors" },
+      { label: "For Artist Estates", href: "/solutions/estates" },
+    ],
+  },
+  {
+    title: "Vitreen",
     links: [
       { label: "About", href: "/about" },
+      { label: "Pricing", href: "/pricing" },
       { label: "Contact", href: "#contact", opensContact: true },
+    ],
+  },
+  {
+    title: "Vitreen Studio",
+    links: [
+      { label: "How it works", href: "/studio#how-it-works" },
+      { label: "Tasks", href: "/studio#tasks" },
+      { label: "Contact", href: "mailto:studio@vitreen.art" },
     ],
   },
 ] as const;
@@ -58,22 +77,33 @@ export default function LandingCta() {
                 </p>
               </div>
 
-              <nav aria-label="Footer" className="grid gap-10 sm:grid-cols-2 sm:gap-8">
+              <nav
+                aria-label="Footer"
+                className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
+              >
                 {FOOTER_COLUMNS.map((column) => (
                   <div key={column.title}>
                     <h3 className="text-[12px] font-medium text-[#6B6A67]">{column.title}</h3>
                     <ul className="mt-5 space-y-3">
-                      {column.links.map((link) => (
-                        <li key={link.label}>
-                          <a
-                            href={link.href}
-                            onClick={"opensContact" in link ? openContact : undefined}
-                            className="text-[14px] leading-snug text-[#D5D5D2] transition-colors duration-200 hover:text-white"
-                          >
-                            {link.label}
-                          </a>
-                        </li>
-                      ))}
+                      {column.links.map((link) => {
+                        const isExternal = link.href.startsWith("/studio");
+                        return (
+                          <li key={link.label}>
+                            <a
+                              href={link.href}
+                              onClick={"opensContact" in link ? openContact : undefined}
+                              className="text-[14px] leading-snug text-[#D5D5D2] transition-colors duration-200 hover:text-white"
+                            >
+                              {link.label}
+                              {isExternal ? (
+                                <span aria-hidden="true" className="ml-1">
+                                  ↗
+                                </span>
+                              ) : null}
+                            </a>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))}

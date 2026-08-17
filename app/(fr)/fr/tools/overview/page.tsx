@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 const seo = {
   lang: "fr",
   path: "/tools/overview",
-  title: "Gallery OS",
+  title: "Une vue connectée des outils Vitreen",
   description:
     "Le système connecté d’une galerie : fiches d’œuvres, publication du site, sélections privées et suivi des collectionneurs.",
 } as const;

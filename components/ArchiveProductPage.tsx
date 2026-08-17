@@ -7,9 +7,7 @@ import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
-import { ArchiveMock } from "@/components/showcase/PillarMocks";
 import ArtworkScrollStory from "@/components/ArtworkScrollStory";
-import HeroCurtainMock from "@/components/HeroCurtainMock";
 import HomeAddIns from "@/components/HomeAddIns";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -21,19 +19,11 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, ease, delay },
 });
 
-function HeroArchiveMock() {
-  return (
-    <HeroCurtainMock cropFromBottomOnMobile>
-      <ArchiveMock interactive />
-    </HeroCurtainMock>
-  );
-}
-
 function ArtworkMetricsStrip() {
   const metrics = [
     { metric: "×5", text: "surfaces served by one artwork record" },
     { metric: "24/7", text: "website aligned with your records" },
-    { metric: "3 wks", text: "from your inventory to a working Gallery OS" },
+    { metric: "3 wks", text: "from your inventory to a working system" },
   ];
 
   return (
@@ -158,41 +148,32 @@ export default function ArchiveProductPage() {
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[30px]">
-              Artworks Management
+            <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+              Artwork Inventory
+            </p>
+            <h1 className="font-display text-[28px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[40px]">
+              The working memory of your gallery.
             </h1>
-            <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
-              Keep artworks, artists and exhibitions organized in one place.
+            <p className="mt-1 max-w-4xl text-[26px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[36px]">
+              Keep every artwork detail structured, current and ready to use.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" onClick={openContact}>
                 Structure the archive
               </Button>
             </div>
-          </motion.div>
-
-          <motion.div
-            {...fadeUp(0.08)}
-            className="relative -mr-4 mt-14 h-[620px] overflow-hidden rounded-[5px] bg-[#D8D2C8] md:mr-0 md:mt-20 md:h-[720px] md:rounded-xl"
-            style={{ isolation: "isolate", willChange: "transform" }}
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/paula-cooper-background.jpg')" }}
-            />
-
-            <HeroArchiveMock />
+            <div className="border-t border-[#E8E8E6] mt-16 md:mt-[96px] -mx-4 md:-mx-6" />
           </motion.div>
         </div>
       </section>
-
-      <ArtworkMetricsStrip />
 
       <ArtworkScrollStory />
 
       <DataAssuranceSection />
 
       <HomeAddIns />
+
+      <ArtworkMetricsStrip />
 
       <CtaBand />
       <Footer />

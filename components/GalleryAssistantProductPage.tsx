@@ -8,9 +8,7 @@ import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import { Button } from "@/components/ui/Button";
-import { AssistantMock } from "@/components/showcase/PillarMocks";
 import ScrollStory from "@/components/ScrollStory";
-import HeroCurtainMock from "@/components/HeroCurtainMock";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -33,7 +31,7 @@ const STEPS = [
   },
   {
     title: "Gmail Side Panel",
-    subtitle: "Use Gallery OS directly inside Gmail.",
+    subtitle: "Use your inventory directly inside Gmail.",
     bullets: [
       "Search artworks while replying",
       "Add images, captions and details",
@@ -410,7 +408,7 @@ export function IntegrationsFrame() {
             transition={{ duration: 0.32, ease }}
           >
             <div className="flex h-9 shrink-0 items-center justify-between bg-[#414141] px-5 text-white">
-              <h3 className="text-[14px] font-semibold">Gallery OS</h3>
+              <h3 className="text-[14px] font-semibold">Vitreen</h3>
               <div className="flex items-center gap-3 text-[18px] leading-none">
                 <span aria-hidden="true">⋮</span>
                 <span aria-hidden="true">×</span>
@@ -422,7 +420,7 @@ export function IntegrationsFrame() {
               className="scroll-smooth flex min-h-0 flex-1 flex-col overflow-y-auto px-5 py-4"
             >
               <h4 className="text-[13px] font-medium text-[#202124]">Insérer une œuvre</h4>
-              <p className="mt-1 text-[12px] text-[#4A4A4A]">Recherche dans Gallery OS</p>
+              <p className="mt-1 text-[12px] text-[#4A4A4A]">Recherche dans Vitreen</p>
 
               <div className="mt-4 border-t border-[#D5D5D2] pt-4">
                 <div className="flex min-h-[42px] items-center rounded-[5px] border border-[#777773] px-3 py-2.5 text-[13px] text-[#333331]">
@@ -595,7 +593,7 @@ function WhatsAppPdfFrame() {
               <p className="text-[6px] leading-[1.4] text-[#9A9A96]">
                 Confidential
                 <br />
-                Prepared by Gallery OS
+                Prepared by Vitreen
               </p>
               <p className="text-[7px] font-medium text-[#111110]">VITREEN</p>
             </div>
@@ -797,44 +795,33 @@ export default function GalleryAssistantProductPage() {
       <section className="overflow-hidden px-4 pb-12 pt-32 md:px-6 md:pb-[72px] md:pt-40">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[30px]">
-              Gallery Assistant
+            <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
+              Sales Assistant
+            </p>
+            <h1 className="font-display text-[28px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[40px]">
+              For day-to-day collector work.
             </h1>
-            <p className="mt-2 max-w-4xl text-[22px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[30px]">
-              Reply to collectors faster, with every artwork detail already in place.
+            <p className="mt-1 max-w-4xl text-[26px] leading-[1.35] tracking-[-0.02em] text-[#6B6A67] md:text-[36px]">
+              Prepare emails, selections and artwork material from the same inventory.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" onClick={openContact}>
                 Adapt the workflow
               </Button>
             </div>
-          </motion.div>
-
-          <motion.div
-            {...fadeUp(0.08)}
-            className="relative -mr-4 mt-14 h-[620px] overflow-hidden rounded-[5px] bg-[#D8D2C8] md:mr-0 md:mt-20 md:h-[720px] md:rounded-xl"
-            style={{ isolation: "isolate", willChange: "transform" }}
-          >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: "url('/paula-cooper-background.jpg')" }}
-            />
-
-            <HeroCurtainMock cropFromBottomOnMobile>
-              <AssistantMock />
-            </HeroCurtainMock>
+            <div className="border-t border-[#E8E8E6] mt-16 md:mt-[96px] -mx-4 md:-mx-6" />
           </motion.div>
         </div>
       </section>
 
-      <ScrollStory
-        title="Vitreen adapts to the gallery."
-        subtitle="Not the other way around."
-        steps={STEPS}
-        compactMobileVisual
-        renderVisual={(index) => <AssistantVisual index={index} />}
-        isVisualBare={() => true}
-      />
+      <div className="-mt-10 md:-mt-16">
+        <ScrollStory
+          steps={STEPS}
+          compactMobileVisual
+          renderVisual={(index) => <AssistantVisual index={index} />}
+          isVisualBare={() => true}
+        />
+      </div>
 
       <CtaBand />
       <Footer />

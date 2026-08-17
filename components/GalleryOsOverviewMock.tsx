@@ -225,12 +225,12 @@ export function GalleryOsOverviewMock({ glass = false }: { glass?: boolean }) {
             <div className="flex items-center gap-2.5">
               <GalleryOsMark />
               <span className="text-[13px] font-semibold tracking-tight text-zinc-900">
-                Gallery OS
+                Vitreen
               </span>
             </div>
           </div>
 
-          <nav className="flex flex-1 flex-col gap-0.5 px-3 py-3" aria-label="Gallery OS preview">
+          <nav className="flex flex-1 flex-col gap-0.5 px-3 py-3" aria-label="Vitreen preview">
             {SIDEBAR_ITEMS.map(({ label, icon: Icon, badge }) => (
               <div
                 key={label}

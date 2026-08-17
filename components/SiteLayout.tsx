@@ -39,7 +39,7 @@ export default function SiteLayout({ lang, children }: { lang: Lang; children: R
   const softwareJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Vitreen Gallery OS",
+    name: "Vitreen",
     url: SITE_URL,
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",

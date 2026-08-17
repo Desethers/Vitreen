@@ -214,8 +214,6 @@ const STEP_VISUALS = [ComposeVisual, ControlVisual, ShareVisual, SyncVisual];
 export default function ViewingRoomsScrollStory() {
   return (
     <ScrollStory
-      title="From inventory to a private viewing room."
-      subtitle="Compose, control, share — and it stays in sync."
       steps={STEPS}
       compactMobileVisual
       renderVisual={(index) => {

@@ -132,6 +132,16 @@
         }
       }
     </style>
+    <style>
+      .site-footer__nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @media (max-width: 640px) {
+        .site-footer__nav {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="header">
@@ -330,7 +340,7 @@
     </main>
     <footer class="site-footer">
       <div class="site-footer__intro"><a class="site-footer__brand" href="#top">Vitreen <span>Studio</span></a><p>Le studio numérique des galeries d’art contemporain.<br>Des missions à la carte, des prix fixes, sans abonnement.</p></div>
-      <nav class="site-footer__nav" aria-label="Pied de page"><div><span>Produit</span><a href="#how-it-works">Comment ça marche</a><a href="#tasks">Tarifs</a></div><div><span>Entreprise</span><a href="#projects">À propos</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
+      <nav class="site-footer__nav" aria-label="Pied de page"><div><span>Outils</span><a href="https://vitreen.art/tools/archive" target="_blank" rel="noreferrer">Artwork Inventory</a><a href="https://vitreen.art/tools/custom-operations" target="_blank" rel="noreferrer">Sales Assistant</a><a href="https://vitreen.art/tools/viewing-rooms" target="_blank" rel="noreferrer">Viewing Rooms</a></div><div><span>Solutions</span><a href="https://vitreen.art/solutions/galleries" target="_blank" rel="noreferrer">Pour les galeries</a><a href="https://vitreen.art/solutions/artists" target="_blank" rel="noreferrer">Pour les artistes</a><a href="https://vitreen.art/solutions/advisors" target="_blank" rel="noreferrer">Pour les conseillers et marchands</a><a href="https://vitreen.art/solutions/estates" target="_blank" rel="noreferrer">Pour les successions d’artistes</a></div><div><span>Vitreen</span><a href="https://vitreen.art/about" target="_blank" rel="noreferrer">À propos</a><a href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Tarifs</a><a href="/studio/fr/">Studio</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
       <div class="site-footer__bottom"><p>© 2026 Vitreen</p><div><a href="/studio/">EN</a><i aria-hidden="true">·</i><span class="lang-current">FR</span><p>Paris, France</p></div></div>
     </footer>
     <aside class="request-summary" id="request-summary" hidden aria-live="polite" aria-label="Selected task estimate">

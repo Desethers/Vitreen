@@ -9,7 +9,7 @@ const seo = {
   title: "Viewing Rooms",
   description:
     "Share private artwork selections with collectors by link or PDF, prepared from your existing inventory.",
-  section: { name: "Gallery OS", path: "/tools/overview" },
+  section: { name: "Tools", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

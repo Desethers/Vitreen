@@ -749,9 +749,9 @@ export const translations = {
       relatedLabel: "Par profil",
       mockCaption: "Aperçu",
       galleries: {
-        eyebrow: "Galeries",
-        title: "Pensé autour de la façon dont votre galerie travaille déjà",
-        subtitle: "Œuvres, expositions et demandes réunies dans une couche opérationnelle connectée.",
+        eyebrow: "Galeries d’art",
+        title: "Rendez chaque œuvre plus facile à retrouver, partager et vendre.",
+        subtitle: "Un inventaire connecté aux outils de vente de votre galerie.",
         body:
           "Vitreen connecte les archives, inventaires ou bases de données existants de la galerie, puis transforme les œuvres en matériel collector prêt à partager — viewing rooms, sélections privées, PDFs — sans remplacer vos outils.",
         features: [
@@ -764,9 +764,8 @@ export const translations = {
       },
       advisors: {
         eyebrow: "Conseillers & marchands",
-        title: "Présentez les bonnes œuvres à chaque client",
-        subtitle:
-          "Créez des sélections privées depuis vos fiches œuvres, partagez-les par lien ou PDF et gardez chaque échange relié aux œuvres.",
+        title: "Répondez plus vite aux demandes de vos clients.",
+        subtitle: "Retrouvez, composez et partagez vos œuvres depuis un seul inventaire.",
         body: "",
         features: [
           "Sélection privée par client",
@@ -859,22 +858,25 @@ export const translations = {
     footer: {
       tagline: "Sites connectés et outils de vente pour galeries d’art, artistes et conseillers.",
       columns: {
-        platform: "Plateforme",
+        platform: "Outils",
         solutions: "Solutions",
         company: "Vitreen",
+        studio: "Vitreen Studio",
       },
       links: {
-        galleryOs: "Gallery OS",
-        artworkManagement: "Gestion des œuvres",
-        galleryWebsites: "Sites de galerie",
-        viewingRooms: "Viewing rooms privées",
-        galleryAssistant: "Assistant de galerie",
+        artworkManagement: "Artwork Inventory",
+        viewingRooms: "Viewing Rooms",
+        galleryAssistant: "Sales Assistant",
         forGalleries: "Pour les galeries",
         forArtists: "Pour les artistes",
         forAdvisors: "Pour les conseillers et marchands",
+        forEstates: "Pour les successions d’artistes",
         about: "À propos",
         pricing: "Tarifs",
         contact: "Contact",
+        studioHowItWorks: "Comment ça marche",
+        studioTasks: "Tâches",
+        studioContact: "Contact",
       },
       location: "Paris, France",
     },
@@ -1631,10 +1633,9 @@ export const translations = {
       relatedLabel: "By role",
       mockCaption: "Preview",
       galleries: {
-        eyebrow: "Galleries",
-        title: "A connected operating system and website for contemporary galleries",
-        subtitle:
-          "A custom Gallery OS and website built around your artworks, exhibitions and collector relationships.",
+        eyebrow: "Art Galleries",
+        title: "Make every artwork easier to find, share and sell.",
+        subtitle: "One inventory connected to your gallery’s sales tools.",
         body:
           "Vitreen connects the gallery’s existing archives, inventories or databases, then turns artworks into collector-ready material to share — viewing rooms, private selections, PDFs — without replacing your tools.",
         features: [
@@ -1647,8 +1648,8 @@ export const translations = {
       },
       advisors: {
         eyebrow: "Advisors & dealers",
-        title: "Present the right works to every client",
-        subtitle: "Create artwork selections for each client and share them by link or PDF.",
+        title: "Respond to client requests faster.",
+        subtitle: "Find, curate and share artworks from one inventory.",
         body: "",
         features: [
           "Compose a private selection per client",
@@ -1742,22 +1743,25 @@ export const translations = {
     footer: {
       tagline: "Connected websites and sales tools for art galleries, artists and advisors.",
       columns: {
-        platform: "Platform",
+        platform: "Tools",
         solutions: "Solutions",
         company: "Vitreen",
+        studio: "Vitreen Studio",
       },
       links: {
-        galleryOs: "Gallery OS",
-        artworkManagement: "Artwork Management",
-        galleryWebsites: "Gallery Websites",
-        viewingRooms: "Private Viewing Rooms",
-        galleryAssistant: "Gallery Assistant",
+        artworkManagement: "Artwork Inventory",
+        viewingRooms: "Viewing Rooms",
+        galleryAssistant: "Sales Assistant",
         forGalleries: "For Art Galleries",
         forArtists: "For Artists",
         forAdvisors: "For Art Advisors & Dealers",
+        forEstates: "For Artist Estates",
         about: "About",
         pricing: "Pricing",
         contact: "Contact",
+        studioHowItWorks: "How it works",
+        studioTasks: "Tasks",
+        studioContact: "Contact",
       },
       location: "Paris, France",
     },

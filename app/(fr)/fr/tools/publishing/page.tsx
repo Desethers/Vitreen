@@ -9,7 +9,7 @@ const seo = {
   title: "Publication du site",
   description:
     "Publiez artistes, expositions et œuvres disponibles sur le site de votre galerie depuis les mêmes fiches d’œuvres.",
-  section: { name: "Gallery OS", path: "/tools/overview" },
+  section: { name: "Outils", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Nav from "@/components/Nav";
+import LandingNav from "@/components/landing/LandingNav";
+import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
 import CollectorConversationBento from "@/components/CollectorConversationBento";
@@ -86,7 +87,7 @@ function CheckIcon() {
 }
 
 export default function ToolPage({ slug }: { slug: ToolSlug }) {
-  const { t, href } = useLang();
+  const { t, href, lang } = useLang();
   const tools = t.tools as unknown as Record<ToolSlug, ToolContent> & {
     sectionLabel: string;
     backToHome: string;
@@ -105,7 +106,7 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
 
   return (
     <main className="relative bg-white">
-      <Nav />
+      {lang === "fr" ? <LandingNavFr /> : <LandingNav />}
 
       {/* Hero */}
       <section className="px-4 pt-32 pb-10 md:px-6 md:pt-40 md:pb-14">

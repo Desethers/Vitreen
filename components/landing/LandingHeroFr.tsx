@@ -20,11 +20,11 @@ export default function LandingHeroFr() {
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center justify-center gap-3 md:mt-[22px]">
-            <Button size="lg" onClick={openContact}>
+            <Button size="md" onClick={openContact}>
               Réserver une démo
             </Button>
             <Button
-              size="lg"
+              size="md"
               href="#how-it-works"
               variant="inverse"
               className="border border-[#E8E8E6]"

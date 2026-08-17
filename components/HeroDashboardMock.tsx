@@ -359,7 +359,7 @@ function HeroWorkflowAnimation() {
         {/* Native Google Workspace add-on card header */}
         <div className="border-b border-[#DADCE0] px-4 py-3">
           <p className="text-[12px] font-medium text-[#202124]">Insérer une œuvre</p>
-          <p className="mt-0.5 text-[9px] text-[#5F6368]">Recherche dans Gallery OS</p>
+          <p className="mt-0.5 text-[9px] text-[#5F6368]">Recherche dans Vitreen</p>
         </div>
 
         {/* CardService TextInput + ButtonSet */}

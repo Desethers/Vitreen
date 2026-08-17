@@ -126,6 +126,16 @@
         }
       }
     </style>
+    <style>
+      .site-footer__nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @media (max-width: 640px) {
+        .site-footer__nav {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <header class="header">
@@ -320,7 +330,7 @@
     </main>
     <footer class="site-footer">
       <div class="site-footer__intro"><a class="site-footer__brand" href="#top">Vitreen <span>Studio</span></a><p>Done-for-you digital work for contemporary galleries. Clear scope, clear price, no retainers.</p></div>
-      <nav class="site-footer__nav" aria-label="Footer"><div><span>Product</span><a href="#how-it-works">How it works</a><a href="#tasks">Pricing</a></div><div><span>Company</span><a href="#projects">About</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
+      <nav class="site-footer__nav" aria-label="Footer"><div><span>Tools</span><a href="https://vitreen.art/tools/archive" target="_blank" rel="noreferrer">Artwork Inventory</a><a href="https://vitreen.art/tools/custom-operations" target="_blank" rel="noreferrer">Sales Assistant</a><a href="https://vitreen.art/tools/viewing-rooms" target="_blank" rel="noreferrer">Viewing Rooms</a></div><div><span>Solutions</span><a href="https://vitreen.art/solutions/galleries" target="_blank" rel="noreferrer">For Art Galleries</a><a href="https://vitreen.art/solutions/artists" target="_blank" rel="noreferrer">For Artists</a><a href="https://vitreen.art/solutions/advisors" target="_blank" rel="noreferrer">For Art Advisors &amp; Dealers</a><a href="https://vitreen.art/solutions/estates" target="_blank" rel="noreferrer">For Artist Estates</a></div><div><span>Vitreen</span><a href="https://vitreen.art/about" target="_blank" rel="noreferrer">About</a><a href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Pricing</a><a href="/studio">Studio</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
       <div class="site-footer__bottom"><p>© 2026 Vitreen</p><div><span class="lang-current">EN</span><i aria-hidden="true">·</i><a href="/studio/fr/">FR</a><p>Paris, France</p></div></div>
     </footer>
     <aside class="request-summary" id="request-summary" hidden aria-live="polite" aria-label="Selected task estimate">
