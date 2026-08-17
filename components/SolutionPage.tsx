@@ -730,7 +730,7 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
             <h1 className="font-display text-[22px] font-normal leading-[1.3] tracking-[-0.04em] text-[#111110] md:text-[40px]">
               {content.title}
             </h1>
-            <p className="mt-5 max-w-3xl font-display text-[22px] font-normal leading-[1.3] tracking-[-0.02em] text-[#6B6A67] md:text-[40px]">
+            <p className="mt-2 max-w-3xl font-display text-[22px] font-normal leading-[1.3] tracking-[-0.02em] text-[#6B6A67] md:text-[40px]">
               {content.subtitle}
             </p>
             {slug === "collectors" ? (
