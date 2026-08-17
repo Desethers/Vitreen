@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingNavFr from "@/components/landing/LandingNavFr";
@@ -704,7 +703,7 @@ function ArtistsWorkflow({ content, lang }: { content: SolutionContent; lang: "f
 }
 
 export default function SolutionPage({ slug }: { slug: RoleSlug }) {
-  const { lang, t, href } = useLang();
+  const { lang, t } = useLang();
   const solutions = t.solutions as unknown as Record<RoleSlug, SolutionContent> & {
     sectionLabel: string;
     backToHome: string;
@@ -724,13 +723,6 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
       <section className="px-4 pt-32 pb-10 md:px-6 md:pt-40 md:pb-14">
         <div className="mx-auto max-w-7xl">
           <motion.div {...fadeUp(0)}>
-            <Link
-              href={href("/")}
-              className="mb-8 inline-block text-[12px] text-[#ADADAA] transition-colors hover:text-[#6B6A67]"
-            >
-              {solutions.backToHome}
-            </Link>
-
             <p className="mb-4 text-[12px] font-medium tracking-[-0.01em] text-[#858581]">
               {content.eyebrow}
             </p>
