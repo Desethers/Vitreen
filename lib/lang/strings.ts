@@ -671,20 +671,6 @@ export const translations = {
         cta: "En savoir plus",
         badge: "Bientôt",
       },
-      previews: {
-        eyebrow: "Outils · Previews",
-        title: "Présentations privées d’œuvres",
-        subtitle: "Présentations privées d’œuvres pour collectionneurs.",
-        body:
-          "Composez rapidement un aperçu d’œuvres à envoyer avant une foire, une exposition ou une rencontre. Une mise en page sobre, partagée par lien privé, email ou WhatsApp.",
-        features: [
-          "Sélection rapide d’œuvres",
-          "Fiches d’œuvre soignées",
-          "Partage par lien, email ou WhatsApp",
-          "Export PDF prêt à envoyer",
-        ],
-        cta: "Parlons-en",
-      },
       publishing: {
         eyebrow: "Outils · Publishing",
         title: "Publier depuis une seule source",
@@ -696,34 +682,6 @@ export const translations = {
           "Archives d’expositions",
           "Exports PDF et présentations imprimables",
           "Emails collectionneurs construits depuis les œuvres",
-        ],
-        cta: "Parlons-en",
-      },
-      inquiries: {
-        eyebrow: "Outils · Inquiries",
-        title: "Suivre l’intérêt collectionneur",
-        subtitle: "Suivez l’intérêt collectionneur à travers œuvres et partages privés.",
-        body:
-          "Inquiries rattache chaque demande à une œuvre, une viewing room ou une sélection privée. La galerie garde le contexte utile pour répondre : qui, sur quoi, depuis quel partage.",
-        features: [
-          "Demandes liées aux œuvres",
-          "Contexte de viewing room ou sélection",
-          "Statut, suivi et notes internes",
-          "Compatible avec les outils clients existants",
-        ],
-        cta: "Parlons-en",
-      },
-      mobile: {
-        eyebrow: "Outils · Mobile",
-        title: "La galerie publie depuis son téléphone",
-        subtitle: "Publication galerie, même en déplacement.",
-        body:
-          "Mobile permet à la galerie de publier une œuvre, mettre à jour une fiche ou préparer un partage privé depuis son téléphone — sur un stand, en transit ou pendant un accrochage.",
-        features: [
-          "Ajout d’une œuvre depuis le téléphone",
-          "Mise à jour rapide d’une fiche",
-          "Partage privé en quelques pressions",
-          "Suivi des demandes en mobilité",
         ],
         cta: "Parlons-en",
       },
@@ -1555,20 +1513,6 @@ export const translations = {
         cta: "Talk to us",
         badge: "Soon",
       },
-      previews: {
-        eyebrow: "Tools · Previews",
-        title: "Private artwork presentations",
-        subtitle: "Private artwork presentations for collectors.",
-        body:
-          "Quickly assemble a preview of artworks to send ahead of a fair, an exhibition or a meeting. A calm layout, shared by private link, email or WhatsApp.",
-        features: [
-          "Fast artwork selection",
-          "Refined artwork records",
-          "Sharing by link, email or WhatsApp",
-          "PDF export ready to send",
-        ],
-        cta: "Talk to us",
-      },
       publishing: {
         eyebrow: "Tools · Publishing",
         title: "Publish from a single source",
@@ -1580,34 +1524,6 @@ export const translations = {
           "Exhibition archives",
           "PDF exports and printable presentations",
           "Collector emails built from artworks",
-        ],
-        cta: "Talk to us",
-      },
-      inquiries: {
-        eyebrow: "Tools · Inquiries",
-        title: "Track collector interest",
-        subtitle: "Track collector interest across artworks and private sharing.",
-        body:
-          "Inquiries attaches each request to an artwork, a viewing room or a private selection. The gallery keeps the context needed to respond: who, on what, from which share.",
-        features: [
-          "Inquiries linked to artworks",
-          "Viewing room or selection context",
-          "Status, follow-up and internal notes",
-          "Works with existing client tools",
-        ],
-        cta: "Talk to us",
-      },
-      mobile: {
-        eyebrow: "Tools · Mobile",
-        title: "The gallery publishes from its phone",
-        subtitle: "Gallery publishing, on the go.",
-        body:
-          "Mobile lets the gallery publish an artwork, update a record or prepare a private share from a phone — on a booth, in transit or during a hang.",
-        features: [
-          "Add an artwork from the phone",
-          "Quick record updates",
-          "Private sharing in a few taps",
-          "Inquiry follow-up on the move",
         ],
         cta: "Talk to us",
       },

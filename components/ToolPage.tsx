@@ -6,15 +6,8 @@ import LandingNav from "@/components/landing/LandingNav";
 import LandingNavFr from "@/components/landing/LandingNavFr";
 import Footer from "@/components/Footer";
 import CtaBand from "@/components/CtaBand";
-import CollectorConversationBento from "@/components/CollectorConversationBento";
 import { Button } from "@/components/ui/Button";
 import { useLang } from "@/lib/lang";
-import {
-  ArchiveMock,
-  AssistantMock,
-  CollectorsMock,
-  PublishingMock,
-} from "@/components/showcase/PillarMocks";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -25,15 +18,7 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, ease, delay },
 });
 
-export type ToolSlug =
-  | "overview"
-  | "artwork-inventory"
-  | "viewing-rooms"
-  | "previews"
-  | "publishing"
-  | "inquiries"
-  | "mobile"
-  | "custom-operations";
+export type ToolSlug = "overview";
 
 type ToolContent = {
   eyebrow: string;
@@ -44,27 +29,6 @@ type ToolContent = {
   cta: string;
   badge?: string;
 };
-
-const PILLAR_SLUGS = ["artwork-inventory", "publishing", "inquiries", "custom-operations"] as const;
-type PillarSlug = (typeof PILLAR_SLUGS)[number];
-
-const PILLAR_MOCKS: Record<PillarSlug, React.ComponentType> = {
-  "artwork-inventory": ArchiveMock,
-  publishing: PublishingMock,
-  inquiries: CollectorsMock,
-  "custom-operations": AssistantMock,
-};
-
-const PILLAR_HREF: Record<PillarSlug, string> = {
-  "artwork-inventory": "/tools/artwork-inventory",
-  publishing: "/tools/publishing",
-  inquiries: "/tools/inquiries",
-  "custom-operations": "/tools/custom-operations",
-};
-
-function isPillarSlug(slug: ToolSlug): slug is PillarSlug {
-  return (PILLAR_SLUGS as readonly string[]).includes(slug);
-}
 
 function CheckIcon() {
   return (
@@ -92,13 +56,8 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
     sectionLabel: string;
     backToHome: string;
     featuresLabel: string;
-    relatedLabel: string;
-    mockCaption: string;
   };
   const content = tools[slug];
-  const pillar = isPillarSlug(slug);
-  const Mock = pillar ? PILLAR_MOCKS[slug] : null;
-  const productItems = t.nav.productMenu.items;
 
   const openContact = () => {
     window.dispatchEvent(new CustomEvent("open-contact-modal"));
@@ -148,26 +107,6 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
         </div>
       </section>
 
-      {/* Product mock */}
-      {Mock ? (
-        <section className="bg-[#F5F5F3] px-4 py-14 md:px-6 md:py-[72px]">
-          <div className="mx-auto max-w-7xl">
-            <motion.div {...fadeUp(0.04)}>
-              <p className="mb-5 text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-                {tools.mockCaption}
-              </p>
-              <div className="overflow-hidden rounded-lg border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
-                <div className="relative h-[420px] md:h-[480px]">
-                  <Mock />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      ) : null}
-
-      {slug === "inquiries" ? <CollectorConversationBento /> : null}
-
       {/* Capabilities grid */}
       <section className="px-4 py-14 md:px-6 md:py-[72px]">
         <div className="mx-auto max-w-7xl">
@@ -191,52 +130,6 @@ export default function ToolPage({ slug }: { slug: ToolSlug }) {
           </motion.div>
         </div>
       </section>
-
-      {/* Related products */}
-      {pillar ? (
-        <section className="px-4 py-14 md:px-6 md:py-[72px]">
-          <div className="mx-auto max-w-7xl">
-            <motion.div {...fadeUp(0)}>
-              <p className="text-[11px] uppercase tracking-[0.12em] text-[#ADADAA]">
-                {tools.relatedLabel}
-              </p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                {PILLAR_SLUGS.map((pillarSlug, index) => {
-                  const item = productItems[index];
-                  const active = pillarSlug === slug;
-                  return (
-                    <Link
-                      key={pillarSlug}
-                      href={href(PILLAR_HREF[pillarSlug])}
-                      aria-current={active ? "page" : undefined}
-                      className={`group rounded-lg border px-4 py-4 transition-all ${
-                        active
-                          ? "border-[#111110] bg-[#111110] text-white"
-                          : "border-[#E8E8E6] bg-white hover:border-[#111110]/25 hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)]"
-                      }`}
-                    >
-                      <p
-                        className={`font-display text-[14px] leading-snug tracking-[-0.01em] ${
-                          active ? "text-white" : "text-[#111110]"
-                        }`}
-                      >
-                        {item.title}
-                      </p>
-                      <p
-                        className={`mt-1.5 text-[11px] leading-[1.45] ${
-                          active ? "text-white/70" : "text-[#6B6A67]"
-                        }`}
-                      >
-                        {item.desc}
-                      </p>
-                    </Link>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      ) : null}
 
       <CtaBand />
       <Footer />
