@@ -12,11 +12,10 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      // Vitreen Studio (projet Vite séparé) est buildé statiquement dans
-      // public/studio/ — cette rewrite sert son index.html sur /studio.
+      // Vitreen Studio est buildé par Vite dans public/studio/.
+      // Next rewrite sert /studio et /studio/fr sur les index.html respectifs.
       { source: "/studio", destination: "/studio/index.html" },
-      // Version FR de la même page statique, traduite à la main dans
-      // public/studio/fr/ (voir la note en tête de ce fichier).
+      { source: "/studio/", destination: "/studio/index.html" },
       { source: "/studio/fr", destination: "/studio/fr/index.html" },
       { source: "/studio/fr/", destination: "/studio/fr/index.html" },
     ];

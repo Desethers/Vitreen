@@ -5,8 +5,11 @@
   "scripts": {
     "dev": "next dev --webpack -p 3000",
     "dev:webpack": "next dev --webpack -p 3000",
+    "dev:studio": "cd studio && npm run dev",
     "dev:clean": "(lsof -ti tcp:3000 2>/dev/null; lsof -ti tcp:3001 2>/dev/null; lsof -ti tcp:3002 2>/dev/null) | sort -u | xargs kill -9 2>/dev/null || true && rm -f .next/dev/lock && next dev --webpack -p 3000",
-    "build": "next build",
+    "build": "npm run studio:build && next build",
+    "studio:build": "cd studio && npm install && npm run build",
+    "studio:dev": "cd studio && npm install && npm run dev",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check": "tsc --noEmit && prettier --check .",
