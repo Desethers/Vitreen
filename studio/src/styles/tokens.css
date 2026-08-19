@@ -50,7 +50,7 @@
   --font-weight-500: 500;
   --line-height-18: 18px;
   --line-height-19-5: 19.5px;
-  --letter-spacing--0-15: -.15px;
+  --letter-spacing--0-15: -0.15px;
   --radius-pill: 999px;
   --ink: var(--foreground);
   --line: var(--border);
