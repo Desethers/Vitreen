@@ -74,9 +74,10 @@ const tasks = [
     id: "artlogic-check",
     category: "database",
     label: "Database",
-    title: "Artlogic database check",
+    title: "Clean up your Artlogic database",
     price: 120,
-    description: "Find what needs cleaning or reorganising.",
+    description:
+      "Remove duplicates, complete missing records and make your database reliable again.",
   },
   {
     id: "collector-pdf",
@@ -218,11 +219,14 @@ function previewMarkup(task) {
     return `<div class="preview-fullbleed"><img src="/studio/images/${image.src}" alt="${image.alt}" /></div>`;
   }
   if (task.category === "database") {
-    if (task.id === "artlogic-check") return artlogicCheckMarkup();
+    if (task.id === "artlogic-check") return dedupeMarkup();
+    if (task.id === "organise-database") return mergeFieldsMarkup();
     return `<div class="preview-table"><div class="preview-table__heading">Artwork records <span>Clean &amp; ready</span></div><div class="preview-row preview-row--head"><b>Artist</b><b>Title</b><b>Year</b><b>Status</b></div><div class="preview-row"><span>A. Martin</span><span>Untitled</span><span>2024</span><span>Available</span></div><div class="preview-row"><span>J. Smith</span><span>Blue Study</span><span>2023</span><span>Reserved</span></div><div class="preview-row"><span>L. Chen</span><span>Movement</span><span>2022</span><span>Available</span></div></div>`;
   }
-  if (task.category === "sales-material")
+  if (task.category === "sales-material") {
+    if (task.id === "collector-pdf") return collectorPdfMarkup();
     return `<div class="preview-pdf"><div><small>Gallery name</small><h3>Selected works</h3><p>Private selection for a collector</p></div><div class="preview-pdf__art"></div><span>01 — 12</span></div>`;
+  }
   if (task.category === "visibility" && task.id === "seo-check") return rankingMarkup();
   const gauges = [
     { label: "Performance", score: 58 },
@@ -233,23 +237,77 @@ function previewMarkup(task) {
   return `<div class="preview-lighthouse"><div class="preview-lighthouse__head"><span class="preview-lighthouse__logo">Lighthouse report</span><span class="preview-lighthouse__url">galleryname.com/artists/artist-name</span></div><div class="preview-lighthouse__grid">${gauges.map((gauge) => lighthouseGauge(gauge.label, gauge.score)).join("")}</div></div>`;
 }
 
-const artlogicTiles = [
-  { variant: "a", status: "pass", detail: "Paradise, 2019" },
-  { variant: "b", status: "pass", detail: "Reverie, 2021" },
-  { variant: "c", status: "warn", detail: "Untitled — missing price" },
-  { variant: "d", status: "pass", detail: "Coastline, 2020" },
-  { variant: "e", status: "fail", detail: "Paradise, 2019 — duplicate" },
-  { variant: "f", status: "pass", detail: "Interval, 2022" },
+function collectorPdfMarkup() {
+  return `<div class="preview-collector">
+      <div class="preview-collector__head">
+        <p class="preview-collector__eyebrow">Sacha Elron</p>
+        <h3>Autumn Selection</h3>
+        <p class="preview-collector__subtitle">Four recent paintings for a private collector</p>
+      </div>
+      <div class="preview-collector__media"><img src="/studio/images/collector-pdf-artwork.jpg" alt="Untitled (Cadmium Red)" /></div>
+      <div class="preview-collector__meta">
+        <div>
+          <p class="preview-collector__artist">Sacha Elron</p>
+          <p class="preview-collector__title"><em>Untitled (Cadmium Red)</em>, 2024</p>
+          <p class="preview-collector__detail">Oil on canvas</p>
+          <p class="preview-collector__detail">190 × 170 cm</p>
+        </div>
+        <span class="preview-collector__inquire">Inquire</span>
+      </div>
+    </div>`;
+}
+
+function dedupeMarkup() {
+  return `<div class="preview-dedupe" aria-hidden="true">
+      <div class="preview-dedupe__panel">
+        <div class="preview-dedupe__field"><span>Duplicate artist records</span></div>
+        <div class="preview-dedupe__stack">
+          <div class="preview-dedupe__card preview-dedupe__card--primary">
+            <div class="preview-dedupe__card-head"><b>Sacha Elron</b><span class="preview-dedupe__status preview-dedupe__status--primary">Primary record</span></div>
+            <small>12 artworks</small>
+            <small>Last updated Feb 2026</small>
+          </div>
+          <div class="preview-dedupe__card preview-dedupe__card--duplicate">
+            <div class="preview-dedupe__card-head"><b>Sacha&nbsp; Elron</b><span class="preview-dedupe__status preview-dedupe__status--duplicate">Possible duplicate</span></div>
+            <small>4 artworks</small>
+            <small>Missing biography</small>
+          </div>
+        </div>
+        <div class="preview-dedupe__action"><span class="preview-dedupe__action-btn">Resolve duplicate</span></div>
+        <div class="preview-dedupe__result">
+          <span class="preview-dedupe__check">✓</span>
+          <div><b>1 artist record</b><small>16 artworks connected</small></div>
+        </div>
+        <p class="preview-dedupe__status-line"><i class="preview-dedupe__dot"></i>Database cleaned</p>
+      </div>
+    </div>`;
+}
+
+const mergeRows = [
+  { title: "Paradise, 2019", value: "Oil" },
+  { title: "Reverie, 2021", value: "Oil painting" },
+  { title: "Coastline, 2020", value: "Oil on canvas" },
 ];
 
-function artlogicCheckMarkup() {
-  const tiles = artlogicTiles
+function mergeFieldsMarkup() {
+  const rows = mergeRows
     .map(
-      (tile) =>
-        `<div class="preview-artlogic__tile preview-artlogic__tile--${tile.variant}"><span class="preview-artlogic__status preview-artlogic__status--${tile.status}"></span><b>Sacha Elron</b><small>${tile.detail}</small></div>`
+      (row) =>
+        `<li class="preview-merge__row"><div><b>Sacha Elron</b><small>${row.title}</small></div><span class="preview-merge__tag">${row.value}</span></li>`
     )
     .join("");
-  return `<div class="preview-artlogic"><div class="preview-artlogic__head"><h3>Artworks <span>All ↓</span></h3><span class="preview-artlogic__search">⌕</span></div><div class="preview-artlogic__meta"><span>229 records</span><span class="preview-artlogic__issues"><i class="preview-artlogic__status preview-artlogic__status--fail"></i>3 duplicates<i class="preview-artlogic__status preview-artlogic__status--warn"></i>5 missing images<i class="preview-artlogic__status preview-artlogic__status--warn"></i>2 missing price</span></div><div class="preview-artlogic__grid">${tiles}</div><div class="preview-artlogic__toolbar"><span class="is-active">Sell</span><span>Offer</span><span>Share</span><span>Edit</span><span class="preview-artlogic__add">Add new +</span></div></div>`;
+  return `<div class="preview-merge" aria-hidden="true">
+      <div class="preview-merge__panel">
+        <div class="preview-merge__field"><span>Medium</span><span>3 records</span></div>
+        <ul class="preview-merge__list">${rows}</ul>
+        <div class="preview-merge__action"><span class="preview-merge__action-btn">Merge fields</span></div>
+        <div class="preview-merge__result">
+          <div><b>Sacha Elron</b><small>3 artworks updated</small></div>
+          <span class="preview-merge__tag preview-merge__tag--pass">Oil on canvas</span>
+        </div>
+        <p class="preview-merge__status"><i class="preview-merge__dot"></i>3 fields merged</p>
+      </div>
+    </div>`;
 }
 
 function bugMarkup() {
@@ -293,8 +351,16 @@ function openPreview(task) {
   previewEl.innerHTML = previewMarkup(task);
   previewEl.classList.toggle(
     "modal-preview--fullbleed",
-    task.category === "website" || task.category === "visibility" || task.id === "artlogic-check"
+    task.category === "website" ||
+      task.category === "visibility" ||
+      task.id === "artlogic-check" ||
+      task.id === "organise-database" ||
+      task.id === "collector-pdf"
   );
+  const mergeEl = previewEl.querySelector(".preview-merge");
+  if (mergeEl) requestAnimationFrame(() => mergeEl.classList.add("is-inview"));
+  const dedupeEl = previewEl.querySelector(".preview-dedupe");
+  if (dedupeEl) requestAnimationFrame(() => dedupeEl.classList.add("is-inview"));
   document.querySelector("#modal-add").textContent = selected.has(task.id)
     ? "Remove task"
     : "Add task";
