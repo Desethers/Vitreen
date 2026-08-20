@@ -2035,7 +2035,6 @@ h1 {
 }
 
 .quote {
-  border-top: 1px solid var(--line);
   padding: 80px 22px;
 }
 .quote blockquote {
