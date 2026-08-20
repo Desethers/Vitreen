@@ -193,7 +193,12 @@ export type OutputsCopy = {
 
 const EN_COPY: OutputsCopy = {
   labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
-  hrefs: ["/tools/artwork-inventory"],
+  hrefs: [
+    "/tools/artwork-inventory",
+    "/tools/custom-operations",
+    "/tools/custom-operations",
+    "/tools/viewing-rooms",
+  ],
 };
 
 export function OutputsSection({ copy }: { copy: OutputsCopy }) {
