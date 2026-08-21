@@ -20,15 +20,15 @@ export default function LandingHero() {
             Your inventory, Gmail, WhatsApp and private selections, connected.
           </p>
 
-          <div className="hero-fade-up hero-fade-up-delay mt-[18px] flex flex-wrap items-center justify-center gap-3 md:mt-[22px]">
-            <Button size="md" onClick={openContact}>
+          <div className="hero-fade-up hero-fade-up-delay mx-auto mt-[18px] flex max-w-[300px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[22px]">
+            <Button size="md" onClick={openContact} className="w-full sm:w-auto">
               Book a demo
             </Button>
             <Button
               size="md"
               href="#how-it-works"
               variant="inverse"
-              className="border border-[#E8E8E6]"
+              className="w-full border border-[#E8E8E6] sm:w-auto"
             >
               See how it works
             </Button>
