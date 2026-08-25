@@ -26,12 +26,8 @@
     <title>Vitreen — Le travail numérique pour les galeries</title>
     <!-- Structured data for search engines and LLM answer engines (GEO). Purely
          additive — no visual or behavioural effect on the page.
-         The offer catalog below stays in English: it mirrors the task grid,
-         which is re-rendered client-side by the task grid script
-         (a compiled bundle from a separate source repo, not present here),
-         so translating just the JSON-LD would create a mismatch with what
-         actually renders on the page. See public/studio/index.html for the
-         same note. -->
+         The offer catalog mirrors the task grid, which main.js renders from
+         TASK_COPY.fr — keep the two in step when either changes. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -41,12 +37,19 @@
         "email": "studio@vitreen.art",
         "description": "Vitreen Studio réalise le travail numérique de vos galeries d’art contemporain : sites web, bases de données collectionneurs, supports de vente et visibilité en ligne. Prix fixe par tâche, sans abonnement, sans facturation horaire.",
         "areaServed": "Worldwide",
-        "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" },
-        "brand": { "@type": "Brand", "name": "Vitreen" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "addressCountry": "FR"
+        },
+        "brand": {
+          "@type": "Brand",
+          "name": "Vitreen"
+        },
         "priceRange": "€80–€220",
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Vitreen Studio tasks",
+          "name": "Tâches Vitreen Studio",
           "itemListElement": [
             {
               "@type": "Offer",
@@ -54,9 +57,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Publish an exhibition",
-                "description": "Text, images and dates turned into a published exhibition page.",
-                "category": "Website"
+                "name": "Publier une exposition",
+                "description": "Textes, images et dates transformés en page d’exposition publiée.",
+                "category": "Site web"
               }
             },
             {
@@ -65,9 +68,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Prepare for an opening",
-                "description": "Homepage, exhibition and artist pages refreshed and ready before opening.",
-                "category": "Website"
+                "name": "Préparer un vernissage",
+                "description": "Accueil, exposition et pages artistes actualisés et prêts avant l’ouverture.",
+                "category": "Site web"
               }
             },
             {
@@ -76,9 +79,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Add an artist page",
-                "description": "Biography, works, images and basic metadata added to the gallery website.",
-                "category": "Website"
+                "name": "Ajouter une page artiste",
+                "description": "Biographie, œuvres, images et informations de base ajoutées au site de la galerie.",
+                "category": "Site web"
               }
             },
             {
@@ -87,9 +90,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Update 10 artworks",
-                "description": "Update images, captions, availability or other artwork information.",
-                "category": "Website"
+                "name": "Mettre à jour 10 œuvres",
+                "description": "Images, légendes, disponibilités ou autres informations d’œuvres mises à jour.",
+                "category": "Site web"
               }
             },
             {
@@ -98,9 +101,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Fix a website issue",
-                "description": "Investigate and fix one defined issue on the gallery website.",
-                "category": "Website"
+                "name": "Corriger un problème sur le site",
+                "description": "Quelque chose s’affiche mal ou ne fonctionne plus ? Nous cherchons et corrigeons un problème défini.",
+                "category": "Site web"
               }
             },
             {
@@ -109,9 +112,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Organise your database",
-                "description": "Clean categories, fields and structure of the collector/artwork database.",
-                "category": "Database"
+                "name": "Organiser votre base de données",
+                "description": "Catégories, champs et structure remis au propre.",
+                "category": "Base de données"
               }
             },
             {
@@ -120,9 +123,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Import 50 artworks",
-                "description": "Clean and import a spreadsheet or export into the gallery database.",
-                "category": "Database"
+                "name": "Importer 50 œuvres",
+                "description": "Nettoyage et import de votre tableur ou de votre export.",
+                "category": "Base de données"
               }
             },
             {
@@ -131,9 +134,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Clean 50 artwork records",
-                "description": "Fix inconsistent artwork information across the database.",
-                "category": "Database"
+                "name": "Nettoyer 50 fiches d’œuvres",
+                "description": "Correction des informations d’œuvres incohérentes.",
+                "category": "Base de données"
               }
             },
             {
@@ -142,9 +145,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Artlogic database check",
-                "description": "Find what needs cleaning or reorganising in an Artlogic database.",
-                "category": "Database"
+                "name": "Nettoyer votre base Artlogic",
+                "description": "Doublons supprimés, fiches incomplètes complétées, et une base à nouveau fiable.",
+                "category": "Base de données"
               }
             },
             {
@@ -153,9 +156,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Collector PDF",
-                "description": "A clean, gallery-ready PDF prepared from selected artworks.",
-                "category": "Sales material"
+                "name": "PDF collectionneur",
+                "description": "Un PDF net, prêt à envoyer, préparé à partir des œuvres sélectionnées.",
+                "category": "Supports de vente"
               }
             },
             {
@@ -164,9 +167,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Private viewing room",
-                "description": "Prepare and publish a private online artwork selection for a collector.",
-                "category": "Sales material"
+                "name": "Viewing room privée",
+                "description": "Préparation et mise en ligne d’une sélection privée d’œuvres pour un collectionneur.",
+                "category": "Supports de vente"
               }
             },
             {
@@ -175,9 +178,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Artist SEO check",
-                "description": "Find the main SEO issues on an artist page.",
-                "category": "Visibility"
+                "name": "Audit SEO artiste",
+                "description": "Identification des principaux problèmes.",
+                "category": "Visibilité"
               }
             },
             {
@@ -186,9 +189,9 @@
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Google indexing",
-                "description": "Get new gallery pages discovered and indexed by Google.",
-                "category": "Visibility"
+                "name": "Indexation Google",
+                "description": "Faire découvrir vos nouvelles pages.",
+                "category": "Visibilité"
               }
             }
           ]
@@ -298,7 +301,7 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="/studio/assets/main-DpUNktsz.js"></script>
+    <script type="module" crossorigin src="/studio/assets/main-BHWqTnUu.js"></script>
     <link rel="stylesheet" crossorigin href="/studio/assets/main-B1D6Z-bp.css">
   </head>
   <body>
@@ -426,11 +429,12 @@
              compiled bundle from a separate source repo not present here, so
              translating this markup wouldn't stick past the first render. -->
         <div class="task-filters" role="tablist" aria-label="Task categories">
-          <button class="filter is-active" type="button" data-filter="all">All</button
-          ><button class="filter" type="button" data-filter="website">Website</button
-          ><button class="filter" type="button" data-filter="database">Database</button
-          ><button class="filter" type="button" data-filter="sales-material">Sales material</button
-          ><button class="filter" type="button" data-filter="visibility">Visibility</button>
+          <button class="filter is-active" type="button" data-filter="all">Toutes</button
+          ><button class="filter" type="button" data-filter="website">Site web</button
+          ><button class="filter" type="button" data-filter="database">Base de données</button
+          ><button class="filter" type="button" data-filter="sales-material">
+            Supports de vente</button
+          ><button class="filter" type="button" data-filter="visibility">Visibilité</button>
         </div>
         <div class="task-grid" id="task-grid" aria-live="polite">
           <!-- Static fallback: mirrors renderTasks() in src/main.js so crawlers and no-JS clients see the full task list. JS replaces this with the same markup on load. -->
