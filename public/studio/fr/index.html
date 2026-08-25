@@ -3,21 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Le travail numérique clé en main pour les galeries d’art contemporain." />
+    <meta
+      name="description"
+      content="Le travail numérique clé en main pour les galeries d’art contemporain."
+    />
     <link rel="canonical" href="https://vitreen.art/studio/fr" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Vitreen Studio" />
     <meta property="og:title" content="Vitreen Studio — Le travail numérique pour les galeries" />
-    <meta property="og:description" content="Le travail numérique clé en main pour les galeries d’art contemporain. Tâches à prix fixe pour vos sites web, bases de données, supports de vente et visibilité." />
+    <meta
+      property="og:description"
+      content="Le travail numérique clé en main pour les galeries d’art contemporain. Tâches à prix fixe pour vos sites web, bases de données, supports de vente et visibilité."
+    />
     <meta property="og:url" content="https://vitreen.art/studio/fr" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <title>Vitreen — Le travail numérique pour les galeries</title>
     <!-- Structured data for search engines and LLM answer engines (GEO). Purely
          additive — no visual or behavioural effect on the page.
          The offer catalog below stays in English: it mirrors the task grid,
-         which is re-rendered client-side by /studio/assets/index-B5WmB-Yg.js
+         which is re-rendered client-side by the task grid script
          (a compiled bundle from a separate source repo, not present here),
          so translating just the JSON-LD would create a mismatch with what
          actually renders on the page. See public/studio/index.html for the
@@ -38,19 +47,149 @@
           "@type": "OfferCatalog",
           "name": "Vitreen Studio tasks",
           "itemListElement": [
-            { "@type": "Offer", "price": "120", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Publish an exhibition", "description": "Text, images and dates turned into a published exhibition page.", "category": "Website" } },
-            { "@type": "Offer", "price": "220", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Prepare for an opening", "description": "Homepage, exhibition and artist pages refreshed and ready before opening.", "category": "Website" } },
-            { "@type": "Offer", "price": "90", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Add an artist page", "description": "Biography, works, images and basic metadata added to the gallery website.", "category": "Website" } },
-            { "@type": "Offer", "price": "90", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Update 10 artworks", "description": "Update images, captions, availability or other artwork information.", "category": "Website" } },
-            { "@type": "Offer", "price": "90", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Fix a website issue", "description": "Investigate and fix one defined issue on the gallery website.", "category": "Website" } },
-            { "@type": "Offer", "price": "150", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Organise your database", "description": "Clean categories, fields and structure of the collector/artwork database.", "category": "Database" } },
-            { "@type": "Offer", "price": "220", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Import 50 artworks", "description": "Clean and import a spreadsheet or export into the gallery database.", "category": "Database" } },
-            { "@type": "Offer", "price": "180", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Clean 50 artwork records", "description": "Fix inconsistent artwork information across the database.", "category": "Database" } },
-            { "@type": "Offer", "price": "120", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Artlogic database check", "description": "Find what needs cleaning or reorganising in an Artlogic database.", "category": "Database" } },
-            { "@type": "Offer", "price": "80", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Collector PDF", "description": "A clean, gallery-ready PDF prepared from selected artworks.", "category": "Sales material" } },
-            { "@type": "Offer", "price": "120", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Private viewing room", "description": "Prepare and publish a private online artwork selection for a collector.", "category": "Sales material" } },
-            { "@type": "Offer", "price": "120", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Artist SEO check", "description": "Find the main SEO issues on an artist page.", "category": "Visibility" } },
-            { "@type": "Offer", "price": "90", "priceCurrency": "EUR", "itemOffered": { "@type": "Service", "name": "Google indexing", "description": "Get new gallery pages discovered and indexed by Google.", "category": "Visibility" } }
+            {
+              "@type": "Offer",
+              "price": "120",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Publish an exhibition",
+                "description": "Text, images and dates turned into a published exhibition page.",
+                "category": "Website"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "220",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Prepare for an opening",
+                "description": "Homepage, exhibition and artist pages refreshed and ready before opening.",
+                "category": "Website"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "90",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Add an artist page",
+                "description": "Biography, works, images and basic metadata added to the gallery website.",
+                "category": "Website"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "90",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Update 10 artworks",
+                "description": "Update images, captions, availability or other artwork information.",
+                "category": "Website"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "90",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Fix a website issue",
+                "description": "Investigate and fix one defined issue on the gallery website.",
+                "category": "Website"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "150",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Organise your database",
+                "description": "Clean categories, fields and structure of the collector/artwork database.",
+                "category": "Database"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "220",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Import 50 artworks",
+                "description": "Clean and import a spreadsheet or export into the gallery database.",
+                "category": "Database"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "180",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Clean 50 artwork records",
+                "description": "Fix inconsistent artwork information across the database.",
+                "category": "Database"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "120",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Artlogic database check",
+                "description": "Find what needs cleaning or reorganising in an Artlogic database.",
+                "category": "Database"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "80",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Collector PDF",
+                "description": "A clean, gallery-ready PDF prepared from selected artworks.",
+                "category": "Sales material"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "120",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Private viewing room",
+                "description": "Prepare and publish a private online artwork selection for a collector.",
+                "category": "Sales material"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "120",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Artist SEO check",
+                "description": "Find the main SEO issues on an artist page.",
+                "category": "Visibility"
+              }
+            },
+            {
+              "@type": "Offer",
+              "price": "90",
+              "priceCurrency": "EUR",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Google indexing",
+                "description": "Get new gallery pages discovered and indexed by Google.",
+                "category": "Visibility"
+              }
+            }
           ]
         }
       }
@@ -63,31 +202,45 @@
           {
             "@type": "Question",
             "name": "Comment envoyer le contenu d’une tâche ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Répondez à l’email de confirmation avec votre texte, vos images, vos liens ou vos accès. Nous vous dirons si autre chose est nécessaire." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Répondez à l’email de confirmation avec votre texte, vos images, vos liens ou vos accès. Nous vous dirons si autre chose est nécessaire."
+            }
           },
           {
             "@type": "Question",
             "name": "Puis-je demander plusieurs tâches ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Oui. Ajoutez les tâches dont vous avez besoin et nous confirmons le périmètre et le total avant de commencer." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Ajoutez les tâches dont vous avez besoin et nous confirmons le périmètre et le total avant de commencer."
+            }
           },
           {
             "@type": "Question",
             "name": "Dois-je changer mes outils actuels ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Non. Nous travaillons avec les outils que vous utilisez déjà, y compris votre site actuel, vos exports Artlogic et vos fichiers partagés." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. Nous travaillons avec les outils que vous utilisez déjà, y compris votre site actuel, vos exports Artlogic et vos fichiers partagés."
+            }
           },
           {
             "@type": "Question",
             "name": "Que se passe-t-il si je ne suis pas satisfait du résultat ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Nous corrigeons le tir. Si nous ne pouvons pas livrer le résultat convenu, la tâche est remboursée." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous corrigeons le tir. Si nous ne pouvons pas livrer le résultat convenu, la tâche est remboursée."
+            }
           }
         ]
       }
     </script>
-    <script type="module" crossorigin src="/studio/assets/index-B5WmB-Yg.js"></script>
-    <link rel="stylesheet" crossorigin href="/studio/assets/index-B1D6Z-bp.css">
     <style>
-      .faq details:first-child { border-top: 0; }
-      .quote { border-top: 0; }
+      .faq details:first-child {
+        border-top: 0;
+      }
+      .quote {
+        border-top: 0;
+      }
       .nav__external {
         display: inline-flex;
         align-items: center;
@@ -104,14 +257,28 @@
         padding-right: 48px;
         padding-left: 48px;
       }
-      .category-link[data-category="website"] { padding-left: 0; }
-      .category-link:last-child { padding-right: 0; }
-      .category-link + .category-link { border-left: 1px solid var(--border); }
-      .category-link span { max-width: none; }
+      .category-link[data-category="website"] {
+        padding-left: 0;
+      }
+      .category-link:last-child {
+        padding-right: 0;
+      }
+      .category-link + .category-link {
+        border-left: 1px solid var(--border);
+      }
+      .category-link span {
+        max-width: none;
+      }
       @media (max-width: 800px) {
-        .category-strip { grid-template-columns: 1fr; }
-        .category-link + .category-link { border-left: 0; }
-        .category-link:last-child { padding-right: 0; }
+        .category-strip {
+          grid-template-columns: 1fr;
+        }
+        .category-link + .category-link {
+          border-left: 0;
+        }
+        .category-link:last-child {
+          padding-right: 0;
+        }
         .category-link {
           grid-template-columns: 28px minmax(0, 1fr);
           justify-content: stretch;
@@ -130,13 +297,18 @@
         }
       }
     </style>
+    <script type="module" crossorigin src="/studio/assets/main-a1xwG2bI.js"></script>
+    <link rel="stylesheet" crossorigin href="/studio/assets/main-B1D6Z-bp.css">
   </head>
   <body>
     <header class="header">
       <div class="header__inner">
         <a class="brand" href="#top">Vitreen <span>Studio</span></a>
         <nav class="nav" aria-label="Navigation principale">
-          <a href="#tasks">Tâches</a><a href="#how-it-works">Comment ça marche</a><a class="nav__external" href="https://vitreen.art" target="_blank" rel="noreferrer">Vitreen <span aria-hidden="true">↗</span></a>
+          <a href="#tasks">Tâches</a><a href="#how-it-works">Comment ça marche</a
+          ><a class="nav__external" href="https://vitreen.art" target="_blank" rel="noreferrer"
+            >Vitreen <span aria-hidden="true">↗</span></a
+          >
         </nav>
         <a class="button" href="#tasks">Travailler avec nous</a>
       </div>
@@ -146,110 +318,415 @@
         <div class="hero__layout">
           <div class="hero__content">
             <p class="eyebrow">Un studio design web pour les galeries.</p>
-            <h1 id="hero-title">Le savoir-faire digital<br>au service de l’art.</h1>
-            <p class="hero__copy">Nous gérons le quotidien numérique de votre galerie. Choisissez une tâche,<br class="desktop-break"> consultez le prix et envoyez-nous les éléments nécessaires.</p>
-            <ul class="reassurances" aria-label="Avantages du service"><li><i data-lucide="badge-euro" aria-hidden="true"></i>Prix clairs</li><li><i data-lucide="badge-check" aria-hidden="true"></i>Vérifié humainement</li><li><i data-lucide="plug" aria-hidden="true"></i>Fonctionne avec vos outils actuels</li></ul>
+            <h1 id="hero-title">Le savoir-faire digital<br />au service de l’art.</h1>
+            <p class="hero__copy">
+              Nous gérons le quotidien numérique de votre galerie. Choisissez une tâche,<br
+                class="desktop-break"
+              />
+              consultez le prix et envoyez-nous les éléments nécessaires.
+            </p>
+            <ul class="reassurances" aria-label="Avantages du service">
+              <li><i data-lucide="badge-euro" aria-hidden="true"></i>Prix clairs</li>
+              <li><i data-lucide="badge-check" aria-hidden="true"></i>Vérifié humainement</li>
+              <li>
+                <i data-lucide="plug" aria-hidden="true"></i>Fonctionne avec vos outils actuels
+              </li>
+            </ul>
             <div class="hero__actions">
               <a class="button" href="#tasks">Voir les tâches <span aria-hidden="true">→</span></a>
               <a class="outline-button" href="#projects">Un projet plus important ?</a>
             </div>
           </div>
           <aside class="service-estimate" aria-label="Exemple de facture de service">
-            <div class="invoice-top"><div><p class="invoice-brand">Vitreen</p><span>Travail numérique pour galeries</span></div><div class="invoice-id"><strong>Facture</strong><span>#VTR-0184</span></div></div>
-            <div class="invoice-meta"><div><span>Facturé à</span><strong>Fields &amp; Rowe</strong><small>Paris, France</small></div><div><span>Émise</span><strong id="invoice-date"></strong><span>Échéance</span><strong>À la livraison</strong></div></div>
-            <div class="invoice-table"><div class="invoice-row invoice-row--head"><span>Description</span><span>Qté</span><span>Tarif</span><span>Montant</span></div><div class="invoice-items" id="invoice-items"></div></div>
-            <div class="invoice-totals"><div><span>Sous-total</span><strong id="invoice-subtotal">€0</strong></div><div><span>TVA</span><strong>—</strong></div><div class="invoice-total"><span>Total</span><strong id="invoice-total">€0</strong></div></div>
-            <div class="invoice-footer"><span>Paiement après livraison</span><strong>Sans abonnement · Sans forfait</strong></div>
+            <div class="invoice-top">
+              <div>
+                <p class="invoice-brand">Vitreen</p>
+                <span>Travail numérique pour galeries</span>
+              </div>
+              <div class="invoice-id"><strong>Facture</strong><span>#VTR-0184</span></div>
+            </div>
+            <div class="invoice-meta">
+              <div>
+                <span>Facturé à</span><strong>Fields &amp; Rowe</strong><small>Paris, France</small>
+              </div>
+              <div>
+                <span>Émise</span><strong id="invoice-date"></strong><span>Échéance</span
+                ><strong>À la livraison</strong>
+              </div>
+            </div>
+            <div class="invoice-table">
+              <div class="invoice-row invoice-row--head">
+                <span>Description</span><span>Qté</span><span>Tarif</span><span>Montant</span>
+              </div>
+              <div class="invoice-items" id="invoice-items"></div>
+            </div>
+            <div class="invoice-totals">
+              <div><span>Sous-total</span><strong id="invoice-subtotal">€0</strong></div>
+              <div><span>TVA</span><strong>—</strong></div>
+              <div class="invoice-total">
+                <span>Total</span><strong id="invoice-total">€0</strong>
+              </div>
+            </div>
+            <div class="invoice-footer">
+              <span>Paiement après livraison</span><strong>Sans abonnement · Sans forfait</strong>
+            </div>
           </aside>
         </div>
       </section>
       <section class="category-strip" aria-label="Catégories de services">
-        <div class="category-strip__heading"><p class="eyebrow">Nos services</p><h2>Là où nous pouvons vous aider.</h2><p>Votre site web, vos données, et la façon dont on vous trouve.</p></div>
-        <a class="category-link" href="#tasks" data-category="website"><i data-lucide="monitor" aria-hidden="true"></i><div><strong>Site web</strong><span>Gardez vos artistes, expositions et œuvres à jour sans attendre un développeur.</span></div></a>
-        <a class="category-link" href="#tasks" data-category="database"><i data-lucide="database" aria-hidden="true"></i><div><strong>Base de données</strong><span>Nettoyez, structurez et importez les données dont votre galerie dépend chaque jour.</span></div></a>
-        <a class="category-link" href="#tasks" data-category="visibility"><i data-lucide="search" aria-hidden="true"></i><div><strong>Visibilité</strong><span>Rendez les pages artistes plus faciles à trouver grâce à des améliorations SEO claires et concrètes.</span></div></a>
+        <div class="category-strip__heading">
+          <p class="eyebrow">Nos services</p>
+          <h2>Là où nous pouvons vous aider.</h2>
+          <p>Votre site web, vos données, et la façon dont on vous trouve.</p>
+        </div>
+        <a class="category-link" href="#tasks" data-category="website"
+          ><i data-lucide="monitor" aria-hidden="true"></i>
+          <div>
+            <strong>Site web</strong
+            ><span
+              >Gardez vos artistes, expositions et œuvres à jour sans attendre un développeur.</span
+            >
+          </div></a
+        >
+        <a class="category-link" href="#tasks" data-category="database"
+          ><i data-lucide="database" aria-hidden="true"></i>
+          <div>
+            <strong>Base de données</strong
+            ><span
+              >Nettoyez, structurez et importez les données dont votre galerie dépend chaque
+              jour.</span
+            >
+          </div></a
+        >
+        <a class="category-link" href="#tasks" data-category="visibility"
+          ><i data-lucide="search" aria-hidden="true"></i>
+          <div>
+            <strong>Visibilité</strong
+            ><span
+              >Rendez les pages artistes plus faciles à trouver grâce à des améliorations SEO
+              claires et concrètes.</span
+            >
+          </div></a
+        >
       </section>
       <section class="tasks" id="tasks" aria-labelledby="tasks-title">
-        <div class="section-heading"><div class="section-heading__title"><p class="eyebrow">Tarifs</p><h2 id="tasks-title">Choisissez la tâche.<br /><span>Payez à la tâche.</span></h2></div><p class="section-heading__copy">Vous connaissez le prix avant que nous commencions. Pas de tarif horaire, pas de surprise.</p></div>
+        <div class="section-heading">
+          <div class="section-heading__title">
+            <p class="eyebrow">Tarifs</p>
+            <h2 id="tasks-title">Choisissez la tâche.<br /><span>Payez à la tâche.</span></h2>
+          </div>
+          <p class="section-heading__copy">
+            Vous connaissez le prix avant que nous commencions. Pas de tarif horaire, pas de
+            surprise.
+          </p>
+        </div>
         <!-- Filter labels and the task grid below stay in English: both are
-             re-rendered client-side by /studio/assets/index-B5WmB-Yg.js, a
+             re-rendered client-side by the task grid script, a
              compiled bundle from a separate source repo not present here, so
              translating this markup wouldn't stick past the first render. -->
         <div class="task-filters" role="tablist" aria-label="Task categories">
-          <button class="filter is-active" type="button" data-filter="all">All</button><button class="filter" type="button" data-filter="website">Website</button><button class="filter" type="button" data-filter="database">Database</button><button class="filter" type="button" data-filter="sales-material">Sales material</button><button class="filter" type="button" data-filter="visibility">Visibility</button>
+          <button class="filter is-active" type="button" data-filter="all">All</button
+          ><button class="filter" type="button" data-filter="website">Website</button
+          ><button class="filter" type="button" data-filter="database">Database</button
+          ><button class="filter" type="button" data-filter="sales-material">Sales material</button
+          ><button class="filter" type="button" data-filter="visibility">Visibility</button>
         </div>
-        <div class="task-grid" id="task-grid" aria-live="polite"><!-- Static fallback: mirrors renderTasks() in src/main.js so crawlers and no-JS clients see the full task list. JS replaces this with the same markup on load. -->
-          <article class="task-card" data-preview-id="publish-exhibition" tabindex="0" role="button" aria-label="Preview Publish an exhibition">
-            <p class="task-category">Website</p><h3>Publish an exhibition</h3><p class="task-price">€120</p><p class="task-description">Text, images and dates turned into a published exhibition page.</p>
-            <button class="task-add" type="button" data-task-id="publish-exhibition" aria-pressed="false">Add task</button>
+        <div class="task-grid" id="task-grid" aria-live="polite">
+          <!-- Static fallback: mirrors renderTasks() in src/main.js so crawlers and no-JS clients see the full task list. JS replaces this with the same markup on load. -->
+          <article
+            class="task-card"
+            data-preview-id="publish-exhibition"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Publish an exhibition"
+          >
+            <p class="task-category">Website</p>
+            <h3>Publish an exhibition</h3>
+            <p class="task-price">€120</p>
+            <p class="task-description">
+              Text, images and dates turned into a published exhibition page.
+            </p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="publish-exhibition"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="opening-website" tabindex="0" role="button" aria-label="Preview Prepare for an opening">
-            <p class="task-category">Website</p><h3>Prepare for an opening</h3><p class="task-price">€220</p><p class="task-description">Homepage, exhibition and artist pages refreshed and ready before opening.</p>
-            <button class="task-add" type="button" data-task-id="opening-website" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="opening-website"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Prepare for an opening"
+          >
+            <p class="task-category">Website</p>
+            <h3>Prepare for an opening</h3>
+            <p class="task-price">€220</p>
+            <p class="task-description">
+              Homepage, exhibition and artist pages refreshed and ready before opening.
+            </p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="opening-website"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="artist-page" tabindex="0" role="button" aria-label="Preview Add an artist page">
-            <p class="task-category">Website</p><h3>Add an artist page</h3><p class="task-price">€90</p><p class="task-description">Biography, works, images and basic metadata added to the gallery website.</p>
-            <button class="task-add" type="button" data-task-id="artist-page" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="artist-page"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Add an artist page"
+          >
+            <p class="task-category">Website</p>
+            <h3>Add an artist page</h3>
+            <p class="task-price">€90</p>
+            <p class="task-description">
+              Biography, works, images and basic metadata added to the gallery website.
+            </p>
+            <button class="task-add" type="button" data-task-id="artist-page" aria-pressed="false">
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="update-artworks" tabindex="0" role="button" aria-label="Preview Update 10 artworks">
-            <p class="task-category">Website</p><h3>Update 10 artworks</h3><p class="task-price">€90</p><p class="task-description">Update images, captions, availability or other artwork information.</p>
-            <button class="task-add" type="button" data-task-id="update-artworks" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="update-artworks"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Update 10 artworks"
+          >
+            <p class="task-category">Website</p>
+            <h3>Update 10 artworks</h3>
+            <p class="task-price">€90</p>
+            <p class="task-description">
+              Update images, captions, availability or other artwork information.
+            </p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="update-artworks"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="fix-website-issue" tabindex="0" role="button" aria-label="Preview Fix a website issue">
-            <p class="task-category">Website</p><h3>Fix a website issue</h3><p class="task-price">€90</p><p class="task-description">Something looks wrong or stopped working? We investigate and fix one defined issue.</p>
-            <button class="task-add" type="button" data-task-id="fix-website-issue" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="fix-website-issue"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Fix a website issue"
+          >
+            <p class="task-category">Website</p>
+            <h3>Fix a website issue</h3>
+            <p class="task-price">€90</p>
+            <p class="task-description">
+              Something looks wrong or stopped working? We investigate and fix one defined issue.
+            </p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="fix-website-issue"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="organise-database" tabindex="0" role="button" aria-label="Preview Organise your database">
-            <p class="task-category">Database</p><h3>Organise your database</h3><p class="task-price">€150</p><p class="task-description">Clean categories, fields and structure.</p>
-            <button class="task-add" type="button" data-task-id="organise-database" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="organise-database"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Organise your database"
+          >
+            <p class="task-category">Database</p>
+            <h3>Organise your database</h3>
+            <p class="task-price">€150</p>
+            <p class="task-description">Clean categories, fields and structure.</p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="organise-database"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="import-artworks" tabindex="0" role="button" aria-label="Preview Import 50 artworks">
-            <p class="task-category">Database</p><h3>Import 50 artworks</h3><p class="task-price">€220</p><p class="task-description">Clean and import your spreadsheet or export.</p>
-            <button class="task-add" type="button" data-task-id="import-artworks" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="import-artworks"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Import 50 artworks"
+          >
+            <p class="task-category">Database</p>
+            <h3>Import 50 artworks</h3>
+            <p class="task-price">€220</p>
+            <p class="task-description">Clean and import your spreadsheet or export.</p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="import-artworks"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="clean-records" tabindex="0" role="button" aria-label="Preview Clean 50 artwork records">
-            <p class="task-category">Database</p><h3>Clean 50 artwork records</h3><p class="task-price">€180</p><p class="task-description">Fix inconsistent artwork information.</p>
-            <button class="task-add" type="button" data-task-id="clean-records" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="clean-records"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Clean 50 artwork records"
+          >
+            <p class="task-category">Database</p>
+            <h3>Clean 50 artwork records</h3>
+            <p class="task-price">€180</p>
+            <p class="task-description">Fix inconsistent artwork information.</p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="clean-records"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="artlogic-check" tabindex="0" role="button" aria-label="Preview Artlogic database check">
-            <p class="task-category">Database</p><h3>Artlogic database check</h3><p class="task-price">€120</p><p class="task-description">Find what needs cleaning or reorganising.</p>
-            <button class="task-add" type="button" data-task-id="artlogic-check" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="artlogic-check"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Artlogic database check"
+          >
+            <p class="task-category">Database</p>
+            <h3>Artlogic database check</h3>
+            <p class="task-price">€120</p>
+            <p class="task-description">Find what needs cleaning or reorganising.</p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="artlogic-check"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="collector-pdf" tabindex="0" role="button" aria-label="Preview Collector PDF">
-            <p class="task-category">Sales material</p><h3>Collector PDF</h3><p class="task-price">€80</p><p class="task-description">A clean, gallery-ready PDF prepared from selected artworks.</p>
-            <button class="task-add" type="button" data-task-id="collector-pdf" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="collector-pdf"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Collector PDF"
+          >
+            <p class="task-category">Sales material</p>
+            <h3>Collector PDF</h3>
+            <p class="task-price">€80</p>
+            <p class="task-description">
+              A clean, gallery-ready PDF prepared from selected artworks.
+            </p>
+            <button
+              class="task-add"
+              type="button"
+              data-task-id="collector-pdf"
+              aria-pressed="false"
+            >
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="viewing-room" tabindex="0" role="button" aria-label="Preview Private viewing room">
-            <p class="task-category">Sales material</p><h3>Private viewing room</h3><p class="task-price">€120</p><p class="task-description">Prepare and publish a private online artwork selection for a collector.</p>
-            <button class="task-add" type="button" data-task-id="viewing-room" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="viewing-room"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Private viewing room"
+          >
+            <p class="task-category">Sales material</p>
+            <h3>Private viewing room</h3>
+            <p class="task-price">€120</p>
+            <p class="task-description">
+              Prepare and publish a private online artwork selection for a collector.
+            </p>
+            <button class="task-add" type="button" data-task-id="viewing-room" aria-pressed="false">
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="seo-check" tabindex="0" role="button" aria-label="Preview Artist SEO check">
-            <p class="task-category">Visibility</p><h3>Artist SEO check</h3><p class="task-price">€120</p><p class="task-description">Find the main issues.</p>
-            <button class="task-add" type="button" data-task-id="seo-check" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="seo-check"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Artist SEO check"
+          >
+            <p class="task-category">Visibility</p>
+            <h3>Artist SEO check</h3>
+            <p class="task-price">€120</p>
+            <p class="task-description">Find the main issues.</p>
+            <button class="task-add" type="button" data-task-id="seo-check" aria-pressed="false">
+              Add task
+            </button>
           </article>
-          <article class="task-card" data-preview-id="fix-google" tabindex="0" role="button" aria-label="Preview Google indexing">
-            <p class="task-category">Visibility</p><h3>Google indexing</h3><p class="task-price">€90</p><p class="task-description">Get new pages discovered.</p>
-            <button class="task-add" type="button" data-task-id="fix-google" aria-pressed="false">Add task</button>
+          <article
+            class="task-card"
+            data-preview-id="fix-google"
+            tabindex="0"
+            role="button"
+            aria-label="Preview Google indexing"
+          >
+            <p class="task-category">Visibility</p>
+            <h3>Google indexing</h3>
+            <p class="task-price">€90</p>
+            <p class="task-description">Get new pages discovered.</p>
+            <button class="task-add" type="button" data-task-id="fix-google" aria-pressed="false">
+              Add task
+            </button>
           </article>
         </div>
       </section>
       <section class="how-it-works" id="how-it-works" aria-labelledby="how-title">
-        <div class="section-heading"><p class="eyebrow">Comment ça marche</p><h2 id="how-title">Envoyez le travail.<br /><span>Nous nous en occupons.</span></h2></div>
+        <div class="section-heading">
+          <p class="eyebrow">Comment ça marche</p>
+          <h2 id="how-title">Envoyez le travail.<br /><span>Nous nous en occupons.</span></h2>
+        </div>
         <div class="process-cards">
           <article class="process-card">
-            <div class="process-card__copy"><p class="process-card__eyebrow">Envoyez par email</p><h3>Choisissez une tâche et envoyez ce dont nous avons besoin.</h3><p>Sélectionnez un service, puis envoyez par email le texte, les images, les liens, les exports ou les accès nécessaires. Nous confirmons le périmètre et le prix avant de commencer.</p></div>
+            <div class="process-card__copy">
+              <p class="process-card__eyebrow">Envoyez par email</p>
+              <h3>Choisissez une tâche et envoyez ce dont nous avons besoin.</h3>
+              <p>
+                Sélectionnez un service, puis envoyez par email le texte, les images, les liens, les
+                exports ou les accès nécessaires. Nous confirmons le périmètre et le prix avant de
+                commencer.
+              </p>
+            </div>
             <div class="email-mockup" aria-hidden="true">
               <div class="mockup-bar"><i></i><i></i><i></i><span>Nouveau message</span></div>
               <div class="email-field"><span>À</span><strong>studio@vitreen.art</strong></div>
-              <div class="email-field"><span>Objet</span><strong>Demande de tâche Vitreen</strong></div>
-              <p>Bonjour Vitreen,<br>Je souhaiterais demander :</p>
+              <div class="email-field">
+                <span>Objet</span><strong>Demande de tâche Vitreen</strong>
+              </div>
+              <p>Bonjour Vitreen,<br />Je souhaiterais demander :</p>
               <div class="attachment-list"><span>Publier une exposition (120 €)</span></div>
               <p>Total estimé : 120 €</p>
               <button type="button" tabindex="-1">Envoyer</button>
             </div>
           </article>
           <article class="process-card">
-            <div class="process-card__copy"><p class="process-card__eyebrow">Pris en charge par Vitreen</p><h3>Nous confirmons, produisons et vérifions.</h3><p>Nous vous répondons si quelque chose manque, réalisons la tâche et vérifions chaque détail humainement. Vous n’entendez parler de nous que lorsqu’une décision est nécessaire.</p></div>
+            <div class="process-card__copy">
+              <p class="process-card__eyebrow">Pris en charge par Vitreen</p>
+              <h3>Nous confirmons, produisons et vérifions.</h3>
+              <p>
+                Nous vous répondons si quelque chose manque, réalisons la tâche et vérifions chaque
+                détail humainement. Vous n’entendez parler de nous que lorsqu’une décision est
+                nécessaire.
+              </p>
+            </div>
             <div class="work-mockup" aria-hidden="true">
               <div class="proof-head"><span>Page d’exposition</span><em>Épreuve</em></div>
               <div class="proof-page">
@@ -270,23 +747,48 @@
             </div>
           </article>
           <article class="process-card">
-            <div class="process-card__copy"><p class="process-card__eyebrow">Validez avant paiement</p><h3>Vérifiez la livraison, puis payez.</h3><p>Nous vous envoyons le travail terminé par email. Approuvez-le ou demandez une correction, puis payez après la livraison. Si nous ne pouvons pas corriger le tir, vous êtes remboursé.</p></div>
+            <div class="process-card__copy">
+              <p class="process-card__eyebrow">Validez avant paiement</p>
+              <h3>Vérifiez la livraison, puis payez.</h3>
+              <p>
+                Nous vous envoyons le travail terminé par email. Approuvez-le ou demandez une
+                correction, puis payez après la livraison. Si nous ne pouvons pas corriger le tir,
+                vous êtes remboursé.
+              </p>
+            </div>
             <div class="delivery-mockup" aria-hidden="true">
               <div class="mockup-bar"><i></i><i></i><i></i><span>Vitreen Studio</span></div>
               <div class="email-field"><span>De</span><strong>studio@vitreen.art</strong></div>
-              <div class="email-field"><span>Objet</span><strong>Livré : Publier une exposition</strong></div>
-              <p><strong>Votre page d’exposition est en ligne.</strong><br>Tout a été publié et vérifié. Répondez pour approuver, ou dites-nous ce qu’il faut changer.</p>
-              <div class="delivery-reply"><span>Vous avez répondu</span><p>« Approuvé, merci ! »</p></div>
-              <div class="delivery-summary"><span>Total après validation</span><strong>€90</strong></div>
+              <div class="email-field">
+                <span>Objet</span><strong>Livré : Publier une exposition</strong>
+              </div>
+              <p>
+                <strong>Votre page d’exposition est en ligne.</strong><br />Tout a été publié et
+                vérifié. Répondez pour approuver, ou dites-nous ce qu’il faut changer.
+              </p>
+              <div class="delivery-reply">
+                <span>Vous avez répondu</span>
+                <p>« Approuvé, merci ! »</p>
+              </div>
+              <div class="delivery-summary">
+                <span>Total après validation</span><strong>€90</strong>
+              </div>
             </div>
           </article>
         </div>
       </section>
       <section class="quote" aria-labelledby="quote-text">
         <blockquote>
-          <p id="quote-text">&laquo;&nbsp;L’espace numérique est une extension naturelle de la vitrine de la galerie. À l’heure actuelle, un programme en ligne solide et une stratégie dédiée sont essentiels dans le monde de l’art.&nbsp;&raquo;</p>
+          <p id="quote-text">
+            &laquo;&nbsp;L’espace numérique est une extension naturelle de la vitrine de la galerie.
+            À l’heure actuelle, un programme en ligne solide et une stratégie dédiée sont essentiels
+            dans le monde de l’art.&nbsp;&raquo;
+          </p>
           <footer>
-            <img src="https://res.cloudinary.com/dqzqcuqf9/image/upload/v1772530245/vip-benefits-images/bztubujvn9fb0hhxyaxh.png" alt="Elena Soboleva" />
+            <img
+              src="https://res.cloudinary.com/dqzqcuqf9/image/upload/v1772530245/vip-benefits-images/bztubujvn9fb0hhxyaxh.png"
+              alt="Elena Soboleva"
+            />
             <div>
               <cite>Elena Soboleva</cite>
               <span>Global Head of Audience Growth &amp; Intelligence, Art Basel</span>
@@ -297,26 +799,99 @@
       <section class="software-promo" id="projects" aria-labelledby="software-promo-title">
         <div class="software-promo__intro">
           <p class="eyebrow">Vitreen Software</p>
-          <h2 id="software-promo-title">Prêt à faire évoluer le fonctionnement de votre galerie ?</h2>
-          <div class="software-promo__description"><p>Simplifiez, accélérez et gagnez en indépendance sur le travail quotidien de votre galerie.</p><p>Obtenez une base de données, un site web et des outils de vente connectés pour Gmail et WhatsApp.</p></div>
-          <a class="button" href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Découvrir Vitreen Software <span aria-hidden="true">↗</span></a>
+          <h2 id="software-promo-title">
+            Prêt à faire évoluer le fonctionnement de votre galerie ?
+          </h2>
+          <div class="software-promo__description">
+            <p>
+              Simplifiez, accélérez et gagnez en indépendance sur le travail quotidien de votre
+              galerie.
+            </p>
+            <p>
+              Obtenez une base de données, un site web et des outils de vente connectés pour Gmail
+              et WhatsApp.
+            </p>
+          </div>
+          <a class="button" href="https://vitreen.art/pricing" target="_blank" rel="noreferrer"
+            >Découvrir Vitreen Software <span aria-hidden="true">↗</span></a
+          >
         </div>
         <div class="software-features">
-          <article><i aria-hidden="true">✓</i><div><h3>Base d’œuvres</h3><p>Œuvres, artistes, prix et disponibilités au même endroit.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Site web connecté</h3><p>Mettez à jour votre site à partir des mêmes informations.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Outils de vente Gmail</h3><p>Ajoutez les détails d’une œuvre directement dans vos emails collectionneurs.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Outils de vente WhatsApp</h3><p>Partagez œuvres et sélections directement depuis votre téléphone.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Toujours synchronisé</h3><p>Mettez à jour une seule fois, et gardez tout à jour partout.</p></div></article>
-          <article><i aria-hidden="true">✓</i><div><h3>Plus de contrôle</h3><p>Gérez les mises à jour courantes sans attendre un développeur.</p></div></article>
+          <article>
+            <i aria-hidden="true">✓</i>
+            <div>
+              <h3>Base d’œuvres</h3>
+              <p>Œuvres, artistes, prix et disponibilités au même endroit.</p>
+            </div>
+          </article>
+          <article>
+            <i aria-hidden="true">✓</i>
+            <div>
+              <h3>Site web connecté</h3>
+              <p>Mettez à jour votre site à partir des mêmes informations.</p>
+            </div>
+          </article>
+          <article>
+            <i aria-hidden="true">✓</i>
+            <div>
+              <h3>Outils de vente Gmail</h3>
+              <p>Ajoutez les détails d’une œuvre directement dans vos emails collectionneurs.</p>
+            </div>
+          </article>
+          <article>
+            <i aria-hidden="true">✓</i>
+            <div>
+              <h3>Outils de vente WhatsApp</h3>
+              <p>Partagez œuvres et sélections directement depuis votre téléphone.</p>
+            </div>
+          </article>
+          <article>
+            <i aria-hidden="true">✓</i>
+            <div>
+              <h3>Toujours synchronisé</h3>
+              <p>Mettez à jour une seule fois, et gardez tout à jour partout.</p>
+            </div>
+          </article>
+          <article>
+            <i aria-hidden="true">✓</i>
+            <div>
+              <h3>Plus de contrôle</h3>
+              <p>Gérez les mises à jour courantes sans attendre un développeur.</p>
+            </div>
+          </article>
         </div>
       </section>
       <section class="faq" aria-labelledby="faq-title">
         <h2 id="faq-title">Questions.</h2>
         <div class="faq__items">
-          <details><summary>Comment envoyer le contenu d’une tâche ?</summary><p>Répondez à l’email de confirmation avec votre texte, vos images, vos liens ou vos accès. Nous vous dirons si autre chose est nécessaire.</p></details>
-          <details><summary>Puis-je demander plusieurs tâches ?</summary><p>Oui. Ajoutez les tâches dont vous avez besoin et nous confirmons le périmètre et le total avant de commencer.</p></details>
-          <details><summary>Dois-je changer mes outils actuels ?</summary><p>Non. Nous travaillons avec les outils que vous utilisez déjà, y compris votre site actuel, vos exports Artlogic et vos fichiers partagés.</p></details>
-          <details><summary>Que se passe-t-il si je ne suis pas satisfait du résultat ?</summary><p>Nous corrigeons le tir. Si nous ne pouvons pas livrer le résultat convenu, la tâche est remboursée.</p></details>
+          <details>
+            <summary>Comment envoyer le contenu d’une tâche ?</summary>
+            <p>
+              Répondez à l’email de confirmation avec votre texte, vos images, vos liens ou vos
+              accès. Nous vous dirons si autre chose est nécessaire.
+            </p>
+          </details>
+          <details>
+            <summary>Puis-je demander plusieurs tâches ?</summary>
+            <p>
+              Oui. Ajoutez les tâches dont vous avez besoin et nous confirmons le périmètre et le
+              total avant de commencer.
+            </p>
+          </details>
+          <details>
+            <summary>Dois-je changer mes outils actuels ?</summary>
+            <p>
+              Non. Nous travaillons avec les outils que vous utilisez déjà, y compris votre site
+              actuel, vos exports Artlogic et vos fichiers partagés.
+            </p>
+          </details>
+          <details>
+            <summary>Que se passe-t-il si je ne suis pas satisfait du résultat ?</summary>
+            <p>
+              Nous corrigeons le tir. Si nous ne pouvons pas livrer le résultat convenu, la tâche
+              est remboursée.
+            </p>
+          </details>
         </div>
       </section>
       <section class="footer-cta" aria-labelledby="footer-cta-title">
@@ -327,19 +902,84 @@
       </section>
     </main>
     <footer class="site-footer">
-      <div class="site-footer__intro"><a class="site-footer__brand" href="#top">Vitreen <span>Studio</span></a><p>Le studio numérique des galeries d’art contemporain.<br>Des missions à la carte, des prix fixes, sans abonnement.</p></div>
-      <nav class="site-footer__nav" aria-label="Pied de page"><div><span>Outils</span><a href="https://vitreen.art/tools/archive" target="_blank" rel="noreferrer">Artwork Inventory</a><a href="https://vitreen.art/tools/custom-operations" target="_blank" rel="noreferrer">Sales Assistant</a><a href="https://vitreen.art/tools/viewing-rooms" target="_blank" rel="noreferrer">Viewing Rooms</a></div><div><span>Solutions</span><a href="https://vitreen.art/solutions/galleries" target="_blank" rel="noreferrer">Pour les galeries</a><a href="https://vitreen.art/solutions/artists" target="_blank" rel="noreferrer">Pour les artistes</a><a href="https://vitreen.art/solutions/advisors" target="_blank" rel="noreferrer">Pour les conseillers et marchands</a><a href="https://vitreen.art/solutions/estates" target="_blank" rel="noreferrer">Pour les successions d’artistes</a></div><div><span>Vitreen</span><a href="https://vitreen.art/about" target="_blank" rel="noreferrer">À propos</a><a href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Tarifs</a><a href="/studio/fr/">Studio</a><a href="mailto:studio@vitreen.art">Contact</a></div></nav>
-      <div class="site-footer__bottom"><p>© 2026 Vitreen</p><div><a href="/studio/">EN</a><i aria-hidden="true">·</i><span class="lang-current">FR</span><p>Paris, France</p></div></div>
+      <div class="site-footer__intro">
+        <a class="site-footer__brand" href="#top">Vitreen <span>Studio</span></a>
+        <p>
+          Le studio numérique des galeries d’art contemporain.<br />Des missions à la carte, des
+          prix fixes, sans abonnement.
+        </p>
+      </div>
+      <nav class="site-footer__nav" aria-label="Pied de page">
+        <div>
+          <span>Outils</span
+          ><a href="https://vitreen.art/tools/archive" target="_blank" rel="noreferrer"
+            >Artwork Inventory</a
+          ><a href="https://vitreen.art/tools/custom-operations" target="_blank" rel="noreferrer"
+            >Sales Assistant</a
+          ><a href="https://vitreen.art/tools/viewing-rooms" target="_blank" rel="noreferrer"
+            >Viewing Rooms</a
+          >
+        </div>
+        <div>
+          <span>Solutions</span
+          ><a href="https://vitreen.art/solutions/galleries" target="_blank" rel="noreferrer"
+            >Pour les galeries</a
+          ><a href="https://vitreen.art/solutions/artists" target="_blank" rel="noreferrer"
+            >Pour les artistes</a
+          ><a href="https://vitreen.art/solutions/advisors" target="_blank" rel="noreferrer"
+            >Pour les conseillers et marchands</a
+          ><a href="https://vitreen.art/solutions/estates" target="_blank" rel="noreferrer"
+            >Pour les successions d’artistes</a
+          >
+        </div>
+        <div>
+          <span>Vitreen</span
+          ><a href="https://vitreen.art/about" target="_blank" rel="noreferrer">À propos</a
+          ><a href="https://vitreen.art/pricing" target="_blank" rel="noreferrer">Tarifs</a
+          ><a href="/studio/fr/">Studio</a><a href="mailto:studio@vitreen.art">Contact</a>
+        </div>
+      </nav>
+      <div class="site-footer__bottom">
+        <p>© 2026 Vitreen</p>
+        <div>
+          <a href="/studio/">EN</a><i aria-hidden="true">·</i><span class="lang-current">FR</span>
+          <p>Paris, France</p>
+        </div>
+      </div>
     </footer>
-    <aside class="request-summary" id="request-summary" hidden aria-live="polite" aria-label="Selected task estimate">
+    <aside
+      class="request-summary"
+      id="request-summary"
+      hidden
+      aria-live="polite"
+      aria-label="Selected task estimate"
+    >
       <div class="request-summary__drag-zone">
         <div class="request-summary__handle" aria-hidden="true"></div>
-        <div class="request-summary__header"><span class="request-summary__brand">Vitreen Studio</span><span class="request-summary__type">Estimate</span></div>
+        <div class="request-summary__header">
+          <span class="request-summary__brand">Vitreen Studio</span
+          ><span class="request-summary__type">Estimate</span>
+        </div>
       </div>
       <div class="request-summary__items" id="request-items"></div>
-      <div class="request-summary__total"><div><strong id="task-count">0 tasks</strong><span id="task-total">€0 estimated</span></div><strong id="request-total">€0</strong></div>
-      <a class="button" id="request-tasks" href="mailto:studio@vitreen.art">Request selected tasks <span aria-hidden="true">↗</span></a>
+      <div class="request-summary__total">
+        <div><strong id="task-count">0 tasks</strong><span id="task-total">€0 estimated</span></div>
+        <strong id="request-total">€0</strong>
+      </div>
+      <a class="button" id="request-tasks" href="mailto:studio@vitreen.art"
+        >Request selected tasks <span aria-hidden="true">↗</span></a
+      >
     </aside>
-    <dialog class="task-modal" id="task-modal" aria-labelledby="modal-task-title"><button class="modal-close" type="button" aria-label="Close preview">×</button><div class="modal-preview" id="modal-preview"></div><div class="modal-content"><p class="task-category" id="modal-category"></p><h2 id="modal-task-title"></h2><p class="modal-price" id="modal-price"></p><p id="modal-description"></p><button class="button" id="modal-add" type="button">Add task</button></div></dialog>
+    <dialog class="task-modal" id="task-modal" aria-labelledby="modal-task-title">
+      <button class="modal-close" type="button" aria-label="Close preview">×</button>
+      <div class="modal-preview" id="modal-preview"></div>
+      <div class="modal-content">
+        <p class="task-category" id="modal-category"></p>
+        <h2 id="modal-task-title"></h2>
+        <p class="modal-price" id="modal-price"></p>
+        <p id="modal-description"></p>
+        <button class="button" id="modal-add" type="button">Add task</button>
+      </div>
+    </dialog>
   </body>
 </html>
