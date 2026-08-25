@@ -172,7 +172,7 @@ function updateSummary() {
     requestItems.append(more);
   }
   document.querySelector("#request-tasks").href =
-    `mailto:hello@vitreen.studio?subject=${encodeURIComponent("Vitreen task request")}&body=${encodeURIComponent(`Hello Vitreen,\n\nI would like to request:\n${selectedTasks.map((task) => `- ${task.title} (€${task.price})`).join("\n")}\n\nEstimated total: €${total}`)}`;
+    `mailto:studio@vitreen.art?subject=${encodeURIComponent("Vitreen task request")}&body=${encodeURIComponent(`Hello Vitreen,\n\nI would like to request:\n${selectedTasks.map((task) => `- ${task.title} (€${task.price})`).join("\n")}\n\nEstimated total: €${total}`)}`;
   if (!selectedTasks.length) {
     summary.classList.remove("is-visible", "is-updated");
     summary.hidden = true;
