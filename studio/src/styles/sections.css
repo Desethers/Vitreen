@@ -2257,9 +2257,9 @@ h1 {
   border-radius: 14px;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  min-height: 560px;
   overflow: hidden;
-  padding: 28px 28px 0;
+  padding: 28px;
 }
 .process-card__copy {
   min-height: 140px;
@@ -2287,9 +2287,10 @@ h1 {
 .delivery-mockup {
   background: var(--background);
   border: 1px solid var(--line);
-  border-radius: 12px 12px 0 0;
+  border-radius: 12px;
   box-shadow: none;
-  flex: 0 0 auto;
+  flex: 1 0 auto;
+  margin-bottom: -16px;
   margin-left: -16px;
   margin-top: 20px;
   min-height: 310px;
@@ -2515,7 +2516,8 @@ h1 {
   .work-mockup,
   .delivery-mockup {
     align-self: center;
-    border-radius: 12px 12px 0 0;
+    border-radius: 12px;
+    margin-bottom: 0;
     margin-left: 0;
     max-width: 520px;
     width: 100%;
@@ -2526,7 +2528,7 @@ h1 {
     margin-top: 32px;
   }
   .process-card {
-    padding: 22px 18px 0;
+    padding: 22px 18px 18px;
   }
   .process-card h3 {
     font-size: 18px;
