@@ -23,7 +23,7 @@ const TOOLS_ITEMS = [
   {
     title: "Sales Assistant",
     desc: "Gmail add-in, WhatsApp tool, AI-drafted replies.",
-    href: "/tools/custom-operations",
+    href: "/tools/sales-assistant",
   },
   {
     title: "Viewing Rooms",

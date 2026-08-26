@@ -324,7 +324,7 @@ function ConnectedProductsVisual() {
       ),
     },
     {
-      name: "Gallery Assistant",
+      name: "Sales Assistant",
       detail: "Content and daily operations",
       preview: (
         <div className="space-y-1.5">

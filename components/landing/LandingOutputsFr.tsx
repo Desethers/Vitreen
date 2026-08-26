@@ -8,8 +8,8 @@ const FR_COPY: OutputsCopy = {
   action: "Découvrir",
   hrefs: [
     "/fr/tools/artwork-inventory",
-    "/fr/tools/custom-operations",
-    "/fr/tools/custom-operations",
+    "/fr/tools/sales-assistant",
+    "/fr/tools/sales-assistant",
     "/fr/tools/viewing-rooms",
   ],
 };

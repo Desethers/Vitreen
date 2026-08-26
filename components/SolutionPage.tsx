@@ -17,7 +17,7 @@ import { SyncVisual } from "@/components/ViewingRoomsScrollStory";
 import { ExhibitionPageMock } from "@/components/showcase/ExhibitionPageMock";
 import ScrollStory, { type ScrollStoryStep } from "@/components/ScrollStory";
 import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
-import { InquiryDraftsFrame } from "@/components/GalleryAssistantProductPage";
+import { InquiryDraftsFrame } from "@/components/SalesAssistantProductPage";
 import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
 import ArtistWebsiteSyncVisual from "@/components/ArtistWebsiteSyncVisual";
 import ArtistSelectionActionVisual from "@/components/ArtistSelectionActionVisual";
@@ -434,7 +434,7 @@ function GalleriesStickyWorkflow() {
       ],
     },
     {
-      title: "A Gallery Assistant and Sales Agent for every collector inquiry.",
+      title: "A Sales Assistant for every collector inquiry.",
       subtitle:
         "AI-prepared replies for every collector inquiry, reviewed and sent by the gallery.",
       bullets: [

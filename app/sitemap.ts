@@ -18,7 +18,7 @@ const toolSlugs = [
   "artwork-inventory",
   "publishing",
   "viewing-rooms",
-  "custom-operations",
+  "sales-assistant",
 ] as const;
 
 /* Les pages solutions ne se dupliquent pas entre elles (recouvrement de

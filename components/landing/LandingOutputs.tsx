@@ -1,6 +1,6 @@
 "use client";
 
-import { IntegrationsFrame } from "@/components/GalleryAssistantProductPage";
+import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
 import { CONTAINER } from "@/components/landing/styles";
 
@@ -195,8 +195,8 @@ const EN_COPY: OutputsCopy = {
   labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
   hrefs: [
     "/tools/artwork-inventory",
-    "/tools/custom-operations",
-    "/tools/custom-operations",
+    "/tools/sales-assistant",
+    "/tools/sales-assistant",
     "/tools/viewing-rooms",
   ],
 };

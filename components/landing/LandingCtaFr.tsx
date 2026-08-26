@@ -9,7 +9,7 @@ const FOOTER_COLUMNS = [
     title: "Outils",
     links: [
       { label: "Artwork Inventory", href: "/fr/tools/artwork-inventory" },
-      { label: "Sales Assistant", href: "/fr/tools/custom-operations" },
+      { label: "Sales Assistant", href: "/fr/tools/sales-assistant" },
       { label: "Viewing Rooms", href: "/fr/tools/viewing-rooms" },
     ],
   },

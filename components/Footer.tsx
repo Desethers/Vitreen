@@ -15,7 +15,7 @@ function buildColumns(footer: FooterCopy) {
       title: columns.platform,
       links: [
         { label: links.artworkManagement, href: "/tools/artwork-inventory" },
-        { label: links.galleryAssistant, href: "/tools/custom-operations" },
+        { label: links.salesAssistant, href: "/tools/sales-assistant" },
         { label: links.viewingRooms, href: "/tools/viewing-rooms" },
       ],
     },

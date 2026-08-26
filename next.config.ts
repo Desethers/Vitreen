@@ -38,6 +38,29 @@ const nextConfig: NextConfig = {
         destination: "/fr/tools/artwork-inventory",
         permanent: true,
       },
+      {
+        source: "/products/custom-operations",
+        destination: "/tools/sales-assistant",
+        permanent: true,
+      },
+      {
+        source: "/fr/products/custom-operations",
+        destination: "/fr/tools/sales-assistant",
+        permanent: true,
+      },
+      // /tools/custom-operations a été renommé /tools/sales-assistant : l'URL
+      // annonçait des « opérations sur mesure » pour une page qui décrit
+      // l'assistant de vente (Gmail, WhatsApp, brouillons IA).
+      {
+        source: "/tools/custom-operations",
+        destination: "/tools/sales-assistant",
+        permanent: true,
+      },
+      {
+        source: "/fr/tools/custom-operations",
+        destination: "/fr/tools/sales-assistant",
+        permanent: true,
+      },
       // /tools/archive a été renommé /tools/artwork-inventory pour un slug
       // plus explicite. Redirection permanente pour préserver le référencement.
       { source: "/tools/archive", destination: "/tools/artwork-inventory", permanent: true },

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import GalleryAssistantProductPage from "@/components/GalleryAssistantProductPage";
+import SalesAssistantProductPage from "@/components/SalesAssistantProductPage";
 import PageStructuredData from "@/components/PageStructuredData";
 import { pageMetadata } from "@/lib/seo";
 
 const seo = {
   lang: "en",
-  path: "/tools/custom-operations",
-  title: "Gallery Assistant",
+  path: "/tools/sales-assistant",
+  title: "Sales Assistant",
   description:
     "Prepare collector replies and sales material from your own gallery records, reviewed before anything is sent.",
   section: { name: "Tools", path: "/tools/overview" },
@@ -18,7 +18,7 @@ export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <GalleryAssistantProductPage />
+      <SalesAssistantProductPage />
     </>
   );
 }

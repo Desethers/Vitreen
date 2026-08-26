@@ -24,7 +24,7 @@ const TOOLS_ITEMS = [
   {
     title: "Sales Assistant",
     desc: "Add-in Gmail, outil WhatsApp, brouillons IA.",
-    href: "/fr/tools/custom-operations",
+    href: "/fr/tools/sales-assistant",
   },
   {
     title: "Viewing Rooms",

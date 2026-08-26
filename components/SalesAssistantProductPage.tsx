@@ -782,7 +782,7 @@ function AssistantVisual({ index }: { index: number }) {
   );
 }
 
-export default function GalleryAssistantProductPage() {
+export default function SalesAssistantProductPage() {
   const { lang } = useLang();
   const openContact = () => {
     window.dispatchEvent(new CustomEvent("open-contact-modal"));
