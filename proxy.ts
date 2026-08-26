@@ -13,6 +13,24 @@ const NO_FRENCH_VERSION = [
   "/studio",
 ];
 
+/* Les moteurs doivent toujours recevoir l'URL qu'ils ont demandée. La
+ * redirection géo ci-dessous s'appuie sur l'IP : dès qu'un crawl part d'une
+ * adresse française, chaque URL anglaise répond 307 vers /fr alors qu'elle se
+ * déclare canonique dans le sitemap — et toute la branche EN bascule en
+ * « Page with redirect » dans Search Console. Google déconseille
+ * explicitement les redirections automatiques fondées sur le pays supposé.
+ * Les bots sortent donc du mécanisme : ils voient les deux versions, reliées
+ * par les balises hreflang. */
+/* `inspectiontool` couvre Google-InspectionTool, l'agent de « Tester l'URL
+ * en direct » dans Search Console : sans lui, l'outil verrait un 307 là où
+ * le vrai Googlebot voit la page. */
+const CRAWLER_UA =
+  /bot|crawler|spider|crawling|slurp|inspectiontool|google-extended|bingpreview|facebookexternalhit|embedly|quora link preview|outbrain|pinterest|whatsapp|telegram|discord|lighthouse|headlesschrome/i;
+
+function isCrawler(request: NextRequest) {
+  return CRAWLER_UA.test(request.headers.get("user-agent") ?? "");
+}
+
 function toFrench(request: NextRequest) {
   const url = request.nextUrl.clone();
   url.pathname = `/fr${request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname}`;
@@ -36,8 +54,11 @@ export function proxy(request: NextRequest) {
   );
 
   /* Direct visits to /fr (shared links, search results already showing the
-   * fr-FR listing) are always respected — geo only decides the English root. */
-  if (isFrenchPath || hasNoFrenchVersion) {
+   * fr-FR listing) are always respected — geo only decides the English root.
+   * Les crawlers ne sont jamais redirigés, et ne reçoivent pas non plus le
+   * cookie de langue (il ne servirait à rien et polluerait la réponse mise en
+   * cache). */
+  if (isFrenchPath || hasNoFrenchVersion || isCrawler(request)) {
     return NextResponse.next();
   }
 

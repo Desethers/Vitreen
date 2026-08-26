@@ -21,12 +21,23 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
+    /* L'ordre compte : Next applique la première règle qui matche et renvoie
+     * un 308 au client. Les règles les plus spécifiques doivent donc précéder
+     * les génériques, sinon /products/archive part sur /tools/archive et se
+     * fait rediriger une seconde fois — une chaîne que Google suit mais qui
+     * dilue le signal. */
     return [
-      // /products/* a été renommé /tools/* pour matcher le menu "Tools" de
-      // la nav. Redirection permanente au cas où un lien externe ou un
-      // favori pointe encore vers l'ancienne URL.
-      { source: "/products/:path*", destination: "/tools/:path*", permanent: true },
-      { source: "/fr/products/:path*", destination: "/fr/tools/:path*", permanent: true },
+      // Ancien slug ET ancien préfixe d'un coup : un seul saut.
+      {
+        source: "/products/archive",
+        destination: "/tools/artwork-inventory",
+        permanent: true,
+      },
+      {
+        source: "/fr/products/archive",
+        destination: "/fr/tools/artwork-inventory",
+        permanent: true,
+      },
       // /tools/archive a été renommé /tools/artwork-inventory pour un slug
       // plus explicite. Redirection permanente pour préserver le référencement.
       { source: "/tools/archive", destination: "/tools/artwork-inventory", permanent: true },
@@ -35,6 +46,11 @@ const nextConfig: NextConfig = {
         destination: "/fr/tools/artwork-inventory",
         permanent: true,
       },
+      // /products/* a été renommé /tools/* pour matcher le menu "Tools" de
+      // la nav. Redirection permanente au cas où un lien externe ou un
+      // favori pointe encore vers l'ancienne URL.
+      { source: "/products/:path*", destination: "/tools/:path*", permanent: true },
+      { source: "/fr/products/:path*", destination: "/fr/tools/:path*", permanent: true },
     ];
   },
 };
