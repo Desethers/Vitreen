@@ -50,8 +50,6 @@ const ROLE_VISUAL: Record<RoleSlug, React.ComponentType> = {
   galleries: ArchiveMock,
   advisors: AdvisorSelectionVisual,
   artists: ArtistWebsitePage,
-  collectors: CollectorRoomVisual,
-  estates: ExhibitionPageMock,
 };
 
 const fadeUp = (delay = 0) => ({
@@ -733,11 +731,6 @@ export default function SolutionPage({ slug }: { slug: RoleSlug }) {
             <p className="mt-2 max-w-3xl font-display text-[22px] font-normal leading-[1.3] tracking-[-0.02em] text-[#6B6A67] md:text-[40px]">
               {content.subtitle}
             </p>
-            {slug === "collectors" ? (
-              <p className="mt-5 max-w-2xl text-[14px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67] md:text-[15px]">
-                {content.body}
-              </p>
-            ) : null}
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button size="lg" onClick={openContact}>
                 {content.cta}

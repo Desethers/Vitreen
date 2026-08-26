@@ -249,31 +249,26 @@ export default function Nav() {
                         <div>
                           <p className="text-[12px] text-[#ADADAA]">{column.label}</p>
                           <ul className="mt-4 grid gap-y-1">
-                            {column.items
-                              .filter(
-                                (item) =>
-                                  item.title !== "Collectors" && item.title !== "Collectionneurs"
-                              )
-                              .map((item) => (
-                                <li key={item.title}>
-                                  <a
-                                    href={href(item.href)}
-                                    onClick={() => setSolutionsOpen(false)}
-                                    className="group -mx-4 block w-[calc(100%+32px)] rounded px-4 py-2 transition-colors duration-200 hover:bg-[#F8F8F6]"
-                                  >
-                                    <span className="flex items-center gap-3">
-                                      <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
-                                        {item.title}
-                                      </span>
+                            {column.items.map((item) => (
+                              <li key={item.title}>
+                                <a
+                                  href={href(item.href)}
+                                  onClick={() => setSolutionsOpen(false)}
+                                  className="group -mx-4 block w-[calc(100%+32px)] rounded px-4 py-2 transition-colors duration-200 hover:bg-[#F8F8F6]"
+                                >
+                                  <span className="flex items-center gap-3">
+                                    <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                                      {item.title}
                                     </span>
-                                    {"desc" in item && item.desc && (
-                                      <span className="mt-0.5 block text-[12px] leading-snug text-[#6B6A67]">
-                                        {item.desc}
-                                      </span>
-                                    )}
-                                  </a>
-                                </li>
-                              ))}
+                                  </span>
+                                  {"desc" in item && item.desc && (
+                                    <span className="mt-0.5 block text-[12px] leading-snug text-[#6B6A67]">
+                                      {item.desc}
+                                    </span>
+                                  )}
+                                </a>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       );

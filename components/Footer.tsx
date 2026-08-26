@@ -25,7 +25,6 @@ function buildColumns(footer: FooterCopy) {
         { label: links.forGalleries, href: "/solutions/galleries" },
         { label: links.forArtists, href: "/solutions/artists" },
         { label: links.forAdvisors, href: "/solutions/advisors" },
-        { label: links.forEstates, href: "/solutions/estates" },
       ],
     },
     {

@@ -9,7 +9,6 @@ const seo = {
   title: "Gestion des œuvres",
   description:
     "Réunissez œuvres, artistes et expositions dans une même fiche : images, dimensions, disponibilité, localisation et documents.",
-  section: { name: "Outils", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

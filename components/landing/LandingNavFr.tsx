@@ -183,13 +183,7 @@ export default function LandingNavFr() {
               <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
                 <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                   <div>
-                    <a
-                      href="/fr/tools/overview"
-                      onClick={() => setToolsOpen(false)}
-                      className="text-[12px] text-[#ADADAA] transition-colors hover:text-[#6B6A67]"
-                    >
-                      Outils
-                    </a>
+                    <span className="text-[12px] text-[#ADADAA]">Outils</span>
                     <div className="mt-4 grid grid-cols-1 gap-y-1">
                       {TOOLS_ITEMS.map((item, index) => (
                         <a

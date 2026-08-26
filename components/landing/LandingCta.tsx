@@ -19,7 +19,6 @@ const FOOTER_COLUMNS = [
       { label: "For Art Galleries", href: "/solutions/galleries" },
       { label: "For Artists", href: "/solutions/artists" },
       { label: "For Art Advisors & Dealers", href: "/solutions/advisors" },
-      { label: "For Artist Estates", href: "/solutions/estates" },
     ],
   },
   {

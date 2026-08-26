@@ -9,7 +9,6 @@ const seo = {
   title: "Sales Assistant",
   description:
     "Prepare collector replies and sales material from your own gallery records, reviewed before anything is sent.",
-  section: { name: "Tools", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

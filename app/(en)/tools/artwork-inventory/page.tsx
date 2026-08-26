@@ -9,7 +9,6 @@ const seo = {
   title: "Artwork Inventory",
   description:
     "Keep artworks, artists and exhibitions in one record — images, dimensions, availability, location and documents.",
-  section: { name: "Tools", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

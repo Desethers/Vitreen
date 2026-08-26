@@ -9,7 +9,6 @@ const seo = {
   title: "Viewing Rooms",
   description:
     "Partagez des sélections d’œuvres privées par lien ou PDF, préparées depuis votre inventaire existant.",
-  section: { name: "Outils", path: "/tools/overview" },
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

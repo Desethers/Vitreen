@@ -16,7 +16,6 @@ export const translations = {
         sectionLabel: "Produits",
         items: [
           { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/tools/artwork-inventory" },
-          { title: "Website Publisher", desc: "Publiez les œuvres et les expositions sur votre site.", href: "/tools/publishing" },
           { title: "Sales Assistant", desc: "Préparez vos contenus et le travail quotidien de la galerie.", href: "/tools/sales-assistant" },
           { title: "Viewing Rooms", desc: "Créez et partagez des sélections privées.", href: "/tools/viewing-rooms" },
         ],
@@ -45,18 +44,11 @@ export const translations = {
               { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "/solutions/galleries" },
               { title: "Advisors and dealers", desc: "Sélections privées et suivi client", href: "/solutions/advisors" },
               { title: "Artistes", desc: "Archive, séries, présentation", href: "/solutions/artists" },
-              { title: "Collectionneurs", desc: "Acquisitions et documents", href: "/solutions/collectors" },
-              { title: "Successions d’artistes", desc: "Corpus, provenance, transmission", href: "/solutions/estates" },
             ],
           },
           {
             label: "Par workflow",
             items: [
-              {
-                title: "Faire circuler les œuvres",
-                desc: "Site, PDF et liens privés",
-                href: "/tools/publishing",
-              },
               {
                 title: "Répondre aux collectionneurs",
                 desc: "Demandes, réponses et relances",
@@ -851,7 +843,6 @@ export const translations = {
         sectionLabel: "Products",
         items: [
           { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/tools/artwork-inventory" },
-          { title: "Website Publisher", desc: "Publish artworks and exhibitions online.", href: "/tools/publishing" },
           { title: "Sales Assistant", desc: "Prepare content and daily gallery work.", href: "/tools/sales-assistant" },
           { title: "Viewing Rooms", desc: "Create and share private selections.", href: "/tools/viewing-rooms" },
         ],
@@ -880,18 +871,11 @@ export const translations = {
               { title: "Galleries", desc: "Artworks, exhibitions, inquiries", href: "/solutions/galleries" },
               { title: "Advisors & Dealers", desc: "Private selections and client follow-up", href: "/solutions/advisors" },
               { title: "Artists", desc: "Archive, series, presentation", href: "/solutions/artists" },
-              { title: "Collectors", desc: "Acquisitions and documents", href: "/solutions/collectors" },
-              { title: "Artist Estates", desc: "Corpus, provenance, transmission", href: "/solutions/estates" },
             ],
           },
           {
             label: "By workflow",
             items: [
-              {
-                title: "Circulate artworks",
-                desc: "Website, PDFs and private links",
-                href: "/tools/publishing",
-              },
               {
                 title: "Reply to collectors",
                 desc: "Inquiries, replies and reminders",

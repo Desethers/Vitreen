@@ -64,16 +64,6 @@ export const SOLUTION_SEO: Record<Lang, Record<string, { title: string; descript
       description:
         "Build private artwork selections for clients and keep each conversation attached to the works it concerns.",
     },
-    collectors: {
-      title: "Collection records for collectors",
-      description:
-        "Keep acquisitions, documents and provenance together, with private viewing access to the works you are offered.",
-    },
-    estates: {
-      title: "Artwork records for artist estates",
-      description:
-        "Structure a body of work — series, provenance and archival material — so it stays usable across exhibitions and transmission.",
-    },
   },
   fr: {
     galleries: {
@@ -90,16 +80,6 @@ export const SOLUTION_SEO: Record<Lang, Record<string, { title: string; descript
       title: "Logiciel pour conseillers en art et marchands",
       description:
         "Composez des sélections d’œuvres privées pour vos clients et gardez chaque échange relié aux œuvres concernées.",
-    },
-    collectors: {
-      title: "Fiches de collection pour collectionneurs",
-      description:
-        "Réunissez acquisitions, documents et provenance, avec un accès privé aux œuvres qui vous sont proposées.",
-    },
-    estates: {
-      title: "Fiches d’œuvres pour successions d’artistes",
-      description:
-        "Structurez un corpus — séries, provenance et matériel d’archive — pour qu’il reste exploitable dans le temps.",
     },
   },
 };

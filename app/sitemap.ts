@@ -13,27 +13,7 @@ function abs(path: string) {
 /* Only the product pages we actually link to and want indexed. The templated
  * offshoots (inquiries, mobile, previews) stay out until they carry a subject
  * of their own — they currently restate viewing-rooms and publishing. */
-const toolSlugs = [
-  "overview",
-  "artwork-inventory",
-  "publishing",
-  "viewing-rooms",
-  "sales-assistant",
-] as const;
-
-/* Les pages solutions ne se dupliquent pas entre elles (recouvrement de
- * phrases mesuré à 2-10 % le 2026-08-26), mais deux d'entre elles n'ont pas
- * assez de contenu propre pour mériter une demande de crawl sur un domaine
- * encore sans autorité — Google les laisse en « Discovered – currently not
- * indexed » et dépense ailleurs le budget qu'on lui réclame ici.
- *
- * Corps de page mesuré, nav et footer déduits :
- *   galleries 804 · artists 574 · advisors 364 · estates 189 · collectors 47
- *
- * Seuil retenu : ~250 mots de contenu propre. En dessous, la page reste en
- * ligne et liée, elle sort simplement du sitemap — on cesse de la réclamer,
- * on ne la désindexe pas. À réintégrer dès qu'elle est étoffée. */
-const SITEMAP_ROLES = ROLE_SLUGS.filter((role) => role !== "collectors" && role !== "estates");
+const toolSlugs = ["artwork-inventory", "viewing-rooms", "sales-assistant"] as const;
 
 /** Every indexable path, unprefixed. English is served here, French under /fr. */
 const paths: string[] = [
@@ -41,12 +21,11 @@ const paths: string[] = [
   "/about",
   "/pricing",
   ...toolSlugs.map((slug) => `/tools/${slug}`),
-  ...SITEMAP_ROLES.map((role) => `/solutions/${role}`),
+  ...ROLE_SLUGS.map((role) => `/solutions/${role}`),
 ];
 
 function priorityFor(path: string) {
   if (path === "/") return 1;
-  if (path === "/tools/overview") return 0.8;
   return 0.7;
 }
 
