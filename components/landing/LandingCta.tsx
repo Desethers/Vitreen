@@ -32,8 +32,8 @@ const FOOTER_COLUMNS = [
   {
     title: "Vitreen Studio",
     links: [
-      { label: "How it works", href: "/studio#how-it-works" },
-      { label: "Tasks", href: "/studio#tasks" },
+      { label: "How it works", href: "https://forart.world#how-it-works" },
+      { label: "Tasks", href: "https://forart.world#tasks" },
       { label: "Contact", href: "mailto:studio@vitreen.art" },
     ],
   },
@@ -85,7 +85,7 @@ export default function LandingCta() {
                     <h3 className="text-[12px] font-medium text-[#6B6A67]">{column.title}</h3>
                     <ul className="mt-5 space-y-3">
                       {column.links.map((link) => {
-                        const isExternal = link.href.startsWith("/studio");
+                        const isExternal = link.href.startsWith("https://forart.world");
                         return (
                           <li key={link.label}>
                             <a

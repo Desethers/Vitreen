@@ -10,7 +10,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
-  { label: "Studio", href: "/studio" },
+  { label: "Studio", href: "https://forart.world" },
 ];
 
 /** Existing /tools/* pages, surfaced under "Tools" instead of the retired Gallery OS nav. */

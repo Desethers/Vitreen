@@ -38,8 +38,12 @@ function buildColumns(footer: FooterCopy) {
     {
       title: columns.studio,
       links: [
-        { label: links.studioHowItWorks, href: "/studio#how-it-works", external: true },
-        { label: links.studioTasks, href: "/studio#tasks", external: true },
+        {
+          label: links.studioHowItWorks,
+          href: "https://forart.world#how-it-works",
+          external: true,
+        },
+        { label: links.studioTasks, href: "https://forart.world#tasks", external: true },
         { label: links.studioContact, href: "mailto:studio@vitreen.art", external: true },
       ],
     },

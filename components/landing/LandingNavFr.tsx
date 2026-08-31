@@ -11,7 +11,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const LINKS = [
   { label: "Tarifs", href: "/fr/pricing" },
   { label: "À propos", href: "/fr/about" },
-  { label: "Studio", href: "/studio" },
+  { label: "Studio", href: "https://forart.world/fr" },
 ];
 
 /** Pages /fr/tools/* déjà construites, désormais accessibles sous "Outils". */

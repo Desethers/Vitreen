@@ -3,8 +3,11 @@ import { NextResponse, type NextRequest } from "next/server";
 const COOKIE = "vitreen-lang";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
-/* Thin/orphan pages with no French counterpart (unlinked, already noindex) —
- * never redirect these, or a French visitor would hit a 404 on /fr/... */
+/* Chemins sans contrepartie française — ne jamais les rediriger, sinon un
+ * visiteur français atterrit sur un /fr/... inexistant. /studio n'est plus une
+ * page mais une redirection permanente vers forart.world : sans cette
+ * exemption, un visiteur français partirait sur /fr/studio, qui n'existe pas
+ * et que la redirection ne couvre pas. */
 const NO_FRENCH_VERSION = [
   "/portfolio-preview",
   "/tools/inquiries",

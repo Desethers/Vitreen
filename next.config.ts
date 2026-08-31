@@ -10,16 +10,6 @@ const nextConfig: NextConfig = {
     // produire du q=92 au lieu de retomber sur la valeur par défaut (75).
     qualities: [75, 92],
   },
-  async rewrites() {
-    return [
-      // Vitreen Studio est buildé par Vite dans public/studio/.
-      // Next rewrite sert /studio et /studio/fr sur les index.html respectifs.
-      { source: "/studio", destination: "/studio/index.html" },
-      { source: "/studio/", destination: "/studio/index.html" },
-      { source: "/studio/fr", destination: "/studio/fr/index.html" },
-      { source: "/studio/fr/", destination: "/studio/fr/index.html" },
-    ];
-  },
   async redirects() {
     /* L'ordre compte : Next applique la première règle qui matche et renvoie
      * un 308 au client. Les règles les plus spécifiques doivent donc précéder
@@ -27,6 +17,16 @@ const nextConfig: NextConfig = {
      * fait rediriger une seconde fois — une chaîne que Google suit mais qui
      * dilue le signal. */
     return [
+      /* Studio a quitté Vitreen : le site vit désormais sur son propre domaine.
+       * La redirection préserve la structure de chemin, donc /studio/fr arrive
+       * sur forart.world/fr et les anciennes URL d'images retombent sur leurs
+       * équivalentes — un seul saut dans tous les cas. */
+      { source: "/studio", destination: "https://forart.world", permanent: true },
+      {
+        source: "/studio/:path*",
+        destination: "https://forart.world/:path*",
+        permanent: true,
+      },
       // Ancien slug ET ancien préfixe d'un coup : un seul saut.
       {
         source: "/products/archive",
