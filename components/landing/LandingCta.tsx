@@ -71,8 +71,7 @@ export default function LandingCta() {
                   Vitreen
                 </a>
                 <p className="mt-5 max-w-[23rem] text-[14px] leading-[1.65] text-[#ADADAA]">
-                  Sales tools for contemporary galleries — built around your inventory, working in
-                  Gmail and WhatsApp.
+                  Sales tools for art galleries.
                 </p>
               </div>
 

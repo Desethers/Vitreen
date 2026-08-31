@@ -8,13 +8,13 @@ export const SITE_NAME = "Vitreen";
  * unprefixed preserves whatever equity the live pages already have. */
 export const SITE: Record<Lang, { title: string; description: string; ogLocale: string }> = {
   en: {
-    title: "Vitreen — Sales tools for contemporary art galleries",
+    title: "Vitreen — Sales tools for art galleries",
     description:
       "Vitreen organises artworks, publishes your gallery website and prepares private collector presentations from the same artwork records.",
     ogLocale: "en_GB",
   },
   fr: {
-    title: "Vitreen — Outils de vente pour galeries d’art contemporain",
+    title: "Vitreen — Outils de vente pour galeries d’art",
     description:
       "Vitreen organise vos œuvres, publie le site de votre galerie et prépare vos présentations privées à partir des mêmes fiches d’œuvres.",
     ogLocale: "fr_FR",

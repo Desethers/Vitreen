@@ -70,8 +70,7 @@ export default function LandingCtaFr() {
                   Vitreen
                 </a>
                 <p className="mt-5 max-w-[23rem] text-[14px] leading-[1.65] text-[#ADADAA]">
-                  Outils de vente pour galeries d’art contemporain — construits autour de votre
-                  inventaire, dans Gmail et WhatsApp.
+                  Outils de vente pour galeries d’art.
                 </p>
               </div>
 
