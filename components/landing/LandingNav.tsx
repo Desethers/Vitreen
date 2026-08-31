@@ -10,7 +10,6 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const LINKS = [
   { label: "Pricing", href: "/pricing" },
   { label: "About", href: "/about" },
-  { label: "Studio", href: "https://forart.world" },
 ];
 
 /** Existing /tools/* pages, surfaced under "Tools" instead of the retired Gallery OS nav. */
@@ -155,11 +154,6 @@ export default function LandingNav() {
                 className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
                 {link.label}
-                {link.label === "Studio" ? (
-                  <span aria-hidden="true" className="ml-1">
-                    ↗
-                  </span>
-                ) : null}
               </a>
             ))}
           </nav>

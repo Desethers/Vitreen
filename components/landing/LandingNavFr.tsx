@@ -11,7 +11,6 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const LINKS = [
   { label: "Tarifs", href: "/fr/pricing" },
   { label: "À propos", href: "/fr/about" },
-  { label: "Studio", href: "https://forart.world/fr" },
 ];
 
 /** Pages /fr/tools/* déjà construites, désormais accessibles sous "Outils". */
@@ -154,11 +153,6 @@ export default function LandingNavFr() {
                 className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
                 {link.label}
-                {link.label === "Studio" ? (
-                  <span aria-hidden="true" className="ml-1">
-                    ↗
-                  </span>
-                ) : null}
               </a>
             ))}
           </nav>
