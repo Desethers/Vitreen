@@ -616,82 +616,6 @@ export const translations = {
         },
       ],
     },
-    tools: {
-      sectionLabel: "Outils",
-      backToHome: "Retour à l’accueil",
-      featuresLabel: "Inclus",
-      overview: {
-        eyebrow: "Outils · Overview",
-        title: "Une vue connectée des outils Vitreen",
-        subtitle: "Outils connectés pour expositions, publication et communication collectionneurs.",
-        body:
-          "Vitreen rassemble les outils dont une galerie a besoin pour publier des œuvres, préparer des présentations privées, partager des sélections et suivre les demandes — sans changer les habitudes de l’équipe.",
-        features: [
-          "Une seule source d’œuvres",
-          "Publication web, PDFs et viewing rooms",
-          "Partage privé pour collectionneurs",
-          "Suivi des demandes par œuvre",
-        ],
-        cta: "Parlons-en",
-      },
-      "artwork-inventory": {
-        eyebrow: "Outils · Artworks Management",
-        title: "Artworks Management",
-        subtitle: "Œuvres, artistes et expositions organisés autour de votre workflow.",
-        body:
-          "Archive sert de base structurée pour les œuvres de la galerie : artistes, expositions, médiums, dimensions, statuts. Les données restent disponibles pour les pages publiques, les viewing rooms et les supports envoyés aux collectionneurs.",
-        features: [
-          "Fiches œuvres, artistes et expositions",
-          "Statuts, prix et disponibilités",
-          "Médiums, dimensions et provenance",
-          "Connexion possible à un inventaire existant",
-        ],
-        cta: "Parlons-en",
-      },
-      "viewing-rooms": {
-        eyebrow: "Outils · Viewing Rooms",
-        title: "Présentations privées pour collectionneurs",
-        subtitle: "Présentations privées pour collectionneurs et expositions.",
-        body:
-          "Préparez une sélection d’œuvres dans un espace privé : contexte d’exposition, fiches détaillées et lien partageable. Les viewing rooms s’ouvrent sur invitation, dans une interface lisible et confidentielle.",
-        features: [
-          "Sélection privée par collectionneur",
-          "Contexte d’exposition et fiches œuvres",
-          "Lien à durée et accès limités",
-          "Demande directe depuis chaque œuvre",
-        ],
-        cta: "En savoir plus",
-        badge: "Bientôt",
-      },
-      publishing: {
-        eyebrow: "Outils · Publishing",
-        title: "Publier depuis une seule source",
-        subtitle: "Pages web, PDFs et communication collectionneurs depuis la même structure d’œuvres.",
-        body:
-          "Publishing transforme les données d’œuvres en pages publiques, archives d’expositions, PDFs et emails envoyés aux collectionneurs — sans saisir les informations deux fois.",
-        features: [
-          "Pages œuvres, artistes et expositions",
-          "Archives d’expositions",
-          "Exports PDF et présentations imprimables",
-          "Emails collectionneurs construits depuis les œuvres",
-        ],
-        cta: "Parlons-en",
-      },
-      "sales-assistant": {
-        eyebrow: "Outils · Sales Assistant",
-        title: "Adapter Vitreen au workflow de la galerie",
-        subtitle: "Workflows sur mesure adaptés à votre galerie.",
-        body:
-          "Custom Operations permet d’ajuster Vitreen aux opérations propres à la galerie : champs spécifiques, intégrations à des outils existants, automatisations internes ou modèles de partage propres au programme.",
-        features: [
-          "Champs et statuts personnalisés",
-          "Intégrations avec outils existants",
-          "Automatisations internes",
-          "Modèles de partage propres à la galerie",
-        ],
-        cta: "Parlons-en",
-      },
-    },
     solutions: {
       sectionLabel: "Solutions",
       backToHome: "Retour à l’accueil",
@@ -736,34 +660,6 @@ export const translations = {
           "Faites en sorte que votre site reflète votre pratique actuelle",
           "Soyez prêt quand une opportunité se présente",
           "Votre assistant d’atelier",
-        ],
-        cta: "Parlons-en",
-      },
-      collectors: {
-        eyebrow: "Solutions · Collectionneurs",
-        title: "Votre collection, documentée et à portée de main",
-        subtitle: "Acquisitions et documents réunis, viewing rooms reçues des galeries.",
-        body:
-          "Pour les collectionneurs, gardez acquisitions, documents et informations d’état au même endroit, et recevez des viewing rooms privées des galeries avec lesquelles vous travaillez.",
-        features: [
-          "Acquisitions et documents réunis en un lieu",
-          "Factures, certificats et constats d’état conservés",
-          "Réception de viewing rooms privées des galeries",
-          "Examen des œuvres proposées avant acquisition",
-        ],
-        cta: "Parlons-en",
-      },
-      estates: {
-        eyebrow: "Successions d’artistes",
-        title: "La gestion d’un corpus complet d’œuvres",
-        subtitle: "Corpus, provenance et transmission, sous votre contrôle.",
-        body:
-          "Pour les successions d’artistes et fondations, structurez l’ensemble du corpus, préservez la provenance et l’historique d’expositions, et maîtrisez la façon dont les œuvres sont présentées aux institutions et collectionneurs.",
-        features: [
-          "Structuration du corpus complet",
-          "Provenance et historique d’expositions préservés",
-          "Contrôle de la présentation des œuvres",
-          "Préparation des prêts, ventes et demandes institutionnelles",
         ],
         cta: "Parlons-en",
       },
@@ -1450,82 +1346,6 @@ export const translations = {
         },
       ],
     },
-    tools: {
-      sectionLabel: "Tools",
-      backToHome: "Back to home",
-      featuresLabel: "Included",
-      overview: {
-        eyebrow: "Tools · Overview",
-        title: "A connected view of Vitreen tools",
-        subtitle: "Connected tools for exhibitions, publishing and collector communication.",
-        body:
-          "Vitreen brings together the tools a gallery needs to publish artworks, prepare private presentations, share selections and follow inquiries — without changing how the team already works.",
-        features: [
-          "A single artwork source",
-          "Web pages, PDFs and viewing rooms",
-          "Private sharing for collectors",
-          "Inquiry tracking per artwork",
-        ],
-        cta: "Talk to us",
-      },
-      "artwork-inventory": {
-        eyebrow: "Tools · Artworks Management",
-        title: "Artworks Management",
-        subtitle: "Artworks, artists and exhibitions organized around your workflow.",
-        body:
-          "Archive provides a structured base for the gallery's artworks: artists, exhibitions, mediums, dimensions, status. The data stays available for public pages, viewing rooms and collector materials.",
-        features: [
-          "Artwork, artist and exhibition records",
-          "Status, prices and availability",
-          "Mediums, dimensions and provenance",
-          "Connects to an existing inventory",
-        ],
-        cta: "Talk to us",
-      },
-      "viewing-rooms": {
-        eyebrow: "Tools · Viewing Rooms",
-        title: "Private presentations for collectors",
-        subtitle: "Private presentations for collectors and exhibitions.",
-        body:
-          "Prepare a selection of artworks in a private space: exhibition context, detailed records and a shareable link. Viewing rooms open by invitation, in a readable and confidential interface.",
-        features: [
-          "Private selection per collector",
-          "Exhibition context and artwork records",
-          "Time-limited and access-limited links",
-          "Direct inquiry from each artwork",
-        ],
-        cta: "Talk to us",
-        badge: "Soon",
-      },
-      publishing: {
-        eyebrow: "Tools · Publishing",
-        title: "Publish from a single source",
-        subtitle: "Website pages, PDFs and collector communication from the same artwork structure.",
-        body:
-          "Publishing turns artwork data into public pages, exhibition archives, PDFs and emails sent to collectors — without entering the information twice.",
-        features: [
-          "Artwork, artist and exhibition pages",
-          "Exhibition archives",
-          "PDF exports and printable presentations",
-          "Collector emails built from artworks",
-        ],
-        cta: "Talk to us",
-      },
-      "sales-assistant": {
-        eyebrow: "Tools · Sales Assistant",
-        title: "Adapt Vitreen to the gallery's workflow",
-        subtitle: "Tailored workflows adapted to your gallery.",
-        body:
-          "Custom Operations adjusts Vitreen to a gallery's specific operations: dedicated fields, integrations with existing tools, internal automations or sharing templates tied to the programme.",
-        features: [
-          "Custom fields and statuses",
-          "Integrations with existing tools",
-          "Internal automations",
-          "Sharing templates tied to the gallery",
-        ],
-        cta: "Talk to us",
-      },
-    },
     solutions: {
       sectionLabel: "Solutions",
       backToHome: "Back to home",
@@ -1570,34 +1390,6 @@ export const translations = {
           "Make your website reflect your current practice",
           "Prepare work for each gallery or curator",
           "Your studio assistant",
-        ],
-        cta: "Talk to us",
-      },
-      collectors: {
-        eyebrow: "Solutions · Collectors",
-        title: "Your collection, documented and at hand",
-        subtitle: "Acquisitions and documents in one place, viewing rooms received from galleries.",
-        body:
-          "For collectors, keep acquisitions, documents and condition information in one place, and receive private viewing rooms from the galleries you work with.",
-        features: [
-          "Keep acquisitions and documents in one place",
-          "Store invoices, certificates and condition reports",
-          "Receive private viewing rooms from galleries",
-          "Review proposed works before acquiring",
-        ],
-        cta: "Talk to us",
-      },
-      estates: {
-        eyebrow: "Artist Estates",
-        title: "Stewardship of a complete body of work",
-        subtitle: "Corpus, provenance and transmission, under your control.",
-        body:
-          "For artist estates and foundations, structure the full corpus, preserve provenance and exhibition history, and control how works are presented to institutions and collectors.",
-        features: [
-          "Structure the complete corpus",
-          "Preserve provenance and exhibition history",
-          "Control how works are presented",
-          "Prepare loans, sales and institutional requests",
         ],
         cta: "Talk to us",
       },
