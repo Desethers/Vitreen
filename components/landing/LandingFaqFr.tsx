@@ -33,7 +33,7 @@ const ITEMS = [
   },
   {
     q: "Combien de temps prend la mise en place ?",
-    a: "Environ trois semaines, du premier échange jusqu’à l’utilisation des modules Gmail et WhatsApp par votre équipe.",
+    a: "Une semaine environ, du premier échange jusqu’à l’utilisation de Vitreen dans Gmail et WhatsApp par votre équipe.",
   },
   {
     q: "Que se passe-t-il si j’arrête ?",

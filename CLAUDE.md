@@ -73,27 +73,33 @@ Tant qu'aucune synchro native n'existe, écrire « à partir de vos exports
 Artlogic », jamais « intégration Artlogic ». Ne jamais inviter à une
 comparaison de prix avec Artlogic.
 
-### Offre (inchangée depuis le 2026-08-12)
+### Offre (décidée le 2026-09-28, remplace Sales 390 € / Partner 590 €)
 
-| Offre               | Prix       | Engagement                              |
-| ------------------- | ---------- | --------------------------------------- |
-| **Vitreen Sales**   | 390 €/mois | 12 mois · setup inclus                  |
-| **Vitreen Partner** | 590 €/mois | 12 mois · accompagnement continu inclus |
+| Offre                             | Prix                                     | Engagement                   |
+| --------------------------------- | ---------------------------------------- | ---------------------------- |
+| **Galerie fondatrice** (3 places) | 149 €/mois                               | 3 mois minimum, puis au mois |
+| **Vitreen** (prix public)         | 249 €/mois, ou 199 €/mois payé à l'année | Sans engagement              |
 
-Détail des contenus, liste fermée de maintenance, frontière de
-personnalisation, principe économique et capacité : playbook §6–7. Points à
-retenir :
+Les deux : **par galerie, utilisateurs illimités**, installation incluse (une
+semaine environ). Détail, raisonnement face aux concurrents, liste fermée de
+maintenance et capacité : playbook §6–7. Points à retenir :
 
+- **Trois galeries fondatrices seulement** : prix gardé tant qu'elles restent,
+  en échange de 20 min de retours toutes les deux semaines pendant 3 mois et
+  d'une étude de cas. La limite fait de l'offre une entrée réservée, pas une
+  remise.
+- **Ne jamais lister la capture WhatsApp comme incluse** avant qu'elle
+  marche : côté fondatrices, c'est un « accès anticipé ».
+- **Partner est en pause** jusqu'à ce que des clients demandent un
+  accompagnement continu.
+- **Devisé à part** : reprise complète d'Artlogic avec nettoyage, travail sur
+  mesure.
 - **La maintenance incluse est une liste fermée** (bugs, maintien de
-  l'existant, sécurité, compatibilité, restauration). Pas de nouvelles
-  fonctionnalités, intégrations, templates ni évolutions de workflow. Dire
-  oui une fois rouvre la frontière définitivement.
-- **Sales se choisit, Partner se propose** une fois le système en place. Jamais
-  de tableau comparatif à colonnes.
-- **La capacité se joue sur le nombre de clients Partner**, pas Sales.
+  l'existant, sécurité, compatibilité, restauration). Dire oui une fois
+  rouvre la frontière définitivement.
 - **Toute modification de pricing se porte dans quatre fichiers** :
   `PricingPage.tsx`, `PricingPageFr.tsx`, `LandingOffers.tsx`,
-  `LandingOffersFr.tsx`.
+  `LandingOffersFr.tsx` (+ la FAQ des deux pages pricing).
 
 ### Positionnement IA
 
@@ -210,8 +216,8 @@ Personne ne connaît Vitreen. Ordre voulu :
    visuels produit.
 3. **L'assistant démontré** — un brouillon groundé avec l'étape « Relire et
    envoyer » visible. Sobre : pas d'ombre, pas de couleur.
-4. **L'installation** — comment ça se passe, ~3 semaines.
-5. **L'offre** — cartes Sales / Partner, jamais de tableau comparatif.
+4. **L'installation** — comment ça se passe, une semaine environ.
+5. **L'offre** — cartes galerie fondatrice / prix public, jamais de tableau comparatif.
 6. **Un seul CTA** — prendre rendez-vous.
 
 Interdit : toute section qui résume le produit en 3-4 « piliers » avec icône,
@@ -385,10 +391,9 @@ client sans accord, jamais de données de collectionneurs ni de prix réels.
       données (Sanity), phrase de confiance pour la galerie
 - [ ] Formulation de la promesse site une fois la capture WhatsApp livrée
 - [ ] Réécrire la home EN/FR autour de la boucle (§5)
-- [ ] Sort de la fin des 12 mois d'engagement (reconduction, sortie)
-- [ ] Partner conditionné à Sales ou non (la FAQ `/pricing` le dit, les
-      cartes non)
-- [ ] Valider les montants Sales 390 € / Partner 590 €
+- [ ] Valider les montants (fondatrice 149 €, public 249 € / 199 € à l'année)
+      après les trois galeries fondatrices
+- [ ] Chiffrer le coût par galerie (fournisseur WhatsApp, Sanity, inférence)
 - [ ] Site connecté (à partir de 4 500 €) : garder, basculer vers R.R Studio,
       ou abandonner
 - [ ] Commandes lint / test / build une fois stabilisées

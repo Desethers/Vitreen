@@ -3,26 +3,18 @@
 import { OfferCard } from "@/components/landing/OfferCard";
 import { CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
-const SETUP = [
-  "Migration de la base d’œuvres",
-  "Artistes, œuvres, images, prix et disponibilité",
+const INCLUDED = [
+  "Utilisateurs illimités",
+  "Import de l’inventaire depuis vos tableurs ou exports Artlogic",
   "Add-in Gmail",
-  "Outils de vente WhatsApp",
-  "Configuration Gmail et WhatsApp",
-  "Configuration de l’assistant IA",
-  "Éditeur de sélections et suivi",
+  "Assistant WhatsApp",
+  "Assistant IA, groundé sur vos fiches",
+  "Conversations : l’historique de chaque collectionneur au même endroit",
+  "Sélections privées et PDF",
   "Prise en main de l’équipe",
 ];
 
-const PARTNER = [
-  "Session de travail mensuelle",
-  "Améliorations de workflow",
-  "Nouveaux formats email et PDF",
-  "Formation et accompagnement de l’équipe",
-  "Configuration de l’assistant IA",
-  "Accompagnement inventaire et données",
-  "Assistance technique prioritaire",
-];
+const FOUNDING = [...INCLUDED, "Accès anticipé à la capture des conversations WhatsApp"];
 
 export default function LandingOffersFr() {
   return (
@@ -30,27 +22,30 @@ export default function LandingOffersFr() {
       <div className={CONTAINER}>
         <h2 className={`${H2} max-w-2xl`}>Choisissez comment travailler avec Vitreen.</h2>
         <p className={`${H2_SUB} max-w-2xl`}>
-          Utilisez nos outils seuls, ou faites-les évoluer avec nous chaque mois.
+          Trois places fondatrices, puis un prix public unique.
         </p>
 
         <div className="mt-10 grid gap-6 px-8 md:mt-14 md:grid-cols-2 md:gap-8 md:px-20">
           <OfferCard
-            title="Vitreen Sales"
-            price="390 €/mois"
-            subline="Engagement 12 mois · Installation incluse"
-            description="Nous installons le système dont votre galerie a besoin aujourd’hui : base d’œuvres et outils de vente pour vos collectionneurs."
-            items={SETUP}
-            clarification="Livré en ~3 semaines."
-            cta="Démarrer avec Vitreen"
+            label="Galeries fondatrices · 3 places"
+            title="Galerie fondatrice"
+            price="149 €/mois"
+            subline="3 mois minimum, puis sans engagement · Installation incluse"
+            description="Pour les trois premières galeries. Votre prix reste le même tant que vous restez — en échange, vous nous aidez à façonner le produit."
+            items={FOUNDING}
+            clarification="En échange : 20 minutes de retours toutes les deux semaines pendant les trois premiers mois."
+            cta="Candidater comme galerie fondatrice"
             featured
           />
           <OfferCard
-            title="Vitreen Partner"
-            price="590 €/mois"
-            subline="Engagement 12 mois · Accompagnement continu inclus"
-            description="Gardez Vitreen impliqué pour faire évoluer le système à mesure que votre galerie, votre équipe et vos workflows collectionneurs évoluent."
-            items={PARTNER}
-            cta="Travailler avec Vitreen"
+            title="Vitreen"
+            price="249 €/mois"
+            priceMonthly="ou 199 €/mois payé à l’année"
+            subline="Sans engagement · Installation incluse"
+            description="Le prix public, une fois les places fondatrices prises."
+            items={INCLUDED}
+            clarification="Installé en une semaine environ."
+            cta="Nous contacter"
           />
         </div>
       </div>

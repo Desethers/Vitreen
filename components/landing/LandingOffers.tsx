@@ -3,54 +3,47 @@
 import { OfferCard } from "@/components/landing/OfferCard";
 import { CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
-const SETUP = [
-  "Artwork database migration",
-  "Artists, artworks, images, prices and availability",
+const INCLUDED = [
+  "Unlimited users",
+  "Inventory import from your spreadsheets or Artlogic exports",
   "Gmail add-in",
-  "WhatsApp sales tools",
-  "Gmail and WhatsApp configuration",
-  "AI assistant setup",
-  "Viewing room editor and follow-up",
+  "WhatsApp assistant",
+  "AI assistant, grounded in your records",
+  "Conversations: each collector’s history in one place",
+  "Private selections and PDFs",
   "Team onboarding",
 ];
 
-const PARTNER = [
-  "Monthly working session",
-  "Workflow improvements",
-  "New email and PDF formats",
-  "Team training and support",
-  "AI assistant configuration",
-  "Inventory and data support",
-  "Priority technical assistance",
-];
+const FOUNDING = [...INCLUDED, "Early access to WhatsApp conversation capture"];
 
 export default function LandingOffers() {
   return (
     <section id="services" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
         <h2 className={`${H2} max-w-2xl`}>Choose how to work with Vitreen.</h2>
-        <p className={`${H2_SUB} max-w-2xl`}>
-          A system installed today, and a partnership to keep it growing.
-        </p>
+        <p className={`${H2_SUB} max-w-2xl`}>Three founding places, then one public price.</p>
 
         <div className="mt-10 grid gap-6 px-8 md:mt-14 md:grid-cols-2 md:gap-8 md:px-20">
           <OfferCard
-            title="Vitreen Sales"
-            price="€390/month"
-            subline="12-month commitment · Setup included"
-            description="We install the system your gallery needs today with artwork database and collector sales tools."
-            items={SETUP}
-            clarification="Delivered in ~3 weeks."
-            cta="Start with Vitreen"
+            label="Founding galleries · 3 places"
+            title="Founding gallery"
+            price="€149/month"
+            subline="3-month minimum, then no commitment · Setup included"
+            description="For the first three galleries. Your price stays the same for as long as you stay — in return, you help shape the product."
+            items={FOUNDING}
+            clarification="In return: 20 minutes of feedback every two weeks during the first three months."
+            cta="Apply as a founding gallery"
             featured
           />
           <OfferCard
-            title="Vitreen Partner"
-            price="€590/month"
-            subline="12-month commitment · Ongoing guidance included"
-            description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
-            items={PARTNER}
-            cta="Work with Vitreen"
+            title="Vitreen"
+            price="€249/month"
+            priceMonthly="or €199/month billed yearly"
+            subline="No commitment · Setup included"
+            description="The public price, once the founding places are taken."
+            items={INCLUDED}
+            clarification="Set up in about a week."
+            cta="Talk to us"
           />
         </div>
       </div>

@@ -7,26 +7,18 @@ import { PricingFaqItem } from "@/components/landing/PricingFaqItem";
 import { Button } from "@/components/ui/Button";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB } from "@/components/landing/styles";
 
-const SETUP = [
-  "Artwork database migration",
-  "Artists, artworks, images, prices and availability",
+const INCLUDED = [
+  "Unlimited users",
+  "Inventory import from your spreadsheets or Artlogic exports",
   "Gmail add-in",
-  "WhatsApp sales tools",
-  "Gmail and WhatsApp configuration",
-  "AI assistant setup",
-  "Viewing room editor and follow-up",
+  "WhatsApp assistant",
+  "AI assistant, grounded in your records",
+  "Conversations: each collector’s history in one place",
+  "Private selections and PDFs",
   "Team onboarding",
 ];
 
-const PARTNER = [
-  "Monthly working session",
-  "Workflow improvements",
-  "New email and PDF formats",
-  "Team training and support",
-  "AI assistant configuration",
-  "Inventory and data support",
-  "Priority technical assistance",
-];
+const FOUNDING = [...INCLUDED, "Early access to WhatsApp conversation capture"];
 
 const REPLACES = [
   {
@@ -69,7 +61,7 @@ const WEBSITE_FEATURES = [
   },
   {
     title: "From €4,500",
-    description: "A project after Setup.",
+    description: "Quoted separately.",
     dark: true,
   },
 ];
@@ -99,20 +91,24 @@ const FAQ = [
     a: "You do. A complete export is available at any time.",
   },
   {
-    q: "Can I start with Partner directly?",
-    a: "No. Partner is available once Setup is delivered — it's what keeps Vitreen involved afterward.",
+    q: "What is a founding gallery?",
+    a: "One of the first three galleries on Vitreen: €149/month instead of €249, kept for as long as you stay, in exchange for regular feedback while we build.",
+  },
+  {
+    q: "Is there a commitment?",
+    a: "Founding galleries commit for three months, which covers the setup — then it’s month to month. At the public price there is no commitment, or €199/month if you pay yearly.",
   },
   {
     q: "What happens if I stop?",
-    a: "You keep your data and your Vitreen system. A complete export is available at any time.",
+    a: "You keep your data. A complete export is available at any time.",
   },
   {
     q: "How long does setup take?",
-    a: "Around three weeks, from the first conversation to your team using the Gmail and WhatsApp add-ins.",
+    a: "About a week: we import your inventory, connect Gmail and WhatsApp, and walk your team through it.",
   },
   {
     q: "Who keeps the system running day to day?",
-    a: "Your team, using Vitreen independently. If you'd rather have hands-on support, Partner includes a monthly working session and direct access to the founder.",
+    a: "Your team, using Vitreen independently. Founding galleries also have a direct line to the founder.",
   },
 ];
 
@@ -136,28 +132,31 @@ export default function PricingPage() {
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-6 md:grid-cols-2 md:gap-8">
               <OfferCard
-                title="Vitreen Sales"
-                price="€390/month"
-                subline="12-month commitment · Setup included"
-                description="We install the system your gallery needs today with artwork database and collector sales tools."
-                items={SETUP}
-                clarification="Delivered in ~3 weeks."
-                cta="Start with Vitreen"
+                label="Founding galleries · 3 places"
+                title="Founding gallery"
+                price="€149/month"
+                subline="3-month minimum, then no commitment · Setup included"
+                description="For the first three galleries. Your price stays the same for as long as you stay — in return, you help shape the product."
+                items={FOUNDING}
+                clarification="In return: 20 minutes of feedback every two weeks during the first three months."
+                cta="Apply as a founding gallery"
                 featured
               />
               <OfferCard
-                title="Vitreen Partner"
-                price="€590/month"
-                subline="12-month commitment · Ongoing guidance included"
-                description="Keep Vitreen involved to improve the system as your gallery, team and collector workflows evolve."
-                items={PARTNER}
-                cta="Work with Vitreen"
+                title="Vitreen"
+                price="€249/month"
+                priceMonthly="or €199/month billed yearly"
+                subline="No commitment · Setup included"
+                description="The public price, once the founding places are taken."
+                items={INCLUDED}
+                clarification="Set up in about a week."
+                cta="Talk to us"
               />
             </div>
 
             <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
-              The exact scope is defined during a first conversation — that scope determines the
-              final quote.
+              Larger migrations (a full Artlogic takeover with data cleanup) and custom work are
+              quoted separately.
             </p>
           </div>
         </div>

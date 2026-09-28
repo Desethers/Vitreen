@@ -303,18 +303,57 @@ monthly, partnership, maintenance, commitment.
 
 # 6. Offer and pricing
 
-Unchanged from the 2026-08-12 decision. Founder-led: the installation is
-personal, the product behind it is shared.
+**Decided 2026-09-28. Replaces the 2026-08-12 offer** (Vitreen Sales
+€390/month and Partner €590/month, both with a 12-month commitment). That
+offer cost more than Artlogic Professional for a complement to Artlogic, and
+asked an unknown founder's first clients for a one-year commitment. The new
+product also needs far less installation: the aha comes from connecting
+WhatsApp and importing its history, not from a three-week migration.
 
-| Offer               | Price   | Commitment                            |
-| ------------------- | ------- | ------------------------------------- |
-| **Vitreen Sales**   | €390/mo | 12 months · setup included            |
-| **Vitreen Partner** | €590/mo | 12 months · ongoing guidance included |
+| Offer                           | Price                                   | Commitment                            |
+| ------------------------------- | --------------------------------------- | ------------------------------------- |
+| **Founding gallery** (3 places) | €149/month                              | 3 months minimum, then month to month |
+| **Vitreen** (public price)      | €249/month, or €199/month billed yearly | None                                  |
 
-**Vitreen Sales** includes: inventory migration (artists, works, images,
-prices, availability), collector import into the personal CRM, Gmail add-in,
-WhatsApp sales tools, Gmail/WhatsApp configuration, AI assistant setup,
-selection editor and follow-up, team onboarding. Delivered in ~3 weeks.
+Both: **per gallery, unlimited users**, setup included.
+
+**Included:** inventory import from spreadsheets or Artlogic exports, Gmail
+add-in, WhatsApp assistant, AI assistant grounded in the gallery's records,
+Conversations (collector history), private selections and PDFs, team
+onboarding. Founding galleries also get early access to WhatsApp
+conversation capture as it ships — never list capture as included before it
+works (§2).
+
+**Founding galleries**
+
+- Limited to **three**. The limit is what makes the price a reserved entry,
+  not a discount. Once taken, the public price applies to new galleries.
+- The price is **kept for as long as the gallery stays**, even when the
+  public price rises.
+- The three-month minimum covers the setup time.
+- In return: 20 minutes of feedback every two weeks during the first three
+  months, and permission to write a case study.
+
+**Public price.** Applies once the three founding places are taken and the
+WhatsApp capture works. The commitment is a choice that earns a discount
+(€199/month billed yearly), never a condition of entry.
+
+**Why these numbers.** Competitors, as of 2026-09: Artlogic Essential from
+£130/month and Professional from £266/month (inventory, CRM, invoices,
+website, email marketing); Arternal from $110 per user per month; ArtCloud
+$99–193 per user per month; Artwork Archive organisation plans $24–139/month;
+Wati (WhatsApp team inbox) $59–119/month plus Meta fees; folk (personal CRM)
+$24–48 per user per month. A complement to Artlogic must cost clearly less
+than Artlogic; per-gallery pricing with unlimited users beats per-user
+competitors for any team of two or more.
+
+**Partner is paused.** With three founding galleries the founder is already
+in close contact. Partner comes back when clients ask for ongoing guidance —
+proposed once the system is in place, never as an option on day one, never
+as "Vitreen + options".
+
+**Quoted separately:** a full Artlogic takeover with data cleanup, and any
+custom work. The low price must not hide a free migration.
 
 **Included maintenance is a closed list** — the most important scope
 protection of the offer: bug fixes, keeping existing features working,
@@ -323,18 +362,12 @@ incident. It does **not** cover: new features, new integrations, new
 templates, data-structure changes, workflow changes, specific requests.
 Saying yes once reopens the boundary for good.
 
-**Vitreen Partner** includes: monthly working session, workflow
-improvements, new email and PDF formats, team training and support, AI
-assistant configuration, inventory and CRM data support, priority technical
-assistance.
-
 **Rules**
 
-- Sales is chosen; Partner is proposed once the system is in place. Never on
-  the same decision screen as "Sales + options".
-- Never a feature-comparison table between them.
+- Never a feature-comparison table with columns.
 - Pricing changes must be applied in four files: `PricingPage.tsx`,
-  `PricingPageFr.tsx`, `LandingOffers.tsx`, `LandingOffersFr.tsx`.
+  `PricingPageFr.tsx`, `LandingOffers.tsx`, `LandingOffersFr.tsx` (plus the
+  pricing FAQ in the two pricing pages).
 
 **Customisation boundary** — customisable: imports, commercial fields, CRM
 fields, templates, tone, visibility rules, Gmail/WhatsApp workflows. Never
@@ -343,32 +376,34 @@ one client, tools unrelated to inventory, collectors and sales
 conversations.
 
 **Economic principle:** the service funds the product · the product keeps
-Vitreen from becoming an agency · personal installation avoids a price
-comparison with Artlogic · the standardised scope protects the solo
-founder's time. Weaken one and the other three give way.
+Vitreen from becoming an agency · the standardised scope protects the solo
+founder's time. The low price holds only because installation now takes
+days, not weeks — if setup grows back, the price no longer holds.
+
+**Costs per gallery to measure:** WhatsApp provider (e.g. 360dialog), Sanity,
+AI inference (Groq). Replies are sent from the WhatsApp app, so no Meta
+per-message fees on replies — Meta's pricing changes often, re-check it.
 
 ---
 
 # 7. Capacity
 
-The constraint is the **number of Partner clients**, not Sales clients. A
-Sales client consumes maintenance, which is batched across clients; a Partner
-client consumes a monthly session for as long as they stay. Never add "a bit
-of follow-up" to a Sales client: it turns a bounded queue into an infinite
-one.
-
-The exact ceiling is unknown. Log real days per category — installation,
-Partner sessions, Sales maintenance — then compute:
+With Partner paused, the constraint is **installation and support time per
+gallery**, and above all protecting product days. Log real days per
+category — installation, founding-gallery feedback, maintenance, product —
+from the first gallery.
 
 ```text
-max Partner clients ≈ (founder days available per month
-                       − installation days − maintenance days
-                       − product days)
-                      ÷ days per Partner session (incl. preparation)
+galleries the founder can carry ≈ (founder days available per month
+                                   − product days)
+                                  ÷ (maintenance + support days per gallery per month)
 ```
 
 Product days are not optional: if client work eats them, the loop stops
-improving and Vitreen becomes an agency.
+improving and Vitreen becomes an agency. When Partner returns, each Partner
+client adds a monthly session for as long as they stay — never add "a bit of
+follow-up" to a regular client, it turns a bounded queue into an infinite
+one.
 
 ---
 
@@ -512,8 +547,8 @@ has no category to file it in. Order:
    visuals.
 3. **The assistant demonstrated** — a grounded draft with the visible
    "Review and send" step. Sober: no shadow, no colour.
-4. **Installation** — how the setup goes, in ~3 weeks.
-5. **The offer** — Sales / Partner cards, never a comparison table.
+4. **Installation** — how the setup goes, in about a week.
+5. **The offer** — founding gallery / public price cards, never a comparison table.
 6. **One CTA** — book a call.
 
 Forbidden: any section summarising the product in 3–4 icon "pillars", market
@@ -589,11 +624,8 @@ landing page and conversations first. Not before the loop is closed (§8).
   happened on your WhatsApp Business" — wording to settle, never "all of
   WhatsApp".
 
-- What happens at the end of the 12-month commitment (renewal, renegotiation,
-  exit)?
-- Is Partner available directly, or only after Sales? (The pricing FAQ says
-  after Sales; the cards no longer do.)
-- Sales €390 / Partner €590 are not yet validated commercially.
+- Founding €149 / public €249 (€199 yearly) are not yet validated
+  commercially — revisit after the three founding galleries.
 - The connected gallery website (from €4,500, quoted separately) was a Layer
   upsell. With Studio gone and the website outside the three heads, keep,
   move to R.R Studio, or drop?

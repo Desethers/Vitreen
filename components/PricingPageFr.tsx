@@ -8,26 +8,18 @@ import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
 import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB } from "@/components/landing/styles";
 
-const SETUP = [
-  "Migration de la base d’œuvres",
-  "Artistes, œuvres, images, prix et disponibilité",
+const INCLUDED = [
+  "Utilisateurs illimités",
+  "Import de l’inventaire depuis vos tableurs ou exports Artlogic",
   "Add-in Gmail",
-  "Outils de vente WhatsApp",
-  "Configuration Gmail et WhatsApp",
-  "Configuration de l’assistant IA",
-  "Éditeur de sélections et suivi",
+  "Assistant WhatsApp",
+  "Assistant IA, groundé sur vos fiches",
+  "Conversations : l’historique de chaque collectionneur au même endroit",
+  "Sélections privées et PDF",
   "Prise en main de l’équipe",
 ];
 
-const PARTNER = [
-  "Session de travail mensuelle",
-  "Améliorations de workflow",
-  "Nouveaux formats email et PDF",
-  "Formation et accompagnement de l’équipe",
-  "Configuration de l’assistant IA",
-  "Accompagnement inventaire et données",
-  "Assistance technique prioritaire",
-];
+const FOUNDING = [...INCLUDED, "Accès anticipé à la capture des conversations WhatsApp"];
 
 const REPLACES = [
   {
@@ -70,7 +62,7 @@ const WEBSITE_FEATURES = [
   },
   {
     title: "Dès 4 500 €",
-    description: "Un projet après Setup.",
+    description: "Devisé séparément.",
     dark: true,
   },
 ];
@@ -100,20 +92,24 @@ const FAQ = [
     a: "À vous. Un export complet est possible à tout moment.",
   },
   {
-    q: "Puis-je démarrer directement avec Partner ?",
-    a: "Non. Partner est disponible une fois Setup livré — c'est ce qui garde Vitreen impliqué ensuite.",
+    q: "Qu’est-ce qu’une galerie fondatrice ?",
+    a: "L’une des trois premières galeries sur Vitreen : 149 €/mois au lieu de 249 €, conservés tant que vous restez, en échange de retours réguliers pendant que nous construisons.",
+  },
+  {
+    q: "Y a-t-il un engagement ?",
+    a: "Les galeries fondatrices s’engagent trois mois, le temps de couvrir l’installation — ensuite, c’est au mois. Au prix public, il n’y a pas d’engagement, ou 199 €/mois si vous payez à l’année.",
   },
   {
     q: "Que se passe-t-il si j’arrête ?",
-    a: "Vous gardez vos données et votre système Vitreen. Un export complet est possible à tout moment.",
+    a: "Vous gardez vos données. Un export complet est possible à tout moment.",
   },
   {
     q: "Combien de temps dure l’installation ?",
-    a: "Environ trois semaines, du premier échange à l’utilisation des extensions Gmail et WhatsApp par votre équipe.",
+    a: "Une semaine environ : nous importons votre inventaire, connectons Gmail et WhatsApp, et accompagnons la prise en main de votre équipe.",
   },
   {
     q: "Qui fait fonctionner le système au quotidien ?",
-    a: "Votre équipe, en autonomie avec Vitreen. Si vous préférez un accompagnement plus direct, Partner inclut une session de travail mensuelle et un accès direct au fondateur.",
+    a: "Votre équipe, en autonomie avec Vitreen. Les galeries fondatrices ont aussi une ligne directe avec le fondateur.",
   },
 ];
 
@@ -139,28 +135,31 @@ export default function PricingPageFr() {
           <div className="mx-auto max-w-5xl">
             <div className="grid gap-6 md:grid-cols-2 md:gap-8">
               <OfferCard
-                title="Vitreen Sales"
-                price="390 €/mois"
-                subline="Engagement 12 mois · Installation incluse"
-                description="Nous installons le système dont votre galerie a besoin aujourd’hui : base d’œuvres et outils de vente pour vos collectionneurs."
-                items={SETUP}
-                clarification="Livré en ~3 semaines."
-                cta="Démarrer avec Vitreen"
+                label="Galeries fondatrices · 3 places"
+                title="Galerie fondatrice"
+                price="149 €/mois"
+                subline="3 mois minimum, puis sans engagement · Installation incluse"
+                description="Pour les trois premières galeries. Votre prix reste le même tant que vous restez — en échange, vous nous aidez à façonner le produit."
+                items={FOUNDING}
+                clarification="En échange : 20 minutes de retours toutes les deux semaines pendant les trois premiers mois."
+                cta="Candidater comme galerie fondatrice"
                 featured
               />
               <OfferCard
-                title="Vitreen Partner"
-                price="590 €/mois"
-                subline="Engagement 12 mois · Accompagnement continu inclus"
-                description="Gardez Vitreen impliqué pour faire évoluer le système à mesure que votre galerie, votre équipe et vos workflows collectionneurs évoluent."
-                items={PARTNER}
-                cta="Travailler avec Vitreen"
+                title="Vitreen"
+                price="249 €/mois"
+                priceMonthly="ou 199 €/mois payé à l’année"
+                subline="Sans engagement · Installation incluse"
+                description="Le prix public, une fois les places fondatrices prises."
+                items={INCLUDED}
+                clarification="Installé en une semaine environ."
+                cta="Nous contacter"
               />
             </div>
 
             <p className="mt-6 max-w-3xl text-[13px] leading-relaxed text-[#6B6A67]">
-              Le périmètre exact se définit lors d’un premier échange — c’est lui qui précise le
-              devis final.
+              Les migrations lourdes (reprise complète d’Artlogic avec nettoyage des données) et le
+              travail sur mesure sont devisés séparément.
             </p>
           </div>
         </div>

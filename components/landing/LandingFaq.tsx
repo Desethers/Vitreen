@@ -33,7 +33,7 @@ const ITEMS = [
   },
   {
     q: "How long does setup take?",
-    a: "Around three weeks, from the first conversation to your team using Gmail and WhatsApp add-ins.",
+    a: "About a week, from the first conversation to your team using Vitreen in Gmail and WhatsApp.",
   },
   {
     q: "What happens if I stop?",
