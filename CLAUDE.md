@@ -5,245 +5,142 @@ positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 
 > **Obligatoire :** lire `vitreen-playbook.md` en entier au début de chaque
 > session, avant toute décision produit, UX, copywriting, design ou
-> implémentation.
+> implémentation. Le playbook est la source de vérité sur la stratégie ; ce
+> fichier n'en garde que l'essentiel et les conventions du repo.
 
 ---
 
-## 1. Positionnement (la vision)
+## 1. Positionnement
 
-> **Pivot 2026-08-11 : Vitreen n'est plus un produit unique, mais une
-> société-mère avec 3 offres distinctes — Vitreen Layer, Vitreen Studio,
-> Vitreen Gallery Assistant.** Voir `vitreen-playbook.md` (réécrit à cette
-> date) pour l'architecture complète. Tout ce qui suit dans ce §1 (founder-led
-> productized service, mécanisme fiche→sélection→Gmail/WhatsApp/PDF, pricing
-> Setup/Partner) reste valide mais décrit désormais **Vitreen Layer**
-> spécifiquement, pas la société entière. Avant toute décision, identifier la
-> branche concernée (Playbook §17) — ne pas mélanger Layer, Studio et Gallery
-> Assistant dans une même page ou un même pitch.
+> **Recentrage du 2026-09-28 : un seul produit, trois têtes, une boucle.**
+> Remplace l'architecture en 3 branches du 2026-08-11 (Layer / Studio /
+> Gallery Assistant), désormais caduque :
+>
+> - **Studio a quitté Vitreen** le 2026-08-31 → R.R Studio sur forart.world
+>   (repo et domaine séparés, `/studio` redirige). Rien de Studio ici.
+> - **Gallery Assistant** n'est plus une offre : l'assistant IA est une des
+>   têtes du produit.
+> - **Layer** n'est plus un nom : c'est simplement « Vitreen ».
+> - **viewingroom.studio** est un **produit totalement séparé** (aucune donnée
+>   ni CRM partagés, jamais dans le même pitch).
 
-### Vitreen Layer — positionnement détaillé (hérité du pivot du 2026-08, toujours d'actualité pour cette branche)
-
-**Vitreen Layer est un founder-led productized service pour galeries contemporaines**
-(décidé 2026-08). Ce n'est ni un SaaS low-cost face à Artlogic, ni une agence
-généraliste, ni du conseil IA abstrait, ni du développement custom par galerie.
-
-Ce qui est personnel, c'est l'installation — un fondateur solo, assis avec la
-galerie, qui structure l'inventaire, configure Gmail et WhatsApp, forme le solo galeriste ou
-l'équipe. Ce qui est partagé, c'est le produit derrière. Sans le socle commun,
-c'est de l'agence ; sans l'installation personnelle, c'est un SaaS de plus.
-
-Ligne de marque actuellement sur le site :
-
-> **Give your gallery superpowers.**
-> We turn your artwork inventory into a practical sales system for Gmail and
-> WhatsApp — with AI-assisted replies, selections and PDFs built around the
-> way your team works.
-> Built personally with each gallery. Powered by a shared Vitreen system.
-
-### L'inversion à retenir
+### Le produit
 
 ```text
-Hier        : le dashboard était le produit, l'agent une fonctionnalité.
-Aujourd'hui : l'agent est le produit, le dashboard est sa salle des machines.
+        INVENTAIRE  ◄──────────►  PERSONAL CRM + ASSISTANT IA
+     (quoi : œuvres,              (qui : collectionneurs, ce qu'ils
+      dispo, prix)                 ont reçu, ce qui les intéresse)
+              ▲                            ▲
+              └────────── VENTE ───────────┘
+                    Gmail · WhatsApp · PDF
 ```
 
-L'inversion est **commerciale, pas technique**. La base d'œuvres reste
-indispensable — sans elle l'agent n'est qu'un wrapper GPT copiable en un
-week-end — mais elle n'est plus ce qu'on vend, montre ou nomme.
+**L'avantage :** Vitreen reste dans les outils de la galerie — Gmail et
+WhatsApp — et **organise le bruit** qui en sort. Le personal CRM est le
+résultat de ce tri, pas un module à remplir. Trois gestes :
 
-> La base de données est notre moat, pas notre promesse.
+- **Vendre** — dans Gmail et WhatsApp, là où la galerie travaille déjà
+- **Voir** — **Conversations**, dans le dashboard : qui attend, qui a reçu quoi
+- **Demander** — le **chat de l'assistant**, qui parle à l'inventaire
 
-### Le mécanisme — comment une fiche circule (décidé 2026-08, playbook §1)
+### La boucle (playbook §2)
 
 ```text
-Fiche œuvre (la base)
-   → packagée en sélection privée / viewing room
-   → livrée en réponse Gmail, message WhatsApp, ou PDF
+1. Une demande arrive          Gmail ou WhatsApp
+2. Le collectionneur est connu Personal CRM : qui, ce qu'il a déjà reçu
+3. Les œuvres sont trouvées    Inventaire : dispo, prix, images
+4. La réponse est préparée     Assistant : brouillon, sélection, PDF
+5. Un humain envoie            toujours — jamais d'envoi autonome
+6. Le CRM se souvient          quoi, à qui, quelles œuvres
 ```
 
-C'est la boucle concrète que tout le reste sert à rendre fiable et rapide.
-« Sélection privée » et « viewing room » désignent le **même objet** : un
-ensemble d'œuvres curaté et permissionné, généré à la demande depuis une
-vraie conversation — à ne pas confondre avec un studio de viewing rooms
-en self-service qu'une galerie construirait et maintiendrait elle-même
-(ce produit-là reste gelé, playbook §15). Toute explication de Vitreen qui
-ne se dessine pas comme ce schéma en trois étapes a dérivé du produit réel.
+Toute explication de Vitreen qui ne se dessine pas comme cette boucle a
+dérivé du produit. Le cas de démo à utiliser partout (Marie, Sacha Elron) est
+dans le playbook §2.
+
+**Discipline de capture :** « le CRM se remplit tout seul » n'est vrai que
+pour ce que Vitreen capte. Au 2026-09-28 : Gmail = fils ouverts avec l'add-in
+
+- réponses aux envois suivis ; WhatsApp = messages collectionneurs **pas
+  encore synchronisés**. Ne jamais promettre « voir tout WhatsApp » avant que la
+  capture existe (plan : playbook §8).
 
 ### Face à Artlogic
 
 Complémentaire, jamais remplaçant : « Artlogic stocke vos œuvres. Vitreen les
-fait circuler dans vos conversations de vente. » Tant qu'aucune synchro native
-n'existe, écrire « à partir de vos exports Artlogic », jamais « intégration
-Artlogic ».
+fait circuler dans vos conversations — et se souvient de qui a reçu quoi. »
+Tant qu'aucune synchro native n'existe, écrire « à partir de vos exports
+Artlogic », jamais « intégration Artlogic ». Ne jamais inviter à une
+comparaison de prix avec Artlogic.
 
-L'installation personnelle sert aussi à éviter une comparaison de prix perdue
-d'avance : une galerie ne compare pas une heure passée avec le fondateur à une
-ligne SaaS. Ne jamais présenter l'offre d'une façon qui invite à comparer
-Vitreen à Artlogic sur le prix.
-
-### Offre — Vitreen Sales ou Vitreen Partner
-
-**Pivot de prix (décidé 2026-08-12, remplace celui du 2026-08-09)** : retour à
-un **abonnement mensuel unique, avec engagement 12 mois**, sans frais
-d'installation séparé — le setup est désormais inclus dans le mensuel.
-L'offre de base reprend son nom **Vitreen Sales** (l'appellation « Vitreen
-Software » testée brièvement le 2026-08-12 a été annulée dans la foulée).
-Partner reste l'option mensuelle supérieure.
-
-```text
-Vitreen Sales    → mensuel, engagement 12 mois. Setup inclus dans le prix.
-Vitreen Partner  → mensuel plus élevé, engagement 12 mois. Accompagnement continu inclus.
-```
+### Offre (inchangée depuis le 2026-08-12)
 
 | Offre               | Prix       | Engagement                              |
 | ------------------- | ---------- | --------------------------------------- |
 | **Vitreen Sales**   | 390 €/mois | 12 mois · setup inclus                  |
 | **Vitreen Partner** | 590 €/mois | 12 mois · accompagnement continu inclus |
 
-**Vitreen Sales** inclut : migration de la base d'œuvres (artistes, œuvres,
-images, prix, disponibilité), add-in Gmail, outils de vente WhatsApp,
-configuration Gmail/WhatsApp, configuration de l'assistant IA, éditeur de
-sélections et suivi, prise en main de l'équipe. Livré en ~3 semaines. Le
-mensuel de 390 € porte à la fois le setup, l'hébergement, l'inférence et la
-maintenance technique — il n'y a plus de paiement d'installation à part.
+Détail des contenus, liste fermée de maintenance, frontière de
+personnalisation, principe économique et capacité : playbook §6–7. Points à
+retenir :
 
-**La maintenance incluse dans le mensuel de base reste une liste fermée**, et
-c'est toujours la protection de périmètre la plus importante de l'offre. Elle
-couvre uniquement :
-correction de bugs, maintien du fonctionnement existant, mises à jour de
-sécurité, compatibilité technique raisonnable, restauration en cas de problème.
-Elle ne couvre pas : nouvelles fonctionnalités, nouvelles intégrations,
-nouveaux templates, changement de structure de données, évolution de workflow,
-demandes spécifiques. Dire oui une fois rouvre la frontière définitivement.
-
-**Partner** inclut : session de travail mensuelle, améliorations de workflow,
-nouveaux formats email et PDF, formation et accompagnement de l'équipe,
-configuration de l'assistant IA, accompagnement inventaire et données,
-assistance technique prioritaire.
-
-Chiffres actuels, validation business encore à faire.
-
-**Règle héritée du 2026-08-08 : « Ne jamais vendre Partner comme Setup +
-options »** — ce qui reste vrai et à préserver : ne pas présenter Sales/Partner
-en tableau comparatif à colonnes de features (voir Vocabulaire ci-dessous), et
-garder la différence de ton entre les deux — Sales se choisit, Partner se
-propose une fois le système en place, pas au même moment ni sur le même écran
-de décision.
-
-⚠️ **Incohérence ouverte par ce pivot** : la carte Partner du site n'affiche
-plus « disponible après Setup » (remplacé par la mention d'engagement 12 mois),
-mais la FAQ `/pricing` dit toujours que Partner n'est pas disponible en direct
-sans Sales au préalable. Ce point n'a pas été retranché explicitement —
-clarifier avec l'utilisateur si Partner reste conditionné à Sales avant de
-toucher à nouveau ces pages.
-
-**Principe économique** (à ne jamais perdre de vue) : le service finance le
-produit · le produit empêche Vitreen de devenir une agence · l'accompagnement
-personnel évite la comparaison directe avec Artlogic · le périmètre
-standardisé protège le temps du solo founder. Les quatre tiennent ensemble —
-affaiblir l'un fait céder les trois autres.
-
-**Capacité** : c'est le **nombre de clients Partner** qui contraint, pas le
-nombre de Sales. Un client Sales ne consomme que de la maintenance, qui se
-groupe entre clients ; un Partner consomme une session mensuelle à vie. D'où
-l'interdiction de mélanger les deux — « un peu de suivi » ajouté à un client
-Sales transforme une queue bornée en queue infinie. Plafond exact encore
-inconnu : logger les jours réels (installation / sessions Partner / maintenance
-Sales) puis appliquer la formule du playbook §6.
-
-**Frontière de personnalisation** — personnalisable : imports, champs
-commerciaux, modèles, ton, règles de visibilité, workflows Gmail/WhatsApp.
-Jamais personnalisable : l'architecture centrale, le produit entier, la
-roadmap pour un seul client, des outils sans rapport avec l'inventaire et les
-conversations commerciales.
-
-**Budget temps** : côté Partner, la session mensuelle **est** le budget ; côté
-Sales, la livraison est le budget et la maintenance n'en est pas un second.
-
-**Vocabulaire** : dire les prix est normal. Interdit : « plan », « tier »,
-« upgrade », et tout tableau comparatif à colonnes de features. Acceptable :
-« mensuel », « partenariat », « maintenance », « engagement ». Les cartes
-affichent désormais explicitement « 12-month commitment » — la prudence qui
-interdisait « abonnement »/« souscription » ne tient donc plus littéralement,
-la mécanique est bien celle d'un abonnement engagé sur 12 mois. Ce qui reste
-vrai : présenter le prix comme un système installé et maintenu, pas comme un
-tableau de features à comparer.
-
-**Nouvelle question ouverte par ce pivot** : que se passe-t-il au terme des 12
-mois d'engagement (reconduction tacite, renégociation, sortie) ? Non tranché.
-L'ancienne réponse sur le sort d'un client au mois 13 (« le mensuel de 149 €
-porte les coûts en continu ») ne s'applique plus telle quelle puisque le prix
-et le modèle ont changé — à retraiter si la question revient.
-
-**Statut tranché (2026-08-08)** : Site connecté redevient un article facturé à
-part — « Site de galerie connecté, à partir de 4 500 €, devisé comme un projet
-séparé ». Présenté comme upsell sous les cartes Sales/Partner (« Expand
-Vitreen »), jamais comme une ligne de plus dans le tableau Sales/Partner
-lui-même. Coaching IA autonome reste redondant (formation d'équipe déjà
-incluse dans Sales et Partner).
+- **La maintenance incluse est une liste fermée** (bugs, maintien de
+  l'existant, sécurité, compatibilité, restauration). Pas de nouvelles
+  fonctionnalités, intégrations, templates ni évolutions de workflow. Dire
+  oui une fois rouvre la frontière définitivement.
+- **Sales se choisit, Partner se propose** une fois le système en place. Jamais
+  de tableau comparatif à colonnes.
+- **La capacité se joue sur le nombre de clients Partner**, pas Sales.
+- **Toute modification de pricing se porte dans quatre fichiers** :
+  `PricingPage.tsx`, `PricingPageFr.tsx`, `LandingOffers.tsx`,
+  `LandingOffersFr.tsx`.
 
 ### Positionnement IA
 
-> Vitreen construit des agents IA pour la vente d'art — groundés sur
-> l'inventaire de la galerie, installés dans Gmail et WhatsApp, et qui n'envoient
-> jamais rien tout seuls.
-
-Trois piliers : **groundé, pas génératif** (ne répond que depuis vos fiches) ·
+Trois piliers : **groundé, pas génératif** (ne répond que depuis les fiches) ·
 **installé, pas une app de plus** (dans Gmail et WhatsApp) · **assisté, pas
 autonome** (rien ne part sans un clic humain — c'est la promesse, pas une
 limite).
 
-Ancienne source Notion _Idées à developper_ (`33f0b73f1fb780ee9f7be92f1e430f79`)
-— décrit encore l'architecture Gallery OS, à relire avec prudence.
+### Indie hacker
 
-### Vitreen Studio et Vitreen Gallery Assistant — pas encore travaillés dans ce repo
-
-Aucun positionnement détaillé, pricing ou structure de page n'a encore été
-défini pour ces deux branches au-delà de `vitreen-playbook.md`. Ne pas
-inventer de services, de tarifs ou de wording pour Studio/Gallery Assistant —
-clarifier avec l'utilisateur avant d'avancer. Repères rapides (Playbook §3-5) :
-
-- **Vitreen Studio** : « Do the digital work for the gallery. » Studio de
-  design digital (sites, identités, lancements d'expo, campagnes). Vend un
-  livrable, pas de la techno. Modèle projet/retainer.
-- **Vitreen Gallery Assistant** : « Help the gallery do its work. » Assistant
-  IA qui cherche/prépare/rédige à partir des données de la galerie — elle
-  prépare, la galerie décide. Recouvre probablement le Sales Agent existant
-  (§10 ci-dessous) plutôt que d'être un nouveau chantier séparé — à confirmer
-  avec l'utilisateur avant de traiter les deux comme indépendants.
+Vitreen se construit à la manière indie : un fondateur, un produit, des petits
+pas visibles, du build in public. **C'est une manière de construire et de
+communiquer, pas un modèle de prix** : l'installation reste personnelle
+(playbook §8–9).
 
 ---
 
 ## 2. Vocabulaire
 
-_Le vocabulaire ci-dessous est celui de **Vitreen Layer**. Pour Studio/Gallery
-Assistant, voir Playbook §15 (pas encore adapté au registre FR de ce repo)._
-
 **Préférer**
 
-- « agents IA », « votre inventaire connecté »
-- « emails, sélections et PDF prêts pour vos collectionneurs »
-- « dans Gmail et WhatsApp »
-- « groundé sur vos fiches », « préparé par l'IA, envoyé par votre équipe »
+- « personal CRM », « historique du collectionneur », « qui a reçu quoi »
+- « Conversations » (la surface du dashboard), « l'assistant »
+- « dans Gmail et WhatsApp », « organiser le bruit »
+- « préparé par l'IA, envoyé par votre équipe », « groundé sur vos fiches »
 - « fonctionne à côté d'Artlogic »
-- « couche commerciale de la galerie »
+- « sélection privée » (**jamais « viewing room »** côté Vitreen : ce nom
+  appartient à viewingroom.studio)
 
 **Éviter**
 
-- **« Gallery OS »** (retiré du discours — voir playbook §12)
+- « Gallery OS » (y compris « Gallery OS Conversations »), « Layer »,
+  « Studio », « Gallery Assistant » comme noms d'offre
 - « plateforme tout-en-un », « operating system », « suite »
-- « CMS », « site web pour galeries », « logiciel d'inventaire »
-- la base de données en promesse principale
+- « CMS », « site web pour galeries », « logiciel d'inventaire » en promesse
+- « pipeline », « deals », « lead scoring » (le CRM est personnel, pas un
+  pipeline)
 - « autopilot », « envoi automatique », « AI-powered everything »
+- « plan », « tier », « upgrade » ; tout tableau comparatif à colonnes
 - jargon technique côté client
 
 ### Discipline de claims (non négociable)
 
-- L'agent **prépare**, l'humain **envoie**. Jamais d'envoi autonome. C'est un
-  argument de vente, pas une limitation.
+- L'agent **prépare**, l'humain **envoie**. Jamais d'envoi autonome.
 - L'IA ne répond que depuis les fiches de la galerie. Jamais un prix inventé.
-- Pas de claim « vendez plus » tant que ce n'est pas mesuré sur des pilotes.
-  Vendre l'autonomie, la précision et la rapidité de réponse.
+- Pas de claim « vendez plus » tant que ce n'est pas mesuré sur des clients.
+- « Le CRM se remplit tout seul » seulement pour ce que Vitreen capte (§1).
 
 ---
 
@@ -259,8 +156,8 @@ Assistant, voir Playbook §15 (pas encore adapté au registre FR de ce repo)._
 npm run dev
 ```
 
-Port défini dans `.claude/launch.json` (3000 par défaut, une entrée 3001 existe
-aussi).
+Port défini dans `.claude/launch.json` (entrée `vitreen` sur 3001, entrée
+`vitreen-3000` sur 3000).
 
 Un hook pre-commit lance **Prettier en mode check** : lancer
 `npx prettier --write` sur les fichiers touchés avant de committer, sinon le
@@ -272,106 +169,81 @@ commit est rejeté.
 
 ```
 app/
-  (en)/page.tsx           # Home EN — composée de components/landing/*
-  (fr)/fr/page.tsx        # Home FR — composée de components/landing/*Fr
-  (en)/pricing, about, products/*, solutions/[role]    # anciennes pages
-  (fr)/fr/...                                           # idem FR
+  (en)/page.tsx           # Home EN
+  (fr)/fr/page.tsx        # Home FR
+  (en)/pricing, about, tools/*, solutions/[role]   # pages secondaires
+  (fr)/fr/...                                      # idem FR
 components/
-  landing/                # LA landing actuelle (voir §5)
+  landing/                # sections de la home (voir §5)
   shared/ArtworkAddInMocks.tsx   # mockups Gmail / WhatsApp / import
-  ui/Button.tsx
+  PricingPage.tsx, PricingPageFr.tsx
   ContactModal.tsx        # modale contact, i18n via useLang
-  Nav.tsx, Hero.tsx, Services.tsx, ...   # anciens composants (legacy)
 lib/
   lang/strings.ts         # i18n des anciennes pages uniquement
   seo.ts
 public/
-  logos/, mockups/whatsapp-figma/, artworks/, ...
 ```
 
 ### Dette connue
 
-- Les pages `/about`, `/products/*`, `/solutions/*` tournent encore sur
-  l'ancien discours Gallery OS (mega-menus, 4 piliers, personas). Aucun lien
-  de la home n'y pointe, mais elles restent à recentrer ou supprimer.
-  **`/pricing` fait exception** : `components/PricingPage.tsx`/`PricingPageFr.tsx`
-  sont à jour sur Sales/Partner (dernier pivot de prix : 2026-08-12, voir §1) et
-  liés depuis le footer (`LandingCta`/`LandingCtaFr`).
+- `tools/viewing-rooms` : le nom de la page contredit la règle « jamais
+  viewing room côté Vitreen ». À renommer (« private selections ») ou retirer.
+- `/about`, `/solutions/*` : discours antérieur au recentrage du 2026-09-28,
+  à relire.
+- Footer : garde une colonne « Vitreen Studio » qui pointe vers forart.world —
+  à confirmer ou retirer.
 - `GalleryOsSearchWidget` dans `ArtworkAddInMocks.tsx` : le texte affiché dit
-  bien « Vitreen », mais le **nom de la fonction** garde l'ancien nom. À
-  renommer lors d'un prochain passage dans ce fichier.
-- `.claude/launch.json` est **actuellement suivi par git** alors que la règle
-  était de ne pas le committer (port local, propre à chaque worktree). À retirer
-  du suivi si la règle tient.
+  « Vitreen », mais le **nom de la fonction** garde l'ancien nom.
+- `.claude/launch.json` est suivi par git alors qu'il est propre à chaque
+  machine/worktree.
 
 ---
 
 ## 5. La landing (`components/landing/`)
 
-**Doctrine (décidée 2026-08, playbook §17) : la home est un funnel, pas une
-home SaaS.** Personne ne connaît Vitreen — un visiteur n'a pas de catégorie où
-ranger le produit. Donc pas de hero + grille de features + tableau de prix
-qui se disputent l'écran : un récit linéaire, où chaque section ne se comprend
-qu'après avoir vu la précédente, qui se termine sur **une seule** action
-(prendre rendez-vous). L'ordre voulu : reconnaissance du problème → le
-mécanisme montré concrètement (fiche → sélection/viewing room → Gmail/
-WhatsApp/PDF, cf. §1 ci-dessus) → l'agent démontré en direct → comment
-l'installation se déroule → l'offre (jamais en tableau comparatif) → CTA.
-Interdit : toute section qui résume le produit en 3-4 « piliers » avec icône —
-c'est un retour au réflexe SaaS, pas une étape de funnel.
+**Doctrine (playbook §9) : la home est un récit linéaire, pas une home SaaS.**
+Personne ne connaît Vitreen. Ordre voulu :
 
-Ordre des sections **tel que documenté historiquement** — attention, ne
-reflète plus `app/(en)/page.tsx` réel (voir écart signalé plus bas) :
+1. **Reconnaissance** — le moment vécu : un collectionneur demande, le
+   matériel est ailleurs, personne ne se souvient de ce qui a été envoyé.
+2. **La boucle montrée** — le cas Marie, étape par étape, avec de vrais
+   visuels produit.
+3. **L'assistant démontré** — un brouillon groundé avec l'étape « Relire et
+   envoyer » visible. Sobre : pas d'ombre, pas de couleur.
+4. **L'installation** — comment ça se passe, ~3 semaines.
+5. **L'offre** — cartes Sales / Partner, jamais de tableau comparatif.
+6. **Un seul CTA** — prendre rendez-vous.
 
-| #   | Composant            | Rôle                                                                                                                                  |
-| --- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | `LandingNav`         | Nav plate, 3 ancres + CTA. **Pas de mega-menu.**                                                                                      |
-| 2   | `LandingHero`        | Promesse (le collage produit historique en a été retiré, voir note ci-dessous)                                                        |
-| 2b  | `LandingRecognition` | ⚠️ Nouveau, non commité — bonne ébauche de l'étape « reconnaissance » du funnel : le moment vécu par la galerie avant Vitreen         |
-| 3   | `LandingProblem`     | Le problème, puis « votre base stocke, Vitreen fait circuler »                                                                        |
-| 4   | `LandingProduct`     | Gmail et WhatsApp, en rangées image/texte alternées (voir régression ci-dessous)                                                      |
-| 5   | `LandingAi`          | Démo de l'agent : garanties de grounding + brouillon à valider (l'eyebrow affiche « Vitreen Agent », nom de tier périmé — à renommer) |
-| 6   | `LandingSystem`      | Une source → toutes les sorties (socle discret)                                                                                       |
-| 7   | `LandingOffers`      | Cartes Vitreen Sales / Vitreen Partner — mêmes `OfferCard` que `/pricing` (à jour 2026-08-12)                                         |
-| 8   | `LandingMethod`      | Audit / Connexion / Configuration / Amélioration                                                                                      |
-| 9   | `LandingFaq`         | Objections : Artlogic, migration, envoi auto, site — doivent arriver **après** le mécanisme montré, pas avant                         |
-| 10  | `LandingCta`         | CTA final + footer léger                                                                                                              |
+Interdit : toute section qui résume le produit en 3-4 « piliers » avec icône,
+les sections de statistiques de marché, les claims « vendez plus ».
 
-Les variantes françaises portent le suffixe `Fr` (`LandingHeroFr`, etc.).
+**État réel de `app/(en)/page.tsx` au 2026-09-28** — ne suit pas encore la
+doctrine :
 
-**⚠️ État réel de `app/(en)/page.tsx` au 2026-08-05 :** la page ne monte que
-`LandingNav`, `LandingHero`, `HeroDashboardMock`, `LandingRecognition`,
-`LandingProblem`, `LandingProduct`, `LandingMethod`, `LandingOffers` — dans cet
-ordre. **`LandingAi`, `LandingSystem`, `LandingFaq`, `LandingCta` existent en
-code mais ne sont montés nulle part**, même avant les changements non commités
-actuels — la table ci-dessus décrit une intention documentée, pas l'état réel
-du fichier. En plus de ça, un passage récent non commité sur `Tugan` a ajouté
-`LandingRecognition.tsx` (bonne base pour l'étape « reconnaissance ») mais a
-aussi **réintroduit `ServicesGrid`** (la grille de cartes produit de l'ancien
-Gallery OS, pointant vers `/products/archive`, `/products/viewing-rooms`,
-`/products/custom-operations`) dans `LandingHero` et `LandingProduct` — le
-pattern « grille de features » que la doctrine funnel interdit. Les deux sont
-à traiter comme un chantier à reprendre, pas comme une référence.
+```text
+LandingNav → LandingHero → LandingOutputs → LandingRecognition →
+WhoVitreenIsFor → LandingOffers → LandingFaq → StatementSplit → LandingCta
+```
+
+- `StatementSplit` = le bloc de stats de marché (« Online art is redefining
+  the economics… », « Vitreen deploys native distribution… ») : discours
+  Gallery OS, interdit par la doctrine. À retirer.
+- `LandingFaq` : la question « What is the difference between Send and
+  Agent? » renvoie à d'anciens noms d'offre.
+- Le hero (« Better tools for every way you sell art. ») et le titre de page
+  (« Sales tools for art galleries ») sont antérieurs au recentrage.
+- La boucle (étape 2 du récit) n'a pas encore de section dédiée.
 
 **Règles de composition**
 
 - Le texte est **inline dans les composants**, pas dans `lib/lang/strings.ts`.
-  Toute modification doit être portée dans le composant EN **et** son jumeau FR.
+  Toute modification doit être portée dans le composant EN **et** son jumeau FR
+  (suffixe `Fr`).
 - Rythme des fonds : alternance `bg-white` / `bg-[#F5F5F3]` d'une section à
   l'autre, avec `border-t border-[#E8E8E6]`. Vérifier l'alternance après tout
   ajout ou déplacement de section.
-- `LandingAi` doit rester **visuellement plus sobre** que les sections
-  Gmail/WhatsApp : c'est la démonstration de l'Agent, pas une vitrine de plus.
-  Pas d'ombre, pas de couleur.
-- `LandingOffers`/`LandingOffersFr` sont **à jour** depuis le 2026-08-12 : les
-  deux montent les mêmes `OfferCard` que `components/PricingPage.tsx` (Vitreen
-  Sales 390 €/mois, Partner 590 €/mois, engagement 12 mois sur les deux, setup
-  inclus côté Sales). Précédent état (2026-08-09) : Vitreen dès 1 500 €
-  d'installation + 149 €/mois, Partner + 350 €/mois — abandonné au profit du
-  mensuel unique. **Toute modification de pricing doit être portée dans les quatre fichiers** :
-  `PricingPage.tsx`, `PricingPageFr.tsx`, `LandingOffers.tsx`,
-  `LandingOffersFr.tsx`. Reste à faire sur cette section : la réordonner selon
-  la doctrine funnel (playbook §17).
+- `LandingOffers`/`LandingOffersFr` montent les mêmes `OfferCard` que
+  `components/PricingPage.tsx`.
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 
@@ -394,7 +266,7 @@ langue (`GalleryOsSearchWidget`, `WhatsAppPdfMockup`) — les passer côté FR.
 
 ## 7. Workflow Git & worktrees
 
-- Branches : `main` (prod), `Tugan` (travail en cours sur le recentrage).
+- Branches : `main` (prod), branches de travail (`tuganV3` actuellement).
 - Worktrees dans `.claude/worktrees/`, `npm install` après création.
 - Prettier avant commit (voir §3).
 - Commits en anglais, impératif, sujet court + corps explicatif.
@@ -403,12 +275,13 @@ langue (`GalleryOsSearchWidget`, `WhatsAppPdfMockup`) — les passer côté FR.
 
 ## 8. Conventions UI / produit
 
-- **Pas de mega-menu.** La nav est plate — c'est le signal le plus visible du
-  changement de catégorie.
+- **Pas de mega-menu.** La nav est plate.
 - Bordure du header : s'active au scroll uniquement.
 - Pas d'icônes décoratives, pas de gradients, pas de faux dashboards.
 - Partout où l'agent apparaît, l'étape de validation humaine doit être
   **visible** (bouton « Relire et envoyer »), pas seulement affirmée.
+- Visuels : uniquement la galerie de démo (Sacha Elron, Marie Beaumont…),
+  jamais de vraies données client.
 
 ---
 
@@ -435,52 +308,58 @@ plutôt que de recréer des échelles typographiques.
 
 ## 10. Produit (hors de ce repo)
 
-Le dashboard et l'agent vivent dans **`gallery-OS/dashboard/`** — dépôt séparé,
-absent de ce workspace.
+Le dashboard et l'assistant vivent dans **`/Users/raphael/Travail/Web/gallery-OS/dashboard/`**
+— dépôt séparé. **Tout chantier produit se mène dans une session ouverte sur
+ce dépôt-là, pas ici.** Vérifier son code avant d'affirmer qu'une capacité
+existe ou non.
 
-- Sales agent : `src/lib/sales-agent/` (Groq `openai/gpt-oss-120b`, tool loop,
-  groundé sur les données galerie, 6 langues, validation humaine obligatoire,
-  envoi via Resend).
-- File de brouillons : `/dashboard/sales-drafts` → destinée à devenir l'écran
-  d'accueil (« Inbox »).
+Repères au 2026-09-28 :
 
-**Chantier ouvert, non démarré** — spécifié en détail dans `vitreen-playbook.md`
-§18 (phases, garde-fous, definition of done) : nav réduite à cinq entrées —
-Inbox / Artworks / **Selections** (sélections privées et viewing rooms,
-désormais surface visible du produit, pas un module masqué — playbook §12) /
-Connections / Settings. Seuls le publisher de site et les modules d'exposition
-restent masqués par feature flags (**jamais de fork, rien de supprimé**).
-Onboarding inversé avec aha en J1, métriques d'usage.
+- Single-tenant : un projet/dataset Sanity par déploiement, une galerie par
+  instance.
+- Mémoire par collectionneur : `src/lib/conversations/memory.ts` (événements
+  avec canal + œuvres), surface `src/app/workspace/conversations`.
+- `src/lib/activity.ts` n'est qu'un flux de notifications — pas la mémoire.
+- Capture : `src/lib/conversations/channels.ts` décrit ce que chaque canal
+  capte et ne capte pas.
+- Assistant : `src/lib/sales-agent/` (Groq, tool loop, groundé, validation
+  humaine obligatoire) ; numéro assistant WhatsApp : `src/lib/whatsapp/`.
+- Add-in Gmail : `gallery-OS/apps/gmail-addon/`.
 
-Tant que ce chantier n'est pas livré, le site raconte la nouvelle histoire mais
-la démo montre encore l'ancienne. C'est l'écart prioritaire à combler. Le
-chantier doit être mené dans une session ouverte sur ce dépôt-là, pas ici.
+**Plan produit (playbook §8, décidé 2026-09-28) : WhatsApp d'abord.**
+
+0. Demander à 5 galeries : WhatsApp Business ou personnel ? ventes en groupes ?
+1. Capter tout WhatsApp Business en **coexistence** Meta (même numéro, app +
+   API, **180 jours d'historique** importés à l'installation → Conversations
+   rempli dès le J1).
+2. Conversations comme écran d'accueil : attend une réponse · à relancer ·
+   nouvelles demandes sur des œuvres.
+3. Chat assistant : inventaire + mémoire, sources citées, envoi dans l'app
+   WhatsApp avec message pré-rempli.
+4. Gmail : inchangé pour l'instant.
+
+En pause tant que ça ne marche pas chez une vraie galerie : multi-tenant,
+self-serve, publisher de site, expositions, tout nouveau module.
 
 ---
 
-## 11. Roadmap (scope Vitreen Layer)
+## 11. Roadmap
 
-_Studio et Gallery Assistant n'ont pas de roadmap propre — ne pas en inventer._
-
-| Brique                                                 | Statut                                                   |
-| ------------------------------------------------------ | -------------------------------------------------------- |
-| Add-in Gmail                                           | ✅ Fonctionnel                                           |
-| WhatsApp Business                                      | ✅ Fonctionnel                                           |
-| Sales Agent (brouillons groundés, validation humaine)  | ✅ Live                                                  |
-| Sélections privées + export PDF (viewing rooms)        | ✅ Existant — surface centrale du mécanisme (§1)         |
-| Base d'œuvres / connecteurs CSV-Excel                  | ✅ Existant                                              |
-| Inbox comme écran d'accueil                            | 🔴 Phase 1                                               |
-| Nav produit : ajouter Selections en 3ᵉ entrée visible  | 🔴 Phase 1 (playbook §12, §18)                           |
-| Masquage des modules restants par feature flags        | 🔴 Phase 1                                               |
-| Onboarding inversé (aha en J1)                         | 🔴 Phase 2                                               |
-| WhatsApp Business self-service                         | 🔴 Phase 2                                               |
-| Métriques d'usage (brouillons générés / validés)       | 🔴 Phase 2                                               |
-| Cartes pricing alignées home + /pricing                | ✅ Fait 2026-08-12 (4 fichiers, voir §5)                 |
-| Réordonner la home selon la doctrine funnel            | 🔴 À faire (playbook §17)                                |
-| Sort d'un client au mois 13 (fin d'engagement 12 mois) | 🟡 Rouvert par le pivot du 2026-08-12 — non tranché (§1) |
-| Site connecté                                          | ✅ Tranché — offre séparée, à partir de 4 500 € (§1)     |
-| Coaching IA autonome                                   | ⛔ Redondant (formation incluse dans les deux offres)    |
-| Envoi autonome (autopilot)                             | ⛔ Gelé — jamais                                         |
+| Brique                                           | Statut                                       |
+| ------------------------------------------------ | -------------------------------------------- |
+| Inventaire + import CSV/Excel                    | ✅ Existe                                    |
+| Add-in Gmail                                     | ✅ Fonctionnel                               |
+| Numéro assistant WhatsApp                        | ✅ Fonctionnel                               |
+| Assistant IA (brouillons groundés, validation)   | ✅ Live                                      |
+| Sélections privées + PDF                         | ✅ Existe                                    |
+| Mémoire collectionneur + Conversations           | ✅ Existe                                    |
+| Capture Gmail                                    | 🟡 Fils ouverts + réponses suivies           |
+| Capture WhatsApp (coexistence + 180 j)           | 🔴 Priorité — étape 1 du plan                |
+| Conversations comme écran d'accueil              | 🔴 Ensuite                                   |
+| Assistant lit la mémoire sur toutes les surfaces | 🔴 Ensuite                                   |
+| Home réécrite autour de la boucle                | 🔴 À faire (§5)                              |
+| Élargir au-delà des galeries                     | 🟡 Plus tard, après la boucle (playbook §11) |
+| Envoi autonome (autopilot)                       | ⛔ Jamais                                    |
 
 ---
 
@@ -493,36 +372,24 @@ Guides de rédaction par réseau dans `.claude/social/` :
 - `twitter.md` — voix founder, threads, building in public
 - `references.md` — chiffres marché, comptes inspirants, glossaire
 
-Lire le fichier concerné avant de rédiger un post.
+Lire le fichier concerné avant de rédiger un post. Build in public : chaque
+post montre un maillon de la boucle qui vient d'être livré. Jamais de nom de
+client sans accord, jamais de données de collectionneurs ni de prix réels.
 
 ---
 
-## 13. À faire évoluer dans ce fichier
+## 13. Questions ouvertes
 
-- [ ] Repenser la home EN/FR selon l'architecture à 3 branches (Playbook §12) —
-      elle décrit aujourd'hui Layer seul, pas la société entière
-- [ ] Définir positionnement, services et pricing de Vitreen Studio et
-      Vitreen Gallery Assistant (rien de fait au-delà de `vitreen-playbook.md`)
-- [ ] Clarifier si Gallery Assistant = le Sales Agent existant (§10) renommé,
-      ou un chantier distinct
+- [ ] Réponses des 5 galeries : WhatsApp Business ou personnel ? groupes ?
+- [ ] RGPD avant la première connexion réelle : DPA, hébergement des
+      données (Sanity), phrase de confiance pour la galerie
+- [ ] Formulation de la promesse site une fois la capture WhatsApp livrée
+- [ ] Réécrire la home EN/FR autour de la boucle (§5)
+- [ ] Sort de la fin des 12 mois d'engagement (reconduction, sortie)
+- [ ] Partner conditionné à Sales ou non (la FAQ `/pricing` le dit, les
+      cartes non)
+- [ ] Valider les montants Sales 390 € / Partner 590 €
+- [ ] Site connecté (à partir de 4 500 €) : garder, basculer vers R.R Studio,
+      ou abandonner
 - [ ] Commandes lint / test / build une fois stabilisées
-- [ ] Documenter `components/ovr/` (Viewing Room app)
 - [ ] Documenter l'API contact (`/api/contact`)
-- [ ] Trancher le sort des anciennes pages (`/about`, `/products/*`)
-- [ ] Valider définitivement les montants Vitreen Sales (390 €/mois, engagement
-      12 mois), Partner (590 €/mois, engagement 12 mois) et le module Site
-      connecté (4 500 €) — pivot du 2026-08-12, encore non validé côté business
-- [ ] Trancher si Partner reste conditionné à Sales (la FAQ le dit, la carte
-      pricing ne le dit plus depuis le pivot du 2026-08-12 — voir §1)
-- [ ] Décider ce qui se passe à la fin des 12 mois d'engagement (reconduction,
-      renégociation, sortie) — question rouverte par le pivot du 2026-08-12
-- [ ] Réordonner la home EN/FR selon la doctrine funnel (playbook §17) :
-      reconnaissance → mécanisme montré → agent démontré → installation →
-      offre → CTA
-- [ ] Retirer `ServicesGrid` (grille produit legacy) de `LandingHero` et
-      `LandingProduct` — réintroduit par erreur, incompatible avec la
-      doctrine funnel (voir §5)
-- [ ] Décider si/où le mécanisme (fiche → sélection/viewing room →
-      Gmail/WhatsApp/PDF) est montré visuellement sur la home — c'est l'étape
-      2 du funnel et elle n'existe pas encore en composant dédié
-- [ ] Mesurer le plafond de capacité sur les premiers clients (playbook §6)
