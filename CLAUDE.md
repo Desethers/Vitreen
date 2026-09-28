@@ -97,9 +97,9 @@ maintenance et capacité : playbook §6–7. Points à retenir :
 - **La maintenance incluse est une liste fermée** (bugs, maintien de
   l'existant, sécurité, compatibilité, restauration). Dire oui une fois
   rouvre la frontière définitivement.
-- **Toute modification de pricing se porte dans quatre fichiers** :
-  `PricingPage.tsx`, `PricingPageFr.tsx`, `LandingOffers.tsx`,
-  `LandingOffersFr.tsx` (+ la FAQ des deux pages pricing).
+- **Toute modification de pricing se fait dans `components/landing/Offers.tsx`**
+  (cartes + liste « inclus », EN et FR), utilisé par la home et `/pricing`.
+  La FAQ pricing reste dans `PricingPage.tsx` / `PricingPageFr.tsx`.
 
 ### Positionnement IA
 
@@ -248,8 +248,8 @@ WhoVitreenIsFor → LandingOffers → LandingFaq → StatementSplit → LandingC
 - Rythme des fonds : alternance `bg-white` / `bg-[#F5F5F3]` d'une section à
   l'autre, avec `border-t border-[#E8E8E6]`. Vérifier l'alternance après tout
   ajout ou déplacement de section.
-- `LandingOffers`/`LandingOffersFr` montent les mêmes `OfferCard` que
-  `components/PricingPage.tsx`.
+- `LandingOffers`/`LandingOffersFr` et `/pricing` montent tous le même
+  composant `Offers` (`components/landing/Offers.tsx`, prop `lang`).
 - `openContact` est exporté par `LandingNav` et réutilisé partout (EN et FR)
   pour piloter la même `ContactModal`, elle-même localisée via `useLang`.
 

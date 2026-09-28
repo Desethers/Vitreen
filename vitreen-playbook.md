@@ -365,9 +365,9 @@ Saying yes once reopens the boundary for good.
 **Rules**
 
 - Never a feature-comparison table with columns.
-- Pricing changes must be applied in four files: `PricingPage.tsx`,
-  `PricingPageFr.tsx`, `LandingOffers.tsx`, `LandingOffersFr.tsx` (plus the
-  pricing FAQ in the two pricing pages).
+- Pricing changes happen in one file: `components/landing/Offers.tsx` (cards
+  and included list, EN and FR), used by the home and `/pricing`. The pricing
+  FAQ lives in `PricingPage.tsx` / `PricingPageFr.tsx`.
 
 **Customisation boundary** — customisable: imports, commercial fields, CRM
 fields, templates, tone, visibility rules, Gmail/WhatsApp workflows. Never
