@@ -12,58 +12,70 @@ positionnement, conventions, pièges à éviter. À enrichir au fil du temps.
 
 ## 1. Positionnement
 
-> **Recentrage du 2026-09-28 : un seul produit, trois têtes, une boucle.**
-> Remplace l'architecture en 3 branches du 2026-08-11 (Layer / Studio /
-> Gallery Assistant), désormais caduque :
+> **Thèse du 2026-09-29** (playbook) : Vitreen garde l'information
+> des œuvres en mouvement et les conversations avec les collectionneurs en
+> mémoire. Remplace « un produit, trois têtes » (2026-09-28) et les 3 branches
+> du 2026-08-11 (Layer / Studio / Gallery Assistant), caducs :
 >
 > - **Studio a quitté Vitreen** le 2026-08-31 → R.R Studio sur forart.world
 >   (repo et domaine séparés, `/studio` redirige). Rien de Studio ici.
-> - **Gallery Assistant** n'est plus une offre : l'assistant IA est une des
->   têtes du produit.
+> - **Gallery Assistant** n'est plus une offre : l'assistant IA est une
+>   fonction du produit, pas son centre.
 > - **Layer** n'est plus un nom : c'est simplement « Vitreen ».
 > - **viewingroom.studio** est un **produit totalement séparé** (aucune donnée
 >   ni CRM partagés, jamais dans le même pitch).
 
-### Le produit
+### La thèse (playbook)
+
+> **Garder l'information des œuvres en mouvement. Garder les conversations
+> avec les collectionneurs en mémoire. Parce que dans l'art et le design, la
+> relation est le business.**
+
+Vitreen connecte **œuvres, collectionneurs et conversations**. L'inventaire
+sait les œuvres, les conversations révèlent la relation, la mémoire relie le
+passé à la prochaine action. Le produit n'est aucun module : c'est la
+connexion entre eux.
 
 ```text
-        INVENTAIRE  ◄──────────►  PERSONAL CRM + ASSISTANT IA
-     (quoi : œuvres,              (qui : collectionneurs, ce qu'ils
-      dispo, prix)                 ont reçu, ce qui les intéresse)
-              ▲                            ▲
-              └────────── VENTE ───────────┘
-                    Gmail · WhatsApp · PDF
+ŒUVRE → CONVERSATION → COLLECTIONNEUR → MÉMOIRE → PROCHAINE ACTION → RELATION ↺
 ```
 
-**L'avantage :** Vitreen reste dans les outils de la galerie — Gmail et
-WhatsApp — et **organise le bruit** qui en sort. Le personal CRM est le
-résultat de ce tri, pas un module à remplir. Trois gestes :
+- **En externe :** « Relationship intelligence for selling art & design ». La
+  mémoire est la base, l'intelligence est ce qu'on en fait. « Intelligence » est
+  un nom et une direction : aucune fonction promise avant qu'elle existe.
+  **En interne :** la couche de relation entre l'inventaire et la conversation.
+- **Point d'entrée :** Gmail et WhatsApp — là où les relations existent déjà.
+  On ne fait pas quitter ces outils.
+- **Le CRM doit disparaître :** l'activité crée la mémoire ; le CRM est la
+  conséquence, pas le travail. Pas de pipeline, pas de scoring.
+- **L'IA a un seul but :** relier l'information à la relation (comprendre,
+  retrouver, relier, préparer, se souvenir). Elle prépare, l'humain relit et
+  envoie. Jamais d'envoi autonome. Jamais un prix, une dispo ou une promesse
+  inventés.
+- **Jamais de blast :** la proactivité, c'est « ces 11 personnes ont une
+  raison crédible de s'y intéresser », avec un message distinct pour chacune.
+- **La boucle** (playbook §10) : conversation → personne reconnue → objet et
+  intention compris → information retrouvée → réponse, sélection ou PDF
+  préparé → un humain relit et envoie → Vitreen se souvient → la prochaine
+  interaction part de ce contexte. Toute fonction doit renforcer au moins une
+  étape, sinon on ne la construit pas.
+- **Le cas de démo** (playbook §37) : Marie écrit « Anything new from Sacha
+  Elron? ». À utiliser partout.
 
-- **Vendre** — dans Gmail et WhatsApp, là où la galerie travaille déjà
-- **Voir** — **Conversations**, dans le dashboard : qui attend, qui a reçu quoi
-- **Demander** — le **chat de l'assistant**, qui parle à l'inventaire
+**Discipline de capture :** le produit existe et couvre déjà l'essentiel de la
+thèse (collectionneurs, Conversations, relances, vue « utilisée dans » sur
+l'œuvre, add-in Gmail, assistant). Ce qui manque, vérifié dans le code au
+2026-09-29 : la capture des **messages WhatsApp des collectionneurs** (non
+synchronisés), la capture Gmail au-delà des fils ouverts avec l'add-in,
+l'**extraction d'intention et de préférences** depuis les messages, la
+**propriété d'un collectionneur par un membre de l'équipe** et la **diffusion
+proactive**. État exact : playbook §42. Ne jamais promettre au-delà.
 
-### La boucle (playbook §2)
-
-```text
-1. Une demande arrive          Gmail ou WhatsApp
-2. Le collectionneur est connu Personal CRM : qui, ce qu'il a déjà reçu
-3. Les œuvres sont trouvées    Inventaire : dispo, prix, images
-4. La réponse est préparée     Assistant : brouillon, sélection, PDF
-5. Un humain envoie            toujours — jamais d'envoi autonome
-6. Le CRM se souvient          quoi, à qui, quelles œuvres
-```
-
-Toute explication de Vitreen qui ne se dessine pas comme cette boucle a
-dérivé du produit. Le cas de démo à utiliser partout (Marie, Sacha Elron) est
-dans le playbook §2.
-
-**Discipline de capture :** « le CRM se remplit tout seul » n'est vrai que
-pour ce que Vitreen capte. Au 2026-09-28 : Gmail = fils ouverts avec l'add-in
-
-- réponses aux envois suivis ; WhatsApp = messages collectionneurs **pas
-  encore synchronisés**. Ne jamais promettre « voir tout WhatsApp » avant que la
-  capture existe (plan : playbook §8).
+**Vision interne (jamais du copy) :** Vitreen prépare les galeries physiques
+à un web où collectionneurs et IA interrogent les galeries au lieu de les
+parcourir. Une galerie ne peut répondre que si ses informations sont au même
+endroit, propres, structurées et connectées. Le site ne dit jamais « 2030 »,
+« ère de l'IA » ou « AI-ready » : il dit ce que le produit fait aujourd'hui.
 
 ### Face à Artlogic
 
@@ -81,8 +93,8 @@ comparaison de prix avec Artlogic.
 | **Vitreen** (prix public)         | 249 €/mois, ou 199 €/mois payé à l'année | Sans engagement              |
 
 Les deux : **par galerie, utilisateurs illimités**, installation incluse (une
-semaine environ). Détail, raisonnement face aux concurrents, liste fermée de
-maintenance et capacité : playbook §6–7. Points à retenir :
+semaine environ). Le raisonnement face aux concurrents (Artlogic, Arternal, ArtCloud, Wati…)
+est dans l'historique git du playbook (commit `82a037e`). Points à retenir :
 
 - **Trois galeries fondatrices seulement** : prix gardé tant qu'elles restent,
   en échange de 20 min de retours toutes les deux semaines pendant 3 mois et
@@ -112,8 +124,7 @@ limite).
 
 Vitreen se construit à la manière indie : un fondateur, un produit, des petits
 pas visibles, du build in public. **C'est une manière de construire et de
-communiquer, pas un modèle de prix** : l'installation reste personnelle
-(playbook §8–9).
+communiquer, pas un modèle de prix** : l'installation reste personnelle.
 
 ---
 
@@ -121,7 +132,12 @@ communiquer, pas un modèle de prix** : l'installation reste personnelle
 
 **Préférer**
 
-- « personal CRM », « historique du collectionneur », « qui a reçu quoi »
+- **« relationship intelligence »** (le nom public : « Relationship intelligence
+  for selling art & design »), puis « mémoire » (ce que Vitreen garde de chaque
+  collectionneur) — dans cet ordre
+- « historique du collectionneur », « qui a reçu quoi »
+- « CRM » peut se dire en public pour expliquer (« un CRM qui se remplit tout
+  seul »), **jamais comme nom**
 - « Conversations » (la surface du dashboard), « l'assistant »
 - « dans Gmail et WhatsApp », « organiser le bruit »
 - « préparé par l'IA, envoyé par votre équipe », « groundé sur vos fiches »
@@ -207,7 +223,7 @@ public/
 
 ## 5. La landing (`components/landing/`)
 
-**Doctrine (playbook §9) : la home est un récit linéaire, pas une home SaaS.**
+**Doctrine : la home est un récit linéaire, pas une home SaaS.**
 Personne ne connaît Vitreen. Ordre voulu :
 
 1. **Reconnaissance** — le moment vécu : un collectionneur demande, le
@@ -332,17 +348,20 @@ Repères au 2026-09-28 :
   humaine obligatoire) ; numéro assistant WhatsApp : `src/lib/whatsapp/`.
 - Add-in Gmail : `gallery-OS/apps/gmail-addon/`.
 
-**Plan produit (playbook §8, décidé 2026-09-28) : WhatsApp d'abord.**
+**Plan produit (décidé 2026-09-28 ; priorités : playbook §31) : WhatsApp d'abord.**
 
 0. Demander à 5 galeries : WhatsApp Business ou personnel ? ventes en groupes ?
 1. Capter tout WhatsApp Business en **coexistence** Meta (même numéro, app +
    API, **180 jours d'historique** importés à l'installation → Conversations
    rempli dès le J1).
-2. Conversations comme écran d'accueil : attend une réponse · à relancer ·
-   nouvelles demandes sur des œuvres.
+2. Conversations existe déjà comme écran d'accueil (« À suivre aujourd'hui »,
+   semaine passée, carnet) : l'alimenter avec les messages WhatsApp.
 3. Chat assistant : inventaire + mémoire, sources citées, envoi dans l'app
    WhatsApp avec message pré-rempli.
 4. Gmail : inchangé pour l'instant.
+5. Confiance et données (playbook §17) : export complet des données d'une
+   galerie et suppression complète d'un collectionneur (fils et partages
+   inclus, à vérifier), avant d'afficher cette promesse au public.
 
 En pause tant que ça ne marche pas chez une vraie galerie : multi-tenant,
 self-serve, publisher de site, expositions, tout nouveau module.
@@ -361,10 +380,10 @@ self-serve, publisher de site, expositions, tout nouveau module.
 | Mémoire collectionneur + Conversations           | ✅ Existe                                    |
 | Capture Gmail                                    | 🟡 Fils ouverts + réponses suivies           |
 | Capture WhatsApp (coexistence + 180 j)           | 🔴 Priorité — étape 1 du plan                |
-| Conversations comme écran d'accueil              | 🔴 Ensuite                                   |
+| Conversations comme écran d'accueil              | ✅ Existe                                    |
 | Assistant lit la mémoire sur toutes les surfaces | 🔴 Ensuite                                   |
 | Home réécrite autour de la boucle                | 🔴 À faire (§5)                              |
-| Élargir au-delà des galeries                     | 🟡 Plus tard, après la boucle (playbook §11) |
+| Élargir au-delà des galeries                     | 🟡 Plus tard, après la boucle (playbook §30) |
 | Envoi autonome (autopilot)                       | ⛔ Jamais                                    |
 
 ---
@@ -393,6 +412,8 @@ client sans accord, jamais de données de collectionneurs ni de prix réels.
 - [ ] Réécrire la home EN/FR autour de la boucle (§5)
 - [ ] Valider les montants (fondatrice 149 €, public 249 € / 199 € à l'année)
       après les trois galeries fondatrices
+- [ ] Export complet des données d'une galerie : absent du produit, promis par
+      la §17 du playbook et la FAQ pricing
 - [ ] Chiffrer le coût par galerie (fournisseur WhatsApp, Sanity, inférence)
 - [ ] Site connecté (à partir de 4 500 €) : garder, basculer vers R.R Studio,
       ou abandonner

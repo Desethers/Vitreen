@@ -1,657 +1,1189 @@
-# Vitreen Playbook
+# VITREEN
 
-## Purpose
+Keep artwork information moving. Keep collector conversations in memory.
+Because in art and design, the relationship is the business.
+Vitreen exists for businesses where selling is built on relationships.
+A collector does not only buy an artwork.
+They buy through trust, taste, timing, context and a history of conversations.
+They remember the gallery.
+The gallery remembers them.
+Or at least it should.
+But as a gallery grows, that memory becomes fragmented.
+Artwork information lives in inventory software.
+Images live in folders.
+Prices live in spreadsheets.
+Conversations live in Gmail and WhatsApp.
+Context lives in people's heads.
+And every time information gets disconnected, part of the relationship is lost.
+Vitreen connects it.
+It keeps artwork information moving into the conversations where sales happen.
+And it keeps what happens in those conversations in memory for the next interaction.
+That is the product.
 
-This document defines what Vitreen is, how it is built, how it is sold and how
-it is talked about. Read it in full before any product, UX, copywriting, design
-or implementation decision.
+## IN SHORT
 
-**Status: current, decided 2026-09-28. Replaces the three-branch playbook of
-2026-08-11** (Vitreen Layer / Vitreen Studio / Vitreen Gallery Assistant as a
-parent company with three offers). That architecture is obsolete:
+Vitreen exists for businesses where selling is built on relationships.
+A collector buys through trust, taste, timing and a history of conversations.
+As a gallery grows, that memory becomes fragmented: inventory, images, prices, Gmail, WhatsApp, and people's heads.
+Vitreen connects it.
+It keeps artwork information moving into the conversations where sales happen.
+It keeps what happens in those conversations in memory for the next interaction.
+The AI prepares. The human reviews and sends.
+Never blast. Never invent.
+Information should move. Relationships should remember.
 
-- **Studio has left Vitreen.** Since 2026-08-31 it is a separate business,
-  R.R Studio, on forart.world, with its own repo and domain. `/studio` on
-  vitreen.art redirects there.
-- **Gallery Assistant is no longer a separate offer.** The AI assistant is one
-  of the three heads of the product, not a product of its own.
-- **Layer is no longer a branch name.** Everything Layer described is now
-  simply "Vitreen".
+## CONTENTS
 
-If you find material that talks about Layer, Studio, Gallery Assistant as
-separate offers, or about Gallery OS, treat it as history.
+- **Why** — 1 The belief · 2 The thesis · 3 The problem · 4 The category
+- **The model** — 5 The core model · 6 Inventory · 7 Artwork information must move · 8 Conversations · 9 Memory · 10 The loop · 11 The loop compounds · 12 The CRM should disappear · 13 Relationship, not pipeline
+- **The AI** — 14 AI has one purpose · 15 Grounded · 16 Human by design · 17 Trust and data
+- **The product** — 18 Gmail and WhatsApp · 19 Conversations is the home · 20 Collector view · 21 Artwork view · 22 Relationship graph · 23 The moat · 24 Proactive · 25 Never blast · 26 Relationships belong to the gallery · 27 Team continuity
+- **Strategy** — 28 Artlogic · 29 The ICP · 30 Art first · 31 Product priority · 32 Stop building · 33 Connect before adding · 34 What we sell · 35 Business model
+- **Positioning** — 36 Positioning · 37 The demo · 38 North star metric · 39 Founder rules · 40 When in doubt · 41 Things we believe · North Star
+- **Today** — 42 Where Vitreen is today
 
----
+## 1. THE BELIEF
 
-# 1. What Vitreen is
+Relationships are not around the sale.
+Relationships are the infrastructure of the sale.
+In art and collectible design, the commercial relationship accumulates over time.
+The gallery learns:
 
-**One product, with three heads, connected by one loop.**
+- what a collector likes;
+- what they have already seen;
+- which artists they follow;
+- which prices have been discussed;
+- which works they almost bought;
+- what they rejected;
+- what scale they prefer;
+- what they can afford;
+- when they usually buy;
+- what was promised;
+- who introduced them;
+- when to follow up;
+- when not to.
 
-```text
-          INVENTORY  ◄──────────►  PERSONAL CRM + AI ASSISTANT
-      (what: artworks,              (who: collectors, what they
-       availability, prices)         received, what they care about)
-                 ▲                            ▲
-                 └────────── SELLING ─────────┘
-                       Gmail · WhatsApp · PDF
-                     (where: the conversation)
+This information rarely exists in one database.
+It exists in fragments.
+Vitreen turns those fragments into continuity.
+Every conversation should make the relationship richer, not disappear into an inbox.
+
+## 2. THE THESIS
+
+Vitreen connects:
+Artworks.
+Collectors.
+Conversations.
+The inventory knows the works.
+The conversations reveal the relationship.
+The memory connects the past to the next action.
+Vitreen keeps information circulating between them.
+
+```
+ARTWORK
+   ↓
+CONVERSATION
+   ↓
+COLLECTOR
+   ↓
+MEMORY
+   ↓
+NEXT ACTION
+   ↓
+RELATIONSHIP
+   ↺
 ```
 
-- **Inventory** knows the works: artists, images, dimensions, prices,
-  availability, documents.
-- **Personal CRM** knows the people: who each collector is, what they were
-  sent, what they asked about, what they opened, when to follow up. The AI
-  assistant reads it and works from it.
-- **Selling** happens where the gallery already talks to collectors: Gmail and
-  WhatsApp, with selections and PDFs as outputs.
+The product is not any individual module.
+The product is the connection between them.
+Information should move.
+Relationships should remember.
+This is the model. The steps are in the loop, section 10.
 
-None of the three is sold alone. The value is the circulation between them.
+## 3. THE PROBLEM
 
-## The edge
+Galleries do not lack information.
+They lack continuity.
+A collector writes:
+Do you still have this work?
+To answer properly, someone may need to:
 
-**Vitreen stays inside the gallery's tools — Gmail and WhatsApp — and
-organises the noise that comes out of them.**
+- identify the artwork;
+- find the right image;
+- check availability;
+- confirm the price;
+- remember whether the collector already saw it;
+- remember whether another colleague spoke to them;
+- find an earlier PDF;
+- reconstruct context from old messages.
 
-Galleries do not lack tools; they drown in scattered conversations. A
-collector asks on WhatsApp, follows up by email, is sent a PDF from a phone,
-and three weeks later nobody remembers who received what. Vitreen does not
-pull the gallery into a new app to fix this. Work keeps happening in Gmail
-and WhatsApp; Vitreen sorts what happened there and puts the inventory within
-reach of every conversation.
+The information exists.
+The connections do not.
+This creates repeated work.
+More importantly, it weakens the relationship.
+The collector experiences one continuous relationship with the gallery.
+Internally, the gallery often sees:
 
-The personal CRM is the **result** of that sorting, not a module the gallery
-has to maintain.
-
-Three gestures, three surfaces:
-
-| Gesture  | Surface                                          | The question it answers                                 |
-| -------- | ------------------------------------------------ | ------------------------------------------------------- |
-| **Sell** | Gmail and WhatsApp, where the gallery already is | "I'm replying to this collector."                       |
-| **See**  | **Conversations**, in the dashboard              | "What happened, who is waiting, who received what?"     |
-| **Ask**  | The **assistant chat**                           | "What large Elrons do we have available under €15,000?" |
-
-Action happens in Gmail and WhatsApp. The dashboard is where the gallery
-looks back and asks — it is not a replacement inbox.
-
-## Who it is for
-
-Contemporary art galleries first. Adjacent sellers who sell unique, high-value
-objects through conversation (design galleries, art advisors, dealers) are a
-possible later expansion — see §11. Not before the loop works.
-
-## What Vitreen is not
-
-- not an all-in-one gallery platform, not an "operating system"
-- not a website builder or CMS
-- not a pipeline/deal-stage sales CRM (no funnels, no forecasts, no scoring)
-- not a newsletter or marketing automation tool
-- not a self-serve viewing room builder (that is viewingroom.studio, §10)
-- not an autonomous sales agent
-
----
-
-# 2. The loop
-
-This is the product. Every feature, screen, page and post must serve it.
-
-```text
-1. A request arrives          Gmail or WhatsApp
-2. The collector is known     Personal CRM: who, what they already received
-3. The works are found        Inventory: available, prices, images
-4. The reply is prepared      AI assistant: draft, selection, PDF
-5. A human sends it           always — never autonomous
-6. The CRM remembers          what was sent, to whom, which works
-        ↺ the next conversation starts from step 6
+```
+WhatsApp
++
+Gmail
++
+inventory
++
+PDFs
++
+people's memory
 ```
 
-## Why step 6 is the differentiator
-
-Every gallery CRM asks someone to type in what happened. Nobody does, so the
-CRM is always out of date. In Vitreen the CRM **fills itself because the
-gallery sells through Vitreen**: every reply, selection and PDF sent from
-Vitreen is recorded against the collector and the works.
-
-> The CRM you never have to fill in.
-
-Claims discipline applies: this is true only for what Vitreen actually
-captures. As of 2026-09-28 (`gallery-OS/dashboard/src/lib/conversations/channels.ts`):
-
-- **Gmail** — captures threads opened with the Vitreen add-in and replies to
-  a send tracked by Vitreen. No background reading, no history import:
-  capture starts at installation.
-- **WhatsApp** — captures works prepared from the assistant number for a
-  named collector, and the link to the collector's thread. **Messages
-  exchanged with collectors are not synced yet.**
-
-Never claim "see everything that happened in WhatsApp" or "your whole inbox,
-organised" until the capture does it. See §8, "The plan".
-
-## The concrete case to use everywhere
-
-> Marie writes on WhatsApp: "Anything new from Sacha Elron?"
-> The assistant knows Marie already received two Elron works in the spring
-> and asked about large formats. It finds the one large Elron still
-> available, prepares a reply with a one-page PDF.
-> The gallerist reads it, adjusts one line, sends.
-> Marie's record now shows the new work, the date and the PDF.
-
-If an explanation of Vitreen cannot be drawn as this loop, it has drifted
-from the product.
-
----
-
-# 3. The three heads
-
-## 3.1 Inventory
-
-The source of truth for the works. Entered once, reused everywhere.
-
-- artists, artworks, images, dimensions, medium, year
-- prices and price visibility rules
-- availability: available / reserved / sold / NFS
-- documents
-- import from CSV / Excel and from Artlogic exports
-
-The inventory is the moat, not the promise. It is indispensable — without it
-the assistant is a GPT wrapper anyone can copy in a weekend — but it is not
-what we sell, show first or name first.
-
-## 3.2 Personal CRM + AI assistant
-
-**"Personal CRM" is the public name.** Personal means: built around people
-and relationships, light, filled by what actually happens — not a sales
-pipeline to administer.
-
-The CRM holds, per collector:
-
-- identity and channels (email, WhatsApp)
-- everything sent through Vitreen: replies, selections, PDFs, with the works
-- inquiries received, and on which works
-- interests (artists, formats, price range) as observed from conversations
-- follow-ups due
-
-The AI assistant works from the CRM and the inventory:
-
-- recognises who is writing and recalls what they already received
-- finds available works that fit
-- drafts the reply, in the collector's language
-- builds the selection or the PDF
-- proposes follow-ups
-
-It prepares. The gallery decides. It never invents a price, a date, an
-availability or a provenance: if it is not in the records, it is not in the
-draft.
-
-## 3.3 Selling: Gmail, WhatsApp, PDF
-
-Vitreen works inside the tools the gallery already uses.
-
-- **Gmail add-in:** search the inventory, insert works, reply to an inquiry,
-  see the collector's history, without leaving the inbox.
-- **WhatsApp:** the Vitreen assistant number for the team (search, render,
-  hand off into the collector thread), next to the gallery's own number.
-  Vitreen never operates or replaces the gallery's sales number. Collector
-  conversations on the gallery's number are not synced yet (§2).
-- **Outputs:** replies, private selections, PDFs — all generated from
-  inventory records, all logged in the CRM.
-
-Inside Vitreen, say **"private selection"**, never "viewing room" — that
-name belongs to viewingroom.studio (§10). A private selection is a curated
-set of works generated from a real conversation, for a known collector, and
-recorded in the CRM. It is an output of the loop, not a standalone
-publishing tool.
-
-## 3.4 The dashboard
-
-The dashboard is where the gallery **sees** and **asks** (see "The edge",
-§1). It is organised around **people and conversations first, works
-second**, and has two main surfaces:
-
-**Conversations — see.** The noise from Gmail and WhatsApp, organised:
-
-- who is waiting for a reply, and who should be followed up
-- per collector, one thread of everything that circulated — messages,
-  replies, selections, PDFs, encounters — with the works involved
-- per artwork, where it circulated: to whom, when, in what
-
-This is where the personal CRM lives. The collector record is not a form to
-fill in; it is the organised history of the conversations.
-
-**Assistant chat — ask.** Talk to the inventory and the history in plain
-language: find works, check availability, recall what a collector received,
-prepare a reply, a selection or a PDF. Answers show their sources (the
-records they come from) and every prepared output goes through "Review and
-send". It is the same assistant as in Gmail and on the WhatsApp assistant
-number — one brain, reachable from each surface — not a generic chatbot.
-
-A surface that shows a work without its circulation, or a person without
-their history, has broken the thesis — however good it looks in isolation.
-
-The dashboard is not a replacement inbox: replying happens in Gmail and
-WhatsApp.
-
----
-
-# 4. Positioning
-
-## Line
-
-> Vitreen connects your inventory, your collectors and your conversations.
-> An AI assistant prepares every reply from your own records — you send it.
-
-(Working line. The current site hero, "Better tools for every way you sell
-art.", predates this playbook and should be revisited with the home.)
-
-## Three pillars of the AI
-
-- **Grounded, not generative** — answers only from the gallery's records.
-- **Installed, not another app** — in Gmail and WhatsApp.
-- **Assisted, not autonomous** — nothing leaves without a human click. This is
-  the promise, not a limitation.
-
-## Facing Artlogic
-
-Complementary, never a replacement:
-
-> Artlogic stores your works. Vitreen makes them circulate in your
-> conversations — and remembers who received what.
-
-Until a native sync exists, write "from your Artlogic exports", never
-"Artlogic integration". Never present the offer in a way that invites a
-price comparison with Artlogic.
-
-## Claims discipline (non-negotiable)
-
-- The assistant prepares, a human sends. Never autonomous sending.
-- Never an invented price, availability or provenance.
-- No "sell more" claim until measured on real clients. Sell speed of reply,
-  accuracy and relationship memory.
-- "The CRM fills itself" only for what goes through Vitreen.
-
----
-
-# 5. Vocabulary
-
-**Use**
-
-- personal CRM, collector history, who received what
-- Conversations (the dashboard surface), the assistant
-- organise the noise, stay in Gmail and WhatsApp
-- inventory, artwork records, availability
-- in Gmail and WhatsApp
-- prepared by the AI, sent by your team
-- grounded in your records
-- works alongside Artlogic
-- the loop, circulation (internally and in build-in-public content)
-
-**Avoid**
-
-- Gallery OS (including "Gallery OS Conversations" — publicly it is just
-  "Conversations"), Layer, Studio, Gallery Assistant (as offer names)
-- all-in-one platform, operating system, suite
-- CMS, website builder, inventory software as the headline
-- sales pipeline, deals, funnel, lead scoring (the CRM is personal, not a
-  pipeline)
-- autopilot, automatic sending, AI-powered everything
-- technical jargon on the client side
-
-**Commercial vocabulary:** saying prices is normal. Forbidden: "plan",
-"tier", "upgrade", and any feature-comparison table with columns. Acceptable:
-monthly, partnership, maintenance, commitment.
-
----
-
-# 6. Offer and pricing
-
-**Decided 2026-09-28. Replaces the 2026-08-12 offer** (Vitreen Sales
-€390/month and Partner €590/month, both with a 12-month commitment). That
-offer cost more than Artlogic Professional for a complement to Artlogic, and
-asked an unknown founder's first clients for a one-year commitment. The new
-product also needs far less installation: the aha comes from connecting
-WhatsApp and importing its history, not from a three-week migration.
-
-| Offer                           | Price                                   | Commitment                            |
-| ------------------------------- | --------------------------------------- | ------------------------------------- |
-| **Founding gallery** (3 places) | €149/month                              | 3 months minimum, then month to month |
-| **Vitreen** (public price)      | €249/month, or €199/month billed yearly | None                                  |
-
-Both: **per gallery, unlimited users**, setup included.
-
-**Included:** inventory import from spreadsheets or Artlogic exports, Gmail
-add-in, WhatsApp assistant, AI assistant grounded in the gallery's records,
-Conversations (collector history), private selections and PDFs, team
-onboarding. Founding galleries also get early access to WhatsApp
-conversation capture as it ships — never list capture as included before it
-works (§2).
-
-**Founding galleries**
-
-- Limited to **three**. The limit is what makes the price a reserved entry,
-  not a discount. Once taken, the public price applies to new galleries.
-- The price is **kept for as long as the gallery stays**, even when the
-  public price rises.
-- The three-month minimum covers the setup time.
-- In return: 20 minutes of feedback every two weeks during the first three
-  months, and permission to write a case study.
-
-**Public price.** Applies once the three founding places are taken and the
-WhatsApp capture works. The commitment is a choice that earns a discount
-(€199/month billed yearly), never a condition of entry.
-
-**Why these numbers.** Competitors, as of 2026-09: Artlogic Essential from
-£130/month and Professional from £266/month (inventory, CRM, invoices,
-website, email marketing); Arternal from $110 per user per month; ArtCloud
-$99–193 per user per month; Artwork Archive organisation plans $24–139/month;
-Wati (WhatsApp team inbox) $59–119/month plus Meta fees; folk (personal CRM)
-$24–48 per user per month. A complement to Artlogic must cost clearly less
-than Artlogic; per-gallery pricing with unlimited users beats per-user
-competitors for any team of two or more.
-
-**Partner is paused.** With three founding galleries the founder is already
-in close contact. Partner comes back when clients ask for ongoing guidance —
-proposed once the system is in place, never as an option on day one, never
-as "Vitreen + options".
-
-**Quoted separately:** a full Artlogic takeover with data cleanup, and any
-custom work. The low price must not hide a free migration.
-
-**Included maintenance is a closed list** — the most important scope
-protection of the offer: bug fixes, keeping existing features working,
-security updates, reasonable technical compatibility, restoration after an
-incident. It does **not** cover: new features, new integrations, new
-templates, data-structure changes, workflow changes, specific requests.
-Saying yes once reopens the boundary for good.
-
-**Rules**
-
-- Never a feature-comparison table with columns.
-- Pricing changes happen in one file: `components/landing/Offers.tsx` (cards
-  and included list, EN and FR), used by the home and `/pricing`. The pricing
-  FAQ lives in `PricingPage.tsx` / `PricingPageFr.tsx`.
-
-**Customisation boundary** — customisable: imports, commercial fields, CRM
-fields, templates, tone, visibility rules, Gmail/WhatsApp workflows. Never
-customisable: the core architecture, the product as a whole, the roadmap for
-one client, tools unrelated to inventory, collectors and sales
-conversations.
-
-**Economic principle:** the service funds the product · the product keeps
-Vitreen from becoming an agency · the standardised scope protects the solo
-founder's time. The low price holds only because installation now takes
-days, not weeks — if setup grows back, the price no longer holds.
-
-**Costs per gallery to measure:** WhatsApp provider (e.g. 360dialog), Sanity,
-AI inference (Groq). Replies are sent from the WhatsApp app, so no Meta
-per-message fees on replies — Meta's pricing changes often, re-check it.
-
----
-
-# 7. Capacity
-
-With Partner paused, the constraint is **installation and support time per
-gallery**, and above all protecting product days. Log real days per
-category — installation, founding-gallery feedback, maintenance, product —
-from the first gallery.
-
-```text
-galleries the founder can carry ≈ (founder days available per month
-                                   − product days)
-                                  ÷ (maintenance + support days per gallery per month)
+Vitreen should make the inside of the gallery feel as continuous as the relationship feels from the outside.
+
+## 4. THE CATEGORY
+
+Vitreen is relationship intelligence for selling art and collectible design.
+But internally, we think of it more precisely as:
+The relationship layer between inventory and conversation.
+Vitreen is not:
+
+- an inventory database with AI;
+- a generic CRM;
+- a chatbot;
+- a newsletter tool;
+- an all-in-one gallery platform;
+- Salesforce for galleries;
+- an autonomous sales agent.
+
+Vitreen connects existing information to real relationships.
+
+## 5. THE CORE MODEL
+
+Everything in Vitreen revolves around:
+Collector × Artwork × Conversation × Context × Next Action
+A collector record alone is not enough.
+An artwork record alone is not enough.
+A WhatsApp message alone is not enough.
+The value exists in the relationships between them.
+Example:
+
+```
+Marie Beaumont
+↓
+asked about
+↓
+Sacha Elron — Evening Field
+↓
+€12,000 discussed
+↓
+large formats preferred
+↓
+selection sent last month
+↓
+waiting for follow-up
 ```
 
-Product days are not optional: if client work eats them, the loop stops
-improving and Vitreen becomes an agency. When Partner returns, each Partner
-client adds a monthly session for as long as they stay — never add "a bit of
-follow-up" to a regular client, it turns a bounded queue into an infinite
-one.
+That is useful commercial knowledge.
+Vitreen should create this structure from real activity.
+Not from administrative work.
 
----
+## 6. INVENTORY IS THE FOUNDATION
 
-# 8. How we build (indie, solo founder)
+_Status: Built — structured inventory with CSV / Excel import._
 
-Vitreen is built the indie-hacker way: one founder, one product, shipped in
-small visible steps, built in public. **Indie here is a way of building and
-communicating, not a pricing model** — the installation stays personal and
-the offer stays founder-led (§6).
+The relationship cannot function without reliable object information.
+Vitreen needs structured records for:
 
-## Product rules
+- artists;
+- artworks;
+- images;
+- dimensions;
+- medium;
+- year;
+- price;
+- price visibility;
+- availability;
+- documents;
+- provenance where relevant.
 
-- **Build on the loop.** Before building anything, name the step of §2 it
-  strengthens. If none, it waits.
-- **Connect before adding.** A link between two existing heads is worth more
-  than a new module.
-- **No new heads.** Inventory, personal CRM + assistant, selling. A fourth
-  head is a different product.
-- **Hide, never fork.** Legacy modules (website publisher, exhibitions) stay
-  behind feature flags; nothing is deleted, no per-client fork.
-- **Human validation visible.** Wherever the assistant appears, the
-  "Review and send" step is shown, not just asserted.
+Enter once. Use everywhere.
+An artwork should never need to be rebuilt every time it moves.
+One record should be reusable in:
 
-## Current gap (the priority)
+```
+Inventory
+↓
+Gmail
+↓
+WhatsApp
+↓
+Private selection
+↓
+PDF
+↓
+Collector history
+↓
+Follow-up
+```
 
-As of 2026-09-28, in `gallery-OS/dashboard`:
+The inventory is infrastructure.
+It is not the final value.
+Its value appears when the information reaches the right person at the right moment.
 
-- **The collector memory exists.** `src/lib/conversations/memory.ts` builds a
-  per-collector history of events (inquiry, message, sent, prepared, note,
-  encounter), each with its channel and its works. Conversations
-  (`src/app/workspace/conversations`) is built on it.
-- **`src/lib/activity.ts` is only a notification feed** (contact as plain
-  text in `meta.contactName`). It is not the memory; do not build the CRM on
-  it.
-- **Capture is the gap.** The memory is only as good as what reaches it
-  (§2): Gmail captures only threads opened with the add-in, and WhatsApp
-  collector messages are not synced at all. "See what happened in WhatsApp"
-  — the heart of the edge — does not work today.
+## 7. ARTWORK INFORMATION MUST MOVE
 
-## The plan (decided 2026-09-28)
+_Status: Built — Gmail add-in, WhatsApp assistant number, PDFs, private selections._
 
-**WhatsApp first, and Conversations full on day one.** Nothing else is built
-until this works at one real gallery.
+Static information creates work.
+Connected information creates leverage.
+A title, image, price and availability should move naturally from the artwork record into:
 
-**Capture scope (decided):** capture **all** 1:1 WhatsApp conversations of
-the gallery's WhatsApp Business number. Gmail stays as it is (threads opened
-with the add-in + tracked replies). WhatsApp is where the noise is worst and
-least organised; background Gmail reading would cost a heavy Google
-verification for a smaller gain.
+- a Gmail reply;
+- a WhatsApp conversation;
+- a PDF;
+- a private selection;
+- an internal recommendation;
+- a follow-up.
 
-**How:** Meta's **coexistence** mode links the gallery's WhatsApp Business
-app and the Cloud API on the **same number**. The gallery keeps using its app;
-on connection, up to **180 days of 1:1 history** sync; afterwards every
-message — including those the gallery sends from its phone ("echoes") — is
-mirrored in near real time. Group chats do not sync; disappearing messages
-and live location are disabled. Going through a WhatsApp provider (e.g.
-360dialog) is faster than becoming a Meta Tech Provider directly.
+The gallery should not repeatedly:
 
-Steps, in order:
+- download;
+- copy;
+- paste;
+- rename;
+- search;
+- rebuild;
+- verify the same information.
 
-0. **Check the ground (no code).** Ask 5 galleries whether they use WhatsApp
-   Business or a personal WhatsApp on the gallerist's phone. Coexistence only
-   works with WhatsApp Business; moving from personal to Business keeps the
-   number but is one more ask. Also ask whether they sell through WhatsApp
-   groups (not synced).
-1. **Capture WhatsApp.** Connect the number in coexistence; ingest messages
-   and echoes into the existing memory (`conversations/memory.ts`), attached
-   to the collector by phone number; recognise the works mentioned (reuse
-   the title/artist matching used for Gmail). **Import the 180-day history
-   at installation**: on day one, Conversations already shows six months of
-   exchanges sorted by collector, with nothing typed in. That is the aha,
-   the demo and the build-in-public post.
-2. **Conversations as home screen.** Three lists, no more: _waiting for a
-   reply_ (collector wrote last) · _to follow up_ (received something, no
-   answer for X days) · _new requests about works_. The AI classifies each
-   message (request about a work / logistics / small talk) so only requests
-   about works surface.
-3. **Assistant chat.** Reads the inventory and the collector memory, cites
-   its sources. Everything it prepares goes through "Review and send"; sending
-   happens **in the WhatsApp app** with the message prefilled (free, and it is
-   the gallery who sends). Same assistant on the assistant number and in
-   Gmail.
-4. **Gmail: untouched for now.**
+Nothing valuable should need to be recreated.
+That is a core product rule.
 
-**Stop until this works:** multi-tenancy and self-serve (one deployment per
-gallery is fine for 5–20 clients), the website publisher, exhibitions, any
-new module, any per-client customisation beyond §6.
+## 8. CONVERSATIONS ARE WHERE RELATIONSHIPS REVEAL THEMSELVES
 
-**Risks to handle before the first real connection:**
+_Status: Not built — nothing reads intent, budget or preference out of messages yet._
 
-- **Trust and GDPR.** Vitreen will store messages between the gallery and
-  its collectors: data processing agreement, where the data is hosted
-  (Sanity), and one clear sentence for the gallery — "we read your WhatsApp
-  Business conversations to organise them; we never send anything."
-- **Coexistence limits.** Groups, disappearing messages and live location
-  are out. Never promise "all of WhatsApp".
+Inventory tells Vitreen what exists.
+Conversation tells Vitreen what matters.
+A collector saying:
+Do you have anything larger by Elron around €15,000? Ideally blue.
+contains:
 
-**Metrics:** time to aha (minutes from connection to first conversation
-shown) · share of conversations attached to a collector and at least one
-work · replies prepared by the assistant, then actually sent · weekly use of
-Conversations by the team.
+```
+Artist → Sacha Elron
+Format → large
+Budget → around €15k
+Preference → blue
+Intent → discovering available works
+```
 
-This work happens in a session opened on the `gallery-OS` repo, not here.
+That information should not remain trapped inside a message.
+The message belongs to WhatsApp.
+The insight belongs to the relationship.
+Conversation is raw relationship data.
+Vitreen should convert meaningful conversation into durable context.
 
-## Roadmap
+## 9. MEMORY IS NOT A DATABASE
 
-| Piece                                              | Status                                   |
-| -------------------------------------------------- | ---------------------------------------- |
-| Inventory + CSV/Excel import                       | ✅ Exists                                |
-| Gmail add-in                                       | ✅ Working                               |
-| WhatsApp assistant number                          | ✅ Working                               |
-| AI assistant (grounded drafts, human validation)   | ✅ Live                                  |
-| Private selections + PDF                           | ✅ Exists                                |
-| Collector memory + Conversations                   | ✅ Exists (`conversations/memory.ts`)    |
-| Gmail capture                                      | 🟡 Opened threads + tracked replies only |
-| WhatsApp capture via coexistence + 180-day history | 🔴 Priority — step 1 of the plan (§8)    |
-| Conversations as home screen                       | 🔴 Next                                  |
-| Assistant reads collector memory on every surface  | 🔴 Next                                  |
-| Follow-up suggestions                              | 🟡 After the loop is closed              |
-| Usage metrics (drafts generated / sent)            | 🟡 After the loop is closed              |
-| Autonomous sending                                 | ⛔ Never                                 |
+_Status: Partial — records, threads and interactions exist; sources and inferred / confirmed markers do not._
 
----
+Vitreen memory is not a contact form full of fields.
+It is the accumulated history of the relationship.
+For every collector, Vitreen should know, where possible:
 
-# 9. How we communicate
+- what they asked about;
+- what they received;
+- what they opened;
+- what prices were discussed;
+- what works were considered;
+- which artists recur;
+- what happened last;
+- what deserves attention next.
 
-## One story everywhere
+The memory grows through use.
+It should rarely require manual maintenance.
+The best relationship memory is created as a side effect of doing the work.
 
-Show the loop, never a feature list. Every page, demo and post shows one
-circulation: a request, the collector recognised, the works found, the reply
-prepared, a human sending, the record updated.
+Every piece of memory has a source.
+A preference is not a fact until the collector said it.
+So every element of memory points to where it came from:
+the message, the thread, the send, the note.
+Vitreen shows that source next to the memory.
+The gallery can correct it.
+The gallery can delete it.
+A correction is never overwritten by a later extraction.
+What Vitreen infers is marked as inferred.
+What the gallery confirmed is marked as confirmed.
+If Vitreen is not sure, it does not write it into memory.
+A wrong memory is worse than a missing one.
+A collector notices when the gallery remembers wrongly.
 
-## Website
+## 10. THE LOOP
 
-The home is a linear story, not a SaaS home. Nobody knows Vitreen; a visitor
-has no category to file it in. Order:
+Vitreen has one fundamental loop.
 
-1. **Recognition** — the moment the gallery lives today: a collector asks,
-   the material is elsewhere, nobody remembers what was already sent.
-2. **The loop shown** — the Marie case (§2), step by step, with real product
-   visuals.
-3. **The assistant demonstrated** — a grounded draft with the visible
-   "Review and send" step. Sober: no shadow, no colour.
-4. **Installation** — how the setup goes, in about a week.
-5. **The offer** — founding gallery / public price cards, never a comparison table.
-6. **One CTA** — book a call.
+```
+1. A collector conversation happens.
 
-Forbidden: any section summarising the product in 3–4 icon "pillars", market
-statistics sections, "sell more" claims.
+2. Vitreen recognises the person.
 
-## Build in public
+3. Vitreen understands the object and intent.
 
-Each post shows one link of the loop that just shipped ("today, a WhatsApp
-message attaches itself to the collector's record"). Concrete, visual,
-regular. Writing guides per network live in `.claude/social/`.
+4. Relevant artwork information is retrieved.
 
-Share: what shipped, decisions and why, mistakes, lessons from installations,
-and numbers once they exist.
+5. A reply, selection or PDF is prepared.
 
-Never share: client names without consent, collector names or data, gallery
-prices, screenshots with real data. Use the demo gallery (Sacha Elron,
-Marie Beaumont…) for every visual.
+6. A human reviews and sends.
 
-## Sales
+7. Vitreen remembers what happened.
 
-The loop is the demo: three minutes, one real-looking case, end on the
-collector record updating.
+8. The relationship now has more context.
 
----
+9. The next interaction starts from that context.
+```
 
-# 10. viewingroom.studio
+This loop is Vitreen.
+It is the only loop. Sections 2, 14 and 31 refer to its steps.
+Every feature must strengthen at least one step.
+If it does not:
+do not build it.
 
-**viewingroom.studio is a separate product**, with its own brand and domain:
-self-serve artwork presentations and private viewing rooms, with signals
-(opens, inquiries, follow-ups).
+## 11. THE RELATIONSHIP LOOP COMPOUNDS
 
-- It is not a head of Vitreen and not a Vitreen offer.
-- Vitreen does not build a self-serve viewing room product.
-- Vitreen's own selections are outputs of the loop (generated from a
-  conversation, for a known collector, logged in the CRM); they are not a
-  publishing tool.
-- Do not present both on the same page or in the same pitch.
-- **Fully separate:** no shared data, no shared CRM, no cross-promotion
-  inside the product. viewingroom.studio signals do not feed Vitreen.
+The product becomes better because it is used.
 
----
+```
+More conversations
+↓
+More context
+↓
+Better relationship memory
+↓
+Better retrieval
+↓
+Better replies
+↓
+Better follow-ups
+↓
+Better conversations
+↓
+More context
+```
 
-# 11. Beyond galleries (later)
+This is the flywheel.
+Not AI generation.
+Not contact count.
+Not artwork count.
+Context compounds.
 
-The loop is not specific to art. It fits anyone selling unique, high-value
-objects through conversation rather than a checkout. Selection criteria for
-a future vertical:
+## 12. THE CRM SHOULD DISAPPEAR
 
-- unique or small-series objects, high value
-- sales happen in conversation, not in a cart
-- the habit of sending selections or PDFs
-- availability status matters
-- relationships drive repeat purchases
-- a data model close to artworks
+_Status: Partial — memory fills itself from what Vitreen captures, not from everything._
 
-Closest candidates: design galleries and collectible furniture, antique
-dealers, art advisors. Further: vintage watches and jewellery (WhatsApp-heavy,
-different fields). Avoid: B2B fashion showrooms (sizes, variants, quantities
-— a different product).
+Traditional CRM logic says:
+Do the work.
+Then:
+Document the work.
+Vitreen should collapse these into one action.
+If a work is sent, remember it.
+If a price is discussed, remember it.
+If a collector asks about an artist, connect it.
+If a follow-up becomes relevant, surface it.
+The user should not have to manually recreate reality inside the CRM.
+Activity creates memory.
+The CRM is the consequence.
+Not the job.
 
-**Rule:** one engine, no per-vertical build. A vertical is tested with a
-landing page and conversations first. Not before the loop is closed (§8).
+## 13. RELATIONSHIP, NOT PIPELINE
 
----
+_Status: Partial — "To follow up today" exists; states are not yet deduced from activity._
 
-# 12. Open questions
+Vitreen does not treat collectors as leads moving through a funnel.
+No:
 
-- ~~Capture scope~~ — **decided 2026-09-28**: all 1:1 WhatsApp Business
-  conversations via coexistence; Gmail unchanged (§8, "The plan").
-- Do target galleries use WhatsApp Business or personal WhatsApp? Do they
-  sell through WhatsApp groups (not synced)? — to ask 5 galleries (§8, step 0).
-- Promise on the site once WhatsApp capture ships: "see everything that
-  happened on your WhatsApp Business" — wording to settle, never "all of
-  WhatsApp".
+- lead scoring;
+- fake probability percentages;
+- arbitrary sales stages;
+- pipeline administration;
+- funnel obsession.
 
-- Founding €149 / public €249 (€199 yearly) are not yet validated
-  commercially — revisit after the three founding galleries.
-- The connected gallery website (from €4,500, quoted separately) was a Layer
-  upsell. With Studio gone and the website outside the three heads, keep,
-  move to R.R Studio, or drop?
-- First vertical beyond galleries, if any, once the loop is closed.
+But relationships have states.
+Vitreen can understand:
 
----
+```
+new inquiry
+waiting for reply
+information sent
+follow-up due
+viewing requested
+reserved
+sold
+```
 
-# 13. Session checklist
+The difference is important.
+A pipeline asks the user to maintain a model.
+Vitreen observes what actually happened.
+The state should emerge from the relationship.
 
-Before designing, writing or implementing anything for Vitreen:
+## 14. AI HAS ONE PURPOSE
 
-1. Which step of the loop (§2) does this strengthen?
-2. Which head does it belong to — inventory, personal CRM + assistant, or
-   selling? If none, it is probably out of scope.
-3. Does it connect heads, or add an isolated surface?
-4. Is the human "Review and send" step visible wherever the assistant acts?
-5. Is every claim true today, in the code? (Check `gallery-OS` before saying
-   a capability does or does not exist.)
-6. Does it belong to viewingroom.studio or R.R Studio instead?
-7. Does it respect the closed maintenance list and the customisation
-   boundary?
-8. Does it make Vitreen easier, not harder, to explain in one loop?
+_Status: Partial — understand, retrieve and prepare exist; remembering new context does not._
 
----
+Connect information to the relationship.
+The assistant is not valuable because it can write.
+It is valuable because it understands context.
+AI has five jobs.
+Understand
+What is the collector asking?
+Retrieve
+What information does the gallery already have?
+Connect
+Which collector, artwork and previous interactions belong together?
+Prepare
+What should the gallery do next?
+Remember
+What new context should remain after the interaction?
+In the loop of section 10, AI serves steps 2 to 5 and step 7.
+Step 6 is always human.
+AI should make the relationship more continuous.
+Not more synthetic.
 
-# North Star
+## 15. GROUNDED, NOT GENERIC
 
-> **Inventory knows the works. The personal CRM knows the people.
-> The conversation is where they meet — and Vitreen remembers every one.**
+Vitreen works from the gallery's own records.
+Never invent:
+
+- price;
+- availability;
+- dimensions;
+- provenance;
+- date;
+- ownership;
+- promises;
+- previous conversations.
+
+If information is missing:
+say so.
+The assistant should prefer:
+I don't have this information.
+over:
+a plausible answer.
+In this market, trust matters more than fluency.
+
+## 16. HUMAN BY DESIGN
+
+Vitreen should never confuse assistance with substitution.
+The gallery owns the relationship.
+The dealer knows things the software cannot fully represent.
+Tone.
+Timing.
+Social context.
+Taste.
+Trust.
+History outside the system.
+Therefore:
+AI prepares.
+Human decides.
+Every meaningful outbound action ends in:
+Review and send.
+This is not a limitation.
+It is product philosophy.
+Technology should strengthen the relationship, not impersonate it.
+
+## 17. TRUST AND DATA
+
+_Status: Partial — a collector can be deleted; no full export, no private notes, no per-collector visibility. Deleting "everything about them" is not verified._
+
+Vitreen holds the conversations between a gallery and its collectors.
+That is the most sensitive information a gallery has.
+The data belongs to the gallery.
+Not to Vitreen. Not to the AI.
+The gallery can export everything, at any time.
+The gallery can delete a collector, and everything about them.
+Vitreen never uses one gallery's data to serve another.
+Vitreen never sends anything on its own.
+Vitreen says plainly what it reads and what it does not.
+It reads what the gallery connects. Nothing else.
+A collector's information is not a lead list.
+It is never sold, never shared, never used to train models.
+Inside the gallery, the relationship belongs to the team.
+But some things are personal.
+A note can be private.
+A collector can be limited to one person.
+Continuity must not force people to expose everything to everyone.
+
+## 18. GMAIL AND WHATSAPP ARE THE ENTRY POINT
+
+The gallery should not have to abandon the tools where relationships already exist.
+Vitreen enters through:
+
+- Gmail;
+- WhatsApp.
+
+Not because email and WhatsApp are the vision.
+Because they are where the behaviour already exists.
+Work where relationships already happen.
+Then connect the information around them.
+The wedge is:
+Artwork information available inside the conversation.
+The destination is:
+A shared memory of the relationship.
+
+## 19. CONVERSATIONS IS THE HOME
+
+_Status: Built — today, last week and a collectors book._
+
+The home of Vitreen should not be a dashboard of generic metrics.
+The home should answer:
+Who needs attention?
+What is happening in our relationships?
+What should we do next?
+Three lists can initially be enough:
+Waiting for reply
+Collector wrote last.
+Follow up
+Information was sent and the relationship needs attention.
+New requests
+A collector is asking about a work.
+Vitreen should orient the team toward relationships requiring action.
+Not toward abstract reporting.
+
+## 20. THE COLLECTOR VIEW
+
+_Status: Built — threads, shares, interactions and works per collector._
+
+A collector page should answer:
+Who is this person to us?
+Not merely:
+
+```
+Name
+Email
+Phone
+Company
+```
+
+Instead:
+
+```
+relationship history
+
+artists discussed
+
+works received
+
+works purchased
+
+works considered
+
+price ranges discussed
+
+recent conversations
+
+open requests
+
+follow-ups
+
+people on the gallery team involved
+```
+
+The collector record should feel like:
+Opening the gallery's memory of this person.
+
+## 21. THE ARTWORK VIEW
+
+_Status: Built — "Used in" rail, read-only._
+
+An artwork should not only answer:
+What is this work?
+It should also answer:
+Where has this work travelled commercially?
+For example:
+
+```
+sent to → Marie
+sent to → John
+price requested by → Anna
+included in → Basel selection
+reserved by → Thomas
+```
+
+This matters because the relationship runs both ways.
+Vitreen should know:
+who has a relationship with the work
+as well as:
+which works belong to the collector relationship.
+
+## 22. THE RELATIONSHIP GRAPH
+
+_Status: Partial — the links exist; the graph as a model does not._
+
+Over time Vitreen creates a connected graph:
+
+```
+COLLECTOR
+ ↕
+ARTIST
+ ↕
+ARTWORK
+ ↕
+CONVERSATION
+ ↕
+REQUEST
+ ↕
+SELECTION
+ ↕
+VIEWING
+ ↕
+RESERVATION
+ ↕
+PURCHASE
+```
+
+The edges are the valuable part.
+
+```
+collector → asked about → artwork
+
+collector → bought → artist
+
+collector → received → selection
+
+collector → rejected → artwork
+
+collector → prefers → medium
+
+artwork → circulated to → collectors
+
+gallery member → owns relationship with → collector
+```
+
+This graph becomes the commercial memory of the gallery.
+
+## 23. THE MOAT
+
+The moat is not the chatbot.
+The moat is not the interface.
+The moat is not the inventory alone.
+The moat is:
+
+```
+structured artwork information
++
+relationship history
++
+conversation history
++
+circulation history
++
+team usage
+```
+
+A generic AI can write:
+Dear Marie...
+But it does not know:
+
+- what Marie has already seen;
+- which works she almost bought;
+- what was discussed six months ago;
+- what prices were mentioned;
+- whether another colleague spoke to her;
+- which available work fits the relationship today.
+
+Models commoditise.
+Context compounds.
+
+## 24. PROACTIVE RELATIONSHIP MANAGEMENT
+
+_Status: Not built._
+
+The first Vitreen loop is reactive.
+A collector asks.
+The gallery answers.
+But once memory becomes reliable, the loop can reverse.
+A new work arrives.
+An artist becomes available.
+A reservation expires.
+A fair approaches.
+A collector has gone quiet.
+Vitreen can ask:
+Who should know?
+Then explain why.
+
+```
+Marie
+because she asked about large Elrons.
+
+Anna
+because she bought the artist in 2024.
+
+Paul
+because he asked for works below €15k.
+```
+
+Then prepare a distinct message for each.
+This is relationship intelligence.
+Not marketing automation.
+
+## 25. NEVER BLAST
+
+_Status: Built — nothing is sent without a human._
+
+Vitreen should not turn relationship selling into mass marketing.
+No:
+Send this artwork to 472 contacts.
+Instead:
+These 11 people have a credible reason to care.
+And for each person:
+Here is why.
+Personalisation is not:
+`Hi {first_name}`
+Personalisation is:
+history + relevance + timing.
+
+## 26. RELATIONSHIPS BELONG TO THE GALLERY, NOT ONE PERSON
+
+_Status: Not built — no relationship owner, no private notes._
+
+A major operational risk in relationship-driven businesses is knowledge concentration.
+One director knows the collector.
+One salesperson knows what was promised.
+One assistant knows where the images are.
+Then someone leaves.
+Or is unavailable.
+The gallery should retain the relationship context without turning it into bureaucracy.
+Vitreen should make institutional memory possible while preserving personal relationships.
+The collector should feel known by the gallery, not trapped inside one employee's inbox.
+
+## 27. TEAM CONTINUITY
+
+_Status: Not built._
+
+Vitreen should eventually answer:
+Who last spoke with Marie?
+What was promised?
+What did we send?
+Which colleague owns the relationship?
+Is someone already following up?
+This reduces:
+
+- duplicated replies;
+- contradictory information;
+- forgotten promises;
+- awkward handovers;
+- loss of context.
+
+The product should make a small team behave like a team with excellent memory.
+
+## 28. ARTLOGIC AND EXISTING SYSTEMS
+
+Vitreen does not need to replace inventory software to create value.
+Artlogic may remain the system where the gallery stores works.
+Vitreen can be the system that makes those records useful in relationships.
+
+```
+ARTLOGIC / SPREADSHEET
+        ↓
+      VITREEN
+        ↓
+GMAIL / WHATSAPP / PDF
+        ↓
+COLLECTOR RELATIONSHIP
+        ↓
+      MEMORY
+```
+
+Do not begin with replacement.
+Begin with connection.
+But do not permanently define Vitreen as a small add-on.
+Start as a layer. Earn the right to become infrastructure.
+
+## 29. THE ICP
+
+Start with contemporary art galleries where relationships already carry the business.
+Ideal characteristics:
+
+- 2–10 people;
+- meaningful collector base;
+- repeat buyers;
+- Gmail used every day;
+- WhatsApp used commercially;
+- Artlogic or spreadsheets for inventory;
+- PDFs and selections sent regularly;
+- sales knowledge distributed across team members;
+- no consistently maintained CRM;
+- information frequently copied between systems.
+
+Strong buying signals:
+“I know we sent them something, but I can't remember what.”
+“I need to ask my colleague.”
+“Let me find the image.”
+“I'm sure they already saw this.”
+“I forgot to follow up.”
+These are not productivity problems.
+They are relationship continuity problems.
+
+## 30. ART FIRST. DESIGN NEXT.
+
+Vitreen starts with art galleries.
+Focus creates learning.
+But the deeper pattern is:
+High-value objects sold through relationships rather than checkout.
+This can later include:
+
+- collectible design;
+- furniture dealers;
+- art advisors;
+- independent dealers;
+- antique dealers.
+
+The same thesis must remain true:
+
+```
+object information
++
+conversation
++
+relationship
++
+memory
+```
+
+No vertical fork.
+No separate product.
+One engine.
+
+## 31. PRODUCT PRIORITY
+
+Until the core relationship loop works with real galleries:
+Nothing matters more than capture.
+These priorities are the loop of section 10, in build order:
+capture is step 1, the collector step 2, the work and intent step 3,
+retrieval step 4, preparation step 5, memory step 7, next action step 9.
+
+1. Capture conversations
+   Especially WhatsApp.
+2. Identify the collector
+   Connect activity to a person.
+3. Identify the work
+   Connect conversation to inventory.
+4. Extract meaningful context
+   Intent, interest, request, preference.
+5. Retrieve information
+   Make the correct artwork data available.
+6. Prepare action
+   Reply, selection, PDF, follow-up.
+7. Remember
+   Update the relationship.
+8. Surface next action
+   Make the memory operational.
+   Then repeat.
+
+## 32. STOP BUILDING
+
+Until this loop works:
+Do not build:
+
+- website CMS;
+- exhibition management;
+- marketing automation;
+- newsletter tools;
+- generic analytics;
+- autonomous sales agents;
+- speculative AI features;
+- bespoke modules;
+- unrelated integrations.
+
+Every module competes with the relationship loop for attention.
+Connections compound.
+Modules accumulate.
+
+## 33. CONNECT BEFORE ADDING
+
+Before building something new, ask:
+Can we connect what already exists?
+Instead of a new follow-up module:
+derive follow-ups from conversations.
+Instead of a new recommendation module:
+connect collector history to inventory.
+Instead of another AI surface:
+give the existing assistant better context.
+Instead of another selection tool:
+generate the selection from the existing conversation.
+Better connections create a better product.
+More surfaces do not.
+
+## 34. WHAT WE SELL
+
+Do not sell:
+
+- AI;
+- RAG;
+- embeddings;
+- automation;
+- CRM administration;
+- technical architecture.
+
+Sell:
+The right artwork information when a collector asks.
+No need to rebuild the same material.
+A gallery that remembers what each collector has seen.
+Fewer relationships depending on one person's memory.
+Better continuity between conversations.
+Clearer follow-ups.
+Shared context across the team.
+The technology is implementation.
+The relationship is value.
+
+## 35. BUSINESS MODEL
+
+Who buys.
+The director, or the owner of the gallery.
+Who uses.
+The whole team.
+Prices are per gallery, not per person.
+
+How we start.
+Three founding galleries.
+€149 a month, for as long as they stay.
+Three months minimum, then month to month.
+In return: twenty minutes of feedback every two weeks, and a case study.
+The number of places is limited.
+That is what makes it an entry, not a discount.
+
+Then.
+€249 a month.
+€199 a month, if paid yearly.
+No commitment.
+Setup is included and takes about a week.
+
+Quoted separately.
+A full Artlogic takeover, with data cleanup.
+Custom work.
+
+Included maintenance is a closed list.
+Bug fixes.
+Keeping what exists working.
+Security.
+Reasonable compatibility.
+Restoring after an incident.
+Not included:
+
+- new features;
+- new integrations;
+- new templates;
+- changes to the data structure;
+- workflow changes.
+
+Saying yes once opens the boundary for good.
+
+Who we are next to.
+Artlogic stores the works.
+Vitreen is what makes them useful in the relationship.
+Arternal, ArtCloud: inventory and CRM, per user.
+Wati: a shared WhatsApp inbox. It does not know the works.
+Vitreen knows the works, the collector and the history,
+in the tools the gallery already uses.
+
+## 36. POSITIONING
+
+Product promise
+Keep artwork information moving. Keep collector conversations in memory.
+Market belief
+Because in art and design, the relationship is the business.
+Short definition
+Vitreen connects inventory, collectors and conversations.
+Expanded definition
+Vitreen brings artwork information into the conversations where galleries sell, remembers what happens with each collector, and carries that context into the next interaction.
+Internal definition
+Vitreen is the relationship layer between gallery information and collector conversations.
+
+## 37. THE DEMO
+
+Never demo a feature list.
+Demo a relationship.
+Marie writes:
+Anything new from Sacha Elron?
+Vitreen knows:
+
+- who Marie is;
+- that she received two Elron works previously;
+- that she tends to prefer larger formats;
+- that one price was previously discussed.
+
+Vitreen retrieves the available works.
+It prepares the reply.
+The gallery reviews.
+The gallery sends.
+Vitreen remembers:
+
+```
+Marie
+↓
+received
+↓
+Evening Field
+↓
+today
+```
+
+Then ask:
+What has Marie seen from Elron this year?
+Vitreen answers.
+Then:
+Who else asked about large Elron works?
+Vitreen answers.
+That is the product.
+
+## 38. NORTH STAR METRIC
+
+Do not optimise primarily for:
+
+- number of artworks;
+- number of AI prompts;
+- number of contacts;
+- PDFs generated.
+
+Measure:
+How much meaningful relationship activity becomes connected memory?
+Core indicators:
+
+- meaningful conversations captured;
+- % attached to a collector;
+- % attached to one or more works;
+- artwork information reused in conversations;
+- replies prepared and sent;
+- follow-ups surfaced and acted on;
+- relationship context reused later;
+- weekly team usage.
+
+The goal is not more data.
+The goal is:
+More continuity.
+
+What counts.
+A meaningful conversation is one where a collector asks about, or is sent, a specific work.
+Small talk and logistics do not count.
+
+First targets, per gallery, after 30 days:
+
+- 80% of meaningful conversations attached to a collector;
+- 60% attached to at least one work;
+- every reply prepared by the assistant reviewed by a person before it leaves;
+- the team opens Conversations at least three times a week.
+
+These are starting points, not results. Adjust them after the first three galleries.
+
+We measure two things first:
+
+- time from connection to the first conversation shown in Conversations;
+- the share of replies prepared, then actually sent.
+
+## 39. FOUNDER RULES
+
+Relationship before feature.
+Context before generation.
+Capture before automation.
+Connect before adding.
+Structured information before AI magic.
+Human judgement before autonomy.
+Existing behaviour before new behaviour.
+One loop before many modules.
+Product before custom work.
+Art before expansion.
+Continuity before complexity.
+
+## 40. WHEN IN DOUBT
+
+Before building anything, ask:
+Does this strengthen a collector relationship?
+Does this make artwork information easier to use?
+Does this preserve meaningful context?
+Does this connect something currently fragmented?
+Does it reduce repeated work?
+Does it improve the next interaction?
+Will the gallery remember more because this exists?
+Will Vitreen know more tomorrow because it was used today?
+If not:
+Do not build it.
+
+## 41. THINGS WE BELIEVE
+
+Keep artwork information moving. Keep collector conversations in memory.
+In art and design, the relationship is the business.
+Information should move. Relationships should remember.
+Every conversation should make the next conversation better.
+The connection is more valuable than the individual record.
+Context compounds.
+Enter once. Use everywhere.
+The gallery should remember even when one person does not.
+AI should strengthen relationships, not impersonate them.
+The best CRM is a consequence of work already done.
+Conversation is raw relationship data.
+High-value sales are built over time.
+Personalisation is history, relevance and timing.
+Work where the relationship already happens.
+Capture reality before automating it.
+Connections compound. Modules accumulate.
+Start as a layer. Earn the right to become infrastructure.
+The product should know more tomorrow because it was used today.
+
+## NORTH STAR
+
+Keep artwork information moving. Keep collector conversations in memory.
+Because in art and design, the relationship is the business.
+Vitreen makes artwork information available wherever the relationship happens.
+It remembers what was discussed, what was sent, what mattered and what should happen next.
+The inventory gives the relationship substance.
+The conversation gives it context.
+Memory gives it continuity.
+AI helps connect them.
+The human keeps the relationship.
+Nothing valuable gets rebuilt.
+Nothing important gets forgotten.
+Every conversation makes the relationship stronger.
+
+## 42. WHERE VITREEN IS TODAY
+
+_Added 2026-09-29, checked against the code in `gallery-OS/dashboard`. Update
+it as the product moves; the thesis above does not change with it._
+
+Built:
+
+- inventory, with CSV / Excel import;
+- Gmail add-in;
+- WhatsApp assistant number, for the team;
+- private selections and PDFs;
+- grounded assistant, human review before anything is sent;
+- collector records: threads, shares, interactions, works;
+- Conversations: today, last week, collectors book;
+- follow-ups: keep-in-touch cadence, dated follow-ups, snooze;
+- artwork view "Used in": selections and recipients, exhibitions, sends with
+  opens, PDF views and inquiry status.
+
+Partial:
+
+- Gmail capture: threads opened with the add-in and replies to tracked sends.
+  Nothing is read in the background.
+
+Not built:
+
+- WhatsApp conversations with collectors (not synced);
+- extracting intent, preference and budget from messages;
+- an explicit relationship graph;
+- team ownership of a relationship;
+- proactive, one message per collector;
+- full export of a gallery's data (promised in section 17).
+
+The status lines under section titles must be re-read each time the product moves.
+
+So "Vitreen remembers" is true only for what Vitreen captures. Never promise
+beyond that.
+
+Offer today: 3 founding galleries at €149/month (3 months minimum, then month
+to month); public price €249/month, or €199/month billed yearly. Per gallery,
+unlimited users, setup included, about a week. Partner is paused.
+
+Not part of Vitreen: viewingroom.studio (a separate product, no shared data)
+and R.R Studio (forart.world).
+
+Internal, never public copy: Vitreen prepares physical galleries for a web
+where collectors and AI agents ask galleries questions instead of browsing
+them. Clean, structured, connected information is what lets a gallery answer.
