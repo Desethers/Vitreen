@@ -193,7 +193,7 @@ function DatabaseAssistantMockup() {
   return (
     <div
       ref={mockupRef}
-      className="relative h-full w-full overflow-hidden bg-white pl-3 pt-3 text-left"
+      className="relative h-full w-full overflow-hidden bg-white pl-6 pt-6 text-left"
     >
       <div className="relative h-full w-full overflow-hidden rounded-tl-[18px] bg-[radial-gradient(ellipse_at_top_left,#FEFBED_0%,#FFFEFA_58%,#FFFFFF_100%)]">
         <AnimatePresence mode="wait" initial={false}>
