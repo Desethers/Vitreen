@@ -195,7 +195,7 @@ function DatabaseAssistantMockup() {
       ref={mockupRef}
       className="relative h-full w-full overflow-hidden bg-white pl-3 pt-3 text-left"
     >
-      <div className="relative h-full w-full overflow-hidden rounded-tl-[18px] bg-[linear-gradient(180deg,#FEFBED_0%,#FFFEFA_62%,#FFFFFF_100%)]">
+      <div className="relative h-full w-full overflow-hidden rounded-tl-[18px] bg-[radial-gradient(ellipse_at_top_left,#FEFBED_0%,#FFFEFA_58%,#FFFFFF_100%)]">
         <AnimatePresence mode="wait" initial={false}>
           {stage === "artwork" ? (
             <motion.div
