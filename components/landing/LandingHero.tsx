@@ -8,16 +8,16 @@ export default function LandingHero() {
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="text-center">
           <h1
-            className="hero-fade-up m-0 mx-auto max-w-2xl text-[36px] leading-[1.2] tracking-[-0.04em] font-display md:text-[52px]"
+            className="hero-fade-up m-0 mx-auto max-w-5xl text-balance text-[36px] font-medium leading-[1.2] tracking-[-0.04em] font-display md:text-[52px]"
             style={{ color: "#111110" }}
           >
-            Better tools
-            <br />
-            for every way you sell art.
+            <span className="md:block">Sell what doesn&rsquo;t sell</span>{" "}
+            <span className="md:block">like everything else.</span>
           </h1>
 
           <p className="hero-fade-up hero-fade-up-delay mx-auto mt-[16px] max-w-4xl text-balance text-[20px] leading-[1.35] tracking-[0em] text-[#6B6A67]">
-            Your inventory, Gmail, WhatsApp and private selections, connected.
+            <span className="md:block">Sales and inventory tools for art galleries and</span>{" "}
+            <span className="md:block">dealers in design and collectible objects.</span>
           </p>
 
           <div className="hero-fade-up hero-fade-up-delay mx-auto mt-[18px] flex max-w-[300px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[22px]">
