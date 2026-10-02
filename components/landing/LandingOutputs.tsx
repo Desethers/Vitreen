@@ -1,8 +1,13 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
 import { CONTAINER } from "@/components/landing/styles";
+
+const DATABASE_QUESTION = "Is Evening field by Sacha Elron available?";
+const databaseEase = [0.16, 1, 0.3, 1] as const;
 
 /* Same card-caption pattern as ServicesGrid (components/Services.tsx on main):
  * bottom gradient bar, title + "Explore" with an arrow that darkens on hover. */
@@ -130,6 +135,204 @@ function ArtworkPageMockup() {
   );
 }
 
+function DatabaseAssistantMockup() {
+  const mockupRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(mockupRef, { amount: 0.45 });
+  const reduceMotion = useReducedMotion();
+  const [stage, setStage] = useState<"compose" | "results" | "opening" | "artwork">(
+    reduceMotion ? "artwork" : "compose"
+  );
+  const [typedQuestion, setTypedQuestion] = useState("");
+
+  useEffect(() => {
+    if (reduceMotion) {
+      setStage("artwork");
+      setTypedQuestion(DATABASE_QUESTION);
+      return;
+    }
+
+    if (!isInView) {
+      setStage("compose");
+      setTypedQuestion("");
+      return;
+    }
+
+    let cancelled = false;
+    const timers = new Set<ReturnType<typeof setTimeout>>();
+    const schedule = (callback: () => void, delay: number) => {
+      const timer = setTimeout(() => {
+        timers.delete(timer);
+        if (!cancelled) callback();
+      }, delay);
+      timers.add(timer);
+    };
+
+    const play = () => {
+      setStage("compose");
+      setTypedQuestion("");
+
+      DATABASE_QUESTION.split("").forEach((_, index) => {
+        schedule(() => setTypedQuestion(DATABASE_QUESTION.slice(0, index + 1)), 650 + index * 42);
+      });
+
+      const typingFinishedAt = 650 + DATABASE_QUESTION.length * 42;
+      schedule(() => setStage("results"), typingFinishedAt + 650);
+      schedule(() => setStage("opening"), typingFinishedAt + 2500);
+      schedule(() => setStage("artwork"), typingFinishedAt + 2900);
+      schedule(play, typingFinishedAt + 7600);
+    };
+
+    play();
+    return () => {
+      cancelled = true;
+      timers.forEach(clearTimeout);
+      timers.clear();
+    };
+  }, [isInView, reduceMotion]);
+
+  return (
+    <div
+      ref={mockupRef}
+      className="relative h-full w-full overflow-hidden bg-white pl-3 pt-3 text-left"
+    >
+      <div className="relative h-full w-full overflow-hidden rounded-tl-[18px] bg-[linear-gradient(180deg,#FEFBED_0%,#FFFEFA_62%,#FFFFFF_100%)]">
+        <AnimatePresence mode="wait" initial={false}>
+          {stage === "artwork" ? (
+            <motion.div
+              key="artwork"
+              className="h-full w-full"
+              initial={{ opacity: 0, x: 18 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.52, ease: databaseEase }}
+            >
+              <ArtworkPageMockup />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="assistant"
+              className="flex h-full w-full flex-col px-6 pb-7 pt-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0, x: -14 }}
+              transition={{ duration: 0.35, ease: databaseEase }}
+            >
+              <h4 className="mt-1 text-[16px] font-medium tracking-[-0.035em] text-[#111110]">
+                Good morning
+              </h4>
+
+              <div className="mt-2 min-h-[84px] rounded-[12px] border border-[#ECECE8] bg-white px-3.5 py-2.5 shadow-[0_1px_4px_rgba(17,17,16,0.018)]">
+                <p className="min-h-[34px] pr-8 text-[11px] leading-[1.4] text-[#111110]">
+                  {typedQuestion}
+                  {stage === "compose" ? (
+                    <motion.span
+                      className="ml-0.5 inline-block h-[12px] w-px translate-y-[2px] bg-[#111110]"
+                      animate={{ opacity: [1, 0] }}
+                      transition={{ duration: 0.7, repeat: Infinity, repeatType: "reverse" }}
+                    />
+                  ) : null}
+                </p>
+                <div className="mt-1 flex items-end justify-between gap-3">
+                  <p className="text-[7px] leading-tight text-[#B2B2AE]">
+                    The assistant reads your records — it can&rsquo;t send anything.
+                  </p>
+                  <motion.span
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[8px] bg-[#111110] text-[14px] text-white"
+                    animate={
+                      typedQuestion.length === DATABASE_QUESTION.length
+                        ? { scale: [1, 1.08, 1] }
+                        : {}
+                    }
+                    transition={{ duration: 0.45 }}
+                  >
+                    ↑
+                  </motion.span>
+                </div>
+              </div>
+
+              <div className="mt-1.5 flex max-w-full items-center gap-1 overflow-hidden">
+                {[
+                  "What should I know before replying to Marie?",
+                  "Which works by Sacha Elron are available?",
+                  "Who should I follow up with this week?",
+                ].map((suggestion) => (
+                  <span
+                    key={suggestion}
+                    className="shrink-0 whitespace-nowrap rounded-full border border-[#E1E1DD] bg-white px-2 py-1.5 text-[7px] leading-none text-[#64645F] shadow-[0_1px_3px_rgba(17,17,16,0.05)]"
+                  >
+                    {suggestion}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-1.5 flex items-center gap-4 text-[7px] text-[#8D8D88]">
+                <span>♙&nbsp; A person</span>
+                <span>▧&nbsp; A work</span>
+                <span>✎&nbsp; A reply</span>
+                <span>☼&nbsp; My day</span>
+              </div>
+
+              <AnimatePresence>
+                {stage !== "compose" ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4, ease: databaseEase }}
+                    className="mt-2"
+                  >
+                    <div className="ml-auto max-w-[82%] rounded-[9px] bg-[#111110] px-3 py-1.5 text-[8px] leading-[1.35] text-white">
+                      {DATABASE_QUESTION}
+                    </div>
+                    <p className="mt-2 text-[7px] font-medium text-[#111110]">1 matching artwork</p>
+                    <motion.div
+                      animate={
+                        stage === "opening"
+                          ? {
+                              scale: [1, 0.985, 1],
+                              borderColor: ["#E1E1DD", "#111110", "#111110"],
+                            }
+                          : {}
+                      }
+                      transition={{ duration: 0.38, ease: databaseEase }}
+                      className="mt-1 flex items-center gap-2.5 rounded-[9px] border border-[#E1E1DD] bg-white p-1.5 shadow-[0_4px_14px_rgba(17,17,16,0.05)]"
+                    >
+                      <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[5px] bg-[#F2F2EF]">
+                        <img
+                          src="/artworks/painting-05.jpg"
+                          alt=""
+                          aria-hidden="true"
+                          className="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[9px] font-medium text-[#111110]">Evening field</p>
+                        <p className="text-[7px] text-[#8D8D88]">Sacha Elron · 2023</p>
+                        <div className="mt-1 flex items-center gap-2 text-[7px]">
+                          <span className="font-medium text-[#111110]">€10,000</span>
+                          <span className="rounded-full bg-[#EAF5EE] px-1.5 py-0.5 text-[#168044]">
+                            Available
+                          </span>
+                        </div>
+                      </div>
+                      <motion.span
+                        animate={stage === "opening" ? { x: [0, 3, 0] } : {}}
+                        className="text-[14px] text-[#ADADAA]"
+                      >
+                        →
+                      </motion.span>
+                    </motion.div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
 function PrivateSelectionMockup() {
   return (
     <div className="relative h-full w-full overflow-hidden bg-white text-left">
@@ -177,7 +380,7 @@ function PrivateSelectionMockup() {
 
 /** Mockups partagés EN/FR — seuls les libellés changent, via `labels`. */
 const OUTPUT_NODES = [
-  <ArtworkPageMockup key="database" />,
+  <DatabaseAssistantMockup key="database" />,
   <IntegrationsFrame key="gmail" />,
   <WhatsAppShareWorksMock key="whatsapp" />,
   <PrivateSelectionMockup key="selection" />,
@@ -192,7 +395,7 @@ export type OutputsCopy = {
 };
 
 const EN_COPY: OutputsCopy = {
-  labels: ["Database", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
+  labels: ["Inventory", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
   hrefs: [
     "/tools/artwork-inventory",
     "/tools/sales-assistant",
