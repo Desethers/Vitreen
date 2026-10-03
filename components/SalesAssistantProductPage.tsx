@@ -212,7 +212,7 @@ export function InquiryDraftsFrame({ animatePipeline = false }: { animatePipelin
 
 const RECIPIENT_TEXT = "mariebeaumont@gmail.com";
 const SUBJECT_TEXT = "Evening Field — Sacha Elron";
-const BODY_TEXT = "Hi Marie, here's the piece you asked about:";
+const BODY_TEXT = "Hi Marie,\nhere's the piece you asked about:";
 const BODY_TYPE_START = 150;
 const BODY_TYPE_STEP = 36;
 const BODY_TYPE_END = BODY_TYPE_START + BODY_TEXT.length * BODY_TYPE_STEP;
@@ -318,7 +318,7 @@ export function IntegrationsFrame() {
         </div>
 
         <div className="absolute inset-x-6 bottom-[48px] top-[112px] overflow-hidden px-1 py-1">
-          <p className="text-[10px] leading-snug text-[#3C4043]">
+          <p className="whitespace-pre-line text-[11px] leading-snug text-[#3C4043]">
             {BODY_TEXT.slice(0, bodyChars)}
             {!reduceMotion && bodyChars > 0 && bodyChars < BODY_TEXT.length ? (
               <motion.span
@@ -340,9 +340,9 @@ export function IntegrationsFrame() {
                 {/* Caption sits below the image, like a real reply — the block scrolls
                  * itself up a little once the caption doesn't fit the frame's height. */}
                 <motion.div
-                  className="mt-2 w-[54%] max-w-[260px] text-[#202124]"
+                  className="mt-2 w-[64%] max-w-[310px] text-[#202124]"
                   initial={{ y: 0 }}
-                  animate={{ y: [0, 0, -108] }}
+                  animate={{ y: [0, 0, -146] }}
                   transition={{ duration: 1.8, times: [0, 0.4, 1], delay: 2.6, ease }}
                 >
                   <img
@@ -353,16 +353,16 @@ export function IntegrationsFrame() {
                   <div className="pt-2">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="text-[11px] font-medium">Sacha Elron</p>
-                        <p className="text-[10px] italic">Evening field, 2023</p>
+                        <p className="text-[12px] font-medium">Sacha Elron</p>
+                        <p className="text-[11px] italic">Evening field, 2023</p>
                       </div>
-                      <span className="shrink-0 border-[0.5px] border-[#202124] px-3 py-1 text-[9px]">
+                      <span className="shrink-0 border-[0.5px] border-[#202124] px-3 py-1 text-[10px]">
                         Inquire
                       </span>
                     </div>
-                    <p className="mt-1.5 text-[9px] text-[#8B93A1]">Acrylic on canvas</p>
-                    <p className="text-[9px] text-[#8B93A1]">120 × 120 cm</p>
-                    <p className="mt-1 text-[10px] font-medium">10 000 €</p>
+                    <p className="mt-1.5 text-[10px] text-[#8B93A1]">Acrylic on canvas</p>
+                    <p className="text-[10px] text-[#8B93A1]">120 × 120 cm</p>
+                    <p className="mt-1 text-[11px] font-medium">10 000 €</p>
                   </div>
                 </motion.div>
               </motion.div>
