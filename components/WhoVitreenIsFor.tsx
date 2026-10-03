@@ -6,6 +6,9 @@ import { CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 
 type Language = "en" | "fr";
 
+/** One accent per card for the hover link (same order as the audiences). */
+const LINK_COLORS = ["#4B5FC0", "#B5602B", "#2F8063", "#9B4F8B"] as const;
+
 const content = {
   en: {
     eyebrow: "Who it's for",
@@ -98,7 +101,7 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
           </p>
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-12 xl:grid-cols-4 xl:gap-6">
+        <div className="mt-10 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 md:mt-12 xl:grid-cols-4 xl:gap-6">
           {section.audiences.map((audience, index) => (
             <motion.a
               key={audience.title}
@@ -107,7 +110,7 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.18 }}
               transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative flex min-h-[420px] flex-col overflow-hidden rounded-[12px] bg-[#f5f5f3] p-7 sm:min-h-[460px] xl:min-h-[480px]"
+              className="group relative flex flex-col overflow-hidden rounded-[12px] bg-[#f5f5f3] p-7"
             >
               <h3 className="font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110]">
                 {audience.title}
@@ -115,10 +118,17 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
               <p className="mt-3 max-w-[220px] text-[14px] leading-[1.48] tracking-[-0.025em] text-[#6B6A67]">
                 {audience.description}
               </p>
-              <p className="relative z-10 mt-3 text-[13px] tracking-[-0.01em] text-[#ADADAA] transition-colors duration-200 group-hover:text-[#111110]">
-                {section.exploreLabel} {audience.title} ↗
-              </p>
-              <div className="relative -mb-2 -mr-7 mt-auto aspect-[0.9] overflow-hidden rounded-l-[12px]">
+              <div className="relative z-10 grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-focus-visible:grid-rows-[1fr] group-focus-visible:opacity-100 [@media(hover:none)]:grid-rows-[1fr] [@media(hover:none)]:opacity-100">
+                <div className="overflow-hidden">
+                  <p
+                    className="pt-3 text-[13px] tracking-[-0.01em]"
+                    style={{ color: LINK_COLORS[index] }}
+                  >
+                    {section.exploreLabel} {audience.title} ↗
+                  </p>
+                </div>
+              </div>
+              <div className="relative -mb-2 -mr-7 mt-9 aspect-[0.9] overflow-hidden rounded-l-[12px]">
                 <Image
                   src={audience.image}
                   alt=""
