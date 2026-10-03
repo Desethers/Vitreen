@@ -17,7 +17,8 @@ export default function LandingHeroFr() {
               Pour vendre ce qui ne se vend pas
             </span>{" "}
             <span className="hero-reveal hero-d-2 inline-block md:block">
-              comme <HeroObjects /> le reste.
+              comme
+              <HeroObjects /> le reste.
             </span>
           </h1>
 
@@ -29,11 +30,11 @@ export default function LandingHeroFr() {
           </p>
 
           <div className="hero-soft hero-d-4 mx-auto mt-[18px] flex max-w-[300px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[22px]">
-            <Button size="md" onClick={openContact} className="w-full sm:w-auto">
+            <Button size="lg" onClick={openContact} className="w-full sm:w-auto">
               Réserver une démo
             </Button>
             <Button
-              size="md"
+              size="lg"
               href="#how-it-works"
               variant="inverse"
               className="w-full border border-[#E8E8E6] sm:w-auto"
