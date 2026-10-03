@@ -103,8 +103,9 @@ export default function LandingNav() {
         <div className="relative mx-auto flex h-9 w-full max-w-7xl items-center justify-between">
           <a
             href="/"
-            className="font-display text-[15px] tracking-tight text-[#111110] md:text-base"
+            className="flex items-center gap-2 font-display text-base tracking-tight text-[#111110] md:text-lg"
           >
+            <img src="/favicon.png" alt="" className="h-5 w-5 rounded-[5px]" />
             Vitreen
           </a>
 
