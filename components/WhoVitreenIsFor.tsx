@@ -96,7 +96,7 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
         >
           <p className={EYEBROW}>{section.eyebrow}</p>
           <h2 className={`${H2} mt-4 max-w-2xl`}>{section.title}</h2>
-          <p className="mt-1 text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]">
+          <p className="mt-1 text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[28px]">
             {section.subtitle}
           </p>
         </motion.div>

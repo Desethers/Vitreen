@@ -12,11 +12,11 @@ export const EYEBROW = "text-[11px] tracking-[0.14em] text-[#ADADAA]";
 
 /** Same scale as every section H2 on main (ProcessFlow, Services, ...). */
 export const H2 =
-  "font-display text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]";
+  "font-display text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[28px]";
 
 /** Section subtitle, directly under H2 — same scale as ProcessFlow's. */
 export const H2_SUB =
-  "mt-1 text-[20px] font-normal leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[26px]";
+  "mt-1 text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[28px]";
 
 export const H3 =
   "font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110]";

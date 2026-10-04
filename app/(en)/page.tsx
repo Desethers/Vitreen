@@ -3,6 +3,7 @@ import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
 import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingOutputs from "@/components/landing/LandingOutputs";
+import LandingRelationships from "@/components/landing/LandingRelationships";
 import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 import LandingOffers from "@/components/landing/LandingOffers";
 import StatementSplit from "@/components/StatementSplit";
@@ -31,6 +32,7 @@ export default function Home() {
       <LandingHero />
       <LandingOutputs />
       <LandingRecognition />
+      <LandingRelationships />
       <WhoVitreenIsFor />
       <LandingOffers />
       <LandingFaq />

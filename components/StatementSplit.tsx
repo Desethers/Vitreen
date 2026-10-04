@@ -90,7 +90,7 @@ export default function StatementSplit() {
       <div>
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeUp(0)} className="mb-8 md:mb-10">
-            <h2 className="font-display font-normal text-[#111110] text-[22px] leading-[1.25] tracking-[-0.02em] text-center sm:text-[26px] md:text-[32px] lg:text-[38px] md:leading-[1.3]">
+            <h2 className="font-display font-medium text-[#111110] text-[22px] leading-[1.25] tracking-[-0.02em] text-center md:text-[28px] md:leading-[1.3]">
               {t.statementSplit.statTitle}
             </h2>
           </motion.div>
@@ -117,7 +117,7 @@ export default function StatementSplit() {
           </motion.div>
 
           <motion.div {...fadeUp(0.09)} className="mt-24 md:mt-36">
-            <h2 className="font-display text-[20px] md:text-[26px] font-normal text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-5 md:mb-10">
+            <h2 className="font-display text-[22px] md:text-[28px] font-medium text-[#111110] leading-[1.3] tracking-[-0.02em] max-w-3xl mb-5 md:mb-10">
               {t.statementSplit.amplifyTitle}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">

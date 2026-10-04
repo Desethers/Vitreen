@@ -43,7 +43,7 @@ const PAUSE_MS = 700;
 
 /** Fixed design size of the scene; it scales down as a whole in narrow columns. */
 const STAGE_W = 760;
-const STAGE_H = 760;
+const STAGE_H = 700;
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -289,7 +289,7 @@ export default function PhoneNotifications({
           transformOrigin: "top center",
         }}
       >
-        <div className="absolute left-1/2 top-[30px] h-[700px] w-[340px] -translate-x-1/2 rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-white shadow-[0_18px_44px_rgba(0,0,0,0.07)]">
+        <div className="absolute left-1/2 top-[30px] h-[640px] w-[340px] -translate-x-1/2 rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-white shadow-[0_18px_44px_rgba(0,0,0,0.07)]">
           <div className="absolute left-1/2 top-4 h-[34px] w-[116px] -translate-x-1/2 rounded-full bg-[#F5F5F3]" />
           {/* The sheet slides in from the right edge of the screen, like a panel. */}
           <div className="absolute inset-0 overflow-hidden rounded-[56px]">

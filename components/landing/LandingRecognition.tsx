@@ -67,14 +67,10 @@ const ARTWORKS: readonly [PhoneArtwork, PhoneArtwork] = [
 export default function LandingRecognition() {
   return (
     <section className={`${SECTION} bg-white`}>
-      <div
-        className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-center md:gap-16`}
-      >
+      <div className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-start md:gap-16`}>
         <div className="max-w-xl">
           <h2 className={H2}>Every sale starts with a conversation.</h2>
-          <p className={H2_SUB}>
-            Vitreen brings the artwork information into the conversation, ready to review and send.
-          </p>
+          <p className={H2_SUB}>The right information, ready to review and send.</p>
 
           <p className="mt-6 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
             A collector asks for more works.
