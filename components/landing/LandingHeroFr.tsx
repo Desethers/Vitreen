@@ -13,10 +13,14 @@ export default function LandingHeroFr() {
             className="m-0 mx-auto max-w-7xl text-balance text-[clamp(30px,9vw,44px)] leading-[1.2] tracking-[-0.04em] font-display md:text-[68px]"
             style={{ color: "#111110" }}
           >
-            <span className="hero-reveal hero-d-1 md:block">Pour vendre ce qui ne se vend pas</span>{" "}
+            <span className="hero-reveal hero-d-1 md:block">
+              Pour vendre
+              <HeroObjects object="poster" order={0} /> ce qui ne se vend pas
+            </span>{" "}
             <span className="hero-reveal hero-d-2 md:block">
               comme
-              <HeroObjects /> le reste.
+              <HeroObjects object="chair" order={1} /> le reste
+              <HeroObjects object="dog" order={2} spaceAfter={false} />.
             </span>
           </h1>
 
