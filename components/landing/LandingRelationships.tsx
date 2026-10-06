@@ -1,9 +1,16 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import { BODY, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
-
-type Person = { initials: string; color: string; name: string };
+import {
+  ProductArtworkConversations,
+  ProductCollectorTimeline,
+  ProductMorningHome,
+  ZoomScreen,
+  type ArtworkConversationsCopy,
+  type CollectorTimelineCopy,
+  type MorningHomeCopy,
+} from "@/components/landing/product/ProductScreens";
 
 export type RelationshipsCopy = {
   eyebrow: string;
@@ -11,91 +18,93 @@ export type RelationshipsCopy = {
   subtitle: string;
   /** Short explanation shown in the right column, level with the title lines. */
   intro: string;
-  link: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    mock: {
-      image: string;
-      work: string;
-      meta: string;
-      usedIn: string;
-      usedInSub: string;
-      rows: readonly (Person & { detail: string; tag: string })[];
-    };
-  };
-  memory: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    mock: {
-      person: Person;
-      email: string;
-      channel: string;
-      date: string;
-      excerpt: string;
-      works: readonly { image: string; title: string }[];
-      followLabel: string;
-      follow: string;
-    };
-  };
-  assistant: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    mock: {
-      greeting: string;
-      briefLabel: string;
-      briefChannel: string;
-      brief: string;
-      person: Person;
-      listTitle: string;
-      rows: readonly (Person & { reason: string; since: string })[];
-      question: string;
-      answer: string;
-    };
-  };
+  link: { eyebrow: string; title: string; body: string; mock: ArtworkConversationsCopy };
+  memory: { eyebrow: string; title: string; body: string; mock: CollectorTimelineCopy };
+  assistant: { eyebrow: string; title: string; body: string; mock: MorningHomeCopy };
 };
 
 const EN_COPY: RelationshipsCopy = {
   eyebrow: "Relationship intelligence",
-  title: "The CRM where your sales conversations are remembered.",
-  subtitle: "Gmail, WhatsApp and your inventory feed it. Nothing to type in.",
+  title: "Remember what matters in every collector relationship.",
+  subtitle: "Remember what was discussed, what you shared, and what comes next.",
   intro:
-    "The requests you receive and the works you send, in Gmail and WhatsApp, are kept together on each collector’s record. The assistant reads that memory to prepare your day. You review, you send.",
+    "Vitreen keeps a memory of every {gmail}Gmail and {whatsapp}WhatsApp conversation, linked to the artworks discussed.\nSo you always know what was said, sent and what to follow up on.",
   link: {
     eyebrow: "Link",
     title: "Conversations and inventory, in one record.",
     body: "Every request and every work you send through Vitreen is attached to the collector and to the work: who asked, who received it, and whether they opened it.",
     mock: {
-      image: "/artworks/van-gogh-self-portrait.jpg",
-      work: "Self-Portrait",
-      meta: "Vincent van Gogh · 1887",
-      usedIn: "Used in",
-      usedInSub: "Where this work lives right now",
-      rows: [
-        {
-          initials: "MB",
-          color: "#6B7FD7",
-          name: "Marie Beaumont",
-          detail: "Sent by email · 14 March",
-          tag: "Opened",
-        },
-        {
-          initials: "AR",
-          color: "#4E9C82",
-          name: "Anna Roche",
-          detail: "Spring selection (PDF) · 2 March",
-          tag: "PDF viewed",
-        },
-        {
-          initials: "TB",
-          color: "#C97B4A",
-          name: "Thomas Baur",
-          detail: "Price requested · 18 February",
-          tag: "Inquiry",
-        },
-      ],
+      works: {
+        title: "Works discussed",
+        inventory: "Inventory",
+        items: [
+          {
+            image: "/artworks/painting-05.jpg",
+            artist: "Sacha Elron",
+            title: "Evening field",
+            meta: "Available · €10,000",
+          },
+          {
+            image: "/artworks/painting-03.jpg",
+            artist: "Sacha Elron",
+            title: "Crimson Field",
+            meta: "Sold · €9,500",
+          },
+          {
+            image: "/artworks/painting-04.jpg",
+            artist: "Sacha Elron",
+            title: "Sage Interval",
+            meta: "Available · €6,500",
+          },
+          {
+            image: "/artworks/painting-10.jpg",
+            artist: "Sacha Elron",
+            title: "Amber Nocturne",
+            meta: "Sold · €14,000",
+          },
+        ],
+      },
+      usage: {
+        title: "Usage & activity",
+        tabs: [
+          { label: "Private selections", count: 1 },
+          { label: "Exhibitions", count: 0 },
+          { label: "Sharing history", count: 3 },
+        ],
+        summary: "2 viewed · 1 not opened",
+        sends: [
+          {
+            name: "Anna Roche",
+            pill: "Opened",
+            tone: "blue",
+            meta: "Email card · Opened 30 Sept 2026",
+          },
+          {
+            name: "Marie Beaumont",
+            pill: "PDF viewed",
+            tone: "emerald",
+            meta: "PDF · PDF viewed 10 Sept 2026",
+          },
+          {
+            name: "Thomas Baur",
+            pill: "Prepared",
+            tone: "zinc",
+            meta: "WhatsApp · Prepared 15 Sept 2026",
+          },
+        ],
+      },
+      conversations: {
+        title: "Conversations",
+        rows: [
+          { name: "Anna Roche", channel: "Gmail", state: "Opened the page", when: "6 days ago" },
+          {
+            name: "Marie Beaumont",
+            channel: "WhatsApp",
+            state: "Wrote about this work",
+            when: "27 days ago",
+          },
+        ],
+      },
     },
   },
   memory: {
@@ -103,17 +112,40 @@ const EN_COPY: RelationshipsCopy = {
     title: "Every exchange with a collector, remembered.",
     body: "Their requests and the works you send them, from Gmail and WhatsApp, are kept on the collector’s record, with the works shown next to each message.",
     mock: {
-      person: { initials: "MB", color: "#6B7FD7", name: "Marie Beaumont" },
-      email: "mariebeaumont@gmail.com",
-      channel: "Gmail",
-      date: "14 March",
-      excerpt: "Is the Van Gogh Self-Portrait still available?",
-      works: [
-        { image: "/artworks/van-gogh-self-portrait.jpg", title: "Self-Portrait" },
-        { image: "/artworks/van-gogh-sunflowers.jpg", title: "Sunflowers" },
+      person: {
+        id: "beaumont-marie",
+        name: "Marie Beaumont",
+        groups: "established collection · Paris · high priority",
+        email: "beaumont.marie@gmail.com",
+        phone: "+33 6 12 34 56 78",
+      },
+      channels: { whatsapp: "WhatsApp", gmail: "Gmail" },
+      timeline: "Timeline",
+      count: "16 moments",
+      filters: [
+        { label: "All", count: 16 },
+        { label: "WhatsApp", count: 4 },
+        { label: "Gmail", count: 2 },
+        { label: "Meetings", count: 3 },
+        { label: "Notes", count: 5 },
+        { label: "Selections", count: 2 },
       ],
-      followLabel: "To follow up",
-      follow: "Send the details of Sunflowers",
+
+      today: "Today",
+      todayDate: "6 October 2026",
+      period: "September",
+      toPickUp: "To pick up",
+
+      exchange: {
+        label: "Exchange spotted",
+        date: "9 Sept",
+        text: "Wrote to you about “Evening field”",
+        quote:
+          "Good evening, is Evening field still available? And could you remind me of its dimensions?",
+        work: { image: "/artworks/painting-05.jpg", artist: "Sacha Elron", title: "Evening field" },
+        channel: "WhatsApp",
+        action: "Open in WhatsApp",
+      },
     },
   },
   assistant: {
@@ -121,212 +153,123 @@ const EN_COPY: RelationshipsCopy = {
     title: "Your morning sales brief.",
     body: "The assistant reads that memory to tell you who is waiting for a reply and who to get back to. Ask it about your inventory or your collectors: it answers from your records only.",
     mock: {
-      greeting: "Good morning.",
-      briefLabel: "To pick up",
-      briefChannel: "Gmail",
-      brief: "Marie Beaumont is waiting for a reply about “Self-Portrait”.",
-      person: { initials: "MB", color: "#6B7FD7", name: "Marie Beaumont" },
-      listTitle: "To follow up today",
-      rows: [
+      greeting: "Good morning",
+      placeholder: "Ask Vitreen…",
+      hint: "The assistant reads your records — it can’t send anything.",
+      frames: ["A person", "A work", "A reply", "My day"],
+      enter: "Enter to send",
+      question: "Who is waiting for a reply this morning?",
+      answerIntro: "One collector is waiting for a reply:",
+      answerItems: [
         {
-          initials: "MB",
-          color: "#6B7FD7",
-          name: "Marie Beaumont",
-          reason: "Reply to the request",
-          since: "14 March",
-        },
-        {
-          initials: "TB",
-          color: "#C97B4A",
-          name: "Thomas Baur",
-          reason: "Message to review",
-          since: "Yesterday",
-        },
-        {
-          initials: "AR",
-          color: "#4E9C82",
-          name: "Anna Roche",
-          reason: "Get back in touch",
-          since: "2 March",
+          title: "Marie Beaumont",
+          rest: " wrote on WhatsApp on 9 September: is “Evening field” still available, and what are its dimensions?",
         },
       ],
-      question: "Who asked about Van Gogh?",
-      answer: "Marie Beaumont and Thomas Baur.",
+      tools: "From your records · searchConversations",
+      clear: "Clear",
+      now: "Now",
+      waiting: {
+        id: "marie-beaumont",
+        name: "Marie Beaumont",
+        title: "Marie Beaumont wrote to you about “Self-Portrait”",
+        detail: "Is the Van Gogh Self-Portrait still available?",
+        channel: "Gmail",
+        date: "14 March",
+        work: {
+          image: "/artworks/van-gogh-self-portrait.jpg",
+          artist: "Vincent van Gogh",
+          title: "Self-Portrait",
+          status: "Available",
+        },
+      },
     },
   },
 };
 
-function MockFrame({ children }: { children: ReactNode }) {
-  return (
-    <div className="relative flex h-[440px] w-full items-center justify-center overflow-hidden rounded-[12px] bg-[#F5F5F3] px-4 md:px-8">
-      {children}
-    </div>
-  );
-}
+const LOGOS = {
+  "{gmail}": "/logos/icon-gmail-96.png",
+  "{whatsapp}": "/logos/whatsapp.svg",
+} as const;
 
-function Avatar({ person, size = 28 }: { person: Person; size?: number }) {
+/** A round logo badge set inline in the copy, right before the app's name. */
+function LogoBadge({ src }: { src: string }) {
   return (
     <span
-      className="flex shrink-0 items-center justify-center rounded-full text-[10.5px] font-medium text-white"
-      style={{ backgroundColor: person.color, width: size, height: size }}
+      className="mr-1.5 inline-flex h-6 w-6 items-center justify-center rounded-full border-[0.5px] border-[#E8E8E6] bg-white align-middle"
+      aria-hidden="true"
     >
-      {person.initials}
+      <img src={src} alt="" className="h-[18px] w-[18px] object-contain" />
     </span>
   );
 }
 
-function Pill({ children }: { children: ReactNode }) {
+/**
+ * Renders the copy, swapping `{gmail}` / `{whatsapp}` for their logo badge. The
+ * badge is kept on the same line as the name that follows it.
+ */
+function WithLogos({ text }: { text: string }) {
+  const parts = text.split(/(\{gmail\}|\{whatsapp\})/);
+  const nodes: ReactNode[] = [];
+
+  for (let index = 0; index < parts.length; index += 1) {
+    const part = parts[index];
+    const src = LOGOS[part as keyof typeof LOGOS];
+    if (!src) {
+      nodes.push(<Fragment key={index}>{part}</Fragment>);
+      continue;
+    }
+
+    const next = parts[index + 1] ?? "";
+    const word = next.match(/^[^\s,.]+/)?.[0] ?? "";
+    nodes.push(
+      <span key={index} className="whitespace-nowrap">
+        <LogoBadge src={src} />
+        {word}
+      </span>
+    );
+    parts[index + 1] = next.slice(word.length);
+  }
+
+  return <>{nodes}</>;
+}
+
+/** A white card with a fine stroke; the bento instead lays its three cards on grey. */
+function MockFrame({ children, grey = false }: { children: ReactNode; grey?: boolean }) {
   return (
-    <span className="shrink-0 rounded-full border border-[#E1E1DE] px-2.5 py-0.5 text-[11px] text-[#6B6A67]">
+    <div
+      className={`relative w-full overflow-hidden rounded-[12px] ${
+        grey ? "bg-[#F5F5F3]" : "border-[0.5px] border-[#DCDCD8] bg-white"
+      }`}
+    >
       {children}
-    </span>
-  );
-}
-
-function GmailPill({ label }: { label: string }) {
-  return (
-    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#EEF3FF] px-2 py-0.5 text-[11px] font-medium text-[#3558C8]">
-      <img src="/logos/icon-gmail-96.png" alt="" className="h-3 w-3 object-contain" />
-      {label}
-    </span>
-  );
-}
-
-function LinkMock({ mock }: { mock: RelationshipsCopy["link"]["mock"] }) {
-  return (
-    <div className="w-full max-w-[460px] rounded-[12px] border border-[#E8E8E6] bg-white">
-      <div className="flex items-center gap-3 border-b border-[#E8E8E6] px-4 py-3.5">
-        <img
-          src={mock.image}
-          alt=""
-          className="h-12 w-10 shrink-0 rounded-[4px] bg-[#F5F5F3] object-cover"
-        />
-        <div className="min-w-0">
-          <p className="truncate text-[14px] font-medium italic text-[#111110]">{mock.work}</p>
-          <p className="truncate text-[12px] text-[#6B6A67]">{mock.meta}</p>
-        </div>
-      </div>
-      <div className="px-4 pb-1 pt-3">
-        <p className="text-[12px] font-medium text-[#111110]">{mock.usedIn}</p>
-        <p className="text-[11px] text-[#ADADAA]">{mock.usedInSub}</p>
-        <ul className="mt-1">
-          {mock.rows.map((row) => (
-            <li
-              key={row.name}
-              className="flex items-center gap-3 border-b border-[#E8E8E6] py-2.5 last:border-b-0"
-            >
-              <Avatar person={row} />
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[13px] font-medium text-[#111110]">{row.name}</p>
-                <p className="truncate text-[12px] text-[#6B6A67]">{row.detail}</p>
-              </div>
-              <Pill>{row.tag}</Pill>
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 }
 
-function MemoryMock({ mock }: { mock: RelationshipsCopy["memory"]["mock"] }) {
-  return (
-    <div className="w-full max-w-[460px] space-y-2.5">
-      <div className="rounded-[12px] border border-[#E8E8E6] bg-white p-4">
-        <div className="flex items-center gap-3">
-          <Avatar person={mock.person} size={34} />
-          <div className="min-w-0">
-            <p className="truncate text-[14px] font-medium text-[#111110]">{mock.person.name}</p>
-            <p className="truncate text-[11.5px] text-[#ADADAA]">{mock.email}</p>
-          </div>
-        </div>
-
-        <div className="mt-3.5 rounded-[10px] bg-[#F5F5F3] p-3.5">
-          <div className="flex items-center justify-between gap-2">
-            <GmailPill label={mock.channel} />
-            <span className="text-[11px] text-[#ADADAA]">{mock.date}</span>
-          </div>
-          <p className="mt-2.5 text-[13px] leading-[1.45] text-[#111110]">{mock.excerpt}</p>
-          <div className="mt-3 flex gap-2.5">
-            {mock.works.map((work) => (
-              <div
-                key={work.title}
-                className="flex min-w-0 items-center gap-2 rounded-[8px] bg-white p-1.5 pr-3"
-              >
-                <img
-                  src={work.image}
-                  alt=""
-                  className="h-10 w-8 shrink-0 rounded-[3px] bg-[#F5F5F3] object-cover"
-                />
-                <p className="truncate text-[12px] font-medium italic text-[#111110]">
-                  {work.title}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="rounded-[12px] bg-[#111110] px-4 py-3.5">
-        <p className="text-[11px] font-medium text-white/55">{mock.followLabel}</p>
-        <p className="mt-1 text-[13px] text-white">{mock.follow}</p>
-      </div>
-    </div>
-  );
-}
-
-function AssistantMock({ mock }: { mock: RelationshipsCopy["assistant"]["mock"] }) {
-  return (
-    <div className="w-full max-w-[460px] rounded-[12px] border border-[#E8E8E6] bg-white p-4">
-      <p className="text-[20px] font-medium tracking-[-0.03em] text-[#111110]">{mock.greeting}</p>
-
-      <div className="mt-3 flex items-start gap-3 rounded-[10px] bg-[#F5F5F3] p-3">
-        <Avatar person={mock.person} size={30} />
-        <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-medium text-[#6B6A67]">{mock.briefLabel}</span>
-            <GmailPill label={mock.briefChannel} />
-          </div>
-          <p className="mt-1 text-[13px] font-medium leading-[1.4] text-[#111110]">{mock.brief}</p>
-        </div>
-      </div>
-
-      <p className="mb-0.5 mt-4 text-[12px] font-medium text-[#111110]">{mock.listTitle}</p>
-      <ul>
-        {mock.rows.map((row) => (
-          <li
-            key={row.name}
-            className="flex items-center gap-3 border-b border-[#E8E8E6] py-2 last:border-b-0"
-          >
-            <Avatar person={row} size={24} />
-            <p className="min-w-0 flex-1 truncate text-[12.5px] text-[#111110]">
-              <span className="font-medium">{row.name}</span>
-              <span className="text-[#6B6A67]"> · {row.reason}</span>
-            </p>
-            <span className="shrink-0 text-[11px] text-[#ADADAA]">{row.since}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-3.5 rounded-[10px] border border-[#E8E8E6] px-3 py-2.5">
-        <p className="text-[12.5px] text-[#111110]">{mock.question}</p>
-        <p className="mt-1 text-[12.5px] text-[#6B6A67]">{mock.answer}</p>
-      </div>
-    </div>
-  );
-}
+/** Where each real screen is cut for its square frame, in the screen's own pixels. */
+const VIEWS = {
+  // The work, the message about it and the list of who it was discussed with.
+  link: { x: -8, y: -8, width: 616 },
+  // The whole record, from the person to the second moment, with room on every side.
+  memory: { x: -24, y: -24, width: 568 },
+  // Greeting, question box and answer fill the frame; no "Now" card.
+  assistant: { x: 0, y: 0, width: 600 },
+} as const;
 
 function Beat({
   eyebrow,
   title,
   body,
   reverse = false,
+  greyFrame = false,
   children,
 }: {
   eyebrow: string;
   title: string;
   body: string;
   reverse?: boolean;
+  greyFrame?: boolean;
   children: ReactNode;
 }) {
   return (
@@ -339,7 +282,7 @@ function Beat({
         <p className={`${BODY} mt-4`}>{body}</p>
       </div>
       <div className={reverse ? "md:order-1" : ""}>
-        <MockFrame>{children}</MockFrame>
+        <MockFrame grey={greyFrame}>{children}</MockFrame>
       </div>
     </div>
   );
@@ -347,26 +290,34 @@ function Beat({
 
 export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
   return (
-    <section className={`${SECTION} border-t border-[#E8E8E6] bg-white md:py-24`}>
+    <section className={`${SECTION} bg-white md:py-24`}>
       <div className={CONTAINER}>
         <div className="grid gap-6 md:grid-cols-2 md:items-start md:gap-16">
-          <div className="max-w-2xl">
+          <div className="max-w-[540px]">
             <p className={EYEBROW}>{copy.eyebrow}</p>
             <h2 className={`${H2} mt-4`}>{copy.title}</h2>
             <p className={H2_SUB}>{copy.subtitle}</p>
           </div>
-          <p className={`${BODY} max-w-lg md:pt-9`}>{copy.intro}</p>
+          <p className={`${BODY} max-w-lg whitespace-pre-line md:justify-self-end md:pt-9`}>
+            <WithLogos text={copy.intro} />
+          </p>
         </div>
 
         <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
-          <Beat {...copy.link}>
-            <LinkMock mock={copy.link.mock} />
-          </Beat>
-          <Beat {...copy.memory} reverse>
-            <MemoryMock mock={copy.memory.mock} />
-          </Beat>
           <Beat {...copy.assistant}>
-            <AssistantMock mock={copy.assistant.mock} />
+            <ZoomScreen width={600} view={VIEWS.assistant}>
+              <ProductMorningHome copy={copy.assistant.mock} chatOnly animated />
+            </ZoomScreen>
+          </Beat>
+          <Beat {...copy.link} reverse greyFrame>
+            <ZoomScreen width={600} view={VIEWS.link}>
+              <ProductArtworkConversations copy={copy.link.mock} />
+            </ZoomScreen>
+          </Beat>
+          <Beat {...copy.memory}>
+            <ZoomScreen width={520} view={VIEWS.memory}>
+              <ProductCollectorTimeline copy={copy.memory.mock} />
+            </ZoomScreen>
           </Beat>
         </div>
       </div>
