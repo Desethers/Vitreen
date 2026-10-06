@@ -13,15 +13,15 @@ import LandingCta from "@/components/landing/LandingCta";
 import { alternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: { absolute: "Vitreen — Sales tools for art galleries" },
+  title: { absolute: "Vitreen — Sales and inventory software for art galleries" },
   description:
-    "Vitreen connects your artwork data to Gmail and WhatsApp, so your team can find works, prepare presentations and respond to collectors without leaving the conversation.",
+    "Sales and inventory tools for art galleries and dealers in design and collectible objects.",
   alternates: alternates("en", "/"),
   openGraph: {
     url: "/",
-    title: "Vitreen — Sales tools for art galleries",
+    title: "Vitreen — Sales and inventory software for art galleries",
     description:
-      "Vitreen connects your artwork data to Gmail and WhatsApp, so your team can find works, prepare presentations and respond to collectors without leaving the conversation.",
+      "Sales and inventory tools for art galleries and dealers in design and collectible objects.",
   },
 };
 

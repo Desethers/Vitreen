@@ -8,15 +8,16 @@ export const SITE_NAME = "Vitreen";
  * unprefixed preserves whatever equity the live pages already have. */
 export const SITE: Record<Lang, { title: string; description: string; ogLocale: string }> = {
   en: {
-    title: "Vitreen — Sales tools for art galleries",
+    title: "Vitreen — Sales and inventory software for art galleries",
     description:
-      "Vitreen organises artworks, publishes your gallery website and prepares private collector presentations from the same artwork records.",
+      "Sales and inventory tools for art galleries and dealers in design and collectible objects.",
     ogLocale: "en_GB",
   },
   fr: {
-    title: "Vitreen — Outils de vente pour galeries d’art",
+    title:
+      "Vitreen — Outils de vente et inventaire pour l’art, le design et les objets de collection",
     description:
-      "Vitreen organise vos œuvres, publie le site de votre galerie et prépare vos présentations privées à partir des mêmes fiches d’œuvres.",
+      "Vitreen propose des outils de vente et de gestion d’inventaire pour les galeries d’art, marchands de design et professionnels des objets de collection. Retrouvez œuvres, prix, disponibilités et relations clients depuis Gmail, WhatsApp et Gallery OS.",
     ogLocale: "fr_FR",
   },
 };
