@@ -228,16 +228,11 @@ Personne ne connaît Vitreen. Ordre voulu :
 
 1. **Reconnaissance** — le moment vécu : un collectionneur demande, le
    matériel est ailleurs, personne ne se souvient de ce qui a été envoyé.
-2. **La boucle montrée** — le cas Marie, étape par étape, avec de vrais
-   visuels produit.
-3. **L'assistant démontré** — un brouillon groundé avec l'étape « Relire et
+2. **L'assistant démontré** — un brouillon groundé avec l'étape « Relire et
    envoyer » visible. Sobre : pas d'ombre, pas de couleur.
-4. **L'installation** — comment ça se passe, une semaine environ.
-5. **L'offre** — cartes galerie fondatrice / prix public, jamais de tableau comparatif.
-6. **Un seul CTA** — prendre rendez-vous.
-
-Interdit : toute section qui résume le produit en 3-4 « piliers » avec icône,
-les sections de statistiques de marché, les claims « vendez plus ».
+3. **L'installation** — comment ça se passe, une semaine environ.
+4. **L'offre** — cartes galerie fondatrice / prix public, jamais de tableau comparatif.
+5. **Un seul CTA** — prendre rendez-vous.
 
 **État réel de `app/(en)/page.tsx` au 2026-09-28** — ne suit pas encore la
 doctrine :
@@ -247,14 +242,10 @@ LandingNav → LandingHero → LandingOutputs → LandingRecognition →
 WhoVitreenIsFor → LandingOffers → LandingFaq → StatementSplit → LandingCta
 ```
 
-- `StatementSplit` = le bloc de stats de marché (« Online art is redefining
-  the economics… », « Vitreen deploys native distribution… ») : discours
-  Gallery OS, interdit par la doctrine. À retirer.
 - `LandingFaq` : la question « What is the difference between Send and
   Agent? » renvoie à d'anciens noms d'offre.
 - Le hero (« Better tools for every way you sell art. ») et le titre de page
   (« Sales tools for art galleries ») sont antérieurs au recentrage.
-- La boucle (étape 2 du récit) n'a pas encore de section dédiée.
 
 **Règles de composition**
 

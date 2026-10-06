@@ -994,6 +994,15 @@ Expanded definition
 Vitreen brings artwork information into the conversations where galleries sell, remembers what happens with each collector, and carries that context into the next interaction.
 Internal definition
 Vitreen is the relationship layer between gallery information and collector conversations.
+Homepage hero (chosen 2026-09-29)
+Title: Relationship intelligence for selling art & design.
+Subtitle: Vitreen connects your inventory to Gmail and WhatsApp, and keeps each collector's history in one place.
+The subtitle is true for what Vitreen captures. It does not say "everything", and it promises no feature that does not exist (section 42).
+
+French hero
+Title: L'intelligence relationnelle pour vendre l'art et le design.
+Subtitle: Vitreen connecte votre inventaire à Gmail et WhatsApp, et garde l'historique de chaque collectionneur au même endroit.
+"Couche" (layer) stays internal in French too.
 
 ## 37. THE DEMO
 
