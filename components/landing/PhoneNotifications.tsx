@@ -45,13 +45,6 @@ const PAUSE_MS = 700;
 const STAGE_W = 760;
 const STAGE_H = 700;
 
-/* Layered shadows: a tight contact shadow, a soft ambient one, and one long,
- * pulled-in cast shadow (negative spread) so nothing spills sideways. */
-const PHONE_SHADOW =
-  "0 1px 2px rgba(17,17,16,0.04), 0 4px 10px rgba(17,17,16,0.04), 0 14px 28px rgba(17,17,16,0.05), 0 28px 44px -14px rgba(17,17,16,0.13)";
-const FLOAT_SHADOW =
-  "0 1px 2px rgba(17,17,16,0.05), 0 4px 10px -2px rgba(17,17,16,0.06), 0 14px 28px -8px rgba(17,17,16,0.1)";
-
 const ease = [0.16, 1, 0.3, 1] as const;
 
 /** Straight stack, no left/right fan — depth comes from y + scale + a light rotateX tilt. */
@@ -77,7 +70,6 @@ function GmailCard({
       style={{
         transform: `translateY(${target.y}px) scale(${target.scale}) rotateX(${target.rotateX}deg)`,
         transformOrigin: "center top",
-        boxShadow: FLOAT_SHADOW,
         zIndex: target.zIndex,
         opacity: target.opacity,
         transition: "transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.7s ease-out",
@@ -147,7 +139,6 @@ function Bubble({
   return (
     <div
       style={{
-        boxShadow: FLOAT_SHADOW,
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0) scale(1)" : "translateY(14px) scale(0.96)",
         transition: "opacity 0.5s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
@@ -298,10 +289,7 @@ export default function PhoneNotifications({
           transformOrigin: "top center",
         }}
       >
-        <div
-          className="absolute left-1/2 top-0 h-[640px] w-[340px] -translate-x-1/2 rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-[#F5F5F3]"
-          style={{ boxShadow: PHONE_SHADOW }}
-        >
+        <div className="absolute left-1/2 top-0 h-[640px] w-[340px] -translate-x-1/2 rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-[#F5F5F3]">
           <div className="absolute left-1/2 top-4 h-[34px] w-[116px] -translate-x-1/2 rounded-full border-[0.5px] border-[#E8E8E6] bg-[#E8E8E6]" />
           {/* The sheet slides in from the right edge of the screen, like a panel. */}
           <div className="absolute inset-0 overflow-hidden rounded-[56px]">

@@ -71,7 +71,7 @@ export default function LandingCta() {
                   Vitreen
                 </a>
                 <p className="mt-5 max-w-[23rem] text-[14px] leading-[1.65] text-[#ADADAA]">
-                  Sales tools for art galleries.
+                  Relationship intelligence for selling art & design.
                 </p>
               </div>
 
