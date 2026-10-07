@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { BODY, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 import {
   ProductArtworkConversations,
@@ -257,68 +257,138 @@ const VIEWS = {
   assistant: { x: 0, y: 0, width: 600 },
 } as const;
 
-function Beat({
-  eyebrow,
-  title,
-  body,
-  reverse = false,
-  greyFrame = false,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  body: string;
-  reverse?: boolean;
-  greyFrame?: boolean;
-  children: ReactNode;
-}) {
+type BeatKey = "assistant" | "link" | "memory";
+const BEATS: readonly BeatKey[] = ["assistant", "link", "memory"];
+
+/** The beat whose screen crosses the middle of the viewport. */
+function useActiveBeat(frames: RefObject<(HTMLDivElement | null)[]>) {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const nodes = frames.current?.filter((node): node is HTMLDivElement => !!node) ?? [];
+    if (!nodes.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const index = nodes.indexOf(entry.target as HTMLDivElement);
+          if (index >= 0) setActive(index);
+        }
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [frames]);
+
+  return active;
+}
+
+/** Eyebrow, title and body of a beat, as shown above its screen on phones. */
+function BeatCaption({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) {
   return (
-    <div className="grid gap-8 md:grid-cols-2 md:items-center md:gap-16">
-      <div className={`max-w-lg ${reverse ? "md:order-2" : ""}`}>
-        <p className={EYEBROW}>{eyebrow}</p>
-        <h3 className="mt-4 font-display text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[26px]">
-          {title}
-        </h3>
-        <p className={`${BODY} mt-4`}>{body}</p>
-      </div>
-      <div className={reverse ? "md:order-1" : ""}>
-        <MockFrame grey={greyFrame}>{children}</MockFrame>
-      </div>
+    <div className="mb-6 max-w-lg md:hidden">
+      <p className={EYEBROW}>{eyebrow}</p>
+      <h3 className="mt-3 font-display text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#111110]">
+        {title}
+      </h3>
+      <p className={`${BODY} mt-3`}>{body}</p>
     </div>
   );
 }
 
 export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
+  const frames = useRef<(HTMLDivElement | null)[]>([]);
+  const active = useActiveBeat(frames);
+
+  const screens: Record<BeatKey, ReactNode> = {
+    assistant: (
+      <MockFrame>
+        <ZoomScreen width={600} view={VIEWS.assistant}>
+          <ProductMorningHome copy={copy.assistant.mock} chatOnly animated />
+        </ZoomScreen>
+      </MockFrame>
+    ),
+    link: (
+      <MockFrame grey>
+        <ZoomScreen width={600} view={VIEWS.link}>
+          <ProductArtworkConversations copy={copy.link.mock} />
+        </ZoomScreen>
+      </MockFrame>
+    ),
+    memory: (
+      <MockFrame>
+        <ZoomScreen width={520} view={VIEWS.memory}>
+          <ProductCollectorTimeline copy={copy.memory.mock} />
+        </ZoomScreen>
+      </MockFrame>
+    ),
+  };
+
+  const goTo = (index: number) =>
+    frames.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+
   return (
     <section className={`${SECTION} bg-white md:py-24`}>
-      <div className={CONTAINER}>
-        <div className="grid gap-6 md:grid-cols-2 md:items-start md:gap-16">
-          <div className="max-w-[540px]">
-            <p className={EYEBROW}>{copy.eyebrow}</p>
-            <h2 className={`${H2} mt-4`}>{copy.title}</h2>
-            <p className={H2_SUB}>{copy.subtitle}</p>
-          </div>
-          <p className={`${BODY} max-w-lg whitespace-pre-line md:justify-self-end md:pt-9`}>
+      <div
+        className={`${CONTAINER} grid gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-20`}
+      >
+        {/* Stays in view while the screens scroll past on the right. */}
+        <div className="md:sticky md:top-24 md:self-start">
+          <p className={EYEBROW}>{copy.eyebrow}</p>
+          <h2 className={`${H2} mt-4`}>{copy.title}</h2>
+          <p className={H2_SUB}>{copy.subtitle}</p>
+          <p className={`${BODY} mt-5 max-w-lg whitespace-pre-line`}>
             <WithLogos text={copy.intro} />
           </p>
+
+          <ol className="mt-8 hidden border-t border-[#E8E8E6] md:block">
+            {BEATS.map((key, index) => {
+              const beat = copy[key];
+              const on = index === active;
+              return (
+                <li key={key} className="border-b border-[#E8E8E6]">
+                  <button
+                    type="button"
+                    onClick={() => goTo(index)}
+                    aria-current={on ? "step" : undefined}
+                    className="w-full py-4 text-left"
+                  >
+                    <span className={EYEBROW}>{beat.eyebrow}</span>
+                    <span
+                      className={`mt-2 block font-display text-[19px] font-medium leading-[1.25] tracking-[-0.02em] transition-colors duration-300 ${
+                        on ? "text-[#111110]" : "text-[#ADADAA]"
+                      }`}
+                    >
+                      {beat.title}
+                    </span>
+                    <span
+                      className="grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                      style={{ gridTemplateRows: on ? "1fr" : "0fr", opacity: on ? 1 : 0 }}
+                    >
+                      <span className="overflow-hidden">
+                        <span className={`${BODY} block max-w-md pt-2`}>{beat.body}</span>
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
         </div>
 
-        <div className="mt-14 space-y-20 md:mt-20 md:space-y-28">
-          <Beat {...copy.assistant}>
-            <ZoomScreen width={600} view={VIEWS.assistant}>
-              <ProductMorningHome copy={copy.assistant.mock} chatOnly animated />
-            </ZoomScreen>
-          </Beat>
-          <Beat {...copy.link} reverse greyFrame>
-            <ZoomScreen width={600} view={VIEWS.link}>
-              <ProductArtworkConversations copy={copy.link.mock} />
-            </ZoomScreen>
-          </Beat>
-          <Beat {...copy.memory}>
-            <ZoomScreen width={520} view={VIEWS.memory}>
-              <ProductCollectorTimeline copy={copy.memory.mock} />
-            </ZoomScreen>
-          </Beat>
+        <div className="space-y-16 md:space-y-28 md:py-[12vh]">
+          {BEATS.map((key, index) => (
+            <div
+              key={key}
+              ref={(node) => {
+                frames.current[index] = node;
+              }}
+            >
+              <BeatCaption {...copy[key]} />
+              {screens[key]}
+            </div>
+          ))}
         </div>
       </div>
     </section>
