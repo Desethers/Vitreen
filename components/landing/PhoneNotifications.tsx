@@ -48,7 +48,7 @@ const STAGE_H = 700;
 const PHONE_CROP_H = 590;
 /** On phones the scene is the phone alone, filling most of the column width. */
 const PHONE_W = 340;
-const PHONE_FILL = 0.92;
+const PHONE_FILL = 0.8;
 /**
  * Phones tell the story inside the screen, one step at a time: the Gmail
  * notification, the first work, the WhatsApp exchange, then the second work.
