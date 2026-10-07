@@ -101,7 +101,8 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
           </p>
         </motion.div>
 
-        <div className="mt-10 grid grid-cols-1 items-start gap-4 sm:grid-cols-2 md:mt-12 xl:grid-cols-4 xl:gap-6">
+        {/* Phones: a swipeable row of smaller cards that peeks at the next one. */}
+        <div className="-mx-4 mt-10 flex snap-x snap-mandatory scroll-pl-4 items-start gap-3 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-4 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-12 xl:grid-cols-4 xl:gap-6 [&::-webkit-scrollbar]:hidden">
           {section.audiences.map((audience, index) => (
             <motion.a
               key={audience.title}
@@ -110,7 +111,7 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.18 }}
               transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative flex flex-col overflow-hidden rounded-[12px] bg-[#f5f5f3] p-7"
+              className="group relative flex w-[78%] shrink-0 snap-start flex-col overflow-hidden rounded-[12px] bg-[#f5f5f3] p-6 sm:w-auto sm:p-7"
             >
               <h3 className="font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110]">
                 {audience.title}
@@ -128,12 +129,12 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
                   </p>
                 </div>
               </div>
-              <div className="relative -mb-2 -mr-7 mt-9 aspect-[0.9] overflow-hidden rounded-l-[12px]">
+              <div className="relative -mb-2 -mr-6 mt-7 aspect-[0.9] overflow-hidden rounded-l-[12px] sm:-mr-7 sm:mt-9">
                 <Image
                   src={audience.image}
                   alt=""
                   fill
-                  sizes="(min-width: 1280px) 23vw, (min-width: 640px) 45vw, 90vw"
+                  sizes="(min-width: 1280px) 23vw, (min-width: 640px) 45vw, 75vw"
                   className={`object-cover transition-transform duration-500 group-hover:scale-[1.025] ${"imageScale" in audience ? audience.imageScale : ""}`}
                   style={{
                     objectPosition:
