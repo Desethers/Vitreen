@@ -46,22 +46,12 @@ const STAGE_W = 760;
 const STAGE_H = 700;
 /** On phones the scene stops under the artwork's details, cutting the empty bottom of the phone. */
 const PHONE_CROP_H = 590;
-/** On phones the scene is the phone alone, filling most of the column width. */
-const PHONE_W = 340;
-const PHONE_FILL = 0.8;
 /**
- * Phones tell the story inside the screen, one step at a time: the Gmail
- * notification, the first work, the WhatsApp exchange, then the second work.
+ * Phones use a narrower stage: the phone keeps most of the column and the
+ * Gmail and WhatsApp cards reach further into its screen, WhatsApp a little
+ * lower so the two never overlap.
  */
-const MOBILE_STEPS = [
-  { phase: 1, at: 500 },
-  { phase: 2, at: 2600 },
-  { phase: 3, at: 5600 },
-  { phase: 4, at: 6800 },
-  { phase: 5, at: 8400 },
-  { phase: 0, at: 11600 },
-] as const;
-const MOBILE_LOOP_MS = 12400;
+const PHONE_STAGE_W = 425;
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -227,13 +217,11 @@ export default function PhoneNotifications({
   const [active, setActive] = useState(0);
   const [chatStep, setChatStep] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [scale, setScale] = useState(1);
+  const [frameW, setFrameW] = useState(STAGE_W);
   const [screenOn, setScreenOn] = useState(false);
   const [artIndex, setArtIndex] = useState(0);
   const [floatsOn, setFloatsOn] = useState(false);
   const [cropped, setCropped] = useState(false);
-  const [frameW, setFrameW] = useState(STAGE_W);
-  const [phase, setPhase] = useState(0);
   const frameRef = useRef<HTMLDivElement>(null);
   const inView = useInView(frameRef, { once: true, amount: 0.4 });
 
@@ -252,10 +240,7 @@ export default function PhoneNotifications({
   useEffect(() => {
     const el = frameRef.current;
     if (!el) return;
-    const update = () => {
-      setScale(Math.min(1, el.clientWidth / STAGE_W));
-      setFrameW(el.clientWidth);
-    };
+    const update = () => setFrameW(el.clientWidth);
     update();
     const observer = new ResizeObserver(update);
     observer.observe(el);
@@ -265,25 +250,7 @@ export default function PhoneNotifications({
   const started = reduceMotion || inView;
 
   useEffect(() => {
-    if (!started || !cropped) return;
-    if (reduceMotion) {
-      setPhase(2);
-      return;
-    }
-    const timers: number[] = [];
-    const play = () => {
-      setPhase(0);
-      for (const step of MOBILE_STEPS) {
-        timers.push(window.setTimeout(() => setPhase(step.phase), step.at));
-      }
-      timers.push(window.setTimeout(play, MOBILE_LOOP_MS));
-    };
-    play();
-    return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [started, cropped, reduceMotion]);
-
-  useEffect(() => {
-    if (!started || cropped) return;
+    if (!started) return;
     if (reduceMotion) {
       setScreenOn(true);
       setFloatsOn(true);
@@ -321,69 +288,22 @@ export default function PhoneNotifications({
     play();
 
     return () => timers.forEach((timer) => window.clearTimeout(timer));
-  }, [started, cropped, reduceMotion, notifications.length]);
+  }, [started, reduceMotion, notifications.length]);
 
-  const phoneScale = Math.min(1.1, (frameW * PHONE_FILL) / PHONE_W);
-  const sheet = phase === 2 ? 0 : phase === 5 ? 1 : null;
-  const gmailOn = phase === 1;
-  const chatOn = phase === 3 || phase === 4;
-
-  /** Phones: the phone alone, the whole story played inside its screen. */
-  const mobileScene = (
-    <div
-      className="absolute left-1/2 top-0 h-[640px] rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-[#F5F5F3]"
-      style={{
-        width: PHONE_W,
-        transform: `translateX(-50%) scale(${phoneScale})`,
-        transformOrigin: "top center",
-      }}
-    >
-      <div className="absolute left-1/2 top-4 h-[34px] w-[116px] -translate-x-1/2 rounded-full border-[0.5px] border-[#E8E8E6] bg-[#E8E8E6]" />
-      <div className="absolute inset-0 overflow-hidden rounded-[56px]">
-        <div
-          className="absolute inset-x-[16px] top-[72px] h-[134px]"
-          style={{
-            opacity: gmailOn ? 1 : 0,
-            transform: gmailOn ? "translateY(0)" : "translateY(-24px)",
-            transition: "opacity 0.5s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
-          }}
-        >
-          <GmailCard message={notifications[0]} position={0} toMeLabel={toMeLabel} />
-        </div>
-
-        <div
-          className="absolute inset-x-[16px] top-[96px] flex flex-col gap-2"
-          style={{ opacity: chatOn ? 1 : 0, transition: "opacity 0.5s ease-out" }}
-        >
-          <Bubble side="in" text={chat.incoming.text} time={chat.incoming.time} visible={chatOn} />
-          <Bubble
-            side="out"
-            text={chat.outgoing.text}
-            time={chat.outgoing.time}
-            visible={phase === 4}
-          />
-        </div>
-
-        <AnimatePresence mode="wait" initial={false}>
-          {sheet !== null ? <ArtworkCard key={sheet} artwork={artworks[sheet]} /> : null}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
+  const stageW = cropped ? PHONE_STAGE_W : STAGE_W;
+  const scale = Math.min(1, frameW / stageW);
 
   return (
     <div
       ref={frameRef}
       aria-hidden="true"
       className={`relative w-full ${cropped ? "overflow-clip" : "overflow-x-clip"}`}
-      style={{ height: cropped ? PHONE_CROP_H * phoneScale : STAGE_H * scale }}
+      style={{ height: (cropped ? PHONE_CROP_H : STAGE_H) * scale }}
     >
-      {cropped ? mobileScene : null}
       <div
-        hidden={cropped}
         className="absolute left-1/2 top-0"
         style={{
-          width: STAGE_W,
+          width: stageW,
           height: STAGE_H,
           transform: `translateX(-50%) scale(${scale})`,
           transformOrigin: "top center",
@@ -402,6 +322,7 @@ export default function PhoneNotifications({
         <div
           className="absolute left-[14px] top-[140px] z-10 h-[158px] w-[240px]"
           style={{
+            ...(cropped ? { left: 0 } : null),
             perspective: 900,
             opacity: floatsOn ? 1 : 0,
             transform: floatsOn ? "translateX(0)" : "translateX(-32px)",
@@ -416,7 +337,10 @@ export default function PhoneNotifications({
           })}
         </div>
 
-        <div className="absolute right-[14px] top-[260px] z-10 flex w-[240px] flex-col gap-2">
+        <div
+          className="absolute right-[14px] top-[260px] z-10 flex w-[240px] flex-col gap-2"
+          style={cropped ? { right: 0, top: 312 } : undefined}
+        >
           <Bubble
             side="in"
             text={chat.incoming.text}
