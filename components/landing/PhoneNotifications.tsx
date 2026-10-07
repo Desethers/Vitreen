@@ -38,8 +38,8 @@ const CYCLE_MS = 2200;
  */
 const SCREEN_MS = 1300;
 const CHAT_REPLY_MS = 2300;
-/** How long after the first WhatsApp bubble the second work replaces the first. */
-const WORK_SWAP_DELAY_MS = 1000;
+/** Time for the first work to leave and the second to settle on the screen. */
+const WORK_IN_MS = 1500;
 const EXIT_MS = 900;
 const PAUSE_MS = 700;
 
@@ -278,10 +278,10 @@ export default function PhoneNotifications({
       const gmailEnd = total * CYCLE_MS;
       at(() => setFloatsOn(false), gmailEnd);
 
-      // The WhatsApp exchange arrives first; the second work follows a beat later.
-      const chatStart = gmailEnd + 400;
+      // The second work takes the screen first, then the WhatsApp exchange about it.
+      at(() => setArtIndex(1), gmailEnd + 200);
+      const chatStart = gmailEnd + 200 + WORK_IN_MS;
       at(() => setChatStep(1), chatStart);
-      at(() => setArtIndex(1), chatStart + WORK_SWAP_DELAY_MS);
       at(() => setChatStep(2), chatStart + CHAT_REPLY_MS);
 
       const end = chatStart + CHAT_REPLY_MS + 2600;
