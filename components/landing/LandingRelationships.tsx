@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
-import { BODY, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
+import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 import {
   ProductArtworkConversations,
   ProductCollectorTimeline,
@@ -337,26 +337,26 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
         <div className="md:sticky md:top-24 md:self-start">
           <p className={EYEBROW}>{copy.eyebrow}</p>
           <h2 className={`${H2} mt-4`}>{copy.title}</h2>
-          <p className={H2_SUB}>{copy.subtitle}</p>
           <p className={`${BODY} mt-5 max-w-lg whitespace-pre-line`}>
             <WithLogos text={copy.intro} />
           </p>
 
-          <ol className="mt-8 hidden border-t border-[#E8E8E6] md:block">
+          <ol className="mt-10 hidden md:block">
             {BEATS.map((key, index) => {
               const beat = copy[key];
               const on = index === active;
               return (
-                <li key={key} className="border-b border-[#E8E8E6]">
+                <li key={key}>
                   <button
                     type="button"
                     onClick={() => goTo(index)}
                     aria-current={on ? "step" : undefined}
-                    className="w-full py-4 text-left"
+                    className={`w-full border-l py-2.5 pl-5 text-left transition-colors duration-300 ${
+                      on ? "border-[#111110]" : "border-[#E8E8E6]"
+                    }`}
                   >
-                    <span className={EYEBROW}>{beat.eyebrow}</span>
                     <span
-                      className={`mt-2 block font-display text-[19px] font-medium leading-[1.25] tracking-[-0.02em] transition-colors duration-300 ${
+                      className={`block text-[16px] font-medium leading-[1.35] tracking-[-0.01em] transition-colors duration-300 ${
                         on ? "text-[#111110]" : "text-[#ADADAA]"
                       }`}
                     >
@@ -367,7 +367,7 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
                       style={{ gridTemplateRows: on ? "1fr" : "0fr", opacity: on ? 1 : 0 }}
                     >
                       <span className="overflow-hidden">
-                        <span className={`${BODY} block max-w-md pt-2`}>{beat.body}</span>
+                        <span className={`${BODY_SM} block max-w-md pt-1.5`}>{beat.body}</span>
                       </span>
                     </span>
                   </button>
@@ -377,7 +377,7 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
           </ol>
         </div>
 
-        <div className="space-y-16 md:space-y-28 md:py-[12vh]">
+        <div className="w-full space-y-16 md:max-w-[560px] md:justify-self-end md:space-y-28 md:py-[12vh]">
           {BEATS.map((key, index) => (
             <div
               key={key}
