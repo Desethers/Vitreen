@@ -28,11 +28,13 @@ export type PhoneArtwork = {
   cta: string;
 };
 
-const CYCLE_MS = 3600;
+/** Time each Gmail notification stays in front of the stack. */
+const CYCLE_MS = 2200;
 /**
- * One loop drives the whole scene: the Gmail notification arrives first, the
- * artwork sheet appears as a single block right after, the WhatsApp exchange
- * follows on the notification rhythm, then everything disappears and restarts.
+ * One loop drives the whole scene in two beats. Gmail first: the stack of
+ * notifications turns over the first work, then leaves. WhatsApp second: the
+ * exchange arrives and the second work replaces the first. Then everything
+ * disappears and restarts.
  */
 const SCREEN_MS = 1300;
 const CHAT_REPLY_MS = 2300;
@@ -272,16 +274,18 @@ export default function PhoneNotifications({
       at(() => setScreenOn(true), SCREEN_MS);
       for (let i = 1; i < total; i += 1) at(() => setActive(i), i * CYCLE_MS);
 
-      // The WhatsApp exchange arrives first; the second work follows a beat later.
-      at(() => setChatStep(1), CYCLE_MS);
-      at(() => setArtIndex(1), CYCLE_MS + WORK_SWAP_DELAY_MS);
-      at(() => setChatStep(2), CYCLE_MS + CHAT_REPLY_MS);
+      // The Gmail stack leaves before WhatsApp takes over.
+      const gmailEnd = total * CYCLE_MS;
+      at(() => setFloatsOn(false), gmailEnd);
 
-      const end = total * CYCLE_MS;
-      at(() => {
-        setFloatsOn(false);
-        setChatStep(0);
-      }, end);
+      // The WhatsApp exchange arrives first; the second work follows a beat later.
+      const chatStart = gmailEnd + 400;
+      at(() => setChatStep(1), chatStart);
+      at(() => setArtIndex(1), chatStart + WORK_SWAP_DELAY_MS);
+      at(() => setChatStep(2), chatStart + CHAT_REPLY_MS);
+
+      const end = chatStart + CHAT_REPLY_MS + 2600;
+      at(() => setChatStep(0), end);
       at(() => setScreenOn(false), end + 300);
       at(play, end + EXIT_MS + PAUSE_MS);
     };
