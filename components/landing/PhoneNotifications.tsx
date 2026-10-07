@@ -38,8 +38,10 @@ const CYCLE_MS = 2200;
  */
 const SCREEN_MS = 1300;
 const CHAT_REPLY_MS = 2300;
-/** Time for the first work to leave and the second to settle on the screen. */
-const WORK_IN_MS = 1500;
+/** Time for the first work to leave before the WhatsApp question arrives. */
+const WORK_OUT_MS = 700;
+/** How long after the WhatsApp question the second work arrives on the screen. */
+const WORK_AFTER_CHAT_MS = 1000;
 const EXIT_MS = 900;
 const PAUSE_MS = 700;
 
@@ -278,10 +280,15 @@ export default function PhoneNotifications({
       const gmailEnd = total * CYCLE_MS;
       at(() => setFloatsOn(false), gmailEnd);
 
-      // The second work takes the screen first, then the WhatsApp exchange about it.
-      at(() => setArtIndex(1), gmailEnd + 200);
-      const chatStart = gmailEnd + 200 + WORK_IN_MS;
+      // The first work leaves with the Gmail stack. The WhatsApp question comes
+      // first, then the second work answers it, then the reply.
+      at(() => setScreenOn(false), gmailEnd);
+      const chatStart = gmailEnd + WORK_OUT_MS;
       at(() => setChatStep(1), chatStart);
+      at(() => {
+        setArtIndex(1);
+        setScreenOn(true);
+      }, chatStart + WORK_AFTER_CHAT_MS);
       at(() => setChatStep(2), chatStart + CHAT_REPLY_MS);
 
       const end = chatStart + CHAT_REPLY_MS + 2600;
