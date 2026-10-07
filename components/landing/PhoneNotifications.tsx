@@ -44,6 +44,8 @@ const PAUSE_MS = 700;
 /** Fixed design size of the scene; it scales down as a whole in narrow columns. */
 const STAGE_W = 760;
 const STAGE_H = 700;
+/** On phones the scene stops under the artwork's details, cutting the empty bottom of the phone. */
+const PHONE_CROP_H = 590;
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -213,11 +215,20 @@ export default function PhoneNotifications({
   const [screenOn, setScreenOn] = useState(false);
   const [artIndex, setArtIndex] = useState(0);
   const [floatsOn, setFloatsOn] = useState(false);
+  const [cropped, setCropped] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
   const inView = useInView(frameRef, { once: true, amount: 0.4 });
 
   useEffect(() => {
     setReduceMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const update = () => setCropped(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
 
   useEffect(() => {
@@ -277,8 +288,8 @@ export default function PhoneNotifications({
     <div
       ref={frameRef}
       aria-hidden="true"
-      className="relative w-full overflow-x-clip"
-      style={{ height: STAGE_H * scale }}
+      className={`relative w-full ${cropped ? "overflow-clip" : "overflow-x-clip"}`}
+      style={{ height: (cropped ? PHONE_CROP_H : STAGE_H) * scale }}
     >
       <div
         className="absolute left-1/2 top-0"
