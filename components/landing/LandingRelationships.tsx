@@ -285,20 +285,22 @@ function useActiveBeat(frames: RefObject<(HTMLDivElement | null)[]>) {
 }
 
 /** Eyebrow, title and body of a beat, as shown above its screen on phones. */
-function BeatCaption({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) {
+/** Title and body of a beat, shown above its screen on phones only. */
+function BeatCaption({ title, body }: { title: string; body: string }) {
   return (
-    <div className="mb-6 max-w-lg md:hidden">
-      <p className={EYEBROW}>{eyebrow}</p>
-      <h3 className="mt-3 font-display text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#111110]">
+    <div className="mb-5 max-w-lg md:hidden">
+      <h3 className="font-display text-[17px] font-medium leading-[1.3] tracking-[-0.01em] text-[#111110]">
         {title}
       </h3>
-      <p className={`${BODY} mt-3`}>{body}</p>
+      <p className={`${BODY_SM} mt-1.5`}>{body}</p>
     </div>
   );
 }
 
 export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
   const frames = useRef<(HTMLDivElement | null)[]>([]);
+  const [introLead, ...introMore] = copy.intro.split("\n");
+  const introRest = introMore.join("\n");
   const active = useActiveBeat(frames);
 
   const screens: Record<BeatKey, ReactNode> = {
@@ -337,8 +339,15 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
         <div className="md:sticky md:top-24 md:self-start">
           <p className={EYEBROW}>{copy.eyebrow}</p>
           <h2 className={`${H2} mt-4`}>{copy.title}</h2>
+          {/* Phones keep the first sentence only; the follow-up shows from md up. */}
           <p className={`${BODY} mt-5 max-w-lg whitespace-pre-line`}>
-            <WithLogos text={copy.intro} />
+            <WithLogos text={introLead} />
+            {introRest ? (
+              <span className="hidden md:inline">
+                {"\n"}
+                <WithLogos text={introRest} />
+              </span>
+            ) : null}
           </p>
 
           <ol className="mt-10 hidden md:block">
