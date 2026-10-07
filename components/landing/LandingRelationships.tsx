@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
 import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 import {
   ProductArtworkConversations,
@@ -258,11 +258,47 @@ const VIEWS = {
 type BeatKey = "assistant" | "link" | "memory";
 const BEATS: readonly BeatKey[] = ["assistant", "link", "memory"];
 
-/**
- * A short heading and one sentence, then three quiet rows: each beat's title
- * and line on the left, its real screen on the right, all on the same side.
- */
+/** The beat whose screen crosses the middle of the viewport. */
+function useActiveBeat(frames: RefObject<(HTMLDivElement | null)[]>) {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const nodes = frames.current?.filter((node): node is HTMLDivElement => !!node) ?? [];
+    if (!nodes.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const index = nodes.indexOf(entry.target as HTMLDivElement);
+          if (index >= 0) setActive(index);
+        }
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, [frames]);
+
+  return active;
+}
+
+/** Eyebrow, title and body of a beat, as shown above its screen on phones. */
+/** Title and body of a beat, shown above its screen on phones only. */
+function BeatCaption({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="mb-5 max-w-lg md:hidden">
+      <h3 className="font-display text-[17px] font-medium leading-[1.3] tracking-[-0.01em] text-[#111110]">
+        {title}
+      </h3>
+      <p className={`${BODY_SM} mt-1.5`}>{body}</p>
+    </div>
+  );
+}
+
 export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
+  const frames = useRef<(HTMLDivElement | null)[]>([]);
+  const active = useActiveBeat(frames);
+
   const screens: Record<BeatKey, ReactNode> = {
     assistant: (
       <MockFrame>
@@ -287,30 +323,68 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
     ),
   };
 
+  const goTo = (index: number) =>
+    frames.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+
   return (
     <section className={`${SECTION} bg-white md:py-24`}>
-      <div className={CONTAINER}>
-        <div className="max-w-[540px]">
+      <div
+        className={`${CONTAINER} grid gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-20`}
+      >
+        {/* Stays in view while the screens scroll past on the right. */}
+        <div className="md:sticky md:top-24 md:self-start">
           <p className={EYEBROW}>{copy.eyebrow}</p>
           <h2 className={`${H2} mt-4`}>{copy.title}</h2>
           <p className={`${BODY} mt-5 max-w-lg`}>
             <WithLogos text={copy.intro} />
           </p>
+
+          <ol className="mt-10 hidden md:block">
+            {BEATS.map((key, index) => {
+              const beat = copy[key];
+              const on = index === active;
+              return (
+                <li key={key}>
+                  <button
+                    type="button"
+                    onClick={() => goTo(index)}
+                    aria-current={on ? "step" : undefined}
+                    className={`w-full border-l py-2.5 pl-5 text-left transition-colors duration-300 ${
+                      on ? "border-[#111110]" : "border-[#E8E8E6]"
+                    }`}
+                  >
+                    <span
+                      className={`block text-[16px] font-medium leading-[1.35] tracking-[-0.01em] transition-colors duration-300 ${
+                        on ? "text-[#111110]" : "text-[#ADADAA]"
+                      }`}
+                    >
+                      {beat.title}
+                    </span>
+                    <span
+                      className="grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                      style={{ gridTemplateRows: on ? "1fr" : "0fr", opacity: on ? 1 : 0 }}
+                    >
+                      <span className="overflow-hidden">
+                        <span className={`${BODY_SM} block max-w-md pt-1.5`}>{beat.body}</span>
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
         </div>
 
-        <div className="mt-14 space-y-16 md:mt-24 md:space-y-28">
-          {BEATS.map((key) => (
+        <div className="w-full space-y-16 md:max-w-[560px] md:justify-self-end md:space-y-28 md:py-[12vh]">
+          {BEATS.map((key, index) => (
             <div
               key={key}
-              className="grid gap-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:items-center md:gap-20"
+              ref={(node) => {
+                frames.current[index] = node;
+              }}
             >
-              <div className="max-w-md">
-                <h3 className="font-display text-[17px] font-medium leading-[1.3] tracking-[-0.01em] text-[#111110] md:text-[19px]">
-                  {copy[key].title}
-                </h3>
-                <p className={`${BODY_SM} mt-1.5 md:mt-2`}>{copy[key].body}</p>
-              </div>
-              <div className="w-full md:max-w-[560px] md:justify-self-end">{screens[key]}</div>
+              <BeatCaption {...copy[key]} />
+              {screens[key]}
             </div>
           ))}
         </div>
