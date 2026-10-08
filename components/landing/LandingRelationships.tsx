@@ -229,7 +229,8 @@ function BeatVisual({ beat, copy }: { beat: BeatKey; copy: RelationshipsCopy }) 
       <div className="absolute left-[7%] top-[9%] w-full">
         <MockFrame>
           {beat === "assistant" ? (
-            // A capture of the dashboard's "Now" list (main), on the demo gallery.
+            // A capture of the dashboard's "Now" list (main), on the demo gallery; the Gmail card
+            // (Thomas Baur) is the WhatsApp card's real markup, restyled in the product's Gmail tone.
             <img
               src="/product/conversations-today.webp"
               alt=""
