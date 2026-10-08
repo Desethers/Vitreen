@@ -135,7 +135,7 @@ function ArtworkPageMockup() {
   );
 }
 
-function DatabaseAssistantMockup() {
+export function DatabaseAssistantMockup() {
   const mockupRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(mockupRef, { amount: 0.45 });
   const reduceMotion = useReducedMotion();
