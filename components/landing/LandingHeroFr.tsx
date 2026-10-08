@@ -10,16 +10,25 @@ export default function LandingHeroFr() {
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="text-center">
           <h1
-            className="m-0 mx-auto max-w-7xl text-balance text-[clamp(30px,9vw,44px)] leading-[1.2] tracking-[-0.04em] font-display md:text-[68px]"
+            className="m-0 mx-auto max-w-7xl text-balance text-[clamp(30px,9vw,44px)] font-medium leading-[1.2] tracking-[-0.04em] font-display md:text-[68px]"
             style={{ color: "#111110" }}
           >
             <span className="hero-reveal hero-d-1 md:block">
               Pour vendre
-              <HeroObjects object="poster" order={0} /> ce qui ne se vend pas
+              <HeroObjects object="poster" order={0} />
+              <br className="md:hidden" /> ce qui ne se vend pas
+              <br className="md:hidden" />
             </span>{" "}
             <span className="hero-reveal hero-d-2 md:block">
+              {/* Phones: the chair opens the last line, just before "comme". */}
+              <span className="md:hidden">
+                <HeroObjects object="chair" order={1} spaceBefore={false} />
+              </span>{" "}
               comme
-              <HeroObjects object="chair" order={1} /> le reste
+              <span className="hidden md:contents">
+                <HeroObjects object="chair" order={1} />
+              </span>{" "}
+              le reste
               <HeroObjects object="dog" order={2} spaceAfter={false} />.
             </span>
           </h1>

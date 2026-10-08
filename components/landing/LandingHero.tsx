@@ -15,11 +15,19 @@ export default function LandingHero() {
           >
             <span className="hero-reveal hero-d-1 md:block">
               Sell what
-              <HeroObjects object="poster" order={0} /> doesn&rsquo;t sell
+              <HeroObjects object="poster" order={0} />
+              <br className="md:hidden" /> doesn&rsquo;t sell
+              {/* Phones: the chair sits between "sell" and "like". */}
+              <span className="md:hidden">
+                <HeroObjects object="chair" order={1} />
+              </span>
             </span>{" "}
             <span className="hero-reveal hero-d-2 md:block">
               like
-              <HeroObjects object="chair" order={1} /> everything
+              <span className="hidden md:contents">
+                <HeroObjects object="chair" order={1} />
+              </span>
+              <br className="md:hidden" /> everything
               <HeroObjects object="dog" order={2} /> else.
             </span>
           </h1>

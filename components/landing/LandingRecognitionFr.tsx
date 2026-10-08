@@ -50,7 +50,7 @@ const ARTWORKS: readonly [PhoneArtwork, PhoneArtwork] = [
     medium: "Huile sur carton d’artiste, marouflé sur panneau parqueté",
     size: "41 × 32,5 cm",
     price: "Prix sur demande",
-    cta: "Se renseigner",
+    cta: "Inquire",
   },
   {
     image: "/artworks/van-gogh-sunflowers.jpg",
@@ -60,7 +60,7 @@ const ARTWORKS: readonly [PhoneArtwork, PhoneArtwork] = [
     medium: "Huile sur toile",
     size: "95 × 73 cm",
     price: "Prix sur demande",
-    cta: "Se renseigner",
+    cta: "Inquire",
   },
 ];
 

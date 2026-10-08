@@ -48,8 +48,6 @@ const PAUSE_MS = 700;
 /** Fixed design size of the scene; it scales down as a whole in narrow columns. */
 const STAGE_W = 760;
 const STAGE_H = 700;
-/** On phones the scene stops under the artwork's details, cutting the empty bottom of the phone. */
-const PHONE_CROP_H = 590;
 /**
  * Phones use a narrower stage: the phone keeps most of the column and the
  * Gmail and WhatsApp cards reach further into its screen, WhatsApp a little
@@ -225,7 +223,7 @@ export default function PhoneNotifications({
   const [screenOn, setScreenOn] = useState(false);
   const [artIndex, setArtIndex] = useState(0);
   const [floatsOn, setFloatsOn] = useState(false);
-  const [cropped, setCropped] = useState(false);
+  const [narrow, setNarrow] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
   const inView = useInView(frameRef, { once: true, amount: 0.4 });
 
@@ -235,7 +233,7 @@ export default function PhoneNotifications({
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
-    const update = () => setCropped(query.matches);
+    const update = () => setNarrow(query.matches);
     update();
     query.addEventListener("change", update);
     return () => query.removeEventListener("change", update);
@@ -301,15 +299,15 @@ export default function PhoneNotifications({
     return () => timers.forEach((timer) => window.clearTimeout(timer));
   }, [started, reduceMotion, notifications.length]);
 
-  const stageW = cropped ? PHONE_STAGE_W : STAGE_W;
+  const stageW = narrow ? PHONE_STAGE_W : STAGE_W;
   const scale = Math.min(1, frameW / stageW);
 
   return (
     <div
       ref={frameRef}
       aria-hidden="true"
-      className={`relative w-full ${cropped ? "overflow-clip" : "overflow-x-clip"}`}
-      style={{ height: (cropped ? PHONE_CROP_H : STAGE_H) * scale }}
+      className="relative w-full overflow-x-clip"
+      style={{ height: STAGE_H * scale }}
     >
       <div
         className="absolute left-1/2 top-0"
@@ -333,7 +331,7 @@ export default function PhoneNotifications({
         <div
           className="absolute left-[14px] top-[140px] z-10 h-[158px] w-[240px]"
           style={{
-            ...(cropped ? { left: 0 } : null),
+            ...(narrow ? { left: 0 } : null),
             perspective: 900,
             opacity: floatsOn ? 1 : 0,
             transform: floatsOn ? "translateX(0)" : "translateX(-32px)",
@@ -350,7 +348,7 @@ export default function PhoneNotifications({
 
         <div
           className="absolute right-[14px] top-[260px] z-10 flex w-[240px] flex-col gap-2"
-          style={cropped ? { right: 0, top: 312 } : undefined}
+          style={narrow ? { right: 0, top: 312 } : undefined}
         >
           <Bubble
             side="in"
