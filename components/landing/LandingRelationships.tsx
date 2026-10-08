@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState, type ReactNode, type RefObject } from "react";
+import { Fragment, useState, type ReactNode } from "react";
 import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 import {
   ProductArtworkConversations,
@@ -17,9 +17,9 @@ export type RelationshipsCopy = {
   title: string;
   /** Short explanation shown in the right column, level with the title lines. */
   intro: string;
-  link: { eyebrow: string; title: string; body: string; mock: ArtworkConversationsCopy };
-  memory: { eyebrow: string; title: string; body: string; mock: CollectorTimelineCopy };
-  assistant: { eyebrow: string; title: string; body: string; mock: MorningHomeCopy };
+  link: { name: string; body: string; mock: ArtworkConversationsCopy };
+  memory: { name: string; body: string; mock: CollectorTimelineCopy };
+  assistant: { name: string; body: string; mock: MorningHomeCopy };
 };
 
 const EN_COPY: RelationshipsCopy = {
@@ -28,9 +28,8 @@ const EN_COPY: RelationshipsCopy = {
   intro:
     "Vitreen keeps a memory of every {gmail}Gmail and {whatsapp}WhatsApp conversation, linked to the artworks discussed.",
   link: {
-    eyebrow: "Link",
-    title: "Conversations and inventory, in one record.",
-    body: "Every request and every work you send through Vitreen is attached to the collector and to the work: who asked, who received it, and whether they opened it.",
+    name: "Link",
+    body: "Attaches every request and every work you send to the collector and to the work: who asked, who received it, whether they opened it.",
     mock: {
       works: {
         title: "Works discussed",
@@ -106,9 +105,8 @@ const EN_COPY: RelationshipsCopy = {
     },
   },
   memory: {
-    eyebrow: "Memory",
-    title: "Every exchange with a collector, remembered.",
-    body: "Their requests and the works you send them, from Gmail and WhatsApp, are kept on the collector’s record, with the works shown next to each message.",
+    name: "Memory",
+    body: "Keeps a collector’s requests and the works you sent them, from Gmail and WhatsApp, on one record.",
     mock: {
       person: {
         id: "beaumont-marie",
@@ -147,9 +145,8 @@ const EN_COPY: RelationshipsCopy = {
     },
   },
   assistant: {
-    eyebrow: "Assistant",
-    title: "Your morning sales brief.",
-    body: "The assistant reads that memory to tell you who is waiting for a reply and who to get back to. Ask it about your inventory or your collectors: it answers from your records only.",
+    name: "Assistant",
+    body: "Tells you each morning who is waiting for a reply and who to get back to, from your records only.",
     mock: {
       greeting: "Good morning",
       placeholder: "Ask Vitreen…",
@@ -251,121 +248,91 @@ const VIEWS = {
   link: { x: -8, y: -8, width: 616 },
   // The whole record, from the person to the second moment, with room on every side.
   memory: { x: -24, y: -24, width: 568 },
-  // Greeting, question box and answer fill the frame; no "Now" card.
-  assistant: { x: 0, y: 0, width: 600 },
+  // The "Now" line of the home: who is waiting for a reply, about which work.
+  brief: { x: 0, y: 585, width: 600 },
 } as const;
 
 type BeatKey = "assistant" | "link" | "memory";
 const BEATS: readonly BeatKey[] = ["assistant", "link", "memory"];
 
-/** The beat whose screen crosses the middle of the viewport. */
-function useActiveBeat(frames: RefObject<(HTMLDivElement | null)[]>) {
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const nodes = frames.current?.filter((node): node is HTMLDivElement => !!node) ?? [];
-    if (!nodes.length) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const index = nodes.indexOf(entry.target as HTMLDivElement);
-          if (index >= 0) setActive(index);
-        }
-      },
-      { rootMargin: "-50% 0px -50% 0px" }
-    );
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [frames]);
-
-  return active;
-}
-
-/** Eyebrow, title and body of a beat, as shown above its screen on phones. */
-/** Title and body of a beat, shown above its screen on phones only. */
-function BeatCaption({ title, body }: { title: string; body: string }) {
+/**
+ * One beat's visual: the real screen on a soft 4:3 panel, set off its top-left
+ * corner so it runs past the right and bottom edges, like a close-up.
+ */
+function BeatVisual({ beat, copy }: { beat: BeatKey; copy: RelationshipsCopy }) {
   return (
-    <div className="mb-5 max-w-lg md:hidden">
-      <h3 className="font-display text-[17px] font-medium leading-[1.3] tracking-[-0.01em] text-[#111110]">
-        {title}
-      </h3>
-      <p className={`${BODY_SM} mt-1.5`}>{body}</p>
+    <div className="relative aspect-[4/3] overflow-hidden rounded-[12px] bg-[#F5F5F3]">
+      <div className="absolute left-[7%] top-[9%] w-full">
+        <MockFrame>
+          {beat === "assistant" ? (
+            <ZoomScreen width={600} view={VIEWS.brief}>
+              <ProductMorningHome copy={copy.assistant.mock} />
+            </ZoomScreen>
+          ) : beat === "link" ? (
+            <ZoomScreen width={600} view={VIEWS.link}>
+              <ProductArtworkConversations copy={copy.link.mock} />
+            </ZoomScreen>
+          ) : (
+            <ZoomScreen width={520} view={VIEWS.memory}>
+              <ProductCollectorTimeline copy={copy.memory.mock} />
+            </ZoomScreen>
+          )}
+        </MockFrame>
+      </div>
     </div>
   );
 }
 
+/**
+ * Built like an accordion: the three beats on the left, one open at a time
+ * with its sentence; the open beat's real screen on the right. It changes on
+ * click only. Phones list the three beats, each with its screen.
+ */
 export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
-  const frames = useRef<(HTMLDivElement | null)[]>([]);
-  const active = useActiveBeat(frames);
-
-  const screens: Record<BeatKey, ReactNode> = {
-    assistant: (
-      <MockFrame>
-        <ZoomScreen width={600} view={VIEWS.assistant}>
-          <ProductMorningHome copy={copy.assistant.mock} chatOnly animated />
-        </ZoomScreen>
-      </MockFrame>
-    ),
-    link: (
-      <MockFrame grey>
-        <ZoomScreen width={600} view={VIEWS.link}>
-          <ProductArtworkConversations copy={copy.link.mock} />
-        </ZoomScreen>
-      </MockFrame>
-    ),
-    memory: (
-      <MockFrame>
-        <ZoomScreen width={520} view={VIEWS.memory}>
-          <ProductCollectorTimeline copy={copy.memory.mock} />
-        </ZoomScreen>
-      </MockFrame>
-    ),
-  };
-
-  const goTo = (index: number) =>
-    frames.current[index]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const [active, setActive] = useState(0);
 
   return (
     <section className={`${SECTION} bg-white md:py-24`}>
-      <div
-        className={`${CONTAINER} grid gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-20`}
-      >
-        {/* Stays in view while the screens scroll past on the right. */}
-        <div className="md:sticky md:top-24 md:self-start">
+      <div className={CONTAINER}>
+        <div className="max-w-[540px]">
           <p className={EYEBROW}>{copy.eyebrow}</p>
           <h2 className={`${H2} mt-4`}>{copy.title}</h2>
           <p className={`${BODY} mt-5 max-w-lg`}>
             <WithLogos text={copy.intro} />
           </p>
+        </div>
 
-          <ol className="mt-10 hidden md:block">
+        {/* Desktop: accordion on the left, the open beat's screen on the right. */}
+        <div className="mt-20 hidden grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] gap-20 md:grid">
+          <ol className="self-start border-b border-[#E8E8E6]">
             {BEATS.map((key, index) => {
-              const beat = copy[key];
               const on = index === active;
               return (
-                <li key={key}>
+                <li
+                  key={key}
+                  className={`border-t transition-colors duration-300 ${
+                    on ? "border-[#111110]" : "border-[#E8E8E6]"
+                  }`}
+                >
                   <button
                     type="button"
-                    onClick={() => goTo(index)}
-                    aria-current={on ? "step" : undefined}
-                    className={`w-full border-l py-2.5 pl-5 text-left transition-colors duration-300 ${
-                      on ? "border-[#111110]" : "border-[#E8E8E6]"
-                    }`}
+                    onClick={() => setActive(index)}
+                    aria-expanded={on}
+                    className="w-full py-6 text-left"
                   >
                     <span
-                      className={`block text-[16px] font-medium leading-[1.35] tracking-[-0.01em] transition-colors duration-300 ${
-                        on ? "text-[#111110]" : "text-[#ADADAA]"
+                      className={`block font-display text-[22px] font-medium leading-[1.25] tracking-[-0.02em] transition-colors duration-300 ${
+                        on ? "text-[#111110]" : "text-[#ADADAA] hover:text-[#6B6A67]"
                       }`}
                     >
-                      {beat.title}
+                      {copy[key].name}
                     </span>
                     <span
-                      className="grid transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                      className="grid transition-[grid-template-rows,opacity] duration-300 ease-out"
                       style={{ gridTemplateRows: on ? "1fr" : "0fr", opacity: on ? 1 : 0 }}
                     >
                       <span className="overflow-hidden">
-                        <span className={`${BODY_SM} block max-w-md pt-1.5`}>{beat.body}</span>
+                        <span className={`${BODY} block max-w-md pt-2`}>{copy[key].body}</span>
                       </span>
                     </span>
                   </button>
@@ -373,21 +340,36 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
               );
             })}
           </ol>
+
+          <div className="relative">
+            {BEATS.map((key, index) => (
+              <div
+                key={key}
+                aria-hidden={index !== active}
+                className={`transition-opacity duration-500 ${
+                  index === 0 ? "relative" : "absolute inset-0"
+                } ${index === active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              >
+                <BeatVisual beat={key} copy={copy} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="w-full space-y-16 md:max-w-[560px] md:justify-self-end md:space-y-28 md:py-[12vh]">
-          {BEATS.map((key, index) => (
-            <div
-              key={key}
-              ref={(node) => {
-                frames.current[index] = node;
-              }}
-            >
-              <BeatCaption {...copy[key]} />
-              {screens[key]}
-            </div>
+        {/* Phones: the three beats in a list, each with its screen. */}
+        <ol className="mt-12 space-y-12 md:hidden">
+          {BEATS.map((key) => (
+            <li key={key} className="border-t border-[#111110] pt-5">
+              <h3 className="font-display text-[20px] font-medium leading-[1.25] tracking-[-0.02em] text-[#111110]">
+                {copy[key].name}
+              </h3>
+              <p className={`${BODY_SM} mt-2`}>{copy[key].body}</p>
+              <div className="mt-6">
+                <BeatVisual beat={key} copy={copy} />
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

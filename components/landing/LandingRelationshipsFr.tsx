@@ -11,9 +11,8 @@ const FR_COPY: RelationshipsCopy = {
   intro:
     "Vitreen garde la mémoire de chaque conversation {gmail}Gmail et {whatsapp}WhatsApp, reliée aux œuvres dont vous parlez.",
   link: {
-    eyebrow: "Lien",
-    title: "Conversations et inventaire, dans une même fiche.",
-    body: "Chaque demande et chaque œuvre envoyée avec Vitreen est rattachée au collectionneur et à l’œuvre : qui a demandé, qui l’a reçue, et si elle a été ouverte.",
+    name: "Lien",
+    body: "Rattache chaque demande et chaque œuvre envoyée au collectionneur et à l’œuvre : qui a demandé, qui l’a reçue, si elle a été ouverte.",
     mock: {
       works: {
         title: "Œuvres évoquées",
@@ -94,9 +93,8 @@ const FR_COPY: RelationshipsCopy = {
     },
   },
   memory: {
-    eyebrow: "Mémoire",
-    title: "Chaque échange avec un collectionneur, gardé en mémoire.",
-    body: "Ses demandes et les œuvres que vous lui envoyez, depuis Gmail et WhatsApp, sont gardées sur sa fiche, avec les œuvres affichées à côté de chaque message.",
+    name: "Mémoire",
+    body: "Garde sur une seule fiche les demandes d’un collectionneur et les œuvres que vous lui avez envoyées, depuis Gmail et WhatsApp.",
     mock: {
       person: {
         id: "beaumont-marie",
@@ -135,9 +133,8 @@ const FR_COPY: RelationshipsCopy = {
     },
   },
   assistant: {
-    eyebrow: "Assistant",
-    title: "Votre brief de vente du matin.",
-    body: "L’assistant lit cette mémoire pour vous dire qui attend une réponse et qui recontacter. Interrogez-le sur votre inventaire ou vos collectionneurs : il répond uniquement depuis vos fiches.",
+    name: "Assistant",
+    body: "Vous dit chaque matin qui attend une réponse et qui recontacter, uniquement depuis vos fiches.",
     mock: {
       greeting: "Bonjour",
       placeholder: "Demandez à Vitreen…",
