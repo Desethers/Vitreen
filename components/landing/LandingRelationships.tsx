@@ -5,11 +5,9 @@ import { BODY, BODY_SM, CONTAINER, EYEBROW, H2, SECTION } from "@/components/lan
 import {
   ProductArtworkConversations,
   ProductCollectorTimeline,
-  ProductMorningHome,
   ZoomScreen,
   type ArtworkConversationsCopy,
   type CollectorTimelineCopy,
-  type MorningHomeCopy,
 } from "@/components/landing/product/ProductScreens";
 
 export type RelationshipsCopy = {
@@ -19,7 +17,7 @@ export type RelationshipsCopy = {
   intro: string;
   link: { name: string; body: string; mock: ArtworkConversationsCopy };
   memory: { name: string; body: string; mock: CollectorTimelineCopy };
-  assistant: { name: string; body: string; mock: MorningHomeCopy };
+  assistant: { name: string; body: string };
 };
 
 const EN_COPY: RelationshipsCopy = {
@@ -147,38 +145,6 @@ const EN_COPY: RelationshipsCopy = {
   assistant: {
     name: "Assistant",
     body: "Tells you each morning who is waiting for a reply and who to get back to, from your records only.",
-    mock: {
-      greeting: "Good morning",
-      placeholder: "Ask Vitreen…",
-      hint: "The assistant reads your records — it can’t send anything.",
-      frames: ["A person", "A work", "A reply", "My day"],
-      enter: "Enter to send",
-      question: "Who is waiting for a reply this morning?",
-      answerIntro: "One collector is waiting for a reply:",
-      answerItems: [
-        {
-          title: "Marie Beaumont",
-          rest: " wrote on WhatsApp on 9 September: is “Evening field” still available, and what are its dimensions?",
-        },
-      ],
-      tools: "From your records · searchConversations",
-      clear: "Clear",
-      now: "Now",
-      waiting: {
-        id: "marie-beaumont",
-        name: "Marie Beaumont",
-        title: "Marie Beaumont wrote to you about “Self-Portrait”",
-        detail: "Is the Van Gogh Self-Portrait still available?",
-        channel: "Gmail",
-        date: "14 March",
-        work: {
-          image: "/artworks/van-gogh-self-portrait.jpg",
-          artist: "Vincent van Gogh",
-          title: "Self-Portrait",
-          status: "Available",
-        },
-      },
-    },
   },
 };
 
@@ -248,8 +214,6 @@ const VIEWS = {
   link: { x: -8, y: -8, width: 616 },
   // The whole record, from the person to the second moment, with room on every side.
   memory: { x: -24, y: -24, width: 568 },
-  // The "Now" line of the home: who is waiting for a reply, about which work.
-  brief: { x: 0, y: 585, width: 600 },
 } as const;
 
 type BeatKey = "assistant" | "link" | "memory";
@@ -265,9 +229,14 @@ function BeatVisual({ beat, copy }: { beat: BeatKey; copy: RelationshipsCopy }) 
       <div className="absolute left-[7%] top-[9%] w-full">
         <MockFrame>
           {beat === "assistant" ? (
-            <ZoomScreen width={600} view={VIEWS.brief}>
-              <ProductMorningHome copy={copy.assistant.mock} />
-            </ZoomScreen>
+            // A capture of the real Conversations home, on the demo gallery.
+            <img
+              src="/product/conversations-today.webp"
+              alt=""
+              width={1000}
+              height={750}
+              className="block h-auto w-full"
+            />
           ) : beat === "link" ? (
             <ZoomScreen width={600} view={VIEWS.link}>
               <ProductArtworkConversations copy={copy.link.mock} />

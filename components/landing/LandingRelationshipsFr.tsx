@@ -135,38 +135,6 @@ const FR_COPY: RelationshipsCopy = {
   assistant: {
     name: "Assistant",
     body: "Vous dit chaque matin qui attend une réponse et qui recontacter, uniquement depuis vos fiches.",
-    mock: {
-      greeting: "Bonjour",
-      placeholder: "Demandez à Vitreen…",
-      hint: "L’assistant lit vos fiches — il ne peut rien envoyer.",
-      frames: ["Une personne", "Une œuvre", "Une réponse", "Ma journée"],
-      enter: "Entrée pour envoyer",
-      question: "Qui attend une réponse ce matin ?",
-      answerIntro: "Un collectionneur attend une réponse :",
-      answerItems: [
-        {
-          title: "Marie Beaumont",
-          rest: " a écrit sur WhatsApp le 9 septembre : « Evening field » est-elle toujours disponible, et quelles sont ses dimensions ?",
-        },
-      ],
-      tools: "Depuis vos fiches · searchConversations",
-      clear: "Effacer",
-      now: "Maintenant",
-      waiting: {
-        id: "marie-beaumont",
-        name: "Marie Beaumont",
-        title: "Marie Beaumont vous a écrit à propos de « Autoportrait »",
-        detail: "L’Autoportrait de Van Gogh est-il toujours disponible ?",
-        channel: "Gmail",
-        date: "14 mars",
-        work: {
-          image: "/artworks/van-gogh-self-portrait.jpg",
-          artist: "Vincent van Gogh",
-          title: "Autoportrait",
-          status: "Disponible",
-        },
-      },
-    },
   },
 };
 
