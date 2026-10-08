@@ -45,10 +45,10 @@ export default function LandingCtaFr() {
       <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:py-32">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <h2 className="mb-0 max-w-[22ch] font-display text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#111110] md:max-w-none md:text-[44px]">
-            Découvrir Vitreen pour votre galerie
+            Arrêtez de chercher. Répondez.
           </h2>
           <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            30 minutes autour de vos outils et de votre façon de travailler.
+            La mémoire de votre galerie, dans Gmail et WhatsApp.
           </p>
 
           <Button size="lg" onClick={openContact}>

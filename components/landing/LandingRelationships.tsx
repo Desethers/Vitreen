@@ -22,11 +22,11 @@ export type RelationshipsCopy = {
 
 const EN_COPY: RelationshipsCopy = {
   eyebrow: "Relationship intelligence",
-  title: "Remember what matters in every collector relationship.",
+  title: "Everything about a collector, linked.",
   intro:
     "Vitreen keeps a memory of every {gmail}Gmail and {whatsapp}WhatsApp conversation, linked to the artworks discussed.",
   link: {
-    name: "Link",
+    name: "Who received what",
     body: "Attaches every request and every work you send to the collector and to the work: who asked, who received it, whether they opened it.",
     mock: {
       works: {
@@ -103,7 +103,7 @@ const EN_COPY: RelationshipsCopy = {
     },
   },
   memory: {
-    name: "Memory",
+    name: "A CRM you don’t have to fill in",
     body: "Keeps a collector’s requests and the works you sent them, from Gmail and WhatsApp, on one record.",
     mock: {
       person: {
@@ -143,7 +143,7 @@ const EN_COPY: RelationshipsCopy = {
     },
   },
   assistant: {
-    name: "Assistant",
+    name: "Your morning brief",
     body: "Tells you each morning who is waiting for a reply and who to get back to, from your records only.",
   },
 };

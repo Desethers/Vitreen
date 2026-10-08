@@ -46,10 +46,10 @@ export default function LandingCta() {
       <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:py-32">
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <h2 className="mb-0 max-w-[22ch] font-display text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#111110] md:max-w-none md:text-[44px]">
-            Bring Vitreen into your gallery
+            Stop searching. Start replying.
           </h2>
           <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            Built around the way your gallery already works.
+            Your gallery’s memory, in Gmail and WhatsApp.
           </p>
 
           <Button size="lg" onClick={openContact}>

@@ -69,15 +69,11 @@ export default function LandingRecognition() {
     <section className={`${SECTION} bg-white`}>
       <div className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-start md:gap-16`}>
         <div className="max-w-xl">
-          <h2 className={H2}>Every sale starts with a conversation.</h2>
-          <p className={H2_SUB}>The right information, ready to review and send.</p>
+          <h2 className={H2}>Every reply starts with a search.</h2>
+          <p className={H2_SUB}>Your tools don’t talk to each other.</p>
 
           <p className="mt-6 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            A collector asks for more works.
-          </p>
-          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            Connect your WhatsApp and Gmail
-            <span className="mx-2 inline-flex items-center align-middle" aria-hidden="true">
+            <span className="mr-2 inline-flex items-center align-middle" aria-hidden="true">
               <span className="flex h-6 w-6 items-center justify-center rounded-full border-[0.5px] border-[#E8E8E6] bg-white">
                 <img
                   src="/logos/whatsapp.svg"
@@ -93,11 +89,14 @@ export default function LandingRecognition() {
                 />
               </span>
             </span>
-            with Vitreen.
+            A collector writes on WhatsApp or Gmail: “Is it still available?”
           </p>
           <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            Then the search begins: images, prices, dimensions, availability, what has already been
-            sent — scattered across spreadsheets, folders and emails.
+            Then the search begins. The image is in a folder, the price in a spreadsheet, what you
+            sent last month in someone’s head.
+          </p>
+          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
+            And your CRM stays empty, because nobody has time to fill it.
           </p>
 
           <div className="mt-7">

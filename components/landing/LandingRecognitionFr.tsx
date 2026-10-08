@@ -69,15 +69,11 @@ export default function LandingRecognitionFr() {
     <section className={`${SECTION} bg-white`}>
       <div className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-start md:gap-16`}>
         <div className="max-w-xl">
-          <h2 className={H2}>Chaque vente commence par une conversation.</h2>
-          <p className={H2_SUB}>La bonne information, prête à relire et à envoyer.</p>
+          <h2 className={H2}>Chaque réponse commence par une recherche.</h2>
+          <p className={H2_SUB}>Vos outils ne se parlent pas.</p>
 
           <p className="mt-6 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            Un collectionneur demande d’autres œuvres.
-          </p>
-          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            Connectez votre WhatsApp et votre Gmail
-            <span className="mx-2 inline-flex items-center align-middle" aria-hidden="true">
+            <span className="mr-2 inline-flex items-center align-middle" aria-hidden="true">
               <span className="flex h-6 w-6 items-center justify-center rounded-full border-[0.5px] border-[#E8E8E6] bg-white">
                 <img
                   src="/logos/whatsapp.svg"
@@ -93,11 +89,14 @@ export default function LandingRecognitionFr() {
                 />
               </span>
             </span>
-            à Vitreen.
+            Un collectionneur écrit sur WhatsApp ou Gmail : « Est-elle toujours disponible ? »
           </p>
           <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            Commence alors la recherche : images, prix, dimensions, disponibilités, anciens envois —
-            dispersés entre tableurs, dossiers et emails.
+            Alors la recherche commence. L’image est dans un dossier, le prix dans un tableur, ce
+            que vous lui avez envoyé le mois dernier dans la tête de quelqu’un.
+          </p>
+          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
+            Et votre CRM reste vide, parce que personne n’a le temps de le remplir.
           </p>
 
           <div className="mt-7">

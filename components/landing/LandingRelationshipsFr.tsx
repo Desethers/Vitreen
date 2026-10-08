@@ -7,11 +7,11 @@ import {
 
 const FR_COPY: RelationshipsCopy = {
   eyebrow: "Intelligence relationnelle",
-  title: "Gardez en mémoire ce qui compte dans chaque relation avec un collectionneur.",
+  title: "Tout ce qui concerne un collectionneur, relié.",
   intro:
     "Vitreen garde la mémoire de chaque conversation {gmail}Gmail et {whatsapp}WhatsApp, reliée aux œuvres dont vous parlez.",
   link: {
-    name: "Lien",
+    name: "Qui a reçu quoi",
     body: "Rattache chaque demande et chaque œuvre envoyée au collectionneur et à l’œuvre : qui a demandé, qui l’a reçue, si elle a été ouverte.",
     mock: {
       works: {
@@ -93,7 +93,7 @@ const FR_COPY: RelationshipsCopy = {
     },
   },
   memory: {
-    name: "Mémoire",
+    name: "Un CRM que vous n’avez pas à remplir",
     body: "Garde sur une seule fiche les demandes d’un collectionneur et les œuvres que vous lui avez envoyées, depuis Gmail et WhatsApp.",
     mock: {
       person: {
@@ -133,7 +133,7 @@ const FR_COPY: RelationshipsCopy = {
     },
   },
   assistant: {
-    name: "Assistant",
+    name: "Votre brief du matin",
     body: "Vous dit chaque matin qui attend une réponse et qui recontacter, uniquement depuis vos fiches.",
   },
 };

@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-import HeroObjects from "@/components/landing/HeroObjects";
 
 export default function LandingHeroFr() {
   return (
@@ -10,39 +9,21 @@ export default function LandingHeroFr() {
       <div className="relative mx-auto w-full max-w-7xl">
         <div className="text-center">
           <h1
-            className="m-0 mx-auto max-w-7xl text-balance text-[clamp(30px,9vw,44px)] font-medium leading-[1.2] tracking-[-0.04em] font-display md:text-[68px]"
+            className="m-0 mx-auto max-w-5xl text-balance text-[clamp(30px,9vw,44px)] font-medium leading-[1.2] tracking-[-0.04em] font-display md:text-[68px]"
             style={{ color: "#111110" }}
           >
-            <span className="hero-reveal hero-d-1 md:block">
-              Pour vendre
-              <HeroObjects object="poster" order={0} />
-              <br className="md:hidden" /> ce qui ne se vend pas
-              <br className="md:hidden" />
-            </span>{" "}
-            <span className="hero-reveal hero-d-2 md:block">
-              {/* Phones: the chair opens the last line, just before "comme". */}
-              <span className="md:hidden">
-                <HeroObjects object="chair" order={1} spaceBefore={false} />
-              </span>{" "}
-              comme
-              <span className="hidden md:contents">
-                <HeroObjects object="chair" order={1} />
-              </span>{" "}
-              le reste
-              <HeroObjects object="dog" order={2} spaceAfter={false} />.
-            </span>
+            <span className="hero-reveal hero-d-1 md:block">Le CRM qui se remplit</span>{" "}
+            <span className="hero-reveal hero-d-2 md:block">depuis Gmail et WhatsApp.</span>
           </h1>
 
-          <p className="hero-soft hero-d-3 mx-auto mt-[16px] max-w-4xl text-balance text-[20px] leading-[1.35] tracking-[0em] text-[#6B6A67]">
-            <span className="md:block">Des outils de vente et d’inventaire pour les galeries</span>{" "}
-            <span className="md:block">
-              et marchands d’art, de design et d’objets de collection.
-            </span>
+          <p className="hero-soft hero-d-3 mx-auto mt-[18px] max-w-3xl text-balance text-[18px] leading-[1.45] tracking-[-0.01em] text-[#6B6A67] md:text-[20px]">
+            Vitreen relie chaque conversation avec un collectionneur à vos œuvres, et vous dit à qui
+            répondre, ce qu’il a déjà vu et quoi faire ensuite.
           </p>
 
-          <div className="hero-soft hero-d-4 mx-auto mt-[18px] flex max-w-[300px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[22px]">
+          <div className="hero-soft hero-d-4 mx-auto mt-[22px] flex max-w-[320px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[26px]">
             <Button size="lg" onClick={openContact} className="w-full sm:w-auto">
-              Réserver une démo
+              Réserver une place fondatrice
             </Button>
             <Button
               size="lg"
@@ -53,6 +34,10 @@ export default function LandingHeroFr() {
               Voir comment ça marche
             </Button>
           </div>
+
+          <p className="hero-soft hero-d-4 mt-4 text-[13px] leading-[1.5] text-[#ADADAA] md:text-[14px]">
+            3 galeries fondatrices à 149 €/mois · Capture WhatsApp en accès anticipé
+          </p>
         </div>
       </div>
     </section>

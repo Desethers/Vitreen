@@ -396,7 +396,7 @@ export type OutputsCopy = {
 };
 
 const EN_COPY: OutputsCopy = {
-  labels: ["Inventory", "Gmail", "WhatsApp Add-ins", "Private Selection editor"],
+  labels: ["Inventory", "Gmail", "WhatsApp", "Private selections"],
   hrefs: [
     "/tools/artwork-inventory",
     "/tools/sales-assistant",
