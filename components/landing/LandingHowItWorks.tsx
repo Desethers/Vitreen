@@ -9,7 +9,7 @@ export type HowItWorksCopy = { eyebrow: string; title: string; subtitle: string;
 export const HOW_IT_WORKS_EN: HowItWorksCopy = {
   eyebrow: "How it works",
   title: "Connect. Link. Know.",
-  subtitle: "Three steps, set up with you in about a week.",
+  subtitle: "3 steps. About a week. Set up with you.",
   steps: [
     {
       title: "Connect",

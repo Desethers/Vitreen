@@ -5,6 +5,8 @@ import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingOutputs from "@/components/landing/LandingOutputs";
 import LandingRelationships from "@/components/landing/LandingRelationships";
 import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
+import LandingBeforeAfter from "@/components/landing/LandingBeforeAfter";
+import LandingFounder from "@/components/landing/LandingFounder";
 import LandingPromises from "@/components/landing/LandingPromises";
 import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 import LandingOffers from "@/components/landing/LandingOffers";
@@ -33,9 +35,11 @@ export default function Home() {
       <LandingHero />
       <LandingOutputs />
       <LandingRecognition />
+      <LandingBeforeAfter />
       <LandingHowItWorks />
       <LandingRelationships />
       <LandingPromises />
+      <LandingFounder />
       <WhoVitreenIsFor />
       <LandingOffers />
       <LandingFaq />

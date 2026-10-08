@@ -5,7 +5,7 @@ import { HowItWorksSection, type HowItWorksCopy } from "@/components/landing/Lan
 const COPY: HowItWorksCopy = {
   eyebrow: "Comment ça marche",
   title: "Connecter. Relier. Savoir.",
-  subtitle: "Trois étapes, mises en place avec vous en une semaine environ.",
+  subtitle: "3 étapes. Une semaine environ. Mises en place avec vous.",
   steps: [
     {
       title: "Connecter",
