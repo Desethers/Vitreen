@@ -6,8 +6,8 @@ import {
 } from "@/components/landing/LandingRelationships";
 
 const FR_COPY: RelationshipsCopy = {
-  eyebrow: "Intelligence relationnelle",
-  title: "Tout ce qui concerne un collectionneur, relié.",
+  eyebrow: "Se souvenir",
+  title: "Chaque collectionneur, en mémoire.",
   intro:
     "Vitreen garde la mémoire de chaque conversation {gmail}Gmail et {whatsapp}WhatsApp, reliée aux œuvres dont vous parlez.",
   link: {

@@ -4,6 +4,7 @@ import LandingHero from "@/components/landing/LandingHero";
 import LandingRecognition from "@/components/landing/LandingRecognition";
 import LandingOutputs from "@/components/landing/LandingOutputs";
 import LandingRelationships from "@/components/landing/LandingRelationships";
+import LandingPillars from "@/components/landing/LandingPillars";
 import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
 import LandingBeforeAfter from "@/components/landing/LandingBeforeAfter";
 import LandingFounder from "@/components/landing/LandingFounder";
@@ -33,11 +34,12 @@ export default function Home() {
     <main className="relative bg-white">
       <LandingNav />
       <LandingHero />
-      <LandingOutputs />
       <LandingRecognition />
-      <LandingBeforeAfter />
-      <LandingHowItWorks />
+      <LandingPillars />
+      <LandingOutputs />
       <LandingRelationships />
+      <LandingHowItWorks />
+      <LandingBeforeAfter />
       <LandingPromises />
       <LandingFounder />
       <WhoVitreenIsFor />

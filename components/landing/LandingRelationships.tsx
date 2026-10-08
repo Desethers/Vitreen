@@ -21,8 +21,8 @@ export type RelationshipsCopy = {
 };
 
 const EN_COPY: RelationshipsCopy = {
-  eyebrow: "Relationship intelligence",
-  title: "Everything about a collector, linked.",
+  eyebrow: "Remember",
+  title: "Every collector, remembered.",
   intro:
     "Vitreen keeps a memory of every {gmail}Gmail and {whatsapp}WhatsApp conversation, linked to the artworks discussed.",
   link: {
@@ -262,7 +262,7 @@ export function RelationshipsSection({ copy }: { copy: RelationshipsCopy }) {
   const [active, setActive] = useState(0);
 
   return (
-    <section className={`${SECTION} bg-white md:py-24`}>
+    <section id="remember" className={`${SECTION} scroll-mt-20 bg-white md:py-24`}>
       <div className={CONTAINER}>
         <div className="max-w-[540px]">
           <p className={EYEBROW}>{copy.eyebrow}</p>

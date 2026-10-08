@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
-import { CONTAINER } from "@/components/landing/styles";
+import { BODY_SM, CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 const DATABASE_QUESTION = "Is Evening field by Sacha Elron available?";
 const databaseEase = [0.16, 1, 0.3, 1] as const;
@@ -393,10 +393,25 @@ export type OutputsCopy = {
   action?: string;
   /** Lien optionnel par carte, même ordre que `labels`. */
   hrefs?: readonly [string?, string?, string?, string?];
+  /** Titre de section (pilier « Sell »), affiché au-dessus des cartes. */
+  heading?: { eyebrow: string; title: string; subtitle: string };
+  /** Une ligne sous chaque carte : ce que le mockup montre. */
+  captions?: readonly [string, string, string, string];
 };
 
 const EN_COPY: OutputsCopy = {
   labels: ["Inventory", "Gmail", "WhatsApp", "Private selections"],
+  heading: {
+    eyebrow: "Sell",
+    title: "Your artworks, ready in Gmail and WhatsApp.",
+    subtitle: "Everything you need to reply, where you already reply.",
+  },
+  captions: [
+    "Find a work, its price and availability.",
+    "Insert it into your Gmail reply.",
+    "Ask on WhatsApp, get the details or a PDF.",
+    "Send a private selection of works.",
+  ],
   hrefs: [
     "/tools/artwork-inventory",
     "/tools/sales-assistant",
@@ -407,25 +422,43 @@ const EN_COPY: OutputsCopy = {
 
 export function OutputsSection({ copy }: { copy: OutputsCopy }) {
   return (
-    <section className="bg-white px-4 pb-16 pt-0 md:px-6 md:pb-20 md:pt-2">
+    <section
+      id={copy.heading ? "sell" : undefined}
+      className={
+        copy.heading
+          ? `${SECTION} scroll-mt-20 bg-white`
+          : "bg-white px-4 pb-16 pt-0 md:px-6 md:pb-20 md:pt-2"
+      }
+    >
       <div className={CONTAINER}>
-        <div className="grid gap-4 md:grid-cols-2">
+        {copy.heading ? (
+          <div className="mb-10 max-w-[620px] md:mb-14">
+            <p className={EYEBROW}>{copy.heading.eyebrow}</p>
+            <h2 className={`${H2} mt-4`}>{copy.heading.title}</h2>
+            <p className={H2_SUB}>{copy.heading.subtitle}</p>
+          </div>
+        ) : null}
+        <div className="grid gap-x-4 gap-y-6 md:grid-cols-2">
           {OUTPUT_NODES.map((node, index) => {
             const href = copy.hrefs?.[index];
             const Wrapper = href ? "a" : "article";
             return (
-              <Wrapper
-                key={copy.labels[index]}
-                {...(href ? { href } : {})}
-                className="group relative overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20"
-              >
-                <div className="pointer-events-none relative h-[300px] overflow-hidden bg-[#F8F8F6] md:h-[360px]">
-                  <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
-                    {node}
+              <div key={copy.labels[index]}>
+                <Wrapper
+                  {...(href ? { href } : {})}
+                  className="group relative block overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#111110]/20"
+                >
+                  <div className="pointer-events-none relative h-[300px] overflow-hidden bg-[#F8F8F6] md:h-[360px]">
+                    <div className="h-full transition-transform duration-300 ease-out group-hover:scale-[1.018]">
+                      {node}
+                    </div>
                   </div>
-                </div>
-                <CardCaption title={copy.labels[index]} action={copy.action} />
-              </Wrapper>
+                  <CardCaption title={copy.labels[index]} action={copy.action} />
+                </Wrapper>
+                {copy.captions ? (
+                  <p className={`${BODY_SM} mt-3 px-1`}>{copy.captions[index]}</p>
+                ) : null}
+              </div>
             );
           })}
         </div>

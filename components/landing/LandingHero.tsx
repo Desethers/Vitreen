@@ -33,10 +33,8 @@ export default function LandingHero() {
           </h1>
 
           <p className="hero-soft hero-d-3 mx-auto mt-[16px] max-w-4xl text-balance min-[900px]:max-w-none min-[900px]:text-nowrap text-[20px] leading-[1.35] tracking-[0em] text-[#6B6A67]">
-            <span className="md:max-[899px]:block">
-              Sales and inventory tools for galleries and dealers
-            </span>{" "}
-            <span className="md:max-[899px]:block">in art, design and collectible objects.</span>
+            <span className="md:max-[899px]:block">Sales tools in Gmail and WhatsApp,</span>{" "}
+            <span className="md:max-[899px]:block">and a memory of every collector.</span>
           </p>
 
           <div className="hero-soft hero-d-4 mx-auto mt-[18px] flex max-w-[300px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[22px]">

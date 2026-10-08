@@ -8,20 +8,20 @@ export type HowItWorksCopy = { eyebrow: string; title: string; subtitle: string;
 
 export const HOW_IT_WORKS_EN: HowItWorksCopy = {
   eyebrow: "How it works",
-  title: "Connect. Link. Know.",
-  subtitle: "3 steps. About a week. Set up with you.",
+  title: "One loop. Each reply makes the next one easier.",
+  subtitle: "Set up with you in about a week.",
   steps: [
     {
-      title: "Connect",
-      body: "Gmail, WhatsApp and your inventory, imported from your spreadsheets or Artlogic exports.",
+      title: "You reply",
+      body: "From Gmail or WhatsApp, with the work, its price and availability.",
     },
     {
-      title: "Link",
-      body: "Every request is attached to the collector and to the artwork: who asked, what you sent, whether they opened it.",
+      title: "Vitreen remembers",
+      body: "What was asked, what you sent and whether they opened it, on the collector’s record.",
     },
     {
-      title: "Know",
-      body: "Each morning, Vitreen tells you who is waiting, who to follow up with, and what each collector has already seen.",
+      title: "You know what’s next",
+      body: "Each morning, who is waiting for a reply and who to follow up with.",
     },
   ],
 };
