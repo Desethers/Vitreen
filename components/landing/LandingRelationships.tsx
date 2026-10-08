@@ -229,12 +229,12 @@ function BeatVisual({ beat, copy }: { beat: BeatKey; copy: RelationshipsCopy }) 
       <div className="absolute left-[7%] top-[9%] w-full">
         <MockFrame>
           {beat === "assistant" ? (
-            // A capture of the real Conversations home, on the demo gallery.
+            // A capture of the dashboard's "Now" list (main), on the demo gallery.
             <img
               src="/product/conversations-today.webp"
               alt=""
-              width={1000}
-              height={750}
+              width={980}
+              height={690}
               className="block h-auto w-full"
             />
           ) : beat === "link" ? (
