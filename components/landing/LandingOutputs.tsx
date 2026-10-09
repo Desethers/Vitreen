@@ -11,7 +11,7 @@ const databaseEase = [0.16, 1, 0.3, 1] as const;
 
 /* Same card-caption pattern as ServicesGrid (components/Services.tsx on main):
  * bottom gradient bar, title + "Explore" with an arrow that darkens on hover. */
-function CardCaption({ title, action = "Explore" }: { title: string; action?: string }) {
+export function CardCaption({ title, action = "Explore" }: { title: string; action?: string }) {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-white/75 via-white/20 to-transparent px-4 pb-1.5 pt-1.5 backdrop-blur-[2px]">
       <div className="flex items-center justify-between gap-4">

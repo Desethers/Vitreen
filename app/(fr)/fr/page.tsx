@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import LandingNavFr from "@/components/landing/LandingNavFr";
 import LandingHeroFr from "@/components/landing/LandingHeroFr";
 import LandingRecognitionFr from "@/components/landing/LandingRecognitionFr";
-import LandingOutputsFr from "@/components/landing/LandingOutputsFr";
 import LandingRelationshipsFr from "@/components/landing/LandingRelationshipsFr";
 import LandingPillarsFr from "@/components/landing/LandingPillarsFr";
 import LandingHowItWorksFr from "@/components/landing/LandingHowItWorksFr";
@@ -39,7 +38,6 @@ export default function Home() {
       <LandingHeroFr />
       <LandingRecognitionFr />
       <LandingPillarsFr />
-      <LandingOutputsFr />
       <LandingRelationshipsFr />
       <LandingHowItWorksFr />
       <LandingPromisesFr />

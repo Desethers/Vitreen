@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
 import LandingHero from "@/components/landing/LandingHero";
 import LandingRecognition from "@/components/landing/LandingRecognition";
-import LandingOutputs from "@/components/landing/LandingOutputs";
 import LandingRelationships from "@/components/landing/LandingRelationships";
 import LandingPillars from "@/components/landing/LandingPillars";
 import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
@@ -35,7 +34,6 @@ export default function Home() {
       <LandingHero />
       <LandingRecognition />
       <LandingPillars />
-      <LandingOutputs />
       <LandingRelationships />
       <LandingHowItWorks />
       <LandingPromises />

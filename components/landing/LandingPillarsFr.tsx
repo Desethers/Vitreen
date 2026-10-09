@@ -4,20 +4,23 @@ import { PillarsSection, type PillarsCopy } from "@/components/landing/LandingPi
 
 const COPY: PillarsCopy = {
   title: "Deux choses, un seul produit.",
+  action: "Découvrir",
   pillars: [
     {
       verb: "Vendre",
       title: "Vos œuvres, prêtes dans Gmail et WhatsApp.",
       body: "Retrouvez une œuvre, son prix et sa disponibilité, et envoyez-la là où le collectionneur a écrit.",
-      link: "Voir les outils de vente",
-      href: "#sell",
+      link: "Voir les outils de vente →",
+      href: "/fr/tools/sales-assistant",
+      labels: ["Gmail", "WhatsApp"],
     },
     {
       verb: "Se souvenir",
       title: "Chaque collectionneur, en mémoire.",
       body: "Qui a demandé, ce que vous avez envoyé, qui attend. Le CRM se remplit pendant que vous travaillez.",
-      link: "Voir la mémoire",
+      link: "Voir la mémoire ↓",
       href: "#remember",
+      labels: ["Base d’œuvres"],
     },
   ],
 };

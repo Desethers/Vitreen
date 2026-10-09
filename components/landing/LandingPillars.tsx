@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BODY, CONTAINER, H2, SECTION } from "@/components/landing/styles";
-import { DatabaseAssistantMockup } from "@/components/landing/LandingOutputs";
+import { CardCaption, DatabaseAssistantMockup } from "@/components/landing/LandingOutputs";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
 
-/** Sell: the Gmail screen, then the WhatsApp one, taking turns. */
-function SellVisual() {
+/** Sell: the Gmail screen, then the WhatsApp one, taking turns, each with its small label. */
+function SellVisual({ labels, action }: { labels: readonly string[]; action: string }) {
   const reduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   useEffect(() => {
@@ -27,37 +27,47 @@ function SellVisual() {
         transition={{ duration: 0.5 }}
       >
         {index === 0 ? <IntegrationsFrame /> : <WhatsAppShareWorksMock />}
+        <CardCaption title={labels[index]} action={action} />
       </motion.div>
     </AnimatePresence>
   );
 }
 
-const VISUALS: Record<string, ReactNode> = {
-  "#sell": <SellVisual />,
-  "#remember": <DatabaseAssistantMockup />,
-};
-
 export type PillarsCopy = {
   title: string;
-  pillars: { verb: string; title: string; body: string; link: string; href: string }[];
+  /** "Explore" at the right of each screen's small label. */
+  action: string;
+  pillars: {
+    verb: string;
+    title: string;
+    body: string;
+    /** Link text, with its arrow. */
+    link: string;
+    href: string;
+    /** Small label(s) under the animation: one per screen shown. */
+    labels: readonly string[];
+  }[];
 };
 
 export const PILLARS_EN: PillarsCopy = {
   title: "Two things, one product.",
+  action: "Explore",
   pillars: [
     {
       verb: "Sell",
       title: "Your artworks, ready in Gmail and WhatsApp.",
       body: "Find a work, its price and availability, and send it where the collector wrote.",
-      link: "See the sales tools",
-      href: "#sell",
+      link: "See the sales tools →",
+      href: "/tools/sales-assistant",
+      labels: ["Gmail", "WhatsApp"],
     },
     {
       verb: "Remember",
       title: "Every collector, remembered.",
       body: "Who asked, what you sent, who is waiting. The CRM fills in as you work.",
-      link: "See the memory",
+      link: "See the memory ↓",
       href: "#remember",
+      labels: ["Inventory"],
     },
   ],
 };
@@ -84,14 +94,21 @@ export function PillarsSection({ copy }: { copy: PillarsCopy }) {
                 </span>
                 <span className={`${BODY} mt-2 max-w-md`}>{pillar.body}</span>
                 <span className="mt-6 text-[14px] text-[#6B6A67] transition-colors group-hover:text-[#111110]">
-                  {pillar.link} ↓
+                  {pillar.link}
                 </span>
               </span>
               <span
                 aria-hidden="true"
                 className="pointer-events-none relative mx-7 mb-7 mt-8 block h-[300px] overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white md:mx-9 md:mb-9 md:h-[360px] [&_.bg-\[\#F5F5F3\]]:bg-white [&_.bg-\[\#F8F8F6\]]:bg-white"
               >
-                {VISUALS[pillar.href]}
+                {pillar.verb === copy.pillars[0].verb ? (
+                  <SellVisual labels={pillar.labels} action={copy.action} />
+                ) : (
+                  <>
+                    <DatabaseAssistantMockup />
+                    <CardCaption title={pillar.labels[0]} action={copy.action} />
+                  </>
+                )}
               </span>
             </a>
           ))}
