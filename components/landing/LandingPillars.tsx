@@ -89,7 +89,7 @@ export function PillarsSection({ copy }: { copy: PillarsCopy }) {
               </span>
               <span
                 aria-hidden="true"
-                className="pointer-events-none relative mx-7 mb-7 mt-8 block h-[300px] overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F8F8F6] md:mx-9 md:mb-9 md:h-[360px]"
+                className="pointer-events-none relative mx-7 mb-7 mt-8 block h-[300px] overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white md:mx-9 md:mb-9 md:h-[360px] [&_.bg-\[\#F5F5F3\]]:bg-white [&_.bg-\[\#F8F8F6\]]:bg-white"
               >
                 {VISUALS[pillar.href]}
               </span>
