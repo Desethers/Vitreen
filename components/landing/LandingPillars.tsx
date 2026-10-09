@@ -76,10 +76,10 @@ export function PillarsSection({ copy }: { copy: PillarsCopy }) {
               className="group flex flex-col overflow-hidden rounded-[12px] bg-[#F5F5F3] transition-colors duration-200 hover:bg-[#EFEFEC]"
             >
               <span className="flex flex-col p-7 pb-0 md:p-9 md:pb-0">
-                <span className="font-display text-[28px] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110] md:text-[36px]">
+                <span className="font-display text-[24px] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110] md:text-[28px]">
                   {pillar.verb}
                 </span>
-                <span className="mt-3 font-display text-[17px] font-medium leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[19px]">
+                <span className="mt-3 font-display text-[16px] font-medium leading-[1.3] tracking-[-0.02em] text-[#111110] md:text-[17px]">
                   {pillar.title}
                 </span>
                 <span className={`${BODY} mt-2 max-w-md`}>{pillar.body}</span>
