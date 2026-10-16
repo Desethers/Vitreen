@@ -1,7 +1,7 @@
 # Archive des sections
 
 Historique visuel des sections de la home Vitreen, depuis le premier commit de `main`
-(2026-08-26). Visible sur `/archive` (non indexée).
+(2026-08-26). Visible sur `/archive` (non indexée) : sections à gauche, frise des versions en haut, une version à l’écran (← → / ↑ ↓, lien direct `#section/n`).
 
 - `versions/<section>/<Composant>_<date>_<sha>.tsx` : snapshot figé du fichier tel qu’il
   était à ce commit (EN uniquement ; les jumeaux `Fr` suivent la même histoire).
