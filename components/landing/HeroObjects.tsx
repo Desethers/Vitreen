@@ -3,13 +3,14 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-/** Cut-outs made from public/icons_hero (transparent background, 288px tall). */
-export type HeroObjectName = "poster" | "chair" | "dog";
+/** Cut-outs made from public/icons_hero (transparent background, 288px tall), plus the WhatsApp logo. */
+export type HeroObjectName = "poster" | "chair" | "dog" | "whatsapp";
 
 const SRC: Record<HeroObjectName, string> = {
   poster: "/hero-objects/poster.webp",
   chair: "/hero-objects/chair.webp",
   dog: "/hero-objects/dog.webp",
+  whatsapp: "/logos/whatsapp.svg",
 };
 
 const SLOT_MS = 800;
@@ -17,16 +18,18 @@ const START_MS = 1500;
 /** Time each object stays visible, then the slot closes before the next opens. */
 const SHOW_MS = 2200;
 const STEP_MS = 3200;
-const CYCLE_MS = STEP_MS * 3;
+const CYCLE_MS = STEP_MS * 4;
 const ease = [0.16, 1, 0.3, 1] as const;
 
 type Props = {
   object: HeroObjectName;
-  /** Position in the sequence (0, 1, 2): objects take turns, one visible at a time. */
+  /** Position in the sequence (0 to 3): objects take turns, one visible at a time. */
   order: number;
   /** Space on each side. Use "none" where punctuation follows directly. */
   spaceBefore?: boolean;
   spaceAfter?: boolean;
+  /** Scale of the slot, centred on the text line. 1 = the full-size cut-outs. */
+  size?: number;
 };
 
 /**
@@ -39,6 +42,7 @@ export default function HeroObjects({
   order,
   spaceBefore = true,
   spaceAfter = true,
+  size = 1,
 }: Props) {
   const reduceMotion = useReducedMotion();
   const [opened, setOpened] = useState(!!reduceMotion && order === 0);
@@ -76,10 +80,11 @@ export default function HeroObjects({
   return (
     <span
       aria-hidden="true"
-      className="relative inline-block h-[1.08em]"
+      className="relative inline-block"
       style={{
-        verticalAlign: "-0.22em",
-        width: opened ? "1.1em" : "0em",
+        height: `${1.08 * size}em`,
+        verticalAlign: `${-0.22 + (1.08 - 1.08 * size) / 2}em`,
+        width: opened ? `${1.1 * size}em` : "0em",
         marginLeft: opened && spaceBefore ? "0.4em" : "0em",
         marginRight: opened && spaceAfter ? "0.14em" : "0em",
         transition: `width ${SLOT_MS}ms cubic-bezier(0.16, 1, 0.3, 1), margin ${SLOT_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`,

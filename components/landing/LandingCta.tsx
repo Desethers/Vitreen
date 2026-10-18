@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { openContact } from "@/components/landing/LandingNav";
 import LandingLanguageSwitch from "@/components/landing/LandingLanguageSwitch";
 
@@ -49,15 +50,24 @@ export default function LandingCta() {
             Stop searching. Start replying.
           </h2>
           <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            Your gallery’s memory, in Gmail and WhatsApp.
+            Your sales assistant, inside WhatsApp.
           </p>
 
-          <Button size="lg" onClick={openContact}>
-            Book a demo
-          </Button>
+          <div className="flex flex-col items-center gap-3 sm:flex-row">
+            <TryWhatsAppButton lang="en" label="Try it on WhatsApp" />
+            <Button
+              size="lg"
+              variant="inverse"
+              onClick={openContact}
+              className="border border-[#E8E8E6]"
+            >
+              Book a demo
+            </Button>
+          </div>
 
           <p className="mt-4 text-[13px] leading-[1.5] text-[#ADADAA] md:text-[14px]">
-            A 30-minute walkthrough based on your current gallery workflow.
+            Try the demo on WhatsApp, or book a 30-minute walkthrough based on your gallery’s
+            workflow.
           </p>
         </div>
       </section>

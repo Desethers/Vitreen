@@ -13,7 +13,7 @@ export const PROMISES_EN: PromisesCopy = {
     },
     {
       title: "No new software to learn.",
-      body: "It works inside Gmail and WhatsApp. Your inventory comes from your spreadsheets or Artlogic exports.",
+      body: "It lives in WhatsApp and only sees the messages you send it. Your inventory comes from your spreadsheets or Artlogic exports.",
     },
   ],
 };

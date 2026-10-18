@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { openContact } from "@/components/landing/LandingNav";
 import LandingLanguageSwitch from "@/components/landing/LandingLanguageSwitch";
 
@@ -48,15 +49,24 @@ export default function LandingCtaFr() {
             Arrêtez de chercher. Répondez.
           </h2>
           <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            La mémoire de votre galerie, dans Gmail et WhatsApp.
+            Votre assistant de vente, dans WhatsApp.
           </p>
 
-          <Button size="lg" onClick={openContact}>
-            Réserver une démo
-          </Button>
+          <div className="flex flex-col items-center gap-3 sm:flex-row">
+            <TryWhatsAppButton lang="fr" label="Essayer sur WhatsApp" />
+            <Button
+              size="lg"
+              variant="inverse"
+              onClick={openContact}
+              className="border border-[#E8E8E6]"
+            >
+              Réserver une démo
+            </Button>
+          </div>
 
           <p className="mt-4 text-[13px] leading-[1.5] text-[#ADADAA] md:text-[14px]">
-            Une démo de 30 minutes, sans engagement.
+            Essayez la démo sur WhatsApp, ou réservez une présentation de 30 minutes à partir du
+            fonctionnement de votre galerie.
           </p>
         </div>
       </section>

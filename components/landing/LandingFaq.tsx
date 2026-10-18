@@ -9,7 +9,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const ITEMS = [
   {
     q: "Does Vitreen replace Artlogic?",
-    a: "No. Vitreen works alongside it, from your Artlogic exports — or from spreadsheets and folders — and makes that information usable in Gmail and WhatsApp.",
+    a: "No. Vitreen works alongside it, from your Artlogic exports — or from spreadsheets and folders — and makes that information usable in your WhatsApp conversations.",
   },
   {
     q: "Do I need to migrate my database first?",
@@ -17,23 +17,23 @@ const ITEMS = [
   },
   {
     q: "Does Vitreen send messages to collectors automatically?",
-    a: "No. Vitreen prepares replies and material from your artwork records. A person on your team always reviews and sends.",
+    a: "No. Vitreen prepares the card and notes who it is for. A person on your team always forwards it, from their own WhatsApp.",
   },
   {
     q: "Where does the AI get its answers?",
-    a: "Only from your own records: artworks, prices, availability, contacts. It cannot invent information, and every draft is reviewed by your team before sending.",
+    a: "Only from your own records: artworks, prices, availability, contacts. If it does not know, it says so.",
   },
   {
-    q: "Do I need a new website?",
-    a: "No. Connected Website is a separate option for galleries that want one, built on the same records. Most galleries start with Conversations alone.",
+    q: "Does Vitreen read my WhatsApp?",
+    a: "No. Your usual number stays as it is. Vitreen only sees what is written to its two numbers: the Assistant number for your team, and the dedicated number you give your collectors.",
   },
   {
     q: "How long does setup take?",
-    a: "About a week, from the first conversation to your team using Vitreen in Gmail and WhatsApp.",
+    a: "About a week, from the first conversation to your team using Vitreen in WhatsApp.",
   },
   {
     q: "What happens if I stop?",
-    a: "You keep your data. A complete export is available at any time.",
+    a: "You keep your data: it belongs to your gallery. Your inventory is handed back to you on request.",
   },
 ] as const;
 

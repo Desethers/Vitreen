@@ -217,8 +217,15 @@ const BODY_TYPE_START = 150;
 const BODY_TYPE_STEP = 36;
 const BODY_TYPE_END = BODY_TYPE_START + BODY_TEXT.length * BODY_TYPE_STEP;
 
-export function IntegrationsFrame() {
+/**
+ * `onPhase` follows the loop for a caption beside it: 0 while the reply is
+ * written, 1 once the Vitreen panel opens for the search, 2 once the work is
+ * in the draft.
+ */
+export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) => void } = {}) {
   const reduceMotion = useReducedMotion();
+  const onPhaseRef = useRef(onPhase);
+  onPhaseRef.current = onPhase;
   const [query, setQuery] = useState(reduceMotion ? "Elron" : "");
   const [showResults, setShowResults] = useState(false);
   const [selectedArtwork, setSelectedArtwork] = useState(false);
@@ -238,6 +245,7 @@ export function IntegrationsFrame() {
       setPanelOpen(false);
       setLogoBump(false);
       setBodyChars(BODY_TEXT.length);
+      onPhaseRef.current?.(2);
       return;
     }
 
@@ -253,6 +261,7 @@ export function IntegrationsFrame() {
       setLogoBump(false);
       setBodyChars(0);
       panelScrollRef.current?.scrollTo({ top: 0 });
+      onPhaseRef.current?.(0);
 
       for (let i = 1; i <= BODY_TEXT.length; i += 1) {
         timers.push(window.setTimeout(() => setBodyChars(i), BODY_TYPE_START + i * BODY_TYPE_STEP));
@@ -260,7 +269,12 @@ export function IntegrationsFrame() {
 
       timers.push(window.setTimeout(() => setLogoBump(true), BODY_TYPE_END + 250));
       timers.push(window.setTimeout(() => setLogoBump(false), BODY_TYPE_END + 840));
-      timers.push(window.setTimeout(() => setPanelOpen(true), BODY_TYPE_END + 300));
+      timers.push(
+        window.setTimeout(() => {
+          setPanelOpen(true);
+          onPhaseRef.current?.(1);
+        }, BODY_TYPE_END + 300)
+      );
 
       const searchStart = BODY_TYPE_END + 700;
       word.split("").forEach((_, index) => {
@@ -285,7 +299,12 @@ export function IntegrationsFrame() {
         }, searchEnd + 800)
       );
       timers.push(window.setTimeout(() => setSelectedArtwork(true), searchEnd + 2250));
-      timers.push(window.setTimeout(() => setShowInsertedArtwork(true), searchEnd + 3150));
+      timers.push(
+        window.setTimeout(() => {
+          setShowInsertedArtwork(true);
+          onPhaseRef.current?.(2);
+        }, searchEnd + 3150)
+      );
       timers.push(window.setTimeout(play, searchEnd + 9250));
     };
 

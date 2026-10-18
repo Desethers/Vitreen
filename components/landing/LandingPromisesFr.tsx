@@ -11,7 +11,7 @@ const COPY: PromisesCopy = {
     },
     {
       title: "Aucun nouveau logiciel à apprendre.",
-      body: "Il fonctionne dans Gmail et WhatsApp. Votre inventaire vient de vos tableurs ou de vos exports Artlogic.",
+      body: "Il vit dans WhatsApp et ne voit que les messages que vous lui envoyez. Votre inventaire vient de vos tableurs ou de vos exports Artlogic.",
     },
   ],
 };

@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import LandingNavFr from "@/components/landing/LandingNavFr";
 import LandingHeroFr from "@/components/landing/LandingHeroFr";
-import LandingRecognitionFr from "@/components/landing/LandingRecognitionFr";
-import LandingRelationshipsFr from "@/components/landing/LandingRelationshipsFr";
-import LandingPillarsFr from "@/components/landing/LandingPillarsFr";
-import LandingHowItWorksFr from "@/components/landing/LandingHowItWorksFr";
-import LandingFounderFr from "@/components/landing/LandingFounderFr";
-import LandingPromisesFr from "@/components/landing/LandingPromisesFr";
-import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
+import ConversationSections, {
+  CONVERSATION_SECTIONS_FR,
+} from "@/components/landing/conversations/ConversationSections";
 import LandingOffersFr from "@/components/landing/LandingOffersFr";
 import LandingFaqFr from "@/components/landing/LandingFaqFr";
 import LandingCtaFr from "@/components/landing/LandingCtaFr";
@@ -36,13 +32,7 @@ export default function Home() {
     <main className="relative bg-white">
       <LandingNavFr />
       <LandingHeroFr />
-      <LandingRecognitionFr />
-      <LandingPillarsFr />
-      <LandingRelationshipsFr />
-      <LandingHowItWorksFr />
-      <LandingPromisesFr />
-      <LandingFounderFr />
-      <WhoVitreenIsFor lang="fr" />
+      <ConversationSections copy={CONVERSATION_SECTIONS_FR} />
       <LandingOffersFr />
       <LandingFaqFr />
       <LandingCtaFr />

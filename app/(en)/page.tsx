@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
-import LandingHero from "@/components/landing/LandingHero";
-import LandingRecognition from "@/components/landing/LandingRecognition";
-import LandingRelationships from "@/components/landing/LandingRelationships";
-import LandingPillars from "@/components/landing/LandingPillars";
-import LandingHowItWorks from "@/components/landing/LandingHowItWorks";
-import LandingFounder from "@/components/landing/LandingFounder";
-import LandingPromises from "@/components/landing/LandingPromises";
-import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
+import { GlideHero } from "@/components/landing/glide/GlideHome";
+import ConversationSections, {
+  CONVERSATION_SECTIONS_EN,
+} from "@/components/landing/conversations/ConversationSections";
 import LandingOffers from "@/components/landing/LandingOffers";
 import LandingFaq from "@/components/landing/LandingFaq";
 import LandingCta from "@/components/landing/LandingCta";
+import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 
 import { alternates } from "@/lib/seo";
 
@@ -31,14 +28,11 @@ export default function Home() {
   return (
     <main className="relative bg-white">
       <LandingNav />
-      <LandingHero />
-      <LandingRecognition />
-      <LandingPillars />
-      <LandingRelationships />
-      <LandingHowItWorks />
-      <LandingPromises />
-      <LandingFounder />
-      <WhoVitreenIsFor />
+      <GlideHero showConnectionScene={false} />
+      <ConversationSections
+        copy={CONVERSATION_SECTIONS_EN}
+        afterWhatsApp={<WhoVitreenIsFor lang="en" />}
+      />
       <LandingOffers />
       <LandingFaq />
       <LandingCta />

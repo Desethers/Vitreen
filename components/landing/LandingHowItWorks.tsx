@@ -7,21 +7,21 @@ type Step = { title: string; body: string };
 export type HowItWorksCopy = { eyebrow: string; title: string; subtitle: string; steps: Step[] };
 
 export const HOW_IT_WORKS_EN: HowItWorksCopy = {
-  eyebrow: "How it works",
-  title: "One loop. Each reply makes the next one easier.",
-  subtitle: "Set up with you in about a week.",
+  eyebrow: "Setup",
+  title: "Set up with you, in about a week.",
+  subtitle: "Nothing to install. Your team keeps WhatsApp.",
   steps: [
     {
-      title: "You reply",
-      body: "From Gmail or WhatsApp, with the work, its price and availability.",
+      title: "Send us your inventory",
+      body: "A spreadsheet, a folder of images or your Artlogic exports. We clean it up and load it.",
     },
     {
-      title: "Vitreen remembers",
-      body: "What was asked, what you sent and whether they opened it, on the collector’s record.",
+      title: "We connect your two numbers",
+      body: "The Assistant number for your team, the dedicated number for your collectors.",
     },
     {
-      title: "You know what’s next",
-      body: "Each morning, who is waiting for a reply and who to follow up with.",
+      title: "Your team asks from WhatsApp",
+      body: "From the first day: find a work, prepare it for someone, see who is waiting.",
     },
   ],
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { openContact } from "@/components/landing/LandingNav";
 import HeroObjects from "@/components/landing/HeroObjects";
 
@@ -15,39 +16,36 @@ export default function LandingHero() {
           >
             <span className="hero-reveal hero-d-1 md:block">
               Sell what
-              <HeroObjects object="poster" order={0} />
+              <HeroObjects object="poster" order={1} />
               <br className="md:hidden" /> doesn&rsquo;t sell
               {/* Phones: the chair sits between "sell" and "like". */}
               <span className="md:hidden">
-                <HeroObjects object="chair" order={1} />
+                <HeroObjects object="chair" order={2} />
               </span>
             </span>{" "}
             <span className="hero-reveal hero-d-2 md:block">
               like
               <span className="hidden md:contents">
-                <HeroObjects object="chair" order={1} />
+                <HeroObjects object="chair" order={2} />
               </span>
               <br className="md:hidden" /> everything
-              <HeroObjects object="dog" order={2} /> else.
+              <HeroObjects object="dog" order={3} /> else.
             </span>
           </h1>
 
-          <p className="hero-soft hero-d-3 mx-auto mt-[16px] max-w-4xl text-balance min-[900px]:max-w-none min-[900px]:text-nowrap text-[20px] leading-[1.35] tracking-[0em] text-[#6B6A67]">
-            <span className="md:max-[899px]:block">Sales tools in Gmail and WhatsApp,</span>{" "}
-            <span className="md:max-[899px]:block">and a memory of every collector.</span>
+          <p className="hero-soft hero-d-3 mx-auto mt-[16px] max-w-4xl text-balance min-[900px]:max-w-none min-[900px]:text-nowrap text-[22px] leading-[1.35] tracking-[0em] text-[#6B6A67]">
+            Vitreen connects your inventory to your conversations: email and WhatsApp.
           </p>
 
           <div className="hero-soft hero-d-4 mx-auto mt-[18px] flex max-w-[300px] flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:items-center sm:justify-center md:mt-[22px]">
-            <Button size="lg" onClick={openContact} className="w-full sm:w-auto">
-              Book a demo
-            </Button>
+            <TryWhatsAppButton lang="en" label="Try it on WhatsApp" className="w-full sm:w-auto" />
             <Button
               size="lg"
-              href="#how-it-works"
               variant="inverse"
+              onClick={openContact}
               className="w-full border border-[#E8E8E6] sm:w-auto"
             >
-              See how it works
+              Book a demo
             </Button>
           </div>
         </div>

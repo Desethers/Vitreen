@@ -9,7 +9,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 const ITEMS = [
   {
     q: "Vitreen remplace-t-il Artlogic ?",
-    a: "Non. Vitreen fonctionne à côté, à partir de vos exports Artlogic — ou de vos tableurs et dossiers — et rend ces informations utilisables dans Gmail et WhatsApp.",
+    a: "Non. Vitreen fonctionne à côté, à partir de vos exports Artlogic — ou de vos tableurs et dossiers — et rend ces informations utilisables dans vos conversations WhatsApp.",
   },
   {
     q: "Dois-je d’abord migrer ma base ?",
@@ -17,23 +17,23 @@ const ITEMS = [
   },
   {
     q: "Vitreen envoie-t-il des messages aux collectionneurs automatiquement ?",
-    a: "Non. Vitreen prépare les réponses et le support à partir de vos fiches d’œuvres. Une personne de votre équipe vérifie et envoie toujours.",
+    a: "Non. Vitreen prépare la fiche et note pour qui elle est. Une personne de votre équipe la transfère toujours, depuis son propre WhatsApp.",
   },
   {
     q: "D’où l’IA tire-t-elle ses réponses ?",
-    a: "Uniquement de vos propres fiches : œuvres, prix, disponibilités, contacts. Elle ne peut pas inventer d’information, et chaque brouillon est relu par votre équipe avant envoi.",
+    a: "Uniquement de vos propres fiches : œuvres, prix, disponibilités, contacts. Si elle ne sait pas, elle le dit.",
   },
   {
-    q: "Ai-je besoin d’un nouveau site ?",
-    a: "Non. Le Site connecté est une option séparée pour les galeries qui le souhaitent, construite sur les mêmes fiches. La plupart des galeries démarrent avec Conversations seul.",
+    q: "Vitreen lit-il mon WhatsApp ?",
+    a: "Non. Votre numéro habituel reste tel quel. Vitreen ne voit que ce qui est écrit à ses deux numéros : le numéro Assistant pour votre équipe, et le numéro dédié que vous donnez à vos collectionneurs.",
   },
   {
     q: "Combien de temps prend la mise en place ?",
-    a: "Une semaine environ, du premier échange jusqu’à l’utilisation de Vitreen dans Gmail et WhatsApp par votre équipe.",
+    a: "Une semaine environ, du premier échange jusqu’à l’utilisation de Vitreen dans WhatsApp par votre équipe.",
   },
   {
     q: "Que se passe-t-il si j’arrête ?",
-    a: "Vous gardez vos données. Un export complet est disponible à tout moment.",
+    a: "Vous gardez vos données : elles appartiennent à votre galerie. Votre inventaire vous est rendu sur simple demande.",
   },
 ] as const;
 

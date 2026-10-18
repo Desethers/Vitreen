@@ -1,79 +1,84 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
-import { openContact } from "@/components/landing/LandingNav";
-import PhoneNotifications, {
-  type PhoneArtwork,
-  type PhoneChat,
-  type PhoneNotification,
-} from "@/components/landing/PhoneNotifications";
+import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { CONTAINER, H2, H2_SUB, SECTION } from "@/components/landing/styles";
+import WaPhone from "@/components/whatsapp/WaPhone";
+import type { WaMessage } from "@/components/whatsapp/WaChat";
 
-const NOTIFICATIONS: readonly PhoneNotification[] = [
-  {
-    initials: "MB",
-    color: "#6B7FD7",
-    name: "Marie Beaumont",
-    subject: "Availability — Self-Portrait",
-    time: "10:24 AM",
-    body: "Is the Van Gogh Self-Portrait still available?",
-  },
-  {
-    initials: "TB",
-    color: "#C97B4A",
-    name: "Thomas Baur",
-    subject: "Van Gogh",
-    time: "Yesterday",
-    body: "Could you send the price and dimensions for the Self-Portrait?",
-  },
-  {
-    initials: "LM",
-    color: "#4E9C82",
-    name: "Léa Morin",
-    subject: "Available works",
-    time: "2 days ago",
-    body: "Do you have any other works by Van Gogh available now?",
-  },
-];
-
-const CHAT: PhoneChat = {
-  incoming: { text: "Hello, do you still have the Van Gogh Sunflowers?", time: "10:42" },
-  outgoing: { text: "Hello Marie, yes — I’m sending you the details now.", time: "10:43" },
+export type RecognitionCopy = {
+  title: string;
+  sub: string;
+  p1: string;
+  p2: string;
+  p3: string;
+  cta: string;
+  lang: "en" | "fr";
+  phone: { name: string; status: string; placeholder: string; messages: WaMessage[] };
 };
 
-const ARTWORKS: readonly [PhoneArtwork, PhoneArtwork] = [
-  {
-    image: "/artworks/van-gogh-self-portrait.jpg",
-    artist: "Vincent van Gogh",
-    title: "Self-Portrait",
-    year: "1887",
-    medium: "Oil on artist's board, mounted on cradled panel",
-    size: "41 × 32.5 cm",
-    price: "Price on request",
-    cta: "Inquire",
+export const RECOGNITION_EN: RecognitionCopy = {
+  title: "Every sale starts with a conversation.",
+  sub: "Find artworks, prices and details in WhatsApp.",
+  p1: "A collector writes on WhatsApp: “Is it still available?”",
+  p2: "Then the search begins. The image is in a folder, the price in a spreadsheet, what you sent last month in someone’s head.",
+  p3: "Now ask Vitreen, right in WhatsApp. It sends back the artwork with its image, price and availability, ready to forward to the collector, and keeps track of what each collector has received.",
+  cta: "Try it on WhatsApp",
+  lang: "en",
+  phone: {
+    name: "Vitreen",
+    status: "sales assistant",
+    placeholder: "Message",
+    messages: [
+      {
+        from: "me",
+        time: "10:41",
+        forwarded: { label: "Forwarded", name: "Marie Beaumont" },
+        text: "Anything new from Sacha Elron?",
+      },
+      {
+        from: "bot",
+        time: "10:41",
+        text: "Marie got 2 Elrons in March and loves large formats. This one just came in:",
+      },
+      {
+        from: "bot",
+        time: "10:41",
+        card: {
+          image: "/artworks/painting-03.jpg",
+          title: "Sacha Elron — Evening Field",
+          meta: "Oil on canvas · 120 × 150 cm",
+          price: "€12,000 · available",
+        },
+      },
+      {
+        from: "bot",
+        time: "10:42",
+        text: "“Hello Marie, a new Elron just arrived — the large format you liked in March. Evening Field, 120 × 150 cm. Shall I send you more images?”",
+        actions: ["Copy reply", "Make it shorter"],
+      },
+      { from: "me", time: "10:42", text: "Perfect, sent 👌" },
+      { from: "bot", time: "10:42", text: "Saved to Marie’s history ✓" },
+    ],
   },
-  {
-    image: "/artworks/van-gogh-sunflowers.jpg",
-    artist: "Vincent van Gogh",
-    title: "Sunflowers",
-    year: "1889",
-    medium: "Oil on canvas",
-    size: "95 × 73 cm",
-    price: "Price on request",
-    cta: "Inquire",
-  },
-];
+};
 
-export default function LandingRecognition() {
+/** The moment of recognition, then the demo: a forwarded message and its prepared reply, on WhatsApp. */
+export function RecognitionSection({ copy }: { copy: RecognitionCopy }) {
+  // The WhatsApp logo sits right in front of the word, wherever it falls in the sentence.
+  const at = copy.p1.indexOf("WhatsApp");
+  const p1Before = at === -1 ? "" : copy.p1.slice(0, at);
+  const p1After = at === -1 ? copy.p1 : copy.p1.slice(at);
+
   return (
     <section className={`${SECTION} bg-white`}>
       <div className={`${CONTAINER} grid gap-10 md:grid-cols-[0.7fr_1fr] md:items-start md:gap-16`}>
         <div className="max-w-xl">
-          <h2 className={H2}>Every reply starts with a search.</h2>
-          <p className={H2_SUB}>Your tools don’t talk to each other.</p>
+          <h2 className={H2}>{copy.title}</h2>
+          <p className={H2_SUB}>{copy.sub}</p>
 
           <p className="mt-6 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            <span className="mr-2 inline-flex items-center align-middle" aria-hidden="true">
+            {p1Before}
+            <span className="mr-1.5 inline-flex items-center align-middle" aria-hidden="true">
               <span className="flex h-6 w-6 items-center justify-center rounded-full border-[0.5px] border-[#E8E8E6] bg-white">
                 <img
                   src="/logos/whatsapp.svg"
@@ -81,38 +86,32 @@ export default function LandingRecognition() {
                   className="h-[18px] w-[18px] object-contain"
                 />
               </span>
-              <span className="-ml-2 flex h-6 w-6 items-center justify-center rounded-full border-[0.5px] border-[#E8E8E6] bg-white">
-                <img
-                  src="/logos/icon-gmail-96.png"
-                  alt=""
-                  className="h-[18px] w-[18px] object-contain"
-                />
-              </span>
             </span>
-            A collector writes on WhatsApp or Gmail: “Is it still available?”
+            {p1After}
           </p>
           <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            Then the search begins. The image is in a folder, the price in a spreadsheet, what you
-            sent last month in someone’s head.
+            {copy.p2}
           </p>
-          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#6B6A67]">
-            And your CRM stays empty, because nobody has time to fill it.
+          <p className="mt-4 text-[16px] leading-[1.65] tracking-[-0.01em] text-[#111110]">
+            {copy.p3}
           </p>
 
           <div className="mt-7">
-            <Button size="lg" onClick={openContact}>
-              Book a demo
-            </Button>
+            <TryWhatsAppButton lang={copy.lang} label={copy.cta} />
           </div>
         </div>
 
-        <PhoneNotifications
-          notifications={NOTIFICATIONS}
-          toMeLabel="to me"
-          chat={CHAT}
-          artworks={ARTWORKS}
+        <WaPhone
+          name={copy.phone.name}
+          status={copy.phone.status}
+          placeholder={copy.phone.placeholder}
+          messages={copy.phone.messages}
         />
       </div>
     </section>
   );
+}
+
+export default function LandingRecognition() {
+  return <RecognitionSection copy={RECOGNITION_EN} />;
 }
