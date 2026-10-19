@@ -3,9 +3,9 @@
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowRight, Database, FileText } from "lucide-react";
+import { ArchiveRestore, ArrowRight, BotOff, Database, FileText, LockKeyhole } from "lucide-react";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
-import { WA, WaBubble, type WaMessage } from "@/components/whatsapp/WaChat";
+import { WA, WaBubble, WaTyping, type WaMessage } from "@/components/whatsapp/WaChat";
 
 /*
  * The home after the hero: one section per conversation channel, email then
@@ -35,6 +35,27 @@ export type FeedEvent = {
 };
 
 export type ConversationSectionsCopy = {
+  /** Spreadsheet → Vitreen inventory → Gmail and WhatsApp, and who does the move. */
+  migration: {
+    eyebrow: string;
+    title: string;
+    sub: string;
+    stages: { k: string; v: string }[];
+    columns: [string, string, string, string];
+    file: string;
+    /** Drop zone label in the empty inventory, and the line while it imports. */
+    drop: string;
+    importing: string;
+    inventory: string;
+    imported: string;
+    gmail: string;
+    whatsapp: string;
+    badge: string;
+    line: string;
+    rows: { artist: string; title: string; price: string; status: string; image: string }[];
+    /** Where the data lives once it is moved, and what we promise about it. */
+    security: { title: string; items: { k: string; v: string }[] };
+  };
   /** The heading of the one section that holds email, WhatsApp and the feed. */
   block: { eyebrow: string; title: string; sub: string };
   feed: {
@@ -68,6 +89,67 @@ export type ConversationSectionsCopy = {
 };
 
 export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
+  migration: {
+    eyebrow: "Migration",
+    title: "We move your spreadsheet into Vitreen.",
+    sub: "Then every work is ready in Gmail and WhatsApp.",
+    stages: [
+      { k: "Your spreadsheet", v: "Excel, Google Sheets or an Artlogic export. As it is." },
+      { k: "Your Vitreen inventory", v: "Cleaned up and loaded by us: images, prices, statuses." },
+      { k: "Gmail and WhatsApp", v: "Find a work and send it where the collector wrote." },
+    ],
+    columns: ["Artist", "Title", "Price", "Status"],
+    file: "inventory.xlsx",
+    drop: "Drop your spreadsheet or Artlogic export",
+    importing: "Importing",
+    inventory: "Vitreen · Inventory",
+    imported: "works imported",
+    gmail: "Insert in your reply",
+    whatsapp: "Ready to forward",
+    badge: "We handle the whole migration",
+    line: "About a week, nothing to retype on your side.",
+    security: {
+      title: "Your data stays yours.",
+      items: [
+        {
+          k: "Your own space",
+          v: "Each gallery has its own database, never shared with another gallery.",
+        },
+        { k: "Encrypted", v: "Your works and collectors are encrypted in transit and at rest." },
+        {
+          k: "Never used to train AI",
+          v: "Your data is not used to train any model, ours or anyone’s.",
+        },
+        {
+          k: "Yours to take back",
+          v: "Delete a collector at any time. Your inventory is handed back on request.",
+        },
+      ],
+    },
+    rows: [
+      {
+        artist: "Sacha Elron",
+        title: "Evening field",
+        price: "€10,000",
+        status: "Available",
+        image: "/artworks/painting-05.jpg",
+      },
+      {
+        artist: "Sacha Elron",
+        title: "Blue hour",
+        price: "€9,500",
+        status: "Sold",
+        image: "/artworks/painting-08.jpg",
+      },
+      {
+        artist: "Lina Ores",
+        title: "Untitled",
+        price: "€4,800",
+        status: "Reserved",
+        image: "/artworks/painting-03.jpg",
+      },
+    ],
+  },
   block: {
     eyebrow: "Reply",
     title: "Your inventory, in every conversation.",
@@ -167,7 +249,7 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
     steps: [
       {
         k: "You ask",
-        v: "Two words, “elron 2023”. The card comes back with its price and availability.",
+        v: "Type the artist and a title. The card comes back with its price and availability.",
       },
       { k: "You prepare", v: "Tap “Send to…”, pick Marie. Vitreen notes it in her history." },
       { k: "You forward", v: "The card, from your own WhatsApp. Vitreen never sends." },
@@ -176,7 +258,7 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
     assistant: { name: "Vitreen", status: "assistant", initials: "V" },
     collector: { name: "Marie Beaumont", status: "online", initials: "MB" },
     ask: [
-      { from: "me", time: "10:41", text: "elron 2023" },
+      { from: "me", time: "10:41", text: "elron evening field" },
       {
         from: "bot",
         time: "10:41",
@@ -206,6 +288,73 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
 };
 
 export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
+  migration: {
+    eyebrow: "Migration",
+    title: "Nous transférons votre tableur dans Vitreen.",
+    sub: "Ensuite, chaque œuvre est prête dans Gmail et WhatsApp.",
+    stages: [
+      { k: "Votre tableur", v: "Excel, Google Sheets ou un export Artlogic. Tel quel." },
+      { k: "Votre inventaire Vitreen", v: "Nettoyé et chargé par nous : images, prix, statuts." },
+      {
+        k: "Gmail et WhatsApp",
+        v: "Retrouvez une œuvre et envoyez-la là où le collectionneur a écrit.",
+      },
+    ],
+    columns: ["Artiste", "Titre", "Prix", "Statut"],
+    file: "inventaire.xlsx",
+    drop: "Déposez votre tableur ou votre export Artlogic",
+    importing: "Import en cours",
+    inventory: "Vitreen · Inventaire",
+    imported: "œuvres importées",
+    gmail: "À insérer dans votre réponse",
+    whatsapp: "Prête à transférer",
+    badge: "Nous nous occupons de toute la migration",
+    line: "Une semaine environ, rien à ressaisir de votre côté.",
+    security: {
+      title: "Vos données restent les vôtres.",
+      items: [
+        {
+          k: "Votre propre espace",
+          v: "Chaque galerie a sa propre base, jamais partagée avec une autre galerie.",
+        },
+        {
+          k: "Chiffrées",
+          v: "Vos œuvres et vos collectionneurs sont chiffrés en transit et au repos.",
+        },
+        {
+          k: "Jamais utilisées pour entraîner une IA",
+          v: "Vos données n’entraînent aucun modèle, ni le nôtre ni un autre.",
+        },
+        {
+          k: "Récupérables",
+          v: "Supprimez un collectionneur à tout moment. Votre inventaire vous est rendu sur demande.",
+        },
+      ],
+    },
+    rows: [
+      {
+        artist: "Sacha Elron",
+        title: "Evening field",
+        price: "10 000 €",
+        status: "Disponible",
+        image: "/artworks/painting-05.jpg",
+      },
+      {
+        artist: "Sacha Elron",
+        title: "Blue hour",
+        price: "9 500 €",
+        status: "Vendue",
+        image: "/artworks/painting-08.jpg",
+      },
+      {
+        artist: "Lina Ores",
+        title: "Sans titre",
+        price: "4 800 €",
+        status: "Réservée",
+        image: "/artworks/painting-03.jpg",
+      },
+    ],
+  },
   block: {
     eyebrow: "Répondre",
     title: "Votre inventaire, dans chaque conversation.",
@@ -305,7 +454,7 @@ export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
     steps: [
       {
         k: "Vous demandez",
-        v: "Deux mots, « elron 2023 ». La fiche revient avec son prix et sa disponibilité.",
+        v: "Tapez l’artiste et un titre. La fiche revient avec son prix et sa disponibilité.",
       },
       {
         k: "Vous préparez",
@@ -317,7 +466,7 @@ export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
     assistant: { name: "Vitreen", status: "assistant", initials: "V" },
     collector: { name: "Marie Beaumont", status: "en ligne", initials: "MB" },
     ask: [
-      { from: "me", time: "10:41", text: "elron 2023" },
+      { from: "me", time: "10:41", text: "elron evening field" },
       {
         from: "bot",
         time: "10:41",
@@ -350,9 +499,9 @@ export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
 
 const AIRY = "px-4 py-24 md:px-6 md:py-36";
 const TITLE =
-  "mx-auto max-w-3xl text-balance text-center font-display text-[30px] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110] md:text-[44px]";
+  "mx-auto max-w-3xl text-balance text-center font-display text-[26px] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110] md:text-[36px]";
 const SUB =
-  "mx-auto mt-2 max-w-3xl text-balance text-center font-display text-[30px] font-medium leading-[1.1] tracking-[-0.03em] text-[#ADADAA] md:text-[44px]";
+  "mx-auto mt-2 max-w-3xl text-balance text-center font-display text-[26px] font-medium leading-[1.1] tracking-[-0.03em] text-[#ADADAA] md:text-[36px]";
 const KICKER = "mb-5 text-center text-[13px] tracking-[-0.01em] text-[#6B6A67]";
 
 const pop = {
@@ -512,7 +661,7 @@ function EmailSection({ c }: { c: ConversationSectionsCopy["email"] }) {
   const [phase, setPhase] = useState<0 | 1 | 2>(0);
   return (
     <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
-      <div className="pointer-events-none relative h-[400px] overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.06)] md:h-[460px]">
+      <div className="pointer-events-none relative h-[400px] overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white md:h-[460px]">
         <IntegrationsFrame onPhase={setPhase} />
       </div>
       <div>
@@ -560,27 +709,40 @@ function ChatHeader({ who }: { who: Who }) {
 }
 
 /** WhatsApp's composer, at rest. */
-function ChatComposer() {
+function ChatComposer({ typed = "" }: { typed?: string }) {
   return (
     <div className="flex items-center gap-2 px-4 pb-6 pt-1">
       <div
-        className="flex-1 rounded-full bg-white px-4 py-2.5 text-[14px]"
-        style={{ color: WA.muted }}
+        className="min-h-[40px] flex-1 truncate rounded-full bg-white px-4 py-2.5 text-[14px]"
+        style={{ color: typed ? WA.ink : WA.muted }}
       >
-        Message
+        {typed ? (
+          <>
+            {typed}
+            <span className="ml-px inline-block h-[15px] w-px translate-y-[3px] bg-[#111B21]" />
+          </>
+        ) : (
+          "Message"
+        )}
       </div>
       <span
         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
         style={{ background: WA.green }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm6-3a6 6 0 0 1-12 0m6 6v3"
-            stroke="white"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
+        {typed ? (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+            <path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z" />
+          </svg>
+        ) : (
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm6-3a6 6 0 0 1-12 0m6 6v3"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        )}
       </span>
     </div>
   );
@@ -657,28 +819,41 @@ function SendToSheet({
 }
 
 /*
- *  0  "elron 2023"                        step 1, You ask
- *  1  the card comes back                 ┘
- *  2  "Who is this for?" + Send to…       ┐ step 2, You prepare
- *  3  the sheet opens                     │
- *  4  Marie is ticked                     │
- *  5  "Prepared … · recorded"             ┘
- *  6  Marie's chat, the card forwarded    step 3, You forward
+ *  0  the question is typed in the composer      step 1, You ask
+ *  1  sent; the assistant "types"                │
+ *  2  the card comes back                        ┘
+ *  3  "Who is this for?" + Send to…              ┐ step 2, You prepare
+ *  4  the sheet opens                            │
+ *  5  Marie is ticked                            │
+ *  6  "Prepared … · recorded"                    ┘
+ *  7  Marie's chat, the card forwarded           step 3, You forward
  */
-const WA_BEATS = [1200, 2200, 1700, 1300, 1600, 2400, 3600];
-const WA_STEP_OF_BEAT = [0, 0, 1, 1, 1, 1, 2];
-const WA_FIRST_BEAT = [0, 2, 6];
+const WA_BEATS = [2300, 1900, 2300, 1700, 1300, 1600, 2400, 3600];
+const WA_STEP_OF_BEAT = [0, 0, 0, 1, 1, 1, 1, 2];
+const WA_FIRST_BEAT = [0, 3, 7];
 
 function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; beat: number }) {
-  const inMarie = beat === 6;
+  const inMarie = beat === 7;
+  // Beat 0: the question is typed letter by letter in the composer, then sent.
+  const question = c.ask[0].text ?? "";
+  const [typedCount, setTypedCount] = useState(0);
+  useEffect(() => {
+    if (beat !== 0) {
+      setTypedCount(0);
+      return;
+    }
+    setTypedCount(0);
+    const t = window.setInterval(() => setTypedCount((n) => Math.min(n + 1, question.length)), 80);
+    return () => window.clearInterval(t);
+  }, [beat, question]);
   const who = inMarie ? c.collector : c.assistant;
   // The assistant thread, in the order it builds up.
   const thread: { key: string; m: WaMessage; from: number; tail: boolean }[] = [
-    { key: "ask", m: c.ask[0], from: 0, tail: true },
-    { key: "card", m: c.ask[1], from: 1, tail: true },
-    { key: "status", m: c.status, from: 1, tail: false },
-    { key: "before", m: c.before, from: 2, tail: false },
-    ...c.after.map((m, i) => ({ key: `after-${i}`, m, from: 5, tail: false })),
+    { key: "ask", m: c.ask[0], from: 1, tail: true },
+    { key: "card", m: c.ask[1], from: 2, tail: true },
+    { key: "status", m: c.status, from: 2, tail: false },
+    { key: "before", m: c.before, from: 3, tail: false },
+    ...c.after.map((m, i) => ({ key: `after-${i}`, m, from: 6, tail: false })),
   ];
 
   return (
@@ -728,16 +903,27 @@ function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; b
                     <WaBubble m={t.m} tail={t.tail} />
                   </motion.div>
                 ))}
+              {beat === 1 ? (
+                <motion.div
+                  key="typing"
+                  layout
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0, transition: { delay: 0.5, duration: 0.3, ease } }}
+                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                >
+                  <WaTyping />
+                </motion.div>
+              ) : null}
             </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <ChatComposer />
+      <ChatComposer typed={question.slice(0, typedCount)} />
 
       {/* The list sheet rises over the chat, like WhatsApp's bottom sheet. */}
       <AnimatePresence>
-        {beat === 3 || beat === 4 ? (
+        {beat === 4 || beat === 5 ? (
           <motion.div
             key="sheet"
             className="absolute inset-0 flex flex-col justify-end bg-black/20"
@@ -756,7 +942,7 @@ function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; b
                 title={c.sheetTitle}
                 rows={c.sheetRows}
                 send={c.sheetSend}
-                picked={beat === 4}
+                picked={beat === 5}
               />
             </motion.div>
           </motion.div>
@@ -770,10 +956,7 @@ function WhatsAppSection({ c }: { c: ConversationSectionsCopy["whatsapp"] }) {
   const { ref, beat, setBeat } = useBeats(WA_BEATS);
   return (
     <div ref={ref} className="mx-auto grid max-w-5xl items-center gap-14 md:grid-cols-2 md:gap-20">
-      <div className="md:order-2">
-        <WhatsAppScene c={c} beat={beat} />
-      </div>
-      <div>
+      <div className="max-w-lg">
         <RowHeading eyebrow={c.eyebrow} title={c.title} sub={c.sub} logo="/logos/whatsapp.svg" />
         <Steps
           steps={c.steps}
@@ -781,6 +964,9 @@ function WhatsAppSection({ c }: { c: ConversationSectionsCopy["whatsapp"] }) {
           onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
           line={c.line}
         />
+      </div>
+      <div>
+        <WhatsAppScene c={c} beat={beat} />
       </div>
     </div>
   );
@@ -1031,6 +1217,494 @@ export function StatementSection({
   );
 }
 
+/* ─── Migration: the spreadsheet dropped into the Gallery OS artworks ───── */
+
+/** The works as Gallery OS lists them once imported (demo gallery). */
+const SCREEN_ROWS = [
+  {
+    title: "Evening field",
+    artist: "Sacha Elron",
+    year: "2023",
+    price: "10 000 €",
+    status: "Available",
+    image: "/artworks/painting-05.jpg",
+  },
+  {
+    title: "Blue hour",
+    artist: "Sacha Elron",
+    year: "2022",
+    price: "9 500 €",
+    status: "Sold",
+    image: "/artworks/painting-08.jpg",
+  },
+  {
+    title: "Self-Portrait",
+    artist: "Vincent van Gogh",
+    year: "1887",
+    price: "85 000 €",
+    status: "Available",
+    image: "/artworks/van-gogh-self-portrait.jpg",
+  },
+  {
+    title: "Untitled",
+    artist: "Lina Ores",
+    year: "2025",
+    price: "4 800 €",
+    status: "Reserved",
+    image: "/artworks/painting-03.jpg",
+  },
+  {
+    title: "Sunflowers",
+    artist: "Vincent van Gogh",
+    year: "1888",
+    price: "92 000 €",
+    status: "Available",
+    image: "/artworks/van-gogh-sunflowers.jpg",
+  },
+];
+const STATUS_PILL: Record<string, string> = {
+  Available: "border-emerald-200 bg-emerald-50 text-emerald-700",
+  Sold: "border-[#E8E8E6] bg-[#F5F5F3] text-[#6B6A67]",
+  Reserved: "border-amber-200 bg-amber-50 text-amber-700",
+};
+const FILTERS = [
+  "Available",
+  "Reserved",
+  "Sold",
+  "Consignment",
+  "On loan",
+  "Not for sale",
+  "Withdrawn",
+];
+
+/** Icons for the data promises, in the order of `security.items`. */
+const SECURITY_ICONS = [Database, LockKeyhole, BotOff, ArchiveRestore];
+
+/*
+ * The real onboarding first (OnboardingWizard, step "Inventory"), then the
+ * Artworks screen it leads to:
+ *  0  Connect your inventory: the three ways in
+ *  1  "Import a file" is picked
+ *  2  the file step, its drop zone waiting
+ *  3  inventory.xlsx is dragged in
+ *  4  dropped: the import bar fills
+ *  5… the Artworks screen, works appearing row by row, then hold
+ */
+const MIGRATION_TIMES = [1500, 900, 800, 1500, 1300];
+const MIGRATION_ROW_MS = 550;
+const MIGRATION_HOLD_MS = 4200;
+/** While the screen holds, the rest of the inventory keeps coming in: the counters climb to here. */
+const IMPORT_TOTAL = 248;
+const ARTWORKS_FROM = 5;
+
+function FileChip({ name }: { name: string }) {
+  return (
+    <span className="flex items-center gap-2 rounded-[10px] border border-[#E8E8E6] bg-white px-3 py-2 text-[13px] text-[#111110]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/logos/Microsoft_Office_Excel_Logo.svg" alt="" className="h-5 w-5" />
+      {name}
+    </span>
+  );
+}
+
+const ONBOARDING_METHODS = [
+  {
+    title: "Import a file",
+    desc: "CSV or Excel — bring your whole inventory at once",
+    badge: "Recommended",
+    tone: "bg-emerald-50 text-emerald-700",
+    icon: "▤",
+  },
+  {
+    title: "Connect Artlogic",
+    desc: "Sync automatically from your Artlogic database",
+    badge: "Beta",
+    tone: "bg-violet-50 text-violet-700",
+    icon: "◫",
+  },
+  {
+    title: "Add manually",
+    desc: "Create your first work one field at a time",
+    badge: null,
+    tone: "",
+    icon: "✎",
+  },
+];
+
+/** Gallery OS onboarding, step "Inventory", as OnboardingWizard renders it. */
+function OnboardingScreen({ c, beat }: { c: ConversationSectionsCopy["migration"]; beat: number }) {
+  const picking = beat <= 1;
+  return (
+    <div className="flex h-full flex-col items-center bg-zinc-50 px-4 pt-7 md:pt-9">
+      <div className="w-full max-w-md">
+        <div className="mb-6 text-center">
+          <span className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-900">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="white"
+              strokeWidth="1.75"
+              aria-hidden="true"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg>
+          </span>
+          <p className="text-[18px] font-semibold text-zinc-900">Welcome to Gallery OS</p>
+          <p className="mt-1 text-[12px] text-zinc-700">
+            Let&apos;s set up your gallery in 3 steps
+          </p>
+        </div>
+
+        <div className="relative overflow-hidden rounded-[22px] border border-zinc-200 bg-white">
+          <AnimatePresence mode="wait" initial={false}>
+            {picking ? (
+              <motion.div
+                key="picker"
+                className="space-y-4 p-5"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, x: -12 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div>
+                  <p className="text-[15px] font-semibold text-zinc-900">Connect your inventory</p>
+                  <p className="mt-0.5 text-[12px] text-zinc-700">
+                    Choose how to bring your works into Gallery OS
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  {ONBOARDING_METHODS.map((m, i) => {
+                    const hot = i === 0 && beat === 1;
+                    return (
+                      <motion.div
+                        key={m.title}
+                        className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 transition-colors duration-200 ${
+                          hot ? "border-zinc-900" : "border-zinc-200"
+                        }`}
+                        animate={{ scale: hot ? [1, 0.97, 1] : 1 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <span
+                          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[13px] transition-colors ${
+                            hot ? "bg-zinc-900 text-white" : "bg-zinc-50 text-zinc-500"
+                          }`}
+                        >
+                          {m.icon}
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex flex-wrap items-center gap-1.5">
+                            <span className="whitespace-nowrap text-[13px] font-medium text-zinc-900">
+                              {m.title}
+                            </span>
+                            {m.badge ? (
+                              <span
+                                className={`rounded px-1.5 py-0.5 text-[9px] font-medium ${m.tone}`}
+                              >
+                                {m.badge}
+                              </span>
+                            ) : null}
+                          </span>
+                          <span className="mt-0.5 block truncate text-[11px] text-zinc-500">
+                            {m.desc}
+                          </span>
+                        </span>
+                        <span className={`text-[14px] ${hot ? "text-zinc-900" : "text-zinc-300"}`}>
+                          ›
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+                <p className="text-[11px] text-zinc-400">I&apos;ll do this later</p>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="file"
+                className="space-y-4 p-5"
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[15px] font-semibold text-zinc-900">Import a file</p>
+                    <p className="mt-0.5 text-[12px] text-zinc-700">
+                      Bring your whole inventory from a CSV file
+                    </p>
+                  </div>
+                  <span className="mt-0.5 text-[11px] text-zinc-400">← Back</span>
+                </div>
+                <div className="relative h-[150px]">
+                  {beat <= 3 ? (
+                    <div
+                      className={`flex h-full flex-col items-center justify-center gap-2 rounded-xl border border-dashed transition-colors duration-300 ${
+                        beat === 3
+                          ? "border-emerald-400 bg-emerald-50/60"
+                          : "border-zinc-300 bg-zinc-50"
+                      }`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="/logos/Microsoft_Office_Excel_Logo.svg"
+                        alt=""
+                        className="h-6 w-6 opacity-60"
+                      />
+                      <span className="text-[12px] text-zinc-500">{c.drop}</span>
+                    </div>
+                  ) : (
+                    <div className="flex h-full flex-col justify-center gap-2 rounded-xl border border-zinc-200 px-4">
+                      <div className="flex items-center gap-3">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src="/logos/Microsoft_Office_Excel_Logo.svg"
+                          alt=""
+                          className="h-5 w-5"
+                        />
+                        <p className="text-[12px] text-zinc-900">
+                          {c.importing} · {c.file}
+                        </p>
+                      </div>
+                      <div className="h-1 overflow-hidden rounded-full bg-zinc-200">
+                        <motion.div
+                          className="h-full rounded-full bg-zinc-900"
+                          initial={{ width: "0%" }}
+                          animate={{ width: "100%" }}
+                          transition={{ duration: MIGRATION_TIMES[4] / 1000, ease }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <AnimatePresence>
+                    {beat === 3 ? (
+                      <motion.div
+                        key="drag"
+                        className="pointer-events-none absolute left-1/2 top-1/2 z-20 -mt-5"
+                        initial={{ x: "-230%", y: -50, opacity: 0, rotate: -4 }}
+                        animate={{ x: "-50%", y: 0, opacity: 1, rotate: -2 }}
+                        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                        transition={{ duration: 1.1, ease }}
+                      >
+                        <div className="relative">
+                          <FileChip name={c.file} />
+                          <svg
+                            className="absolute -bottom-3 right-2"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M4 2l16 9-7 2-3 7z"
+                              fill="#111110"
+                              stroke="white"
+                              strokeWidth="1.5"
+                            />
+                          </svg>
+                        </div>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Gallery OS · Artworks, as workspace/inventory/artworks renders it. */
+function ArtworksScreen({ loaded, holding }: { loaded: number; holding: boolean }) {
+  const rows = SCREEN_ROWS.slice(0, loaded);
+  // Once the visible rows are in, the counters keep climbing until the screen changes.
+  const [extra, setExtra] = useState(0);
+  useEffect(() => {
+    if (!holding) {
+      setExtra(0);
+      return;
+    }
+    let frame = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / MIGRATION_HOLD_MS);
+      setExtra(Math.round((1 - Math.pow(1 - p, 2)) * (IMPORT_TOTAL - SCREEN_ROWS.length)));
+      if (p < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [holding]);
+  const total = loaded + extra;
+  const available = rows.filter((r) => r.status === "Available").length + Math.round(extra * 0.86);
+  const sold = rows.filter((r) => r.status === "Sold").length + Math.round(extra * 0.09);
+  const cols =
+    "grid-cols-[minmax(0,2fr)_minmax(0,1fr)] md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.4fr)_56px_84px_92px]";
+  return (
+    <div className="h-full bg-white">
+      <div className="m-2 rounded-2xl bg-zinc-50/80 px-4 pb-4 pt-5 md:m-3 md:px-6">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="font-display text-[20px] font-medium tracking-[-0.03em] text-[#111110] md:text-[24px]">
+              Artworks
+            </p>
+            <p className="mt-1 text-[12px] text-[#6B6A67]">
+              The works behind your conversations and selections.
+            </p>
+          </div>
+          <div className="hidden items-center gap-2 sm:flex">
+            <span className="rounded-[7px] bg-[#111110] px-2.5 py-1.5 text-[11.5px] font-medium text-white">
+              + Add artwork
+            </span>
+            <span className="rounded-[7px] border border-[#E8E8E6] bg-white px-2.5 py-1.5 text-[11.5px] text-[#111110]">
+              ↥ Import a CSV
+            </span>
+          </div>
+        </div>
+        <p className="mt-3 text-[12px] tabular-nums text-[#6B6A67]">
+          {total} total · {available} available · {sold} sold
+        </p>
+        <div className="mt-3 rounded-[9px] border border-[#E8E8E6] bg-white px-3 py-2 text-[12px] text-[#ADADAA]">
+          ⌕ Filter artworks in this view…
+        </div>
+        <div className="mt-3 hidden flex-wrap gap-2 md:flex">
+          {FILTERS.map((f) => (
+            <span
+              key={f}
+              className="rounded-full border border-[#E8E8E6] bg-white px-2.5 py-0.5 text-[11px] text-[#3F3F46]"
+            >
+              {f}
+            </span>
+          ))}
+        </div>
+        <p className="mt-3 text-[11px] tabular-nums text-[#ADADAA]">{total} results</p>
+      </div>
+      <div
+        className={`mx-2 grid ${cols} border-b border-[#E8E8E6] px-3 py-2 text-[11px] font-medium text-[#3F3F46] md:mx-3`}
+      >
+        <span className="pl-11">Title</span>
+        <span className="hidden md:block">Artist</span>
+        <span className="hidden md:block">Year</span>
+        <span className="text-right md:text-left">Price</span>
+        <span className="hidden md:block">Status</span>
+      </div>
+      {rows.map((r) => (
+        <motion.div
+          key={r.title}
+          className={`mx-2 grid ${cols} items-center border-b border-[#F0F0EE] px-3 py-2 md:mx-3`}
+          initial={{ opacity: 0, y: 8, backgroundColor: "rgba(236,253,245,1)" }}
+          animate={{ opacity: 1, y: 0, backgroundColor: "rgba(255,255,255,0)" }}
+          transition={{ duration: 0.5, ease, backgroundColor: { duration: 1.2 } }}
+        >
+          <span className="flex min-w-0 items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={r.image} alt="" className="h-8 w-8 shrink-0 rounded-[6px] object-cover" />
+            <span className="truncate text-[13px] text-[#111110]">{r.title}</span>
+          </span>
+          <span className="hidden truncate text-[12.5px] text-[#3F3F46] md:block">{r.artist}</span>
+          <span className="hidden text-[12.5px] tabular-nums text-[#3F3F46] md:block">
+            {r.year}
+          </span>
+          <span className="text-right text-[12.5px] tabular-nums text-[#111110] md:text-left">
+            {r.price}
+          </span>
+          <span className="hidden md:block">
+            <span
+              className={`rounded-full border px-2 py-0.5 text-[11px] ${STATUS_PILL[r.status]}`}
+            >
+              {r.status}
+            </span>
+          </span>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.35 });
+  const total = SCREEN_ROWS.length;
+  const last = ARTWORKS_FROM + total; // the hold, once every work is in
+  const [beat, setBeat] = useState(reduce ? last : 0);
+
+  useEffect(() => {
+    if (reduce || !inView) return;
+    const wait =
+      beat < ARTWORKS_FROM
+        ? MIGRATION_TIMES[beat]
+        : beat >= last
+          ? MIGRATION_HOLD_MS
+          : MIGRATION_ROW_MS;
+    const t = window.setTimeout(() => setBeat((b) => (b >= last ? 0 : b + 1)), wait);
+    return () => window.clearTimeout(t);
+  }, [beat, inView, reduce, last]);
+
+  const onArtworks = beat >= ARTWORKS_FROM;
+  const loaded = Math.max(0, Math.min(beat - ARTWORKS_FROM + 1, total));
+
+  return (
+    <section className={`${AIRY} border-t border-[#E8E8E6] bg-white`}>
+      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
+      <div ref={ref} className="relative mx-auto mt-16 max-w-4xl md:mt-24">
+        {/* One screen at a time: the onboarding, then the Artworks list it fills */}
+        <div className="relative h-[520px] overflow-hidden rounded-[32px] border border-[#E8E8E6] bg-white md:h-[540px]">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={onArtworks ? "artworks" : "onboarding"}
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              {onArtworks ? (
+                <ArtworksScreen loaded={loaded} holding={beat >= last} />
+              ) : (
+                <OnboardingScreen c={c} beat={beat} />
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="mt-12 flex flex-col items-center gap-2 text-center md:mt-14">
+          <span className="mb-2 h-px w-10 bg-[#D4D4D1] md:w-12" aria-hidden="true" />
+          <span className="text-[13px] text-[#6B6A67]">{c.line}</span>
+        </div>
+      </div>
+
+      {/* Where the data lives: the reassurance that comes with the move. */}
+      <div className="mx-auto mt-20 max-w-5xl rounded-[20px] bg-[#F5F5F3] p-6 md:mt-24 md:p-10">
+        <p className="text-center font-display text-[22px] font-medium tracking-[-0.025em] text-[#111110] md:text-[26px]">
+          {c.security.title}
+        </p>
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {c.security.items.map((it, i) => {
+            const Icon = SECURITY_ICONS[i] ?? Database;
+            return (
+              <li key={it.k} className="flex flex-col gap-1.5">
+                <span className="flex items-center gap-2.5 text-[15px] font-medium text-[#111110]">
+                  <Icon
+                    size={18}
+                    strokeWidth={1.75}
+                    className="shrink-0 text-[#111110]"
+                    aria-hidden="true"
+                  />
+                  {it.k}
+                </span>
+                <span className="text-[14px] leading-[1.5] text-[#6B6A67]">{it.v}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export default function ConversationSections({
   copy,
   afterWhatsApp,
@@ -1040,7 +1714,7 @@ export default function ConversationSections({
 }) {
   return (
     <>
-      {/* One section holds the three rows, alternating scene left and right. */}
+      {/* One section holds the rows, alternating scene left and right. */}
       <section className="bg-white px-4 pb-24 pt-0 md:px-6 md:pb-36 md:pt-4">
         <Heading eyebrow={copy.block.eyebrow} title={copy.block.title} sub={copy.block.sub} />
         <div className="mt-20 flex flex-col gap-28 md:mt-28 md:gap-40">
@@ -1049,6 +1723,7 @@ export default function ConversationSections({
         </div>
       </section>
       <FeedSection c={copy.feed} />
+      <MigrationSection c={copy.migration} />
       {afterWhatsApp}
     </>
   );

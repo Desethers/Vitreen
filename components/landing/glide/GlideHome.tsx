@@ -372,7 +372,7 @@ function HeroMicroSignals() {
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
               <p className="text-[12px] leading-[1.4] text-[#111110]">
-                Thank you for your question, here you can find the details.
+                Of course! Here is the Breuer B64 chair, with its details.
               </p>
               <span className="mt-1 block text-right text-[8px] text-[#8A8A87]">10:45</span>
             </motion.div>
