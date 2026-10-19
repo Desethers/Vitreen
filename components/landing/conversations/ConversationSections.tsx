@@ -654,24 +654,90 @@ function Steps({
   );
 }
 
+/**
+ * Phones: only the current step, right under the scene, as a caption that
+ * changes with it. Dots show where the loop is and jump to a step.
+ */
+function StepCaption({
+  steps,
+  active,
+  onPick,
+  line,
+}: {
+  steps: Step[];
+  active: number;
+  onPick?: (i: number) => void;
+  line: string;
+}) {
+  const s = steps[active];
+  return (
+    <div className="px-3">
+      <div className="flex items-center gap-1">
+        {steps.map((step, i) => (
+          <button
+            key={step.k}
+            type="button"
+            aria-label={step.k}
+            aria-current={i === active}
+            onClick={onPick ? () => onPick(i) : undefined}
+            disabled={!onPick}
+            className="py-2 pr-1"
+          >
+            <span
+              className={`block h-1.5 rounded-full transition-all duration-300 ${
+                i === active ? "w-5 bg-[#111110]" : "w-1.5 bg-[#DCDCD8]"
+              }`}
+            />
+          </button>
+        ))}
+      </div>
+      <div className="mt-1 min-h-[76px]">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.25, ease }}
+          >
+            <p className="font-display text-[17px] tracking-[-0.02em] text-[#111110]">
+              {active + 1}. {s.k}
+            </p>
+            <p className="mt-0.5 text-[14px] leading-[1.5] text-[#6B6A67]">{s.v}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <p className="mt-3 text-[13px] leading-[1.45] text-[#ADADAA]">{line}</p>
+    </div>
+  );
+}
+
 /* ─── Email: the Gmail add-in ───────────────────────────────────────────── */
 
-function EmailSection({ c }: { c: ConversationSectionsCopy["email"] }) {
+function EmailSection({ c, lang }: { c: ConversationSectionsCopy["email"]; lang: "en" | "fr" }) {
   // The real Gmail mockup plays its own loop; the steps follow its phases.
   const [phase, setPhase] = useState<0 | 1 | 2>(0);
+  // Phones: heading, scene, caption. Desktop: scene left, heading and steps right.
   return (
-    <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
-      <div className="pointer-events-none relative h-[400px] overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white md:h-[460px]">
-        <IntegrationsFrame onPhase={setPhase} />
-      </div>
-      <div>
+    <div className="mx-auto grid max-w-6xl gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:grid-rows-[1fr_auto_1fr] lg:gap-x-16 lg:gap-y-0">
+      <div className="lg:col-start-2 lg:row-start-1 lg:self-end">
         <RowHeading
           eyebrow={c.eyebrow}
           title={c.title}
           sub={c.sub}
           logo="/logos/icon-gmail-96.png"
         />
-        <Steps steps={c.steps} active={phase} line={c.line} />
+      </div>
+      <div className="pointer-events-none relative h-[340px] overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white md:h-[460px] lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:self-center">
+        <IntegrationsFrame onPhase={setPhase} lang={lang} />
+      </div>
+      <div className="lg:col-start-2 lg:row-start-2">
+        <div className="lg:hidden">
+          <StepCaption steps={c.steps} active={phase} line={c.line} />
+        </div>
+        <div className="hidden lg:block">
+          <Steps steps={c.steps} active={phase} line={c.line} />
+        </div>
       </div>
     </div>
   );
@@ -857,7 +923,7 @@ function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; b
   ];
 
   return (
-    <div className="relative mx-auto flex h-[640px] w-full max-w-[340px] flex-col overflow-hidden rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-[#F5F5F3] pt-[58px]">
+    <div className="relative mx-auto flex h-[480px] w-full max-w-[340px] flex-col md:h-[640px] overflow-hidden rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-[#F5F5F3] pt-[58px]">
       {/* The island, like the home's other phone. */}
       <div className="absolute left-1/2 top-4 z-10 h-[28px] w-[116px] -translate-x-1/2 rounded-full bg-[#E8E8E6]" />
       <AnimatePresence mode="wait" initial={false}>
@@ -955,18 +1021,34 @@ function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; b
 function WhatsAppSection({ c }: { c: ConversationSectionsCopy["whatsapp"] }) {
   const { ref, beat, setBeat } = useBeats(WA_BEATS);
   return (
-    <div ref={ref} className="mx-auto grid max-w-5xl items-center gap-14 md:grid-cols-2 md:gap-20">
-      <div className="max-w-lg">
+    // Phones: heading, phone, caption. Desktop: heading and steps left, phone right.
+    <div
+      ref={ref}
+      className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2 md:grid-rows-[1fr_auto_1fr] md:gap-x-20 md:gap-y-0"
+    >
+      <div className="max-w-lg md:col-start-1 md:row-start-1 md:self-end">
         <RowHeading eyebrow={c.eyebrow} title={c.title} sub={c.sub} logo="/logos/whatsapp.svg" />
-        <Steps
-          steps={c.steps}
-          active={WA_STEP_OF_BEAT[beat]}
-          onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
-          line={c.line}
-        />
       </div>
-      <div>
+      <div className="md:col-start-2 md:row-span-3 md:row-start-1 md:self-center">
         <WhatsAppScene c={c} beat={beat} />
+      </div>
+      <div className="max-w-lg md:col-start-1 md:row-start-2">
+        <div className="md:hidden">
+          <StepCaption
+            steps={c.steps}
+            active={WA_STEP_OF_BEAT[beat]}
+            onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
+            line={c.line}
+          />
+        </div>
+        <div className="hidden md:block">
+          <Steps
+            steps={c.steps}
+            active={WA_STEP_OF_BEAT[beat]}
+            onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
+            line={c.line}
+          />
+        </div>
       </div>
     </div>
   );
@@ -988,16 +1070,24 @@ function FeedRow({
   kinds,
   isFrench,
   answered,
+  linked,
 }: {
   e: FeedEvent;
   kinds: { label: string }[];
   isFrench: boolean;
   answered: boolean;
+  /** An older exchange sits below: the thread line draws down to it. */
+  linked: boolean;
 }) {
   const isArtwork = e.kind === 1 && e.title.toLowerCase().includes("self-portrait");
   return (
     <div className="relative pl-10 md:pl-12">
-      <span className="absolute bottom-[-14px] left-[15px] top-9 w-px bg-[#E1E1DE] md:left-[19px]" />
+      <motion.span
+        className="absolute bottom-[-14px] left-[15px] top-9 w-px origin-top bg-[#E1E1DE] md:left-[19px]"
+        initial={false}
+        animate={{ scaleY: linked ? 1 : 0 }}
+        transition={{ duration: 0.5, delay: linked ? 0.35 : 0, ease }}
+      />
       <span
         className={`absolute left-0 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white shadow-sm md:left-1 ${
           e.channel ? "bg-white" : "bg-[#2F80ED] text-white"
@@ -1077,64 +1167,104 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.4 });
   const total = c.events.length;
-  // New exchanges join the history once; older entries remain in the feed.
-  const [n, setN] = useState(4);
+  // One notification first; each new one pops in on top and links to the
+  // thread below, until the history is full. Then it starts over.
+  const [n, setN] = useState(1);
+  // Each loop is its own list: the whole history fades out at once, then
+  // the next loop starts from a single notification (no overlapping exits).
+  const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
     if (reduce) {
       setN(total);
       return;
     }
-    if (!inView || n >= total) return;
-    const t = window.setTimeout(() => setN((x) => Math.min(x + 1, total)), 2200);
+    if (!inView) return;
+    const t = window.setTimeout(
+      () => {
+        if (n >= total) {
+          setCycle((k) => k + 1);
+          setN(1);
+        } else {
+          setN(n + 1);
+        }
+      },
+      n >= total ? 4500 : 1800
+    );
     return () => window.clearTimeout(t);
   }, [n, inView, reduce, total]);
 
   const shown = c.events.slice(0, n).reverse();
   const isFrench = c.eyebrow === "Se souvenir";
+
+  // The panel's height follows the list: it grows as notifications arrive.
+  const listRef = useRef<HTMLDivElement>(null);
+  const [listH, setListH] = useState<number | "auto">("auto");
+  useEffect(() => {
+    const el = listRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setListH(el.offsetHeight));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   return (
     <section className="bg-white px-4 py-16 md:px-6 md:py-20">
       <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
       <p className="mx-auto mt-6 max-w-2xl text-center font-display text-[16px] leading-[1.5] tracking-[-0.015em] text-[#6B6A67] md:text-[18px]">
         {c.line}
       </p>
-      <div
+      <motion.div
         ref={ref}
-        className="relative mx-auto mt-14 h-[min(620px,calc(100svh-200px))] max-w-4xl overflow-hidden rounded-[24px] border border-[#E4E4E1] bg-white px-4 py-6 md:mt-20 md:px-7 md:py-8"
+        className="relative mx-auto mt-14 max-w-4xl overflow-hidden bg-white md:mt-20"
+        animate={{ height: listH }}
+        transition={{ type: "spring", stiffness: 260, damping: 32 }}
       >
-        <p className="mb-4 text-[13px] font-medium text-[#71717A] md:pl-2">
-          {isFrench ? "Activité récente" : "Recent activity"}
-        </p>
-        <ul className="flex flex-col gap-3">
-          <AnimatePresence initial={false}>
-            {shown.map((e, index) => (
-              <motion.li
-                key={`${e.who}-${e.title}`}
-                layout
-                initial={reduce ? false : { opacity: 0, y: -18, scale: 0.985 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.5 } }}
-                transition={{ duration: 0.6, ease }}
-              >
-                {index === 0 || shown[index - 1]?.when !== e.when ? (
-                  <p className="mb-2.5 pl-10 text-[11px] font-medium text-[#A1A1AA] md:pl-12 md:text-[12px]">
-                    {feedDayLabel(e.when, isFrench)}
-                  </p>
-                ) : null}
-                <FeedRow
-                  e={e}
-                  kinds={c.kinds}
-                  isFrench={isFrench}
-                  answered={
-                    e.kind === 0 && shown.some((other) => other.kind === 1 && other.who === e.who)
-                  }
-                />
-              </motion.li>
-            ))}
+        <div ref={listRef} className="py-2">
+          <p className="mb-4 text-[13px] font-medium text-[#71717A] md:pl-2">
+            {isFrench ? "Activité récente" : "Recent activity"}
+          </p>
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.ul
+              key={cycle}
+              className="flex flex-col gap-3"
+              exit={{ opacity: 0, transition: { duration: 0.35 } }}
+            >
+              <AnimatePresence initial={cycle > 0}>
+                {shown.map((e, index) => (
+                  <motion.li
+                    key={`${e.who}-${e.title}`}
+                    layout="position"
+                    initial={reduce ? false : { opacity: 0, y: -14, scale: 0.92 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
+                    transition={{
+                      layout: { type: "spring", stiffness: 260, damping: 30 },
+                      default: { type: "spring", stiffness: 380, damping: 24 },
+                    }}
+                    style={{ transformOrigin: "50% 0%" }}
+                  >
+                    {index === 0 || shown[index - 1]?.when !== e.when ? (
+                      <p className="mb-2.5 pl-10 text-[11px] font-medium text-[#A1A1AA] md:pl-12 md:text-[12px]">
+                        {feedDayLabel(e.when, isFrench)}
+                      </p>
+                    ) : null}
+                    <FeedRow
+                      e={e}
+                      kinds={c.kinds}
+                      isFrench={isFrench}
+                      answered={
+                        e.kind === 0 &&
+                        shown.some((other) => other.kind === 1 && other.who === e.who)
+                      }
+                      linked={index < shown.length - 1}
+                    />
+                  </motion.li>
+                ))}
+              </AnimatePresence>
+            </motion.ul>
           </AnimatePresence>
-        </ul>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
@@ -1749,8 +1879,8 @@ export default function ConversationSections({
       {/* One section holds the rows, alternating scene left and right. */}
       <section className="bg-white px-4 pb-16 pt-0 md:px-6 md:pb-20 md:pt-4">
         <Heading eyebrow={copy.block.eyebrow} title={copy.block.title} sub={copy.block.sub} />
-        <div className="mt-20 flex flex-col gap-28 md:mt-28 md:gap-40">
-          <EmailSection c={copy.email} />
+        <div className="mt-14 flex flex-col gap-20 md:mt-28 md:gap-40">
+          <EmailSection c={copy.email} lang={copy === CONVERSATION_SECTIONS_FR ? "fr" : "en"} />
           <WhatsAppSection c={copy.whatsapp} />
         </div>
       </section>

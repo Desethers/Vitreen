@@ -222,7 +222,30 @@ const BODY_TYPE_END = BODY_TYPE_START + BODY_TEXT.length * BODY_TYPE_STEP;
  * written, 1 once the Vitreen panel opens for the search, 2 once the work is
  * in the draft.
  */
-export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) => void } = {}) {
+const GMAIL_PANEL_LABELS = {
+  fr: {
+    insert: "Insérer une œuvre",
+    searchIn: "Recherche dans Vitreen",
+    hint: "Titre ou nom d’artiste · appuie sur Chercher",
+    search: "Chercher",
+    gallery: "Vue galerie",
+    results: "8 résultats",
+  },
+  en: {
+    insert: "Insert a work",
+    searchIn: "Search in Vitreen",
+    hint: "Title or artist name · press Search",
+    search: "Search",
+    gallery: "Gallery view",
+    results: "8 results",
+  },
+} as const;
+
+export function IntegrationsFrame({
+  onPhase,
+  lang = "fr",
+}: { onPhase?: (phase: 0 | 1 | 2) => void; lang?: "en" | "fr" } = {}) {
+  const t = GMAIL_PANEL_LABELS[lang];
   const reduceMotion = useReducedMotion();
   const onPhaseRef = useRef(onPhase);
   onPhaseRef.current = onPhase;
@@ -420,7 +443,7 @@ export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) =>
       <AnimatePresence>
         {!showInsertedArtwork && panelOpen ? (
           <motion.aside
-            className="absolute bottom-6 right-[10%] top-9 flex w-[44%] min-w-[300px] flex-col overflow-hidden rounded-[10px] border border-[#D8D8D5] bg-white"
+            className="absolute bottom-6 left-3 right-3 top-9 flex flex-col sm:left-auto sm:right-[10%] sm:w-[44%] sm:min-w-[300px] overflow-hidden rounded-[10px] border border-[#D8D8D5] bg-white"
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 6 }}
@@ -438,8 +461,8 @@ export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) =>
               ref={panelScrollRef}
               className="scroll-smooth flex min-h-0 flex-1 flex-col overflow-y-auto px-5 py-4"
             >
-              <h4 className="text-[13px] font-medium text-[#202124]">Insérer une œuvre</h4>
-              <p className="mt-1 text-[12px] text-[#4A4A4A]">Recherche dans Vitreen</p>
+              <h4 className="text-[13px] font-medium text-[#202124]">{t.insert}</h4>
+              <p className="mt-1 text-[12px] text-[#4A4A4A]">{t.searchIn}</p>
 
               <div className="mt-4 border-t border-[#D5D5D2] pt-4">
                 <div className="flex min-h-[42px] items-center rounded-[5px] border border-[#777773] px-3 py-2.5 text-[13px] text-[#333331]">
@@ -452,9 +475,7 @@ export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) =>
                     />
                   ) : null}
                 </div>
-                <p className="mt-2 text-[10px] leading-[1.35] text-[#5F5F5B]">
-                  Titre ou nom d’artiste · appuie sur Chercher
-                </p>
+                <p className="mt-2 text-[10px] leading-[1.35] text-[#5F5F5B]">{t.hint}</p>
               </div>
 
               <div className="mt-4 flex items-center gap-2">
@@ -462,13 +483,13 @@ export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) =>
                   type="button"
                   className="rounded-full bg-[#0B57D0] px-5 py-2 text-[11px] font-medium text-white"
                 >
-                  Chercher
+                  {t.search}
                 </button>
                 <button
                   type="button"
                   className="rounded-full border border-[#777773] bg-white px-5 py-[7px] text-[11px] font-medium text-[#0B57D0]"
                 >
-                  Vue galerie
+                  {t.gallery}
                 </button>
               </div>
 
@@ -482,7 +503,7 @@ export function IntegrationsFrame({ onPhase }: { onPhase?: (phase: 0 | 1 | 2) =>
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.35, ease }}
                   >
-                    <p className="px-5 py-2.5 text-[12px] text-[#333331]">8 résultats</p>
+                    <p className="px-5 py-2.5 text-[12px] text-[#333331]">{t.results}</p>
                     <div className="divide-y divide-[#D5D5D2] border-t border-[#D5D5D2]">
                       {GMAIL_RESULTS.map((result, index) => (
                         <motion.div
