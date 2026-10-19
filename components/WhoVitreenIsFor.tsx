@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
+import { CONTAINER, EYEBROW, H2, H2_SUB, SECTION } from "@/components/landing/styles";
 
 type Language = "en" | "fr";
 
@@ -37,11 +37,11 @@ const content = {
         image: "/artadvisor.png",
       },
       {
-        title: "Artist Studios",
-        description: "Archive, artwork material and collector presentations.",
-        href: "/solutions/artists",
-        image: "/artiste-studio.png",
-        objectPosition: "85% 50%",
+        title: "Antique & Collectibles Dealers",
+        description: "Unique pieces, provenance and condition, ready for every client.",
+        href: "/solutions/galleries",
+        image: "https://images.unsplash.com/photo-1788008034275-5b9ed94bc7b9?w=1200&q=80",
+        objectPosition: "50% 50%",
       },
     ],
   },
@@ -72,11 +72,11 @@ const content = {
         image: "/artadvisor.png",
       },
       {
-        title: "Studios d’artistes",
-        description: "Archive, matériel d’œuvres et présentations collectionneurs.",
-        href: "/fr/solutions/artists",
-        image: "/artiste-studio.png",
-        objectPosition: "85% 50%",
+        title: "Antiquaires",
+        description: "Pièces uniques, provenance et état, prêts pour chaque client.",
+        href: "/fr/solutions/galleries",
+        image: "https://images.unsplash.com/photo-1788008034275-5b9ed94bc7b9?w=1200&q=80",
+        objectPosition: "50% 50%",
       },
     ],
   },
@@ -95,10 +95,8 @@ export default function WhoVitreenIsFor({ lang = "en" }: { lang?: Language }) {
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           <p className={EYEBROW}>{section.eyebrow}</p>
-          <h2 className={`${H2} mt-4 max-w-2xl`}>{section.title}</h2>
-          <p className="mt-1 text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[28px]">
-            {section.subtitle}
-          </p>
+          <h2 className={`${H2} mt-5 max-w-2xl`}>{section.title}</h2>
+          <p className={H2_SUB}>{section.subtitle}</p>
         </motion.div>
 
         {/* Phones: a swipeable row of smaller cards that peeks at the next one. */}

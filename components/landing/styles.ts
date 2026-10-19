@@ -8,15 +8,16 @@
 export const SECTION = "px-4 py-16 md:px-6 md:py-20";
 export const CONTAINER = "mx-auto w-full max-w-7xl";
 
-export const EYEBROW = "text-[11px] tracking-[0.14em] text-[#ADADAA]";
+/** Same as the centred section kickers (ConversationSections KICKER): put the H2 20px under it (mt-5). */
+export const EYEBROW = "text-[13px] tracking-[-0.01em] text-[#6B6A67]";
 
-/** Same scale as every section H2 on main (ProcessFlow, Services, ...). */
+/** Same scale as the centred section headings (ConversationSections TITLE). */
 export const H2 =
-  "font-display text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#111110] md:text-[28px]";
+  "font-display text-[26px] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110] md:text-[36px]";
 
 /** Section subtitle, directly under H2 — same scale as ProcessFlow's. */
 export const H2_SUB =
-  "mt-1 text-[22px] font-medium leading-[1.2] tracking-[-0.02em] text-[#6B6A67] md:text-[28px]";
+  "mt-2 font-display text-[26px] font-medium leading-[1.1] tracking-[-0.03em] text-[#ADADAA] md:text-[36px]";
 
 export const H3 =
   "font-display text-[18px] font-normal leading-[1.25] tracking-[-0.02em] text-[#111110]";

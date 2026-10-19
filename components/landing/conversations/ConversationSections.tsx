@@ -533,7 +533,7 @@ function Heading({
         {eyebrow}
       </p>
       <h2 className={dark ? TITLE.replace("text-[#111110]", "text-white") : TITLE}>{title}</h2>
-      <p className={dark ? SUB.replace("text-[#ADADAA]", "text-[#6B6A67]") : SUB}>{sub}</p>
+      <p className={dark ? SUB.replace("text-[#ADADAA]", "text-[#8F8E8A]") : SUB}>{sub}</p>
     </motion.div>
   );
 }
@@ -1029,12 +1029,6 @@ function FeedRow({
               >
                 {answered ? (isFrench ? "Réponse envoyée" : "Reply sent") : kinds[e.kind].label}
               </span>
-              {e.kind === 1 ? (
-                <span className="inline-flex items-center gap-1.5 text-[11px] text-[#71717A]">
-                  <Database size={12} strokeWidth={1.8} aria-hidden="true" />
-                  {isFrench ? `Sur la fiche de ${e.who}` : `On ${e.who}’s record`}
-                </span>
-              ) : null}
             </div>
 
             {isArtwork ? (
@@ -1099,14 +1093,14 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
   const shown = c.events.slice(0, n).reverse();
   const isFrench = c.eyebrow === "Se souvenir";
   return (
-    <section className="bg-[#111110] px-4 py-24 md:px-6 md:py-36">
-      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} dark />
-      <p className="mx-auto mt-6 max-w-2xl text-center font-display text-[16px] leading-[1.5] tracking-[-0.015em] text-[#ADADAA] md:text-[18px]">
+    <section className="bg-white px-4 py-16 md:px-6 md:py-20">
+      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
+      <p className="mx-auto mt-6 max-w-2xl text-center font-display text-[16px] leading-[1.5] tracking-[-0.015em] text-[#6B6A67] md:text-[18px]">
         {c.line}
       </p>
       <div
         ref={ref}
-        className="relative mx-auto mt-14 h-[min(620px,calc(100svh-200px))] max-w-4xl overflow-hidden rounded-[24px] bg-white px-4 py-6 md:mt-20 md:px-7 md:py-8"
+        className="relative mx-auto mt-14 h-[min(620px,calc(100svh-200px))] max-w-4xl overflow-hidden rounded-[24px] border border-[#E4E4E1] bg-white px-4 py-6 md:mt-20 md:px-7 md:py-8"
       >
         <p className="mb-4 text-[13px] font-medium text-[#71717A] md:pl-2">
           {isFrench ? "Activité récente" : "Recent activity"}
@@ -1261,6 +1255,46 @@ const SCREEN_ROWS = [
     status: "Available",
     image: "/artworks/van-gogh-sunflowers.jpg",
   },
+  {
+    title: "Low tide",
+    artist: "Mara Velt",
+    year: "2021",
+    price: "6 200 €",
+    status: "Available",
+    image: "/artworks/painting-10.jpg",
+  },
+  {
+    title: "Study in ochre",
+    artist: "Lina Ores",
+    year: "2024",
+    price: "3 900 €",
+    status: "Available",
+    image: "/artworks/painting-07.jpg",
+  },
+  {
+    title: "Night garden",
+    artist: "Sacha Elron",
+    year: "2021",
+    price: "14 500 €",
+    status: "Sold",
+    image: "/artworks/painting-04.jpg",
+  },
+  {
+    title: "Interior, morning",
+    artist: "Mara Velt",
+    year: "2023",
+    price: "7 800 €",
+    status: "Available",
+    image: "/artworks/painting-02.png",
+  },
+  {
+    title: "Field notes",
+    artist: "Lina Ores",
+    year: "2022",
+    price: "2 600 €",
+    status: "Reserved",
+    image: "/artworks/painting-01.png",
+  },
 ];
 const STATUS_PILL: Record<string, string> = {
   Available: "border-emerald-200 bg-emerald-50 text-emerald-700",
@@ -1335,28 +1369,8 @@ const ONBOARDING_METHODS = [
 function OnboardingScreen({ c, beat }: { c: ConversationSectionsCopy["migration"]; beat: number }) {
   const picking = beat <= 1;
   return (
-    <div className="flex h-full flex-col items-center bg-zinc-50 px-4 pt-7 md:pt-9">
+    <div className="flex h-full flex-col items-center justify-center bg-zinc-50 px-4">
       <div className="w-full max-w-md">
-        <div className="mb-6 text-center">
-          <span className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-900">
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="1.75"
-              aria-hidden="true"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </span>
-          <p className="text-[18px] font-semibold text-zinc-900">Welcome to Gallery OS</p>
-          <p className="mt-1 text-[12px] text-zinc-700">
-            Let&apos;s set up your gallery in 3 steps
-          </p>
-        </div>
-
         <div className="relative overflow-hidden rounded-[22px] border border-zinc-200 bg-white">
           <AnimatePresence mode="wait" initial={false}>
             {picking ? (
@@ -1538,12 +1552,25 @@ function ArtworksScreen({ loaded, holding }: { loaded: number; holding: boolean 
     return () => cancelAnimationFrame(frame);
   }, [holding]);
   const total = loaded + extra;
+  // Scroll the screen down as rows arrive, so the newest work is always in view.
+  const scroller = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    el.scrollTo({
+      top: loaded === 0 ? 0 : el.scrollHeight,
+      behavior: loaded === 0 ? "auto" : "smooth",
+    });
+  }, [loaded]);
   const available = rows.filter((r) => r.status === "Available").length + Math.round(extra * 0.86);
   const sold = rows.filter((r) => r.status === "Sold").length + Math.round(extra * 0.09);
   const cols =
     "grid-cols-[minmax(0,2fr)_minmax(0,1fr)] md:grid-cols-[minmax(0,2.2fr)_minmax(0,1.4fr)_56px_84px_92px]";
   return (
-    <div className="h-full bg-white">
+    <div
+      ref={scroller}
+      className="h-full overflow-y-auto bg-white pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
       <div className="m-2 rounded-2xl bg-zinc-50/80 px-4 pb-4 pt-5 md:m-3 md:px-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -1647,11 +1674,11 @@ function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
   const loaded = Math.max(0, Math.min(beat - ARTWORKS_FROM + 1, total));
 
   return (
-    <section className={`${AIRY} border-t border-[#E8E8E6] bg-white`}>
-      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
-      <div ref={ref} className="relative mx-auto mt-16 max-w-4xl md:mt-24">
+    <section className="bg-[#111110] px-4 py-16 text-white md:px-6 md:py-20">
+      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} dark />
+      <div ref={ref} className="relative mx-auto mt-10 w-full max-w-4xl md:mt-12">
         {/* One screen at a time: the onboarding, then the Artworks list it fills */}
-        <div className="relative h-[520px] overflow-hidden rounded-[32px] border border-[#E8E8E6] bg-white md:h-[540px]">
+        <div className="relative h-[clamp(380px,calc(100svh-380px),540px)] overflow-hidden rounded-[32px] bg-white">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={onArtworks ? "artworks" : "onboarding"}
@@ -1670,32 +1697,37 @@ function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
           </AnimatePresence>
         </div>
 
-        <div className="mt-12 flex flex-col items-center gap-2 text-center md:mt-14">
-          <span className="mb-2 h-px w-10 bg-[#D4D4D1] md:w-12" aria-hidden="true" />
-          <span className="text-[13px] text-[#6B6A67]">{c.line}</span>
+        <div className="mt-5 flex flex-col items-center text-center">
+          <span className="text-[13px] text-[#ADADAA]">{c.line}</span>
         </div>
       </div>
+    </section>
+  );
+}
 
-      {/* Where the data lives: the reassurance that comes with the move. */}
-      <div className="mx-auto mt-20 max-w-5xl rounded-[20px] bg-[#F5F5F3] p-6 md:mt-24 md:p-10">
-        <p className="text-center font-display text-[22px] font-medium tracking-[-0.025em] text-[#111110] md:text-[26px]">
-          {c.security.title}
+/** Where the data lives: the reassurance that comes with the move, on its own dark band. */
+function SecuritySection({ c }: { c: ConversationSectionsCopy["migration"]["security"] }) {
+  return (
+    <section className="bg-[#111110] px-4 py-24 md:px-6 md:py-32">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start lg:gap-16">
+        <p className="font-display text-[22px] font-medium tracking-[-0.02em] text-white md:text-[26px] lg:whitespace-nowrap">
+          {c.title}
         </p>
-        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {c.security.items.map((it, i) => {
+        <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+          {c.items.map((it, i) => {
             const Icon = SECURITY_ICONS[i] ?? Database;
             return (
-              <li key={it.k} className="flex flex-col gap-1.5">
-                <span className="flex items-center gap-2.5 text-[15px] font-medium text-[#111110]">
+              <li key={it.k} className="flex flex-col gap-2">
+                <span className="flex items-center gap-2 text-[15px] font-medium text-white">
                   <Icon
-                    size={18}
+                    size={16}
                     strokeWidth={1.75}
-                    className="shrink-0 text-[#111110]"
+                    className="shrink-0 text-white"
                     aria-hidden="true"
                   />
                   {it.k}
                 </span>
-                <span className="text-[14px] leading-[1.5] text-[#6B6A67]">{it.v}</span>
+                <span className="text-[14px] leading-[1.5] text-[#ADADAA]">{it.v}</span>
               </li>
             );
           })}
@@ -1715,7 +1747,7 @@ export default function ConversationSections({
   return (
     <>
       {/* One section holds the rows, alternating scene left and right. */}
-      <section className="bg-white px-4 pb-24 pt-0 md:px-6 md:pb-36 md:pt-4">
+      <section className="bg-white px-4 pb-16 pt-0 md:px-6 md:pb-20 md:pt-4">
         <Heading eyebrow={copy.block.eyebrow} title={copy.block.title} sub={copy.block.sub} />
         <div className="mt-20 flex flex-col gap-28 md:mt-28 md:gap-40">
           <EmailSection c={copy.email} />
@@ -1724,6 +1756,7 @@ export default function ConversationSections({
       </section>
       <FeedSection c={copy.feed} />
       <MigrationSection c={copy.migration} />
+      <SecuritySection c={copy.migration.security} />
       {afterWhatsApp}
     </>
   );

@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     // Ajouté pour que les composants qui utilisent `quality={92}` puissent vraiment
     // produire du q=92 au lieu de retomber sur la valeur par défaut (75).
     qualities: [75, 92],
+    // Photos Unsplash (licence libre) servies depuis leur CDN.
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
   async redirects() {
     /* L'ordre compte : Next applique la première règle qui matche et renvoie
