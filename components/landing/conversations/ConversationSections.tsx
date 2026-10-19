@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { ArrowRight, Database, FileText } from "lucide-react";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WA, WaBubble, type WaMessage } from "@/components/whatsapp/WaChat";
 
@@ -68,15 +69,15 @@ export type ConversationSectionsCopy = {
 
 export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
   block: {
-    eyebrow: "Conversations",
+    eyebrow: "Reply",
     title: "Your inventory, in every conversation.",
     sub: "In Gmail, on WhatsApp, and on each collector’s record.",
   },
   feed: {
-    eyebrow: "Feed",
-    title: "Every exchange, kept.",
-    sub: "Who wrote, who received what.",
-    line: "Each work you share is noted on the collector’s record.",
+    eyebrow: "Remember",
+    title: "Every exchange, remembered.",
+    sub: "The conversation stays with the collector.",
+    line: "See the question, your reply and the work you shared in one history.",
     kinds: [
       { label: "Inquiry waiting", body: "A collector asked. No answer yet." },
       { label: "New exchange", body: "A message came in, or a work went out." },
@@ -206,15 +207,15 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
 
 export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
   block: {
-    eyebrow: "Conversations",
+    eyebrow: "Répondre",
     title: "Votre inventaire, dans chaque conversation.",
     sub: "Dans Gmail, sur WhatsApp, et sur la fiche de chaque collectionneur.",
   },
   feed: {
-    eyebrow: "Fil",
-    title: "Chaque échange, gardé.",
-    sub: "Qui a écrit, qui a reçu quoi.",
-    line: "Chaque œuvre partagée est notée sur la fiche du collectionneur.",
+    eyebrow: "Se souvenir",
+    title: "Chaque échange, mémorisé.",
+    sub: "La conversation reste liée au collectionneur.",
+    line: "Retrouvez la question, votre réponse et l’œuvre partagée dans un même historique.",
     kinds: [
       { label: "Demande en attente", body: "Un collectionneur a demandé. Pas encore de réponse." },
       { label: "Nouvel échange", body: "Un message est arrivé, ou une œuvre est partie." },
@@ -360,7 +361,18 @@ const pop = {
   exit: { opacity: 0 },
 };
 
-function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
+function Heading({
+  eyebrow,
+  title,
+  sub,
+  dark = false,
+}: {
+  eyebrow: string;
+  title: string;
+  sub: string;
+  /** White title, softer greys: for a section on black. */
+  dark?: boolean;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -368,9 +380,11 @@ function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub:
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.8, ease }}
     >
-      <p className={KICKER}>{eyebrow}</p>
-      <h2 className={TITLE}>{title}</h2>
-      <p className={SUB}>{sub}</p>
+      <p className={dark ? KICKER.replace("text-[#6B6A67]", "text-[#ADADAA]") : KICKER}>
+        {eyebrow}
+      </p>
+      <h2 className={dark ? TITLE.replace("text-[#111110]", "text-white") : TITLE}>{title}</h2>
+      <p className={dark ? SUB.replace("text-[#ADADAA]", "text-[#6B6A67]") : SUB}>{sub}</p>
     </motion.div>
   );
 }
@@ -781,39 +795,101 @@ const KIND_TONES = [
   "bg-amber-50 text-amber-700",
   "bg-violet-50 text-violet-700",
 ];
-const ROW_TONES = { whatsapp: "bg-emerald-50/60", gmail: "bg-blue-50/60", none: "bg-white" };
 const CHANNEL_LOGO = { whatsapp: "/logos/whatsapp.svg", gmail: "/logos/icon-gmail-96.png" };
-const FEED_SHOWN = 4;
 
-function FeedRow({ e, kinds }: { e: FeedEvent; kinds: { label: string }[] }) {
-  const tone = e.channel ? ROW_TONES[e.channel] : ROW_TONES.none;
+function FeedRow({
+  e,
+  kinds,
+  isFrench,
+  answered,
+}: {
+  e: FeedEvent;
+  kinds: { label: string }[];
+  isFrench: boolean;
+  answered: boolean;
+}) {
+  const isArtwork = e.kind === 1 && e.title.toLowerCase().includes("self-portrait");
   return (
-    <div className={`flex gap-3 rounded-[16px] border border-[#E8E8E6] p-4 ${tone}`}>
-      <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5F5F3] text-[13px] text-[#6B6A67]">
-        {e.initials}
+    <div className="relative pl-10 md:pl-12">
+      <span className="absolute bottom-[-14px] left-[15px] top-9 w-px bg-[#E1E1DE] md:left-[19px]" />
+      <span
+        className={`absolute left-0 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white shadow-sm md:left-1 ${
+          e.channel ? "bg-white" : "bg-[#2F80ED] text-white"
+        }`}
+      >
         {e.channel ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={CHANNEL_LOGO[e.channel]}
-            alt=""
-            className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-white p-px"
-          />
-        ) : null}
+          <img src={CHANNEL_LOGO[e.channel]} alt="" className="h-6 w-6 object-contain" />
+        ) : (
+          <FileText size={15} strokeWidth={1.8} aria-hidden="true" />
+        )}
       </span>
-      <div className="min-w-0 flex-1">
-        <p className="text-[14.5px] leading-[1.3] tracking-[-0.01em] text-[#111110]">{e.title}</p>
-        <p className="mt-1 truncate text-[13px] text-[#6B6A67]">{e.body}</p>
-        <div className="mt-2 flex items-center gap-2">
-          <span
-            className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${KIND_TONES[e.kind]}`}
-          >
-            {kinds[e.kind].label}
+
+      <div className="rounded-[15px] border border-[#DEDEDB] bg-white px-3.5 py-3 md:px-4 md:py-3.5">
+        <div className="flex gap-3">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#E8FAF5] text-[11px] font-medium text-[#147D68]">
+            {e.initials}
           </span>
-          <span className="text-[11px] text-[#ADADAA]">{e.when}</span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[13px] font-medium leading-[1.35] tracking-[-0.01em] text-[#111110] md:text-[13.5px]">
+              {e.title}
+            </p>
+            <p className="mt-1 border-l-2 border-[#E4E4E1] pl-2.5 text-[12px] leading-[1.4] text-[#71717A] md:text-[12.5px]">
+              {e.body}
+            </p>
+            <div className="mt-2.5 flex flex-wrap items-center gap-2">
+              <span
+                className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${answered ? "bg-emerald-50 text-emerald-700" : KIND_TONES[e.kind]}`}
+              >
+                {answered ? (isFrench ? "Réponse envoyée" : "Reply sent") : kinds[e.kind].label}
+              </span>
+              {e.kind === 1 ? (
+                <span className="inline-flex items-center gap-1.5 text-[11px] text-[#71717A]">
+                  <Database size={12} strokeWidth={1.8} aria-hidden="true" />
+                  {isFrench ? `Sur la fiche de ${e.who}` : `On ${e.who}’s record`}
+                </span>
+              ) : null}
+            </div>
+
+            {isArtwork ? (
+              <div className="mt-3 flex max-w-[280px] items-center gap-2.5 rounded-lg bg-[#FAFAF9] p-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/artworks/van-gogh-self-portrait.jpg"
+                  alt=""
+                  className="h-11 w-16 rounded-md object-cover"
+                />
+                <span className="min-w-0">
+                  <span className="block text-[11px] text-[#71717A]">Vincent van Gogh</span>
+                  <span className="block truncate text-[13px] font-medium italic text-[#111110]">
+                    Self-Portrait
+                  </span>
+                  <span className="mt-0.5 flex items-center gap-1.5 text-[11px] text-emerald-700">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Available
+                  </span>
+                </span>
+              </div>
+            ) : null}
+          </div>
+          <ArrowRight size={16} className="mt-1 shrink-0 text-[#D4D4D1]" aria-hidden="true" />
         </div>
       </div>
     </div>
   );
+}
+
+function feedDayLabel(when: string, isFrench: boolean) {
+  const labels: Record<string, [string, string]> = {
+    Today: ["Today", "Aujourd’hui"],
+    "Aujourd’hui": ["Today", "Aujourd’hui"],
+    "6 Oct": ["Tuesday 6 October", "Mardi 6 octobre"],
+    "6 oct.": ["Tuesday 6 October", "Mardi 6 octobre"],
+    "22 Sept": ["Tuesday 22 September", "Mardi 22 septembre"],
+    "22 sept.": ["Tuesday 22 September", "Mardi 22 septembre"],
+    "18 Sept": ["Friday 18 September", "Vendredi 18 septembre"],
+    "18 sept.": ["Friday 18 September", "Vendredi 18 septembre"],
+  };
+  return labels[when]?.[isFrench ? 1 : 0] ?? when;
 }
 
 function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
@@ -821,64 +897,63 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.4 });
   const total = c.events.length;
-  // Events arrive one by one, the newest on top, then the feed starts over.
-  const [n, setN] = useState(reduce ? total : 2);
+  // New exchanges join the history once; older entries remain in the feed.
+  const [n, setN] = useState(4);
 
   useEffect(() => {
-    if (reduce || !inView) return;
-    const t = window.setTimeout(
-      () => setN((x) => (x >= total ? 2 : x + 1)),
-      n >= total ? 4500 : 2200
-    );
+    if (reduce) {
+      setN(total);
+      return;
+    }
+    if (!inView || n >= total) return;
+    const t = window.setTimeout(() => setN((x) => Math.min(x + 1, total)), 2200);
     return () => window.clearTimeout(t);
   }, [n, inView, reduce, total]);
 
-  const shown = c.events.slice(Math.max(0, n - FEED_SHOWN), n).reverse();
+  const shown = c.events.slice(0, n).reverse();
+  const isFrench = c.eyebrow === "Se souvenir";
   return (
-    <section className={`${AIRY} border-t border-[#E8E8E6] bg-[#F5F5F3]`}>
-      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
+    <section className="bg-[#111110] px-4 py-24 md:px-6 md:py-36">
+      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} dark />
+      <p className="mx-auto mt-6 max-w-2xl text-center font-display text-[16px] leading-[1.5] tracking-[-0.015em] text-[#ADADAA] md:text-[18px]">
+        {c.line}
+      </p>
       <div
         ref={ref}
-        className="mx-auto mt-16 grid max-w-5xl items-center gap-12 md:mt-24 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-16"
+        className="relative mx-auto mt-14 h-[min(620px,calc(100svh-200px))] max-w-4xl overflow-hidden rounded-[24px] bg-white px-4 py-6 md:mt-20 md:px-7 md:py-8"
       >
-        <div className="relative h-[470px] overflow-hidden md:h-[480px]">
-          <ul className="flex flex-col gap-3">
-            <AnimatePresence initial={false}>
-              {shown.map((e) => (
-                <motion.li
-                  key={`${e.who}-${e.title}`}
-                  layout
-                  initial={reduce ? false : { opacity: 0, y: -24, scale: 0.97 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.5 } }}
-                  transition={{ duration: 0.6, ease }}
-                >
-                  <FeedRow e={e} kinds={c.kinds} />
-                </motion.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#F5F5F3] to-transparent" />
-        </div>
-
-        <div>
-          <RowHeading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
-          <ul className="flex flex-col gap-3 pl-3">
-            {c.kinds.map((k, i) => (
-              <li key={k.label} className="flex flex-col items-start gap-1.5">
-                <span
-                  className={`rounded-full px-2.5 py-0.5 text-[12px] font-medium ${KIND_TONES[i]}`}
-                >
-                  {k.label}
-                </span>
-                <span className="text-[14px] leading-[1.45] text-[#6B6A67]">{k.body}</span>
-              </li>
+        <p className="mb-4 text-[13px] font-medium text-[#71717A] md:pl-2">
+          {isFrench ? "Activité récente" : "Recent activity"}
+        </p>
+        <ul className="flex flex-col gap-3">
+          <AnimatePresence initial={false}>
+            {shown.map((e, index) => (
+              <motion.li
+                key={`${e.who}-${e.title}`}
+                layout
+                initial={reduce ? false : { opacity: 0, y: -18, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.5 } }}
+                transition={{ duration: 0.6, ease }}
+              >
+                {index === 0 || shown[index - 1]?.when !== e.when ? (
+                  <p className="mb-2.5 pl-10 text-[11px] font-medium text-[#A1A1AA] md:pl-12 md:text-[12px]">
+                    {feedDayLabel(e.when, isFrench)}
+                  </p>
+                ) : null}
+                <FeedRow
+                  e={e}
+                  kinds={c.kinds}
+                  isFrench={isFrench}
+                  answered={
+                    e.kind === 0 && shown.some((other) => other.kind === 1 && other.who === e.who)
+                  }
+                />
+              </motion.li>
             ))}
-          </ul>
-          <p className="mt-5 pl-3 font-display text-[16px] tracking-[-0.015em] text-[#111110]">
-            {c.line}
-          </p>
-        </div>
+          </AnimatePresence>
+        </ul>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />
       </div>
     </section>
   );

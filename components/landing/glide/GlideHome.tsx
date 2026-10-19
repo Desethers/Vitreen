@@ -218,7 +218,7 @@ function HeroMicroSignals() {
             gmailStep > index ? (
               <motion.div
                 key={item.name}
-                className="absolute w-[88%] rounded-[16px] border border-[#E8E8E6] bg-white px-4 py-3.5 shadow-[0_16px_34px_rgba(0,0,0,0.08)]"
+                className="absolute w-[88%] rounded-[16px] border border-[#E8E8E6] bg-white px-4 py-3.5"
                 style={{
                   // Tight stack: each earlier mail keeps only its header row showing.
                   left: `${2 + index * 4}%`,
@@ -253,7 +253,7 @@ function HeroMicroSignals() {
           {whatsAppStep >= 1 && whatsAppStep <= 3 ? (
             <motion.div
               key="painting-question"
-              className="absolute right-0 top-0 max-w-[88%] rounded-[18px_18px_5px_18px] bg-[#D9FDD3] px-4 py-2.5 text-[#111110] shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
+              className="absolute right-0 top-0 max-w-[88%] rounded-[18px_18px_5px_18px] bg-[#D9FDD3] px-4 py-2.5 text-[#111110]"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
               exit={
@@ -273,7 +273,7 @@ function HeroMicroSignals() {
           {whatsAppStep === 2 ? (
             <motion.div
               key="painting-typing"
-              className="absolute left-0 top-[78px] flex items-center gap-1 rounded-[13px_13px_13px_4px] border border-[#E8E8E6] bg-white px-3.5 py-3 shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
+              className="absolute left-0 top-[78px] flex items-center gap-1 rounded-[13px_13px_13px_4px] border border-[#E8E8E6] bg-white px-3.5 py-3"
               initial={reduce ? false : { y: 10, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
@@ -299,7 +299,7 @@ function HeroMicroSignals() {
           {whatsAppStep === 3 ? (
             <motion.div
               key="painting-answer"
-              className="absolute left-0 top-[78px] w-[88%] rounded-[18px_18px_18px_5px] border border-[#E8E8E6] bg-white px-4 py-3 text-left shadow-[0_12px_28px_rgba(0,0,0,0.06)]"
+              className="absolute left-0 top-[78px] w-[88%] rounded-[18px_18px_18px_5px] border border-[#E8E8E6] bg-white px-4 py-3 text-left"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
               exit={
@@ -317,7 +317,7 @@ function HeroMicroSignals() {
           {whatsAppStep >= 5 && whatsAppStep <= 7 ? (
             <motion.div
               key="chair-question"
-              className="absolute right-0 top-0 max-w-[88%] rounded-[18px_18px_5px_18px] bg-[#D9FDD3] px-4 py-2.5 text-[#111110] shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
+              className="absolute right-0 top-0 max-w-[88%] rounded-[18px_18px_5px_18px] bg-[#D9FDD3] px-4 py-2.5 text-[#111110]"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
               exit={
@@ -337,7 +337,7 @@ function HeroMicroSignals() {
           {whatsAppStep === 6 ? (
             <motion.div
               key="chair-typing"
-              className="absolute left-0 top-[78px] flex items-center gap-1 rounded-[13px_13px_13px_4px] border border-[#E8E8E6] bg-white px-3.5 py-3 shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
+              className="absolute left-0 top-[78px] flex items-center gap-1 rounded-[13px_13px_13px_4px] border border-[#E8E8E6] bg-white px-3.5 py-3"
               initial={reduce ? false : { y: 10, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
@@ -363,7 +363,7 @@ function HeroMicroSignals() {
           {whatsAppStep === 7 ? (
             <motion.div
               key="chair-answer"
-              className="absolute left-0 top-[78px] w-[88%] rounded-[18px_18px_18px_5px] border border-[#E8E8E6] bg-white px-4 py-3 text-left shadow-[0_12px_28px_rgba(0,0,0,0.06)]"
+              className="absolute left-0 top-[78px] w-[88%] rounded-[18px_18px_18px_5px] border border-[#E8E8E6] bg-white px-4 py-3 text-left"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
               exit={
