@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
-import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { openContact } from "@/components/landing/LandingNav";
 import LandingLanguageSwitch from "@/components/landing/LandingLanguageSwitch";
 import {
@@ -51,16 +50,9 @@ export default function LandingCtaFr() {
       <StatementSection
         c={CONVERSATION_SECTIONS_FR.statement}
         action={
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button size="lg" variant="inverse" onClick={openContact}>
-              Réserver une démo
-            </Button>
-            <TryWhatsAppButton
-              lang="fr"
-              label="Essayer sur WhatsApp"
-              className="border border-white/20"
-            />
-          </div>
+          <Button size="lg" variant="inverse" onClick={openContact}>
+            Réserver une démo
+          </Button>
         }
       />
 

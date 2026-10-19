@@ -75,6 +75,10 @@ const SOLUTIONS_FEATURED = {
 
 export const openContact = () => window.dispatchEvent(new Event("open-contact-modal"));
 
+/** Opens the same modal with the email already filled in (from an email field CTA). */
+export const openContactWithEmail = (email: string) =>
+  window.dispatchEvent(new CustomEvent("open-contact-modal", { detail: { email } }));
+
 /**
  * Minimal header for the landing: logo, in-page anchors, a "Tools" dropdown
  * onto the existing /tools/* pages, and one CTA.
@@ -159,7 +163,11 @@ export default function LandingNav() {
             ))}
           </nav>
 
-          <Button size="sm" onClick={openContact} className="shrink-0 !px-3 !py-[7px] !text-[12px]">
+          <Button
+            size="sm"
+            onClick={openContact}
+            className="shrink-0 !px-3 !py-[7px] !text-[12px] max-md:!hidden"
+          >
             Book a demo
           </Button>
         </div>

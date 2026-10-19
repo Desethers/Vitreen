@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
-import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { openContact } from "@/components/landing/LandingNav";
 import HeroRoulette from "@/components/landing/HeroRoulette";
+import EmailCta from "@/components/landing/EmailCta";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
 import { WA, WaBubble, type WaMessage } from "@/components/whatsapp/WaChat";
@@ -392,24 +392,19 @@ export function GlideHero({ showConnectionScene = true }: { showConnectionScene?
           : "flex min-h-[100svh] flex-col justify-center py-20 md:py-24"
       }`}
     >
-      <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-        <a
-          href="#loop"
-          className="hero-soft hero-d-1 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-[#E8E8E6] py-1 pl-1 pr-2.5 text-[11px] md:gap-2 md:pr-3 md:text-[13px] text-[#111110] hover:border-[#ADADAA]"
-        >
-          <span className="rounded-full bg-[#F5F5F3] px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.06em] md:text-[11px] text-[#6B6A67]">
-            Early access
-          </span>
-          Inventory connected to your messaging
-          <span className="hidden text-[#ADADAA] md:inline">›</span>
-        </a>
-
-        <h1 className="hero-reveal hero-d-1 mt-8 text-balance font-display text-[clamp(28px,8.6vw,40px)] font-medium leading-[1.32] tracking-[-0.045em] text-[#111110] md:mt-10 md:text-[68px] md:leading-[1.3]">
+      <div className="mx-auto flex max-w-4xl flex-col items-center pt-12 text-center md:pt-20">
+        <h1 className="hero-reveal hero-d-1 text-balance font-display text-[min(40px,8.2vw)] font-medium leading-[1.32] tracking-[-0.045em] text-[#111110] md:text-[68px] md:leading-[1.3]">
+          {/* Desktop: the reel after "digging". Phones: after "for", on the second line. */}
           Stop digging
-          <HeroRoulette />
-          <br className="md:hidden" /> for the work.
+          <HeroRoulette display="hidden md:inline-block" />
+          <br className="md:hidden" />{" "}
+          <span className="whitespace-nowrap">
+            for
+            <HeroRoulette display="inline-block md:hidden" /> the work.
+          </span>
           <br />
-          Answer from one place.
+          {/* Never wraps: phones keep the title on three lines. */}
+          <span className="whitespace-nowrap">Answer from one place.</span>
         </h1>
 
         <p className="hero-soft hero-d-2 mt-6 max-w-2xl text-balance text-[16px] leading-[1.55] text-[#6B6A67] md:mt-9 md:text-[19px] md:leading-[1.6]">
@@ -417,16 +412,8 @@ export function GlideHero({ showConnectionScene = true }: { showConnectionScene?
           Outlook. Keep track of every collector conversation.
         </p>
 
-        <div className="hero-soft hero-d-3 mt-12 flex flex-wrap items-center justify-center gap-3">
-          <TryWhatsAppButton lang="en" label="Try on WhatsApp" size="sm" />
-          <Button
-            size="sm"
-            variant="inverse"
-            onClick={openContact}
-            className="border border-[#E8E8E6]"
-          >
-            Book a demo
-          </Button>
+        <div className="hero-soft hero-d-3 mt-10 flex w-full justify-center md:mt-12">
+          <EmailCta lang="en" />
         </div>
       </div>
       {!showConnectionScene ? <HeroMicroSignals /> : null}

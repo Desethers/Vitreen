@@ -19,7 +19,8 @@ const START_MS = 1600;
 const SPIN_MS = 900;
 const HOLD_MS = 1900;
 
-export default function HeroRoulette() {
+/** `display` sets where the reel shows, e.g. only on phones or only from md up. */
+export default function HeroRoulette({ display = "inline-block" }: { display?: string }) {
   const reduce = useReducedMotion();
   // Index of the reel item showing in the window.
   const [pos, setPos] = useState(0);
@@ -53,7 +54,7 @@ export default function HeroRoulette() {
   return (
     <span
       aria-hidden="true"
-      className="relative mx-[0.3em] inline-block overflow-hidden"
+      className={`relative mx-[0.3em] overflow-hidden ${display}`}
       style={{ height: `${ITEM_EM}em`, width: "1.3em", verticalAlign: "-0.3em" }}
     >
       <motion.span

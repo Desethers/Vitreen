@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "@/lib/lang";
@@ -24,6 +24,7 @@ export default function ContactModal() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -34,7 +35,14 @@ export default function ContactModal() {
   }, []);
 
   useEffect(() => {
-    const onOpen = () => setOpen(true);
+    // An email field CTA passes the address along: it is prefilled, and the
+    // visitor carries on from their name.
+    const onOpen = (e: Event) => {
+      const email = (e as CustomEvent<{ email?: string }>).detail?.email;
+      if (email) setForm((f) => ({ ...f, email }));
+      setOpen(true);
+      if (email) window.setTimeout(() => nameRef.current?.focus(), 350);
+    };
     window.addEventListener("open-contact-modal", onOpen);
     return () => window.removeEventListener("open-contact-modal", onOpen);
   }, []);
@@ -126,6 +134,7 @@ export default function ContactModal() {
             ) : (
               <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
                 <input
+                  ref={nameRef}
                   type="text"
                   name="nom"
                   placeholder={t.nav.modal.fields.nom}

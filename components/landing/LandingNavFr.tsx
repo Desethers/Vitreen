@@ -158,7 +158,11 @@ export default function LandingNavFr() {
             ))}
           </nav>
 
-          <Button size="sm" onClick={openContact} className="shrink-0 !px-3 !py-[7px] !text-[12px]">
+          <Button
+            size="sm"
+            onClick={openContact}
+            className="shrink-0 !px-3 !py-[7px] !text-[12px] max-md:!hidden"
+          >
             Réserver une démo
           </Button>
         </div>
