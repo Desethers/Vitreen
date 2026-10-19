@@ -21,7 +21,29 @@ const EVENING_FIELD = "/artworks/painting-05.jpg";
 type Step = { k: string; v: string };
 type Who = { name: string; status: string; initials: string };
 
+/** One line of the simulated feed, shaped like a Gallery OS Conversations event. */
+export type FeedEvent = {
+  /** Index into `feed.kinds`: inquiry waiting, new exchange, reminder, keep in touch. */
+  kind: 0 | 1 | 2 | 3;
+  channel: "whatsapp" | "gmail" | null;
+  who: string;
+  initials: string;
+  title: string;
+  body: string;
+  when: string;
+};
+
 export type ConversationSectionsCopy = {
+  /** The heading of the one section that holds email, WhatsApp and the feed. */
+  block: { eyebrow: string; title: string; sub: string };
+  feed: {
+    eyebrow: string;
+    title: string;
+    sub: string;
+    line: string;
+    kinds: { label: string; body: string }[];
+    events: FeedEvent[];
+  };
   statement: { lines: [string, string]; linked: string; body: string };
   email: { eyebrow: string; title: string; sub: string; steps: Step[]; line: string };
   whatsapp: {
@@ -45,13 +67,86 @@ export type ConversationSectionsCopy = {
 };
 
 export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
+  block: {
+    eyebrow: "Conversations",
+    title: "Your inventory, in every conversation.",
+    sub: "In Gmail, on WhatsApp, and on each collector’s record.",
+  },
+  feed: {
+    eyebrow: "Feed",
+    title: "Every exchange, kept.",
+    sub: "Who wrote, who received what.",
+    line: "Each work you share is noted on the collector’s record.",
+    kinds: [
+      { label: "Inquiry waiting", body: "A collector asked. No answer yet." },
+      { label: "New exchange", body: "A message came in, or a work went out." },
+      { label: "Reminder", body: "A follow-up you set is due." },
+      { label: "Keep in touch", body: "Too long without news." },
+    ],
+    events: [
+      {
+        kind: 3,
+        channel: null,
+        who: "Camille Fournier",
+        initials: "CF",
+        title: "Get back in touch with Camille Fournier",
+        body: "Last exchange 3 weeks ago.",
+        when: "18 Sept",
+      },
+      {
+        kind: 2,
+        channel: null,
+        who: "Sofía Alvarez",
+        initials: "SA",
+        title: "Follow up with Sofía Alvarez",
+        body: "Reminder you set for Blue hour.",
+        when: "22 Sept",
+      },
+      {
+        kind: 0,
+        channel: "gmail",
+        who: "Thomas Baur",
+        initials: "TB",
+        title: "Thomas Baur wrote to you about “Self-Portrait”",
+        body: "Could you send me the price and dimensions of the Self-Portrait?",
+        when: "6 Oct",
+      },
+      {
+        kind: 1,
+        channel: "gmail",
+        who: "Thomas Baur",
+        initials: "TB",
+        title: "You sent “Self-Portrait” to Thomas Baur",
+        body: "Card sent from your Gmail reply.",
+        when: "6 Oct",
+      },
+      {
+        kind: 0,
+        channel: "whatsapp",
+        who: "Marie Beaumont",
+        initials: "MB",
+        title: "Marie Beaumont wrote to you about “Evening field”",
+        body: "Good evening, is Evening field still available?",
+        when: "Today",
+      },
+      {
+        kind: 1,
+        channel: "whatsapp",
+        who: "Marie Beaumont",
+        initials: "MB",
+        title: "You forwarded “Evening field” to Marie Beaumont",
+        body: "Prepared in Vitreen, sent from your WhatsApp.",
+        when: "Today",
+      },
+    ],
+  },
   statement: {
     lines: ["Your inventory.", "Your CRM."],
     linked: "Linked to",
     body: "Your stock and your collector records live in Vitreen, linked to the conversations where you sell. Nothing to retype.",
   },
   email: {
-    eyebrow: "Email",
+    eyebrow: "Gmail",
     title: "In your inbox.",
     sub: "Answer with the work, not a search.",
     steps: [
@@ -110,13 +205,86 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
 };
 
 export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
+  block: {
+    eyebrow: "Conversations",
+    title: "Votre inventaire, dans chaque conversation.",
+    sub: "Dans Gmail, sur WhatsApp, et sur la fiche de chaque collectionneur.",
+  },
+  feed: {
+    eyebrow: "Fil",
+    title: "Chaque échange, gardé.",
+    sub: "Qui a écrit, qui a reçu quoi.",
+    line: "Chaque œuvre partagée est notée sur la fiche du collectionneur.",
+    kinds: [
+      { label: "Demande en attente", body: "Un collectionneur a demandé. Pas encore de réponse." },
+      { label: "Nouvel échange", body: "Un message est arrivé, ou une œuvre est partie." },
+      { label: "Rappel", body: "Une relance que vous avez prévue arrive." },
+      { label: "Garder le contact", body: "Trop longtemps sans nouvelles." },
+    ],
+    events: [
+      {
+        kind: 3,
+        channel: null,
+        who: "Camille Fournier",
+        initials: "CF",
+        title: "Reprendre contact avec Camille Fournier",
+        body: "Dernier échange il y a 3 semaines.",
+        when: "18 sept.",
+      },
+      {
+        kind: 2,
+        channel: null,
+        who: "Sofía Alvarez",
+        initials: "SA",
+        title: "Relancer Sofía Alvarez",
+        body: "Rappel que vous avez prévu pour Blue hour.",
+        when: "22 sept.",
+      },
+      {
+        kind: 0,
+        channel: "gmail",
+        who: "Thomas Baur",
+        initials: "TB",
+        title: "Thomas Baur vous a écrit au sujet de « Self-Portrait »",
+        body: "Pourriez-vous m’envoyer le prix et les dimensions du Self-Portrait ?",
+        when: "6 oct.",
+      },
+      {
+        kind: 1,
+        channel: "gmail",
+        who: "Thomas Baur",
+        initials: "TB",
+        title: "Vous avez envoyé « Self-Portrait » à Thomas Baur",
+        body: "Fiche envoyée depuis votre réponse Gmail.",
+        when: "6 oct.",
+      },
+      {
+        kind: 0,
+        channel: "whatsapp",
+        who: "Marie Beaumont",
+        initials: "MB",
+        title: "Marie Beaumont vous a écrit au sujet d’« Evening field »",
+        body: "Bonsoir, Evening field est-il toujours disponible ?",
+        when: "Aujourd’hui",
+      },
+      {
+        kind: 1,
+        channel: "whatsapp",
+        who: "Marie Beaumont",
+        initials: "MB",
+        title: "Vous avez transféré « Evening field » à Marie Beaumont",
+        body: "Préparée dans Vitreen, envoyée depuis votre WhatsApp.",
+        when: "Aujourd’hui",
+      },
+    ],
+  },
   statement: {
     lines: ["Votre inventaire.", "Votre CRM."],
     linked: "Relié à",
     body: "Votre stock et vos fiches collectionneurs vivent dans Vitreen, reliés aux conversations où vous vendez. Rien à ressaisir.",
   },
   email: {
-    eyebrow: "E-mail",
+    eyebrow: "Gmail",
     title: "Dans votre boîte mail.",
     sub: "Répondez avec l’œuvre, pas avec une recherche.",
     steps: [
@@ -207,6 +375,38 @@ function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub:
   );
 }
 
+/** A row's own heading, left-aligned above its steps, inside the shared section. */
+function RowHeading({
+  eyebrow,
+  title,
+  sub,
+  logo,
+}: {
+  eyebrow: string;
+  title: string;
+  sub: string;
+  /** Channel logo shown before the eyebrow. */
+  logo?: string;
+}) {
+  return (
+    <div className="mb-4 pl-3">
+      <p className="flex items-center gap-1.5 text-[13px] text-[#6B6A67]">
+        {logo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={logo} alt="" className="h-4 w-4 object-contain" />
+        ) : null}
+        {eyebrow}
+      </p>
+      <h3 className="mt-1.5 font-display text-[22px] font-medium leading-[1.15] tracking-[-0.025em] text-[#111110] md:text-[26px]">
+        {title}
+      </h3>
+      <p className="mt-0.5 font-display text-[17px] leading-[1.25] tracking-[-0.02em] text-[#ADADAA] md:text-[19px]">
+        {sub}
+      </p>
+    </div>
+  );
+}
+
 /**
  * Plays a scene in beats while it is on screen, looping. `durations` is how
  * long each beat holds; `stepOf` maps a beat to the step lit beside it.
@@ -242,7 +442,7 @@ function Steps({
 }) {
   return (
     <div>
-      <ol className="flex flex-col gap-3">
+      <ol className="flex flex-col gap-1">
         {steps.map((s, i) => {
           const on = i === active;
           return (
@@ -252,12 +452,12 @@ function Steps({
                 onClick={onPick ? () => onPick(i) : undefined}
                 disabled={!onPick}
                 aria-current={on}
-                className={`flex w-full gap-5 rounded-[16px] p-4 text-left transition-colors duration-300 ${
+                className={`flex w-full gap-3.5 rounded-[12px] px-3 py-2.5 text-left transition-colors duration-300 ${
                   on ? "bg-[#F5F5F3]" : onPick ? "hover:bg-[#FAFAF8]" : ""
                 }`}
               >
                 <span
-                  className={`mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[12px] tabular-nums transition-colors duration-300 ${
+                  className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] tabular-nums transition-colors duration-300 ${
                     on ? "bg-[#111110] text-white" : "border border-[#E8E8E6] text-[#6B6A67]"
                   }`}
                 >
@@ -265,14 +465,14 @@ function Steps({
                 </span>
                 <span>
                   <span
-                    className={`block font-display text-[20px] tracking-[-0.02em] transition-colors duration-300 ${
+                    className={`block font-display text-[17px] tracking-[-0.02em] transition-colors duration-300 ${
                       on ? "text-[#111110]" : "text-[#ADADAA]"
                     }`}
                   >
                     {s.k}
                   </span>
                   <span
-                    className={`mt-1 block text-[15px] leading-[1.6] transition-colors duration-300 ${
+                    className={`mt-0.5 block text-[14px] leading-[1.5] transition-colors duration-300 ${
                       on ? "text-[#6B6A67]" : "text-[#ADADAA]"
                     }`}
                   >
@@ -284,7 +484,7 @@ function Steps({
           );
         })}
       </ol>
-      <p className="mt-10 pl-4 font-display text-[20px] tracking-[-0.02em] text-[#111110]">
+      <p className="mt-5 pl-3 font-display text-[16px] tracking-[-0.015em] text-[#111110]">
         {line}
       </p>
     </div>
@@ -297,15 +497,20 @@ function EmailSection({ c }: { c: ConversationSectionsCopy["email"] }) {
   // The real Gmail mockup plays its own loop; the steps follow its phases.
   const [phase, setPhase] = useState<0 | 1 | 2>(0);
   return (
-    <section className={`${AIRY} border-t border-[#E8E8E6] bg-white`}>
-      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
-      <div className="mx-auto mt-16 grid max-w-6xl items-center gap-12 md:mt-24 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
-        <div className="pointer-events-none relative h-[400px] overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.06)] md:h-[460px]">
-          <IntegrationsFrame onPhase={setPhase} />
-        </div>
+    <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-16">
+      <div className="pointer-events-none relative h-[400px] overflow-hidden rounded-[20px] border border-[#E8E8E6] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.06)] md:h-[460px]">
+        <IntegrationsFrame onPhase={setPhase} />
+      </div>
+      <div>
+        <RowHeading
+          eyebrow={c.eyebrow}
+          title={c.title}
+          sub={c.sub}
+          logo="/logos/icon-gmail-96.png"
+        />
         <Steps steps={c.steps} active={phase} line={c.line} />
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -314,7 +519,10 @@ function EmailSection({ c }: { c: ConversationSectionsCopy["email"] }) {
 /** WhatsApp's chat header: back arrow, avatar, name and status. */
 function ChatHeader({ who }: { who: Who }) {
   return (
-    <div className="flex items-center gap-2 bg-white px-3 py-2.5" style={{ color: WA.ink }}>
+    <div
+      className="flex items-center gap-2 border-b border-[#E8E8E6] px-5 pb-3 pt-1"
+      style={{ color: WA.ink }}
+    >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path
           d="M15 5l-7 7 7 7"
@@ -340,7 +548,7 @@ function ChatHeader({ who }: { who: Who }) {
 /** WhatsApp's composer, at rest. */
 function ChatComposer() {
   return (
-    <div className="flex items-center gap-2 px-2 pb-2.5 pt-1">
+    <div className="flex items-center gap-2 px-4 pb-6 pt-1">
       <div
         className="flex-1 rounded-full bg-white px-4 py-2.5 text-[14px]"
         style={{ color: WA.muted }}
@@ -460,10 +668,9 @@ function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; b
   ];
 
   return (
-    <div
-      className="relative mx-auto flex h-[600px] w-full max-w-[400px] flex-col overflow-hidden rounded-[28px] border border-[#E8E8E6]"
-      style={{ background: WA.wallpaper }}
-    >
+    <div className="relative mx-auto flex h-[640px] w-full max-w-[340px] flex-col overflow-hidden rounded-[56px] border-[0.5px] border-[#E8E8E6] bg-[#F5F5F3] pt-[58px]">
+      {/* The island, like the home's other phone. */}
+      <div className="absolute left-1/2 top-4 z-10 h-[28px] w-[116px] -translate-x-1/2 rounded-full bg-[#E8E8E6]" />
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={who.name}
@@ -548,19 +755,130 @@ function WhatsAppScene({ c, beat }: { c: ConversationSectionsCopy["whatsapp"]; b
 function WhatsAppSection({ c }: { c: ConversationSectionsCopy["whatsapp"] }) {
   const { ref, beat, setBeat } = useBeats(WA_BEATS);
   return (
-    <section className={`${AIRY} border-t border-[#E8E8E6] bg-white`}>
-      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
-      <div
-        ref={ref}
-        className="mx-auto mt-16 grid max-w-5xl items-center gap-14 md:mt-24 md:grid-cols-2 md:gap-20"
-      >
+    <div ref={ref} className="mx-auto grid max-w-5xl items-center gap-14 md:grid-cols-2 md:gap-20">
+      <div className="md:order-2">
         <WhatsAppScene c={c} beat={beat} />
+      </div>
+      <div>
+        <RowHeading eyebrow={c.eyebrow} title={c.title} sub={c.sub} logo="/logos/whatsapp.svg" />
         <Steps
           steps={c.steps}
           active={WA_STEP_OF_BEAT[beat]}
           onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
           line={c.line}
         />
+      </div>
+    </div>
+  );
+}
+
+/* ─── Feed: the exchanges, as Gallery OS keeps them (simulated) ─────────── */
+
+/** The app's own pill colours, in the order of `feed.kinds`. */
+const KIND_TONES = [
+  "bg-rose-50 text-rose-700",
+  "bg-blue-50 text-blue-700",
+  "bg-amber-50 text-amber-700",
+  "bg-violet-50 text-violet-700",
+];
+const ROW_TONES = { whatsapp: "bg-emerald-50/60", gmail: "bg-blue-50/60", none: "bg-white" };
+const CHANNEL_LOGO = { whatsapp: "/logos/whatsapp.svg", gmail: "/logos/icon-gmail-96.png" };
+const FEED_SHOWN = 4;
+
+function FeedRow({ e, kinds }: { e: FeedEvent; kinds: { label: string }[] }) {
+  const tone = e.channel ? ROW_TONES[e.channel] : ROW_TONES.none;
+  return (
+    <div className={`flex gap-3 rounded-[16px] border border-[#E8E8E6] p-4 ${tone}`}>
+      <span className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F5F5F3] text-[13px] text-[#6B6A67]">
+        {e.initials}
+        {e.channel ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={CHANNEL_LOGO[e.channel]}
+            alt=""
+            className="absolute -bottom-0.5 -right-0.5 h-4 w-4 rounded-full bg-white p-px"
+          />
+        ) : null}
+      </span>
+      <div className="min-w-0 flex-1">
+        <p className="text-[14.5px] leading-[1.3] tracking-[-0.01em] text-[#111110]">{e.title}</p>
+        <p className="mt-1 truncate text-[13px] text-[#6B6A67]">{e.body}</p>
+        <div className="mt-2 flex items-center gap-2">
+          <span
+            className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${KIND_TONES[e.kind]}`}
+          >
+            {kinds[e.kind].label}
+          </span>
+          <span className="text-[11px] text-[#ADADAA]">{e.when}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.4 });
+  const total = c.events.length;
+  // Events arrive one by one, the newest on top, then the feed starts over.
+  const [n, setN] = useState(reduce ? total : 2);
+
+  useEffect(() => {
+    if (reduce || !inView) return;
+    const t = window.setTimeout(
+      () => setN((x) => (x >= total ? 2 : x + 1)),
+      n >= total ? 4500 : 2200
+    );
+    return () => window.clearTimeout(t);
+  }, [n, inView, reduce, total]);
+
+  const shown = c.events.slice(Math.max(0, n - FEED_SHOWN), n).reverse();
+  return (
+    <section className={`${AIRY} border-t border-[#E8E8E6] bg-[#F5F5F3]`}>
+      <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
+      <div
+        ref={ref}
+        className="mx-auto mt-16 grid max-w-5xl items-center gap-12 md:mt-24 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-16"
+      >
+        <div className="relative h-[470px] overflow-hidden md:h-[480px]">
+          <ul className="flex flex-col gap-3">
+            <AnimatePresence initial={false}>
+              {shown.map((e) => (
+                <motion.li
+                  key={`${e.who}-${e.title}`}
+                  layout
+                  initial={reduce ? false : { opacity: 0, y: -24, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.5 } }}
+                  transition={{ duration: 0.6, ease }}
+                >
+                  <FeedRow e={e} kinds={c.kinds} />
+                </motion.li>
+              ))}
+            </AnimatePresence>
+          </ul>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#F5F5F3] to-transparent" />
+        </div>
+
+        <div>
+          <RowHeading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
+          <ul className="flex flex-col gap-3 pl-3">
+            {c.kinds.map((k, i) => (
+              <li key={k.label} className="flex flex-col items-start gap-1.5">
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-[12px] font-medium ${KIND_TONES[i]}`}
+                >
+                  {k.label}
+                </span>
+                <span className="text-[14px] leading-[1.45] text-[#6B6A67]">{k.body}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-5 pl-3 font-display text-[16px] tracking-[-0.015em] text-[#111110]">
+            {c.line}
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -574,7 +892,14 @@ const CHANNELS = [
   { name: "Outlook", color: "#2B88D8" },
 ];
 
-function StatementSection({ c }: { c: ConversationSectionsCopy["statement"] }) {
+/** The closing statement; `action` (the final buttons) sits under it when it opens the footer. */
+export function StatementSection({
+  c,
+  action,
+}: {
+  c: ConversationSectionsCopy["statement"];
+  action?: ReactNode;
+}) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.4 });
@@ -588,9 +913,9 @@ function StatementSection({ c }: { c: ConversationSectionsCopy["statement"] }) {
 
   const channel = CHANNELS[i];
   return (
-    <section className="bg-[#111110] px-4 py-24 text-white md:px-6 md:py-36">
+    <section className="flex flex-1 flex-col justify-center bg-[#111110] px-4 py-16 text-white md:px-6 md:py-8">
       <div ref={ref} className="mx-auto w-full max-w-6xl">
-        <h2 className="font-display text-[40px] font-medium leading-[1.04] tracking-[-0.045em] md:text-[88px]">
+        <h2 className="font-display text-[40px] font-medium leading-[1.04] tracking-[-0.045em] md:text-[60px] lg:text-[64px]">
           {c.lines.map((line) => (
             <span key={line} className="block">
               {line}
@@ -622,9 +947,10 @@ function StatementSection({ c }: { c: ConversationSectionsCopy["statement"] }) {
             </span>
           </span>
         </h2>
-        <p className="mt-10 max-w-xl text-[17px] leading-[1.6] text-[#ADADAA] md:text-[19px]">
+        <p className="mt-6 max-w-xl text-[16px] leading-[1.55] text-[#ADADAA] md:mt-8 md:text-[18px]">
           {c.body}
         </p>
+        {action ? <div className="mt-8 md:mt-10">{action}</div> : null}
       </div>
     </section>
   );
@@ -639,10 +965,16 @@ export default function ConversationSections({
 }) {
   return (
     <>
-      <EmailSection c={copy.email} />
-      <WhatsAppSection c={copy.whatsapp} />
+      {/* One section holds the three rows, alternating scene left and right. */}
+      <section className="bg-white px-4 pb-24 pt-0 md:px-6 md:pb-36 md:pt-4">
+        <Heading eyebrow={copy.block.eyebrow} title={copy.block.title} sub={copy.block.sub} />
+        <div className="mt-20 flex flex-col gap-28 md:mt-28 md:gap-40">
+          <EmailSection c={copy.email} />
+          <WhatsAppSection c={copy.whatsapp} />
+        </div>
+      </section>
+      <FeedSection c={copy.feed} />
       {afterWhatsApp}
-      <StatementSection c={copy.statement} />
     </>
   );
 }

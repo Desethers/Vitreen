@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/Button";
 import TryWhatsAppButton from "@/components/landing/TryWhatsAppButton";
 import { openContact } from "@/components/landing/LandingNav";
 import LandingLanguageSwitch from "@/components/landing/LandingLanguageSwitch";
+import {
+  CONVERSATION_SECTIONS_EN,
+  StatementSection,
+} from "@/components/landing/conversations/ConversationSections";
 
 const FOOTER_COLUMNS = [
   {
@@ -42,39 +46,28 @@ const FOOTER_COLUMNS = [
 
 export default function LandingCta() {
   return (
-    <>
+    <div className="flex min-h-[100svh] flex-col bg-[#111110]">
       {/* Same title+subtitle scale as CtaBand.tsx on main: both 30/44, leading-[1.15], tracking-[-0.03em]. */}
-      <section className="bg-white px-6 py-20 md:px-12 md:py-28 lg:py-32">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <h2 className="mb-0 max-w-[22ch] font-display text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#111110] md:max-w-none md:text-[44px]">
-            Stop searching. Start replying.
-          </h2>
-          <p className="mb-10 mt-0 max-w-3xl text-[30px] font-normal leading-[1.15] tracking-[-0.03em] text-[#6B6A67] md:mb-12 md:text-[44px]">
-            Your sales assistant, inside WhatsApp.
-          </p>
-
-          <div className="flex flex-col items-center gap-3 sm:flex-row">
-            <TryWhatsAppButton lang="en" label="Try it on WhatsApp" />
-            <Button
-              size="lg"
-              variant="inverse"
-              onClick={openContact}
-              className="border border-[#E8E8E6]"
-            >
+      {/* The closing statement opens the footer, with the final action under it. */}
+      <StatementSection
+        c={CONVERSATION_SECTIONS_EN.statement}
+        action={
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button size="lg" variant="inverse" onClick={openContact}>
               Book a demo
             </Button>
+            <TryWhatsAppButton
+              lang="en"
+              label="Try it on WhatsApp"
+              className="border border-white/20"
+            />
           </div>
+        }
+      />
 
-          <p className="mt-4 text-[13px] leading-[1.5] text-[#ADADAA] md:text-[14px]">
-            Try the demo on WhatsApp, or book a 30-minute walkthrough based on your gallery’s
-            workflow.
-          </p>
-        </div>
-      </section>
-
-      <footer id="contact" className="bg-[#111110] text-white">
+      <footer id="contact" className="border-t border-white/10 bg-[#111110] text-white">
         <div className="px-4 md:px-6">
-          <div className="mx-auto max-w-7xl py-14 md:py-20">
+          <div className="mx-auto max-w-7xl py-12 md:py-8">
             <div className="grid gap-14 md:grid-cols-[minmax(240px,1fr)_minmax(0,1.5fr)] md:gap-20 lg:gap-28">
               <div>
                 <a href="/" className="font-display text-[18px] tracking-[-0.025em] text-white">
@@ -128,6 +121,6 @@ export default function LandingCta() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

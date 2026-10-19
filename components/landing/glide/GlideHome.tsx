@@ -183,9 +183,10 @@ function HeroMicroSignals() {
 
   useEffect(() => {
     if (phone ? turn !== "whatsapp" : !whatsAppStarted) return;
-    const delays = [900, 650, 750, 1800, 650, 750, 2400];
+    // 0 idle · 1 question · 2 typing · 3 answer (held) · 4 pause · 5 question · 6 typing · 7 answer (held) · 8 pause
+    const delays = [900, 700, 1300, 3600, 900, 700, 1300, 3600, 1100];
     const timeout = window.setTimeout(() => {
-      if (whatsAppStep === 6) {
+      if (whatsAppStep === 8) {
         setWhatsAppStep(0);
         if (phone) setTurn("gmail");
       } else setWhatsAppStep(whatsAppStep + 1);
@@ -255,7 +256,9 @@ function HeroMicroSignals() {
               className="absolute right-0 top-0 max-w-[88%] rounded-[18px_18px_5px_18px] bg-[#D9FDD3] px-4 py-2.5 text-[#111110] shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
-              exit={reduce ? undefined : { y: -4, scale: 0.94 }}
+              exit={
+                reduce ? undefined : { opacity: 0, y: -10, transition: { duration: 0.9, ease } }
+              }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
               <p className="text-[13px] leading-[1.3]">
@@ -273,7 +276,7 @@ function HeroMicroSignals() {
               className="absolute left-0 top-[78px] flex items-center gap-1 rounded-[13px_13px_13px_4px] border border-[#E8E8E6] bg-white px-3.5 py-3 shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
               initial={reduce ? false : { y: 10, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
-              exit={reduce ? undefined : { y: -3, scale: 0.94 }}
+              exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
               transition={{ duration: reduce ? 0 : 0.3, ease }}
               aria-label="The other person is typing"
             >
@@ -299,7 +302,9 @@ function HeroMicroSignals() {
               className="absolute left-0 top-[78px] w-[88%] rounded-[18px_18px_18px_5px] border border-[#E8E8E6] bg-white px-4 py-3 text-left shadow-[0_12px_28px_rgba(0,0,0,0.06)]"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
-              exit={reduce ? undefined : { y: -4, scale: 0.94 }}
+              exit={
+                reduce ? undefined : { opacity: 0, y: -10, transition: { duration: 0.9, ease } }
+              }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
               <p className="text-[12px] leading-[1.4] text-[#111110]">
@@ -309,13 +314,15 @@ function HeroMicroSignals() {
             </motion.div>
           ) : null}
 
-          {whatsAppStep >= 4 ? (
+          {whatsAppStep >= 5 && whatsAppStep <= 7 ? (
             <motion.div
               key="chair-question"
               className="absolute right-0 top-0 max-w-[88%] rounded-[18px_18px_5px_18px] bg-[#D9FDD3] px-4 py-2.5 text-[#111110] shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
-              exit={reduce ? undefined : { y: -4, scale: 0.94 }}
+              exit={
+                reduce ? undefined : { opacity: 0, y: -10, transition: { duration: 0.9, ease } }
+              }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
               <p className="text-[13px] leading-[1.3]">
@@ -327,13 +334,13 @@ function HeroMicroSignals() {
             </motion.div>
           ) : null}
 
-          {whatsAppStep === 5 ? (
+          {whatsAppStep === 6 ? (
             <motion.div
               key="chair-typing"
               className="absolute left-0 top-[78px] flex items-center gap-1 rounded-[13px_13px_13px_4px] border border-[#E8E8E6] bg-white px-3.5 py-3 shadow-[0_10px_22px_rgba(0,0,0,0.05)]"
               initial={reduce ? false : { y: 10, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
-              exit={reduce ? undefined : { y: -3, scale: 0.94 }}
+              exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
               transition={{ duration: reduce ? 0 : 0.3, ease }}
               aria-label="The other person is typing"
             >
@@ -353,13 +360,15 @@ function HeroMicroSignals() {
             </motion.div>
           ) : null}
 
-          {whatsAppStep === 6 ? (
+          {whatsAppStep === 7 ? (
             <motion.div
               key="chair-answer"
               className="absolute left-0 top-[78px] w-[88%] rounded-[18px_18px_18px_5px] border border-[#E8E8E6] bg-white px-4 py-3 text-left shadow-[0_12px_28px_rgba(0,0,0,0.06)]"
               initial={reduce ? false : { y: 12, scale: 0.88 }}
               animate={{ y: 0, scale: 1 }}
-              exit={reduce ? undefined : { y: -4, scale: 0.94 }}
+              exit={
+                reduce ? undefined : { opacity: 0, y: -10, transition: { duration: 0.9, ease } }
+              }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
               <p className="text-[12px] leading-[1.4] text-[#111110]">
