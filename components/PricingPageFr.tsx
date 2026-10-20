@@ -12,12 +12,12 @@ const FAQ = [
     a: "À vous. Un export complet est possible à tout moment.",
   },
   {
-    q: "Qu’est-ce qu’une galerie fondatrice ?",
-    a: "L’une des trois premières galeries sur Vitreen : 149 €/mois au lieu de 249 €, conservés tant que vous restez, en échange de retours réguliers pendant que nous construisons.",
+    q: "Qu’est-ce que l’offre de lancement ?",
+    a: "Les trois premières galeries sur Vitreen paient 49 €/mois et gardent ce tarif tant que leur abonnement reste actif. Ensuite, le prix est de 99 €/mois.",
   },
   {
     q: "Y a-t-il un engagement ?",
-    a: "Les galeries fondatrices s’engagent trois mois, le temps de couvrir l’installation — ensuite, c’est au mois. Au prix public, il n’y a pas d’engagement, ou 199 €/mois si vous payez à l’année.",
+    a: "Non. Vitreen se paie au mois, et vous pouvez résilier à tout moment.",
   },
   {
     q: "Que se passe-t-il si j’arrête ?",
@@ -29,7 +29,7 @@ const FAQ = [
   },
   {
     q: "Qui fait fonctionner le système au quotidien ?",
-    a: "Votre équipe, en autonomie avec Vitreen. Les galeries fondatrices ont aussi une ligne directe avec le fondateur.",
+    a: "Votre équipe, en autonomie avec Vitreen. Les galeries de l’offre de lancement ont aussi une ligne directe avec le fondateur.",
   },
 ];
 
@@ -43,9 +43,7 @@ export default function PricingPageFr() {
           <div className="mx-auto max-w-2xl text-center">
             <p className={EYEBROW}>Tarifs</p>
             <h1 className={`${H2} mt-4`}>Un prix clair, aucune surprise.</h1>
-            <p className={H2_SUB}>
-              Un prix par galerie. Utilisateurs illimités, installation incluse.
-            </p>
+            <p className={H2_SUB}>Un seul prix simple. Sans engagement.</p>
           </div>
         </div>
       </section>

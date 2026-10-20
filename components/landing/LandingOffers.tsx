@@ -8,8 +8,8 @@ export default function LandingOffers() {
     <section id="services" className={`${SECTION} bg-white`}>
       <div className={CONTAINER}>
         <p className={EYEBROW}>Pricing</p>
-        <h2 className={`${H2} mt-5`}>Choose how to work with Vitreen.</h2>
-        <p className={H2_SUB}>Three founding places, then one public price.</p>
+        <h2 className={`${H2} mt-5`}>Simple pricing.</h2>
+        <p className={H2_SUB}>One price, no commitment.</p>
 
         <div className="mt-10 md:mt-14">
           <Offers lang="en" />

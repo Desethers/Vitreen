@@ -12,12 +12,12 @@ const FAQ = [
     a: "You do. A complete export is available at any time.",
   },
   {
-    q: "What is a founding gallery?",
-    a: "One of the first three galleries on Vitreen: €149/month instead of €249, kept for as long as you stay, in exchange for regular feedback while we build.",
+    q: "What is Early Access?",
+    a: "The first three galleries on Vitreen pay €49/month and keep that rate for as long as their subscription stays active. After that, the price is €99/month.",
   },
   {
     q: "Is there a commitment?",
-    a: "Founding galleries commit for three months, which covers the setup — then it’s month to month. At the public price there is no commitment, or €199/month if you pay yearly.",
+    a: "No. Vitreen is month to month, and you can cancel anytime.",
   },
   {
     q: "What happens if I stop?",
@@ -29,7 +29,7 @@ const FAQ = [
   },
   {
     q: "Who keeps the system running day to day?",
-    a: "Your team, using Vitreen independently. Founding galleries also have a direct line to the founder.",
+    a: "Your team, using Vitreen independently. Early Access galleries also have a direct line to the founder.",
   },
 ];
 
@@ -43,7 +43,7 @@ export default function PricingPage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className={EYEBROW}>Pricing</p>
             <h1 className={`${H2} mt-4`}>Clear costs, no surprise.</h1>
-            <p className={H2_SUB}>One price per gallery. Unlimited users, setup included.</p>
+            <p className={H2_SUB}>One simple price. No commitment.</p>
           </div>
         </div>
       </section>
