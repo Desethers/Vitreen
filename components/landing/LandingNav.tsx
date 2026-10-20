@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import ContactModal from "@/components/ContactModal";
+import LandingMobileMenu from "@/components/landing/LandingMobileMenu";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -170,6 +171,15 @@ export default function LandingNav() {
           >
             Book a demo
           </Button>
+          <LandingMobileMenu
+            groups={[
+              { title: "Tools", items: TOOLS_ITEMS },
+              { title: "Solutions", items: SOLUTIONS_ITEMS },
+            ]}
+            links={LINKS}
+            cta="Book a demo"
+            label="Menu"
+          />
         </div>
 
         <AnimatePresence>

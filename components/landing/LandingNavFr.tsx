@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import ContactModal from "@/components/ContactModal";
+import LandingMobileMenu from "@/components/landing/LandingMobileMenu";
 import { openContact } from "@/components/landing/LandingNav";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -165,6 +166,15 @@ export default function LandingNavFr() {
           >
             Réserver une démo
           </Button>
+          <LandingMobileMenu
+            groups={[
+              { title: "Outils", items: TOOLS_ITEMS },
+              { title: "Solutions", items: SOLUTIONS_ITEMS },
+            ]}
+            links={LINKS}
+            cta="Réserver une démo"
+            label="Menu"
+          />
         </div>
 
         <AnimatePresence>

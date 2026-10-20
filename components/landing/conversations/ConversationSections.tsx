@@ -1065,31 +1065,44 @@ const KIND_TONES = [
 ];
 const CHANNEL_LOGO = { whatsapp: "/logos/whatsapp.svg", gmail: "/logos/icon-gmail-96.png" };
 
+/** One vertical piece of the feed's thread; it fades in just after a new exchange lands. */
+function ThreadPiece({ className }: { className: string }) {
+  return (
+    <motion.span
+      aria-hidden="true"
+      className={`absolute left-[15px] w-px bg-[#E1E1DE] md:left-[19px] ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay: 0.3 }}
+    />
+  );
+}
+
 function FeedRow({
   e,
   kinds,
   isFrench,
   answered,
   linked,
+  up,
 }: {
   e: FeedEvent;
   kinds: { label: string }[];
   isFrench: boolean;
   answered: boolean;
-  /** An older exchange sits below: the thread line draws down to it. */
+  /** An older exchange sits below: the thread line runs down to it. */
   linked: boolean;
+  /** A newer exchange sits above: the thread line arrives from it. */
+  up: boolean;
 }) {
   const isArtwork = e.kind === 1 && e.title.toLowerCase().includes("self-portrait");
   return (
     <div className="relative pl-10 md:pl-12">
-      <motion.span
-        className="absolute bottom-[-14px] left-[15px] top-9 w-px origin-top bg-[#E1E1DE] md:left-[19px]"
-        initial={false}
-        animate={{ scaleY: linked ? 1 : 0 }}
-        transition={{ duration: 0.5, delay: linked ? 0.35 : 0, ease }}
-      />
+      {/* The thread: the pieces above and below the icon meet the neighbours' pieces. */}
+      {up ? <ThreadPiece className="top-0 h-9" /> : null}
+      {linked ? <ThreadPiece className="top-9 bottom-0" /> : null}
       <span
-        className={`absolute left-0 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white shadow-sm md:left-1 ${
+        className={`absolute left-0 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full border-[0.4px] border-[#C9C9C5] md:left-1 ${
           e.channel ? "bg-white" : "bg-[#2F80ED] text-white"
         }`}
       >
@@ -1226,7 +1239,7 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
           <AnimatePresence mode="wait" initial={false}>
             <motion.ul
               key={cycle}
-              className="flex flex-col gap-3"
+              className="flex flex-col"
               exit={{ opacity: 0, transition: { duration: 0.35 } }}
             >
               <AnimatePresence initial={cycle > 0}>
@@ -1242,11 +1255,23 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
                       default: { type: "spring", stiffness: 380, damping: 24 },
                     }}
                     style={{ transformOrigin: "50% 0%" }}
+                    className="relative"
                   >
+                    {index > 0 ? (
+                      <>
+                        {/* The gap between two exchanges, crossed by the thread. */}
+                        <div className="relative h-3">
+                          <ThreadPiece className="top-0 h-full" />
+                        </div>
+                      </>
+                    ) : null}
                     {index === 0 || shown[index - 1]?.when !== e.when ? (
-                      <p className="mb-2.5 pl-10 text-[11px] font-medium text-[#A1A1AA] md:pl-12 md:text-[12px]">
-                        {feedDayLabel(e.when, isFrench)}
-                      </p>
+                      <div className="relative pb-2.5">
+                        {index > 0 ? <ThreadPiece className="top-0 h-full" /> : null}
+                        <p className="pl-10 text-[11px] font-medium text-[#A1A1AA] md:pl-12 md:text-[12px]">
+                          {feedDayLabel(e.when, isFrench)}
+                        </p>
+                      </div>
                     ) : null}
                     <FeedRow
                       e={e}
@@ -1257,6 +1282,7 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
                         shown.some((other) => other.kind === 1 && other.who === e.who)
                       }
                       linked={index < shown.length - 1}
+                      up={index > 0}
                     />
                   </motion.li>
                 ))}
