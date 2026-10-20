@@ -7,6 +7,7 @@ import ConversationSections, {
 import LandingOffersFr from "@/components/landing/LandingOffersFr";
 import LandingFaqFr from "@/components/landing/LandingFaqFr";
 import LandingCtaFr from "@/components/landing/LandingCtaFr";
+import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 
 import { alternates } from "@/lib/seo";
 
@@ -32,7 +33,10 @@ export default function Home() {
     <main className="relative bg-white">
       <LandingNavFr />
       <LandingHeroFr />
-      <ConversationSections copy={CONVERSATION_SECTIONS_FR} />
+      <ConversationSections
+        copy={CONVERSATION_SECTIONS_FR}
+        afterWhatsApp={<WhoVitreenIsFor lang="fr" />}
+      />
       <LandingOffersFr />
       <LandingFaqFr />
       <LandingCtaFr />
