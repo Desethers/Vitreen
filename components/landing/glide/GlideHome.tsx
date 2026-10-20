@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { openContact } from "@/components/landing/LandingNav";
-import HeroRoulette from "@/components/landing/HeroRoulette";
+import HeroObjects from "@/components/landing/HeroObjects";
 import EmailCta from "@/components/landing/EmailCta";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
@@ -393,23 +393,29 @@ export function GlideHero({ showConnectionScene = true }: { showConnectionScene?
       }`}
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center pt-12 text-center md:pt-20">
-        <h1 className="hero-reveal hero-d-1 text-balance font-display text-[min(40px,8.2vw)] font-medium leading-[1.32] tracking-[-0.045em] text-[#111110] md:text-[68px] md:leading-[1.3]">
-          {/* Desktop: the reel after "digging". Phones: after "for", on the second line. */}
-          Stop digging
-          <HeroRoulette display="hidden md:inline-block" />
-          <br className="md:hidden" />{" "}
-          <span className="whitespace-nowrap">
-            for
-            <HeroRoulette display="inline-block md:hidden" /> the work.
+        <h1 className="m-0 mx-auto max-w-5xl text-balance font-display text-[clamp(30px,9vw,44px)] font-medium leading-[1.2] tracking-[-0.04em] text-[#111110] md:text-[68px]">
+          <span className="hero-reveal hero-d-1 md:block">
+            Sell what
+            <HeroObjects object="poster" order={1} />
+            <br className="md:hidden" /> doesn&rsquo;t sell
+            {/* Phones: the chair sits between "sell" and "like". */}
+            <span className="md:hidden">
+              <HeroObjects object="chair" order={2} />
+            </span>
+          </span>{" "}
+          <span className="hero-reveal hero-d-2 md:block">
+            like
+            <span className="hidden md:contents">
+              <HeroObjects object="chair" order={2} />
+            </span>
+            <br className="md:hidden" /> everything
+            <HeroObjects object="dog" order={3} /> else.
           </span>
-          <br />
-          {/* Never wraps: phones keep the title on three lines. */}
-          <span className="whitespace-nowrap">Answer from one place.</span>
         </h1>
 
         <p className="hero-soft hero-d-2 mt-6 max-w-2xl text-balance text-[16px] leading-[1.55] text-[#6B6A67] md:mt-9 md:text-[19px] md:leading-[1.6]">
-          Turn your spreadsheet or Artlogic export into an inventory for Gmail, WhatsApp and
-          Outlook. Keep track of every collector conversation.
+          Vitreen connects your inventory to Gmail and WhatsApp, and keeps every collector
+          relationship in mind.
         </p>
 
         <div className="hero-soft hero-d-3 mt-10 flex w-full justify-center md:mt-12">
