@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LandingNav from "@/components/landing/LandingNav";
-import { GlideHero } from "@/components/landing/glide/GlideHome";
+import LandingHero from "@/components/landing/LandingHero";
 import ConversationSections, {
   CONVERSATION_SECTIONS_EN,
 } from "@/components/landing/conversations/ConversationSections";
@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <main className="relative bg-white">
       <LandingNav />
-      <GlideHero showConnectionScene={false} />
+      <LandingHero />
       <ConversationSections
         copy={CONVERSATION_SECTIONS_EN}
         afterWhatsApp={<WhoVitreenIsFor lang="en" />}
