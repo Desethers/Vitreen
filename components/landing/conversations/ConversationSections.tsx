@@ -1804,7 +1804,7 @@ function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
   const loaded = Math.max(0, Math.min(beat - ARTWORKS_FROM + 1, total));
 
   return (
-    <section className="bg-[#111110] px-4 py-16 text-white md:px-6 md:py-20">
+    <section className="bg-[#111110] px-4 pb-8 pt-16 text-white md:px-6 md:py-20">
       <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} dark />
       <div ref={ref} className="relative mx-auto mt-10 w-full max-w-4xl md:mt-12">
         {/* One screen at a time: the onboarding, then the Artworks list it fills */}
@@ -1838,7 +1838,7 @@ function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
 /** Where the data lives: the reassurance that comes with the move, on its own dark band. */
 function SecuritySection({ c }: { c: ConversationSectionsCopy["migration"]["security"] }) {
   return (
-    <section className="bg-[#111110] px-4 py-24 md:px-6 md:py-32">
+    <section className="bg-[#111110] px-4 pb-16 pt-6 md:px-6 md:py-32">
       <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-start lg:gap-16">
         <p className="font-display text-[22px] font-medium tracking-[-0.02em] text-white md:text-[26px] lg:whitespace-nowrap">
           {c.title}
