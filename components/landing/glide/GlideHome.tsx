@@ -153,7 +153,62 @@ function useIsPhone() {
   return phone;
 }
 
-function HeroMicroSignals() {
+type HeroLang = "en" | "fr";
+
+/** What the hero animations say, per language. */
+const HERO_COPY = {
+  en: {
+    gmail: [
+      { name: "Marie Beaumont", text: "Is Van Gogh’s Self-Portrait available?", time: "09:41" },
+      { name: "Thomas Baur", text: "Price and provenance for Breuer’s B64 chair?", time: "10:12" },
+      {
+        name: "Clara Fournier",
+        text: "Could you send details for Campbell’s Soup Cans?",
+        time: "now",
+      },
+    ],
+    q1: (
+      <>
+        Could you remind me of <em>Evening Field</em>’s dimensions?
+      </>
+    ),
+    a1: "Thank you for your question, here you can find the details.",
+    q2: "Is Marcel Breuer’s B64 chair still available?",
+    a2: "Of course! Here is the Breuer B64 chair, with its details.",
+    typing: "The other person is typing",
+  },
+  fr: {
+    gmail: [
+      {
+        name: "Marie Beaumont",
+        text: "L’Autoportrait de Van Gogh est-il disponible ?",
+        time: "09:41",
+      },
+      {
+        name: "Thomas Baur",
+        text: "Prix et provenance de la chaise B64 de Breuer ?",
+        time: "10:12",
+      },
+      {
+        name: "Clara Fournier",
+        text: "Pourriez-vous m’envoyer les détails des Campbell’s Soup Cans ?",
+        time: "à l’instant",
+      },
+    ],
+    q1: (
+      <>
+        Pouvez-vous me rappeler les dimensions d’<em>Evening Field</em> ?
+      </>
+    ),
+    a1: "Merci pour votre question, voici les détails.",
+    q2: "La chaise B64 de Marcel Breuer est-elle toujours disponible ?",
+    a2: "Bien sûr ! Voici la chaise B64 de Breuer, avec ses détails.",
+    typing: "L’autre personne est en train d’écrire",
+  },
+} as const;
+
+function HeroMicroSignals({ lang = "en" }: { lang?: HeroLang }) {
+  const t = HERO_COPY[lang];
   const reduce = useReducedMotion();
   const phone = useIsPhone();
   const [gmailStep, setGmailStep] = useState(0);
@@ -195,15 +250,7 @@ function HeroMicroSignals() {
     return () => window.clearTimeout(timeout);
   }, [whatsAppStep, whatsAppStarted, phone, turn]);
 
-  const gmail = [
-    { name: "Marie Beaumont", text: "Is Van Gogh’s Self-Portrait available?", time: "09:41" },
-    { name: "Thomas Baur", text: "Price and provenance for Breuer’s B64 chair?", time: "10:12" },
-    {
-      name: "Clara Fournier",
-      text: "Could you send details for Campbell’s Soup Cans?",
-      time: "now",
-    },
-  ];
+  const gmail = t.gmail;
 
   return (
     <div className="mx-auto mt-12 grid h-[230px] w-full max-w-5xl place-items-center gap-5 px-2 md:mt-16 md:h-[240px] md:grid-cols-2 md:place-items-stretch md:gap-14">
@@ -261,9 +308,7 @@ function HeroMicroSignals() {
               }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
-              <p className="text-[13px] leading-[1.3]">
-                Could you remind me of <em>Evening Field</em>’s dimensions?
-              </p>
+              <p className="text-[13px] leading-[1.3]">{t.q1}</p>
               <span className="mt-1 flex items-center justify-end gap-1 text-[9px] text-[#66776F]">
                 10:41 <span className="font-medium text-[#53BDEB]">✓✓</span>
               </span>
@@ -278,7 +323,7 @@ function HeroMicroSignals() {
               animate={{ y: 0, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
               transition={{ duration: reduce ? 0 : 0.3, ease }}
-              aria-label="The other person is typing"
+              aria-label={t.typing}
             >
               {[0, 1, 2].map((dot) => (
                 <motion.span
@@ -307,9 +352,7 @@ function HeroMicroSignals() {
               }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
-              <p className="text-[12px] leading-[1.4] text-[#111110]">
-                Thank you for your question, here you can find the details.
-              </p>
+              <p className="text-[12px] leading-[1.4] text-[#111110]">{t.a1}</p>
               <span className="mt-1 block text-right text-[8px] text-[#8A8A87]">10:42</span>
             </motion.div>
           ) : null}
@@ -325,9 +368,7 @@ function HeroMicroSignals() {
               }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
-              <p className="text-[13px] leading-[1.3]">
-                Is Marcel Breuer’s B64 chair still available?
-              </p>
+              <p className="text-[13px] leading-[1.3]">{t.q2}</p>
               <span className="mt-1 flex items-center justify-end gap-1 text-[9px] text-[#66776F]">
                 10:44 <span className="font-medium text-[#53BDEB]">✓✓</span>
               </span>
@@ -342,7 +383,7 @@ function HeroMicroSignals() {
               animate={{ y: 0, scale: 1 }}
               exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.2 } }}
               transition={{ duration: reduce ? 0 : 0.3, ease }}
-              aria-label="The other person is typing"
+              aria-label={t.typing}
             >
               {[0, 1, 2].map((dot) => (
                 <motion.span
@@ -371,9 +412,7 @@ function HeroMicroSignals() {
               }
               transition={{ duration: reduce ? 0 : 0.38, ease }}
             >
-              <p className="text-[12px] leading-[1.4] text-[#111110]">
-                Of course! Here is the Breuer B64 chair, with its details.
-              </p>
+              <p className="text-[12px] leading-[1.4] text-[#111110]">{t.a2}</p>
               <span className="mt-1 block text-right text-[8px] text-[#8A8A87]">10:45</span>
             </motion.div>
           ) : null}
@@ -383,7 +422,14 @@ function HeroMicroSignals() {
   );
 }
 
-export function GlideHero({ showConnectionScene = true }: { showConnectionScene?: boolean }) {
+export function GlideHero({
+  showConnectionScene = true,
+  lang = "en",
+}: {
+  showConnectionScene?: boolean;
+  lang?: HeroLang;
+}) {
+  const fr = lang === "fr";
   return (
     <section
       className={`relative overflow-hidden bg-white px-4 md:px-6 ${
@@ -394,35 +440,61 @@ export function GlideHero({ showConnectionScene = true }: { showConnectionScene?
     >
       <div className="mx-auto flex max-w-4xl flex-col items-center pt-12 text-center md:pt-20">
         <h1 className="m-0 mx-auto max-w-5xl text-balance font-display text-[clamp(30px,9vw,44px)] font-medium leading-[1.2] tracking-[-0.04em] text-[#111110] md:text-[68px]">
-          <span className="hero-reveal hero-d-1 md:block">
-            Sell what
-            <HeroObjects object="poster" order={1} />
-            <br className="md:hidden" /> doesn&rsquo;t sell
-            {/* Phones: the chair sits between "sell" and "like". */}
-            <span className="md:hidden">
-              <HeroObjects object="chair" order={2} />
-            </span>
-          </span>{" "}
-          <span className="hero-reveal hero-d-2 md:block">
-            like
-            <span className="hidden md:contents">
-              <HeroObjects object="chair" order={2} />
-            </span>
-            <br className="md:hidden" /> everything
-            <HeroObjects object="dog" order={3} /> else.
-          </span>
+          {fr ? (
+            <>
+              <span className="hero-reveal hero-d-1 md:block">
+                Vendez
+                <HeroObjects object="poster" order={1} />
+                <br className="md:hidden" /> ce qui ne se vend pas
+                <br className="md:hidden" />
+              </span>{" "}
+              <span className="hero-reveal hero-d-2 md:block">
+                {/* Phones: the chair opens the last line, just before "comme". */}
+                <span className="md:hidden">
+                  <HeroObjects object="chair" order={2} spaceBefore={false} />
+                </span>{" "}
+                comme
+                <span className="hidden md:contents">
+                  <HeroObjects object="chair" order={2} />
+                </span>{" "}
+                le reste
+                <HeroObjects object="dog" order={3} spaceAfter={false} />.
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="hero-reveal hero-d-1 md:block">
+                Sell what
+                <HeroObjects object="poster" order={1} />
+                <br className="md:hidden" /> doesn&rsquo;t sell
+                {/* Phones: the chair sits between "sell" and "like". */}
+                <span className="md:hidden">
+                  <HeroObjects object="chair" order={2} />
+                </span>
+              </span>{" "}
+              <span className="hero-reveal hero-d-2 md:block">
+                like
+                <span className="hidden md:contents">
+                  <HeroObjects object="chair" order={2} />
+                </span>
+                <br className="md:hidden" /> everything
+                <HeroObjects object="dog" order={3} /> else.
+              </span>
+            </>
+          )}
         </h1>
 
         <p className="hero-soft hero-d-2 mt-6 max-w-2xl text-balance text-[16px] leading-[1.55] text-[#6B6A67] md:mt-9 md:text-[19px] md:leading-[1.6]">
-          Vitreen connects your inventory to Gmail and WhatsApp, and keeps every collector
-          relationship in mind.
+          {fr
+            ? "Vitreen connecte votre inventaire à Gmail et WhatsApp, et garde en mémoire chaque relation avec vos collectionneurs."
+            : "Vitreen connects your inventory to Gmail and WhatsApp, and keeps every collector relationship in mind."}
         </p>
 
         <div className="hero-soft hero-d-3 mt-10 flex w-full justify-center md:mt-12">
-          <EmailCta lang="en" />
+          <EmailCta lang={lang} />
         </div>
       </div>
-      {!showConnectionScene ? <HeroMicroSignals /> : null}
+      {!showConnectionScene ? <HeroMicroSignals lang={lang} /> : null}
       {showConnectionScene ? <HeroConnectionScene /> : null}
     </section>
   );

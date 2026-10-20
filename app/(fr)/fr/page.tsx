@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LandingNavFr from "@/components/landing/LandingNavFr";
-import LandingHeroFr from "@/components/landing/LandingHeroFr";
+import { GlideHero } from "@/components/landing/glide/GlideHome";
 import ConversationSections, {
   CONVERSATION_SECTIONS_FR,
 } from "@/components/landing/conversations/ConversationSections";
@@ -8,6 +8,7 @@ import LandingOffersFr from "@/components/landing/LandingOffersFr";
 import LandingFaqFr from "@/components/landing/LandingFaqFr";
 import LandingCtaFr from "@/components/landing/LandingCtaFr";
 
+import WhoVitreenIsFor from "@/components/WhoVitreenIsFor";
 import { alternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -31,8 +32,11 @@ export default function Home() {
   return (
     <main className="relative bg-white">
       <LandingNavFr />
-      <LandingHeroFr />
-      <ConversationSections copy={CONVERSATION_SECTIONS_FR} />
+      <GlideHero showConnectionScene={false} lang="fr" />
+      <ConversationSections
+        copy={CONVERSATION_SECTIONS_FR}
+        afterWhatsApp={<WhoVitreenIsFor lang="fr" />}
+      />
       <LandingOffersFr />
       <LandingFaqFr />
       <LandingCtaFr />
