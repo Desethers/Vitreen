@@ -80,9 +80,9 @@ function GallerySiteHeader() {
 
 export function ArtistWebsitePage() {
   const works = [
-    { src: "/mockups/website-publisher/painting-02.png", title: "Untitled (Horizon)" },
-    { src: "/mockups/website-publisher/painting-01.png", title: "Dawn Study No. 7" },
-    { src: "/mockups/website-publisher/painting-09.png", title: "Evening Field" },
+    { src: "/mockups/website-publisher/painting-02.webp", title: "Untitled (Horizon)" },
+    { src: "/mockups/website-publisher/painting-01.webp", title: "Dawn Study No. 7" },
+    { src: "/mockups/website-publisher/painting-09.webp", title: "Evening Field" },
   ];
 
   return (
@@ -92,7 +92,7 @@ export function ArtistWebsitePage() {
         <p className="text-[8px] text-[#858581]">Artists&nbsp;&nbsp; / &nbsp;&nbsp;Sacha Elron</p>
         <div className="mt-5 grid grid-cols-[31%_1fr] gap-10">
           <img
-            src="/mockups/website-publisher/sacha-elron.png"
+            src="/mockups/website-publisher/sacha-elron.webp"
             alt="Portrait of Sacha Elron"
             className="h-[205px] w-full rounded-[3px] object-cover"
           />
@@ -188,7 +188,7 @@ function ExhibitionWebsitePage() {
         </div>
         <figure className="mt-7">
           <img
-            src="/mockups/website-publisher/your-friends.png"
+            src="/mockups/website-publisher/your-friends.webp"
             alt="Installation view of Your friends"
             className="h-[205px] w-full object-cover object-center"
           />
@@ -212,7 +212,7 @@ function NewsWebsitePage() {
         </p>
         <div className="mt-6 grid grid-cols-[1.08fr_0.92fr] gap-9">
           <img
-            src="/mockups/website-publisher/studio-visit.png"
+            src="/mockups/website-publisher/studio-visit.webp"
             alt="Sacha Elron studio visit"
             className="h-[285px] w-full rounded-[3px] object-cover"
           />
@@ -317,19 +317,19 @@ const CONNECTED_SECTIONS = [
     label: "Artists",
     detail: "Artist profiles",
     websiteDetail: "Sacha Elron",
-    image: "/mockups/website-publisher/sacha-elron.png",
+    image: "/mockups/website-publisher/sacha-elron.webp",
   },
   {
     label: "Exhibitions",
     detail: "Exhibition pages",
     websiteDetail: "Your friends",
-    image: "/mockups/website-publisher/your-friends.png",
+    image: "/mockups/website-publisher/your-friends.webp",
   },
   {
     label: "News",
     detail: "Latest editorial content",
     websiteDetail: "Studio visit",
-    image: "/mockups/website-publisher/studio-visit.png",
+    image: "/mockups/website-publisher/studio-visit.webp",
   },
 ] as const;
 
