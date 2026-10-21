@@ -1,6 +1,19 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
+/*
+ * Sending. Until vitreen.art is verified at resend.com/domains, Resend only
+ * delivers from onboarding@resend.dev, and only to the e-mail of the Resend
+ * account itself (raphael.vitreen@gmail.com).
+ * Once the domain is verified, set CONTACT_FROM_EMAIL (in Vercel too), e.g.
+ * "Vitreen <contact@vitreen.art>": messages are then sent from that address to
+ * contact@vitreen.art, which forwards to the inbox. CONTACT_TO_EMAIL overrides it.
+ */
+const CONTACT_FROM = process.env.CONTACT_FROM_EMAIL || "Vitreen Contact <onboarding@resend.dev>";
+const CONTACT_TO =
+  process.env.CONTACT_TO_EMAIL ||
+  (process.env.CONTACT_FROM_EMAIL ? "contact@vitreen.art" : "raphael.vitreen@gmail.com");
+
 export async function POST(request: Request) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
@@ -12,8 +25,8 @@ export async function POST(request: Request) {
     }
 
     const { error } = await resend.emails.send({
-      from: "Vitreen Contact <onboarding@resend.dev>",
-      to: "raphael.vitreen@gmail.com",
+      from: CONTACT_FROM,
+      to: CONTACT_TO,
       replyTo: email,
       subject: `Nouveau message de ${nom} — ${galerie}`,
       html: `
