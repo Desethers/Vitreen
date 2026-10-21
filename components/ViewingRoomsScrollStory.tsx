@@ -30,12 +30,12 @@ const STEPS: ScrollStoryStep[] = [
 ];
 
 const WORKS = [
-  { title: "Evening field", year: "2023", image: "/artworks/painting-01.png" },
+  { title: "Evening field", year: "2023", image: "/artworks/painting-01.webp" },
   { title: "Dawn Study No. 7", year: "2023", image: "/artworks/painting-03.jpg" },
-  { title: "Untitled (Horizon)", year: "2024", image: "/artworks/painting-09.png" },
+  { title: "Untitled (Horizon)", year: "2024", image: "/artworks/painting-09.webp" },
   { title: "Sun Dog", year: "2024", image: "/artworks/painting-05.jpg" },
   { title: "Solstice", year: "2024", image: "/artworks/painting-07.jpg" },
-  { title: "Nightfall", year: "2022", image: "/artworks/painting-08.jpg" },
+  { title: "Nightfall", year: "2022", image: "/artworks/painting-08.webp" },
 ];
 
 const COMPOSE_SELECTED = new Set([0, 2, 3, 4]);

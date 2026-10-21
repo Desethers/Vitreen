@@ -71,7 +71,7 @@ const SOLUTIONS_FEATURED = {
   title: "Galeries d’art",
   desc: "Inventaire d’œuvres, réponses collectionneurs et sélections privées, construits autour de votre galerie.",
   cta: "En savoir plus",
-  image: "/gallery-screen2.png",
+  image: "/gallery-screen2.webp",
   href: "/fr/solutions/galleries",
 };
 

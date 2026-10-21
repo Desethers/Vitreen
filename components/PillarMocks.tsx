@@ -214,7 +214,7 @@ function AuditMock() {
               "/artworks/painting-04.jpg",
               "/artworks/painting-05.jpg",
               "/artworks/painting-07.jpg",
-              "/artworks/painting-08.jpg",
+              "/artworks/painting-08.webp",
               "/artworks/painting-10.jpg",
             ].map((src, i) => (
               <div key={i} className="flex flex-col items-center gap-1">

@@ -68,7 +68,7 @@ const TODO_GROUPS = [
     count: 2,
     rows: [
       {
-        image: "/artworks/painting-02.png",
+        image: "/artworks/painting-02.webp",
         name: "Marie Chen",
         detail: "Availability — Night Garden IV",
         date: "Today",
@@ -98,7 +98,7 @@ const TODO_GROUPS = [
 
 const DEMAND_ROWS = [
   {
-    image: "/artworks/painting-02.png",
+    image: "/artworks/painting-02.webp",
     title: "Night Garden IV",
     year: "2024",
     signals: "3 inquiries · in 2 active selections",

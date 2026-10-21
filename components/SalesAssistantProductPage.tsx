@@ -81,7 +81,7 @@ const GMAIL_RESULTS = [
     price: "9 500 €",
     status: "SOLD",
     statusClass: "text-[#71717A]",
-    image: "/artworks/painting-08.jpg",
+    image: "/artworks/painting-08.webp",
   },
 ] as const;
 
@@ -620,7 +620,7 @@ function WhatsAppPdfFrame() {
               </div>
               <div>
                 <img
-                  src="/artworks/painting-08.jpg"
+                  src="/artworks/painting-08.webp"
                   alt=""
                   className="aspect-[0.92] w-full object-cover"
                 />
@@ -659,7 +659,11 @@ const FOLLOW_UP_EVENTS = [
     title: "Opened the private selection",
     detail: "3 works viewed",
     status: "Opened",
-    images: ["/artworks/painting-05.jpg", "/artworks/painting-08.jpg", "/artworks/painting-10.jpg"],
+    images: [
+      "/artworks/painting-05.jpg",
+      "/artworks/painting-08.webp",
+      "/artworks/painting-10.jpg",
+    ],
     icon: "link",
     iconClass: "text-[#71716D]",
   },

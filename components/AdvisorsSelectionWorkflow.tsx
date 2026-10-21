@@ -17,7 +17,7 @@ const works = [
     artist: "Sacha Elron",
     year: "2024",
     price: "8 000 €",
-    image: "/artworks/painting-09.png",
+    image: "/artworks/painting-09.webp",
   },
   {
     title: "Solstice",
@@ -328,11 +328,11 @@ function AddMenu({ artworkActive }: { artworkActive: boolean }) {
 function ArtworkPicker({ dawnSelected }: { dawnSelected: boolean }) {
   const choices = [
     { title: "Amber Nocturne", image: "/artworks/painting-10.jpg" },
-    { title: "Crimson Field", image: "/artworks/painting-08.jpg" },
-    { title: "Evening field", image: "/artworks/painting-01.png" },
+    { title: "Crimson Field", image: "/artworks/painting-08.webp" },
+    { title: "Evening field", image: "/artworks/painting-01.webp" },
     { title: "Sage Interval", image: "/artworks/painting-04.jpg" },
     { title: "Dawn Study No. 7", image: "/artworks/painting-03.jpg" },
-    { title: "Untitled (Horizon)", image: "/artworks/painting-09.png" },
+    { title: "Untitled (Horizon)", image: "/artworks/painting-09.webp" },
   ];
 
   return (

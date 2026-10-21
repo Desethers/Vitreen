@@ -130,7 +130,7 @@ export function ExhibitionPageMock({
               style={{ height: 300 }}
             >
               <Image
-                src="/exhibition page/Exhibition2.png"
+                src="/exhibition page/Exhibition2.webp"
                 alt="Installation view"
                 fill
                 className="object-cover"
@@ -160,14 +160,14 @@ export function ExhibitionPageMock({
                   year: "2025",
                   medium: "Acrylic on canvas",
                   size: "120 × 120 cm",
-                  img: "/exhibition page/portrait2.jpg",
+                  img: "/exhibition page/portrait2.webp",
                 },
                 {
                   title: "Untitled (Lavender)",
                   year: "2024",
                   medium: "Oil on canvas",
                   size: "100 × 80 cm",
-                  img: "/exhibition page/painting-02.png",
+                  img: "/exhibition page/painting-02.webp",
                 },
               ].map((work) => (
                 <div key={work.title} className="flex flex-col gap-2">
@@ -361,7 +361,7 @@ export function ExhibitionPageMock({
           style={{ height: 440 }}
         >
           <Image
-            src="/exhibition page/Exhibition2.png"
+            src="/exhibition page/Exhibition2.webp"
             alt="Installation view — cool room"
             fill
             className="object-cover"
@@ -395,7 +395,7 @@ export function ExhibitionPageMock({
           style={{ height: 440 }}
         >
           <Image
-            src="/exhibition page/painting-02.png"
+            src="/exhibition page/painting-02.webp"
             alt="Sacha Elron — Untitled (Yellow)"
             fill
             className="object-contain"
@@ -411,7 +411,7 @@ export function ExhibitionPageMock({
           <div className="w-[50%] shrink-0 flex flex-col gap-2">
             <div className="rounded overflow-hidden bg-[#E8E4DF] relative" style={{ height: 440 }}>
               <Image
-                src="/exhibition page/portrait2.jpg"
+                src="/exhibition page/portrait2.webp"
                 alt="Sacha Elron — Untitled (Blue), 2025"
                 fill
                 className="object-cover"

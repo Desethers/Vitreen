@@ -286,7 +286,7 @@ function ArtworkDetailVisual() {
             <p className="text-[9px] text-[#6B6A67]">Main image</p>
             <div className="relative mt-1.5 aspect-[4/5] overflow-hidden rounded-md border border-[#D8D8D5]">
               <img
-                src="/artworks/painting-01.png"
+                src="/artworks/painting-01.webp"
                 alt=""
                 aria-hidden="true"
                 className="h-full w-full object-cover"
@@ -408,7 +408,7 @@ function ArtworkPanel({ phase, availability = false }: { phase: number; availabi
       <div className="grid h-[calc(100%-61px)] grid-cols-[0.8fr_1.2fr] gap-5 p-5">
         <div className="overflow-hidden rounded-md border border-[#E8E8E6]">
           <img
-            src="/artworks/painting-01.png"
+            src="/artworks/painting-01.webp"
             alt=""
             aria-hidden="true"
             className="h-full w-full object-cover"
@@ -628,7 +628,7 @@ function ArtworkCompletionDemo({ phase }: { phase: number }) {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
               <img
-                src="/artworks/painting-01.png"
+                src="/artworks/painting-01.webp"
                 alt=""
                 aria-hidden="true"
                 className="h-full w-full object-cover"
@@ -667,7 +667,7 @@ function SearchSession({ phase }: { phase: number }) {
   const rows = soldRows
     ? [
         ["Amber Nocturne", "Sacha Elron", "2025", "14 000 €", "Sold", "/artworks/painting-10.jpg"],
-        ["Crimson Field", "Sacha Elron", "2024", "9 500 €", "Sold", "/artworks/painting-08.jpg"],
+        ["Crimson Field", "Sacha Elron", "2024", "9 500 €", "Sold", "/artworks/painting-08.webp"],
       ]
     : [
         [
@@ -684,7 +684,7 @@ function SearchSession({ phase }: { phase: number }) {
           "2023",
           "10 000 €",
           "Available",
-          "/artworks/painting-01.png",
+          "/artworks/painting-01.webp",
         ],
         [
           "Dawn Study No. 7",
@@ -700,7 +700,7 @@ function SearchSession({ phase }: { phase: number }) {
           "2024",
           "8 000 €",
           "Available",
-          "/artworks/painting-09.png",
+          "/artworks/painting-09.webp",
         ],
       ];
 
@@ -827,7 +827,7 @@ function AvailabilitySession({ phase }: { phase: number }) {
       artist: "Sacha Elron",
       year: "2023",
       price: "10 000 €",
-      image: "/artworks/painting-01.png",
+      image: "/artworks/painting-01.webp",
       target: true,
     },
     {
@@ -842,7 +842,7 @@ function AvailabilitySession({ phase }: { phase: number }) {
       artist: "Sacha Elron",
       year: "2024",
       price: "8 000 €",
-      image: "/artworks/painting-09.png",
+      image: "/artworks/painting-09.webp",
     },
     {
       title: "Sage Interval",
@@ -870,7 +870,7 @@ function AvailabilitySession({ phase }: { phase: number }) {
       artist: "Sacha Elron",
       year: "2024",
       price: "9 500 €",
-      image: "/artworks/painting-08.jpg",
+      image: "/artworks/painting-08.webp",
     },
   ];
   const visibleWorks = reservedFilter

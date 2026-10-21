@@ -525,7 +525,7 @@ const ARTWORK_ROWS: {
     price: "8 000 €",
     status: "available",
     bg: "linear-gradient(135deg,#1B2A4A 0%,#0F1A33 100%)",
-    image: "/artworks/painting-01.png",
+    image: "/artworks/painting-01.webp",
   },
   {
     title: "Dawn Study No. 7",
@@ -543,7 +543,7 @@ const ARTWORK_ROWS: {
     price: "8 000 €",
     status: "available",
     bg: "linear-gradient(135deg,#E8D34A 0%,#B49E2D 100%)",
-    image: "/artworks/painting-09.png",
+    image: "/artworks/painting-09.webp",
   },
   {
     title: "Sun Dog",

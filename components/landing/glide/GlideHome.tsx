@@ -554,7 +554,7 @@ function FindVisual() {
       status: "Available",
     },
     {
-      img: "/artworks/painting-08.jpg",
+      img: "/artworks/painting-08.webp",
       artist: "Sacha Elron",
       title: "Blue hour, 2022",
       price: "€9,500",

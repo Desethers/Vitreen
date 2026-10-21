@@ -139,7 +139,7 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
         title: "Blue hour",
         price: "€9,500",
         status: "Sold",
-        image: "/artworks/painting-08.jpg",
+        image: "/artworks/painting-08.webp",
       },
       {
         artist: "Lina Ores",
@@ -344,7 +344,7 @@ export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
         title: "Blue hour",
         price: "9 500 €",
         status: "Vendue",
-        image: "/artworks/painting-08.jpg",
+        image: "/artworks/painting-08.webp",
       },
       {
         artist: "Lina Ores",
@@ -1385,7 +1385,7 @@ const SCREEN_ROWS = [
     year: "2022",
     price: "9 500 €",
     status: "Sold",
-    image: "/artworks/painting-08.jpg",
+    image: "/artworks/painting-08.webp",
   },
   {
     title: "Self-Portrait",
@@ -1441,7 +1441,7 @@ const SCREEN_ROWS = [
     year: "2023",
     price: "7 800 €",
     status: "Available",
-    image: "/artworks/painting-02.png",
+    image: "/artworks/painting-02.webp",
   },
   {
     title: "Field notes",
@@ -1449,7 +1449,7 @@ const SCREEN_ROWS = [
     year: "2022",
     price: "2 600 €",
     status: "Reserved",
-    image: "/artworks/painting-01.png",
+    image: "/artworks/painting-01.webp",
   },
 ];
 const STATUS_PILL: Record<string, string> = {

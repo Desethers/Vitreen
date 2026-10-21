@@ -70,7 +70,7 @@ const SOLUTIONS_FEATURED = {
   title: "Art Galleries",
   desc: "Artwork inventory, collector replies and private selections, built around your gallery.",
   cta: "See more",
-  image: "/gallery-screen2.png",
+  image: "/gallery-screen2.webp",
   href: "/solutions/galleries",
 };
 
