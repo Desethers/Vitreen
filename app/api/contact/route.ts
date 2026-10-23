@@ -20,21 +20,32 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { nom, galerie, email, projet } = body;
 
-    if (!nom || !galerie || !email || !projet) {
+    if (!email || typeof email !== "string" || !email.includes("@")) {
       return NextResponse.json({ error: "Champs manquants" }, { status: 400 });
     }
+
+    // Demande de démo depuis le champ e-mail seul : nom, galerie et projet sont optionnels.
+    const demoOnly = !nom && !galerie && !projet;
+    const esc = (v: unknown) =>
+      String(v ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 
     const { error } = await resend.emails.send({
       from: CONTACT_FROM,
       to: CONTACT_TO,
       replyTo: email,
-      subject: `Nouveau message de ${nom} — ${galerie}`,
-      html: `
-        <p><strong>Nom :</strong> ${nom}</p>
-        <p><strong>Galerie :</strong> ${galerie}</p>
-        <p><strong>Email :</strong> ${email}</p>
+      subject: demoOnly ? `Demande de démo — ${email}` : `Nouveau message de ${nom} — ${galerie}`,
+      html: demoOnly
+        ? `<p><strong>Demande de démo</strong> (e-mail seul) : ${esc(email)}</p>
+        <p>À recontacter pour proposer un créneau.</p>`
+        : `
+        <p><strong>Nom :</strong> ${esc(nom)}</p>
+        <p><strong>Galerie :</strong> ${esc(galerie)}</p>
+        <p><strong>Email :</strong> ${esc(email)}</p>
         <p><strong>Projet :</strong></p>
-        <p>${projet.replace(/\n/g, "<br>")}</p>
+        <p>${esc(projet).replace(/\n/g, "<br>")}</p>
       `,
     });
 
