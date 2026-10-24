@@ -1,10 +1,12 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "@/lib/lang";
 import { Button } from "@/components/ui/Button";
+
+const CAL_URL = "https://cal.com/raphael-wexe5e/30min";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -12,7 +14,8 @@ const inputClass =
   "w-full bg-transparent border-b border-[#E8E8E6] py-3 text-[#111110] text-sm placeholder-[#ADADAA] focus:outline-none focus:border-[#111110] transition-colors duration-200";
 
 /**
- * Contact form modal, opened from anywhere by dispatching the
+ * Demo booking modal (Cal.com calendar, email prefilled when known) with a
+ * fallback contact form, opened from anywhere by dispatching the
  * `open-contact-modal` window event. Extracted from Nav so headers that are
  * not the main navigation (the landing's minimal header) can offer the same
  * CTA without duplicating the form.
@@ -21,16 +24,17 @@ export default function ContactModal() {
   const { t } = useLang();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ nom: "", galerie: "", email: "", projet: "" });
+  const [view, setView] = useState<"book" | "write">("book");
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
 
   const close = useCallback(() => {
     setOpen(false);
     setSubmitted(false);
     setSending(false);
     setSendError(null);
+    setView("book");
     setForm({ nom: "", galerie: "", email: "", projet: "" });
   }, []);
 
@@ -41,7 +45,6 @@ export default function ContactModal() {
       const email = (e as CustomEvent<{ email?: string }>).detail?.email;
       if (email) setForm((f) => ({ ...f, email }));
       setOpen(true);
-      if (email) window.setTimeout(() => nameRef.current?.focus(), 350);
     };
     window.addEventListener("open-contact-modal", onOpen);
     return () => window.removeEventListener("open-contact-modal", onOpen);
@@ -110,7 +113,7 @@ export default function ContactModal() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.35, ease }}
-            className="relative w-full max-w-md rounded border border-[#E8E8E6] bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.12)] md:p-8"
+            className={`relative w-full rounded ${view === "book" ? "max-w-[760px]" : "max-w-md"} border border-[#E8E8E6] bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.12)] md:p-8`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -123,18 +126,36 @@ export default function ContactModal() {
             </button>
 
             <h2 id="contact-modal-title" className="mb-2 pr-10 font-display text-xl text-[#111110]">
-              {t.nav.modal.title}
+              {view === "book" ? t.nav.modal.bookTitle : t.nav.modal.title}
             </h2>
-            <p className="mb-6 text-sm text-[#6B6A67]">{t.nav.modal.subtitle}</p>
+            <p className="mb-6 text-sm text-[#6B6A67]">
+              {view === "book" ? t.nav.modal.bookSubtitle : t.nav.modal.subtitle}
+            </p>
 
-            {submitted ? (
+            {view === "book" ? (
+              <>
+                <iframe
+                  src={`${CAL_URL}?embed=true&theme=light${
+                    form.email ? `&email=${encodeURIComponent(form.email)}` : ""
+                  }`}
+                  title={t.nav.modal.bookTitle}
+                  className="h-[min(560px,65vh)] w-full border-0"
+                />
+                <button
+                  type="button"
+                  onClick={() => setView("write")}
+                  className="mt-4 cursor-pointer text-sm text-[#6B6A67] underline underline-offset-2 hover:text-[#111110]"
+                >
+                  {t.nav.modal.bookAlt}
+                </button>
+              </>
+            ) : submitted ? (
               <p className="py-4 font-display text-lg leading-relaxed text-[#111110]">
                 {t.nav.modal.success}
               </p>
             ) : (
               <form onSubmit={handleFormSubmit} className="flex flex-col gap-5">
                 <input
-                  ref={nameRef}
                   type="text"
                   name="nom"
                   placeholder={t.nav.modal.fields.nom}
@@ -175,6 +196,15 @@ export default function ContactModal() {
                   {sending ? t.nav.modal.sending : t.nav.modal.submit}
                 </Button>
               </form>
+            )}
+            {view === "write" && !submitted && (
+              <button
+                type="button"
+                onClick={() => setView("book")}
+                className="mt-4 cursor-pointer text-sm text-[#6B6A67] underline underline-offset-2 hover:text-[#111110]"
+              >
+                {t.nav.modal.bookBack}
+              </button>
             )}
           </motion.div>
         </motion.div>
