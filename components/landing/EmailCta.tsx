@@ -2,13 +2,17 @@
 
 import { useState } from "react";
 
+const CAL_URL = "https://cal.com/raphael-wexe5e/30min";
+
 const COPY = {
   en: {
     placeholder: "you@yourgallery.com",
     label: "Your email",
     cta: "Book a demo",
     sending: "Sending…",
-    done: "Thank you. We’ll contact you shortly to find a time for a call.",
+    done: "Thank you. Pick a time for a call, or we’ll contact you shortly to find one.",
+    pick: "Choose a time",
+    close: "Close",
     error: "Something went wrong. Please try again.",
   },
   fr: {
@@ -16,15 +20,17 @@ const COPY = {
     label: "Votre e-mail",
     cta: "Réserver une démo",
     sending: "Envoi…",
-    done: "Merci. Nous vous recontactons très vite pour convenir d’un créneau d’appel.",
+    done: "Merci. Choisissez un créneau d’appel, ou nous vous recontactons très vite pour en convenir un.",
+    pick: "Choisir un créneau",
+    close: "Fermer",
     error: "Une erreur est survenue. Réessayez.",
   },
 } as const;
 
 /**
  * One pill: an email field and the demo button. Submitting sends the address
- * to /api/contact and shows a confirmation: the team replies to find a time
- * for a call.
+ * to /api/contact, then opens the Cal.com booking calendar (email prefilled).
+ * If the visitor closes it, the confirmation says the team will follow up.
  */
 export default function EmailCta({
   lang,
@@ -39,6 +45,7 @@ export default function EmailCta({
   const t = COPY[lang];
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [calOpen, setCalOpen] = useState(false);
   const dark = tone === "dark";
 
   async function submit(e: React.FormEvent) {
@@ -52,21 +59,53 @@ export default function EmailCta({
         body: JSON.stringify({ email: email.trim() }),
       });
       setStatus(res.ok ? "done" : "error");
+      if (res.ok) setCalOpen(true);
     } catch {
       setStatus("error");
     }
   }
 
   if (status === "done") {
+    const src = `${CAL_URL}?embed=true&theme=light&email=${encodeURIComponent(email.trim())}`;
     return (
-      <p
-        role="status"
-        className={`w-full max-w-[520px] rounded-[12px] px-4 py-3 text-[14px] tracking-[-0.01em] ${
-          dark ? "border border-white/15 text-white" : "border border-[#DCDCD8] text-[#111110]"
-        } ${className}`}
-      >
-        {t.done}
-      </p>
+      <>
+        <div
+          role="status"
+          className={`w-full max-w-[520px] rounded-[12px] px-4 py-3 text-[14px] tracking-[-0.01em] ${
+            dark ? "border border-white/15 text-white" : "border border-[#DCDCD8] text-[#111110]"
+          } ${className}`}
+        >
+          <p>{t.done}</p>
+          <button
+            type="button"
+            onClick={() => setCalOpen(true)}
+            className="mt-2 cursor-pointer underline underline-offset-2"
+          >
+            {t.pick}
+          </button>
+        </div>
+        {calOpen && (
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 p-4"
+            onClick={() => setCalOpen(false)}
+          >
+            <div
+              className="relative h-[min(720px,90vh)] w-full max-w-[760px] overflow-hidden rounded-[12px] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.08)]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={() => setCalOpen(false)}
+                aria-label={t.close}
+                className="absolute right-3 top-3 z-10 cursor-pointer rounded-full bg-white px-3 py-1 text-[13px] text-[#111110] border border-[#E8E8E6]"
+              >
+                {t.close}
+              </button>
+              <iframe src={src} title={t.pick} className="h-full w-full border-0" />
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 
