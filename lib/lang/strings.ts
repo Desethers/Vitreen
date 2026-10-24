@@ -72,6 +72,10 @@ export const translations = {
       modal: {
         title: "Nous contacter",
         subtitle: "Décrivez votre projet. Réponse sous 48 h.",
+        bookTitle: "Réserver une démo",
+        bookSubtitle: "Choisissez un créneau dans l’agenda.",
+        bookAlt: "Plutôt écrire un message ?",
+        bookBack: "Choisir un créneau",
         fields: {
           nom: "Nom",
           galerie: "Galerie",
@@ -796,6 +800,10 @@ export const translations = {
         title: "Get in touch",
         subtitle:
           "Tell us about your project. We\u2019ll reply within 48 hours.",
+        bookTitle: "Book a demo",
+        bookSubtitle: "Pick a time in the calendar.",
+        bookAlt: "Prefer to write us a message?",
+        bookBack: "Pick a time",
         fields: {
           nom: "Name",
           galerie: "Gallery",

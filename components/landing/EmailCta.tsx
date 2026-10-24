@@ -9,9 +9,9 @@ const COPY = {
 } as const;
 
 /**
- * One pill: an email field and the demo button. Submitting opens the contact
- * modal with the address prefilled; the visitor finishes there (name,
- * gallery, what they are looking for).
+ * One pill: an email field and the demo button. Submitting records the
+ * address (so a visitor who leaves before booking can still be followed up)
+ * and opens the booking calendar with the email prefilled.
  */
 export default function EmailCta({
   lang,
@@ -31,7 +31,13 @@ export default function EmailCta({
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        openContactWithEmail(email.trim());
+        const value = email.trim();
+        fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: value }),
+        }).catch(() => {});
+        openContactWithEmail(value);
       }}
       className={`flex w-full max-w-[520px] items-center gap-1 rounded-[12px] p-1 transition-colors ${
         dark
