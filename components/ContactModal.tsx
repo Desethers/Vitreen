@@ -4,9 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLang } from "@/lib/lang";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { Button } from "@/components/ui/Button";
 
-const CAL_URL = "https://cal.com/raphael-wexe5e/30min";
+const CAL_LINK = "raphael-wexe5e/30min";
+const CAL_NAMESPACE = "demo";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -64,6 +66,15 @@ export default function ContactModal() {
     };
   }, [open, close]);
 
+  // The event details (title, duration, video) are told by the left column,
+  // so the embed only shows the calendar and the slots.
+  useEffect(() => {
+    if (!open || view !== "book") return;
+    getCalApi({ namespace: CAL_NAMESPACE }).then((cal) => {
+      cal("ui", { hideEventTypeDetails: true, layout: "month_view", theme: "light" });
+    });
+  }, [open, view]);
+
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -113,43 +124,88 @@ export default function ContactModal() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.35, ease }}
-            className={`relative w-full rounded ${view === "book" ? "max-w-[760px]" : "max-w-md"} border border-[#E8E8E6] bg-white p-6 shadow-[0_24px_80px_rgba(0,0,0,0.12)] md:p-8`}
+            className={`relative max-h-[92vh] w-full overflow-y-auto rounded-[12px] border border-[#E8E8E6] bg-white shadow-[0_24px_80px_rgba(0,0,0,0.12)] ${
+              view === "book" ? "max-w-[1180px]" : "max-w-md p-6 md:p-8"
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             <button
               type="button"
               onClick={close}
-              className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-[#6B6A67] transition-colors hover:bg-[#F5F5F3] hover:text-[#111110]"
+              className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full text-[#6B6A67] transition-colors hover:bg-[#F5F5F3] hover:text-[#111110]"
               aria-label={t.nav.modal.close}
             >
               <span className="text-lg leading-none">×</span>
             </button>
 
-            <h2 id="contact-modal-title" className="mb-2 pr-10 font-display text-xl text-[#111110]">
-              {view === "book" ? t.nav.modal.bookTitle : t.nav.modal.title}
-            </h2>
-            <p className="mb-6 text-sm text-[#6B6A67]">
-              {view === "book" ? t.nav.modal.bookSubtitle : t.nav.modal.subtitle}
-            </p>
-
             {view === "book" ? (
+              <div className="grid md:grid-cols-[300px_1fr]">
+                <div className="flex flex-col border-b border-[#E8E8E6] bg-white p-6 md:border-b-0 md:border-r md:p-8">
+                  <h2
+                    id="contact-modal-title"
+                    className="pr-10 font-display text-[22px] leading-tight tracking-[-0.02em] text-[#111110]"
+                  >
+                    {t.nav.modal.bookTitle}
+                  </h2>
+                  <p className="mt-2 text-sm text-[#6B6A67]">{t.nav.modal.bookFor}</p>
+                  <p className="mt-1 text-[13px] text-[#ADADAA]">{t.nav.modal.bookMeta}</p>
+
+                  <p className="mt-6 text-[12px] font-medium uppercase tracking-[0.08em] text-[#ADADAA] md:mt-8">
+                    {t.nav.modal.bookIntro}
+                  </p>
+                  <ol className="mt-4 flex flex-col gap-3">
+                    {t.nav.modal.bookSteps.map((step, i) => (
+                      <li key={step} className="flex items-center gap-3">
+                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#DCDCD8] bg-white text-[12px] text-[#111110]">
+                          {i + 1}
+                        </span>
+                        <p className="text-sm leading-snug text-[#111110]">{step}</p>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <p className="mt-6 text-sm text-[#111110] md:mt-8">{t.nav.modal.bookReassure}</p>
+
+                  <button
+                    type="button"
+                    onClick={() => setView("write")}
+                    className="mt-4 w-fit cursor-pointer text-sm text-[#6B6A67] underline underline-offset-2 hover:text-[#111110] md:mt-auto md:pt-8"
+                  >
+                    {t.nav.modal.bookAlt}
+                  </button>
+                </div>
+
+                <div className="p-4 md:p-6 md:pt-12">
+                  <div className="relative">
+                    <p className="absolute inset-x-0 top-24 text-center text-sm text-[#ADADAA]">
+                      {t.nav.modal.bookLoading}
+                    </p>
+                    <Cal
+                      namespace={CAL_NAMESPACE}
+                      calLink={CAL_LINK}
+                      config={{
+                        layout: "month_view",
+                        theme: "light",
+                        ...(form.email ? { email: form.email } : {}),
+                      }}
+                      className="relative min-h-[420px] w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
               <>
-                <iframe
-                  src={`${CAL_URL}?embed=true&theme=light${
-                    form.email ? `&email=${encodeURIComponent(form.email)}` : ""
-                  }`}
-                  title={t.nav.modal.bookTitle}
-                  className="h-[min(560px,65vh)] w-full border-0"
-                />
-                <button
-                  type="button"
-                  onClick={() => setView("write")}
-                  className="mt-4 cursor-pointer text-sm text-[#6B6A67] underline underline-offset-2 hover:text-[#111110]"
+                <h2
+                  id="contact-modal-title"
+                  className="mb-2 pr-10 font-display text-xl text-[#111110]"
                 >
-                  {t.nav.modal.bookAlt}
-                </button>
+                  {t.nav.modal.title}
+                </h2>
+                <p className="mb-6 text-sm text-[#6B6A67]">{t.nav.modal.subtitle}</p>
               </>
-            ) : submitted ? (
+            )}
+
+            {view === "book" ? null : submitted ? (
               <p className="py-4 font-display text-lg leading-relaxed text-[#111110]">
                 {t.nav.modal.success}
               </p>

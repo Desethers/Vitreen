@@ -53,10 +53,11 @@ export default function EmailCta({
         placeholder={t.placeholder}
         aria-label={t.label}
         autoComplete="email"
-        className={`h-11 min-w-0 flex-1 bg-transparent pl-4 text-[14px] tracking-[-0.01em] focus:outline-none ${
+        // Browser autofill paints the field blue: the endless transition keeps it transparent.
+        className={`h-11 min-w-0 flex-1 bg-transparent pl-4 text-[14px] tracking-[-0.01em] autofill:[transition:background-color_9999s_ease-out_0s] focus:outline-none ${
           dark
-            ? "text-white placeholder:text-white/40"
-            : "text-[#111110] placeholder:text-[#ADADAA]"
+            ? "text-white placeholder:text-white/40 autofill:[-webkit-text-fill-color:#fff]"
+            : "text-[#111110] placeholder:text-[#ADADAA] autofill:[-webkit-text-fill-color:#111110]"
         }`}
       />
       <button

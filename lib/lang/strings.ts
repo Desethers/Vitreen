@@ -74,6 +74,16 @@ export const translations = {
         subtitle: "Décrivez votre projet. Réponse sous 48 h.",
         bookTitle: "Réserver une démo",
         bookSubtitle: "Choisissez un créneau dans l’agenda.",
+        bookFor: "Pour les galeries, les antiquaires et les conseillers en art.",
+        bookMeta: "30 min · En visio · Avec Raphael",
+        bookIntro: "Comment ça se passe",
+        bookSteps: [
+          "Vous nous parlez de vos collectionneurs et de votre façon de vendre",
+          "Nous vous montrons Vitreen sur une vraie demande",
+          "Nous voyons ensemble si c’est fait pour vous",
+        ],
+        bookReassure: "Rien à préparer. Gratuit et sans engagement.",
+        bookLoading: "Chargement de l’agenda…",
         bookAlt: "Plutôt écrire un message ?",
         bookBack: "Choisir un créneau",
         fields: {
@@ -802,6 +812,16 @@ export const translations = {
           "Tell us about your project. We\u2019ll reply within 48 hours.",
         bookTitle: "Book a demo",
         bookSubtitle: "Pick a time in the calendar.",
+        bookFor: "For galleries, antique dealers and art advisors.",
+        bookMeta: "30 min · Video call · With Raphael",
+        bookIntro: "How it goes",
+        bookSteps: [
+          "You tell us how you work with your collectors",
+          "We show you Vitreen on a real collector request",
+          "We see together if it fits the way you work",
+        ],
+        bookReassure: "Nothing to prepare. Free, no commitment.",
+        bookLoading: "Loading the calendar…",
         bookAlt: "Prefer to write us a message?",
         bookBack: "Pick a time",
         fields: {

@@ -21,6 +21,7 @@
     "pre-commit": "npx prettier --check --ignore-unknown $(git diff --cached --name-only --diff-filter=ACM)"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.36.0",
     "lucide-react": "^1.16.0",
