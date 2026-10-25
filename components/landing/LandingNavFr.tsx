@@ -17,7 +17,7 @@ const LINKS = [
 /** Ce que fait le produit, sous « Produit » : les pages /fr/tools/* et la section mémoire de la home. */
 const TOOLS_ITEMS = [
   {
-    title: "Inventaire",
+    title: "Inventaire des œuvres",
     desc: "Vos œuvres et artistes, importés depuis CSV ou Excel.",
     href: "/fr/tools/artwork-inventory",
   },

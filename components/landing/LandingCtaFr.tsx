@@ -12,7 +12,7 @@ const FOOTER_COLUMNS = [
   {
     title: "Produit",
     links: [
-      { label: "Inventaire", href: "/fr/tools/artwork-inventory" },
+      { label: "Inventaire des œuvres", href: "/fr/tools/artwork-inventory" },
       { label: "Conversations de vente", href: "/fr/tools/sales-assistant" },
       { label: "Mémoire collectionneur", href: "/fr#memory" },
     ],

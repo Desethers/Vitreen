@@ -16,7 +16,7 @@ const LINKS = [
 /** What the product does, under "Product": the /tools/* pages and the memory section of the home. */
 const TOOLS_ITEMS = [
   {
-    title: "Inventory",
+    title: "Artwork inventory",
     desc: "Your artworks and artists, imported from CSV or Excel.",
     href: "/tools/artwork-inventory",
   },
