@@ -4,11 +4,11 @@ import PageStructuredData from "@/components/PageStructuredData";
 import { pageMetadata } from "@/lib/seo";
 
 const seo = {
-  lang: "en",
-  path: "/tools/sales-assistant",
-  title: "Sales Assistant",
+  lang: "fr",
+  path: "/product/sales-conversations",
+  title: "Conversations de vente dans Gmail et WhatsApp",
   description:
-    "Prepare collector replies and sales material from your own gallery records, reviewed before anything is sent.",
+    "Vos fiches d’œuvres dans Gmail et WhatsApp : réponses collectionneurs préparées depuis votre inventaire, relues avant tout envoi.",
 } as const;
 
 export const metadata: Metadata = pageMetadata(seo);

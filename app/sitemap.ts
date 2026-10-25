@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { ROLE_SLUGS } from "@/lib/solutions";
+import { ROLE_PATH_SLUGS } from "@/lib/solutions";
 import { SITE_URL, localeUrls } from "@/lib/seo";
 
 /* Les canoniques rendues par `alternates()` n'ont pas de slash final ("/" est
@@ -10,18 +10,16 @@ function abs(path: string) {
   return `${SITE_URL}${path === "/" ? "" : path}`;
 }
 
-/* Only the product pages we actually link to and want indexed. The templated
- * offshoots (inquiries, mobile, previews) stay out until they carry a subject
- * of their own — they currently restate viewing-rooms and publishing. */
-const toolSlugs = ["artwork-inventory", "viewing-rooms", "sales-assistant"] as const;
+/* Only the product pages we actually link to and want indexed. */
+const productSlugs = ["artwork-inventory", "sales-conversations"] as const;
 
 /** Every indexable path, unprefixed. English is served here, French under /fr. */
 const paths: string[] = [
   "/",
   "/about",
   "/pricing",
-  ...toolSlugs.map((slug) => `/tools/${slug}`),
-  ...ROLE_SLUGS.map((role) => `/solutions/${role}`),
+  ...productSlugs.map((slug) => `/product/${slug}`),
+  ...ROLE_PATH_SLUGS.map((role) => `/solutions/${role}`),
 ];
 
 function priorityFor(path: string) {

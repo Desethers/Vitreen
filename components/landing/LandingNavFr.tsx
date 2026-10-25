@@ -14,32 +14,32 @@ const LINKS = [
   { label: "À propos", href: "/fr/about" },
 ];
 
-/** Pages /fr/tools/* déjà construites, désormais accessibles sous "Outils". */
+/** Ce que fait le produit, sous « Produit » : les pages /fr/product/* et la section collectionneurs de la home. */
 const TOOLS_ITEMS = [
   {
-    title: "Artwork Inventory",
-    desc: "Vos œuvres, artistes et fiches, au même endroit.",
-    href: "/fr/tools/artwork-inventory",
+    title: "Inventaire des œuvres",
+    desc: "Vos œuvres et artistes, importés depuis CSV ou Excel.",
+    href: "/fr/product/artwork-inventory",
   },
   {
-    title: "Sales Assistant",
-    desc: "Add-in Gmail, outil WhatsApp, brouillons IA.",
-    href: "/fr/tools/sales-assistant",
+    title: "Conversations de vente",
+    desc: "Vos fiches d’œuvres dans Gmail et WhatsApp, là où vous vendez.",
+    href: "/fr/product/sales-conversations",
   },
   {
-    title: "Viewing Rooms",
-    desc: "Sélections partagées en lien ou en PDF.",
-    href: "/fr/tools/viewing-rooms",
+    title: "Collectionneurs",
+    desc: "Qui a reçu quoi, et quand relancer.",
+    href: "/fr#memory",
   },
 ];
 
 const TOOLS_FEATURED = {
-  eyebrow: "Sélections privées",
-  title: "Viewing Rooms",
-  desc: "Créez et partagez des viewing rooms privées à partir de vos fiches d’œuvres.",
+  eyebrow: "Gmail et WhatsApp",
+  title: "Votre inventaire dans chaque conversation",
+  desc: "Vos fiches d’œuvres dans les conversations où vous vendez.",
   cta: "En savoir plus",
-  image: "/screenshot-viewingroom.jpg",
-  href: "/fr/tools/viewing-rooms",
+  image: "/product/conversations-today.webp",
+  href: "/fr/product/sales-conversations",
 };
 
 /** Mêmes quatre profils que WhoVitreenIsFor sur la home. */
@@ -47,22 +47,22 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Galeries d’art",
     desc: "Inventaire d’œuvres, réponses collectionneurs et sélections privées.",
-    href: "/fr/solutions/galleries",
+    href: "/fr/solutions/art-galleries",
   },
   {
     title: "Galeries de design",
     desc: "Pièces, disponibilités et présentations clients.",
-    href: "/fr/solutions/galleries",
+    href: "/fr/solutions/art-galleries",
   },
   {
     title: "Art advisors",
     desc: "Sélections privées et fiches d’œuvres prêtes pour vos clients.",
-    href: "/fr/solutions/advisors",
+    href: "/fr/solutions/art-advisors-dealers",
   },
   {
-    title: "Studios d’artistes",
-    desc: "Archive, matériel d’œuvres et présentations collectionneurs.",
-    href: "/fr/solutions/artists",
+    title: "Antiquaires et marchands",
+    desc: "Pièces uniques, provenance et état, prêts pour chaque client.",
+    href: "/fr/solutions/art-advisors-dealers",
   },
 ];
 
@@ -72,7 +72,7 @@ const SOLUTIONS_FEATURED = {
   desc: "Inventaire d’œuvres, réponses collectionneurs et sélections privées, construits autour de votre galerie.",
   cta: "En savoir plus",
   image: "/gallery-screen2.png",
-  href: "/fr/solutions/galleries",
+  href: "/fr/solutions/art-galleries",
 };
 
 /**
@@ -126,7 +126,7 @@ export default function LandingNavFr() {
                 aria-expanded={toolsOpen}
                 className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
-                Outils
+                Produit
               </button>
             </div>
             <div
@@ -168,7 +168,7 @@ export default function LandingNavFr() {
           </Button>
           <LandingMobileMenu
             groups={[
-              { title: "Outils", items: TOOLS_ITEMS },
+              { title: "Produit", items: TOOLS_ITEMS },
               { title: "Solutions", items: SOLUTIONS_ITEMS },
             ]}
             links={LINKS}
@@ -192,7 +192,7 @@ export default function LandingNavFr() {
               <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
                 <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                   <div>
-                    <span className="text-[12px] text-[#ADADAA]">Outils</span>
+                    <span className="text-[12px] text-[#ADADAA]">Produit</span>
                     <div className="mt-4 grid grid-cols-1 gap-y-1">
                       {TOOLS_ITEMS.map((item, index) => (
                         <a

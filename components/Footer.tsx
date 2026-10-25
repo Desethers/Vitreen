@@ -14,17 +14,15 @@ function buildColumns(footer: FooterCopy) {
     {
       title: columns.platform,
       links: [
-        { label: links.artworkManagement, href: "/tools/artwork-inventory" },
-        { label: links.salesAssistant, href: "/tools/sales-assistant" },
-        { label: links.viewingRooms, href: "/tools/viewing-rooms" },
+        { label: links.artworkManagement, href: "/product/artwork-inventory" },
+        { label: links.salesAssistant, href: "/product/sales-conversations" },
       ],
     },
     {
       title: columns.solutions,
       links: [
-        { label: links.forGalleries, href: "/solutions/galleries" },
-        { label: links.forArtists, href: "/solutions/artists" },
-        { label: links.forAdvisors, href: "/solutions/advisors" },
+        { label: links.forGalleries, href: "/solutions/art-galleries" },
+        { label: links.forAdvisors, href: "/solutions/art-advisors-dealers" },
       ],
     },
     {
@@ -33,18 +31,6 @@ function buildColumns(footer: FooterCopy) {
         { label: links.about, href: "/about" },
         { label: links.pricing, href: "/pricing" },
         { label: links.contact, href: "#contact", opensContact: true },
-      ],
-    },
-    {
-      title: columns.studio,
-      links: [
-        {
-          label: links.studioHowItWorks,
-          href: "https://forart.world#how-it-works",
-          external: true,
-        },
-        { label: links.studioTasks, href: "https://forart.world#tasks", external: true },
-        { label: links.studioContact, href: "mailto:studio@vitreen.art", external: true },
       ],
     },
   ];
@@ -116,7 +102,7 @@ export default function Footer() {
               </p>
             </div>
 
-            <nav aria-label="Footer" className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            <nav aria-label="Footer" className="grid gap-10 sm:grid-cols-3 lg:gap-8">
               {footerColumns.map((column) => (
                 <div key={column.title}>
                   <h3 className="text-[12px] font-medium text-[#6B6A67]">{column.title}</h3>

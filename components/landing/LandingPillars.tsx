@@ -58,7 +58,7 @@ export const PILLARS_EN: PillarsCopy = {
       title: "Your artworks, ready in Gmail and WhatsApp.",
       body: "Find a work, its price and availability, and send it where the collector wrote.",
       link: "See the sales tools →",
-      href: "/tools/sales-assistant",
+      href: "/product/sales-conversations",
       labels: ["Gmail", "WhatsApp"],
     },
     {

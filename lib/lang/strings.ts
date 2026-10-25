@@ -15,8 +15,8 @@ export const translations = {
       productMenu: {
         sectionLabel: "Produits",
         items: [
-          { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/tools/artwork-inventory" },
-          { title: "Sales Assistant", desc: "Préparez vos contenus et le travail quotidien de la galerie.", href: "/tools/sales-assistant" },
+          { title: "Artworks Management", desc: "Organisez les œuvres, les artistes et leurs informations.", href: "/product/artwork-inventory" },
+          { title: "Sales Assistant", desc: "Préparez vos contenus et le travail quotidien de la galerie.", href: "/product/sales-conversations" },
           { title: "Viewing Rooms", desc: "Créez et partagez des sélections privées.", href: "/tools/viewing-rooms" },
         ],
         featured: {
@@ -35,14 +35,14 @@ export const translations = {
           desc: "Un système d’exploitation et un site web connectés pour les galeries d’art contemporain.",
           cta: "En savoir plus",
           image: "/gallery-screen2.png",
-          href: "/solutions/galleries",
+          href: "/solutions/art-galleries",
         },
         columns: [
           {
             label: "Pour qui",
             items: [
-              { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "/solutions/galleries" },
-              { title: "Advisors and dealers", desc: "Sélections privées et suivi client", href: "/solutions/advisors" },
+              { title: "Galeries", desc: "Œuvres, expositions, demandes", href: "/solutions/art-galleries" },
+              { title: "Advisors and dealers", desc: "Sélections privées et suivi client", href: "/solutions/art-advisors-dealers" },
               { title: "Artistes", desc: "Archive, séries, présentation", href: "/solutions/artists" },
             ],
           },
@@ -52,7 +52,7 @@ export const translations = {
               {
                 title: "Répondre aux collectionneurs",
                 desc: "Demandes, réponses et relances",
-                href: "/tools/sales-assistant",
+                href: "/product/sales-conversations",
               },
               {
                 title: "Préparer une exposition",
@@ -718,16 +718,16 @@ export const translations = {
     footer: {
       tagline: "Sites connectés et outils de vente pour galeries d’art, artistes et conseillers.",
       columns: {
-        platform: "Outils",
+        platform: "Produit",
         solutions: "Solutions",
         company: "Vitreen",
         studio: "Vitreen Studio",
       },
       links: {
-        artworkManagement: "Artwork Inventory",
+        artworkManagement: "Inventaire des œuvres",
         viewingRooms: "Viewing Rooms",
-        salesAssistant: "Sales Assistant",
-        forGalleries: "Pour les galeries",
+        salesAssistant: "Conversations de vente",
+        forGalleries: "Pour les galeries d’art et de design",
         forArtists: "Pour les artistes",
         forAdvisors: "Pour les conseillers et marchands",
         forEstates: "Pour les successions d’artistes",
@@ -752,8 +752,8 @@ export const translations = {
       productMenu: {
         sectionLabel: "Products",
         items: [
-          { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/tools/artwork-inventory" },
-          { title: "Sales Assistant", desc: "Prepare content and daily gallery work.", href: "/tools/sales-assistant" },
+          { title: "Artworks Management", desc: "Organise artworks, artists and records.", href: "/product/artwork-inventory" },
+          { title: "Sales Assistant", desc: "Prepare content and daily gallery work.", href: "/product/sales-conversations" },
           { title: "Viewing Rooms", desc: "Create and share private selections.", href: "/tools/viewing-rooms" },
         ],
         featured: {
@@ -772,14 +772,14 @@ export const translations = {
           desc: "A connected operating system and website for contemporary galleries.",
           cta: "See more",
           image: "/gallery-screen2.png",
-          href: "/solutions/galleries",
+          href: "/solutions/art-galleries",
         },
         columns: [
           {
             label: "For who",
             items: [
-              { title: "Galleries", desc: "Artworks, exhibitions, inquiries", href: "/solutions/galleries" },
-              { title: "Advisors & Dealers", desc: "Private selections and client follow-up", href: "/solutions/advisors" },
+              { title: "Galleries", desc: "Artworks, exhibitions, inquiries", href: "/solutions/art-galleries" },
+              { title: "Advisors & Dealers", desc: "Private selections and client follow-up", href: "/solutions/art-advisors-dealers" },
               { title: "Artists", desc: "Archive, series, presentation", href: "/solutions/artists" },
             ],
           },
@@ -789,7 +789,7 @@ export const translations = {
               {
                 title: "Reply to collectors",
                 desc: "Inquiries, replies and reminders",
-                href: "/tools/sales-assistant",
+                href: "/product/sales-conversations",
               },
               {
                 title: "Prepare an exhibition",
@@ -1463,16 +1463,16 @@ export const translations = {
     footer: {
       tagline: "Connected websites and sales tools for art galleries, artists and advisors.",
       columns: {
-        platform: "Tools",
+        platform: "Product",
         solutions: "Solutions",
         company: "Vitreen",
         studio: "Vitreen Studio",
       },
       links: {
-        artworkManagement: "Artwork Inventory",
+        artworkManagement: "Artwork inventory",
         viewingRooms: "Viewing Rooms",
-        salesAssistant: "Sales Assistant",
-        forGalleries: "For Art Galleries",
+        salesAssistant: "Sales conversations",
+        forGalleries: "For Art & Design Galleries",
         forArtists: "For Artists",
         forAdvisors: "For Art Advisors & Dealers",
         forEstates: "For Artist Estates",

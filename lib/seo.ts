@@ -51,7 +51,7 @@ export function alternates(lang: Lang, path: string): Metadata["alternates"] {
 export const SOLUTION_SEO: Record<Lang, Record<string, { title: string; description: string }>> = {
   en: {
     galleries: {
-      title: "Software for art galleries",
+      title: "Software for art and design galleries",
       description:
         "A connected website and artwork dashboard built around how your gallery already works, from inventory to collector follow-up.",
     },
@@ -68,7 +68,7 @@ export const SOLUTION_SEO: Record<Lang, Record<string, { title: string; descript
   },
   fr: {
     galleries: {
-      title: "Logiciel pour galeries d’art",
+      title: "Logiciel pour galeries d’art et de design",
       description:
         "Un site connecté et un tableau de bord des œuvres construits autour du fonctionnement réel de votre galerie, de l’inventaire au suivi collectionneur.",
     },

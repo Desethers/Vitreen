@@ -1,23 +1,25 @@
 import { notFound } from "next/navigation";
 import PageStructuredData from "@/components/PageStructuredData";
 import SolutionPage from "@/components/SolutionPage";
-import { ROLE_SLUGS, type RoleSlug } from "@/lib/solutions";
+import { ROLE_PATHS, ROLE_PATH_SLUGS, type RolePath } from "@/lib/solutions";
 import { SOLUTION_SEO, pageMetadata } from "@/lib/seo";
 
 type Params = { role: string };
 
-function isRoleSlug(role: string): role is RoleSlug {
-  return (ROLE_SLUGS as readonly string[]).includes(role);
+export const dynamicParams = false;
+
+function isRolePath(role: string): role is RolePath {
+  return (ROLE_PATH_SLUGS as string[]).includes(role);
 }
 
 export function generateStaticParams(): Params[] {
-  return ROLE_SLUGS.map((role) => ({ role }));
+  return ROLE_PATH_SLUGS.map((role) => ({ role }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { role } = await params;
-  if (!isRoleSlug(role)) return {};
-  const seo = SOLUTION_SEO.fr[role];
+  if (!isRolePath(role)) return {};
+  const seo = SOLUTION_SEO.fr[ROLE_PATHS[role]];
   return pageMetadata({
     lang: "fr",
     path: `/solutions/${role}`,
@@ -28,8 +30,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }) 
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { role } = await params;
-  if (!isRoleSlug(role)) notFound();
-  const seo = SOLUTION_SEO.fr[role];
+  if (!isRolePath(role)) notFound();
+  const seo = SOLUTION_SEO.fr[ROLE_PATHS[role]];
   return (
     <>
       <PageStructuredData
@@ -38,7 +40,7 @@ export default async function Page({ params }: { params: Promise<Params> }) {
         title={seo.title}
         description={seo.description}
       />
-      <SolutionPage slug={role} />
+      <SolutionPage slug={ROLE_PATHS[role]} />
     </>
   );
 }

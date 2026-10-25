@@ -1244,7 +1244,7 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
     return () => ro.disconnect();
   }, []);
   return (
-    <section className="bg-white px-4 py-16 md:px-6 md:py-20">
+    <section id="memory" className="scroll-mt-16 bg-white px-4 py-16 md:px-6 md:py-20">
       <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
       <p className="mx-auto mt-6 max-w-2xl text-center font-display text-[16px] leading-[1.5] tracking-[-0.015em] text-[#6B6A67] md:text-[18px]">
         {c.line}
@@ -1564,7 +1564,7 @@ function OnboardingScreen({ c, beat }: { c: ConversationSectionsCopy["migration"
                 <div>
                   <p className="text-[15px] font-semibold text-zinc-900">Connect your inventory</p>
                   <p className="mt-0.5 text-[12px] text-zinc-700">
-                    Choose how to bring your works into Gallery OS
+                    Choose how to bring your works into Vitreen
                   </p>
                 </div>
                 <div className="space-y-2">
