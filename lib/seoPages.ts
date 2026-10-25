@@ -27,7 +27,7 @@ export type SeoVisual =
   | { kind: "photo"; src: string; alt: string };
 
 /** Visuals of the step-by-step section, reused from the home and the add-in mocks. */
-export type SeoStepVisual = "connectInventory" | "artworkForm" | "gmailSearch";
+export type SeoStepVisual = "migration" | "artworkForm" | "dataSafety";
 
 export type SeoPageCopy = {
   /** <title> and meta description. */
@@ -39,6 +39,8 @@ export type SeoPageCopy = {
   visual?: SeoVisual;
   /** How it works, in order: one visual and one short text per step, sides alternating. */
   steps?: { title: string; body: string; visual: SeoStepVisual }[];
+  /** Centred heading above the steps. */
+  stepsTitle?: string;
   blocks?: { title: string; items: string[] }[];
   /** Running text instead of blocks (about page). The last line is the signature. */
   prose?: string[];
@@ -57,51 +59,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Images, prices, availability and documents in one clear record, ready to use in Gmail and WhatsApp.",
       cta: "Book a demo",
       visual: { kind: "artworkList" },
+      stepsTitle: "From your spreadsheet to a clear inventory.",
       steps: [
         {
-          title: "Bring your spreadsheet",
-          body: "Send your Excel or CSV file, or your Artlogic exports. We take it over during setup, with nothing to retype.",
-          visual: "connectInventory",
+          title: "We move your spreadsheet in",
+          body: "Excel, Google Sheets or an Artlogic export, as it is. We bring over artists, works, prices and images during setup. Nothing to retype.",
+          visual: "migration",
         },
         {
           title: "Every work gets its record",
-          body: "Images, documents, price and availability in one place, up to date for the whole team.",
+          body: "Images, documents, price and availability in one place. Find any work by artist, title or availability.",
           visual: "artworkForm",
         },
         {
-          title: "Use it in every conversation",
-          body: "Find a work in seconds and drop it into a Gmail reply, with its image, caption and price.",
-          visual: "gmailSearch",
-        },
-      ],
-      blocks: [
-        {
-          title: "Bring what you already have",
-          items: ["An Excel or CSV file", "From your Artlogic exports", "Nothing to retype"],
-        },
-        {
-          title: "One complete record per work",
-          items: [
-            "Images and documents (certificate, condition report)",
-            "Price and availability",
-            "Artists and exhibitions",
-          ],
-        },
-        {
-          title: "Find anything in seconds",
-          items: [
-            "Search by artist or title",
-            "Filter by availability",
-            "Sold, reserved, on consignment, on loan",
-          ],
-        },
-        {
           title: "Your data stays yours",
-          items: [
-            "A database of your own",
-            "Encrypted in transit and at rest",
-            "Never used to train an AI",
-          ],
+          body: "A database of your own, encrypted in transit and at rest, never used to train an AI.",
+          visual: "dataSafety",
         },
       ],
     },
@@ -116,55 +89,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Images, prix, disponibilité et documents dans une fiche claire, prête à servir dans Gmail et WhatsApp.",
       cta: "Réserver une démo",
       visual: { kind: "artworkList" },
+      stepsTitle: "De votre tableur à un inventaire clair.",
       steps: [
         {
-          title: "Importez votre tableur",
-          body: "Envoyez votre fichier Excel ou CSV, ou vos exports Artlogic. On le reprend pendant l’installation, sans rien ressaisir.",
-          visual: "connectInventory",
+          title: "On migre votre tableur",
+          body: "Excel, Google Sheets ou export Artlogic, tel quel. On reprend artistes, œuvres, prix et images pendant l’installation. Rien à ressaisir.",
+          visual: "migration",
         },
         {
           title: "Chaque œuvre a sa fiche",
-          body: "Images, documents, prix et disponibilité au même endroit, à jour pour toute l’équipe.",
+          body: "Images, documents, prix et disponibilité au même endroit. Retrouvez n’importe quelle œuvre par artiste, titre ou disponibilité.",
           visual: "artworkForm",
         },
         {
-          title: "Servez-vous-en dans chaque conversation",
-          body: "Retrouvez une œuvre en quelques secondes et glissez-la dans une réponse Gmail, avec son image, sa légende et son prix.",
-          visual: "gmailSearch",
-        },
-      ],
-      blocks: [
-        {
-          title: "Importez ce que vous avez déjà",
-          items: [
-            "Un fichier Excel ou CSV",
-            "À partir de vos exports Artlogic",
-            "Rien à ressaisir",
-          ],
-        },
-        {
-          title: "Une fiche complète par œuvre",
-          items: [
-            "Images et documents (certificat, constat d’état)",
-            "Prix et disponibilité",
-            "Artistes et expositions",
-          ],
-        },
-        {
-          title: "Retrouvez tout en quelques secondes",
-          items: [
-            "Recherche par artiste ou par titre",
-            "Filtres par disponibilité",
-            "Vendu, réservé, en dépôt, en prêt",
-          ],
-        },
-        {
           title: "Vos données restent les vôtres",
-          items: [
-            "Une base propre à votre galerie",
-            "Chiffrées en transit et au repos",
-            "Jamais utilisées pour entraîner une IA",
-          ],
+          body: "Une base propre à votre galerie, chiffrée en transit et au repos, jamais utilisée pour entraîner une IA.",
+          visual: "dataSafety",
         },
       ],
     },

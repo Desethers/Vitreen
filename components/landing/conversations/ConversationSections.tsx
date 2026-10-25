@@ -1829,7 +1829,19 @@ function ArtworksScreen({ loaded, holding }: { loaded: number; holding: boolean 
   );
 }
 
-function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
+/**
+ * The migration screen on its own: the onboarding takes the spreadsheet, then
+ * the Artworks list fills row by row, and the loop starts again. Shared by
+ * the home's migration section and the inventory page.
+ */
+export function MigrationScreen({
+  c,
+  className = "",
+}: {
+  c: ConversationSectionsCopy["migration"];
+  /** Size and corners of the screen; the content always fills it. */
+  className?: string;
+}) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
@@ -1853,28 +1865,37 @@ function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
   const loaded = Math.max(0, Math.min(beat - ARTWORKS_FROM + 1, total));
 
   return (
+    <div ref={ref} className={`relative overflow-hidden bg-white ${className}`}>
+      {/* One screen at a time: the onboarding, then the Artworks list it fills */}
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={onArtworks ? "artworks" : "onboarding"}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          {onArtworks ? (
+            <ArtworksScreen loaded={loaded} holding={beat >= last} />
+          ) : (
+            <OnboardingScreen c={c} beat={beat} />
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function MigrationSection({ c }: { c: ConversationSectionsCopy["migration"] }) {
+  return (
     <section className="bg-[#111110] px-4 pb-8 pt-16 text-white md:px-6 md:py-20">
       <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} dark />
-      <div ref={ref} className="relative mx-auto mt-10 w-full max-w-4xl md:mt-12">
-        {/* One screen at a time: the onboarding, then the Artworks list it fills */}
-        <div className="relative h-[clamp(380px,calc(100svh-380px),540px)] overflow-hidden rounded-[32px] bg-white">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={onArtworks ? "artworks" : "onboarding"}
-              className="absolute inset-0"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              {onArtworks ? (
-                <ArtworksScreen loaded={loaded} holding={beat >= last} />
-              ) : (
-                <OnboardingScreen c={c} beat={beat} />
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      <div className="relative mx-auto mt-10 w-full max-w-4xl md:mt-12">
+        <MigrationScreen
+          c={c}
+          className="h-[clamp(380px,calc(100svh-380px),540px)] rounded-[32px]"
+        />
 
         <div className="mt-5 flex flex-col items-center text-center">
           <span className="text-[13px] text-[#ADADAA]">{c.line}</span>

@@ -11,10 +11,12 @@ import { ArchiveMock } from "@/components/showcase/PillarMocks";
 import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
 import { InquiryDraftsFrame } from "@/components/SalesAssistantProductPage";
 import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
+import { BotOff, Database, LockKeyhole } from "lucide-react";
 import {
-  ConnectInventoryMockup,
-  GalleryOsSearchWidget,
-} from "@/components/shared/ArtworkAddInMocks";
+  CONVERSATION_SECTIONS_EN,
+  CONVERSATION_SECTIONS_FR,
+  MigrationScreen,
+} from "@/components/landing/conversations/ConversationSections";
 import { BODY, CONTAINER, EYEBROW, H2, H3, SECTION } from "@/components/landing/styles";
 
 /** One product visual, framed the same way on every page. */
@@ -37,31 +39,53 @@ function Visual({ visual }: { visual: SeoVisual }) {
   );
 }
 
+/** The three data promises of the home, as a small card. */
+function DataSafetyCard({ lang }: { lang: Lang }) {
+  const rows =
+    lang === "fr"
+      ? [
+          { Icon: Database, k: "Votre espace", v: "Une base propre à votre galerie" },
+          { Icon: LockKeyhole, k: "Chiffrées", v: "En transit et au repos" },
+          { Icon: BotOff, k: "Pas d’entraînement", v: "Aucun modèle d’IA n’apprend dessus" },
+        ]
+      : [
+          { Icon: Database, k: "Your own space", v: "A database for your gallery only" },
+          { Icon: LockKeyhole, k: "Encrypted", v: "In transit and at rest" },
+          { Icon: BotOff, k: "No AI training", v: "No AI model learns from it" },
+        ];
+  return (
+    <ul className="w-full max-w-[380px] divide-y divide-[#E8E8E6] rounded-[12px] border border-[#E8E8E6] bg-white">
+      {rows.map(({ Icon, k, v }) => (
+        <li key={k} className="flex items-center gap-3 px-5 py-4">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F5F5F3] text-[#111110]">
+            <Icon size={16} strokeWidth={1.75} aria-hidden="true" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-[14px] font-medium text-[#111110]">{k}</span>
+            <span className="block text-[13px] text-[#6B6A67]">{v}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** The visual of one step, on the soft panel shared by every step. */
 function StepVisual({ visual, lang }: { visual: SeoStepVisual; lang: Lang }) {
   return (
     <div className="flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
-      {visual === "connectInventory" && (
-        <div className="h-full max-h-[380px] w-full max-w-[420px]">
-          <ConnectInventoryMockup activeTitle="Import a file" />
-        </div>
-      )}
+      {visual === "dataSafety" && <DataSafetyCard lang={lang} />}
       {visual === "artworkForm" && (
         <div className="relative h-full w-full max-w-[560px]">
           <ArtworkFormMock />
         </div>
       )}
-      {visual === "gmailSearch" &&
-        (lang === "fr" ? (
-          <GalleryOsSearchWidget
-            insertLabel="Insérer une œuvre"
-            searchLabel="Rechercher dans Vitreen"
-            searchCta="Chercher"
-            galleryViewCta="Vue galerie"
-          />
-        ) : (
-          <GalleryOsSearchWidget />
-        ))}
+      {visual === "migration" && (
+        <MigrationScreen
+          c={(lang === "fr" ? CONVERSATION_SECTIONS_FR : CONVERSATION_SECTIONS_EN).migration}
+          className="h-full w-full rounded-[10px] border border-[#E8E8E6]"
+        />
+      )}
     </div>
   );
 }
@@ -105,6 +129,11 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
 
         {c.steps ? (
           <section className={`${SECTION} border-t border-[#E8E8E6]`}>
+            {c.stepsTitle ? (
+              <h2 className={`mx-auto mb-12 max-w-2xl text-balance text-center md:mb-20 ${H2}`}>
+                {c.stepsTitle}
+              </h2>
+            ) : null}
             <ol className={`${CONTAINER} flex flex-col gap-16 md:gap-24`}>
               {c.steps.map((step, i) => (
                 <li key={step.title} className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
@@ -113,10 +142,7 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
                     <StepVisual visual={step.visual} lang={lang} />
                   </div>
                   <div className="min-w-0 md:max-w-md">
-                    <p className={EYEBROW}>
-                      {lang === "fr" ? "Étape" : "Step"} {i + 1}
-                    </p>
-                    <h2 className={`mt-3 ${H2}`}>{step.title}</h2>
+                    <h3 className={H2}>{step.title}</h3>
                     <p className={`mt-4 ${BODY}`}>{step.body}</p>
                   </div>
                 </li>
