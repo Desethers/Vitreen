@@ -10,17 +10,17 @@ import {
 
 const FOOTER_COLUMNS = [
   {
-    title: "Outils",
+    title: "Produit",
     links: [
-      { label: "Artwork Inventory", href: "/fr/tools/artwork-inventory" },
-      { label: "Sales Assistant", href: "/fr/tools/sales-assistant" },
+      { label: "Inventaire", href: "/fr/tools/artwork-inventory" },
+      { label: "Gmail et WhatsApp", href: "/fr/tools/sales-assistant" },
+      { label: "Mémoire collectionneur", href: "/fr#memory" },
     ],
   },
   {
     title: "Solutions",
     links: [
-      { label: "Pour les galeries", href: "/fr/solutions/galleries" },
-      { label: "Pour les artistes", href: "/fr/solutions/artists" },
+      { label: "Pour les galeries d’art et de design", href: "/fr/solutions/galleries" },
       { label: "Pour les conseillers et marchands", href: "/fr/solutions/advisors" },
     ],
   },

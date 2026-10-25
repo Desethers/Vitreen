@@ -13,23 +13,33 @@ const LINKS = [
   { label: "About", href: "/about" },
 ];
 
-/** Existing /tools/* pages, surfaced under "Tools" instead of the retired Gallery OS nav. */
+/** What the product does, under "Product": the /tools/* pages and the memory section of the home. */
 const TOOLS_ITEMS = [
   {
-    title: "Artwork Inventory",
-    desc: "Your artworks, artists and records in one place.",
+    title: "Inventory",
+    desc: "Your artworks and artists, imported from CSV or Excel.",
     href: "/tools/artwork-inventory",
   },
   {
-    title: "Sales Assistant",
-    desc: "Gmail add-in, WhatsApp tool, AI-drafted replies.",
+    title: "Gmail",
+    desc: "Your artwork records inside the reply you are writing.",
     href: "/tools/sales-assistant",
+  },
+  {
+    title: "WhatsApp",
+    desc: "Look up a work and forward it from your own WhatsApp.",
+    href: "/tools/sales-assistant",
+  },
+  {
+    title: "Collector memory",
+    desc: "What each collector asked about and received, in one history.",
+    href: "/#memory",
   },
 ];
 
 const TOOLS_FEATURED = {
   eyebrow: "Gmail & WhatsApp",
-  title: "Sales Assistant",
+  title: "Your inventory in every conversation",
   desc: "Your artwork records inside the conversations where you sell.",
   cta: "See more",
   image: "/product/conversations-today.webp",
@@ -54,9 +64,9 @@ const SOLUTIONS_ITEMS = [
     href: "/solutions/advisors",
   },
   {
-    title: "Artist Studios",
-    desc: "Archive, artwork material and collector presentations.",
-    href: "/solutions/artists",
+    title: "Antique & Collectibles Dealers",
+    desc: "Unique pieces, provenance and condition, ready for every client.",
+    href: "/solutions/advisors",
   },
 ];
 
@@ -76,8 +86,8 @@ export const openContactWithEmail = (email: string) =>
   window.dispatchEvent(new CustomEvent("open-contact-modal", { detail: { email } }));
 
 /**
- * Minimal header for the landing: logo, in-page anchors, a "Tools" dropdown
- * onto the existing /tools/* pages, and one CTA.
+ * Minimal header for the landing: logo, "Product" and "Solutions" dropdowns,
+ * Pricing and About, and one CTA.
  */
 export default function LandingNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -126,7 +136,7 @@ export default function LandingNav() {
                 aria-expanded={toolsOpen}
                 className="text-sm text-[#858581] transition-colors duration-200 hover:text-[#111110]"
               >
-                Tools
+                Product
               </button>
             </div>
             <div
@@ -168,7 +178,7 @@ export default function LandingNav() {
           </Button>
           <LandingMobileMenu
             groups={[
-              { title: "Tools", items: TOOLS_ITEMS },
+              { title: "Product", items: TOOLS_ITEMS },
               { title: "Solutions", items: SOLUTIONS_ITEMS },
             ]}
             links={LINKS}
@@ -192,7 +202,7 @@ export default function LandingNav() {
               <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
                 <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
                   <div>
-                    <span className="text-[12px] text-[#ADADAA]">Tools</span>
+                    <span className="text-[12px] text-[#ADADAA]">Product</span>
                     <div className="mt-4 grid grid-cols-1 gap-y-1">
                       {TOOLS_ITEMS.map((item, index) => (
                         <a

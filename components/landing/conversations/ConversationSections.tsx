@@ -1244,7 +1244,7 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
     return () => ro.disconnect();
   }, []);
   return (
-    <section className="bg-white px-4 py-16 md:px-6 md:py-20">
+    <section id="memory" className="scroll-mt-16 bg-white px-4 py-16 md:px-6 md:py-20">
       <Heading eyebrow={c.eyebrow} title={c.title} sub={c.sub} />
       <p className="mx-auto mt-6 max-w-2xl text-center font-display text-[16px] leading-[1.5] tracking-[-0.015em] text-[#6B6A67] md:text-[18px]">
         {c.line}
