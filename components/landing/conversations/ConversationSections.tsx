@@ -1564,7 +1564,7 @@ function OnboardingScreen({ c, beat }: { c: ConversationSectionsCopy["migration"
                 <div>
                   <p className="text-[15px] font-semibold text-zinc-900">Connect your inventory</p>
                   <p className="mt-0.5 text-[12px] text-zinc-700">
-                    Choose how to bring your works into Gallery OS
+                    Choose how to bring your works into Vitreen
                   </p>
                 </div>
                 <div className="space-y-2">

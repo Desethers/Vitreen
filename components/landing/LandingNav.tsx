@@ -25,20 +25,15 @@ const TOOLS_ITEMS = [
     desc: "Gmail add-in, WhatsApp tool, AI-drafted replies.",
     href: "/tools/sales-assistant",
   },
-  {
-    title: "Viewing Rooms",
-    desc: "Curated selections, shared as a link or PDF.",
-    href: "/tools/viewing-rooms",
-  },
 ];
 
 const TOOLS_FEATURED = {
-  eyebrow: "Private selections",
-  title: "Viewing Rooms",
-  desc: "Build and share private viewing rooms from your artwork records.",
+  eyebrow: "Gmail & WhatsApp",
+  title: "Sales Assistant",
+  desc: "Your artwork records inside the conversations where you sell.",
   cta: "See more",
-  image: "/screenshot-viewingroom.jpg",
-  href: "/tools/viewing-rooms",
+  image: "/product/conversations-today.webp",
+  href: "/tools/sales-assistant",
 };
 
 /** Same four personas as WhoVitreenIsFor on the home page. */

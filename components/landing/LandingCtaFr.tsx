@@ -14,7 +14,6 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Artwork Inventory", href: "/fr/tools/artwork-inventory" },
       { label: "Sales Assistant", href: "/fr/tools/sales-assistant" },
-      { label: "Viewing Rooms", href: "/fr/tools/viewing-rooms" },
     ],
   },
   {
@@ -31,14 +30,6 @@ const FOOTER_COLUMNS = [
       { label: "À propos", href: "/fr/about" },
       { label: "Tarifs", href: "/fr/pricing" },
       { label: "Contact", href: "#contact", opensContact: true },
-    ],
-  },
-  {
-    title: "Vitreen Studio",
-    links: [
-      { label: "Comment ça marche", href: "https://forart.world/fr#how-it-works" },
-      { label: "Tâches", href: "https://forart.world/fr#tasks" },
-      { label: "Contact", href: "mailto:studio@vitreen.art" },
     ],
   },
 ] as const;
@@ -69,10 +60,7 @@ export default function LandingCtaFr() {
                 </p>
               </div>
 
-              <nav
-                aria-label="Pied de page"
-                className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
-              >
+              <nav aria-label="Pied de page" className="grid gap-10 sm:grid-cols-3 lg:gap-8">
                 {FOOTER_COLUMNS.map((column) => (
                   <div key={column.title}>
                     <h3 className="text-[12px] font-medium text-[#6B6A67]">{column.title}</h3>

@@ -26,20 +26,15 @@ const TOOLS_ITEMS = [
     desc: "Add-in Gmail, outil WhatsApp, brouillons IA.",
     href: "/fr/tools/sales-assistant",
   },
-  {
-    title: "Viewing Rooms",
-    desc: "Sélections partagées en lien ou en PDF.",
-    href: "/fr/tools/viewing-rooms",
-  },
 ];
 
 const TOOLS_FEATURED = {
-  eyebrow: "Sélections privées",
-  title: "Viewing Rooms",
-  desc: "Créez et partagez des viewing rooms privées à partir de vos fiches d’œuvres.",
+  eyebrow: "Gmail et WhatsApp",
+  title: "Sales Assistant",
+  desc: "Vos fiches d’œuvres dans les conversations où vous vendez.",
   cta: "En savoir plus",
-  image: "/screenshot-viewingroom.jpg",
-  href: "/fr/tools/viewing-rooms",
+  image: "/product/conversations-today.webp",
+  href: "/fr/tools/sales-assistant",
 };
 
 /** Mêmes quatre profils que WhoVitreenIsFor sur la home. */
