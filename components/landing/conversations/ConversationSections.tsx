@@ -3,7 +3,20 @@
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
-import { ArchiveRestore, ArrowRight, BotOff, Database, FileText, LockKeyhole } from "lucide-react";
+import {
+  ArchiveRestore,
+  ArrowRight,
+  BotOff,
+  Database,
+  FileText,
+  Forward,
+  LockKeyhole,
+  Reply,
+  Search,
+  Send,
+  UserRound,
+  type LucideIcon,
+} from "lucide-react";
 import { IntegrationsFrame } from "@/components/SalesAssistantProductPage";
 import { WA, WaBubble, WaTyping, type WaMessage } from "@/components/whatsapp/WaChat";
 
@@ -21,6 +34,10 @@ const EVENING_FIELD = "/artworks/painting-05.jpg";
 
 type Step = { k: string; v: string };
 type Who = { name: string; status: string; initials: string };
+
+/** One icon per step, in the order of the steps (same for both languages). */
+const EMAIL_STEP_ICONS: LucideIcon[] = [Reply, Search, Send];
+const WHATSAPP_STEP_ICONS: LucideIcon[] = [Search, UserRound, Forward];
 
 /** One line of the simulated feed, shaped like a Gallery OS Conversations event. */
 export type FeedEvent = {
@@ -111,18 +128,15 @@ export const CONVERSATION_SECTIONS_EN: ConversationSectionsCopy = {
     security: {
       title: "Your data stays yours.",
       items: [
+        { k: "Your own space", v: "Each gallery has its own database, never shared elsewhere." },
+        { k: "Encrypted", v: "Works and collectors encrypted, in transit and at rest." },
         {
-          k: "Your own space",
-          v: "Each gallery has its own database, never shared with another gallery.",
-        },
-        { k: "Encrypted", v: "Your works and collectors are encrypted in transit and at rest." },
-        {
-          k: "Never used to train AI",
-          v: "Your data is not used to train any model, ours or anyone’s.",
+          k: "No AI training",
+          v: "No AI model, not even ours, ever learns from your information.",
         },
         {
-          k: "Yours to take back",
-          v: "Delete a collector at any time. Your inventory is handed back on request.",
+          k: "Recoverable",
+          v: "Delete a collector anytime. Your inventory returned on request.",
         },
       ],
     },
@@ -314,20 +328,20 @@ export const CONVERSATION_SECTIONS_FR: ConversationSectionsCopy = {
       title: "Vos données restent les vôtres.",
       items: [
         {
-          k: "Votre propre espace",
-          v: "Chaque galerie a sa propre base, jamais partagée avec une autre galerie.",
+          k: "Votre espace",
+          v: "Chaque galerie a sa propre base, jamais partagée ailleurs.",
         },
         {
           k: "Chiffrées",
-          v: "Vos œuvres et vos collectionneurs sont chiffrés en transit et au repos.",
+          v: "Œuvres et collectionneurs chiffrés, en transit comme au repos.",
         },
         {
-          k: "Jamais utilisées pour entraîner une IA",
-          v: "Vos données n’entraînent aucun modèle, ni le nôtre ni un autre.",
+          k: "Pas d’entraînement",
+          v: "Aucun modèle d’IA, pas même le nôtre, n’apprend dessus.",
         },
         {
           k: "Récupérables",
-          v: "Supprimez un collectionneur à tout moment. Votre inventaire vous est rendu sur demande.",
+          v: "Supprimez un collectionneur. Inventaire rendu sur demande.",
         },
       ],
     },
@@ -593,11 +607,13 @@ function useBeats(durations: number[]) {
 /** The three steps beside a scene: the current one lit, each one clickable. */
 function Steps({
   steps,
+  icons,
   active,
   onPick,
   line,
 }: {
   steps: Step[];
+  icons: LucideIcon[];
   active: number;
   /** Without it, the steps only follow the scene. */
   onPick?: (i: number) => void;
@@ -608,6 +624,7 @@ function Steps({
       <ol className="flex flex-col gap-1">
         {steps.map((s, i) => {
           const on = i === active;
+          const Icon = icons[i];
           return (
             <li key={s.k}>
               <button
@@ -620,11 +637,11 @@ function Steps({
                 }`}
               >
                 <span
-                  className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] tabular-nums transition-colors duration-300 ${
+                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${
                     on ? "bg-[#111110] text-white" : "border border-[#E8E8E6] text-[#6B6A67]"
                   }`}
                 >
-                  {i + 1}
+                  <Icon className="h-[14px] w-[14px]" strokeWidth={1.75} aria-hidden="true" />
                 </span>
                 <span>
                   <span
@@ -660,16 +677,19 @@ function Steps({
  */
 function StepCaption({
   steps,
+  icons,
   active,
   onPick,
   line,
 }: {
   steps: Step[];
+  icons: LucideIcon[];
   active: number;
   onPick?: (i: number) => void;
   line: string;
 }) {
   const s = steps[active];
+  const Icon = icons[active];
   return (
     <div className="px-3">
       <div className="flex items-center gap-1">
@@ -700,8 +720,9 @@ function StepCaption({
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25, ease }}
           >
-            <p className="font-display text-[17px] tracking-[-0.02em] text-[#111110]">
-              {active + 1}. {s.k}
+            <p className="flex items-center gap-2 font-display text-[17px] tracking-[-0.02em] text-[#111110]">
+              <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden="true" />
+              {s.k}
             </p>
             <p className="mt-0.5 text-[14px] leading-[1.5] text-[#6B6A67]">{s.v}</p>
           </motion.div>
@@ -733,10 +754,10 @@ function EmailSection({ c, lang }: { c: ConversationSectionsCopy["email"]; lang:
       </div>
       <div className="lg:col-start-2 lg:row-start-2">
         <div className="lg:hidden">
-          <StepCaption steps={c.steps} active={phase} line={c.line} />
+          <StepCaption steps={c.steps} icons={EMAIL_STEP_ICONS} active={phase} line={c.line} />
         </div>
         <div className="hidden lg:block">
-          <Steps steps={c.steps} active={phase} line={c.line} />
+          <Steps steps={c.steps} icons={EMAIL_STEP_ICONS} active={phase} line={c.line} />
         </div>
       </div>
     </div>
@@ -1036,6 +1057,7 @@ function WhatsAppSection({ c }: { c: ConversationSectionsCopy["whatsapp"] }) {
         <div className="md:hidden">
           <StepCaption
             steps={c.steps}
+            icons={WHATSAPP_STEP_ICONS}
             active={WA_STEP_OF_BEAT[beat]}
             onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
             line={c.line}
@@ -1044,6 +1066,7 @@ function WhatsAppSection({ c }: { c: ConversationSectionsCopy["whatsapp"] }) {
         <div className="hidden md:block">
           <Steps
             steps={c.steps}
+            icons={WHATSAPP_STEP_ICONS}
             active={WA_STEP_OF_BEAT[beat]}
             onPick={(i) => setBeat(WA_FIRST_BEAT[i])}
             line={c.line}

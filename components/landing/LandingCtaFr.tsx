@@ -102,12 +102,21 @@ export default function LandingCtaFr() {
               </nav>
             </div>
 
-            <div className="mt-16 flex flex-col gap-3 pt-6 text-[12px] text-[#6B6A67] sm:flex-row sm:items-center sm:justify-between md:mt-20">
+            <div className="mt-16 grid gap-3 pt-6 text-[12px] text-[#6B6A67] sm:grid-cols-[1fr_auto_1fr] sm:items-center md:mt-20">
               <p>© 2026 Vitreen</p>
               <div className="flex items-center gap-4">
                 <LandingLanguageSwitch lang="fr" />
                 <p>Paris, France</p>
               </div>
+              <p className="sm:justify-self-end">
+                Site web réalisé par{" "}
+                <a
+                  href="https://www.rrstudio.online/"
+                  className="underline underline-offset-4 transition-colors duration-200 hover:text-white"
+                >
+                  R.R Studio
+                </a>
+              </p>
             </div>
           </div>
         </div>

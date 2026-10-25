@@ -438,17 +438,17 @@ export function GlideHero({
           : "flex min-h-[100svh] flex-col justify-center py-20 md:py-24"
       }`}
     >
-      <div className="mx-auto flex max-w-4xl flex-col items-center pt-12 text-center md:pt-20">
+      <div className="mx-auto flex max-w-6xl flex-col items-center pt-16 text-center md:pt-28">
         <h1 className="m-0 mx-auto max-w-5xl text-balance font-display text-[clamp(30px,9vw,44px)] font-medium leading-[1.2] tracking-[-0.04em] text-[#111110] md:text-[68px]">
           {fr ? (
             <>
-              <span className="hero-reveal hero-d-1 md:block">
+              <span className="hero-reveal hero-d-1 md:block lg:whitespace-nowrap">
                 Vendez
                 <HeroObjects object="poster" order={1} />
                 <br className="md:hidden" /> ce qui ne se vend pas
                 <br className="md:hidden" />
               </span>{" "}
-              <span className="hero-reveal hero-d-2 md:block">
+              <span className="hero-reveal hero-d-2 md:block lg:whitespace-nowrap">
                 {/* Phones: the chair opens the last line, just before "comme". */}
                 <span className="md:hidden">
                   <HeroObjects object="chair" order={2} spaceBefore={false} />
@@ -463,7 +463,7 @@ export function GlideHero({
             </>
           ) : (
             <>
-              <span className="hero-reveal hero-d-1 md:block">
+              <span className="hero-reveal hero-d-1 md:block lg:whitespace-nowrap">
                 Sell what
                 <HeroObjects object="poster" order={1} />
                 <br className="md:hidden" /> doesn&rsquo;t sell
@@ -472,7 +472,7 @@ export function GlideHero({
                   <HeroObjects object="chair" order={2} />
                 </span>
               </span>{" "}
-              <span className="hero-reveal hero-d-2 md:block">
+              <span className="hero-reveal hero-d-2 md:block lg:whitespace-nowrap">
                 like
                 <span className="hidden md:contents">
                   <HeroObjects object="chair" order={2} />
