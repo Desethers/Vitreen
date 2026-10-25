@@ -27,8 +27,8 @@ const TOOLS_ITEMS = [
     href: "/fr/tools/sales-assistant",
   },
   {
-    title: "Mémoire collectionneur",
-    desc: "Ce que chaque collectionneur a demandé et reçu, dans un seul historique.",
+    title: "Collectionneurs",
+    desc: "Qui a reçu quoi, et quand relancer.",
     href: "/fr#memory",
   },
 ];

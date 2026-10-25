@@ -26,8 +26,8 @@ const TOOLS_ITEMS = [
     href: "/tools/sales-assistant",
   },
   {
-    title: "Collector memory",
-    desc: "What each collector asked about and received, in one history.",
+    title: "Collectors",
+    desc: "Who received what, and when to follow up.",
     href: "/#memory",
   },
 ];
