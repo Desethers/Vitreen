@@ -14,7 +14,8 @@ const SRC: Record<HeroObjectName, string> = {
 };
 
 const SLOT_MS = 800;
-const START_MS = 1500;
+/** First object opens as the title finishes rising (hero-reveal: 0.1s delay + 1.3s). */
+const START_MS = 600;
 /** Time each object stays visible, then the slot closes before the next opens. */
 const SHOW_MS = 2200;
 const STEP_MS = 3200;
@@ -48,11 +49,6 @@ export default function HeroObjects({
   const [opened, setOpened] = useState(!!reduceMotion && order === 0);
 
   useEffect(() => {
-    const img = new Image();
-    img.src = SRC[object];
-  }, [object]);
-
-  useEffect(() => {
     if (reduceMotion) {
       setOpened(order === 0);
       return;
@@ -78,33 +74,38 @@ export default function HeroObjects({
   }, [reduceMotion, order]);
 
   return (
-    <span
-      aria-hidden="true"
-      className="relative inline-block"
-      style={{
-        height: `${1.08 * size}em`,
-        verticalAlign: `${-0.22 + (1.08 - 1.08 * size) / 2}em`,
-        width: opened ? `${1.1 * size}em` : "0em",
-        marginLeft: opened && spaceBefore ? "0.4em" : "0em",
-        marginRight: opened && spaceAfter ? "0.14em" : "0em",
-        transition: `width ${SLOT_MS}ms cubic-bezier(0.16, 1, 0.3, 1), margin ${SLOT_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`,
-      }}
-    >
-      <AnimatePresence initial={false} mode="wait">
-        {opened ? (
-          <motion.img
-            key={object}
-            src={SRC[object]}
-            alt=""
-            draggable={false}
-            className="absolute inset-0 h-full w-full select-none object-contain"
-            initial={{ opacity: 0, scale: 0.55, y: "0.3em", rotate: -5, filter: "blur(8px)" }}
-            animate={{ opacity: 1, scale: 1, y: "0em", rotate: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 0.85, y: "-0.2em", filter: "blur(6px)" }}
-            transition={{ duration: 0.7, ease, delay: 0.2 }}
-          />
-        ) : null}
-      </AnimatePresence>
-    </span>
+    <>
+      {/* React hoists this into <head>: the cut-out is fetched with the HTML,
+          before any script runs, so it is there when its slot opens. */}
+      <link rel="preload" as="image" href={SRC[object]} fetchPriority="high" />
+      <span
+        aria-hidden="true"
+        className="relative inline-block"
+        style={{
+          height: `${1.08 * size}em`,
+          verticalAlign: `${-0.22 + (1.08 - 1.08 * size) / 2}em`,
+          width: opened ? `${1.1 * size}em` : "0em",
+          marginLeft: opened && spaceBefore ? "0.4em" : "0em",
+          marginRight: opened && spaceAfter ? "0.14em" : "0em",
+          transition: `width ${SLOT_MS}ms cubic-bezier(0.16, 1, 0.3, 1), margin ${SLOT_MS}ms cubic-bezier(0.16, 1, 0.3, 1)`,
+        }}
+      >
+        <AnimatePresence initial={false} mode="wait">
+          {opened ? (
+            <motion.img
+              key={object}
+              src={SRC[object]}
+              alt=""
+              draggable={false}
+              className="absolute inset-0 h-full w-full select-none object-contain"
+              initial={{ opacity: 0, scale: 0.55, y: "0.3em", rotate: -5, filter: "blur(8px)" }}
+              animate={{ opacity: 1, scale: 1, y: "0em", rotate: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.85, y: "-0.2em", filter: "blur(6px)" }}
+              transition={{ duration: 0.7, ease }}
+            />
+          ) : null}
+        </AnimatePresence>
+      </span>
+    </>
   );
 }
