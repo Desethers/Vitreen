@@ -26,6 +26,9 @@ export type SeoVisual =
   | { kind: "advisorSelection" }
   | { kind: "photo"; src: string; alt: string };
 
+/** Visuals of the step-by-step section, reused from the home and the add-in mocks. */
+export type SeoStepVisual = "connectInventory" | "artworkForm" | "gmailSearch";
+
 export type SeoPageCopy = {
   /** <title> and meta description. */
   meta: { title: string; description: string };
@@ -34,6 +37,8 @@ export type SeoPageCopy = {
   sub: string;
   cta: string;
   visual?: SeoVisual;
+  /** How it works, in order: one visual and one short text per step, sides alternating. */
+  steps?: { title: string; body: string; visual: SeoStepVisual }[];
   blocks?: { title: string; items: string[] }[];
   /** Running text instead of blocks (about page). The last line is the signature. */
   prose?: string[];
@@ -52,6 +57,23 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Images, prices, availability and documents in one clear record, ready to use in Gmail and WhatsApp.",
       cta: "Book a demo",
       visual: { kind: "artworkList" },
+      steps: [
+        {
+          title: "Bring your spreadsheet",
+          body: "Send your Excel or CSV file, or your Artlogic exports. We take it over during setup, with nothing to retype.",
+          visual: "connectInventory",
+        },
+        {
+          title: "Every work gets its record",
+          body: "Images, documents, price and availability in one place, up to date for the whole team.",
+          visual: "artworkForm",
+        },
+        {
+          title: "Use it in every conversation",
+          body: "Find a work in seconds and drop it into a Gmail reply, with its image, caption and price.",
+          visual: "gmailSearch",
+        },
+      ],
       blocks: [
         {
           title: "Bring what you already have",
@@ -94,6 +116,23 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Images, prix, disponibilité et documents dans une fiche claire, prête à servir dans Gmail et WhatsApp.",
       cta: "Réserver une démo",
       visual: { kind: "artworkList" },
+      steps: [
+        {
+          title: "Importez votre tableur",
+          body: "Envoyez votre fichier Excel ou CSV, ou vos exports Artlogic. On le reprend pendant l’installation, sans rien ressaisir.",
+          visual: "connectInventory",
+        },
+        {
+          title: "Chaque œuvre a sa fiche",
+          body: "Images, documents, prix et disponibilité au même endroit, à jour pour toute l’équipe.",
+          visual: "artworkForm",
+        },
+        {
+          title: "Servez-vous-en dans chaque conversation",
+          body: "Retrouvez une œuvre en quelques secondes et glissez-la dans une réponse Gmail, avec son image, sa légende et son prix.",
+          visual: "gmailSearch",
+        },
+      ],
       blocks: [
         {
           title: "Importez ce que vous avez déjà",
