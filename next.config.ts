@@ -29,53 +29,33 @@ const nextConfig: NextConfig = {
         destination: "https://forart.world/:path*",
         permanent: true,
       },
-      // Ancien slug ET ancien préfixe d'un coup : un seul saut.
-      {
-        source: "/products/archive",
-        destination: "/tools/artwork-inventory",
-        permanent: true,
-      },
-      {
-        source: "/fr/products/archive",
-        destination: "/fr/tools/artwork-inventory",
-        permanent: true,
-      },
-      {
-        source: "/products/custom-operations",
-        destination: "/tools/sales-assistant",
-        permanent: true,
-      },
-      {
-        source: "/fr/products/custom-operations",
-        destination: "/fr/tools/sales-assistant",
-        permanent: true,
-      },
-      // /tools/custom-operations a été renommé /tools/sales-assistant : l'URL
-      // annonçait des « opérations sur mesure » pour une page qui décrit
-      // l'assistant de vente (Gmail, WhatsApp, brouillons IA).
-      {
-        source: "/tools/custom-operations",
-        destination: "/tools/sales-assistant",
-        permanent: true,
-      },
-      {
-        source: "/fr/tools/custom-operations",
-        destination: "/fr/tools/sales-assistant",
-        permanent: true,
-      },
-      // /tools/archive a été renommé /tools/artwork-inventory pour un slug
-      // plus explicite. Redirection permanente pour préserver le référencement.
-      { source: "/tools/archive", destination: "/tools/artwork-inventory", permanent: true },
-      {
-        source: "/fr/tools/archive",
-        destination: "/fr/tools/artwork-inventory",
-        permanent: true,
-      },
-      // /products/* a été renommé /tools/* pour matcher le menu "Tools" de
-      // la nav. Redirection permanente au cas où un lien externe ou un
-      // favori pointe encore vers l'ancienne URL.
-      { source: "/products/:path*", destination: "/tools/:path*", permanent: true },
-      { source: "/fr/products/:path*", destination: "/fr/tools/:path*", permanent: true },
+      /* Pages renommées pour des URL lisibles (2026-10) : /tools/* devient
+       * /product/*, les solutions prennent un slug explicite, Viewing Rooms et
+       * Artistes ne sont plus publiées. Chaque ancienne URL — y compris les
+       * plus anciennes (/products/*, /tools/archive, custom-operations) — va
+       * directement à sa destination finale, sans chaîne. */
+      ...[
+        ["/tools/artwork-inventory", "/product/artwork-inventory"],
+        ["/tools/archive", "/product/artwork-inventory"],
+        ["/products/archive", "/product/artwork-inventory"],
+        ["/products/artwork-inventory", "/product/artwork-inventory"],
+        ["/tools/sales-assistant", "/product/sales-conversations"],
+        ["/tools/custom-operations", "/product/sales-conversations"],
+        ["/products/custom-operations", "/product/sales-conversations"],
+        ["/products/sales-assistant", "/product/sales-conversations"],
+        ["/solutions/galleries", "/solutions/art-galleries"],
+        ["/solutions/advisors", "/solutions/art-advisors-dealers"],
+        ["/tools/viewing-rooms", "/"],
+        ["/products/viewing-rooms", "/"],
+        ["/solutions/artists", "/"],
+      ].flatMap(([source, destination]) => [
+        { source, destination, permanent: true },
+        {
+          source: `/fr${source}`,
+          destination: destination === "/" ? "/fr" : `/fr${destination}`,
+          permanent: true,
+        },
+      ]),
     ];
   },
 };

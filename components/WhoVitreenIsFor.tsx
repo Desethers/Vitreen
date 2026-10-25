@@ -19,7 +19,7 @@ const content = {
       {
         title: "Art Galleries",
         description: "Artwork inventory, collector replies and private selections.",
-        href: "/solutions/galleries",
+        href: "/solutions/art-galleries",
         image: "/gallery-screen2.png",
         objectPosition: "55% 50%",
         imageScale: "scale-110",
@@ -27,19 +27,19 @@ const content = {
       {
         title: "Design Galleries",
         description: "Pieces, availability and client presentations.",
-        href: "/solutions/galleries",
+        href: "/solutions/art-galleries",
         image: "/Design-gallery.png",
       },
       {
         title: "Art Advisors",
         description: "Private selections and client-ready artwork information.",
-        href: "/solutions/advisors",
+        href: "/solutions/art-advisors-dealers",
         image: "/artadvisor.png",
       },
       {
         title: "Antique & Collectibles Dealers",
         description: "Unique pieces, provenance and condition, ready for every client.",
-        href: "/solutions/galleries",
+        href: "/solutions/art-galleries",
         image: "https://images.unsplash.com/photo-1667916468910-d310ec444154?w=1200&q=80",
         objectPosition: "50% 50%",
       },
@@ -54,7 +54,7 @@ const content = {
       {
         title: "Galeries d’art",
         description: "Inventaire d’œuvres, réponses collectionneurs et sélections privées.",
-        href: "/fr/solutions/galleries",
+        href: "/fr/solutions/art-galleries",
         image: "/gallery-screen2.png",
         objectPosition: "55% 50%",
         imageScale: "scale-110",
@@ -62,19 +62,19 @@ const content = {
       {
         title: "Galeries de design",
         description: "Pièces, disponibilités et présentations clients.",
-        href: "/fr/solutions/galleries",
+        href: "/fr/solutions/art-galleries",
         image: "/Design-gallery.png",
       },
       {
         title: "Art advisors",
         description: "Sélections privées et fiches d’œuvres prêtes pour vos clients.",
-        href: "/fr/solutions/advisors",
+        href: "/fr/solutions/art-advisors-dealers",
         image: "/artadvisor.png",
       },
       {
         title: "Antiquaires",
         description: "Pièces uniques, provenance et état, prêts pour chaque client.",
-        href: "/fr/solutions/galleries",
+        href: "/fr/solutions/art-galleries",
         image: "https://images.unsplash.com/photo-1667916468910-d310ec444154?w=1200&q=80",
         objectPosition: "50% 50%",
       },

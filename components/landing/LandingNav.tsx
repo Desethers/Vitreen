@@ -13,17 +13,17 @@ const LINKS = [
   { label: "About", href: "/about" },
 ];
 
-/** What the product does, under "Product": the /tools/* pages and the memory section of the home. */
+/** What the product does, under "Product": the /product/* pages and the collectors section of the home. */
 const TOOLS_ITEMS = [
   {
     title: "Artwork inventory",
     desc: "Your artworks and artists, imported from CSV or Excel.",
-    href: "/tools/artwork-inventory",
+    href: "/product/artwork-inventory",
   },
   {
     title: "Sales conversations",
     desc: "Your artwork records inside Gmail and WhatsApp, where you sell.",
-    href: "/tools/sales-assistant",
+    href: "/product/sales-conversations",
   },
   {
     title: "Collectors",
@@ -38,7 +38,7 @@ const TOOLS_FEATURED = {
   desc: "Your artwork records inside the conversations where you sell.",
   cta: "See more",
   image: "/product/conversations-today.webp",
-  href: "/tools/sales-assistant",
+  href: "/product/sales-conversations",
 };
 
 /** Same four personas as WhoVitreenIsFor on the home page. */
@@ -46,22 +46,22 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Art Galleries",
     desc: "Artwork inventory, collector replies and private selections.",
-    href: "/solutions/galleries",
+    href: "/solutions/art-galleries",
   },
   {
     title: "Design Galleries",
     desc: "Pieces, availability and client presentations.",
-    href: "/solutions/galleries",
+    href: "/solutions/art-galleries",
   },
   {
     title: "Art Advisors",
     desc: "Private selections and client-ready artwork information.",
-    href: "/solutions/advisors",
+    href: "/solutions/art-advisors-dealers",
   },
   {
     title: "Antique & Collectibles Dealers",
     desc: "Unique pieces, provenance and condition, ready for every client.",
-    href: "/solutions/advisors",
+    href: "/solutions/art-advisors-dealers",
   },
 ];
 
@@ -71,7 +71,7 @@ const SOLUTIONS_FEATURED = {
   desc: "Artwork inventory, collector replies and private selections, built around your gallery.",
   cta: "See more",
   image: "/gallery-screen2.png",
-  href: "/solutions/galleries",
+  href: "/solutions/art-galleries",
 };
 
 export const openContact = () => window.dispatchEvent(new Event("open-contact-modal"));

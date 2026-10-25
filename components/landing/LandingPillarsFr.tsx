@@ -11,7 +11,7 @@ const COPY: PillarsCopy = {
       title: "Vos œuvres, prêtes dans Gmail et WhatsApp.",
       body: "Retrouvez une œuvre, son prix et sa disponibilité, et envoyez-la là où le collectionneur a écrit.",
       link: "Voir les outils de vente →",
-      href: "/fr/tools/sales-assistant",
+      href: "/fr/product/sales-conversations",
       labels: ["Gmail", "WhatsApp"],
     },
     {

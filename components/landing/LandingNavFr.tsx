@@ -14,17 +14,17 @@ const LINKS = [
   { label: "À propos", href: "/fr/about" },
 ];
 
-/** Ce que fait le produit, sous « Produit » : les pages /fr/tools/* et la section mémoire de la home. */
+/** Ce que fait le produit, sous « Produit » : les pages /fr/product/* et la section collectionneurs de la home. */
 const TOOLS_ITEMS = [
   {
     title: "Inventaire des œuvres",
     desc: "Vos œuvres et artistes, importés depuis CSV ou Excel.",
-    href: "/fr/tools/artwork-inventory",
+    href: "/fr/product/artwork-inventory",
   },
   {
     title: "Conversations de vente",
     desc: "Vos fiches d’œuvres dans Gmail et WhatsApp, là où vous vendez.",
-    href: "/fr/tools/sales-assistant",
+    href: "/fr/product/sales-conversations",
   },
   {
     title: "Collectionneurs",
@@ -39,7 +39,7 @@ const TOOLS_FEATURED = {
   desc: "Vos fiches d’œuvres dans les conversations où vous vendez.",
   cta: "En savoir plus",
   image: "/product/conversations-today.webp",
-  href: "/fr/tools/sales-assistant",
+  href: "/fr/product/sales-conversations",
 };
 
 /** Mêmes quatre profils que WhoVitreenIsFor sur la home. */
@@ -47,22 +47,22 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Galeries d’art",
     desc: "Inventaire d’œuvres, réponses collectionneurs et sélections privées.",
-    href: "/fr/solutions/galleries",
+    href: "/fr/solutions/art-galleries",
   },
   {
     title: "Galeries de design",
     desc: "Pièces, disponibilités et présentations clients.",
-    href: "/fr/solutions/galleries",
+    href: "/fr/solutions/art-galleries",
   },
   {
     title: "Art advisors",
     desc: "Sélections privées et fiches d’œuvres prêtes pour vos clients.",
-    href: "/fr/solutions/advisors",
+    href: "/fr/solutions/art-advisors-dealers",
   },
   {
     title: "Antiquaires et marchands",
     desc: "Pièces uniques, provenance et état, prêts pour chaque client.",
-    href: "/fr/solutions/advisors",
+    href: "/fr/solutions/art-advisors-dealers",
   },
 ];
 
@@ -72,7 +72,7 @@ const SOLUTIONS_FEATURED = {
   desc: "Inventaire d’œuvres, réponses collectionneurs et sélections privées, construits autour de votre galerie.",
   cta: "En savoir plus",
   image: "/gallery-screen2.png",
-  href: "/fr/solutions/galleries",
+  href: "/fr/solutions/art-galleries",
 };
 
 /**

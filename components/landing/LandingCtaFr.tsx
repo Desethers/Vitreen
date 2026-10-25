@@ -12,16 +12,16 @@ const FOOTER_COLUMNS = [
   {
     title: "Produit",
     links: [
-      { label: "Inventaire des œuvres", href: "/fr/tools/artwork-inventory" },
-      { label: "Conversations de vente", href: "/fr/tools/sales-assistant" },
+      { label: "Inventaire des œuvres", href: "/fr/product/artwork-inventory" },
+      { label: "Conversations de vente", href: "/fr/product/sales-conversations" },
       { label: "Collectionneurs", href: "/fr#memory" },
     ],
   },
   {
     title: "Solutions",
     links: [
-      { label: "Pour les galeries d’art et de design", href: "/fr/solutions/galleries" },
-      { label: "Pour les conseillers et marchands", href: "/fr/solutions/advisors" },
+      { label: "Pour les galeries d’art et de design", href: "/fr/solutions/art-galleries" },
+      { label: "Pour les conseillers et marchands", href: "/fr/solutions/art-advisors-dealers" },
     ],
   },
   {

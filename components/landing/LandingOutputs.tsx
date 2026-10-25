@@ -413,9 +413,9 @@ const EN_COPY: OutputsCopy = {
     "Send a private selection of works.",
   ],
   hrefs: [
-    "/tools/artwork-inventory",
-    "/tools/sales-assistant",
-    "/tools/sales-assistant",
+    "/product/artwork-inventory",
+    "/product/sales-conversations",
+    "/product/sales-conversations",
     "/tools/viewing-rooms",
   ],
 };

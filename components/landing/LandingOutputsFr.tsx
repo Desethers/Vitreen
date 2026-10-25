@@ -18,9 +18,9 @@ const FR_COPY: OutputsCopy = {
     "Envoyez une sélection privée d’œuvres.",
   ],
   hrefs: [
-    "/fr/tools/artwork-inventory",
-    "/fr/tools/sales-assistant",
-    "/fr/tools/sales-assistant",
+    "/fr/product/artwork-inventory",
+    "/fr/product/sales-conversations",
+    "/fr/product/sales-conversations",
     "/fr/tools/viewing-rooms",
   ],
 };
