@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import ArchiveProductPage from "@/components/ArchiveProductPage";
 import PageStructuredData from "@/components/PageStructuredData";
-import { pageMetadata } from "@/lib/seo";
+import SeoPage from "@/components/SeoPage";
+import { seoPageProps } from "@/lib/seoPages";
 
-const seo = {
-  lang: "fr",
-  path: "/product/artwork-inventory",
-  title: "Logiciel d’inventaire des œuvres pour galeries",
-  description:
-    "Réunissez œuvres, artistes et expositions dans une même fiche : images, dimensions, disponibilité, localisation et documents.",
-} as const;
+const { seo, metadata: meta } = seoPageProps("inventory", "fr", "/product/artwork-inventory");
 
-export const metadata: Metadata = pageMetadata(seo);
+export const metadata: Metadata = meta;
 
 export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <ArchiveProductPage />
+      <SeoPage id="inventory" lang="fr" />
     </>
   );
 }

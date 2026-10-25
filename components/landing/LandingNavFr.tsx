@@ -52,7 +52,7 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Galeries de design",
     desc: "Pièces, disponibilités et présentations clients.",
-    href: "/fr/solutions/art-galleries",
+    href: "/fr/solutions/design-galleries",
   },
   {
     title: "Art advisors",
@@ -62,7 +62,7 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Antiquaires et marchands",
     desc: "Pièces uniques, provenance et état, prêts pour chaque client.",
-    href: "/fr/solutions/art-advisors-dealers",
+    href: "/fr/solutions/antique-dealers",
   },
 ];
 

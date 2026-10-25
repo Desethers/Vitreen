@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import SalesAssistantProductPage from "@/components/SalesAssistantProductPage";
 import PageStructuredData from "@/components/PageStructuredData";
-import { pageMetadata } from "@/lib/seo";
+import SeoPage from "@/components/SeoPage";
+import { seoPageProps } from "@/lib/seoPages";
 
-const seo = {
-  lang: "en",
-  path: "/product/sales-conversations",
-  title: "Sales conversations in Gmail and WhatsApp",
-  description:
-    "Your artwork records inside Gmail and WhatsApp: collector replies prepared from your own inventory, reviewed before anything is sent.",
-} as const;
+const { seo, metadata: meta } = seoPageProps("conversations", "en", "/product/sales-conversations");
 
-export const metadata: Metadata = pageMetadata(seo);
+export const metadata: Metadata = meta;
 
 export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <SalesAssistantProductPage />
+      <SeoPage id="conversations" lang="en" />
     </>
   );
 }

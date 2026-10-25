@@ -27,7 +27,7 @@ const content = {
       {
         title: "Design Galleries",
         description: "Pieces, availability and client presentations.",
-        href: "/solutions/art-galleries",
+        href: "/solutions/design-galleries",
         image: "/Design-gallery.png",
       },
       {
@@ -39,7 +39,7 @@ const content = {
       {
         title: "Antique & Collectibles Dealers",
         description: "Unique pieces, provenance and condition, ready for every client.",
-        href: "/solutions/art-galleries",
+        href: "/solutions/antique-dealers",
         image: "https://images.unsplash.com/photo-1667916468910-d310ec444154?w=1200&q=80",
         objectPosition: "50% 50%",
       },
@@ -62,7 +62,7 @@ const content = {
       {
         title: "Galeries de design",
         description: "Pièces, disponibilités et présentations clients.",
-        href: "/fr/solutions/art-galleries",
+        href: "/fr/solutions/design-galleries",
         image: "/Design-gallery.png",
       },
       {
@@ -74,7 +74,7 @@ const content = {
       {
         title: "Antiquaires",
         description: "Pièces uniques, provenance et état, prêts pour chaque client.",
-        href: "/fr/solutions/art-galleries",
+        href: "/fr/solutions/antique-dealers",
         image: "https://images.unsplash.com/photo-1667916468910-d310ec444154?w=1200&q=80",
         objectPosition: "50% 50%",
       },

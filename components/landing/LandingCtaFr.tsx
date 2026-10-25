@@ -20,8 +20,10 @@ const FOOTER_COLUMNS = [
   {
     title: "Solutions",
     links: [
-      { label: "Pour les galeries d’art et de design", href: "/fr/solutions/art-galleries" },
-      { label: "Pour les conseillers et marchands", href: "/fr/solutions/art-advisors-dealers" },
+      { label: "Galeries d’art", href: "/fr/solutions/art-galleries" },
+      { label: "Galeries de design", href: "/fr/solutions/design-galleries" },
+      { label: "Conseillers et marchands", href: "/fr/solutions/art-advisors-dealers" },
+      { label: "Antiquaires", href: "/fr/solutions/antique-dealers" },
     ],
   },
   {

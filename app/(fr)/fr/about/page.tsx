@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import AboutPageFr from "@/components/AboutPageFr";
 import PageStructuredData from "@/components/PageStructuredData";
-import { pageMetadata } from "@/lib/seo";
+import SeoPage from "@/components/SeoPage";
+import { seoPageProps } from "@/lib/seoPages";
 
-const seo = {
-  lang: "fr",
-  path: "/about",
-  title: "À propos de Vitreen",
-  description:
-    "Vitreen donne aux galeries un site connecté, des fiches d’œuvres structurées et un assistant numérique pour leur travail quotidien.",
-} as const;
+const { seo, metadata: meta } = seoPageProps("about", "fr", "/about");
 
-export const metadata: Metadata = pageMetadata(seo);
+export const metadata: Metadata = meta;
 
 export default function Page() {
   return (
     <>
       <PageStructuredData {...seo} />
-      <AboutPageFr />
+      <SeoPage id="about" lang="fr" />
     </>
   );
 }

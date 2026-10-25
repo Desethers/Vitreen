@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import PageStructuredData from "@/components/PageStructuredData";
-import SolutionPage from "@/components/SolutionPage";
+import SeoPage from "@/components/SeoPage";
 import { ROLE_PATHS, ROLE_PATH_SLUGS, type RolePath } from "@/lib/solutions";
-import { SOLUTION_SEO, pageMetadata } from "@/lib/seo";
+import { seoPageProps } from "@/lib/seoPages";
 
 type Params = { role: string };
 
@@ -19,28 +19,17 @@ export function generateStaticParams(): Params[] {
 export async function generateMetadata({ params }: { params: Promise<Params> }) {
   const { role } = await params;
   if (!isRolePath(role)) return {};
-  const seo = SOLUTION_SEO.en[ROLE_PATHS[role]];
-  return pageMetadata({
-    lang: "en",
-    path: `/solutions/${role}`,
-    title: seo.title,
-    description: seo.description,
-  });
+  return seoPageProps(ROLE_PATHS[role], "en", `/solutions/${role}`).metadata;
 }
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { role } = await params;
   if (!isRolePath(role)) notFound();
-  const seo = SOLUTION_SEO.en[ROLE_PATHS[role]];
+  const { seo } = seoPageProps(ROLE_PATHS[role], "en", `/solutions/${role}`);
   return (
     <>
-      <PageStructuredData
-        lang="en"
-        path={`/solutions/${role}`}
-        title={seo.title}
-        description={seo.description}
-      />
-      <SolutionPage slug={ROLE_PATHS[role]} />
+      <PageStructuredData {...seo} />
+      <SeoPage id={ROLE_PATHS[role]} lang="en" />
     </>
   );
 }

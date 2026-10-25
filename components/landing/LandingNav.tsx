@@ -51,7 +51,7 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Design Galleries",
     desc: "Pieces, availability and client presentations.",
-    href: "/solutions/art-galleries",
+    href: "/solutions/design-galleries",
   },
   {
     title: "Art Advisors",
@@ -61,7 +61,7 @@ const SOLUTIONS_ITEMS = [
   {
     title: "Antique & Collectibles Dealers",
     desc: "Unique pieces, provenance and condition, ready for every client.",
-    href: "/solutions/art-advisors-dealers",
+    href: "/solutions/antique-dealers",
   },
 ];
 
