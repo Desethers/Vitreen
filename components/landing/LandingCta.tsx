@@ -13,7 +13,7 @@ const FOOTER_COLUMNS = [
     title: "Product",
     links: [
       { label: "Inventory", href: "/tools/artwork-inventory" },
-      { label: "Gmail & WhatsApp", href: "/tools/sales-assistant" },
+      { label: "Sales conversations", href: "/tools/sales-assistant" },
       { label: "Collector memory", href: "/#memory" },
     ],
   },

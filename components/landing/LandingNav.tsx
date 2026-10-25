@@ -21,13 +21,8 @@ const TOOLS_ITEMS = [
     href: "/tools/artwork-inventory",
   },
   {
-    title: "Gmail",
-    desc: "Your artwork records inside the reply you are writing.",
-    href: "/tools/sales-assistant",
-  },
-  {
-    title: "WhatsApp",
-    desc: "Look up a work and forward it from your own WhatsApp.",
+    title: "Sales conversations",
+    desc: "Your artwork records inside Gmail and WhatsApp, where you sell.",
     href: "/tools/sales-assistant",
   },
   {

@@ -22,13 +22,8 @@ const TOOLS_ITEMS = [
     href: "/fr/tools/artwork-inventory",
   },
   {
-    title: "Gmail",
-    desc: "Vos fiches d’œuvres dans la réponse que vous écrivez.",
-    href: "/fr/tools/sales-assistant",
-  },
-  {
-    title: "WhatsApp",
-    desc: "Retrouvez une œuvre et transférez-la depuis votre WhatsApp.",
+    title: "Conversations de vente",
+    desc: "Vos fiches d’œuvres dans Gmail et WhatsApp, là où vous vendez.",
     href: "/fr/tools/sales-assistant",
   },
   {
