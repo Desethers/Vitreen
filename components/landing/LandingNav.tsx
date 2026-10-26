@@ -102,7 +102,7 @@ export default function LandingNav() {
     <>
       <header
         className={`fixed left-0 right-0 top-0 z-50 border-b-[0.5px] bg-white px-4 py-2 transition-[border-color] duration-200 md:px-6 ${
-          scrolled || toolsOpen || solutionsOpen ? "border-[#E8E8E6]" : "border-transparent"
+          scrolled ? "border-[#E8E8E6]" : "border-transparent"
         }`}
       >
         <div className="relative mx-auto flex h-9 w-full max-w-7xl items-center justify-between">
@@ -186,19 +186,22 @@ export default function LandingNav() {
           {toolsOpen && (
             <motion.div
               key="tools-menu"
-              initial={{ height: 0 }}
-              animate={{ height: "auto" }}
-              exit={{ height: 0 }}
-              transition={{ duration: 0.32, ease }}
-              onMouseEnter={() => setToolsOpen(true)}
-              onMouseLeave={() => setToolsOpen(false)}
-              className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.22, ease }}
+              className="pointer-events-none fixed inset-x-0 top-[44px] z-40 hidden justify-center px-6 md:flex"
             >
-              <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
-                <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
-                  <div>
-                    <span className="text-[12px] text-[#ADADAA]">Product</span>
-                    <div className="mt-4 grid grid-cols-1 gap-y-1">
+              {/* The padding bridges the gap under the nav, so the card stays open on the way down. */}
+              <div
+                className="pointer-events-auto w-full max-w-[760px] pt-3"
+                onMouseEnter={() => setToolsOpen(true)}
+                onMouseLeave={() => setToolsOpen(false)}
+              >
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                  <div className="flex flex-col py-2">
+                    <span className="px-4 text-[12px] text-[#ADADAA]">Product</span>
+                    <div className="mt-2 flex flex-col gap-1">
                       {TOOLS_ITEMS.map((item, index) => (
                         <a
                           key={item.title}
@@ -206,14 +209,14 @@ export default function LandingNav() {
                           onClick={() => setToolsOpen(false)}
                           onMouseEnter={() => setActiveToolIndex(index)}
                           onFocus={() => setActiveToolIndex(index)}
-                          className={`group -mx-[42px] block w-[calc(100%-150px)] rounded px-[42px] py-2 transition-colors duration-200 ${
+                          className={`block rounded-[8px] px-4 py-3 transition-colors duration-200 ${
                             activeToolIndex === index ? "bg-[#F5F5F3]" : "hover:bg-[#F8F8F6]"
                           }`}
                         >
-                          <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                          <span className="font-display text-[15px] text-[#111110]">
                             {item.title}
                           </span>
-                          <p className="mt-0.5 max-w-xl text-[12px] leading-snug text-[#6B6A67]">
+                          <p className="mt-0.5 text-[12px] leading-snug text-[#6B6A67]">
                             {item.desc}
                           </p>
                         </a>
@@ -223,29 +226,27 @@ export default function LandingNav() {
                   <a
                     href={TOOLS_FEATURED.href}
                     onClick={() => setToolsOpen(false)}
-                    className="group block"
+                    className="group relative block min-h-[300px] overflow-hidden rounded-[8px] bg-[#F5F5F3]"
                   >
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-[#111110]">
-                      <div
-                        className="absolute inset-0 bg-cover bg-[center_42%]"
-                        style={{ backgroundImage: `url(${TOOLS_FEATURED.image})` }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-                        <h4 className="font-display text-[17px]">{TOOLS_FEATURED.title}</h4>
-                        <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
-                          {TOOLS_FEATURED.desc}
-                        </p>
-                        <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
-                          {TOOLS_FEATURED.cta}
-                          <span
-                            aria-hidden="true"
-                            className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
-                          >
-                            →
-                          </span>
-                        </p>
-                      </div>
+                    <div
+                      className="absolute inset-0 bg-cover bg-[center_42%] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                      style={{ backgroundImage: `url(${TOOLS_FEATURED.image})` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                      <h4 className="font-display text-[17px]">{TOOLS_FEATURED.title}</h4>
+                      <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
+                        {TOOLS_FEATURED.desc}
+                      </p>
+                      <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
+                        {TOOLS_FEATURED.cta}
+                        <span
+                          aria-hidden="true"
+                          className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </p>
                     </div>
                   </a>
                 </div>
@@ -258,19 +259,22 @@ export default function LandingNav() {
           {solutionsOpen && (
             <motion.div
               key="solutions-menu"
-              initial={{ height: 0 }}
-              animate={{ height: "auto" }}
-              exit={{ height: 0 }}
-              transition={{ duration: 0.32, ease }}
-              onMouseEnter={() => setSolutionsOpen(true)}
-              onMouseLeave={() => setSolutionsOpen(false)}
-              className="fixed left-0 right-0 top-[52px] z-40 hidden overflow-hidden md:block"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.22, ease }}
+              className="pointer-events-none fixed inset-x-0 top-[44px] z-40 hidden justify-center px-6 md:flex"
             >
-              <div className="w-full border-b border-[#E8E8E6] bg-white px-8 py-8">
-                <div className="mx-auto grid max-w-7xl grid-cols-[1fr_minmax(0,32rem)] gap-x-12">
-                  <div>
-                    <p className="text-[12px] text-[#ADADAA]">Solutions</p>
-                    <div className="mt-4 grid grid-cols-1 gap-y-1">
+              {/* The padding bridges the gap under the nav, so the card stays open on the way down. */}
+              <div
+                className="pointer-events-auto w-full max-w-[760px] pt-3"
+                onMouseEnter={() => setSolutionsOpen(true)}
+                onMouseLeave={() => setSolutionsOpen(false)}
+              >
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                  <div className="flex flex-col py-2">
+                    <span className="px-4 text-[12px] text-[#ADADAA]">Solutions</span>
+                    <div className="mt-2 flex flex-col gap-1">
                       {SOLUTIONS_ITEMS.map((item, index) => (
                         <a
                           key={item.title}
@@ -278,14 +282,14 @@ export default function LandingNav() {
                           onClick={() => setSolutionsOpen(false)}
                           onMouseEnter={() => setActiveSolutionIndex(index)}
                           onFocus={() => setActiveSolutionIndex(index)}
-                          className={`group -mx-[42px] block w-[calc(100%-150px)] rounded px-[42px] py-2 transition-colors duration-200 ${
+                          className={`block rounded-[8px] px-4 py-3 transition-colors duration-200 ${
                             activeSolutionIndex === index ? "bg-[#F5F5F3]" : "hover:bg-[#F8F8F6]"
                           }`}
                         >
-                          <span className="font-display text-[15px] text-[#111110] transition-colors group-hover:text-[#6B6A67]">
+                          <span className="font-display text-[15px] text-[#111110]">
                             {item.title}
                           </span>
-                          <p className="mt-0.5 max-w-xl text-[12px] leading-snug text-[#6B6A67]">
+                          <p className="mt-0.5 text-[12px] leading-snug text-[#6B6A67]">
                             {item.desc}
                           </p>
                         </a>
@@ -295,29 +299,27 @@ export default function LandingNav() {
                   <a
                     href={SOLUTIONS_FEATURED.href}
                     onClick={() => setSolutionsOpen(false)}
-                    className="group block"
+                    className="group relative block min-h-[300px] overflow-hidden rounded-[8px] bg-[#F5F5F3]"
                   >
-                    <div className="relative aspect-[16/10] w-full overflow-hidden rounded-md bg-[#111110]">
-                      <div
-                        className="absolute inset-0 bg-cover bg-[center_42%]"
-                        style={{ backgroundImage: `url(${SOLUTIONS_FEATURED.image})` }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-4 text-white">
-                        <h4 className="font-display text-[17px]">{SOLUTIONS_FEATURED.title}</h4>
-                        <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
-                          {SOLUTIONS_FEATURED.desc}
-                        </p>
-                        <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
-                          {SOLUTIONS_FEATURED.cta}
-                          <span
-                            aria-hidden="true"
-                            className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
-                          >
-                            →
-                          </span>
-                        </p>
-                      </div>
+                    <div
+                      className="absolute inset-0 bg-cover bg-[center_42%] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                      style={{ backgroundImage: `url(${SOLUTIONS_FEATURED.image})` }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
+                    <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                      <h4 className="font-display text-[17px]">{SOLUTIONS_FEATURED.title}</h4>
+                      <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
+                        {SOLUTIONS_FEATURED.desc}
+                      </p>
+                      <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
+                        {SOLUTIONS_FEATURED.cta}
+                        <span
+                          aria-hidden="true"
+                          className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </p>
                     </div>
                   </a>
                 </div>
