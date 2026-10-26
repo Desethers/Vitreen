@@ -1198,6 +1198,51 @@ function feedDayLabel(when: string, isFrench: boolean) {
   return labels[when]?.[isFrench ? 1 : 0] ?? when;
 }
 
+/**
+ * The collector memory as a still list: every event of the home's feed, newest
+ * first, joined by the thread. Used where the page needs the history at rest.
+ */
+export function MemoryFeed({ c }: { c: ConversationSectionsCopy["feed"] }) {
+  const shown = [...c.events].reverse();
+  const isFrench = c.eyebrow === "Se souvenir";
+  return (
+    <div className="py-2">
+      <p className="mb-4 text-[13px] font-medium text-[#71717A] md:pl-2">
+        {isFrench ? "Activité récente" : "Recent activity"}
+      </p>
+      <ul className="flex flex-col">
+        {shown.map((e, index) => (
+          <li key={`${e.who}-${e.title}`} className="relative">
+            {index > 0 ? (
+              <div className="relative h-3">
+                <ThreadPiece className="top-0 h-full" />
+              </div>
+            ) : null}
+            {index === 0 || shown[index - 1]?.when !== e.when ? (
+              <div className="relative pb-2.5">
+                {index > 0 ? <ThreadPiece className="top-0 h-full" /> : null}
+                <p className="pl-10 text-[11px] font-medium text-[#A1A1AA] md:pl-12 md:text-[12px]">
+                  {feedDayLabel(e.when, isFrench)}
+                </p>
+              </div>
+            ) : null}
+            <FeedRow
+              e={e}
+              kinds={c.kinds}
+              isFrench={isFrench}
+              answered={
+                e.kind === 0 && shown.some((other) => other.kind === 1 && other.who === e.who)
+              }
+              linked={index < shown.length - 1}
+              up={index > 0}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
@@ -1711,7 +1756,16 @@ function OnboardingScreen({ c, beat }: { c: ConversationSectionsCopy["migration"
 }
 
 /** Gallery OS · Artworks, as workspace/inventory/artworks renders it. */
-function ArtworksScreen({ loaded, holding }: { loaded: number; holding: boolean }) {
+function ArtworksScreen({
+  loaded,
+  holding,
+  locked = false,
+}: {
+  loaded: number;
+  holding: boolean;
+  /** The visitor cannot scroll it: only the animation moves the list. */
+  locked?: boolean;
+}) {
   const rows = SCREEN_ROWS.slice(0, loaded);
   // Once the visible rows are in, the counters keep climbing until the screen changes.
   const [extra, setExtra] = useState(0);
@@ -1748,7 +1802,7 @@ function ArtworksScreen({ loaded, holding }: { loaded: number; holding: boolean 
   return (
     <div
       ref={scroller}
-      className="h-full overflow-y-auto bg-white pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      className={`h-full bg-white pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${locked ? "pointer-events-none overflow-hidden" : "overflow-y-auto"}`}
     >
       <div className="m-2 rounded-2xl bg-zinc-50/80 px-4 pb-4 pt-5 md:m-3 md:px-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
@@ -1837,17 +1891,23 @@ function ArtworksScreen({ loaded, holding }: { loaded: number; holding: boolean 
 export function MigrationScreen({
   c,
   className = "",
+  artworksOnly = false,
 }: {
   c: ConversationSectionsCopy["migration"];
   /** Size and corners of the screen; the content always fills it. */
   className?: string;
+  /** Loop only the second screen: the Artworks list filling, then again. Nothing to scroll. */
+  artworksOnly?: boolean;
 }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.35 });
   const total = SCREEN_ROWS.length;
   const last = ARTWORKS_FROM + total; // the hold, once every work is in
-  const [beat, setBeat] = useState(reduce ? last : 0);
+  const first = artworksOnly ? ARTWORKS_FROM : 0;
+  const [beat, setBeat] = useState(reduce ? last : first);
+  // Each loop of the list is its own screen, so a restart fades instead of jumping.
+  const [cycle, setCycle] = useState(0);
 
   useEffect(() => {
     if (reduce || !inView) return;
@@ -1857,9 +1917,16 @@ export function MigrationScreen({
         : beat >= last
           ? MIGRATION_HOLD_MS
           : MIGRATION_ROW_MS;
-    const t = window.setTimeout(() => setBeat((b) => (b >= last ? 0 : b + 1)), wait);
+    const t = window.setTimeout(() => {
+      if (beat >= last) {
+        setCycle((k) => k + 1);
+        setBeat(first);
+      } else {
+        setBeat(beat + 1);
+      }
+    }, wait);
     return () => window.clearTimeout(t);
-  }, [beat, inView, reduce, last]);
+  }, [beat, inView, reduce, last, first]);
 
   const onArtworks = beat >= ARTWORKS_FROM;
   const loaded = Math.max(0, Math.min(beat - ARTWORKS_FROM + 1, total));
@@ -1869,7 +1936,7 @@ export function MigrationScreen({
       {/* One screen at a time: the onboarding, then the Artworks list it fills */}
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={onArtworks ? "artworks" : "onboarding"}
+          key={onArtworks ? `artworks-${cycle}` : "onboarding"}
           className="absolute inset-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -1877,7 +1944,7 @@ export function MigrationScreen({
           transition={{ duration: 0.4 }}
         >
           {onArtworks ? (
-            <ArtworksScreen loaded={loaded} holding={beat >= last} />
+            <ArtworksScreen loaded={loaded} holding={beat >= last} locked={artworksOnly} />
           ) : (
             <OnboardingScreen c={c} beat={beat} />
           )}

@@ -27,9 +27,9 @@ const TOOLS_ITEMS = [
     href: "/fr/product/sales-conversations",
   },
   {
-    title: "Collectionneurs",
+    title: "Mémoire des collectionneurs",
     desc: "Qui a reçu quoi, et quand relancer.",
-    href: "/fr#memory",
+    href: "/fr/product/collectors-memory",
   },
 ];
 

@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type { Lang } from "@/lib/lang";
 import { SEO_PAGES, type SeoPageId, type SeoStepVisual, type SeoVisual } from "@/lib/seoPages";
 import LandingNav, { openContact } from "@/components/landing/LandingNav";
@@ -15,23 +17,96 @@ import { BotOff, Database, LockKeyhole } from "lucide-react";
 import {
   CONVERSATION_SECTIONS_EN,
   CONVERSATION_SECTIONS_FR,
+  MemoryFeed,
   MigrationScreen,
 } from "@/components/landing/conversations/ConversationSections";
 import { BODY, CONTAINER, EYEBROW, H2, H3, SECTION } from "@/components/landing/styles";
 
+/**
+ * The artwork form is drawn for a window about 640px wide. Here it sits on a
+ * card, scaled down to the card's width and cropped at the bottom with a soft
+ * fade, so it never spills out of its frame.
+ */
+function ArtworkFormCard({ bare = false }: { bare?: boolean }) {
+  const NATURAL_WIDTH = 640;
+  const NATURAL_HEIGHT = 780;
+  const ref = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.8);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const fit = () => setScale(Math.min(1, el.clientWidth / NATURAL_WIDTH));
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`relative h-full w-full overflow-hidden bg-white ${
+        bare ? "" : "max-w-[640px] rounded-[12px] border border-[#E8E8E6]"
+      }`}
+    >
+      <div
+        style={{
+          width: NATURAL_WIDTH,
+          height: NATURAL_HEIGHT,
+          transform: `scale(${scale})`,
+          transformOrigin: "top left",
+        }}
+      >
+        <ArtworkFormMock />
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent"
+      />
+    </div>
+  );
+}
+
 /** One product visual, framed the same way on every page. */
-function Visual({ visual }: { visual: SeoVisual }) {
+function Visual({ visual, lang }: { visual: SeoVisual; lang: Lang }) {
   if (visual.kind === "photo") {
     return (
       <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3]">
-        <img src={visual.src} alt={visual.alt} className="h-full w-full object-cover" />
+        <Image
+          src={visual.src}
+          alt={visual.alt}
+          fill
+          sizes="(min-width: 1152px) 1152px, 100vw"
+          className="object-cover"
+          priority
+        />
+      </div>
+    );
+  }
+  if (visual.kind === "memoryFeed") {
+    return (
+      <div className="relative h-[420px] w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white px-4 pt-6 md:h-[540px] md:px-10 md:pt-8">
+        <div className="mx-auto max-w-3xl">
+          <MemoryFeed
+            c={(lang === "fr" ? CONVERSATION_SECTIONS_FR : CONVERSATION_SECTIONS_EN).feed}
+          />
+        </div>
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-white to-transparent"
+        />
       </div>
     );
   }
   return (
     <div className="relative h-[420px] w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] md:h-[540px]">
       {visual.kind === "artworkList" && <ArchiveMock interactive={false} />}
-      {visual.kind === "artworkForm" && <ArtworkFormMock />}
+      {visual.kind === "artworkForm" && (
+        <div className="flex h-full w-full justify-center p-6 md:p-10">
+          <ArtworkFormCard />
+        </div>
+      )}
       {/* No entrance animation: the draft must be readable as soon as the page loads. */}
       {visual.kind === "inquiryDraft" && <InquiryDraftsFrame />}
       {visual.kind === "advisorSelection" && <AdvisorsSelectionWorkflowVisual step={1} />}
@@ -72,18 +147,22 @@ function DataSafetyCard({ lang }: { lang: Lang }) {
 
 /** The visual of one step, on the soft panel shared by every step. */
 function StepVisual({ visual, lang }: { visual: SeoStepVisual; lang: Lang }) {
+  // The data card keeps its soft panel; the two product screens fill their frame.
+  if (visual === "dataSafety") {
+    return (
+      <div className="flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
+        <DataSafetyCard lang={lang} />
+      </div>
+    );
+  }
   return (
-    <div className="flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
-      {visual === "dataSafety" && <DataSafetyCard lang={lang} />}
-      {visual === "artworkForm" && (
-        <div className="relative h-full w-full max-w-[560px]">
-          <ArtworkFormMock />
-        </div>
-      )}
+    <div className="relative h-[360px] w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-white md:h-[460px]">
+      {visual === "artworkForm" && <ArtworkFormCard bare />}
       {visual === "migration" && (
         <MigrationScreen
           c={(lang === "fr" ? CONVERSATION_SECTIONS_FR : CONVERSATION_SECTIONS_EN).migration}
-          className="h-full w-full rounded-[10px] border border-[#E8E8E6]"
+          className="h-full w-full"
+          artworksOnly
         />
       )}
     </div>
@@ -107,22 +186,29 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
         <section className="px-4 pb-12 pt-32 text-center md:px-6 md:pb-16 md:pt-40">
           <div className="mx-auto max-w-3xl">
             <p className={EYEBROW}>{c.eyebrow}</p>
-            <h1 className="mt-5 text-balance font-display text-[34px] font-medium leading-[1.1] tracking-[-0.035em] text-[#111110] md:text-[52px]">
+            {/* Without a line under it, the title keeps the same room before the next section. */}
+            <h1
+              className={`mt-5 text-balance font-display text-[34px] font-medium leading-[1.1] tracking-[-0.035em] text-[#111110] md:text-[52px] ${c.sub ? "" : "mb-12"}`}
+            >
               {c.title}
             </h1>
-            <p className={`mx-auto mt-5 max-w-2xl text-balance ${BODY}`}>{c.sub}</p>
-            <div className="mt-8">
-              <Button size="lg" onClick={openContact}>
-                {c.cta}
-              </Button>
-            </div>
+            {c.sub ? (
+              <p className={`mx-auto mt-5 max-w-2xl text-balance ${BODY}`}>{c.sub}</p>
+            ) : null}
+            {c.cta ? (
+              <div className="mt-8">
+                <Button size="lg" onClick={openContact}>
+                  {c.cta}
+                </Button>
+              </div>
+            ) : null}
           </div>
         </section>
 
         {c.visual ? (
           <section className="px-4 pb-16 md:px-6 md:pb-20">
             <div className="mx-auto max-w-6xl">
-              <Visual visual={c.visual} />
+              <Visual visual={c.visual} lang={lang} />
             </div>
           </section>
         ) : null}
@@ -136,14 +222,20 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
             ) : null}
             <ol className={`${CONTAINER} flex flex-col gap-16 md:gap-24`}>
               {c.steps.map((step, i) => (
-                <li key={step.title} className="grid items-center gap-8 md:grid-cols-2 md:gap-16">
+                <li
+                  key={step.title}
+                  className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 md:grid-cols-2 md:gap-16"
+                >
                   {/* Sides alternate: visual left on steps 1 and 3, right on step 2. */}
-                  <div className={i % 2 === 1 ? "md:order-2" : ""}>
+                  <div className={`min-w-0 ${i % 2 === 1 ? "md:order-2" : ""}`}>
                     <StepVisual visual={step.visual} lang={lang} />
                   </div>
-                  <div className="min-w-0 md:max-w-md">
-                    <h3 className={H2}>{step.title}</h3>
-                    <p className={`mt-4 ${BODY}`}>{step.body}</p>
+                  <div className="min-w-0">
+                    {/* Scales with the viewport so a step title stays on one line when the column allows it. */}
+                    <h3 className="font-display text-[clamp(22px,2.6vw,32px)] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110]">
+                      {step.title}
+                    </h3>
+                    <p className={`mt-4 max-w-md ${BODY}`}>{step.body}</p>
                   </div>
                 </li>
               ))}
@@ -177,7 +269,7 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
         ) : null}
 
         {c.prose ? (
-          <section className={`${SECTION} border-t border-[#E8E8E6]`}>
+          <section className="px-4 pb-16 md:px-6 md:pb-20">
             <div className="mx-auto flex max-w-2xl flex-col gap-5">
               {c.prose.map((line, i) =>
                 i === c.prose!.length - 1 ? (

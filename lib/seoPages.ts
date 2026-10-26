@@ -12,6 +12,7 @@ import { pageMetadata } from "@/lib/seo";
 export type SeoPageId =
   | "inventory"
   | "conversations"
+  | "collectors-memory"
   | "art-galleries"
   | "design-galleries"
   | "advisors"
@@ -24,6 +25,7 @@ export type SeoVisual =
   | { kind: "artworkForm" }
   | { kind: "inquiryDraft" }
   | { kind: "advisorSelection" }
+  | { kind: "memoryFeed" }
   | { kind: "photo"; src: string; alt: string };
 
 /** Visuals of the step-by-step section, reused from the home and the add-in mocks. */
@@ -34,8 +36,10 @@ export type SeoPageCopy = {
   meta: { title: string; description: string };
   eyebrow: string;
   title: string;
-  sub: string;
-  cta: string;
+  /** Line under the title; leave out for a page without one (About). */
+  sub?: string;
+  /** Hero button label; leave out for a page without one (About). */
+  cta?: string;
   visual?: SeoVisual;
   /** How it works, in order: one visual and one short text per step, sides alternating. */
   steps?: { title: string; body: string; visual: SeoStepVisual }[];
@@ -205,6 +209,97 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
     },
   },
 
+  "collectors-memory": {
+    en: {
+      meta: {
+        title: "Collector memory for galleries",
+        description:
+          "Every exchange with a collector in one history: what they asked, what they received, and when to follow up.",
+      },
+      eyebrow: "Collectors memory",
+      title: "Every collector, remembered.",
+      sub: "What each collector asked, saw and received, in one history, with the next follow-up.",
+      cta: "Book a demo",
+      visual: { kind: "memoryFeed" },
+      blocks: [
+        {
+          title: "One history per collector",
+          items: ["The questions they asked", "The works you sent them", "By email or on WhatsApp"],
+        },
+        {
+          title: "Who received what",
+          items: [
+            "Every work shared, and when",
+            "Seen from the collector or from the work",
+            "Checked before you write again",
+          ],
+        },
+        {
+          title: "The next follow-up",
+          items: [
+            "Inquiries still waiting for an answer",
+            "Reminders you set",
+            "Collectors too long without news",
+          ],
+        },
+        {
+          title: "No CRM to fill in",
+          items: [
+            "Filled from the exchanges Vitreen handles",
+            "Shared by the whole team",
+            "Your data stays yours",
+          ],
+        },
+      ],
+    },
+    fr: {
+      meta: {
+        title: "Mémoire des collectionneurs pour galeries",
+        description:
+          "Chaque échange avec un collectionneur dans un même historique : ce qu’il a demandé, ce qu’il a reçu, et quand le relancer.",
+      },
+      eyebrow: "Mémoire des collectionneurs",
+      title: "Chaque collectionneur, en mémoire.",
+      sub: "Ce que chaque collectionneur a demandé, vu et reçu, dans un même historique, avec la prochaine relance.",
+      cta: "Réserver une démo",
+      visual: { kind: "memoryFeed" },
+      blocks: [
+        {
+          title: "Un historique par collectionneur",
+          items: [
+            "Les questions qu’il a posées",
+            "Les œuvres que vous lui avez envoyées",
+            "Par e-mail ou sur WhatsApp",
+          ],
+        },
+        {
+          title: "Qui a reçu quoi",
+          items: [
+            "Chaque œuvre partagée, et quand",
+            "Depuis le collectionneur ou depuis l’œuvre",
+            "Vérifié avant d’écrire à nouveau",
+          ],
+        },
+        {
+          title: "La prochaine relance",
+          items: [
+            "Les demandes encore sans réponse",
+            "Les rappels que vous avez fixés",
+            "Les collectionneurs sans nouvelles depuis longtemps",
+          ],
+        },
+        {
+          title: "Pas de CRM à remplir",
+          items: [
+            "Rempli par les échanges que Vitreen gère",
+            "Partagé par toute l’équipe",
+            "Vos données restent les vôtres",
+          ],
+        },
+      ],
+    },
+  },
+
   "art-galleries": {
     en: {
       meta: {
@@ -216,7 +311,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Sell more simply, with what you already have.",
       sub: "Your inventory connected to Gmail and WhatsApp, and every collector relationship kept in memory.",
       cta: "Book a demo",
-      visual: { kind: "artworkForm" },
+      visual: { kind: "photo", src: "/gallery-screen2.png", alt: "An art gallery" },
       blocks: [
         {
           title: "Your works, organised",
@@ -258,7 +353,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Vendez plus simplement, avec ce que vous avez déjà.",
       sub: "Votre inventaire relié à Gmail et WhatsApp, et chaque relation avec vos collectionneurs gardée en mémoire.",
       cta: "Réserver une démo",
-      visual: { kind: "artworkForm" },
+      visual: { kind: "photo", src: "/gallery-screen2.png", alt: "Une galerie d’art" },
       blocks: [
         {
           title: "Vos œuvres, organisées",
@@ -386,7 +481,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Answer your clients faster.",
       sub: "Find, curate and share artworks from one inventory.",
       cta: "Book a demo",
-      visual: { kind: "advisorSelection" },
+      visual: { kind: "photo", src: "/artadvisor.png", alt: "An art advisor with a client" },
       blocks: [
         {
           title: "Find the right works",
@@ -424,7 +519,11 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Répondez à vos clients plus vite.",
       sub: "Trouvez, composez et partagez des œuvres depuis un seul inventaire.",
       cta: "Réserver une démo",
-      visual: { kind: "advisorSelection" },
+      visual: {
+        kind: "photo",
+        src: "/artadvisor.png",
+        alt: "Une conseillère en art avec un client",
+      },
       blocks: [
         {
           title: "Trouvez les bonnes œuvres",
@@ -562,8 +661,6 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       },
       eyebrow: "About",
       title: "In art and design, the relationship is the business.",
-      sub: "Vitreen keeps artwork information moving and collector conversations in memory.",
-      cta: "Book a demo",
       prose: [
         "Galleries have always been built on artists, judgment and relationships. That should not change.",
         "But the work behind a gallery has become heavier. Even a small team now has to track its works, prepare selections and answer collectors across several channels.",
@@ -580,8 +677,6 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       },
       eyebrow: "À propos",
       title: "Dans l’art et le design, la relation est le business.",
-      sub: "Vitreen garde l’information des œuvres en mouvement et les conversations avec les collectionneurs en mémoire.",
-      cta: "Réserver une démo",
       prose: [
         "Les galeries se sont toujours construites sur des artistes, un regard et des relations. Ça ne doit pas changer.",
         "Mais le travail derrière une galerie est devenu plus lourd. Même une petite équipe doit suivre ses œuvres, préparer des sélections et répondre aux collectionneurs sur plusieurs canaux.",

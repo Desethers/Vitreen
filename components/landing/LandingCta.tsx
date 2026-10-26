@@ -14,7 +14,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: "Artwork inventory", href: "/product/artwork-inventory" },
       { label: "Sales conversations", href: "/product/sales-conversations" },
-      { label: "Collectors", href: "/#memory" },
+      { label: "Collectors memory", href: "/product/collectors-memory" },
     ],
   },
   {

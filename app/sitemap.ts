@@ -11,7 +11,7 @@ function abs(path: string) {
 }
 
 /* Only the product pages we actually link to and want indexed. */
-const productSlugs = ["artwork-inventory", "sales-conversations"] as const;
+const productSlugs = ["artwork-inventory", "sales-conversations", "collectors-memory"] as const;
 
 /** Every indexable path, unprefixed. English is served here, French under /fr. */
 const paths: string[] = [

@@ -26,9 +26,9 @@ const TOOLS_ITEMS = [
     href: "/product/sales-conversations",
   },
   {
-    title: "Collectors",
+    title: "Collectors memory",
     desc: "Who received what, and when to follow up.",
-    href: "/#memory",
+    href: "/product/collectors-memory",
   },
 ];
 
