@@ -563,6 +563,24 @@ const ARTWORK_ROWS: {
     bg: "linear-gradient(135deg,#D4A574 0%,#A07A4A 100%)",
     image: "/artworks/painting-07.jpg",
   },
+  {
+    title: "Sage Interval",
+    year: "2022",
+    artist: "Sacha Elron",
+    price: "6 500 €",
+    status: "available",
+    bg: "linear-gradient(135deg,#7E9A74 0%,#4F6B47 100%)",
+    image: "/artworks/painting-08.jpg",
+  },
+  {
+    title: "Amber Nocturne",
+    year: "2025",
+    artist: "Sacha Elron",
+    price: "14 000 €",
+    status: "sold",
+    bg: "linear-gradient(135deg,#C98A2E 0%,#7A4A12 100%)",
+    image: "/artworks/painting-04.jpg",
+  },
 ];
 
 const STATUS_PILLS = [
@@ -595,6 +613,55 @@ function StatusBadge({ s }: { s: "available" | "reserved" | "sold" }) {
   );
 }
 
+/** The inventory's own navigation, as in the current Gallery OS: four sections, no app sidebar. */
+const INVENTORY_NAV: {
+  label: string;
+  icon: (p: { size?: number; className?: string }) => React.JSX.Element;
+}[] = [
+  { label: "Artworks", icon: Icon.Image },
+  { label: "Artists", icon: Icon.Users },
+  { label: "Collectors", icon: Icon.UserSquare },
+  { label: "Exhibitions", icon: Icon.Calendar },
+];
+
+function UploadIcon({ size = 12 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 16V4" />
+      <path d="m7 9 5-5 5 5" />
+      <path d="M5 20h14" />
+    </svg>
+  );
+}
+
+/** Status pill sized for the inventory screen (the shared StatusBadge is for the smaller mocks). */
+function ArtworkStatusBadge({ s }: { s: "available" | "reserved" | "sold" }) {
+  const tone =
+    s === "available"
+      ? "border-emerald-100 bg-emerald-50 text-emerald-700"
+      : s === "reserved"
+        ? "border-amber-100 bg-amber-50 text-amber-700"
+        : "border-zinc-200 bg-zinc-100 text-zinc-600";
+  return (
+    <span
+      className={`inline-flex items-center rounded-full border px-2 py-[1px] text-[10px] font-medium ${tone}`}
+    >
+      {s === "available" ? "Available" : s === "reserved" ? "Reserved" : "Sold"}
+    </span>
+  );
+}
+
+/** The Artworks screen of the Gallery OS inventory, shown small: header card, filters, then the list. */
 export function ArchiveMock({
   interactive = false,
   headerActions,
@@ -602,10 +669,9 @@ export function ArchiveMock({
   interactive?: boolean;
   headerActions?: React.ReactNode;
 }) {
-  const [activeNav, setActiveNav] = useState<NavId>("artworks");
   const [activeFilter, setActiveFilter] = useState("");
   const [query, setQuery] = useState("");
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [selected, setSelected] = useState<string | null>(null);
 
   const filterToStatus: Record<string, "available" | "reserved" | "sold" | null> = {
@@ -626,40 +692,70 @@ export function ArchiveMock({
       })
     : ARTWORK_ROWS;
 
-  const resultLabel = interactive
-    ? `${visibleArtworks.length} result${visibleArtworks.length !== 1 ? "s" : ""} · 7 total`
-    : "7 results";
+  const total = ARTWORK_ROWS.length;
+  const available = ARTWORK_ROWS.filter((a) => a.status === "available").length;
+  const sold = ARTWORK_ROWS.filter((a) => a.status === "sold").length;
+  const resultLabel = `${visibleArtworks.length} result${visibleArtworks.length !== 1 ? "s" : ""}`;
 
   return (
     <div
-      className={`w-full h-full bg-white font-sans flex overflow-hidden ${!interactive ? "pointer-events-none" : ""}`}
+      className={`flex h-full w-full overflow-hidden bg-white font-sans ${!interactive ? "pointer-events-none" : ""}`}
     >
-      <GalleryOsSidebar
-        active={interactive ? activeNav : "artworks"}
-        onSelect={interactive ? setActiveNav : undefined}
-      />
-
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <PageHeader
-          title="Artworks"
-          sub="7 total · 7 available · 0 sold"
-          action={
-            headerActions ?? (
-              <span
-                className={`inline-flex items-center gap-1 rounded-md bg-zinc-900 text-white text-[9px] font-medium px-2 py-1 ${interactive ? "cursor-pointer hover:bg-zinc-700 transition-colors" : ""}`}
+      {/* Local navigation of the inventory */}
+      <aside className="hidden w-[18%] shrink-0 px-2 pt-5 md:block">
+        <nav className="flex flex-col gap-[2px]">
+          {INVENTORY_NAV.map((it, i) => {
+            const I = it.icon;
+            const isActive = i === 0;
+            return (
+              <div
+                key={it.label}
+                className={`flex items-center gap-1.5 rounded-md px-2 py-[6px] text-[12px] ${
+                  isActive ? "bg-zinc-100 font-semibold text-zinc-900" : "text-zinc-600"
+                }`}
               >
-                <Icon.Plus size={9} />
-                Ajouter
-              </span>
-            )
-          }
-        />
+                <I size={13} className={isActive ? "text-zinc-900" : "text-zinc-400"} />
+                {it.label}
+              </div>
+            );
+          })}
+        </nav>
+      </aside>
 
-        {/* Toolbar */}
-        <div className="px-4 md:px-5 pb-2 border-b border-zinc-100">
-          <div className="relative max-w-[260px]">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden px-3 pt-4 md:px-4">
+        {/* Header card */}
+        <div className="shrink-0 rounded-t-xl bg-zinc-50/80 px-3 pb-3 pt-3 md:px-4">
+          <div className="flex flex-wrap items-start justify-between gap-x-3 gap-y-2">
+            <div className="min-w-0 basis-40 flex-1">
+              <h3 className="text-[22px] font-medium tracking-tight text-zinc-950">Artworks</h3>
+              <p className="mt-1 text-[11px] text-zinc-500">
+                The works behind your conversations and selections.
+              </p>
+            </div>
+            <div className="flex shrink-0 items-center gap-1.5">
+              {headerActions ?? (
+                <>
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-md bg-zinc-900 px-2 py-1 text-[11px] font-medium text-white ${interactive ? "cursor-pointer transition-colors hover:bg-zinc-700" : ""}`}
+                  >
+                    <Icon.Plus size={11} />
+                    Add artwork
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md border border-zinc-200 bg-white px-2 py-1 text-[11px] font-medium text-zinc-800">
+                    <UploadIcon size={11} />
+                    Import a CSV
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+          <p className="mt-3 text-[10px] text-zinc-500">
+            {total} total · {available} available · {sold} sold
+          </p>
+
+          <div className="relative mt-2.5 max-w-[78%]">
             <Icon.Search
-              size={10}
+              size={12}
               className="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-400"
             />
             {interactive ? (
@@ -667,17 +763,14 @@ export function ArchiveMock({
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search title, artist, year, medium…"
-                className="w-full pl-6 pr-10 py-1.5 text-[9px] bg-white border border-zinc-200 rounded-md text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-400 focus:ring-1 focus:ring-zinc-200"
+                placeholder="Filter artworks in this view…"
+                className="w-full rounded-lg border border-zinc-200 bg-white py-1.5 pl-6 pr-2 text-[11px] text-zinc-900 placeholder-zinc-400 outline-none focus:border-zinc-400"
               />
             ) : (
-              <div className="w-full pl-6 pr-10 py-1.5 text-[9px] bg-white border border-zinc-200 rounded-md text-zinc-400">
-                Search title, artist, year, medium…
+              <div className="w-full rounded-lg border border-zinc-200 bg-white py-1.5 pl-6 pr-2 text-[11px] text-zinc-400">
+                Filter artworks in this view…
               </div>
             )}
-            <span className="absolute right-1.5 top-1/2 -translate-y-1/2 px-1 py-[0.5px] text-[7px] text-zinc-400 bg-white border border-zinc-200 rounded">
-              ⌘K
-            </span>
           </div>
 
           <div className="mt-2 flex flex-wrap items-center gap-1">
@@ -687,67 +780,69 @@ export function ArchiveMock({
                 <span
                   key={p}
                   onClick={() => interactive && setActiveFilter(p)}
-                  className={`px-1.5 py-[1px] text-[8px] rounded-full border transition-colors ${
+                  className={`rounded-full border px-1.5 py-[1px] text-[10px] transition-colors ${
                     isActive
-                      ? "bg-zinc-900 text-white border-zinc-900"
+                      ? "border-zinc-900 bg-zinc-900 text-white"
                       : interactive
-                        ? "bg-white text-zinc-700 border-zinc-200 hover:border-zinc-400 cursor-pointer"
-                        : "bg-white text-zinc-700 border-zinc-200"
+                        ? "cursor-pointer border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400"
+                        : "border-zinc-200 bg-white text-zinc-700"
                   }`}
                 >
                   {p}
                 </span>
               );
             })}
-            <span className="mx-1 h-3 w-px bg-zinc-200" />
-            <span className="px-1.5 py-[1px] text-[8px] rounded-full bg-white text-zinc-700 border border-zinc-200">
-              Sacha Elron
+            <span className="rounded-full border border-zinc-200 bg-white px-1.5 py-[1px] text-[10px] text-zinc-700">
+              Artists <span className="ml-0.5 text-zinc-400">⌄</span>
             </span>
-            <div className="ml-auto inline-flex rounded-md border border-zinc-200 overflow-hidden">
+          </div>
+
+          <div className="mt-2 flex items-center justify-between">
+            <p className="text-[10px] text-zinc-400">{resultLabel}</p>
+            <div className="inline-flex overflow-hidden rounded-md border border-zinc-200">
               <span
                 onClick={() => interactive && setViewMode("grid")}
                 className={`px-1.5 py-[2px] transition-colors ${
                   viewMode === "grid"
                     ? "bg-zinc-900 text-white"
                     : interactive
-                      ? "bg-white text-zinc-500 hover:bg-zinc-50 cursor-pointer"
+                      ? "cursor-pointer bg-white text-zinc-500 hover:bg-zinc-50"
                       : "bg-white text-zinc-500"
                 }`}
               >
-                <Icon.Grid size={9} />
+                <Icon.Grid size={12} />
               </span>
               <span
                 onClick={() => interactive && setViewMode("list")}
-                className={`px-1.5 py-[2px] border-l border-zinc-200 transition-colors ${
+                className={`border-l border-zinc-200 px-1.5 py-[2px] transition-colors ${
                   viewMode === "list"
                     ? "bg-zinc-900 text-white"
                     : interactive
-                      ? "bg-white text-zinc-500 hover:bg-zinc-50 cursor-pointer"
+                      ? "cursor-pointer bg-white text-zinc-500 hover:bg-zinc-50"
                       : "bg-white text-zinc-500"
                 }`}
               >
-                <Icon.List size={9} />
+                <Icon.List size={12} />
               </span>
             </div>
           </div>
-          <p className="mt-1.5 text-[8px] text-zinc-400">{resultLabel}</p>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto px-4 md:px-5 py-3">
+        {/* Works */}
+        <div className="min-h-0 flex-1 overflow-y-auto">
           {visibleArtworks.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full gap-1.5 text-center">
-              <p className="text-[9px] text-zinc-400">No artwork matches the filters.</p>
+            <div className="flex h-full flex-col items-center justify-center gap-1.5 text-center">
+              <p className="text-[12px] text-zinc-400">No artwork matches the filters.</p>
             </div>
           ) : viewMode === "grid" ? (
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-2 pt-3">
               {visibleArtworks.map((a) => {
                 const isSelected = selected === a.title;
                 return (
                   <div
                     key={a.title}
                     onClick={() => interactive && setSelected(isSelected ? null : a.title)}
-                    className={`rounded-md border overflow-hidden bg-white transition-all ${
+                    className={`overflow-hidden rounded-md border bg-white transition-all ${
                       interactive ? "cursor-pointer" : ""
                     } ${isSelected ? "border-zinc-900 ring-1 ring-zinc-900" : "border-zinc-200 hover:border-zinc-400"}`}
                   >
@@ -765,16 +860,16 @@ export function ArchiveMock({
                       ) : null}
                     </div>
                     <div className="p-1.5 leading-tight">
-                      <p className="text-[7.5px] text-zinc-400 truncate">{a.artist}</p>
-                      <p className="text-[8.5px] font-medium text-zinc-900 truncate">
+                      <p className="truncate text-[10px] text-zinc-400">{a.artist}</p>
+                      <p className="truncate text-[11.5px] font-medium text-zinc-900">
                         {a.title}
                         <span className="font-normal text-zinc-400">, {a.year}</span>
                       </p>
-                      <div className="flex items-center justify-between mt-1 gap-1">
-                        <span className="text-[7.5px] text-zinc-700 truncate tabular-nums">
+                      <div className="mt-1 flex items-center justify-between gap-1">
+                        <span className="truncate text-[10px] tabular-nums text-zinc-700">
                           {a.price}
                         </span>
-                        <StatusBadge s={a.status} />
+                        <ArtworkStatusBadge s={a.status} />
                       </div>
                     </div>
                   </div>
@@ -782,29 +877,54 @@ export function ArchiveMock({
               })}
             </div>
           ) : (
-            <div className="flex flex-col divide-y divide-zinc-100">
+            <div>
+              <div className="grid grid-cols-[2fr_0.9fr_0.9fr] md:grid-cols-[2fr_1.3fr_0.6fr_0.9fr_0.9fr] items-center gap-2 border-b border-zinc-200 px-2 py-2 text-left text-[10px] font-medium text-zinc-800">
+                <span>Title</span>
+                <span className="hidden md:block">Artist</span>
+                <span className="hidden text-right md:block">Year</span>
+                <span className="text-right">Price</span>
+                <span>Status</span>
+              </div>
               {visibleArtworks.map((a) => {
                 const isSelected = selected === a.title;
                 return (
                   <div
                     key={a.title}
                     onClick={() => interactive && setSelected(isSelected ? null : a.title)}
-                    className={`flex items-center gap-3 py-2 transition-colors ${
+                    className={`grid grid-cols-[2fr_0.9fr_0.9fr] md:grid-cols-[2fr_1.3fr_0.6fr_0.9fr_0.9fr] items-center gap-2 border-b border-zinc-100 px-2 py-1.5 transition-colors ${
                       interactive ? "cursor-pointer" : ""
-                    } ${isSelected ? "bg-zinc-50" : "hover:bg-zinc-50"}`}
+                    } ${isSelected ? "bg-zinc-50" : "hover:bg-zinc-50/60"}`}
                   >
-                    <div className="shrink-0 rounded w-7 h-7" style={{ background: a.bg }} />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[9px] font-medium text-zinc-900 truncate">
+                    <div className="flex min-w-0 items-center gap-2">
+                      <div
+                        className="h-7 w-7 shrink-0 overflow-hidden rounded"
+                        style={{ background: a.bg }}
+                      >
+                        {a.image ? (
+                          <img
+                            src={a.image}
+                            alt=""
+                            aria-hidden="true"
+                            className="h-full w-full object-cover"
+                          />
+                        ) : null}
+                      </div>
+                      <span className="truncate text-[11px] font-medium text-zinc-900">
                         {a.title}
-                        <span className="font-normal text-zinc-400">, {a.year}</span>
-                      </p>
-                      <p className="text-[7.5px] text-zinc-400 truncate">{a.artist}</p>
+                      </span>
                     </div>
-                    <span className="text-[8px] text-zinc-700 tabular-nums shrink-0">
+                    <span className="hidden truncate text-[11px] text-zinc-600 md:block">
+                      {a.artist}
+                    </span>
+                    <span className="hidden text-right text-[11px] tabular-nums text-zinc-500 md:block">
+                      {a.year}
+                    </span>
+                    <span className="text-right text-[11px] tabular-nums text-zinc-800">
                       {a.price}
                     </span>
-                    <StatusBadge s={a.status} />
+                    <span>
+                      <ArtworkStatusBadge s={a.status} />
+                    </span>
                   </div>
                 );
               })}
