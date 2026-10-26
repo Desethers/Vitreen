@@ -36,19 +36,24 @@ const FOOTER_COLUMNS = [
   },
 ] as const;
 
+/** The closing statement above the footer is hidden for now; set to true to bring it back. */
+const SHOW_STATEMENT = false;
+
 export default function LandingCta() {
   return (
-    <div className="flex min-h-[100svh] flex-col bg-[#111110]">
+    <div className={`flex flex-col bg-[#111110] ${SHOW_STATEMENT ? "min-h-[100svh]" : ""}`}>
       {/* Same title+subtitle scale as CtaBand.tsx on main: both 30/44, leading-[1.15], tracking-[-0.03em]. */}
       {/* The closing statement opens the footer, with the final action under it. */}
-      <StatementSection
-        c={CONVERSATION_SECTIONS_EN.statement}
-        action={
-          <Button size="lg" variant="inverse" onClick={openContact}>
-            Book a demo
-          </Button>
-        }
-      />
+      {SHOW_STATEMENT ? (
+        <StatementSection
+          c={CONVERSATION_SECTIONS_EN.statement}
+          action={
+            <Button size="lg" variant="inverse" onClick={openContact}>
+              Book a demo
+            </Button>
+          }
+        />
+      ) : null}
 
       <footer id="contact" className="border-t border-white/10 bg-[#111110] text-white">
         <div className="px-4 md:px-6">

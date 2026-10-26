@@ -36,18 +36,23 @@ const FOOTER_COLUMNS = [
   },
 ] as const;
 
+/** The closing statement above the footer is hidden for now; set to true to bring it back. */
+const SHOW_STATEMENT = false;
+
 export default function LandingCtaFr() {
   return (
-    <div className="flex min-h-[100svh] flex-col bg-[#111110]">
+    <div className={`flex flex-col bg-[#111110] ${SHOW_STATEMENT ? "min-h-[100svh]" : ""}`}>
       {/* The closing statement opens the footer, with the final action under it. */}
-      <StatementSection
-        c={CONVERSATION_SECTIONS_FR.statement}
-        action={
-          <Button size="lg" variant="inverse" onClick={openContact}>
-            Réserver une démo
-          </Button>
-        }
-      />
+      {SHOW_STATEMENT ? (
+        <StatementSection
+          c={CONVERSATION_SECTIONS_FR.statement}
+          action={
+            <Button size="lg" variant="inverse" onClick={openContact}>
+              Réserver une démo
+            </Button>
+          }
+        />
+      ) : null}
 
       <footer id="contact" className="border-t border-white/10 bg-[#111110] text-white">
         <div className="px-4 md:px-6">
