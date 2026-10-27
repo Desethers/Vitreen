@@ -1246,7 +1246,8 @@ export function MemoryFeed({ c }: { c: ConversationSectionsCopy["feed"] }) {
 function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { amount: 0.4 });
+  // Starts as soon as the list comes into view, not once it is mostly on screen.
+  const inView = useInView(ref, { amount: 0.1 });
   const total = c.events.length;
   // One notification first; each new one pops in on top and links to the
   // thread below, until the history is full. Then it starts over.
@@ -1270,7 +1271,7 @@ function FeedSection({ c }: { c: ConversationSectionsCopy["feed"] }) {
           setN(n + 1);
         }
       },
-      n >= total ? 4500 : 1800
+      n >= total ? 4500 : 1300
     );
     return () => window.clearTimeout(t);
   }, [n, inView, reduce, total]);
