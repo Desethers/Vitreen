@@ -37,7 +37,8 @@ const ITEMS = [
   },
 ] as const;
 
-function Item({ q, a }: { q: string; a: string }) {
+/** One question that opens on click; reused by the secondary pages. */
+export function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-[#E8E8E6]">
@@ -92,7 +93,7 @@ export default function LandingFaq() {
         <h2 className={`${H2} mt-5 max-w-2xl`}>Questions.</h2>
         <div className="mt-8 md:mt-10">
           {ITEMS.map((item) => (
-            <Item key={item.q} q={item.q} a={item.a} />
+            <FaqItem key={item.q} q={item.q} a={item.a} />
           ))}
         </div>
       </div>

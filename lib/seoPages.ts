@@ -24,6 +24,7 @@ export type SeoVisual =
   | { kind: "artworkList" }
   | { kind: "artworkForm" }
   | { kind: "inquiryDraft" }
+  | { kind: "demoCase" }
   | { kind: "advisorSelection" }
   | { kind: "memoryFeed" }
   | { kind: "photo"; src: string; alt: string };
@@ -56,6 +57,10 @@ export type SeoPageCopy = {
   blocks?: { title: string; items: string[] }[];
   /** Running text instead of blocks (about page). The last line is the signature. */
   prose?: string[];
+  /** A few questions specific to the page, answered in one or two sentences. */
+  faq?: { title: string; items: { q: string; a: string }[] };
+  /** Last word before the footer, with the demo button. */
+  closing?: { title: string; cta: string };
 };
 
 export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
@@ -133,25 +138,43 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Your inventory in Gmail and WhatsApp.",
       sub: "Answer a collector with the right work, its image and its price, without leaving the conversation.",
       cta: "Book a demo",
-      visual: { kind: "inquiryDraft" },
+      visual: { kind: "demoCase" },
       stepsTitle: "From the question to the reply.",
       steps: [
         {
           title: "Reply from Gmail",
-          body: "Search a work while you write. Its image, caption and price go straight into your reply.",
+          body: "Marie writes by email. Search Evening field while you reply: its image, caption and price go straight into your message.",
           visual: "gmail",
         },
         {
           title: "Answer on WhatsApp",
-          body: "Pick works from your phone and send a clean PDF, with only the details you choose.",
+          body: "She would rather browse on her phone. Pick the works and send her a clean PDF, with only the details you choose.",
           visual: "whatsappPdf",
         },
         {
           title: "Every exchange remembered",
-          body: "What you sent, and to whom, joins the collector’s history, with the next follow-up.",
+          body: "What Marie received joins her history, with the next follow-up. Her next message starts from there.",
           visual: "memory",
         },
       ],
+      faq: {
+        title: "Questions.",
+        items: [
+          {
+            q: "Do we have to leave Gmail or WhatsApp?",
+            a: "No. Vitreen works inside them: a side panel in Gmail, a number you message on WhatsApp. Your conversations stay where they are.",
+          },
+          {
+            q: "What does Vitreen keep from our conversations?",
+            a: "The Gmail threads you open with the side panel and the replies that follow, and what you prepare with the WhatsApp assistant. Your own WhatsApp chats with collectors are not captured yet.",
+          },
+          {
+            q: "Who sends the reply?",
+            a: "Always someone from your team. Vitreen prepares it from your artwork records; nothing leaves without your click.",
+          },
+        ],
+      },
+      closing: { title: "See it with your own inventory.", cta: "Book a demo" },
     },
     fr: {
       meta: {
@@ -163,25 +186,43 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Votre inventaire dans Gmail et WhatsApp.",
       sub: "Répondez à un collectionneur avec la bonne œuvre, son image et son prix, sans quitter la conversation.",
       cta: "Réserver une démo",
-      visual: { kind: "inquiryDraft" },
+      visual: { kind: "demoCase" },
       stepsTitle: "De la question à la réponse.",
       steps: [
         {
           title: "Répondez depuis Gmail",
-          body: "Cherchez une œuvre pendant que vous écrivez. Son image, sa légende et son prix arrivent dans votre réponse.",
+          body: "Marie écrit par e-mail. Cherchez Evening field pendant que vous répondez : son image, sa légende et son prix arrivent dans votre message.",
           visual: "gmail",
         },
         {
           title: "Répondez sur WhatsApp",
-          body: "Choisissez des œuvres depuis votre téléphone et envoyez un PDF propre, avec seulement les détails que vous voulez.",
+          body: "Elle préfère regarder sur son téléphone. Choisissez les œuvres et envoyez-lui un PDF propre, avec seulement les détails que vous voulez.",
           visual: "whatsappPdf",
         },
         {
           title: "Chaque échange en mémoire",
-          body: "Ce que vous avez envoyé, et à qui, rejoint l’historique du collectionneur, avec la prochaine relance.",
+          body: "Ce que Marie a reçu rejoint son historique, avec la prochaine relance. Son prochain message repart de là.",
           visual: "memory",
         },
       ],
+      faq: {
+        title: "Questions.",
+        items: [
+          {
+            q: "Faut-il quitter Gmail ou WhatsApp ?",
+            a: "Non. Vitreen travaille à l’intérieur : un panneau latéral dans Gmail, un numéro auquel vous écrivez sur WhatsApp. Vos conversations restent où elles sont.",
+          },
+          {
+            q: "Que garde Vitreen de nos conversations ?",
+            a: "Les fils Gmail ouverts avec le panneau latéral et les réponses qui suivent, et ce que vous préparez avec l’assistant WhatsApp. Vos propres échanges WhatsApp avec les collectionneurs ne sont pas encore captés.",
+          },
+          {
+            q: "Qui envoie la réponse ?",
+            a: "Toujours quelqu’un de votre équipe. Vitreen la prépare depuis vos fiches d’œuvres ; rien ne part sans votre clic.",
+          },
+        ],
+      },
+      closing: { title: "Voyez-le avec votre propre inventaire.", cta: "Réserver une démo" },
     },
   },
 
