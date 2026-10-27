@@ -198,7 +198,7 @@ export default function LandingNav() {
                 onMouseEnter={() => setToolsOpen(true)}
                 onMouseLeave={() => setToolsOpen(false)}
               >
-                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col py-2">
                     <span className="px-4 text-[12px] text-[#ADADAA]">Product</span>
                     <div className="mt-2 flex flex-col gap-1">
@@ -271,7 +271,7 @@ export default function LandingNav() {
                 onMouseEnter={() => setSolutionsOpen(true)}
                 onMouseLeave={() => setSolutionsOpen(false)}
               >
-                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)]">
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col py-2">
                     <span className="px-4 text-[12px] text-[#ADADAA]">Solutions</span>
                     <div className="mt-2 flex flex-col gap-1">
