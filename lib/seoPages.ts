@@ -51,12 +51,22 @@ export type SeoPageCopy = {
   cta?: string;
   visual?: SeoVisual;
   /** How it works, in order: one visual and one short text per step, sides alternating. */
-  steps?: { title: string; body: string; visual: SeoStepVisual }[];
+  steps?: {
+    title: string;
+    body: string;
+    visual: SeoStepVisual;
+    /** Words of the body that link to another page of the site. */
+    links?: { text: string; href: string }[];
+  }[];
   /** Centred heading above the steps. */
   stepsTitle?: string;
   blocks?: { title: string; items: string[] }[];
   /** Running text instead of blocks (about page). The last line is the signature. */
   prose?: string[];
+  /** One plain sentence that says what the product is, under the visual; written to be quoted. */
+  definition?: string;
+  /** What the product does, for the SoftwareApplication structured data of a product page. */
+  featureList?: string[];
   /** A few questions specific to the page, answered in one or two sentences. */
   faq?: { title: string; items: { q: string; a: string }[] };
   /** Last word before the footer, with the demo button. */
@@ -130,21 +140,30 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
   conversations: {
     en: {
       meta: {
-        title: "Sales conversations in Gmail and WhatsApp",
+        title: "Answer collector inquiries in Gmail and WhatsApp",
         description:
           "Your artwork records inside Gmail and WhatsApp: collector replies prepared from your own inventory, reviewed before anything is sent.",
       },
       eyebrow: "Sales conversations",
-      title: "Your inventory in Gmail and WhatsApp.",
+      title: "Answer collector inquiries in Gmail and WhatsApp.",
       sub: "Answer a collector with the right work, its image and its price, without leaving the conversation.",
       cta: "Book a demo",
       visual: { kind: "demoCase" },
+      definition:
+        "Vitreen puts your artwork records inside Gmail and WhatsApp. It prepares replies to collectors from your own inventory, your team reviews and sends them, and Vitreen remembers who received what.",
+      featureList: [
+        "Artwork records in Gmail",
+        "Artwork PDFs on WhatsApp",
+        "Collector replies prepared from your inventory, reviewed before sending",
+        "Collector history of what was sent",
+      ],
       stepsTitle: "From the question to the reply.",
       steps: [
         {
           title: "Reply from Gmail",
           body: "Marie writes by email. Search Evening field while you reply: its image, caption and price go straight into your message.",
           visual: "gmail",
+          links: [{ text: "Evening field", href: "/product/artwork-inventory" }],
         },
         {
           title: "Answer on WhatsApp",
@@ -155,6 +174,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
           title: "Every exchange remembered",
           body: "What Marie received joins her history, with the next follow-up. Her next message starts from there.",
           visual: "memory",
+          links: [{ text: "her history", href: "/product/collectors-memory" }],
         },
       ],
       faq: {
@@ -172,27 +192,52 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
             q: "Who sends the reply?",
             a: "Always someone from your team. Vitreen prepares it from your artwork records; nothing leaves without your click.",
           },
+          {
+            q: "How do galleries answer collector inquiries faster?",
+            a: "By answering from the artwork record instead of looking for it. In Gmail or on WhatsApp, Vitreen finds the work, its image, its price and its availability, and prepares the reply. Your team reviews it and sends it.",
+          },
+          {
+            q: "Does it work with Artlogic?",
+            a: "Yes, alongside it. Vitreen is set up from your Artlogic exports, or from spreadsheets and folders, and puts that information into your conversations.",
+          },
+          {
+            q: "Can I send a PDF of artworks on WhatsApp?",
+            a: "Yes. Pick works from your phone and choose which details to show. Vitreen builds a clean PDF that you forward to the collector yourself.",
+          },
+          {
+            q: "How much does it cost?",
+            a: "€249 per month per gallery, or €199 per month paid yearly, with unlimited users and setup included. Setup takes about a week.",
+          },
         ],
       },
       closing: { title: "See it with your own inventory.", cta: "Book a demo" },
     },
     fr: {
       meta: {
-        title: "Conversations de vente dans Gmail et WhatsApp",
+        title: "Répondez aux demandes des collectionneurs dans Gmail et WhatsApp",
         description:
           "Vos fiches d’œuvres dans Gmail et WhatsApp : réponses collectionneurs préparées depuis votre inventaire, relues avant tout envoi.",
       },
       eyebrow: "Conversations de vente",
-      title: "Votre inventaire dans Gmail et WhatsApp.",
+      title: "Répondez aux demandes des collectionneurs dans Gmail et WhatsApp.",
       sub: "Répondez à un collectionneur avec la bonne œuvre, son image et son prix, sans quitter la conversation.",
       cta: "Réserver une démo",
       visual: { kind: "demoCase" },
+      definition:
+        "Vitreen met vos fiches d’œuvres dans Gmail et WhatsApp. Il prépare les réponses aux collectionneurs depuis votre propre inventaire, votre équipe les relit et les envoie, et Vitreen se souvient de qui a reçu quoi.",
+      featureList: [
+        "Fiches d’œuvres dans Gmail",
+        "PDF d’œuvres sur WhatsApp",
+        "Réponses aux collectionneurs préparées depuis votre inventaire, relues avant l’envoi",
+        "Historique de ce que chaque collectionneur a reçu",
+      ],
       stepsTitle: "De la question à la réponse.",
       steps: [
         {
           title: "Répondez depuis Gmail",
           body: "Marie écrit par e-mail. Cherchez Evening field pendant que vous répondez : son image, sa légende et son prix arrivent dans votre message.",
           visual: "gmail",
+          links: [{ text: "Evening field", href: "/fr/product/artwork-inventory" }],
         },
         {
           title: "Répondez sur WhatsApp",
@@ -203,6 +248,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
           title: "Chaque échange en mémoire",
           body: "Ce que Marie a reçu rejoint son historique, avec la prochaine relance. Son prochain message repart de là.",
           visual: "memory",
+          links: [{ text: "son historique", href: "/fr/product/collectors-memory" }],
         },
       ],
       faq: {
@@ -219,6 +265,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
           {
             q: "Qui envoie la réponse ?",
             a: "Toujours quelqu’un de votre équipe. Vitreen la prépare depuis vos fiches d’œuvres ; rien ne part sans votre clic.",
+          },
+          {
+            q: "Comment les galeries répondent-elles plus vite aux collectionneurs ?",
+            a: "En répondant depuis la fiche de l’œuvre au lieu de la chercher. Dans Gmail ou sur WhatsApp, Vitreen retrouve l’œuvre, son image, son prix et sa disponibilité, et prépare la réponse. Votre équipe la relit et l’envoie.",
+          },
+          {
+            q: "Est-ce que ça fonctionne avec Artlogic ?",
+            a: "Oui, à côté. Vitreen s’installe à partir de vos exports Artlogic, ou de tableurs et de dossiers, et met ces informations dans vos conversations.",
+          },
+          {
+            q: "Peut-on envoyer un PDF d’œuvres sur WhatsApp ?",
+            a: "Oui. Choisissez des œuvres depuis votre téléphone et les détails à montrer. Vitreen prépare un PDF propre, que vous transférez vous-même au collectionneur.",
+          },
+          {
+            q: "Combien ça coûte ?",
+            a: "249 € par mois et par galerie, ou 199 € par mois payé à l’année, utilisateurs illimités et installation incluse. L’installation prend une semaine environ.",
           },
         ],
       },

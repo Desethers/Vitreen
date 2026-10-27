@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import type { Lang } from "@/lib/lang";
-import { SEO_PAGES, type SeoPageId, type SeoStepVisual, type SeoVisual } from "@/lib/seoPages";
+import {
+  SEO_PAGES,
+  type SeoPageCopy,
+  type SeoPageId,
+  type SeoStepVisual,
+  type SeoVisual,
+} from "@/lib/seoPages";
 import LandingNav, { openContact } from "@/components/landing/LandingNav";
 import LandingNavFr from "@/components/landing/LandingNavFr";
 import LandingCta from "@/components/landing/LandingCta";
@@ -125,7 +131,7 @@ function DemoCaseFrame({ lang }: { lang: Lang }) {
         <div className="mt-4 flex items-center gap-3 rounded-[8px] bg-[#F5F5F3] p-2 md:mt-5">
           <img
             src="/artworks/painting-05.jpg"
-            alt=""
+            alt="Evening field, Sacha Elron"
             className="h-12 w-12 shrink-0 rounded-[6px] object-cover"
           />
           <div className="min-w-0">
@@ -327,6 +333,79 @@ function StepVisual({ visual, lang }: { visual: SeoStepVisual; lang: Lang }) {
   );
 }
 
+/** A step's text, with the words that lead to another page turned into links. */
+function StepBody({ body, links }: { body: string; links?: { text: string; href: string }[] }) {
+  if (!links?.length) return <>{body}</>;
+  const parts: ReactNode[] = [];
+  let rest = body;
+  for (const link of links) {
+    const at = rest.indexOf(link.text);
+    if (at < 0) continue;
+    parts.push(rest.slice(0, at));
+    parts.push(
+      <a
+        key={link.href}
+        href={link.href}
+        className="text-[#111110] underline decoration-[#DCDCD8] underline-offset-4 transition-colors hover:decoration-[#111110]"
+      >
+        {link.text}
+      </a>
+    );
+    rest = rest.slice(at + link.text.length);
+  }
+  parts.push(rest);
+  return <>{parts}</>;
+}
+
+/**
+ * Structured data read by search engines and AI assistants: the questions of
+ * the page as a FAQ, and the product itself with its public price.
+ */
+function PageSchema({ c, lang }: { c: SeoPageCopy; lang: Lang }) {
+  const graph: object[] = [];
+  if (c.faq) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: c.faq.items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    });
+  }
+  if (c.featureList) {
+    graph.push({
+      "@type": "SoftwareApplication",
+      name: "Vitreen",
+      description: c.meta.description,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      inLanguage: lang === "fr" ? "fr-FR" : "en",
+      featureList: c.featureList,
+      offers: {
+        "@type": "Offer",
+        price: "249",
+        priceCurrency: "EUR",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "249",
+          priceCurrency: "EUR",
+          unitText: "MONTH",
+        },
+      },
+    });
+  }
+  if (!graph.length) return null;
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }),
+      }}
+    />
+  );
+}
+
 /**
  * The template of every secondary page: hero with the page's search phrase,
  * one visual, three or four blocks (or running text for About), then the
@@ -339,6 +418,7 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
 
   return (
     <>
+      <PageSchema c={c} lang={lang} />
       <Nav />
       <main className="bg-white">
         <section className="px-4 pb-12 pt-32 text-center md:px-6 md:pb-16 md:pt-40">
@@ -393,7 +473,9 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
                     <h3 className="font-display text-[clamp(22px,2.6vw,32px)] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110]">
                       {step.title}
                     </h3>
-                    <p className={`mt-4 max-w-md ${BODY}`}>{step.body}</p>
+                    <p className={`mt-4 max-w-md ${BODY}`}>
+                      <StepBody body={step.body} links={step.links} />
+                    </p>
                   </div>
                 </li>
               ))}
@@ -443,6 +525,14 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
             </div>
           </section>
         ) : null}
+        {c.definition ? (
+          <section className="px-4 py-16 md:px-6 md:py-24">
+            <p className="mx-auto max-w-2xl text-pretty text-[19px] leading-[1.5] tracking-[-0.015em] text-[#111110] md:text-[24px]">
+              {c.definition}
+            </p>
+          </section>
+        ) : null}
+
         {c.faq ? (
           <section className={`${SECTION} bg-white`}>
             <div className={CONTAINER}>

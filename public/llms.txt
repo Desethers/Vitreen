@@ -1,0 +1,24 @@
+# Vitreen
+
+> Relationship intelligence for selling art & design. Vitreen puts a gallery's artwork records inside Gmail and WhatsApp, prepares replies to collectors from that inventory, and remembers who received what. A person on the gallery's team always reviews and sends; nothing is sent automatically.
+
+Vitreen works alongside Artlogic, set up from Artlogic exports or from spreadsheets and folders. It costs €249 per month per gallery (or €199 per month paid yearly), with unlimited users and setup included; setup takes about a week.
+
+## Product
+
+- [Artwork inventory](https://vitreen.art/product/artwork-inventory): every work, its images, price and availability in one inventory, moved in from spreadsheets or exports.
+- [Sales conversations](https://vitreen.art/product/sales-conversations): artwork records in Gmail and WhatsApp; replies to collectors prepared from the inventory and reviewed before sending; artwork PDFs on WhatsApp.
+- [Collectors memory](https://vitreen.art/product/collectors-memory): what each collector asked, saw and received, in one history, with the next follow-up.
+
+## Solutions
+
+- [Art galleries](https://vitreen.art/solutions/art-galleries)
+- [Design galleries](https://vitreen.art/solutions/design-galleries)
+- [Art advisors and dealers](https://vitreen.art/solutions/art-advisors-dealers)
+- [Antique dealers](https://vitreen.art/solutions/antique-dealers)
+
+## Company
+
+- [Pricing](https://vitreen.art/pricing)
+- [About](https://vitreen.art/about)
+- French version: https://vitreen.art/fr

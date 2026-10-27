@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { CONTAINER, EYEBROW, H2, SECTION } from "@/components/landing/styles";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -44,6 +44,7 @@ export function FaqItem({ q, a }: { q: string; a: string }) {
     <div className="border-b border-[#E8E8E6]">
       <button
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
         className="group flex w-full items-center justify-between gap-8 py-6 text-left"
       >
         <span className="font-display text-[16px] tracking-[-0.01em] text-[#111110] transition-colors group-hover:text-[#3a3a38]">
@@ -66,21 +67,17 @@ export function FaqItem({ q, a }: { q: string; a: string }) {
           </svg>
         </span>
       </button>
-      <AnimatePresence initial={false}>
-        {open ? (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease }}
-            className="overflow-hidden"
-          >
-            <p className="max-w-2xl pb-6 text-[14px] leading-relaxed text-[#6B6A67] md:text-[15px]">
-              {a}
-            </p>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {/* The answer stays in the page while closed, so search engines and AI assistants read it. */}
+      <motion.div
+        initial={false}
+        animate={open ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+        transition={{ duration: 0.3, ease }}
+        className="overflow-hidden"
+      >
+        <p className="max-w-2xl pb-6 text-[14px] leading-relaxed text-[#6B6A67] md:text-[15px]">
+          {a}
+        </p>
+      </motion.div>
     </div>
   );
 }
