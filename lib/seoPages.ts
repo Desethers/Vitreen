@@ -29,7 +29,15 @@ export type SeoVisual =
   | { kind: "photo"; src: string; alt: string };
 
 /** Visuals of the step-by-step section, reused from the home and the add-in mocks. */
-export type SeoStepVisual = "migration" | "artworkForm" | "dataSafety";
+export type SeoStepVisual =
+  | "migration"
+  | "artworkForm"
+  | "dataSafety"
+  | "gmail"
+  | "whatsappPdf"
+  | "memory"
+  | "collectorRecord"
+  | "followUpKinds";
 
 export type SeoPageCopy = {
   /** <title> and meta description. */
@@ -126,38 +134,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Answer a collector with the right work, its image and its price, without leaving the conversation.",
       cta: "Book a demo",
       visual: { kind: "inquiryDraft" },
-      blocks: [
+      stepsTitle: "From the question to the reply.",
+      steps: [
         {
-          title: "In Gmail",
-          items: [
-            "Search a work while you write",
-            "Add its image, caption and price",
-            "Without leaving the thread",
-          ],
+          title: "Reply from Gmail",
+          body: "Search a work while you write. Its image, caption and price go straight into your reply.",
+          visual: "gmail",
         },
         {
-          title: "On WhatsApp",
-          items: [
-            "Pick works from your phone",
-            "A clean PDF in a few taps",
-            "You choose which details show",
-          ],
-        },
-        {
-          title: "Prepared by AI, sent by you",
-          items: [
-            "Each inquiry becomes a draft",
-            "The work’s details are already in it",
-            "Nothing goes out without your review",
-          ],
+          title: "Answer on WhatsApp",
+          body: "Pick works from your phone and send a clean PDF, with only the details you choose.",
+          visual: "whatsappPdf",
         },
         {
           title: "Every exchange remembered",
-          items: [
-            "Who received which work",
-            "The follow-ups to make",
-            "The context, at every message",
-          ],
+          body: "What you sent, and to whom, joins the collector’s history, with the next follow-up.",
+          visual: "memory",
         },
       ],
     },
@@ -172,38 +164,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Répondez à un collectionneur avec la bonne œuvre, son image et son prix, sans quitter la conversation.",
       cta: "Réserver une démo",
       visual: { kind: "inquiryDraft" },
-      blocks: [
+      stepsTitle: "De la question à la réponse.",
+      steps: [
         {
-          title: "Dans Gmail",
-          items: [
-            "Cherchez une œuvre pendant que vous écrivez",
-            "Ajoutez image, légende et prix",
-            "Sans quitter le fil",
-          ],
+          title: "Répondez depuis Gmail",
+          body: "Cherchez une œuvre pendant que vous écrivez. Son image, sa légende et son prix arrivent dans votre réponse.",
+          visual: "gmail",
         },
         {
-          title: "Sur WhatsApp",
-          items: [
-            "Choisissez des œuvres depuis votre téléphone",
-            "Un PDF propre en quelques gestes",
-            "Vous choisissez les détails affichés",
-          ],
-        },
-        {
-          title: "Préparé par l’IA, envoyé par vous",
-          items: [
-            "Chaque demande devient un brouillon",
-            "Les infos de l’œuvre sont déjà dedans",
-            "Rien ne part sans votre validation",
-          ],
+          title: "Répondez sur WhatsApp",
+          body: "Choisissez des œuvres depuis votre téléphone et envoyez un PDF propre, avec seulement les détails que vous voulez.",
+          visual: "whatsappPdf",
         },
         {
           title: "Chaque échange en mémoire",
-          items: [
-            "Qui a reçu quelle œuvre",
-            "Les prochaines relances",
-            "Le contexte retrouvé à chaque message",
-          ],
+          body: "Ce que vous avez envoyé, et à qui, rejoint l’historique du collectionneur, avec la prochaine relance.",
+          visual: "memory",
         },
       ],
     },
@@ -221,34 +197,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "What each collector asked, saw and received, in one history, with the next follow-up.",
       cta: "Book a demo",
       visual: { kind: "memoryFeed" },
-      blocks: [
+      stepsTitle: "From every exchange to the next follow-up.",
+      steps: [
         {
-          title: "One history per collector",
-          items: ["The questions they asked", "The works you sent them", "By email or on WhatsApp"],
+          title: "One record per collector",
+          body: "Every work you send, by email or on WhatsApp, lands on the collector’s record, in order.",
+          visual: "collectorRecord",
         },
         {
-          title: "Who received what",
-          items: [
-            "Every work shared, and when",
-            "Seen from the collector or from the work",
-            "Checked before you write again",
-          ],
+          title: "Know who to follow up",
+          body: "Inquiries still waiting, reminders you set, collectors too long without news: Vitreen brings them back to you.",
+          visual: "followUpKinds",
         },
         {
-          title: "The next follow-up",
-          items: [
-            "Inquiries still waiting for an answer",
-            "Reminders you set",
-            "Collectors too long without news",
-          ],
-        },
-        {
-          title: "No CRM to fill in",
-          items: [
-            "Filled from the exchanges Vitreen handles",
-            "Shared by the whole team",
-            "Your data stays yours",
-          ],
+          title: "Your data stays yours",
+          body: "A database of your own, encrypted in transit and at rest, never used to train an AI.",
+          visual: "dataSafety",
         },
       ],
     },
@@ -263,38 +227,22 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       sub: "Ce que chaque collectionneur a demandé, vu et reçu, dans un même historique, avec la prochaine relance.",
       cta: "Réserver une démo",
       visual: { kind: "memoryFeed" },
-      blocks: [
+      stepsTitle: "De chaque échange à la prochaine relance.",
+      steps: [
         {
-          title: "Un historique par collectionneur",
-          items: [
-            "Les questions qu’il a posées",
-            "Les œuvres que vous lui avez envoyées",
-            "Par e-mail ou sur WhatsApp",
-          ],
+          title: "Une fiche par collectionneur",
+          body: "Chaque œuvre envoyée, par e-mail ou sur WhatsApp, rejoint la fiche du collectionneur, dans l’ordre.",
+          visual: "collectorRecord",
         },
         {
-          title: "Qui a reçu quoi",
-          items: [
-            "Chaque œuvre partagée, et quand",
-            "Depuis le collectionneur ou depuis l’œuvre",
-            "Vérifié avant d’écrire à nouveau",
-          ],
+          title: "Sachez qui relancer",
+          body: "Demandes sans réponse, rappels que vous avez fixés, collectionneurs sans nouvelles : Vitreen vous les remonte.",
+          visual: "followUpKinds",
         },
         {
-          title: "La prochaine relance",
-          items: [
-            "Les demandes encore sans réponse",
-            "Les rappels que vous avez fixés",
-            "Les collectionneurs sans nouvelles depuis longtemps",
-          ],
-        },
-        {
-          title: "Pas de CRM à remplir",
-          items: [
-            "Rempli par les échanges que Vitreen gère",
-            "Partagé par toute l’équipe",
-            "Vos données restent les vôtres",
-          ],
+          title: "Vos données restent les vôtres",
+          body: "Une base propre à votre galerie, chiffrée en transit et au repos, jamais utilisée pour entraîner une IA.",
+          visual: "dataSafety",
         },
       ],
     },

@@ -11,9 +11,14 @@ import LandingCtaFr from "@/components/landing/LandingCtaFr";
 import { Button } from "@/components/ui/Button";
 import { ArchiveMock } from "@/components/showcase/PillarMocks";
 import { ArtworkFormMock } from "@/components/showcase/ArtworkFormMock";
-import { InquiryDraftsFrame } from "@/components/SalesAssistantProductPage";
+import {
+  FollowUpMemoryFrame,
+  InquiryDraftsFrame,
+  IntegrationsFrame,
+} from "@/components/SalesAssistantProductPage";
 import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
 import { BotOff, Database, LockKeyhole } from "lucide-react";
+import { WhatsAppPdfMockup } from "@/components/shared/ArtworkAddInMocks";
 import {
   CONVERSATION_SECTIONS_EN,
   CONVERSATION_SECTIONS_FR,
@@ -145,13 +150,65 @@ function DataSafetyCard({ lang }: { lang: Lang }) {
   );
 }
 
+/** The four reasons Vitreen brings a collector back to you, from the home's feed. */
+function FollowUpKindsCard({ lang }: { lang: Lang }) {
+  const kinds = (lang === "fr" ? CONVERSATION_SECTIONS_FR : CONVERSATION_SECTIONS_EN).feed.kinds;
+  const tones = [
+    "bg-rose-50 text-rose-700",
+    "bg-blue-50 text-blue-700",
+    "bg-amber-50 text-amber-700",
+    "bg-violet-50 text-violet-700",
+  ];
+  return (
+    <ul className="w-full max-w-[380px] divide-y divide-[#E8E8E6] rounded-[12px] border border-[#E8E8E6] bg-white">
+      {kinds.map((k, i) => (
+        <li key={k.label} className="flex flex-col items-start gap-1.5 px-5 py-3.5">
+          <span
+            className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tones[i % tones.length]}`}
+          >
+            {k.label}
+          </span>
+          <span className="text-[13px] text-[#6B6A67]">{k.body}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** The visual of one step, on the soft panel shared by every step. */
 function StepVisual({ visual, lang }: { visual: SeoStepVisual; lang: Lang }) {
-  // The data card keeps its soft panel; the two product screens fill their frame.
-  if (visual === "dataSafety") {
+  // Small mocks sit centred on the soft panel; product screens fill their frame.
+  if (visual === "collectorRecord") {
+    return (
+      <div className="h-[360px] w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
+        <FollowUpMemoryFrame />
+      </div>
+    );
+  }
+  if (visual === "followUpKinds") {
     return (
       <div className="flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
-        <DataSafetyCard lang={lang} />
+        <FollowUpKindsCard lang={lang} />
+      </div>
+    );
+  }
+  if (visual === "dataSafety" || visual === "whatsappPdf") {
+    return (
+      <div className="flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
+        {visual === "dataSafety" ? (
+          <DataSafetyCard lang={lang} />
+        ) : (
+          <div className="scale-[1.15] md:scale-[1.45]">
+            {lang === "fr" ? (
+              <WhatsAppPdfMockup
+                incomingLabel="Préparation de votre sélection…"
+                readyLabel="Sélection prête · 1 page"
+              />
+            ) : (
+              <WhatsAppPdfMockup />
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -164,6 +221,22 @@ function StepVisual({ visual, lang }: { visual: SeoStepVisual; lang: Lang }) {
           className="h-full w-full"
           artworksOnly
         />
+      )}
+      {visual === "gmail" && (
+        <div className="pointer-events-none h-full w-full">
+          <IntegrationsFrame lang={lang} />
+        </div>
+      )}
+      {visual === "memory" && (
+        <div className="h-full overflow-hidden px-4 pt-5 md:px-8 md:pt-6">
+          <MemoryFeed
+            c={(lang === "fr" ? CONVERSATION_SECTIONS_FR : CONVERSATION_SECTIONS_EN).feed}
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent"
+          />
+        </div>
       )}
     </div>
   );
@@ -214,7 +287,7 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
         ) : null}
 
         {c.steps ? (
-          <section className={`${SECTION} border-t border-[#E8E8E6]`}>
+          <section className={SECTION}>
             {c.stepsTitle ? (
               <h2 className={`mx-auto mb-12 max-w-2xl text-balance text-center md:mb-20 ${H2}`}>
                 {c.stepsTitle}

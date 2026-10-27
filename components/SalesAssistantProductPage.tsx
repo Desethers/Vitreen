@@ -720,7 +720,7 @@ function TimelineIcon({
   );
 }
 
-function FollowUpMemoryFrame() {
+export function FollowUpMemoryFrame() {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[18px] border border-[#E2E2DF] bg-white">
       <header className="flex shrink-0 items-center gap-3 border-b border-[#ECECE9] px-6 py-4">
@@ -752,7 +752,7 @@ function FollowUpMemoryFrame() {
 
                   <div className="flex min-w-0 items-center gap-3">
                     {"images" in event ? (
-                      <div className="flex w-[52px] shrink-0 items-center pl-1">
+                      <div className="flex shrink-0 items-center pl-1">
                         {event.images.map((image, index) => (
                           <img
                             key={image}
