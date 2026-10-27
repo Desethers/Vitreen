@@ -74,6 +74,84 @@ const SOLUTIONS_FEATURED = {
   href: "/solutions/art-galleries",
 };
 
+export type DemoCaseCopy = {
+  channel: string;
+  who: string;
+  question: string;
+  prepared: string;
+  reply: string;
+  work: { title: string; meta: string; image: string };
+  edit: string;
+  send: string;
+  more: string;
+};
+
+/** The demo case in one card: Marie asks, Vitreen prepares the reply, a person reviews and sends. */
+export const DEMO_CASE_EN: DemoCaseCopy = {
+  channel: "WhatsApp",
+  who: "Marie Beaumont",
+  question: "Anything new from Sacha Elron?",
+  prepared: "Prepared by Vitreen",
+  reply:
+    "Hello Marie, a new Elron just arrived, the large format you liked in March. Shall I send you more images?",
+  work: {
+    title: "Sacha Elron — Evening Field",
+    meta: "120 × 150 cm · €12,000 · Available",
+    image: "/artworks/painting-03.jpg",
+  },
+  edit: "Edit",
+  send: "Review and send",
+  more: "See more",
+};
+
+export function DemoCasePreview({ c }: { c: DemoCaseCopy }) {
+  return (
+    <div className="flex h-full flex-col justify-between gap-3 p-4">
+      <div className="flex flex-col gap-2.5">
+        <div className="flex items-center gap-2 text-[11px] text-[#6B6A67]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#25D366]" aria-hidden="true" />
+          {c.channel} · {c.who}
+        </div>
+        <p className="w-fit max-w-[85%] rounded-[12px] rounded-tl-[4px] bg-white px-3 py-2 text-[13px] text-[#111110] shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          {c.question}
+        </p>
+        <div className="rounded-[10px] border border-[#E8E8E6] bg-white p-2.5">
+          <p className="text-[11px] text-[#ADADAA]">{c.prepared}</p>
+          <p className="mt-1 text-[12px] leading-snug text-[#111110]">{c.reply}</p>
+          <div className="mt-2 flex items-center gap-2.5 rounded-[8px] bg-[#F5F5F3] p-1.5">
+            <img
+              src={c.work.image}
+              alt=""
+              className="h-10 w-10 shrink-0 rounded-[6px] object-cover"
+            />
+            <div className="min-w-0">
+              <p className="truncate text-[12px] font-medium text-[#111110]">{c.work.title}</p>
+              <p className="truncate text-[11px] text-[#6B6A67]">{c.work.meta}</p>
+            </div>
+          </div>
+          <div className="mt-2 flex justify-end gap-2">
+            <span className="rounded-full border border-[#E8E8E6] px-3 py-1 text-[11px] text-[#6B6A67]">
+              {c.edit}
+            </span>
+            <span className="rounded-full bg-[#111110] px-3 py-1 text-[11px] font-medium text-white">
+              {c.send}
+            </span>
+          </div>
+        </div>
+      </div>
+      <p className="flex items-center gap-1 text-[12px] font-medium text-[#111110]">
+        {c.more}
+        <span
+          aria-hidden="true"
+          className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
+        >
+          →
+        </span>
+      </p>
+    </div>
+  );
+}
+
 export const openContact = () => window.dispatchEvent(new Event("open-contact-modal"));
 
 /** Opens the same modal with the email already filled in (from an email field CTA). */
@@ -198,7 +276,7 @@ export default function LandingNav() {
                 onMouseEnter={() => setToolsOpen(true)}
                 onMouseLeave={() => setToolsOpen(false)}
               >
-                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-10 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col py-2">
                     <span className="px-4 text-[12px] text-[#ADADAA]">Product</span>
                     <div className="mt-2 flex flex-col gap-1">
@@ -226,28 +304,10 @@ export default function LandingNav() {
                   <a
                     href={TOOLS_FEATURED.href}
                     onClick={() => setToolsOpen(false)}
-                    className="group relative block min-h-[300px] overflow-hidden rounded-[8px] bg-[#F5F5F3]"
+                    className="group relative block overflow-hidden rounded-[8px] bg-[#F5F5F3]"
                   >
-                    <div
-                      className="absolute inset-0 bg-cover bg-[center_42%] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                      style={{ backgroundImage: `url(${TOOLS_FEATURED.image})` }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-                      <h4 className="font-display text-[17px]">{TOOLS_FEATURED.title}</h4>
-                      <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
-                        {TOOLS_FEATURED.desc}
-                      </p>
-                      <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
-                        {TOOLS_FEATURED.cta}
-                        <span
-                          aria-hidden="true"
-                          className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
-                        >
-                          →
-                        </span>
-                      </p>
-                    </div>
+                    {/* For now the demo case; later this slot can open something else (an article, a story). */}
+                    <DemoCasePreview c={DEMO_CASE_EN} />
                   </a>
                 </div>
               </div>
@@ -271,7 +331,7 @@ export default function LandingNav() {
                 onMouseEnter={() => setSolutionsOpen(true)}
                 onMouseLeave={() => setSolutionsOpen(false)}
               >
-                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-10 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col py-2">
                     <span className="px-4 text-[12px] text-[#ADADAA]">Solutions</span>
                     <div className="mt-2 flex flex-col gap-1">
@@ -299,7 +359,7 @@ export default function LandingNav() {
                   <a
                     href={SOLUTIONS_FEATURED.href}
                     onClick={() => setSolutionsOpen(false)}
-                    className="group relative block min-h-[300px] overflow-hidden rounded-[8px] bg-[#F5F5F3]"
+                    className="group relative block overflow-hidden rounded-[8px] bg-[#F5F5F3]"
                   >
                     <div
                       className="absolute inset-0 bg-cover bg-[center_42%] transition-transform duration-500 ease-out group-hover:scale-[1.02]"

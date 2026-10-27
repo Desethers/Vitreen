@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import ContactModal from "@/components/ContactModal";
 import LandingMobileMenu from "@/components/landing/LandingMobileMenu";
-import { openContact } from "@/components/landing/LandingNav";
+import { DemoCasePreview, openContact, type DemoCaseCopy } from "@/components/landing/LandingNav";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -32,6 +32,24 @@ const TOOLS_ITEMS = [
     href: "/fr/product/collectors-memory",
   },
 ];
+
+/** Le cas de démo : Marie demande, Vitreen prépare, quelqu’un relit et envoie. */
+const DEMO_CASE_FR: DemoCaseCopy = {
+  channel: "WhatsApp",
+  who: "Marie Beaumont",
+  question: "Du nouveau chez Sacha Elron ?",
+  prepared: "Préparé par Vitreen",
+  reply:
+    "Bonjour Marie, un nouvel Elron vient d’arriver, le grand format que vous aimiez en mars. Je vous envoie plus d’images ?",
+  work: {
+    title: "Sacha Elron — Evening Field",
+    meta: "120 × 150 cm · 12 000 € · Disponible",
+    image: "/artworks/painting-03.jpg",
+  },
+  edit: "Modifier",
+  send: "Relire et envoyer",
+  more: "En savoir plus",
+};
 
 const TOOLS_FEATURED = {
   eyebrow: "Gmail et WhatsApp",
@@ -193,7 +211,7 @@ export default function LandingNavFr() {
                 onMouseEnter={() => setToolsOpen(true)}
                 onMouseLeave={() => setToolsOpen(false)}
               >
-                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-10 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col py-2">
                     <span className="px-4 text-[12px] text-[#ADADAA]">Produit</span>
                     <div className="mt-2 flex flex-col gap-1">
@@ -221,28 +239,10 @@ export default function LandingNavFr() {
                   <a
                     href={TOOLS_FEATURED.href}
                     onClick={() => setToolsOpen(false)}
-                    className="group relative block min-h-[300px] overflow-hidden rounded-[8px] bg-[#F5F5F3]"
+                    className="group relative block overflow-hidden rounded-[8px] bg-[#F5F5F3]"
                   >
-                    <div
-                      className="absolute inset-0 bg-cover bg-[center_42%] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                      style={{ backgroundImage: `url(${TOOLS_FEATURED.image})` }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
-                    <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-                      <h4 className="font-display text-[17px]">{TOOLS_FEATURED.title}</h4>
-                      <p className="mt-1 max-w-sm text-[12px] leading-snug text-white/75">
-                        {TOOLS_FEATURED.desc}
-                      </p>
-                      <p className="mt-3 flex items-center gap-1 text-[12px] font-medium text-white">
-                        {TOOLS_FEATURED.cta}
-                        <span
-                          aria-hidden="true"
-                          className="inline-block transition-transform duration-200 ease-out group-hover:translate-x-1"
-                        >
-                          →
-                        </span>
-                      </p>
-                    </div>
+                    {/* For now the demo case; later this slot can open something else (an article, a story). */}
+                    <DemoCasePreview c={DEMO_CASE_FR} />
                   </a>
                 </div>
               </div>
@@ -266,7 +266,7 @@ export default function LandingNavFr() {
                 onMouseEnter={() => setSolutionsOpen(true)}
                 onMouseLeave={() => setSolutionsOpen(false)}
               >
-                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-6 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
+                <div className="grid grid-cols-[minmax(0,320px)_minmax(0,1fr)] gap-10 rounded-[12px] border border-[#E8E8E6] bg-white p-3 shadow-[0_12px_32px_rgba(0,0,0,0.05)]">
                   <div className="flex flex-col py-2">
                     <span className="px-4 text-[12px] text-[#ADADAA]">Solutions</span>
                     <div className="mt-2 flex flex-col gap-1">
@@ -294,7 +294,7 @@ export default function LandingNavFr() {
                   <a
                     href={SOLUTIONS_FEATURED.href}
                     onClick={() => setSolutionsOpen(false)}
-                    className="group relative block min-h-[300px] overflow-hidden rounded-[8px] bg-[#F5F5F3]"
+                    className="group relative block overflow-hidden rounded-[8px] bg-[#F5F5F3]"
                   >
                     <div
                       className="absolute inset-0 bg-cover bg-[center_42%] transition-transform duration-500 ease-out group-hover:scale-[1.02]"
