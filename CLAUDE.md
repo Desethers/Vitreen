@@ -291,6 +291,13 @@ langue (`GalleryOsSearchWidget`, `WhatsAppPdfMockup`) — les passer côté FR.
 - **Pas de mega-menu.** La nav est plate.
 - Bordure du header : s'active au scroll uniquement.
 - Pas d'icônes décoratives, pas de gradients, pas de faux dashboards.
+- **Mockups : ne jamais inventer de composant.** Tout visuel (téléphone,
+  WhatsApp, Gmail, mémoire, fiche œuvre…) se compose avec les mocks
+  existants : `components/landing/conversations/ConversationSections.tsx`
+  (WhatsAppScene, ChatHeader, ChatComposer, MemoryFeed, FeedRow),
+  `components/shared/ArtworkAddInMocks.tsx`, `components/showcase/`,
+  `components/SalesAssistantProductPage.tsx`. S'il manque une pièce, exporter
+  ou étendre l'existant, jamais un sosie. Vaut aussi pour les maquettes HTML.
 - Partout où l'agent apparaît, l'étape de validation humaine doit être
   **visible** (bouton « Relire et envoyer »), pas seulement affirmée.
 - Visuels : uniquement la galerie de démo (Sacha Elron, Marie Beaumont…),

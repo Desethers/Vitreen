@@ -24,7 +24,7 @@ export type SeoVisual =
   | { kind: "artworkList" }
   | { kind: "artworkForm" }
   | { kind: "inquiryDraft" }
-  | { kind: "demoCase" }
+  | { kind: "video"; src: string; poster: string; label: string }
   | { kind: "advisorSelection" }
   | { kind: "memoryFeed" }
   | { kind: "photo"; src: string; alt: string };
@@ -148,7 +148,13 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Answer collector inquiries in Gmail and WhatsApp.",
       sub: "Answer a collector with the right work, its image and its price, without leaving the conversation.",
       cta: "Book a demo",
-      visual: { kind: "demoCase" },
+      visual: {
+        kind: "video",
+        src: "/videos/gmail-card-click.mp4",
+        poster: "/videos/gmail-card-click.jpg",
+        label:
+          "A collector asks about a work in Gmail; the gallery finds it in Vitreen and inserts its card into the reply.",
+      },
       definition:
         "Vitreen puts your artwork records inside Gmail and WhatsApp. It prepares replies to collectors from your own inventory, your team reviews and sends them, and Vitreen remembers who received what.",
       featureList: [
@@ -222,7 +228,13 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
       title: "Répondez aux demandes des collectionneurs dans Gmail et WhatsApp.",
       sub: "Répondez à un collectionneur avec la bonne œuvre, son image et son prix, sans quitter la conversation.",
       cta: "Réserver une démo",
-      visual: { kind: "demoCase" },
+      visual: {
+        kind: "video",
+        src: "/videos/gmail-card-click.mp4",
+        poster: "/videos/gmail-card-click.jpg",
+        label:
+          "Un collectionneur demande une œuvre dans Gmail ; la galerie la retrouve dans Vitreen et insère sa fiche dans la réponse.",
+      },
       definition:
         "Vitreen met vos fiches d’œuvres dans Gmail et WhatsApp. Il prépare les réponses aux collectionneurs depuis votre propre inventaire, votre équipe les relit et les envoie, et Vitreen se souvient de qui a reçu quoi.",
       featureList: [

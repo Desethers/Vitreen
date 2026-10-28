@@ -25,7 +25,7 @@ import {
 } from "@/components/SalesAssistantProductPage";
 import AdvisorsSelectionWorkflowVisual from "@/components/AdvisorsSelectionWorkflow";
 import { BotOff, Database, LockKeyhole } from "lucide-react";
-import { WhatsAppPdfMockup } from "@/components/shared/ArtworkAddInMocks";
+import { WhatsAppShareWorksMock } from "@/components/shared/ArtworkAddInMocks";
 import {
   CONVERSATION_SECTIONS_EN,
   CONVERSATION_SECTIONS_FR,
@@ -80,82 +80,6 @@ function ArtworkFormCard({ bare = false }: { bare?: boolean }) {
   );
 }
 
-/** The demo case, read left to right: Marie asks, Vitreen prepares, a person reviews and sends. */
-const DEMO_CASE = {
-  en: {
-    channel: "WhatsApp · Marie Beaumont",
-    time: "Today, 10:41",
-    question: "Anything new from Sacha Elron?",
-    prepared: "Prepared by Vitreen",
-    source: "From the Evening field record and Marie’s history",
-    reply:
-      "Hello Marie, a new Elron just arrived, in the large format you liked in March. Shall I send you more images?",
-    work: "Sacha Elron — Evening field, 2023",
-    meta: "120 × 120 cm · €10,000 · Available",
-    edit: "Edit",
-    send: "Review and send",
-    note: "Nothing leaves without your review.",
-  },
-  fr: {
-    channel: "WhatsApp · Marie Beaumont",
-    time: "Aujourd’hui, 10:41",
-    question: "Du nouveau chez Sacha Elron ?",
-    prepared: "Préparé par Vitreen",
-    source: "D’après la fiche Evening field et l’historique de Marie",
-    reply:
-      "Bonjour Marie, un nouvel Elron vient d’arriver, dans le grand format que vous aimiez en mars. Je vous envoie plus d’images ?",
-    work: "Sacha Elron — Evening field, 2023",
-    meta: "120 × 120 cm · 10 000 € · Disponible",
-    edit: "Modifier",
-    send: "Relire et envoyer",
-    note: "Rien ne part sans votre relecture.",
-  },
-} as const;
-
-function DemoCaseFrame({ lang }: { lang: Lang }) {
-  const c = DEMO_CASE[lang];
-  return (
-    <div className="grid h-full w-full grid-cols-[minmax(0,1fr)] gap-3 p-4 md:grid-cols-[0.85fr_1.15fr] md:gap-4 md:p-10">
-      <div className="flex min-w-0 flex-col rounded-[12px] border border-[#E8E8E6] bg-white p-5 md:p-7">
-        <p className="text-[12px] text-[#6B6A67]">{c.channel}</p>
-        <p className="mt-6 w-fit max-w-[90%] rounded-[12px] rounded-tl-[4px] bg-[#F5F5F3] px-4 py-3 text-[15px] text-[#111110] md:mt-10 md:text-[17px]">
-          {c.question}
-        </p>
-        <p className="mt-2 text-[11px] text-[#ADADAA]">{c.time}</p>
-      </div>
-      <div className="flex min-w-0 flex-col rounded-[12px] border border-[#E8E8E6] bg-white p-5 md:p-7">
-        <p className="text-[12px] text-[#6B6A67]">{c.prepared}</p>
-        <p className="mt-4 text-[14px] leading-[1.55] text-[#111110] md:mt-6 md:text-[16px]">
-          {c.reply}
-        </p>
-        <div className="mt-4 flex items-center gap-3 rounded-[8px] bg-[#F5F5F3] p-2 md:mt-5">
-          <img
-            src="/artworks/painting-05.jpg"
-            alt="Evening field, Sacha Elron"
-            className="h-12 w-12 shrink-0 rounded-[6px] object-cover"
-          />
-          <div className="min-w-0">
-            <p className="text-[13px] font-medium text-[#111110] md:truncate">{c.work}</p>
-            <p className="text-[12px] text-[#6B6A67] md:truncate">{c.meta}</p>
-          </div>
-        </div>
-        <p className="mt-3 text-[11px] text-[#ADADAA]">{c.source}</p>
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-5">
-          <p className="text-[12px] text-[#6B6A67]">{c.note}</p>
-          <div className="flex gap-2">
-            <span className="rounded-full border border-[#E8E8E6] px-4 py-1.5 text-[12px] text-[#6B6A67]">
-              {c.edit}
-            </span>
-            <span className="rounded-full bg-[#111110] px-4 py-1.5 text-[12px] font-medium text-white">
-              {c.send}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 /** One product visual, framed the same way on every page. */
 function Visual({ visual, lang }: { visual: SeoVisual; lang: Lang }) {
   if (visual.kind === "photo") {
@@ -187,11 +111,21 @@ function Visual({ visual, lang }: { visual: SeoVisual; lang: Lang }) {
       </div>
     );
   }
-  if (visual.kind === "demoCase") {
-    // On a phone the two cards stack, so the frame grows with them instead of cropping the buttons.
+  if (visual.kind === "video") {
+    // Muted and looping so it plays on its own; the source is cut before the closing logo.
     return (
-      <div className="w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] md:h-[540px]">
-        <DemoCaseFrame lang={lang} />
+      <div className="relative mx-auto aspect-[4/3] w-full max-w-[1080px] overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3]">
+        <video
+          src={visual.src}
+          poster={visual.poster}
+          aria-label={visual.label}
+          className="h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
       </div>
     );
   }
@@ -283,23 +217,18 @@ function StepVisual({ visual, lang }: { visual: SeoStepVisual; lang: Lang }) {
       </div>
     );
   }
-  if (visual === "dataSafety" || visual === "whatsappPdf") {
+  if (visual === "whatsappPdf") {
+    // The animated WhatsApp chat used on the home and solution pages: the work, then /pdf, then the PDF.
+    return (
+      <div className="h-[360px] w-full overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] md:h-[460px]">
+        <WhatsAppShareWorksMock />
+      </div>
+    );
+  }
+  if (visual === "dataSafety") {
     return (
       <div className="flex h-[360px] w-full items-center justify-center overflow-hidden rounded-[12px] border border-[#E8E8E6] bg-[#F5F5F3] p-6 md:h-[460px] md:p-10">
-        {visual === "dataSafety" ? (
-          <DataSafetyCard lang={lang} />
-        ) : (
-          <div className="scale-[1.15] md:scale-[1.45]">
-            {lang === "fr" ? (
-              <WhatsAppPdfMockup
-                incomingLabel="Préparation de votre sélection…"
-                readyLabel="Sélection prête · 1 page"
-              />
-            ) : (
-              <WhatsAppPdfMockup />
-            )}
-          </div>
-        )}
+        <DataSafetyCard lang={lang} />
       </div>
     );
   }
@@ -468,7 +397,8 @@ export default function SeoPage({ id, lang }: { id: SeoPageId; lang: Lang }) {
                   <div className={`min-w-0 ${i % 2 === 1 ? "md:order-2" : ""}`}>
                     <StepVisual visual={step.visual} lang={lang} />
                   </div>
-                  <div className="min-w-0">
+                  {/* Same width on every step, centred in its column, so the gap to the visual matches on both sides. */}
+                  <div className="min-w-0 md:w-full md:max-w-md md:justify-self-center">
                     {/* Scales with the viewport so a step title stays on one line when the column allows it. */}
                     <h3 className="font-display text-[clamp(22px,2.6vw,32px)] font-medium leading-[1.1] tracking-[-0.03em] text-[#111110]">
                       {step.title}
