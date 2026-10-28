@@ -729,7 +729,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
         "But the work behind a gallery has become heavier. Even a small team now has to track its works, prepare selections and answer collectors across several channels.",
         "Vitreen started from a simple idea: an artwork’s information is entered once, then used everywhere, in Gmail, on WhatsApp, in a PDF. And every exchange with a collector is remembered.",
         "Technology replaces neither judgment nor relationships. It supports them: Vitreen prepares, your team reviews and sends.",
-        "Raphaël Rossi, founder of Vitreen",
+        "Raphaël, founder of Vitreen",
       ],
     },
     fr: {
@@ -745,7 +745,7 @@ export const SEO_PAGES: Record<SeoPageId, Record<Lang, SeoPageCopy>> = {
         "Mais le travail derrière une galerie est devenu plus lourd. Même une petite équipe doit suivre ses œuvres, préparer des sélections et répondre aux collectionneurs sur plusieurs canaux.",
         "Vitreen est né d’une idée simple : l’information d’une œuvre se saisit une fois, puis sert partout, dans Gmail, sur WhatsApp, dans un PDF. Et chaque échange avec un collectionneur reste en mémoire.",
         "La technologie ne remplace ni le regard ni la relation. Elle les soutient : Vitreen prépare, votre équipe relit et envoie.",
-        "Raphaël Rossi, fondateur de Vitreen",
+        "Raphaël, fondateur de Vitreen",
       ],
     },
   },

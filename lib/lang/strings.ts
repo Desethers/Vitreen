@@ -701,7 +701,7 @@ export const translations = {
           "Pour une nouvelle génération de galeristes, il offre un moyen de démarrer avec les capacités d’une structure plus grande, sans en porter les coûts.",
           "Nous pensons que les galeries qui resteront compétitives ne seront pas celles qui utilisent le plus de technologie. Ce seront celles qui l’utilisent avec le plus de clarté.",
         ],
-        signature: { name: "Raphaël Rossi", role: "Fondateur, Vitreen" },
+        signature: { name: "Raphaël", role: "Fondateur, Vitreen" },
       },
       audiences: [
         {
@@ -1446,7 +1446,7 @@ export const translations = {
           "For younger gallerists, it means starting with professional foundations before building a larger team.",
           "Vitreen is being built for both.",
         ],
-        signature: { name: "Rapha\u00ebl Rossi", role: "Founder, Vitreen" },
+        signature: { name: "Rapha\u00ebl", role: "Founder, Vitreen" },
       },
       audiences: [
         {

@@ -29,7 +29,7 @@ const LETTER = {
     "For younger gallerists, it means starting with professional foundations before building a larger team.",
     "Vitreen is being built for both.",
   ],
-  signature: { name: "Raphaël Rossi", role: "Founder, Vitreen" },
+  signature: { name: "Raphaël", role: "Founder, Vitreen" },
 };
 
 const AUDIENCES = [
